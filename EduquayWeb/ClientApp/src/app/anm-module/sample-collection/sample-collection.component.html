@@ -1,0 +1,352 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+  <div class="overlay"></div>
+  <div class="search-overlay"></div>
+  <!--  BEGIN SIDEBAR  -->
+  <div class="sidebar-wrapper sidebar-theme">
+    <app-site-sidebar module="anm" subMenum="sample-collection"></app-site-sidebar>
+  </div>
+  <!--  END SIDEBAR  -->
+  <!--  BEGIN CONTENT AREA  -->
+  <div id="content" class="main-content">
+    <div class="layout-px-spacing">
+      <div class="row layout-top-spacing">
+        <!-- <div class="col-md-12 text-center">
+              <h5 class="">ANM Name - PHC Name</h5>
+          </div> -->
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" href="live-screener-entry.html"
+                  role="button" title="Subject Registration"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+            </div>
+            <div class="col-md-4">
+              <div class="headertit">
+                <h5 class="float-center">Sample Collection</h5>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="float-right mb-4">
+                <a class="btn btn-outline-primary bs-tooltip" href="Completed.html" role="button" title="Pick & Pack"><i
+                    class="fas fa-chevron-right pNav-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+          <div class="widget-content widget-content-area br-6">
+            <div class="form-row mt-4">
+  
+            </div>
+            <div class="form-row mt-4">
+              <!--  <div class="form-group col-md-2">
+                          <label for="inputTypecollection">Type of collection</label>
+                          <select id="inputTypecollection" class="form-control" required>
+                              <option selected>---- Select ----</option>
+                              <option>First time collection</option>
+                              <option>Damaged Samples</option>
+                              <option>Sample timeout expiry</option>
+                          </select>
+                      </div> -->
+              <div class="form-group col-md-2">
+                <label for="inputFromdate">From Date</label>
+                <div class="form-group mb-0">
+                  <input id="scFromDate" class="form-control flatpickr flatpickr-input active" type="text"
+                    placeholder="dd/mm/yyyy">
+                </div>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputTodate">To Date</label>
+                <div class="form-group mb-0">
+                  <input id="scToDate" class="form-control flatpickr flatpickr-input active" type="text"
+                    placeholder="dd/mm/yyy">
+                </div>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputSubjectcategory">Subject Type</label>
+                <select id="inputSubjectcategory" class="form-control" required>
+                  <option selected>Select Type</option>
+                  <option>Antenatal Woman</option>
+                  <option>Spouse</option>
+                  <option>Child</option>
+                  <option>Walk-in</option>
+                </select>
+              </div>
+              <div class="col-md-2 mt-3">
+                <div class="px-2 bd-highlight">
+                  <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                  <a href="#"><button type="submit" class="btn search-bu">
+                      <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                </div>
+              </div>
+            </div>
+            <div class="row my-4">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table id="zero-config" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th><span>S.No</span></th>
+                        <th><span>Subject Name</span></th>
+  
+                        <th><span>Subject ID</span></th>
+                        <th><span>RCH ID</span></th>
+                        <th><span>Spouse Name</span></th>
+                        <th><span>Subject Type</span></th>
+                        <th><span>Sample Type</span></th>
+                        <th><span>Contact</span></th>
+                        <th><span>Subject Reg Date</span></th>
+                        <th><span>GA</span></th>
+                        <th><span class="wordwrap">Sample Collection</span></th>
+                      </tr>
+  
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="sno text-center">1</td>
+  
+                        <td class="text-left sname">Alkha Ajith
+                          Kumaran</td>
+                        <td class="sid">THSIK2020153</td>
+                        <td class="sid">123456</td>
+                        <td class="text-left sname">Ajith Kumaran</td>
+                        <td class="text-left sname">Antenatal Woman</td>
+                        <td class="sid">F</td>
+                        <td class="mobile">8977675756</td>
+                        <td class="">12/04/2020</td>
+                        <td> 13.3 </td>
+                        <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl" role="button"><i
+                              class="fas fa-vial fa-2x"></i></a>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td class="text-left">Pooja Santhosh Kumar</td>
+                        <td>THSIK2020154</td>
+                        <td class="sid">543216</td>
+                        <td class="text-left sname">Santhosh Kumar</td>
+                        <td class="text-left">Antenatal Woman</td>
+                        <td class="sno">R</td>
+                        <td style="text-align: center;">8977675757</td>
+  
+                        <td>12/04/2020</td>
+                        <td> 13.3 </td>
+                        <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl2" role="button"><i
+                              class="fas fa-vial fa-2x"></i></a></td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+  
+                        <td class="text-left">Sowmiya Varadarajan</td>
+                        <td>THSIK2020155</td>
+                        <td class="sid">423651</td>
+                        <td class="text-left sname">Varadarajan</td>
+                        <td class="text-left">Antenatal Woman</td>
+                        <td>F</td>
+                        <td>8977675759</td>
+                        <td>12/04/2020</td>
+                        <td> 13.3 </td>
+                        <td><a href="#" role="button"><i class="fas fa-vial fa-2x"></i></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- The Modal -->
+            <div class="modal fade  bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
+                      Collection</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                      <div class="form-row">
+                        <div class="form-group col-md-3">
+                          <span class="note">Subject Name </span>
+                          <input class="form-control field" name="pincode" required="" type="text"
+                            placeholder="Alkha Rajesh" readonly="">
+                        </div>
+  
+                        <div class="form-group col-md-3">
+                          <span class="note">Subject ID </span><span class="manto"></span>
+                          <input class="form-control field" name="ancnumber" type="text" placeholder="OD001202032110"
+                            tabindex="6" autocomplete="off" readonly="">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">RCH ID </span><span class="manto"></span>
+                          <input class="form-control field" name="ancnumber" type="text" placeholder="123456" tabindex="6"
+                            autocomplete="off" readonly="">
+                        </div>
+  
+                        <div class="form-group col-md-3">
+                          <span class="note">Reason </span><span class="manto"></span>
+                          <input class="form-control field" name="collection" required="" type="text"
+                            placeholder="First Time Collection" readonly="">
+                        </div>
+  
+                      </div>
+  
+                      <div class="form-row mt-4">
+                        <div class="form-group col-md-3">
+                          <span class="note">Scan / Enter Barcode </span><span class="manto">*</span>
+                          <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
+                          <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
+                          <input class="form-control field" name="pincode" type="text" placeholder="">
+  
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Date of Collection </span><span class="manto">*</span>
+                          <input id="popupDate" class="form-control flatpickr flatpickr-input active " type="text"
+                            placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Time of Collection </span><span class="manto">*</span>
+                          <input id="popupTime" class="form-control flatpickr flatpickr-input active" type="text"
+                            placeholder="">
+                        </div>
+  
+  
+                        <!-- <div class="col-md-3">
+                                              <span class="note">Reason </span><span class="manto">*</span>
+                                              <select name="occupationoption" class="form-control field"
+                                                  id="test" tabindex="7" required=""
+                                                  onchange="showDiv('hidden_div', this)">
+                                                  <option value="0">First Time Collection</option>
+                                                  <option value="1">Damaged Sample</option>
+                                                  <option value="2">Sample Timeout</option>
+                                              </select>
+                                          </div> -->
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="mr-2 btn btn-primary" id="linktobuttonsamplecol">Submit</button>
+                      <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                    </div>
+  
+                  </div>
+                </div>
+  
+  
+              </div>
+              <!--  END CONTENT AREA  -->
+            </div>
+  
+            <!-- The Modal -->
+            <div class="modal fade  bd-example-modal-xl2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
+                      Recollection</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                      <div class="form-row">
+                        <div class="form-group col-md-3">
+                          <span class="note">Subject Name </span>
+                          <input class="form-control field" name="pincode" required="" type="text"
+                            placeholder="Alkha Rajesh" readonly="">
+                        </div>
+  
+                        <div class="form-group col-md-3">
+                          <span class="note">Subject ID </span><span class="manto"></span>
+                          <input class="form-control field" name="ancnumber" type="text" placeholder="OD001202032110"
+                            tabindex="6" autocomplete="off" readonly="">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">RCH ID </span><span class="manto"></span>
+                          <input class="form-control field" name="ancnumber" type="text" placeholder="123456" tabindex="6"
+                            autocomplete="off" readonly="">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Reason </span><span class="manto"></span>
+                          <input class="form-control field" name="collection" required="" type="text"
+                            placeholder="Damaged Sample" readonly="">
+                        </div>
+  
+                      </div>
+  
+                      <div class="form-row mt-4">
+                        <div class="form-group col-md-3">
+                          <span class="note">Scan / Enter Barcode </span><span class="manto">*</span>
+                          <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
+                          <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
+                          <input class="form-control field" name="pincode" type="text" placeholder="">
+  
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Date of Collection </span><span class="manto">*</span>
+                          <input id="popupReDate" class="form-control flatpickr flatpickr-input active " type="text"
+                            placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Time of Collection </span><span class="manto">*</span>
+                          <input id="popupReTime" class="form-control flatpickr flatpickr-input active" type="text"
+                            placeholder="">
+                        </div>
+  
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="mr-2 btn btn-primary" id="linktobuttonsamplecolre">Submit</button>
+                      <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                    </div>
+  
+                  </div>
+                </div>
+  
+  
+              </div>
+              <!--  END CONTENT AREA  -->
+            </div>
+            <!-- END MAIN CONTAINER -->
+          </div>
+          <!-- <div class="row mt-4">
+          <div class="col-md-12">
+              <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
+                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a></li>
+                    <li class="page-item active"><a class="page-link" href="collection.html">3</a></li>
+                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
+                    <li class="page-item"><a class="page-link" href="shipmentlog.html">5</a></li>
+                    <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
+                  </ul>
+                </nav>
+          </div>
+      </div> -->
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<i appLoadScript [script]="'assets/assets/js/anm/sample-collection.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+<!--<i appLoadScript [script]="''"></i>-->

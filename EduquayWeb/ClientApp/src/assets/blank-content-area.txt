@@ -1,0 +1,58 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+  <div class="overlay"></div>
+  <div class="search-overlay"></div>
+  <!--  BEGIN SIDEBAR  -->
+  <div class="sidebar-wrapper sidebar-theme">
+    <app-site-sidebar module="anm" subMenum="sample-collection"></app-site-sidebar>
+  </div>
+  <!--  END SIDEBAR  -->
+  <!--  BEGIN CONTENT AREA  -->
+  <div id="content" class="main-content">
+    <div class="layout-px-spacing">
+      <div class="row layout-top-spacing">
+        <!-- <div class="col-md-12 text-center">
+            <h5 class="">ANM Name - PHC Name</h5>
+        </div> -->
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <h5 class="float-left">
+                <a class="btn btn-primary" href="live-screener-entry.html"
+                   role="button">Subject Registration</a>
+              </h5>
+            </div>
+            <div class="col-md-4">
+              <h5 class="float-center">Sample Collection</h5>
+            </div>
+            <div class="col-md-4">
+              <div class="float-right mb-4">
+                <a class="btn btn-primary" href="Completed.html" role="button">Pick & Pack List</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+          <div class="widget-content widget-content-area br-6">
+            <div class="form-row mt-4">
+
+            </div>
+            <div class="form-row mt-4">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+<!--<i appLoadScript [script]="''"></i>-->

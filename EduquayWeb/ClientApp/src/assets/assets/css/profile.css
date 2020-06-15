@@ -1,0 +1,14 @@
+.indprofile .widget-content-area {
+    padding: 20px 20px 5px 20px;
+}
+td {
+    white-space: normal !important; 
+    word-wrap: break-word;  
+}
+.indprofile .d-flex {
+    margin: -8px;
+}
+
+.td-lbl {
+    background-color: #f7f7f7;
+}

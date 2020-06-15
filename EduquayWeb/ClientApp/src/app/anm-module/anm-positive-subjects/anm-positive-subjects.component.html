@@ -1,0 +1,127 @@
+<div class="tab-pane fade show active" id="positivesub" role="tabpanel"
+                                    aria-labelledby="positivesub-tab">
+
+                                    <div class="table-responsive mb-4 mt-4">
+                                        <table id="zero-config3" class="table table-bordered table-hover tbl-ht">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">S.No</th>
+                                                    <th class="text-center">Subject Name</th>
+                                                    <th class="text-center">Subject ID</th>
+                                                    <th class="text-center">Subject Type</th>
+                                                    <th class="text-center">Contact</th>
+                                                    <th class="text-center">HPLC Test Results</th>
+                                                    <th class="text-center">GA</th>
+                                                    <th class="text-center">Notified</th>
+                                                    <th class="no-content">Reg Spouse</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-left">Savita Sekar</td>
+                                                    <td class="text-center">OD001202032110</td>
+                                                    <td class="text-left">Antenatal Woman</td>
+                                                    <td class="text-center">8807347437</td>
+                                                    <td class="text-left">Thalassemia Screening Positive</td>
+                                                    <td class="text-center"> 14.3 </td>
+                                                    <td class="text-center"><select name="occupationoption"
+                                                            class="form-control field" id="occuptnid" tabindex="7"
+                                                            required="">
+                                                            <option value="">No</option>
+                                                            <option value="male">Yes</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center"><a href="#" data-toggle="modal"
+                                                            data-target="#modalAddRegistration"><i
+                                                                class="fas fa-user-plus fa-2x"
+                                                                aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-left">Priya Prakash</td>
+                                                    <td class="text-center">OD001202032111</td>
+                                                    <td class="text-left">Walkin</td>
+                                                    <td class="text-center">8807347447</td>
+                                                    <td class="text-left">Sickle cell disease</td>
+                                                    <td class="text-center"> 14.3 </td>
+                                                    <td><select name="occupationoption" class="form-control field"
+                                                            id="occuptnid" tabindex="7" required="">
+                                                            <option value="">No</option>
+                                                            <option value="male">Yes</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center"><a href="#" data-toggle="modal"
+                                                            data-target="#modalAddRegistration"><i
+                                                                class="fas fa-user-plus fa-2x"
+                                                                aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">3</td>
+                                                    <td class="text-left">Pooja Karthick</td>
+                                                    <td class="text-center">OD001202032112</td>
+                                                    <td class="text-left">Antenatal Woman</td>
+                                                    <td class="text-center">8807347460</td>
+                                                    <td class="text-left">HbE</td>
+                                                    <td class="text-center"> 14.3 </td>
+                                                    <td><select name="occupationoption" class="form-control field"
+                                                            id="occuptnid" tabindex="7" required="">
+                                                            <option value="">No</option>
+                                                            <option value="male">Yes</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center"><a href="#" data-toggle="modal"
+                                                            data-target="#modalAddRegistration"><i
+                                                                class="fas fa-user-plus fa-2x"
+                                                                aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- <div><a class="btn btn-primary float-right" href="#" role="button">Update
+                                                Status</a></div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-primary float-right" id="linktobuttonpositives"
+                                                role="button">Update Status</a>
+                                        </div>
+                                    </div>
+                                </div>
+ <!-- The Modal -->
+ <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="modalAddRegistration">
+ <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h4 class="modal-title modaltitle">Spouse Registration</h4>
+             <button type="button" class="close" data-dismiss="modal"
+                 aria-label="Close">
+                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round" class="feather feather-x">
+                     <line x1="18" y1="6" x2="6" y2="18"></line>
+                     <line x1="6" y1="6" x2="18" y2="18"></line>
+                 </svg>
+             </button>
+         </div>
+         <div class="modal-body form-body">
+            Modal content
+        </div>
+    </div>
+</div>
+</div>            
+                                
+
+<i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/notificationunsent-flatpickr.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/notificationdamage-flatpickr.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/notificationtimeout-flatpickr.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/notificationpositive-flatpickr.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

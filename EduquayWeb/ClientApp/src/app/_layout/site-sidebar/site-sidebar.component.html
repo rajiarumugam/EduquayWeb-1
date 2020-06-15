@@ -1,0 +1,420 @@
+
+<!--<div class="sidebar-wrapper sidebar-theme">-->
+
+  <nav id="sidebar">
+    <div class="shadow-bottom"></div>
+
+    <ul class="list-unstyled menu-categories" id="accordionExample">
+        <li class="menu">
+            <a [routerLink]="['/app']" attr.aria-expanded="{{subMenu === 'dashboard'}}" attr.data-active="{{module === 'dashboard'}}"class="dropdown-toggle">
+                <div class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+        </li>
+        <li class="menu">
+            <a href="#anm" data-toggle="collapse" attr.data-active="{{module === 'anm'}}" attr.aria-expanded="{{module === 'anm'}}" class="dropdown-toggle">
+                <div class="">
+                    <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/nurse.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                    <span>ANM</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'anm'}" id="anm" data-parent="#accordionExample">
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/anm-notification']"> Notifications </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/anm-subregn']"> Registration </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/anm-sample-collection']"> Sample Collection </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/anm-pickpack']"> Pick & Pack </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/anm-shipment']"> Shipment Log </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/anm-subprofile']"> Subject Profile </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu">
+            <a href="#chc" data-toggle="collapse"  attr.data-active="{{module === 'chc'}}" attr.aria-expanded="{{module === 'chc'}}" class="dropdown-toggle">
+                <div class="">
+                    <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/male.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                    <span>CHC - REG & SAMPLING</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chc'}" id="chc" data-parent="#accordionExample" style="">
+                <li>
+                    <a href="chc-notification.html">  Notifications </a>
+                </li>
+                <li>
+                    <a href="chcregistration.html"> Registration </a>
+                </li>
+                <li>
+                    <a href="chccollection.html"> Sample Collection </a>
+                </li>
+                <li>
+                    <a href="samplepick.html"> Pick & Pack </a>
+                </li>
+                <li>
+                    <a href="cbcshipment.html"> Received Manual Shipment </a>
+                </li>
+                <li>
+                    <a href="subjectprofile.html"> Subject Profile </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu">
+            <a href="#chcsam" data-toggle="collapse" attr.data-active="{{module === 'chcsam'}}" attr.aria-expanded="{{module === 'chcsam'}}" class="dropdown-toggle">
+                <div class="">
+                    <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/hospital.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                    <span>CHC- SAMPLE REC & PROCESS</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chcsam'}" id="chcsam" data-parent="#accordionExample">
+                <li>
+                    <a href="deliveryconfirm.html">  Sample Rcpt </a>
+                </li>
+                <li>
+                    <a href="receivedmanual.html"> Sample Rcpt - Manual  </a>
+                </li>
+                <li>
+                    <a href="samplelist.html"> Update CBC Results </a>
+                </li>
+                <li>
+                    <a href="testresults.html"> Update SST Results </a>
+                </li>
+                <li>
+                    <a href="pickandpack.html"> Pick & Pack </a>
+                </li>
+                <li>
+                    <a href="chcshipmentlog.html"> Shipment Log </a>
+                </li>
+                <li>
+                    <a href="chcpositivecases.html"> Report - Sample Status </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu">
+            <a href="#centrallab" data-toggle="collapse" attr.data-active="{{module === 'centrallab'}}" attr.aria-expanded="{{module === 'centrallab'}}" class="dropdown-toggle">
+                <div class="">
+                    <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/test.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                    <span>CENTRAL LAB</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'centrallab'}" id="centrallab" data-parent="#accordionExample"
+                style="">
+                <li>
+                    <a href="centraldelivery.html"> Sample Rcpt </a>
+                </li>
+                <li>
+                    <a href="receivedmanualcentral.html"> Sample Rcpt - Manual </a>
+                </li>
+                <li>
+                    <a href="centralsample.html"> Update HPLC Results </a>
+                </li>
+                <li>
+                    <a href="centralpickpack.html"> Pick & Pack </a>
+                </li>
+                <li>
+                    <a href="centralshipmentlog.html"> Shipment Log </a>
+                </li>
+                <li>
+                    <a href="centralpositive.html"> Report - Sample Status</a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu">
+            <a href="#pathologist" data-toggle="collapse" attr.data-active="{{module === 'pathologist'}}" attr.aria-expanded="{{module === 'pathologist'}}" class="dropdown-toggle">
+                <div class="">
+                    <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/blood.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                    <span>PATHOLOGIST</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pathologist'}" id="pathologist" data-parent="#accordionExample"
+                style="">
+                <li>
+                    <a href="pathosubject.html"> Diagnosis - HPLC </a>
+                </li>
+                <li>
+                    <a href="pathoreport.html"> Report - Diagnosis </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu">
+            <a href="#molecularlab" data-toggle="collapse" attr.data-active="{{module === 'molecularlab'}}" attr.aria-expanded="{{module === 'molecularlab'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/gene.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                        <span>MOLECULAR LAB</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'molecularlab'}" id="molecularlab" data-parent="#accordionExample">
+                <li>
+                    <a href="geneticlabdelivery.html"> Sample Rcpt </a>
+                </li>
+                <li>
+                    <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>
+                </li>
+                <li>
+                    <a href="geneticlabsamplelist.html"> Update Mol. Results</a>
+                </li>
+                <li>
+                    <a href="molecularcasesheet.html"> View Case Sheet</a>
+                </li>
+                <li>
+                    <a href="molecularreport.html"> Report - Sample Status</a>
+                </li>
+                
+            </ul>
+        </li>
+        <li class="menu">
+                <a href="#pndtc" data-toggle="collapse" attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/enrollment.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                        <span>SCHEDULE & COUNSEL (PNDTC)</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc'}"  id="pndtc"
+                data-parent="#accordionExample">
+                <li>
+                    <a href="counsellorschedulepnd.html"> Schedule - Pre PNDT </a>
+                </li>
+                <li>
+                    <a href="counsellorsubjectlist.html">Counsel - PNDT </a>
+                </li>
+                <li>
+                    <a href="postcounselling.html"> Schedule - Post PNDT</a>
+                </li>
+                <li>
+                    <a href="mtpcounselling.html"> Counsel – MTP</a>
+                </li>
+                
+            </ul>
+            </li>
+            <li class="menu">
+                <a href="#pndtc-counsellor" data-toggle="collapse"  attr.data-active="{{module === 'pndtc-counsellor'}}" attr.aria-expanded="{{module === 'pndtc-counsellor'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/surgeon.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                        <span>PNDTC
+                            Obstetrician
+                            </span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc-counsellor'}" id="pndtc-counsellor"
+                    data-parent="#accordionExample">
+                    <li routerLinkActive="active">
+                        <a href="obspndtc.html"> PNDT testing </a>
+                    </li>
+                    <!-- <li>
+                        <a href="obsmtp.html">MTP </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li class="menu">
+                <a href="#mtp-counsellor" data-toggle="collapse"  attr.data-active="{{module === 'mtp-counsellor'}}" attr.aria-expanded="{{module === 'mtp-counsellor'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/surgeon.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                        <span>MTP services
+                            Obstetrician
+                            
+                            </span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'mtp-counsellor'}" id="mtp-counsellor"
+                    data-parent="#accordionExample">
+                    <li>
+                        <a href="obsmtp.html"> MTP service </a>
+                    </li>
+                    <!-- <li>
+                        <a href="obsmtp.html">MTP </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li class="menu menu1">
+                <a href="#birthmonitoring" data-toggle="collapse" attr.data-active="{{module === 'birthmonitoring'}}" attr.aria-expanded="{{module === 'birthmonitoring'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <image href="./assets/assets/img/menu/hospital-1.svg" x="0" y="0" height="18px" width="18px" />
+                </svg>
+                        <span>SENTINEL HOSPITAL</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'birthmonitoring'}" id="birthmonitoring" data-parent="#accordionExample"
+                    style="">
+                    <li>
+                        <a href="infantregistration.html"> Mother Registration </a>
+                    </li>
+                    <li>
+                        <a href="babyregister.html"> Infant Registration </a>
+                    </li>
+                    <li>
+                        <a href="infantcollection.html"> Sample Collection </a>
+                    </li>
+                    <li>
+                        <a href="infantpickpack.html"> Pick and Pack </a>
+                    </li>
+                    <li>
+                        <a href="infantshipmentlog.html"> Shipment Log </a>
+                    </li>
+                    <li>
+                        <a href="infantprofile.html"> Infant Profile </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu menu1">
+                <a href="#birthmonitoringlab" data-toggle="collapse" attr.data-active="{{module === 'birthmonitoringlab'}}" attr.aria-expanded="{{module === 'birthmonitoringlab'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <image href="./assets/assets/img/menu/dna.svg" x="0" y="0" height="18px" width="18px" />
+                    </svg>
+                        <span>MOLECULAR LAB</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'birthmonitoringlab'}" id="birthmonitoringlab" data-parent="#accordionExample"
+                    style="">
+                    <li>
+                        <a href="infantshipmentreceipt.html"> Sample Receipt </a>
+                    </li>
+                    <li>
+                        <a href="infantmolecularlab.html"> Update Mol. Results </a>
+                    </li>
+                    <li>
+                        <a href="infantcasesheet.html"> Case Sheet </a>
+                    </li>
+                    <li>
+                        <a href="infantreport.html"> Report - Sample Status </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu">
+                <a href="#dc" data-toggle="collapse" attr.data-active="{{module === 'dc'}}" attr.aria-expanded="{{module === 'dc'}}"  class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <image href="./assets/assets/img/menu/doctor.svg" x="0" y="0" height="18px" width="18px" />
+                    </svg>
+                        <span>DISTRICT COORDINATOR</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'dc'}" id="dc" data-parent="#accordionExample">
+                    <li>
+                        <a href="dc-notification.html"> Notifications </a>
+                    </li>
+                   
+                </ul>
+            </li>
+        </ul>
+
+    </nav>
+
+<!--</div>-->

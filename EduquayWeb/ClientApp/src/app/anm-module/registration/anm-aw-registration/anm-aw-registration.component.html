@@ -1,0 +1,352 @@
+<div class="tab-pane fade show active" id="antenatal" role="tabpanel" aria-labelledby="antenatal-tab">
+    <form>
+        <!-- <div class="row mt-4">
+        <div class="col-md-12">
+            <span style="color: #1b55e2;;font-style: italic;"><b>" NOTE:</b>
+                Antenatal Woman Registration form is applicable to all pregnant
+                women eligible to be screened on a voluntary basis. "</span>
+        </div>
+    </div> -->
+
+        <div id="circle-basic1" class="mt-4">
+            <h3>Basic Info</h3>
+            <section>
+                <form class="text-left" #f="ngForm">
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="dateOfRegistration">Date of Reg</label><span class="manto"> *</span>
+                        <input id="dateOfRegistration" class="form-control flatpickr flatpickr-input active" type="text"
+                            placeholder="Select Date..">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputDistrict">District {{selectedDistrict}}</label><span class="manto"> *</span>
+                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="selected($event.target.value)">
+                            <option selected value='0'>Select District</option>
+                            <option *ngFor="let district of districts" value={{district.district_gov_code}} >{{district.districtname}}</option>
+                        </select>
+                        
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCHC">CHC</label><span class="manto"> *</span>
+                        <select id="inputCHC" class="form-control" required>
+                            <option selected value='0'>Select CHC</option>
+                            <option value='1'>some1</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputPHC">PHC</label><span class="manto"> *</span>
+                        <select id="inputPHC" class="form-control" required>
+                            <option selected value='0'>Select PHC</option>
+                            <option>some 2</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputSC">SC</label><span class="manto"> *</span>
+                        <select id="inputSC" class="form-control" required>
+                            <option selected></option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputRIC">RI Point</label><span class="manto"> *</span>
+                        <select id="inputRIC" class="form-control" required>
+                            <option selected></option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputSubtitle">Subject Title</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Ms." readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputFirstname">First Name</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="inputFirstname" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputMiddlename">Middle Name</label>
+                        <input type="Text" class="form-control" id="inputMiddlename" placeholder="Middle Name">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputLastname">Last Name</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="inputLastname" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputdob">Date of Birth</label>
+                        <input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text"
+                            placeholder="Select Date..">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputAge">Age</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="inputAge" placeholder="Age" required="">
+                    </div>
+                </div>
+            </form>
+            </section>
+            <h3>Socio-Demographic Info</h3>
+            <section>
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputReligion">Religion</label><span class="manto"> *</span>
+                        <select id="inputReligion" class="form-control" required>
+                            <option selected></option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCaste">Caste</label><span class="manto"> *</span>
+                        <select id="inputPHCom" class="form-control" required>
+                            <option selected></option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCommunity">Community</label><span class="manto"> *</span>
+                        <select id="inputCommunity" class="form-control" required>
+                            <option selected></option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputPlotNo">House / Plot Number</label><span class="manto">
+                            *</span>
+                        <input type="text" class="form-control" id="inputPlotNo" placeholder="House Number" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCaste">Street & Locality</label><span class="manto"> *</span>
+                        <input type="text" class="form-control" id="inputCaste" placeholder="Street" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputCity">City / Village</label><span class="manto"> *</span>
+                        <input type="text" class="form-control" id="inputCity" placeholder="City" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputMoblie">State</label><span class="manto"> *</span>
+                        <input type="text" class="form-control" id="inputMoblie" placeholder="Odisha">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputPincode">Pincode</label><span class="manto"> *</span>
+                        <input type="number" class="form-control" id="inputPincode" placeholder="Pincode" required>
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputContact">Contact Number</label><span class="manto"> *</span>
+                        <input type="number" class="form-control" id="inputContact" placeholder="Mobile No" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputPincode1">Email</label>
+                        <input type="email" class="form-control" id="inputPincode1" placeholder="Email" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputGovtIdType">Govt ID Type</label>
+                        <select id="inputGovtIdType" class="form-control">
+                            <option selected>Select</option>
+                            <option>Driving License</option>
+                            <option>Voter ID</option>
+                            <option>PAN card</option>
+                            <option>Ration Card</option>
+                            <option>Passport</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputGovtIdDetail">Govt ID Detail</label>
+                        <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail" required>
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="spouseFirstname">Spouse First Name</label><span class="manto">
+                            *</span>
+                        <input type="Text" class="form-control" id="spouseFirstname" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="spouseMiddlename">Middle Name</label>
+                        <input type="Text" class="form-control" id="spouseMiddlename" placeholder="Middle Name">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="spouseLastname">Last Name</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="spouseLastname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputmoblienospouse">Spouse Contact Number</label><span
+                            class="manto"> *</span>
+                        <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
+                            required>
+                    </div>
+
+
+                </div>
+
+            </section>
+            <h3>Personal Info</h3>
+            <section>
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputRCHID">RCH ID</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="inputRCHID" placeholder="RCH ID" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputECnumber">EC Number</label>
+                        <input type="Text" class="form-control" id="inputECnumber" placeholder="EC Number" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputDistrict">LMP Date</label><span class="manto"> *</span>
+                        <input id="dateOfLMP" class="form-control flatpickr flatpickr-input active" type="text"
+                            placeholder="Select Date..">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputGestational">Gestational Age</label><span class="manto">
+                            *</span>
+                        <input type="Text" class="form-control" id="inputGestational" placeholder="Gestational Age"
+                            required>
+                    </div>
+                </div>
+                <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputG">G</label><span class="manto"> *</span>
+                        <select id="inputG" class="form-control">
+                            <option selected>Select</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputP">P</label><span class="manto"> *</span>
+                        <select id="inputP" class="form-control">
+                            <option selected>Select</option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputL">L</label><span class="manto"> *</span>
+                        <select id="inputL" class="form-control">
+                            <option selected>Select</option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputA">A</label><span class="manto"> *</span>
+                        <select id="inputA" class="form-control">
+                            <option selected>Select</option>
+
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="" style="float: right;">
+    <button id="myBtn1" class="btn btn-success mt-3" data-toggle="modal"
+        data-target="#fadeinModal">Submit</button>
+    <a class="btn mt-3 mr-2" href="live-screener-entry.html"
+        role="button">Cancel</a>
+    </div> -->
+                <!-- <div class="form-group">
+                <div class="form-check pl-0">
+                    <div class="custom-control custom-checkbox checkbox-info">
+                        <input type="checkbox" class="custom-control-input" id="gridCheck">
+                        <label class="birthreg" class="custom-control-label" for="gridCheck">Check me out</label>
+                    </div>
+                </div>
+            </div> -->
+            </section>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <span style="color: #1b55e2;;font-style: italic;" id="tabWiseNote"><b>" NOTE:</b>
+                    Antenatal Woman Registration form is applicable to all pregnant women."</span>
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+
+    <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" id="exampleModalLabel">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title">Modal Header</h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Subject ID is Generated: <b>1234567</b></h4>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='anccollection.html'">Go
+                        to Blood Sample
+                        Collection</button>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/antenatal-flatpickr.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/anm/anm-awregistration.js'"></i>
+
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert-central.js'"></i>

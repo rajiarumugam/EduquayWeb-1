@@ -1,0 +1,91 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+  <div class="overlay"></div>
+  <div class="search-overlay"></div>
+  <!--  BEGIN SIDEBAR  -->
+  <div class="sidebar-wrapper sidebar-theme">
+    <app-site-sidebar module="anm" subMenum="sample-collection"></app-site-sidebar>
+  </div>
+  <!--  END SIDEBAR  -->
+  <!--  BEGIN CONTENT AREA  -->
+  <div id="content" class="main-content">
+    <div class="layout-px-spacing">
+      <div class="row layout-top-spacing">
+        <!-- <div class="col-md-12 text-center">
+                  <h5 class="">ANM Name - PHC Name</h5>
+              </div> -->
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+      
+            </div>
+            <!-- <h5 class="float-left">Sample Collection</h5> -->
+            <div class="col-md-4">
+              <div class="headertit">
+                <h5 class="float-center">Notifications</h5>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="float-right mb-4">
+                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-subregn/awreg']" role="button"
+                  title="Registration"><i class="fas fa-chevron-right pNav-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+          <div class="widget-content widget-content-area br-6">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="damagedsample-tab" data-toggle="tab"
+                   [routerLink]="['/app/anm-notification']" role="tab" aria-controls="home"
+                   aria-selected="true">
+                  Damaged Samples<span class="badge badge-pill badge-warning shadow mx-1">4</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/unsent']"
+                   role="tab" aria-controls="profile" aria-selected="false">
+                  Unsent Samples<span class="badge badge-pill badge-warning shadow ml-1">4</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="timeoutexpiry-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/timeout']"
+                   role="tab" aria-controls="contact" aria-selected="false">
+                  Sample Timeout<span class="badge badge-pill badge-warning shadow ml-1">14</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="positivesub-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/positive']"
+                   role="tab" aria-controls="contact" aria-selected="false">
+                  Positive Subjects<span class="badge badge-pill badge-warning shadow ml-1">9</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="PNDTC-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/pndreferral']" role="tab"
+                   aria-controls="contact" aria-selected="false">
+                  PND Referral<span class="badge badge-pill badge-warning shadow ml-1">8</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="MTP-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/mtpreferral']" role="tab"
+                   aria-controls="contact" aria-selected="false">
+                  MTP Referral<span class="badge badge-pill badge-warning shadow ml-1">12</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content mt-5" id="myTabContent">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<!--<i appLoadScript [script]="''"></i>-->
+<!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->

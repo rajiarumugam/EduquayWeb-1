@@ -1,0 +1,38 @@
+body {
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  background: #fff !important;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+form span.input-error {
+  color: red;
+}
+
+html {
+  height: 100%;
+}
+.alert1 .glyphicon {
+  display: table-cell;
+}
+
+.alert1 div,
+.alert1 span {
+  padding-left: 5px;
+  display: table-cell;
+}
+.alert .alert-icon-col {
+  min-width: 25px;
+  max-width: 25px;
+  margin-top: 2px;
+}
+.alert-danger {
+  color: #721c24;
+  background-color: #fdebed;
+  border-color: #f5c6cb;
+}

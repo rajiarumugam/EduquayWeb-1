@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>CMC - Admin Module </title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
+    <link href="assets/css/loader.css" rel="stylesheet" type="text/css" />
+    <script src="assets/js/loader.js"></script>
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <!-- <link rel="stylesheet" type="text/css" href="plugins/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="plugins/table/datatable/custom_dt_html5.css">
+    <link rel="stylesheet" type="text/css" href="plugins/table/datatable/dt-global_style.css"> -->
+    <!-- END PAGE LEVEL CUSTOM STYLES -->
+
+     <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link href="assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="plugins/select2/select2.min.css">
+    <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+
+    <style>
+        .layout-px-spacing {
+            min-height: calc(100vh - 166px)!important;
+        }
+    </style>
+
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
+</head>
+<body>
+    <!-- BEGIN LOADER -->
+    <div id="load_screen"> <div class="loader"> <div class="loader-content"> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 792 723" style="enable-background:new 0 0 792 723;" xml:space="preserve"> <g> <g> <path class="st0" d="M213.9,584.4c-47.4-25.5-84.7-60.8-111.8-106.1C75,433.1,61.4,382,61.4,324.9c0-57,13.6-108.1,40.7-153.3 S166.5,91,213.9,65.5s100.7-38.2,159.9-38.2c49.9,0,95,8.8,135.3,26.3s74.1,42.8,101.5,75.7l-85.5,78.9 c-38.9-44.9-87.2-67.4-144.7-67.4c-35.6,0-67.4,7.8-95.4,23.4s-49.7,37.4-65.4,65.4c-15.6,28-23.4,59.8-23.4,95.4 s7.8,67.4,23.4,95.4s37.4,49.7,65.4,65.4c28,15.6,59.7,23.4,95.4,23.4c57.6,0,105.8-22.7,144.7-68.2l85.5,78.9 c-27.4,33.4-61.4,58.9-102,76.5c-40.6,17.5-85.8,26.3-135.7,26.3C314.3,622.7,261.3,809.9,213.9,584.4z"/> </g> <circle class="st1" cx="375.4" cy="322.9" r="100"/> </g> <g> <circle class="st2" cx="275.4" cy="910" r="65"></circle> <circle class="st4" cx="475.4" cy="910" r="65"></circle> </g> </svg> </div></div></div>
+    <!--  END LOADER -->
+
+    <!--  BEGIN NAVBAR  -->
+    <div class="header-container fixed-top">
+        <header class="header navbar navbar-expand-sm">
+
+            <ul class="navbar-item theme-brand flex-row mx-auto ml-4">
+                <!-- <li class="nav-item theme-logo">
+                    <a href="index.html">
+                        <img src="assets/img/90x90.jpg" class="navbar-logo" alt="logo">
+                    </a>
+                </li> -->
+                <!-- <h4 class="header-title mt-2">
+                    Thalassaemia and Sickle Cell Disease Control 
+                </h4> -->
+                <!-- <li class="nav-item theme-text">
+                    <a href="index.html" class="nav-link"> CORK </a>
+                </li> -->
+            </ul>
+            <div class="mx-auto order-0">
+                <!-- <a class="navbar-brand mx-auto" href="#">Navbar 2</a> -->
+                <h4 class="header-title mt-2">
+                    Thalassemia and Sickle Cell Disease Control 
+                </h4>
+            </div>
+         
+            <ul class="navbar-item flex-row ml-auto mt-1">
+
+                <li class="nav-item dropdown user-profile-dropdown">
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-user text-white fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
+                        <div class="">
+                            <div class="dropdown-item">
+                                <a class="" href="user_profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg> My Profile</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a class="" href="apps_mailbox.html"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-inbox">
+                                        <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                                        <path
+                                            d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
+                                        </path>
+                                    </svg> Inbox</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a class="" href="auth_lockscreen.html"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-lock">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg> Lock Screen</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a class="" href="auth_login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-log-out">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg> Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </header>
+    </div>
+    <!--  END NAVBAR  -->
+
+    <!--  BEGIN NAVBAR  -->
+    <div class="sub-header-container">
+        <header class="header navbar navbar-expand-sm">
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
+
+            <ul class="navbar-nav flex-row">
+                <li>
+                    <div class="page-header">
+                        <nav class="breadcrumb-one" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page"><span>CHC</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Popup Notification</span></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </li>
+            </ul>
+        </header>
+    </div>
+    <!--  END NAVBAR  -->
+
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+
+        <!--  BEGIN SIDEBAR  -->
+        <div class="sidebar-wrapper sidebar-theme">
+            
+            <nav id="sidebar">
+                <div class="shadow-bottom"></div>
+
+                <ul class="list-unstyled menu-categories" id="accordionExample">
+                    <li class="menu">
+                        <a href="index.html" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="#anm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span>ANM / PHC</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="anm" data-parent="#accordionExample">
+                            <li>
+                                <a href="notification.html"> ANM Notifications </a>
+                            </li>
+                            <li>
+                                <a href="live-screener-entry.html"> Subject Registration </a>
+                            </li>
+                            <li>
+                                <a href="collection.html"> Sample Collection </a>
+                            </li>
+                            <li>
+                                <a href="Completed.html">  ANM Pick and Pack list </a>
+                            </li>
+                            <li>
+                                <a href="shipmentlog.html"> ANM Shipment log  </a>
+                            </li>
+                            <li>
+                                <a href="profile.html"> Subject Profile </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="#chc" data-toggle="collapse" aria-expanded="true" data-active="true" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span>CHC (CBC & SST test)</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse show" id="chc" data-parent="#accordionExample" style="">
+                            <li class="active">
+                                <a href="chc-notification.html"> CHC Notification </a>
+                            </li>
+                            <li>
+                                <a href="chcregistration.html"> Subject Registration </a>
+                            </li>
+                            <li>
+                                <a href="chccollection.html"> Sample Collection </a>
+                            </li>
+                            <li>
+                                <a href="deliveryconfirm.html"> Confirm Sample Received </a>
+                            </li>
+                            <li>
+                                <a href="samplelist.html"> Update CBC / SST Test  </a>
+                            </li>
+                            <li>
+                                <a href="testresults.html"> Test results </a>
+                            </li>
+                            <li>
+                                <a href="pickandpack.html"> CHC Pick and Pack list </a>
+                            </li>
+                            <li>
+                                <a href="chcshipmentlog.html"> CHC Shipment log </a>
+                            </li>
+                            <li>
+                                <a href="chcpositivecases.html"> Report of all samples </a>
+                            </li>
+                            <li>
+                                <a href="subjectprofile.html"> Subject profile </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="#centrallab" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span>Central Lab (HPLC test)</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="centrallab" data-parent="#accordionExample" style="">
+                            <li>
+                                <a href="centraldelivery.html"> Confirm sample received at Central Lab </a>
+                            </li>
+                            <li>
+                                <a href="centralsample.html"> Update HPLC test results </a>
+                            </li>
+                            <li>
+                                <a href="centralpickpack.html"> Central Pick & Pack </a>
+                            </li>
+                            <li>
+                                <a href="centralshipmentlog.html"> Central Shipment log </a>
+                            </li>
+                            <li>
+                                <a href="centralpositive.html"> Positive subjects  </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="#molecularlab" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                <div class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                    <span>MOLECULAR LAB>
+                                </div>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="molecularlab" data-parent="#accordionExample">
+                            <li>
+                                <a href="geneticlabdelivery.html"> Confirm sample received </a>
+                            </li>
+                            <li>
+                                <a href="geneticlabsamplelist.html"> Sample received at molecular lab </a>
+                            </li>
+                            <li>
+                                <a href="genetictestresults.html"> Update molecular test results </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="#pndtc" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span>PNDTC</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="pndtc" data-parent="#accordionExample"
+                            style="">
+                            <li>
+                                <a href="counsellor.html"> Counsellor </a>
+                            </li>
+                            <li>
+                                <a href="obstetrician.html"> Lab Obstetrician </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="#pathologist" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span>PATHOLOGIST</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="pathologist" data-parent="#accordionExample"
+                            style="">
+                            <li>
+                                <a href="pathosubject.html"> List of subjects </a>
+                            </li>
+                            <li>
+                                <a href="pathoreport.html"> Report </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <a href="#birthmonitoring" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                <span>BIRTH MONITORING</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="submenu list-unstyled collapse" id="birthmonitoring" data-parent="#accordionExample" style="">
+                            <li>
+                                <a href="infantregistration.html"> Infant registration </a>
+                            </li>
+                            <li>
+                                <a href="infantcollection.html"> Infant collection </a>
+                            </li>
+                            <li>
+                                <a href="infantpickpack.html"> Pick and Pack </a>
+                            </li>
+                            <li>
+                                <a href="infantsamplelist.html"> Samples received </a>
+                            </li>
+                            <li>
+                                <a href="deliverconfirmsentinel.html"> Delivery confirm at sentinel lab  </a>
+                            </li>
+                            <li>
+                                <a href="sentineltestresults.html"> Test results </a>
+                            </li>
+                            <li>
+                                <a href="infantprofile.html"> Infant profile </a>
+                            </li>
+                            <li>
+                                <a href="sentinelpending.html"> List of subjects </a>
+                            </li>
+                            <li>
+                                <a href="sentinelcasesheet.html"> Casesheet </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                
+                
+            </nav>
+
+        </div>
+        <!--  END SIDEBAR  -->
+        
+       <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+                <div class="row layout-top-spacing">
+                    <div class="col-md-12">
+                        <!-- <h5 class="float-left">Sample Collection</h5> -->
+                        <div class="float-right mb-4">
+                            <a class="btn btn-primary mr-2" role="button">2.1</a>
+                            <a class="btn btn-primary" href="chcregistration.html" role="button">Next</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                        <div class="widget-content widget-content-area br-6">
+                            <ul class="nav nav-pills" id="myTab" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link active" id="damagedsample-tab" data-toggle="tab" href="#damagedsample" role="tab" aria-controls="home" aria-selected="true">Damaged samples</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" href="#unsentsamples" role="tab" aria-controls="profile" aria-selected="false">Unsent samples</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="timeoutexpiry-tab" data-toggle="tab" href="#timeoutexpiry" role="tab" aria-controls="contact" aria-selected="false">Sample timeout expiry</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="positivesub-tab" data-toggle="tab" href="#positivesub" role="tab" aria-controls="contact" aria-selected="false">Positive subjects</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="PNDTC-tab" data-toggle="tab" href="#PNDTC" role="tab" aria-controls="contact" aria-selected="false">PND referral  </a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="MTP-tab" data-toggle="tab" href="#MTP" role="tab" aria-controls="contact" aria-selected="false">MTP referral</a>
+                              </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                              <div class="tab-pane fade show active" id="damagedsample" role="tabpanel" aria-labelledby="damagedsample-tab">
+                                     <div class="table-responsive mb-4 mt-4">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th >Name</th>
+                                                <th>Contact </th>
+                                                <th>Unique subject ID</th>
+                                                <th>Barcode</th>
+                                                <th>Date of collection</th>
+                                                <th>Gestational Age</th>
+                                                <th>Notified </th>
+                                                <th class="no-content"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Alkha Rajesh</td>
+                                                <td>8803487347</td>
+                                                <td>OD001202032110</td>
+                                                <td>001252</td>
+                                                <td>30/01/2020</td>
+                                                <td> 10.3</td>  
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center"><a class="text-primary" href="samplerecollection.html" >
+                                                    <i class="fa fa-hand-o-up mr-1 fa-1x" aria-hidden="true"></i>Sample Recollection</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="unsentsamples" role="tabpanel" aria-labelledby="unsentsamples-tab">
+                                 <div class="table-responsive mb-4 mt-4">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Name</th>
+                                                <th>Unique subject ID</th>
+                                                <th>Barcode</th>
+                                                <th>Date of collection</th>
+                                                <th>Gestational age</th>
+                                                <th >Select</th>
+                                                <th class="no-content"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                               <td>1</td>
+                                                <td>Manasa</td>
+                                                <td>OD001202032110</td>
+                                                <td>001252</td>
+                                                <td>02/01/2020</td>
+                                                <td>14</td>  
+                                                <td><input type="checkbox" name="select" value="Bike" id="myCheck" checked=""  onclick="myFunction()"></td>
+                                                <td><a class="btn btn-primary" href="Completed.html" role="button">Pick and Pack</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
+                              </div>
+                              <div class="tab-pane fade" id="timeoutexpiry" role="tabpanel" aria-labelledby="timeoutexpiry-tab">
+                                  <div class="table-responsive mb-4 mt-4">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Name</th>
+                                                <th>Contact</th>
+                                                <th>Unique subject ID</th>
+                                                <th>Barcode</th>
+                                                <th>Date of collection</th>
+                                                <th>Gestational age</th>
+                                                <th >Select</th>
+                                                <th class="no-content"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                               <td>1</td>
+                                                <td>Venkatesh</td>
+                                                <td>8803487347</td>
+                                                <td>OD001202032110</td>
+                                                <td>001252</td> 
+                                                <td> - </td> 
+                                                <td>12.3</td> 
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                                <td class="text-center"><a class="text-primary" href="expiredrecol.html" >
+                                                    <i class="fa fa-hand-o-up mr-1 fa-1x" aria-hidden="true"></i>Sample Recollection</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> 
+                              </div>
+                              <div class="tab-pane fade" id="positivesub" role="tabpanel" aria-labelledby="positivesub-tab">
+                                  <div class="table-responsive mb-4 mt-4">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Unique subject ID</th>
+                                                <th>Name</th>
+                                                <th>Contact</th>
+                                                <th>HPLC test results</th>
+                                                <th>Gestational Age</th>
+                                                <th>Notified</th>
+                                                <th class="no-content"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                               <td>1</td>
+                                                <td>OD001202032110</td>
+                                                <td>Savita</td>   
+                                                <td>8807347437</td>
+                                                <td>Thalassemia screening positive</td>
+                                                <td> 10 </td>
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>OD001202032111</td>
+                                                <td>Priya</td>   
+                                                <td>8807347447</td>
+                                                <td>Sickle cell disease</td>
+                                                <td> 8 </td>
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>OD001202032112</td>
+                                                <td>Gopi</td>   
+                                                <td>8807347460</td>
+                                                <td>HbE</td>
+                                                <td> - </td>
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                                <!-- <td><input type="Submit" class="btn btn-success" value="Update status"></td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div><a class="btn btn-primary float-right" href="#" role="button">Update status</a></div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="PNDTC" role="tabpanel" aria-labelledby="PNDTC-tab">
+                                  <div class="table-responsive mb-4 mt-4">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Wife Name</th>
+                                                <th>Unique Subject ID</th>
+                                                <th >Wife Contact No</th>
+                                                <th>HPLC test results </th>
+                                                <th>Husband Name </th>
+                                                <th>Unique Subject ID </th>
+                                                <th>Husband Contact No </th>
+                                                <th>HPLC test results </th>
+                                                <th>Gestational Age</th>
+                                                <th>Date </th>
+                                                <th>Time </th>
+                                                <th>Notified </th>
+                                                <th class="no-content"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                               <td>1</td>
+                                                    <td>Divya</td>
+                                                    <td>001252</td>   
+                                                    <td>9145745456</td>
+                                                    <td>Thalassemia screening positive</td>
+                                                    <td>Kiren</td>
+                                                    <td>001972</td>
+                                                    <td>9154787985</td>
+                                                    <td>Sickle cell disease</td>
+                                                    <td> 10 </td>
+                                                    <td>13/02/2020</td>
+                                                    <td>2:00 PM</td>
+                                                    <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                        <option value="">Yes</option>
+                                                        <option value="male">No</option>
+                                                        </select>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                    <td>Pooja</td>
+                                                    <td>001252</td>   
+                                                    <td>9145745456</td>
+                                                    <td>Thalassemia screening positive</td>
+                                                    <td>Karthik</td>
+                                                    <td>001972</td>
+                                                    <td>9154787985</td>
+                                                    <td>Sickle cell disease</td>
+                                                    <td> 9.3 </td>
+                                                    <td>19/02/2020</td>
+                                                    <td>5:00 PM</td>
+                                                    <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                        <option value="">Yes</option>
+                                                        <option value="male">No</option>
+                                                        </select>
+                                                    </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div><a class="btn btn-primary float-right" href="#" role="button">Update status</a></div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="MTP" role="tabpanel" aria-labelledby="MTP-tab">
+                                 <div class="table-responsive mb-4 mt-4">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>ANW Name</th>
+                                                <th >Wife Contact No</th>
+                                                <th>Unique Subject ID</th>
+                                                <th>Husband Name </th>
+                                                <th>Unique Subject ID </th>
+                                                <th>Husband Contact No </th>
+                                                <th>PND Test Results </th>
+                                                <th>Gestational Age</th>
+                                                <th>Date </th>
+                                                <th>Time </th>
+                                                <th>Notified </th>
+                                                <th class="no-content"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Divya</td>
+                                                <td>9145745456</td>
+                                                <td>001252</td> 
+                                                <td>Kiren</td>
+                                                <td>001972</td>
+                                                <td>9154787985</td>
+                                                <td>Foetal Disease Positive</td>
+                                                <td> 10 </td>
+                                                <td>11/02/2020</td>
+                                                <td>3:00 PM</td>
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Pooja</td>  
+                                                <td>9145745456</td>
+                                                <td>001252</td>
+                                                <td>Karthik</td>
+                                                <td>001972</td>
+                                                <td>9154787985</td>
+                                                <td>Foetal Disease Positive</td>
+                                                <td> 9.3 </td>
+                                                <td>16/02/2020</td>
+                                                <td>8:00 PM</td>
+                                                <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                                    <option value="">Yes</option>
+                                                    <option value="male">No</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div><a class="btn btn-primary float-right" href="#" role="button">Update status</a></div>
+                                
+                                </div> 
+                              </div>
+                            </div>
+                            <!-- <div class="footer-wrapper">
+                                <div class="footer-section f-section-1">
+                                    <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com">DesignReset</a>, All rights reserved.</p>
+                                </div>
+                                <div class="footer-section f-section-2">
+                                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!--  END CONTENT AREA  -->
+                    </div>
+                    <!-- END MAIN CONTAINER -->
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                              <li class="page-item active"><a class="page-link" href="chc-notification.html">1</a></li>
+                              <li class="page-item"><a class="page-link" href="chcregistration.html">2</a></li>
+                              <li class="page-item"><a class="page-link" href="chccollection.html">3</a></li>
+                              <li class="page-item"><a class="page-link" href="deliveryconfirm.html">4</a></li>
+                              <li class="page-item"><a class="page-link" href="samplelist.html">5</a></li>
+                              <li class="page-item"><a class="page-link" href="testresults.html">6</a></li>
+                              <li class="page-item"><a class="page-link" href="pickandpack.html">7</a></li>
+                              <li class="page-item"><a class="page-link" href="chcshipmentlog.html">8</a></li>
+                              <li class="page-item"><a class="page-link" href="chcpositivecases.html">9</a></li>
+                              <li class="page-item"><a class="page-link" href="subjectprofile.html">10</a></li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            App.init();
+        });
+    </script>
+    <script>
+function myFunction() {
+  var checkBox = document.getElementById("myCheck");
+  var text = document.getElementById("text");
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+     text.style.display = "none";
+  }
+}
+</script> 
+    <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+    <script src="plugins/table/datatable/datatables.js"></script>
+
+<!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
+    <script src="plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
+    <script src="plugins/table/datatable/button-ext/jszip.min.js"></script>    
+    <script src="plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
+    <script src="plugins/table/datatable/button-ext/buttons.print.min.js"></script>
+    <script>
+        $('#zero-config').DataTable({
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        });
+        $('#zero-config1').DataTable({
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        });
+        $('#zero-config2').DataTable({
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        });
+        $('#zero-config3').DataTable({
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        });
+        $('#zero-config4').DataTable({
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        });
+        $('#zero-config5').DataTable({
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        });
+    </script>
+
+    <script src="plugins/highlight/highlight.pack.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="assets/js/scrollspyNav.js"></script>
+    <script src="plugins/input-mask/jquery.inputmask.bundle.min.js"></script>
+    <script src="plugins/input-mask/input-mask.js"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <script src="plugins/select2/select2.min.js"></script>
+    <script src="plugins/select2/custom-select2.js"></script>
+    <!--  BEGIN CUSTOM SCRIPTS FILE  --
+</body>
+</html>

@@ -1,0 +1,62 @@
+/*BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES */
+
+.layout-px-spacing {
+  min-height: calc(100vh - 166px) !important;
+}
+
+h5.float-left {
+  color: #1b55e2;
+  font-weight: 600;
+  text-shadow: 1px 0px #125879;
+  font-size: 25px;
+}
+
+h5.float-center {
+  color: #1b55e2;
+  font-weight: 600;
+  text-shadow: 1px 0px #125879;
+  font-size: 25px;
+  text-align: center;
+}
+
+.modaltitle {
+  color: #1b55e2;
+  font-weight: 600;
+  text-shadow: 1px 0px #125879;
+  font-size: 20px;
+  /* text-align: center; */
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  transform: translate(8%, -70%);
+  height: 200px;
+}
+
+.table > tbody > tr > td {
+  text-align: left;
+}
+
+.centered p {
+  font-size: 10px;
+  background-color: #ffffff;
+}
+
+.manto {
+  color: red;
+  font-weight: 600;
+}
+
+.note {
+  font-size: 15px;
+  font-weight: 600;
+  color: #575858;
+}
+
+.table > tbody tr {
+  height: 50px;
+}
+
+
+/*END PAGE LEVEL PLUGINS/CUSTOM STYLES */
