@@ -11,7 +11,7 @@ import { GenericService } from './generic.service';
 })
 export class AuthService {
   authresultobj: authResponse;
-  loginApi: string = 'api/v1/Identity/Login';
+  loginApi: string = 'api/v1/UserIdentity/Login';
   patientApi: string = 'api/v1/Patient/GetPatients';
 
   constructor(
@@ -32,7 +32,7 @@ export class AuthService {
     let options = {
       headers: httpHeaders
     };
-    let postData = { 'email': emailInput, 'password': passwordInput };
+    let postData = { 'userName': emailInput, 'password': passwordInput };
     let loginUrl = this.genericService.buildApiUrl(this.loginApi);
     return this.httpClient.post(loginUrl, postData, options);
     // .pipe(

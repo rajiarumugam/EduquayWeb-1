@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ConstantService } from './constant.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenericService {
 
-  constructor(private constantService: ConstantService) { }
+  constructor() { }
 
   buildApiUrl(endpoint: string){
-    return this.constantService.API_ENDPOINT + endpoint;
+    return `${environment.apiUrl}/${endpoint}`;
   }
 }
