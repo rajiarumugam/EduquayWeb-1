@@ -112,12 +112,12 @@ function submitSubject(){
 
 function submitSubject(tabId){
     console.log('tabId: ' + tabId);
-    if (tabId === 2){
+    if (tabId === 1){
         subjectRegistration();
     }
-    else if(tabId === 1){
-        SpouseRegistration();
-    }
+    //else if(tabId === 1){
+    //    SpouseRegistration();
+    //}
 }
 
 function subjectRegistration(){
