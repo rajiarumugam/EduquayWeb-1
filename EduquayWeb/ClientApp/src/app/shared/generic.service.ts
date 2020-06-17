@@ -11,4 +11,6 @@ export class GenericService {
   buildApiUrl(endpoint: string){
     return `${environment.apiUrl}/${endpoint}`;
   }
+
+  
 }

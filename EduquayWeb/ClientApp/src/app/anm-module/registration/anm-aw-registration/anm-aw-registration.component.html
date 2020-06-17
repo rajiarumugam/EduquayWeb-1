@@ -22,7 +22,7 @@
                         <label class="birthreg" for="inputDistrict">District {{selectedDistrict}}</label><span class="manto"> *</span>
                         <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="selected($event.target.value)">
                             <option selected value='0'>Select District</option>
-                            <option *ngFor="let district of districts" value={{district.district_gov_code}} >{{district.districtname}}</option>
+                            <option *ngFor="let district of districts" value={{district.id}} >{{district.districtName}}</option>
                         </select>
                         
                     </div>

@@ -16,7 +16,7 @@ export class DistrictService {
   getAll(): Observable<DistrictResponse> {
     var apiUrl = this.genericService.buildApiUrl(this.endpoint);
     return this._http
-      .getCached<DistrictResponse>({ url: apiUrl, cacheMins: 10 });
+      .getCached<DistrictResponse>({ url: apiUrl, cacheMins: 100 });
   }
 
 

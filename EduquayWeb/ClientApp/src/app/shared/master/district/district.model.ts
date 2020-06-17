@@ -9,8 +9,8 @@ export class District {
     id: number;
     stateId: string;
     stateName: string;
-    district_gov_code: number;
-    districtname: string;
+    districtGovCode: number;
+    districtName: string;
     comments: string;
     isActive: boolean;
 }
