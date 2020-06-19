@@ -12,3 +12,11 @@ $('#linktobuttonpendingupdate').on('click', function () {
   
   });
 })
+
+$('#linktobuttonpostmtp').on('click', function () {
+  swal({
+  title: '<p><i class="fa fa-check-circle"></i></p>Personal Info updated successfullly',
+  padding: '2em',
+  
+  });
+})

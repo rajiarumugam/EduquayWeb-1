@@ -44,7 +44,7 @@ export class HttpClientService {
     // Setup default values
     options.body = options.body || null
 
-    return this.http.request<T>(verb, options.url)
+    return this.http.request<T>(verb, options.url, options)
       .pipe(
         switchMap(response => {
           return of<T>(response)

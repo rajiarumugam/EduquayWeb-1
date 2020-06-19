@@ -1,0 +1,350 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="Pick & Pack"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" href="collection.html"
+                                    role="button" title="Sample Collection"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">Pick & Pack </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right mb-4">
+                                <a class="btn btn-outline-primary bs-tooltip" href="shipmentlog.html" role="button"
+                                    title="Shipment Log"><i class="fas fa-chevron-right pNav-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-6 filtered-list-search">
+                        <form class="form-inline my-2 my-lg-0">
+                            <div class="w-100">
+                                <input type="text" class="w-100 form-control product-search br-30" id="input-search" placeholder="Search" >
+                                <button class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                            </div>
+                        </form>
+                    </div> -->
+                        <div class="form-row">
+                            <div class="col-md-10">
+                                <div class="alert alert-danger mb-4" role="alert" *ngIf="picknpackErrorMessage !== ''">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                                    <strong>Oops!</strong>{{picknpackErrorMessage}}
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="anmpickpack-tblconfig" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><span>S.No</span></th>
+                                        <th><span>Subject Name</span></th>
+                                        <th><span>Subject ID</span></th>
+                                        <th class="text-center"><span>RCH ID</span></th>
+                                        <th><span>Barcode</span></th>
+                                        <th class="datetimenew wordwrap"><span class="">Sample Collection Date &
+                                                Time</span>
+                                        </th>
+                                        <!-- <th><span></span><input type="checkbox" id="select_all" class="ml-1 mt-1" /></th> -->
+                                        <th>
+                                            <div class="n-chk">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input type="checkbox" class="new-control-input" id="select_all"
+                                                        checked>
+                                                    <span class="new-control-indicator leftspace"></span>Add to Shipment
+                                                </label>
+                                            </div>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let picknpack of sampleList; index as i" >
+                                        <td class="sno text-center">{{i +1}}</td>
+                                        <td class="sname text-left">{{picknpack.subjectName}}</td>
+                                        <td class="sid">{{picknpack.uniqueSubjectID}}</td>
+                                        <td class="sid text-center">{{picknpack.rchId}}</td>
+                                        <td class="sid">{{picknpack.barcodeNo}}</td>
+                                        <td class="datetimenew">{{picknpack.sampleDateTime}}</td>
+                                        <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
+                                        <td class="sno">
+                                            <div class="n-chk">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input type="checkbox" class="new-control-input checkbox" value="1"
+                                                        checked>
+                                                    <span class="new-control-indicator"></span>&nbsp;
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">2</td>
+                                        <td class="text-left">Selvi Manikkam Prabhakaran</td>
+                                        <td class="text-center">OD001202032112</td>
+                                        <td class="sid text-center">321654</td>
+                                        <td class="text-center">020154</td>
+                                        <td class="text-center">13/04/2020 11:25</td>
+                                        <!-- <td><input type="checkbox" class="checkbox" value="2"/></td> -->
+                                        <td class="text-center">
+                                            <div class="n-chk">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input type="checkbox" class="new-control-input checkbox" value="2"
+                                                        checked>
+                                                    <span class="new-control-indicator"></span>&nbsp;
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-primary float-right" data-toggle="modal"
+                                    data-target=".bd-example-modal-xl" role="button">Create Shipment</a>
+                            </div>
+                        </div>
+                        <div class="container p-4">
+                            <div class="row">
+                                <div class="col-md-12 border-bottom">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12" id="text">
+                                                    <input type="radio" name="tabs blue" id="tab2" checked=""
+                                                        style="visibility:hidden;">
+                                                    <!--<label for="tab2" style="height:47px; top:-14px;background-color: #009EE0;"> <a href="#" style="text-decoration:none; color:#FFFFFF; margin-left:-12px;">Registration</a></label>-->
+                                                    <div id="tab-content1" class="tab-content">
+                                                        <div id="namefoo" style="color: #000;">
+                                                            <p style="margin-bottom: 7px;"> </p>
+                                                        </div>
+
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-3">
+                                                                <span class="note">ANM Name </span><span
+                                                                    class="manto">*</span>
+                                                                <input class="form-control field" name="name"
+                                                                    required="" type="text" placeholder="Name"
+                                                                    tabindex="1" autocomplete="off">
+                                                            </div>
+
+                                                            <div class="form-group col-md-3">
+                                                                <span class="note">RI Point </span><span
+                                                                    class="manto">*</span>
+                                                                <select name="occupationoption"
+                                                                    class="form-control field" id="occuptnid"
+                                                                    tabindex="7" required="">
+                                                                    <option value="">Choose</option>
+                                                                    <option value="male">XXXXX</option>
+                                                                    <option value="female">XXXXX</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <span class="note">ILR Point </span><span
+                                                                    class="manto">*</span>
+                                                                <select name="occupationoption"
+                                                                    class="form-control field" id="occuptnid"
+                                                                    tabindex="7" required="">
+                                                                    <option value="">Choose</option>
+                                                                    <option value="male">XXXXX</option>
+                                                                    <option value="female">XXXXX</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <span class="note">Receiving Testing CHC </span><span
+                                                                    class="manto">*</span>
+                                                                <select name="occupationoption"
+                                                                    class="form-control field" id="occuptnid"
+                                                                    tabindex="7" required="">
+                                                                    <option value="">Select</option>
+                                                                    <option value="male">example</option>
+                                                                    <option value="female">example</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row my-2">
+                                                            <div class="form-group col-md-3">
+                                                                <span class="note"> AVD Name </span><span
+                                                                    class="manto">*</span>
+                                                                <select name="occupationoption"
+                                                                    class="form-control field" id="occuptnid"
+                                                                    tabindex="7" required="">
+                                                                    <option value="">Choose</option>
+                                                                    <option value="male">XXXXX</option>
+                                                                    <option value="female">XXXXX</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group col-md-3">
+                                                                <span class="note">Contact Number </span><span
+                                                                    class="manto">*</span>
+                                                                <input class="form-control field" name="mobile"
+                                                                    required="" type="number" pattern=".{10,}"
+                                                                    title="Mobile number must have 10 digits."
+                                                                    onkeypress="return numbersonly(this, event)"
+                                                                    placeholder="Mobile number" tabindex="4"
+                                                                    maxlength="10" autocomplete="off">
+
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <span class="note">Shipment Date </span><span
+                                                                    class="manto">*</span>
+                                                                <input id="shipmentdate"
+                                                                    class="form-control flatpickr flatpickr-input active "
+                                                                    type="text" placeholder="dd/mm/yy">
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <span class="note">Shipment Time </span><span
+                                                                    class="manto">*</span>
+                                                                <input id="shipmenttime"
+                                                                    class="form-control flatpickr flatpickr-input active "
+                                                                    type="text" placeholder="dd/mm/yy">
+                                                            </div>
+                                                        </div>
+                                                        <br>
+
+                                                        <!-- The Modal -->
+                                                        <div id="myModal3" class="modal mt-5">
+
+                                                            <!-- Modal content -->
+                                                            <div class="modal-content">
+                                                                <span class="close3">&times;</span>
+                                                                <div class="text-center">
+                                                                    <h5>Shipment ID is generated: THSIK2020321</h5>
+                                                                    <a href="viewshipmentlogchc.html"> <span>Go to
+                                                                            Shipment log</span> </a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary"
+                                                                id="linktobuttonpickpak">Submit</button>
+                                                            <button class="btn" data-dismiss="modal"><i
+                                                                    class="flaticon-cancel-12"></i> Close</button>
+                                                        </div>
+
+
+                                                        <div id="fadeinModal1" class="modal animated fadeInDown"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <svg aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                stroke="currentColor" stroke-width="2"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                class="feather feather-x">
+                                                                                <line x1="18" y1="6" x2="6" y2="18">
+                                                                                </line>
+                                                                                <line x1="6" y1="6" x2="18" y2="18">
+                                                                                </line>
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body text-center">
+                                                                        <h5>Shipment ID is Generated: THSIK2020321
+                                                                        </h5>
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            onclick="window.location.href='viewshipmentloganm.html'">Go
+                                                                            to Shipment Log</button>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn" data-dismiss="modal"><i
+                                                                                class="flaticon-cancel-12"></i>
+                                                                            Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row mt-4">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
+                                <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="collection.html">3</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="Completed.html">4</a></li>
+                                <li class="page-item"><a class="page-link" href="shipmentlog.html">5</a></li>
+                                <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-pickandpack.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

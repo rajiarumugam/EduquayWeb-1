@@ -36,3 +36,14 @@ html {
   background-color: #fdebed;
   border-color: #f5c6cb;
 }
+.border-right {
+  border-right: 2px solid #d8dae0!important;
+  height: 511px;
+  /* box-shadow: 0px 0px 30px 20px grey; */
+}
+.form-form .form-form-wrap form .field-wrapper .n-chk .new-control-indicator{
+  margin-left: -11px ! important;
+}
+.fa, .fas { 
+  font-size: 32px !important;    
+}

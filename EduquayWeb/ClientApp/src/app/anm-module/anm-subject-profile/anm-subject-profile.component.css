@@ -1,0 +1,53 @@
+#formValidate .wizard>.content {
+    min-height: 25em;
+}
+
+#example-vertical.wizard>.content {
+    min-height: 24.5em;
+}
+
+.layout-px-spacing {
+    min-height: calc(100vh - 166px) !important;
+}
+
+h5.float-left {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 25px;
+}
+.modaltitle {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 20px;
+    /* text-align: center; */
+}
+
+.table>tbody>tr>td {
+    text-align: left;
+    vertical-align: middle;
+    color: #141415;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+.table>tbody {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
+}
+/* .note{
+    font-size: 15px;
+    font-weight: 600;
+    color: #575858;
+} */
+ .table td,
+.table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: none;
+}
+div.dataTables_wrapper div.dataTables_filter svg {
+    top: 30px !important;
+}

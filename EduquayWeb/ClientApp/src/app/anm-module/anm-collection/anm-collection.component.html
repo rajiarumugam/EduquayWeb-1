@@ -1,0 +1,209 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="sample-collection"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="row layout-top-spacing">
+            <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
+                                href="live-screener-entry.html" role="button" title="Subject Registration"><i
+                                    class="fas fa-chevron-left pNav-left"></i></a></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">Sample Collection</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="float-right mb-4">
+                            <a class="btn btn-outline-primary bs-tooltip" href="Completed.html" role="button"
+                                title="Pick & Pack"><i class="fas fa-chevron-right pNav-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <div class="col-md-12 headtop" style="width: 98%;">
+
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <!--  <div style="text-align: center;" class="imgstyl">
+                           <img src="images/screen-register.jpg" class="pic">
+                          </div> -->
+                            </div>
+                            <div class="col-md-12">
+                                <input type="radio" name="tabs blue" id="tab2" checked="" style="visibility:hidden;">
+                                <!--<label for="tab2" style="height:47px; top:-14px;background-color: #009EE0;"> <a href="#" style="text-decoration:none; color:#FFFFFF; margin-left:-12px;">Registration</a></label>-->
+                                <div id="tab-content1" class="tab-content">
+                                    <div id="namefoo" style="color: #000;">
+                                        <p style="margin-bottom: 7px;"> </p>
+                                    </div>
+
+                                    <form method="post" name="register" onsubmit="return checkBeforeSubmit()" action="">
+                                        <!-- <span class="tabaddon"><i class="fa fa-user fa-2x"></i></span> -->
+                                        <div class="col-md-12" id="myTable" style="padding-top: 2%;">
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <span class="note ml-1">Subject Name : </span><span
+                                                        class="">Alkha</span>
+
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <span class="note ml-1">Subject ID : </span><span
+                                                        class="">THSIK2020153</span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span class="note ml-1">RCH ID : </span><span class="">123456</span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span class="note ml-1">Reason : </span><span class="">First Time
+                                                        Collection</span>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row my-4">
+                                                <div class="form-group col-md-3">
+                                                    <label for="Barcode">Scan / Enter Barcode</label><span
+                                                        class="manto">*</span>
+                                                    <input class="form-control field" name="pincode" type="text"
+                                                        placeholder="">
+
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="Date">Date of Collection</label> <span
+                                                        class="manto">*</span>
+                                                    <input id="dateOfSample"
+                                                        class="form-control flatpickr flatpickr-input active "
+                                                        type="text" placeholder="Select Date..">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="Time">Time of Collection</label> <span
+                                                        class="manto">*</span>
+                                                    <input id="timeofSample"
+                                                        class="form-control flatpickr flatpickr-input active "
+                                                        type="text" placeholder="Select Date..">
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <input class="form-control field" name="hdtblnme" type="hidden" value="all_camp"
+                                            placeholder="tblnme">
+                                        <input class="form-control field" name="sessscclocationid" type="hidden"
+                                            value="01">
+                                        <input class="form-control field" name="sessscclocatcampid" type="hidden"
+                                            value="0101">
+                                        <input class="form-control field" name="sessscccategoryid" type="hidden"
+                                            value="03">
+                                        <input class="form-control field" name="vtbltxtidrg" type="hidden"
+                                            value="01010301">
+
+                                        <br>
+                                        <style type="text/css">
+                                            .optn {
+                                                vertical-align: super;
+                                                margin-left: 5px;
+                                            }
+                                        </style>
+
+                                        <div class="form-row my-2" style="float: right;">
+
+                                            <a class="btn btn-success" role="button"
+                                                id="linktobuttonancsamplecol">Submit</a>
+                                            <a class="btn ml-3" role="button">Close</a>
+
+
+                                        </div>
+
+                                        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+                                            aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-sm" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title modaltitle" id="mySmallModalLabel"></h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="feather feather-x">
+                                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="modal-body text-center">
+                                                            <h5>Sample Collected Successfully
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn" data-dismiss="modal"><i
+                                                                    class="flaticon-cancel-12"></i>
+                                                                Close</button>
+                                                            <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--  END CONTENT AREA  -->
+            </div>
+            <!-- END MAIN CONTAINER -->
+        </div>
+        <!-- <div class="row mt-4">
+            <div class="col-md-12">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
+                        <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a></li>
+                        <li class="page-item active"><a class="page-link" href="collection.html">3</a></li>
+                        <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
+                        <li class="page-item"><a class="page-link" href="shipmentlog.html">5</a></li>
+                        <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div> -->
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+<!--  END MAIN CONTAINER  -->
+<!-- <i appLoadScript [script]="'assets/assets/js/anm-module/sample-collection.js'"></i> -->
+<i appLoadScript [script]="'assets/plugins/flatpickr/anccollection-flatpickr.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
