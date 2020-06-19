@@ -1,0 +1,312 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="Shipment-Log "></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                    <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" href="Completed.html" role="button"
+                                    title="Pick & Pack"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">Shipment Log</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right mb-4">
+                                <a class="btn btn-outline-primary bs-tooltip" href="profile.html" role="button"
+                                    title="Subject Profile"><i class="fas fa-chevron-right pNav-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-6 filtered-list-search">
+                            <form class="form-inline my-2 my-lg-0">
+                                <div class="w-100">
+                                    <input type="text" class="w-100 form-control product-search br-30" id="input-search" placeholder="Search" >
+                                    <button class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                                </div>
+                            </form>
+                        </div> -->
+                        <!-- <div class="row mt-4">
+                            <div class="col-md-3">
+                                <span class="note"></span><span class="manto"></span>
+                                <input class="form-control field" name="name" type="text" placeholder="Shipment ID" tabindex="1" autocomplete="off" /> 
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary my-1">Search</button>
+                            </div>
+                        </div> -->
+                        <!-- <div class="table-responsive mt-4">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                    <th><span>S.No</span></th>
+                                    <th><span>Date</span></th>
+                                    <th><span>Shipment ID</span></th>
+                                    <th ><span>View</span></th>
+                                    <th><span>Download </span></th>
+                                    </tr>
+                                    
+                                    </thead>
+                                    <tbody>
+                                    
+                                    <td>1</td>
+                                    <td>02/01/2020</td>
+                                    <td>THSIK2020321</td>   
+                                    <td><a href="viewshipmentloganm.html"><i class="fa fa-eye" aria-hidden="true"></i> </a></td>
+                                    <td><a href="#"><i class="fa fa-download" aria-hidden="true"></i> </a></td>
+                                    </tbody>
+                            </table>
+                            </div> -->
+
+                            <div class="table-responsive mt-4">
+                                <table id="shipmentlog-tblconfig" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><span>S.No</span></th>
+                                            <th><span>Shipment ID</span></th>
+                                            <th><span>Shipment Date & Time</span></th>
+                                            <th><span>ILR Point</span></th>
+                                            <th><span>AVD Name</span></th>
+                                            <th><span>Receiving Testing CHC</span></th>
+                                            <th><span>View</span></th>
+                                            <!-- <th><span>Print</span></th> -->
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center">1</td>
+                                            <td style="text-align: center">OD001202032110</td>
+                                            <td style="text-align: center">11/04/2020 13:30</td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl"><i class="fa fa-file-text-o text-primary"
+                                                                aria-hidden="true"></i></a></td>
+                                            <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
+                                                                    aria-hidden="true"></i> </a></td> -->
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">2</td>
+                                            <td style="text-align: center">OD001202032112</td>
+                                            <td style="text-align: center">11/04/2020 14:00</td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"><a href="#"><i class="fa fa-file-text-o text-primary"
+                                                                aria-hidden="true"></i> </a></td>
+                                            <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
+                                                                    aria-hidden="true"></i> </a></td> -->
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: center">3</td>
+                                            <td style="text-align: center">OD001202032114</td>
+                                            <td style="text-align: center">18/04/2020 14:30</td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: center"><a href="#"><i class="fa fa-file-text-o text-primary"
+                                                                aria-hidden="true"></i> </a></td>
+                                            <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
+                                                                    aria-hidden="true"></i> </a></td> -->
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                <div id="print-area" class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Shipment
+                                Details</h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                                <!-- <div class="widget-content widget-content-area br-6"> -->
+                                    <div class="row my-4">
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>Shipment ID : </b></span><span>THSIK2020321</span></p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>Shipment Date & Time : </b></span><span>05/02/2020 17:00</span>
+                            </div>
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <!-- <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-light">
+                                            <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button>
+                                        <button type="button" class="btn btn-sm btn-outline-light">
+                                            <img src="assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- <div class="col-md-4 d-flex justify-content-end">
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <a class="btn btn-light" href="#" aria-label="print">
+                                        <i class="fa fa-file-excel-o" aria-hidden="true" style="color: green;font-size: 24px;"></i>
+                                    </a>
+                                    <a class="btn btn-light" href="#" aria-label="print">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true" style="color: red;font-size: 24px;"></i>
+                                    </a>
+                                </div>
+                            </div> -->
+                       
+                        </div>
+                                    
+                                    <div class="container-fluid mt-2">
+                                        <div class="row">
+                                            <div class="col-md-12 border-bottom">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row my-4">
+                                        <div class="col-md-3">
+                                            <span><b>ANM Name : </b></span><span>Pooja</span>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <span><b>RI Point : </b></span><span>Burja</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>ILR Point : </b></span><span>Laxmipur</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>Receiving Testing CHC : </b></span><span>CHC Angul</span>
+                                        </div>
+                                    </div>
+                                    <div class="row my-4">
+                                        <div class="col-md-3">
+                                            <span><b>AVD Name : </b></span><span>Suraj</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span><b>Contact Number : </b></span><span>9876765456</span>
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                    <div class="table-responsive mt-4" style="overflow-x: hidden;">
+                                        <table id="zero-config" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                                    <th><span>S.No</span></th>
+                                                    <th><span>Subject Name</span></th>
+                                                    <th><span>Subject ID</span></th>
+                                                    <th class="text-center"><span>RCH ID</span></th>
+                                                    <th><span>Barcode</span></th>
+                                                    <th><span>Sample Collection Date & Time</span></th>
+                                                    
+                                                    <!-- <th><span>Select</span></th> -->
+                                                </tr>
+        
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sno text-center">1</td>
+                                                    <td class="sname">Soori Thangaraj Manickavelu</td>
+                                                    <td class="sid text-center">OD001202032110</td>
+                                                    <td class="sid text-center">123456</td>
+                                                    <td class="mobile text-center">020155</td>
+                                                    <td class="dartetimenew text-center">11/04/2020 14:25</td>
+        
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">2</td>
+                                                    <td>Selvi Manikkam govindaraju</td>
+                                                    <td style="text-align: center;">OD001202032112</td>
+                                                    <td class="sid text-center">321654</td>
+                                                    <td style="text-align: center;">020154</td>
+                                                    <td style="text-align: center;">11/04/2020 11:25</td>
+        
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                               
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                                    Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row mt-4">
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="collection.html">3</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
+                                    <li class="page-item active"><a class="page-link" href="shipmentlog.html">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div> -->
+                 </div>
+                    <!-- <div class="row mt-4">
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="collection.html">3</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
+                                    <li class="page-item active"><a class="page-link" href="shipmentlog.html">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div> -->
+                </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+
+</div>
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

@@ -26,12 +26,17 @@ import { AnmTimeoutSamplesComponent } from './anm-module/anm-timeout-samples/anm
 import { AnmPositiveSubjectsComponent } from './anm-module/anm-positive-subjects/anm-positive-subjects.component';
 import { AnmPndReferralComponent } from './anm-module/anm-pnd-referral/anm-pnd-referral.component';
 import { AnmMtpReferralComponent } from './anm-module/anm-mtp-referral/anm-mtp-referral.component';
+import { AnmUpdateChcComponent } from './anm-module/anm-update-chc/anm-update-chc.component';
 import { AnmSubjectRegistrationComponent } from "./anm-module/registration/anm-subject-registration/anm-subject-registration.component";
 import { AnmAwRegistrationComponent } from "./anm-module/registration/anm-aw-registration/anm-aw-registration.component";
 import { AnmSpouseRegistrationComponent } from "./anm-module/registration/anm-spouse-registration/anm-spouse-registration.component";
 import { AnmStudentRegistrationComponent } from "./anm-module/registration/anm-student-registration/anm-student-registration.component";
 import { AnmWalkinLt18RegistrationComponent } from "./anm-module/registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
 import { AnmWalkinGt18RegistrationComponent } from "./anm-module/registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+import { AnmPickandPackComponent } from './anm-module/anm-pickandpack/anm-pickandpack.component';
+import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.component';
+import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
+import { AnmViewShipmentdetailsComponent } from "./anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component";
 
 
 
@@ -63,6 +68,7 @@ const routes: Routes = [
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full' },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
+          { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' }
         ]
       },
       {
@@ -79,6 +85,10 @@ const routes: Routes = [
       },
       { path: 'anm-sample-collection', component: SampleCollectionComponent },
       //{ path: 'test/:id', component: AboutComponent }
+      { path: 'anm-pickpack', component: AnmPickandPackComponent },
+      { path: 'anm-shipment', component: AnmShipmentComponent },
+      { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
+      { path: 'anm-viewshipment/:shipmentId', component: AnmViewShipmentdetailsComponent}
     ]
   },
 
@@ -114,12 +124,18 @@ export const RoutingComponents = [
   AnmPositiveSubjectsComponent,
   AnmPndReferralComponent,
   AnmMtpReferralComponent,
+  AnmUpdateChcComponent,
   SampleCollectionComponent,
+  AnmPickandPackComponent,
+  AnmShipmentComponent,
+  AnmSubjectProfileComponent,
   AnmSubjectRegistrationComponent,
   AnmAwRegistrationComponent,
   AnmSpouseRegistrationComponent,
   AnmStudentRegistrationComponent,
   AnmWalkinLt18RegistrationComponent,
   AnmWalkinGt18RegistrationComponent,
+  AnmViewShipmentdetailsComponent
+  
 
 ];

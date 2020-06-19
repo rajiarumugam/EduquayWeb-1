@@ -6,11 +6,14 @@ export interface SampleCollectionResponse  {
 
 export interface SubjuctList {
     id: number;
-    uniqueSubjectID: string;
+    uniqueSubjectId: string;
     subjectName: string;
+    rchId: string;
     subjectTypeID: number;
     subjectType: string;
+    spouseName: string;
     dateofRegister: string;
     contactNo: string;
     gestationalAge: string;
+    sampleType: string;
 }

@@ -1,0 +1,874 @@
+<link rel="stylesheet" type="text/css" href="../../../assets/assets/css/profile.css">
+<link rel="stylesheet" type="text/css" href="../../../assets/plugins/jquery-step/jquery.steps.css">
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="Subject-Profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                    <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                                    href="shipmentlog.html" role="button" title="Shipment log"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">Subject Profile</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <!-- <div class="row mt-4">
+                            <div class="col-md-3">
+                                <span class="note"></span><span class="manto"></span>
+                                <input class="form-control field" name="name" type="text" placeholder="Subject ID / Barcode / RCH ID / DL / Pan" tabindex="1" autocomplete="off" /> 
+                            </div>
+                          <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary my-1">Search</button>
+                          </div>
+                        </div> -->
+
+                        <div class="form-row mt-4">
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 filtered-list-search">
+
+                                <form class="form-inline my-2 my-lg-0">
+                                    <label for="inputSearch" class="ml-3"><span class="note">Search by Subject ID /
+                                            RCH ID / Phone Number / Any Government IDs</span></label>
+                                    <div class="w-100">
+
+                                        <input type="text" class="w-100 form-control product-search br-30"
+                                            placeholder="OD001202032110">
+                                        <button class="btn btn-primary" type="button" onclick="myFunctionSearch()">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-search">
+                                                <circle cx="11" cy="11" r="8"></circle>
+                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            </svg></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal mdllarge fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title modaltitle" id="myLargeModalLabel">Subject Profile
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body form-body">
+                                        <!--form popup-->
+                                        <!-- <div class="widget-content widget-content-area"> -->
+                                        
+                                            <div id="circle-basic" class="">
+                                                <h3>Section-1</h3>
+                                                <section>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <tbody class="">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <span class="float-left mt-0 mr-4">
+                                                                                    <h6><b>Subject ID :</b>
+                                                                                        OD001202032110
+                                                                                        <strong class="ml-5">Subject
+                                                                                            Name :</strong> Alkha
+                                                                                        Ramapuri, F, 28 yrs
+                                                                                        <strong class="ml-5">RCH ID :
+                                                                                        </strong> 623451
+                                                                                    </h6>
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-row my-2">
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputFirstname">First
+                                                                Name</label>
+                                                            <input type="Text" class="form-control" id="inputFirstname"
+                                                                placeholder="Alkha" required>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputMiddlename">Middle
+                                                                Name</label>
+                                                            <input type="Text" class="form-control" id="inputMiddlename"
+                                                                placeholder="Middle Name">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputLastname">Last
+                                                                Name</label>
+                                                            <input type="Text" class="form-control" id="inputLastname"
+                                                                placeholder="Sakthi">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mt-4">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputdob">Date of Birth</label>
+                                                            <input type="Text"
+                                                                class="form-control flatpickr flatpickr-input active"
+                                                                id="dobnewdate" placeholder="DD/MM/YYYY" required>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputAge">Age</label>
+                                                            <input type="Text" class="form-control" id="inputAge"
+                                                                placeholder="28 yrs" required>
+                                                        </div>
+
+                                                        <!-- </div>
+                                                    <div class="form-row my-2"> -->
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputReligion">Religion</label>
+                                                            <select id="inputReligion" class="form-control">
+                                                                <option selected>Hindu</option>
+                                                                <option></option>
+                                                                <option></option>
+                                                                <option></option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputCaste">Caste</label>
+                                                            <select id="inputCaste" class="form-control">
+                                                                <option selected>Caste</option>
+                                                                <option></option>
+                                                                <option></option>
+                                                                <option></option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="inputCommunity">Community</label>
+                                                            <select id="inputCommunity" class="form-control">
+                                                                <option selected>BC</option>
+                                                                <option></option>
+                                                                <option></option>
+                                                                <option></option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <h3>Section-2</h3>
+                                                <section>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <tbody class="">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <span class="float-left mt-0 mr-4">
+                                                                                    <h6><b>Subject ID :</b>
+                                                                                        OD001202032110
+                                                                                        <strong class="ml-5">Subject
+                                                                                            Name :</strong> Alkha
+                                                                                        Ramapuri, F, 28 yrs
+                                                                                        <strong class="ml-5">RCH ID :
+                                                                                        </strong> 623451
+                                                                                    </h6>
+                                                                                </span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-row my-2">
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputHouseno">House / Plot
+                                                                Number</label><span class="manto"></span>
+                                                            <input type="text" class="form-control" id="inputHouseno"
+                                                                placeholder="House Number" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputStreet">Street &
+                                                                Locality</label>
+                                                            <input type="text" class="form-control" id="inputStreet"
+                                                                placeholder="Street" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputCity">City /
+                                                                Village</label><span class="manto"></span>
+                                                            <input type="text" class="form-control" id="inputCity"
+                                                                placeholder="City" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputState">State</label>
+                                                            <input type="text" class="form-control" id="inputState"
+                                                                placeholder="Odisha">
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputPincode">Pincode</label>
+                                                            <input type="number" class="form-control" id="inputPincode"
+                                                                placeholder="Pincode" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputContact">Contact</label>
+                                                            <input type="number" class="form-control" id="inputContact"
+                                                                placeholder="8347464644" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputEmail">Email</label>
+                                                            <input type="email" class="form-control" id="inputEmail"
+                                                                placeholder="Email" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputGovtId">Govt ID Type</label>
+                                                            <select id="inputGovtId" class="form-control">
+                                                                <option selected>Select</option>
+                                                                <option>Driving License</option>
+                                                                <option>Voter ID</option>
+                                                                <option>PAN card</option>
+                                                                <option>Ration Card</option>
+                                                                <option>Passport</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputGovtdetail">Govt ID Detail</label>
+                                                            <input type="text" class="form-control" id="inputGovtdetail"
+                                                                placeholder="Enter Detail" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputrchid">RCH ID</label>
+                                                            <input type="text" class="form-control" id="inputrchid"
+                                                                placeholder="RCH ID" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputecno">EC Number</label>
+                                                            <input type="number" class="form-control" id="inputecno"
+                                                                placeholder="EC Number" required>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-row my-2">
+
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputSpouseFirstname">Spouse First
+                                                                Name</label>
+                                                            <input type="Text" class="form-control" id="inputSpouseFirstname"
+                                                                placeholder="Sakthi" required>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputSpouseMiddlename">Middle
+                                                                Name</label>
+                                                            <input type="Text" class="form-control" id="inputSpouseMiddlename"
+                                                                placeholder="Middle Name">
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputSpouseLastname">Last
+                                                                Name</label>
+                                                            <input type="Text" class="form-control" id="inputSpouseLastname"
+                                                                placeholder="Suresh">
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputspusemoblieno">Spouse Contact</label>
+                                                            <input type="number" class="form-control"
+                                                                id="inputspusemoblieno" placeholder="8347464644"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row my-2">
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputG">G</label>
+                                                            <select id="inputG" class="form-control">
+                                                                <option selected>Select</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                                <option>6</option>
+                                                                <option>7</option>
+                                                                <option>8</option>
+                                                                <option>9</option>
+                                                                <option>10</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputP">P</label>
+                                                            <select id="inputP" class="form-control">
+                                                                <option selected>Select</option>
+                                                                <option>0</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                                <option>6</option>
+                                                                <option>7</option>
+                                                                <option>8</option>
+                                                                <option>9</option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputL">L</label>
+                                                            <select id="inputL" class="form-control">
+                                                                <option selected>Select</option>
+                                                                <option>0</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                                <option>6</option>
+                                                                <option>7</option>
+                                                                <option>8</option>
+                                                                <option>9</option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label for="inputA">A</label>
+                                                            <select id="inputA" class="form-control">
+                                                                <option selected>Select</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                                <option>6</option>
+                                                                <option>7</option>
+                                                                <option>8</option>
+                                                                <option>9</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </section>
+                                            </div>
+                                       
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <i appLoadScript [script]="'assets/plugins/flatpickr/profileanm-flatpickr.js'"></i>
+
+                    </div>
+
+                    <!--   <div class="col-md-4">
+                                <button type="submit" class="btn btn-success my-1">Submit</button>
+                            </div>
+                        -->
+                    <!-- <div class="row mt-4">
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="collection.html">3</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="shipmentlog.html">5</a></li>
+                                    <li class="page-item active"><a class="page-link" href="profile.html">6</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12" id="mySearch" style="display: none">
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <tbody class="">
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-left mt-0 mr-4">
+                                                            <h5><b>Subject ID :</b> OD001202032110
+                                                                <strong class="ml-5">Subject
+                                                                    Name :</strong> Alkha
+                                                                Ramapuri, F, 28 yrs
+                                                                <strong class="ml-5">RCH ID : </strong> 623451
+                                                            </h5>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row mt-0">
+                                <div class="col-md-12">
+                                    <span class="float-left mt-0">
+                                        <h5><b>Subject ID</b> : OD001202032110</h5>
+                                    </span>
+                                    <button class="btn btn-primary float-right mb-2" data-toggle="modal"
+                                        data-target=".bd-example-modal-xl">
+                                        <i class="fa fa-pencil append-icon mr-1"></i>Edit</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-15">Alkha Rajesh</td>
+                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-15">Female</td>
+                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-15">12/09/1990</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Age</b></td>
+                                                    <td>28 yrs</td>
+                                                    <td><b>Contact No</b></td>
+                                                    <td>9789675453</td>
+                                                    <td><b>Spouse Name</b></td>
+                                                    <td>Rajesh</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Spouse Contact</b></td>
+                                                    <td>7989675453</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Socio-Demographic Info</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                    <td class="sp-xs-td-15">Hindu</td>
+                                                    <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                    <td class="sp-xs-td-15">OMANATYA</td>
+                                                    <td class="sp-xs-td-9"><b>Community</b></td>
+                                                    <td class="sp-xs-td-15">Kolarian</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><b>Address</b></td>
+                                                    <td colspan="3">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                        elit, sed do eiusmod tempor incididunt.</td>
+                                                    <td><b>District</b></td>
+                                                    <td>Koraput</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>CHC</b></td>
+                                                    <td>Laxmipur CHC</td>
+                                                    <td><b>PHC</b></td>
+                                                    <td>Laxmipur PHC</td>
+                                                    <td><b>SC</b></td>
+                                                    <td>Laxmipur</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>RI Point</b></td>
+                                                    <td>Goudakankadaput</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Personal Info</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                    <td class="sp-xs-td-15">652398741</td>
+                                                    <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                    <td class="sp-xs-td-15">623451</td>
+                                                    <td class="sp-xs-td-9"><b>LMP Date</b></td>
+                                                    <td class="sp-xs-td-15">19/09/2019</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Gestational Age</b> </td>
+                                                    <td>10.3</td>
+                                                    <td><b>Obstetrics Score</b></td>
+                                                    <td>G2-P1-L1-A1</td>
+                                                    <td><b>Barcodes</b></td>
+                                                    <td><b>3423422</b>|3423434|3423442</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Results</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>CBC Test Result</b></td>
+                                                    <td class="sp-xs-td-15">Screening Test Positive</td>
+                                                    <td class="sp-xs-td-9"><b>SST Result</b></td>
+                                                    <td class="sp-xs-td-15">Positive </td>
+                                                    <td class="sp-xs-td-9"><b>HPLC Test Result</b></td>
+                                                    <td class="sp-xs-td-15">Thalassemia</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Pre PNDT Counselling</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15">12/09/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                    <td class="sp-xs-td-15">Goudakan kadaput</td>
+                                                    <td class="sp-xs-td-9"><b>Counselling Status</b></td>
+                                                    <td class="sp-xs-td-15">consectetur adipisicing </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b> </td>
+                                                    <td colspan="3">
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                                                        enim ad minim veniam.
+                                                    </td>
+                                                    <td><b>The couple has agreed for PNDT</b> </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">PND Testing</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15" wrap="true">12/09/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b> </td>
+                                                    <td class="sp-xs-td-15">Gourishankar Ray</td>
+                                                    <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                    <td class="sp-xs-td-15">Madhusudan Rao</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Clinical History</b></td>
+                                                    <td>Laxmipur</td>
+                                                    <td><b>Examination</b></td>
+                                                    <td>Goudakankadaput</td>
+                                                    <td><b>Procedure of Testing</b></td>
+                                                    <td>sdsd</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>PNDT Diagnosis</b></td>
+                                                    <td>discovered the undoubtable source. Lorem Ipsum comes from
+                                                        sections</td>
+                                                    <td><b>PNDT Results</b></td>
+                                                    <td> The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet</td>
+                                                    <td><b>PNDT Side Effects</b></td>
+                                                    <td>There are many variations of passages of Lorem Ipsum available,
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Post PNDT Counselling</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15">29/04/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                    <td class="sp-xs-td-15">Laxmipur CHC</td>
+                                                    <td class="sp-xs-td-9"><b>Counselling Status</b> </td>
+                                                    <td class="sp-xs-td-15"> Lorem Ipsum which looks reasonable</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Counselling Notes/Remarks</b></td>
+                                                    <td colspan="3">Contrary to popular belief, Lorem Ipsum is not
+                                                        simply random text.</td>
+                                                    <td><b>The couple has agreed for MTP</b> </td>
+                                                    <td>comes from a line in section 1.10.32.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2"> MTP Service</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15">12/09/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                    <td class="sp-xs-td-15">Gourishankar Ray</td>
+                                                    <td class="sp-xs-td-9"><b>Clinical History</b></td>
+                                                    <td class="sp-xs-td-15">Various versions have evolved</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Examination</b></td>
+                                                    <td>sometimes by accident, sometimes on purpose</td>
+                                                    <td><b>Procedure of Testing</b></td>
+                                                    <td>All the Lorem Ipsum generators on the Internet tend </td>
+                                                    <td><b>Side Effects</b></td>
+                                                    <td> Lorem Ipsum which looks reasonable</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Condition at Discharge</b></td>
+                                                    <td colspan="5">discovered the undoubtable source. Lorem Ipsum comes
+                                                        from sections</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+</div>
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-subjectprofile.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+<i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>

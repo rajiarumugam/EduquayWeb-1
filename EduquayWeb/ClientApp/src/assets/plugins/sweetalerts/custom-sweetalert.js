@@ -40,7 +40,10 @@ $('#linktobuttonunsent').on('click', function () {
   });
 })
 $('#linktobuttonpickpak').on('click', function () {
- 
+
+  //call the function to submit data
+  var shipmentId = "123";
+  
   swal({
     title: '<p><i class="fa fa-check-circle"></i></p>Shipment ID is THSIK2020321',
     padding: '2em',
@@ -49,7 +52,7 @@ $('#linktobuttonpickpak').on('click', function () {
     cancelButtonText: 'Close',
  }).then(function(result) {
       if(result.value){
-        location.href="viewshipmentloganm.html";
+        location.href= `/app/anm-viewshipment/${shipmentId}`;
       }
  });
 })

@@ -1,11 +1,11 @@
 <div class="tab-pane fade show active" id="PNDTC" role="tabpanel" aria-labelledby="PNDTC-tab">
     <div class="table-responsive mb-4 mt-4">
-        <table id="zero-config4" class="table table-bordered table-hover row-combined"
+        <table id="pndrefferal-tblconfig" class="table table-bordered table-hover row-combined"
             style="width:100%">
             <thead class="tablecss">
                 <tr>
                     <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
-                    <th colspan="4" class="nt-border-right">Subject(F)</th>
+                    <th colspan="5" class="nt-border-right">Subject(F)</th>
                     <th colspan="3" class="nt-border-right">Spouse(M)</th>
                     <th colspan="2" class="nt-border-right">Date & Time</th>
                     <th rowspan="2"><span>Notified</span></th>
@@ -15,22 +15,26 @@
                 <tr class="combined">
                     <!-- <th class="text-center">S.No</th> -->
                     <th class="text-center">Name</th>
+
                     <th class="text-center"> ID</th>
+                    <th class="text-center">RCH ID</th>
                     <th class="text-center">Contact No</th>
                     <th class="nt-border-right text-center">GA</th>
                     <th class="text-center">Name </th>
                     <th class="text-center"> ID </th>
                     <th class="nt-border-right text-center">Contact No </th>
-                    <th class="text-center">PNDT Counselling</th>
-                    <th class="nt-border-right text-center">PNDT</th>
-                    
+                    <th class="text-center">Pre PNDT Counselling</th>
+                    <th class="nt-border-right text-center">PND Testing</th>
+
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="text-center nt-border-right">1</td>
-                    <td class="text-left">Divya Kiren</td>
+                    <td class="text-left">Divya</td>
+
                     <td class="text-center">001252</td>
+                    <td class="text-center">213456</td>
                     <td class="text-center">9145745456</td>
                     <td class="nt-border-right text-center"> 10.3 </td>
                     <!-- <td>Thalassemia screening positive</td> -->
@@ -83,8 +87,10 @@
                 </tr>
                 <tr>
                     <td class="text-center nt-border-right">2</td>
-                    <td class="text-left">Pooja Karthick</td>
+                    <td class="text-left">Pooja</td>
+
                     <td class="text-center">001252</td>
+                    <td class="text-center">312456</td>
                     <td class="text-center">9145745456</td>
                     <td class="nt-border-right text-center"> 10.3 </td>
                     <!-- <td>Thalassemia screening positive</td> -->
@@ -144,7 +150,8 @@
 </div>
 <div class="modal fade bd-example-modal-xl4" tabindex="-1" role="dialog"
     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="overflow-y: initial !important;">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document"
+        style="overflow-y: initial !important;">
         <div class="modal-content" id="modal-xl4">
             <div class="modal-header">
                 <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Subject
@@ -161,11 +168,13 @@
                 </button>
             </div>
             <div class="modal-body" style="height: 500px; overflow: auto;">
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3 showhidediv-popup" id="showhidediv-pndt">
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3 showhidediv-popup"
+                    id="showhidediv-pndt">
                     <div class="widget-content widget-content-area br-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="table-responsive" style="margin-bottom: -1rem">
+                                <div class="table-responsive"
+                                    style="margin-bottom: -1rem">
                                     <table class="table table-bordered table-striped">
                                         <tbody class="">
                                             <tr>
@@ -174,7 +183,10 @@
                                                         <h5><b>Subject ID</b> :
                                                             OD0012020001252
                                                             <strong class="ml-5">Subject
-                                                                Name:</strong> Divya Kiren, F, 24 yrs
+                                                                Name:</strong> Divya
+                                                            Kiren, F, 24 yrs
+                                                            <strong class="ml-5">RCH
+                                                                ID:</strong> 213456
                                                         </h5>
                                                     </span>
                                                 </td>
@@ -201,7 +213,8 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped" id="tblBasicInfo14">
+                                    <table class="table table-bordered table-striped"
+                                        id="tblBasicInfo14">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
@@ -218,9 +231,9 @@
                                                 </th>
                                                 <th class="text-center"><span>RI
                                                         Point</span></th>
-                                               
-                                                <th class="text-center"><span>Date of
-                                                        Birth</span></th>
+
+                                                <!-- <th class="text-center"><span>Date of
+                                                        Birth</span></th> -->
                                             </tr>
 
                                         </thead>
@@ -229,14 +242,14 @@
                                                 <td class="text-left">Divya Kiren, F, 24
                                                     yrs </td>
                                                 <td class="text-center">OD001202032111
-                                                    </td>
+                                                </td>
                                                 <td class="text-left"></td>
                                                 <td class="text-left"></td>
                                                 <td class="text-left"></td>
                                                 <td class="text-left"></td>
                                                 <td class="text-left"></td>
-                                               
-                                                <td class="text-center">12/09/1990</td>
+
+                                                <!-- <td class="text-center">12/09/1990</td> -->
 
                                             </tr>
                                             <tr>
@@ -249,8 +262,8 @@
                                                 <td class="text-left"></td>
                                                 <td class="text-left"></td>
                                                 <td class="text-left"></td>
-                                               
-                                                <td class="text-center">12/09/1987</td>
+
+                                                <!-- <td class="text-center">12/09/1987</td> -->
 
                                             </tr>
                                         </tbody>
@@ -261,7 +274,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                <!-- <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
                     <div class="widget-content widget-content-area br-6">
                         <div class="container-fluid py-2"
                             style="background-color: #e3e8ef;">
@@ -290,7 +303,7 @@
                                                         No</span></th>
                                                 <th class="text-center">
                                                     <span>Address</span></th>
-                                                <!-- <th class="text-center"></th> -->
+                                                
                                             </tr>
 
                                         </thead>
@@ -303,7 +316,7 @@
                                                 <td class="text-left"></td>
                                                 <td class="text-center">9786547890</td>
                                                 <td class="text-left"></td>
-                                                <!-- <td class="text-left"></td> -->
+                                               
 
                                             </tr>
                                             <tr>
@@ -314,7 +327,7 @@
                                                 <td class="text-left"></td>
                                                 <td class="text-center">7786547890</td>
                                                 <td class="text-left"></td>
-                                                <!-- <td class="text-left"></td> -->
+                                              
                                             </tr>
                                         </tbody>
                                     </table>
@@ -323,7 +336,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
                     <div class="widget-content widget-content-area br-6">
                         <div id="toggleAccordion">
@@ -362,29 +375,36 @@
                                                     <tr>
                                                         <th class="text-center">
                                                             <span>Subject</span></th>
-                                                        <th class="text-center"><span>EC
-                                                                Number</span></th>
                                                         <th class="text-center"><span>
                                                                 RCH ID</span></th>
+                                                        <th class="text-center"><span>EC
+                                                                Number</span></th>
+
                                                         <th class="text-center">
                                                             <span>LMP Date</span></th>
                                                         <th class="text-center">
                                                             <span>GA</span></th>
                                                         <th class="text-center">
-                                                            <span>GPLA</span></th>
+                                                            <span>Obstetrics
+                                                                Score</span></th>
                                                     </tr>
 
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-left">Alkha, F,
-                                                            24 yrs </td>
+                                                        <td class="text-left">Divya
+                                                            Kiren, F, 24 yrs </td>
+                                                        <td class="text-center">213456
+                                                        </td>
                                                         <td class="text-center">12345678
                                                         </td>
-                                                        <td class="text-center"></td>
-                                                        <td class="text-center"></td>
-                                                        <td class="text-center"></td>
-                                                        <td class="text-center"></td>
+
+                                                        <td class="text-center">
+                                                            12/08/2020</td>
+                                                        <td class="text-center">12.4
+                                                        </td>
+                                                        <td class="text-center">
+                                                            G2-P1-L1-A1</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -433,33 +453,40 @@
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table
-                                                class="table table-bordered table-striped">
+                                                class="table table-bordered table-hover row-combined"
+                                                style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">
+                                                        <th rowspan="2">
                                                             <span>Subject</span></th>
-                                                        <th class="text-center">
-                                                            <span>Barcodes</span></th>
-                                                        <th class="text-center">
-                                                            <span>CBC</span></th>
-                                                        <th class="text-center">
-                                                            <span>SST</span></th>
-                                                        <th class="text-center">
-                                                            <span>HPLC</span></th>
+                                                        <!-- <th rowspan="2"><span>Barcodes</span></th> -->
+                                                        <th colspan="3">
+                                                            <span>Diagnosis</span></th>
+                                                        <!-- <th rowspan="2"><span></span></th> -->
+                                                    </tr>
+                                                    <tr class="combined">
+                                                        <th style="text-align: center;">
+                                                            <b>CBC</b></th>
+                                                        <th style="text-align: center;">
+                                                            <b>SST</b></th>
+                                                        <th style="text-align: center;">
+                                                            <b>HPLC</b></th>
 
                                                     </tr>
 
                                                 </thead>
+
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-left">Alkha, F,
-                                                            24 yrs </td>
-                                                        <td class="text-center">
+                                                        <td
+                                                            class="text-left nt-border-right">
+                                                            Divya Kiren, F, 24 yrs </td>
+                                                        <!-- <td class="text-center">
                                                             <b>3423422</b>|3423434|3423442
-                                                        </td>
+                                                        </td> -->
                                                         <td class="text-left">
-                                                            Thalassemia Screening
-                                                            Positive</td>
+                                                            Screening test
+                                                            positive</td>
                                                         <td class="text-left">SST
                                                             Positive</td>
                                                         <td class="text-left">
@@ -467,14 +494,14 @@
 
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-left">Ajith, M,
+                                                        <td class="text-left">Kiren, M,
                                                             27 yrs </td>
-                                                        <td class="text-center">
+                                                        <!-- <td class="text-center">
                                                             <b>3423422</b>|3423434|3423442
-                                                        </td>
+                                                        </td> -->
                                                         <td class="text-left">
-                                                            Thalassemia Screening
-                                                            Positive</td>
+                                                            Screening test
+                                                            positive</td>
                                                         <td class="text-left">SST
                                                             Positive</td>
                                                         <td class="text-left">
@@ -506,7 +533,9 @@
     </div>
 
 </div>
+
 <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/anm/notification-mtp.js'"></i>
 <!-- <i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i> -->
 <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
 <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>

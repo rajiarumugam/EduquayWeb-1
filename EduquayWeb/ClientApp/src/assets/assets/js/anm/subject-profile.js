@@ -10,3 +10,9 @@ $(document).scroll(function () {
 		$('#showhidediv').fadeOut();
 	}
 });
+
+
+
+function isFormValid(){
+	return true;
+}

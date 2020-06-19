@@ -1,6 +1,7 @@
 export interface SampleCollectionRequest {
-    anmid: number;
+    userId: number;
     fromDate: string;
     toDate: string;
     subjectType: number;
+    registeredFrom: string;
 }
