@@ -3,5 +3,26 @@ export interface SampleCollectionRequest {
     fromDate: string;
     toDate: string;
     subjectType: number;
-    registeredFrom: string;
+    registeredFrom: number;
 }
+
+export interface SampleCollectionDateTimeRequest{
+    
+    uniqueSubjectId: string,
+    barcodeNo: string,
+    sampleCollectionDate: string,
+    sampleCollectionTime: string,
+    reason: string,
+    collectionFrom: number,
+    collectedBy?: number,
+}
+
+export interface SampleCollectionSubjectDetailRequest{
+
+    uniqueSubjectId: string,
+    sampleType: string
+}
+
+
+
+

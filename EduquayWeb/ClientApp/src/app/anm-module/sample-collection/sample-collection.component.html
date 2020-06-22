@@ -36,9 +36,10 @@
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
           <div class="widget-content widget-content-area br-6">
             <div class="form-row mt-4">
-              <div class="col-sm-11 alert alert-danger mb-4" role="alert" *ngIf="sCollectionErrorMessage !== ''">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                <strong>Oops!</strong>{{sCollectionErrorMessage}}
+              <div class="col-sm-12">
+                <div *ngIf="sCollectionErrorMessage" class="alert alert-danger mt-3 mb-2">
+                  <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{sCollectionErrorMessage}}
+                </div>
               </div>
             </div>
             <div class="form-row mt-4">
@@ -105,49 +106,19 @@
   
                     </thead>
                     <tbody>
-                      <tr *ngFor="let subject of subjuctList; index as i">
+                      <tr *ngFor="let subject of subjectList; index as i">
                         <td class="sno text-center">{{i +1}}</td>
-  
                         <td class="text-left sname">{{subject.subjectName}}</td>
-                        <td class="sid">{{subject.uniqueSubjectID}}</td>
+                        <td class="sid">{{subject.uniqueSubjectId}}</td>
                         <td class="sid">{{subject.rchId}}</td>
                         <td class="text-left sname">{{subject.spouseName}}</td>
                         <td class="text-left sname">{{subject.subjectType}}</td>
                         <td class="sid">{{subject.sampleType}}</td>
                         <td class="mobile">{{subject.contactNo}}</td>
-                        <td class="">{{subject.dateofRegister | date: 'dd/MM/yyyy'}}</td>
+                        <td class="">{{subject.dateOfRegister}}</td>
                         <td> {{subject.gestationalAge}} </td>
-                        <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl" role="button"><i
+                        <td><a (click)="openSampleColllection(sampleCollectiondetail, subject)" role="button"><i
                               class="fas fa-vial fa-2x"></i></a>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td class="text-left">Pooja Santhosh Kumar</td>
-                        <td>THSIK2020154</td>
-                        <td class="sid">543216</td>
-                        <td class="text-left sname">Santhosh Kumar</td>
-                        <td class="text-left">Antenatal Woman</td>
-                        <td class="sno">R</td>
-                        <td style="text-align: center;">8977675757</td>
-  
-                        <td>12/04/2020</td>
-                        <td> 13.3 </td>
-                        <td><a  (click)="openSampleCOlllection(sampleCollectiondetail, subject)" role="button"><i
-                              class="fas fa-vial fa-2x"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-  
-                        <td class="text-left">Sowmiya Varadarajan</td>
-                        <td>THSIK2020155</td>
-                        <td class="sid">423651</td>
-                        <td class="text-left sname">Varadarajan</td>
-                        <td class="text-left">Antenatal Woman</td>
-                        <td>F</td>
-                        <td>8977675759</td>
-                        <td>12/04/2020</td>
-                        <td> 13.3 </td>
-                        <td><a href="#" role="button"><i class="fas fa-vial fa-2x"></i></a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -155,85 +126,80 @@
               </div>
             </div>
             <!-- The Modal -->
+           
               <ng-template #sampleCollectiondetail let-modal>
-                <div class="modal-header">
-                  <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
-                    Collection</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  </button>
-                </div>
+               
+                  <div class="modal-header">
+                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
+                      Collection</h5>
+                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
                 <div class="modal-body">
-                  <div class="col-md-12" id="myTable" style="padding-top: 1%;">
-                    <div class="form-row">
-                      <div class="form-group col-md-3">
-                        <span class="note">Subject Name </span>
-                        <input class="form-control field" name="pincode" required="" type="text" placeholder="Alkha Rajesh"
-                          readonly="">
+                  <form class="text-left" (ngSubmit)="onSubmit(collectionForm)" #collectionForm="ngForm">
+                    <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                      <div class="form-row">
+                        <div class="form-group col-md-3">
+                          <span class="note">Subject Name </span>
+                          <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
+                            [(ngModel)]="subjectName" name="sampleSubjectName" >
+                        </div>
+                
+                        <div class="form-group col-md-3">
+                          <span class="note">Subject ID </span><span class="manto"></span>
+                          <input class="form-control field" name="uniqueSubjectId" type="text" placeholder="Subject ID" tabindex="6"
+                            autocomplete="off" readonly="" [(ngModel)]="uniqueSubjectId">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">RCH ID </span><span class="manto"></span>
+                          <input class="form-control field" name="ancnumber" type="text" placeholder="RCH ID " tabindex="6"
+                            autocomplete="off" readonly="" [(ngModel)]="rchId">
+                        </div>
+                
+                        <div class="form-group col-md-3">
+                          <span class="note">Reason </span><span class="manto"></span>
+                          <input class="form-control field" name="collection" required="" type="text"
+                            placeholder="Reason" readonly="" [(ngModel)]="reason">
+                        </div>
+                
                       </div>
-              
-                      <div class="form-group col-md-3">
-                        <span class="note">Subject ID </span><span class="manto"></span>
-                        <input class="form-control field" name="ancnumber" type="text" placeholder="OD001202032110" tabindex="6"
-                          autocomplete="off" readonly="">
+                
+                      <div class="form-row mt-4">
+                        <div class="form-group col-md-3">
+                          <span class="note">Scan / Enter Barcode </span><span class="manto">*</span>
+                          <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
+                          <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
+                          <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" 
+                          [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched" ngModel #sampleBarcode="ngModel" required> 
+                          <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.touched">Please enter Barcode</small>
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Date of Collection </span><span class="manto">*</span>
+                          <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                            placeholder="Select Date..." name="sampleCollectionDate" ngModel #sampleCollectionDate="ngModel" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                          <span class="note">Time of Collection </span><span class="manto">*</span>
+                          <input id="popupTime" class="form-control flatpickr flatpickr-input" type="text" placeholder="Select Time..." name="collectionTime" ngModel #collectionTime="ngModel" required>
+                        </div>
                       </div>
-                      <div class="form-group col-md-3">
-                        <span class="note">RCH ID </span><span class="manto"></span>
-                        <input class="form-control field" name="ancnumber" type="text" placeholder="123456" tabindex="6"
-                          autocomplete="off" readonly="">
-                      </div>
-              
-                      <div class="form-group col-md-3">
-                        <span class="note">Reason </span><span class="manto"></span>
-                        <input class="form-control field" name="collection" required="" type="text"
-                          placeholder="First Time Collection" readonly="">
-                      </div>
-              
                     </div>
-              
-                    <div class="form-row mt-4">
-                      <div class="form-group col-md-3">
-                        <span class="note">Scan / Enter Barcode </span><span class="manto">*</span>
-                        <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
-                        <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
-                        <input class="form-control field" name="pincode" type="text" placeholder="">
-              
-                      </div>
-                      <div class="form-group col-md-3">
-                        <span class="note">Date of Collection </span><span class="manto">*</span>
-                        <input id="popupDate" class="form-control flatpickr flatpickr-input active " type="text"
-                          placeholder="dd/mm/yyyy">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <span class="note">Time of Collection </span><span class="manto">*</span>
-                        <input id="popupTime" class="form-control flatpickr flatpickr-input active" type="text" placeholder="">
-                      </div>
-              
-              
-                      <!-- <div class="col-md-3">
-                                                            <span class="note">Reason </span><span class="manto">*</span>
-                                                            <select name="occupationoption" class="form-control field"
-                                                                id="test" tabindex="7" required=""
-                                                                onchange="showDiv('hidden_div', this)">
-                                                                <option value="0">First Time Collection</option>
-                                                                <option value="1">Damaged Sample</option>
-                                                                <option value="2">Sample Timeout</option>
-                                                            </select>
-                                                        </div> -->
+                  
+                    <div class="modal-footer">
+                      <button type="submit" class="mr-2 btn btn-primary"  [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" id="linkto" name="linkto">Submit</button>
+                      <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="mr-2 btn btn-primary" id="linktobuttonsamplecol">Submit</button>
-                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
-                  </div>
-              
+                  </form>   
                 </div>
+                <!-- <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i> -->
+                <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
               </ng-template>
-
+           
   
             <!-- The Modal -->
             <div class="modal fade  bd-example-modal-xl2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -302,7 +268,7 @@
                     </div>
                     <div class="modal-footer">
                       <button class="mr-2 btn btn-primary" id="linktobuttonsamplecolre">Submit</button>
-                      <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                      <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
                     </div>
   
                   </div>
@@ -314,20 +280,7 @@
             </div>
             <!-- END MAIN CONTAINER -->
           </div>
-          <!-- <div class="row mt-4">
-          <div class="col-md-12">
-              <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
-                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
-                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a></li>
-                    <li class="page-item active"><a class="page-link" href="collection.html">3</a></li>
-                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
-                    <li class="page-item"><a class="page-link" href="shipmentlog.html">5</a></li>
-                    <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
-                  </ul>
-                </nav>
-          </div>
-      </div> -->
+        
         </div>
       </div>
   
@@ -341,7 +294,6 @@
 <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i>
 <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
 <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
 <!--<i appLoadScript [script]="''"></i>-->
 
 <!--  END MAIN CONTAINER  -->

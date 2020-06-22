@@ -13,6 +13,7 @@ var td = flatpickr(document.getElementById('scToDate'), {
     defaultDate: "today"
 });
 
+
 //var dr = flatpickr(document.getElementById('spouseReg'), {
 //  dateFormat: "d/m/Y",
 //  defaultDate: "today"
