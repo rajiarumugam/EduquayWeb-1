@@ -4,6 +4,13 @@ export interface SampleCollectionResponse  {
     subjectList: SubjuctList[];
 }
 
+export interface SampleCollectionPostResponse  {
+    status: string;
+    message: string;
+    result: string;
+}
+
+
 export interface SubjuctList {
     id: number;
     uniqueSubjectId: string;
@@ -12,8 +19,20 @@ export interface SubjuctList {
     subjectTypeID: number;
     subjectType: string;
     spouseName: string;
-    dateofRegister: string;
+    dateOfRegister: string;
     contactNo: string;
     gestationalAge: string;
     sampleType: string;
+}
+
+export interface SampleCollectionSubjectDetailResponse  {
+    status: string;
+    message: string;
+    subjectDetail: subjectDetail[];
+}
+export interface subjectDetail {
+      uniqueSubjectId: string,
+      subjectName: string,
+      rchId: string,
+      reason: string
 }

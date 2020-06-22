@@ -1,4 +1,4 @@
 export interface ShipmentRequest {
     userId: number;
-    registeredFrom: string;
+    shipmentFrom: string;
 }
