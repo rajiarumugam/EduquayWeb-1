@@ -78,9 +78,8 @@
                             </div> -->
                             <div class="form-row">
                                 <div class="col-md-10">
-                                    <div class="alert alert-danger mb-4" role="alert" *ngIf="shipmentLogErrorMessage !== ''">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                                        <strong>Oops!</strong>{{shipmentLogErrorMessage}}
+                                    <div *ngIf="picknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='No subjects found', 'alert-danger': shipmentLogErrorMessage !== 'No subjects found'}">
+                                        <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{shipmentLogErrorMessage}}
                                       </div>
                                 </div>
                             </div>
@@ -100,59 +99,32 @@
 
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td style="text-align: center">1</td>
-                                            <td style="text-align: center">OD001202032110</td>
-                                            <td style="text-align: center">11/04/2020 13:30</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl"><i class="fa fa-file-text-o text-primary"
-                                                                aria-hidden="true"></i></a></td>
+                                        <tr *ngFor="let shipment of shipmentList; index as i">
+                                            <td style="text-align: center">{{i +1}}</td>
+                                            <td style="text-align: center">{{shipment.shipmentId}}</td>
+                                            <td style="text-align: center">{{shipment.shipmentDateTime}}</td>
+                                            <td style="text-align: center">{{shipment.ilrPoint}}</td>
+                                            <td style="text-align: center">{{shipment.avdName}}</td>
+                                            <td style="text-align: center">{{shipment.testingCHC}}</td>
+                                            <td style="text-align: center"><a (click)="openShipment(shippedSampleDetail, shipment)">
+                                                <i class="fa fa-file-text-o text-primary"
+                                                    aria-hidden="true"></i></a></td>
                                             <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
                                                                     aria-hidden="true"></i> </a></td> -->
                                         </tr>
-                                        <tr>
-                                            <td style="text-align: center">2</td>
-                                            <td style="text-align: center">OD001202032112</td>
-                                            <td style="text-align: center">11/04/2020 14:00</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"><a href="#"><i class="fa fa-file-text-o text-primary"
-                                                                aria-hidden="true"></i> </a></td>
-                                            <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
-                                                                    aria-hidden="true"></i> </a></td> -->
-                                        </tr>
-
-                                        <tr>
-                                            <td style="text-align: center">3</td>
-                                            <td style="text-align: center">OD001202032114</td>
-                                            <td style="text-align: center">18/04/2020 14:30</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"><a href="#"><i class="fa fa-file-text-o text-primary"
-                                                                aria-hidden="true"></i> </a></td>
-                                            <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
-                                                                    aria-hidden="true"></i> </a></td> -->
-                                        </tr>
-                                        
+                                                                          
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div> 
                 </div>
-                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                <div id="print-area" class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                    <div class="modal-content">
+               <ng-template #shippedSampleDetail let-modal>
                         <div class="modal-header">
                             <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Shipment
                                 Details</h5>
 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -164,36 +136,17 @@
                         <div class="modal-body">
 
                             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                                <!-- <div class="widget-content widget-content-area br-6"> -->
+                              
                                     <div class="row my-4">
-                            <div class="col-md-4">
-                                <p class="float-left"><span><b>Shipment ID : </b></span><span>THSIK2020321</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="float-left"><span><b>Shipment Date & Time : </b></span><span>05/02/2020 17:00</span>
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-end">
-                                <!-- <div class="btn-toolbar mb-2 mb-md-0">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-light">
-                                            <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button>
-                                        <button type="button" class="btn btn-sm btn-outline-light">
-                                            <img src="assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button>
+                                        <div class="col-md-4">
+                                            <p class="float-left"><span><b>Shipment ID : </b></span><span>{{shipmentId}}</span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="float-left"><span><b>Shipment Date & Time : </b></span><span>{{shipmentDateTime}}</span>
+                                        </div>
+                                    
+                                    
                                     </div>
-                                </div> -->
-                            </div>
-                            <!-- <div class="col-md-4 d-flex justify-content-end">
-                                <div class="btn-toolbar mb-2 mb-md-0">
-                                    <a class="btn btn-light" href="#" aria-label="print">
-                                        <i class="fa fa-file-excel-o" aria-hidden="true" style="color: green;font-size: 24px;"></i>
-                                    </a>
-                                    <a class="btn btn-light" href="#" aria-label="print">
-                                        <i class="fa fa-file-pdf-o" aria-hidden="true" style="color: red;font-size: 24px;"></i>
-                                    </a>
-                                </div>
-                            </div> -->
-                       
-                        </div>
                                     
                                     <div class="container-fluid mt-2">
                                         <div class="row">
@@ -203,25 +156,25 @@
                                     </div>
                                     <div class="row my-4">
                                         <div class="col-md-3">
-                                            <span><b>ANM Name : </b></span><span>Pooja</span>
+                                            <span><b>ANM Name : </b></span><span>{{anmName}}</span>
                                         </div>
                                         
                                         <div class="col-md-3">
-                                            <span><b>RI Point : </b></span><span>Burja</span>
+                                            <span><b>RI Point : </b></span><span>{{shipmentId}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>ILR Point : </b></span><span>Laxmipur</span>
+                                            <span><b>ILR Point : </b></span><span>{{ilrPoint}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>Receiving Testing CHC : </b></span><span>CHC Angul</span>
+                                            <span><b>Receiving Testing CHC : </b></span><span>{{testingCHC}}</span>
                                         </div>
                                     </div>
                                     <div class="row my-4">
                                         <div class="col-md-3">
-                                            <span><b>AVD Name : </b></span><span>Suraj</span>
+                                            <span><b>AVD Name : </b></span><span>{{avdName}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>Contact Number : </b></span><span>9876765456</span>
+                                            <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
                                         </div>
                                     </div>
                                    
@@ -242,37 +195,27 @@
         
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="sno text-center">1</td>
-                                                    <td class="sname">Soori Thangaraj Manickavelu</td>
-                                                    <td class="sid text-center">OD001202032110</td>
-                                                    <td class="sid text-center">123456</td>
-                                                    <td class="mobile text-center">020155</td>
-                                                    <td class="dartetimenew text-center">11/04/2020 14:25</td>
+                                                <tr *ngFor="let sampleDetail of sampleDetails; index as i">
+                                                    <td class="sno text-center">{{i +1}}</td>
+                                                    <td class="sname">{{sampleDetail.subjectName}}</td>
+                                                    <td class="sid text-center">{{sampleDetail.uniqueSubjectId}}</td>
+                                                    <td class="sid text-center">{{sampleDetail.rchId}}</td>
+                                                    <td class="mobile text-center">{{sampleDetail.barcodeNo}}</td>
+                                                    <td class="dartetimenew text-center">{{sampleDetail.sampleCollectionDateTime}}</td>
         
                                                 </tr>
-                                                <tr>
-                                                    <td style="text-align: center;">2</td>
-                                                    <td>Selvi Manikkam govindaraju</td>
-                                                    <td style="text-align: center;">OD001202032112</td>
-                                                    <td class="sid text-center">321654</td>
-                                                    <td style="text-align: center;">020154</td>
-                                                    <td style="text-align: center;">11/04/2020 11:25</td>
-        
-                                                </tr>
-                                                
+                                              
                                             </tbody>
                                         </table>
                                     </div>
                                
                             </div>
                             <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                                <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
                                     Close</button>
                             </div>
                         </div>
-                    </div>
-                </div>
+                </ng-template>
                 <!-- <div class="row mt-4">
                         <div class="col-md-12">
                             <nav aria-label="Page navigation example">
@@ -310,7 +253,7 @@
     </div>
     <!--  END CONTENT AREA  -->
 
-</div>
+
 <!--  END MAIN CONTAINER  -->
 <i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
 <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->

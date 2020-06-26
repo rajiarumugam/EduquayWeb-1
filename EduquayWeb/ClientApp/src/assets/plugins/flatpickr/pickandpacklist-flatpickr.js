@@ -32,5 +32,5 @@ var f2 = flatpickr(document.getElementById('shipmenttime'), {
     enableTime: true,
     noCalendar: true,
     dateFormat: "H:i",
-    defaultDate: "today"
+    defaultDate: new Date().getTime(),
 });

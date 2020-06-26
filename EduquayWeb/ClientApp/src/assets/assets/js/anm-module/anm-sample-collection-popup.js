@@ -11,8 +11,7 @@ var f1 = flatpickr(document.getElementById('popupDate'), {
     noCalendar: true,
     dateFormat: "H:i",
     defaultDate: new Date().getTime(),
-    ClassName: "value",
-    Disabled: false
+   
     //defaultHour:new Date().getHours(),
     //defaultMinute:new Date().getMinutes(),
     //useCurrent: ('hour', 'minute')

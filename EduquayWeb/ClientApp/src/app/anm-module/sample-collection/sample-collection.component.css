@@ -11,14 +11,8 @@ h5.float-left {
   font-size: 25px;
 }
 
-h5.float-center {
-  color: #1b55e2;
-  font-weight: 600;
-  text-shadow: 1px 0px #125879;
-  font-size: 25px;
-  text-align: center;
-  margin-top: 6px;
-  letter-spacing: 2px;
+.submitted input.ng-invalid {
+  border: solid 1px red;
 }
 
 .modaltitle {

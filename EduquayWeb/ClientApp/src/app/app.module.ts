@@ -18,7 +18,7 @@ import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.com
 import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
 import { AnmCollectionComponent } from './anm-module/anm-collection/anm-collection.component';
 import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component';
-
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -31,16 +31,18 @@ import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentd
     AnmCollectionComponent,
     AnmViewShipmentdetailsComponent,
 
-    
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    DataTablesModule
   ],
   providers: [
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorServiceService,

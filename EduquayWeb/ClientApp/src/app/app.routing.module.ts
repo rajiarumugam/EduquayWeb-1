@@ -37,6 +37,7 @@ import { AnmPickandPackComponent } from './anm-module/anm-pickandpack/anm-pickan
 import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.component';
 import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
 import { AnmViewShipmentdetailsComponent } from "./anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component";
+import { SampleCollectionResolverService } from "./shared/anm-module/sample-collection-resolver.service";
 
 
 
@@ -83,12 +84,12 @@ const routes: Routes = [
         ]
 
       },
-      { path: 'anm-sample-collection', component: SampleCollectionComponent },
+      { path: 'anm-sample-collection', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
       //{ path: 'test/:id', component: AboutComponent }
       { path: 'anm-pickpack', component: AnmPickandPackComponent },
       { path: 'anm-shipment', component: AnmShipmentComponent },
       { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
-      { path: 'anm-viewshipment/:shipmentId', component: AnmViewShipmentdetailsComponent}
+      { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent}
     ]
   },
 

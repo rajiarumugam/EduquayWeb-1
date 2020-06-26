@@ -37,53 +37,56 @@
           <div class="widget-content widget-content-area br-6">
             <div class="form-row mt-4">
               <div class="col-sm-12">
-                <div *ngIf="sCollectionErrorMessage" class="alert alert-danger mt-3 mb-2">
+                <div *ngIf="sCollectionErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': sCollectionErrorMessage ==='No subjects found', 'alert-danger': sCollectionErrorMessage !== 'No subjects found'}">
                   <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{sCollectionErrorMessage}}
                 </div>
               </div>
             </div>
+
+
             <div class="form-row mt-4">
-              <!--  <div class="form-group col-md-2">
-                          <label for="inputTypecollection">Type of collection</label>
-                          <select id="inputTypecollection" class="form-control" required>
-                              <option selected>---- Select ----</option>
-                              <option>First time collection</option>
-                              <option>Damaged Samples</option>
-                              <option>Sample timeout expiry</option>
-                          </select>
-                      </div> -->
               <div class="form-group col-md-2">
                 <label for="inputFromdate">From Date</label>
                 <div class="form-group mb-0">
-                  <input id="scFromDate" class="form-control flatpickr flatpickr-input active" type="text"
-                    placeholder="dd/mm/yyyy">
+                  <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
+                  [(ngModel)]="fromDate" required
+                    placeholder="Select Date...">
                 </div>
               </div>
               <div class="form-group col-md-2">
                 <label for="inputTodate">To Date</label>
                 <div class="form-group mb-0">
-                  <input id="scToDate" class="form-control flatpickr flatpickr-input active" type="text"
-                    placeholder="dd/mm/yyy">
+                  <input id="scToDate" class="form-control flatpickr flatpickr-input" name="toDate" type="text"
+                  [(ngModel)]="toDate"  required  placeholder="Select Date...">
                 </div>
               </div>
               <div class="form-group col-md-2">
                 <label for="inputSubjectcategory">Subject Type</label>
-                <select id="inputSubjectcategory" class="form-control" required>
+                <select id="inputSubjectcategory" class="form-control" name=DDsubjectType #DDsubjectType="ngModel"
+                required [(ngModel)]="selectedSubjectType">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let subType of subjectTypes"
+                          [(value)]= " subType.id ">
+                      {{ subType.subjectTypeName }}
+                  </option>
+                  </select>
+                <!-- <select id="inputSubjectcategory" class="form-control" required>
                   <option selected>Select Type</option>
                   <option>Antenatal Woman</option>
                   <option>Spouse</option>
                   <option>Child</option>
                   <option>Walk-in</option>
-                </select>
+                </select> -->
               </div>
               <div class="col-md-2 mt-3">
                 <div class="px-2 bd-highlight">
                   <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
-                  <a href="#"><button type="submit" class="btn search-bu">
-                      <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                 <button type="submit" class="btn search-bu" (click)=anmSampleCollection()>
+                      <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
                 </div>
               </div>
             </div>
+
             <div class="row my-4">
               <div class="col-md-12">
                 <div class="table-responsive">
@@ -92,7 +95,6 @@
                       <tr>
                         <th><span>S.No</span></th>
                         <th><span>Subject Name</span></th>
-  
                         <th><span>Subject ID</span></th>
                         <th><span>RCH ID</span></th>
                         <th><span>Spouse Name</span></th>
@@ -103,7 +105,7 @@
                         <th><span>GA</span></th>
                         <th><span class="wordwrap">Sample Collection</span></th>
                       </tr>
-  
+
                     </thead>
                     <tbody>
                       <tr *ngFor="let subject of subjectList; index as i">
@@ -126,9 +128,9 @@
               </div>
             </div>
             <!-- The Modal -->
-           
+
               <ng-template #sampleCollectiondetail let-modal>
-               
+
                   <div class="modal-header">
                     <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
                       Collection</h5>
@@ -141,149 +143,75 @@
                     </button>
                   </div>
                 <div class="modal-body">
-                  <form class="text-left" (ngSubmit)="onSubmit(collectionForm)" #collectionForm="ngForm">
+                  <form class="text-left" (ngSubmit)="collectionForm.form.valid && onSubmit(collectionForm)" #collectionForm="ngForm" novalidate>
                     <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                       <div class="form-row">
                         <div class="form-group col-md-3">
-                          <span class="note">Subject Name </span>
+                          <label class="note">Subject Name </label>
                           <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
                             [(ngModel)]="subjectName" name="sampleSubjectName" >
                         </div>
-                
+
                         <div class="form-group col-md-3">
-                          <span class="note">Subject ID </span><span class="manto"></span>
+                          <label class="note">Subject ID <span class="manto"></span></label>
                           <input class="form-control field" name="uniqueSubjectId" type="text" placeholder="Subject ID" tabindex="6"
                             autocomplete="off" readonly="" [(ngModel)]="uniqueSubjectId">
                         </div>
                         <div class="form-group col-md-3">
-                          <span class="note">RCH ID </span><span class="manto"></span>
+                          <label class="note">RCH ID <span class="manto"></span></label>
                           <input class="form-control field" name="ancnumber" type="text" placeholder="RCH ID " tabindex="6"
                             autocomplete="off" readonly="" [(ngModel)]="rchId">
                         </div>
-                
+
                         <div class="form-group col-md-3">
-                          <span class="note">Reason </span><span class="manto"></span>
+                          <label class="note">Reason <span class="manto"></span></label>
                           <input class="form-control field" name="collection" required="" type="text"
                             placeholder="Reason" readonly="" [(ngModel)]="reason">
                         </div>
-                
+
                       </div>
-                
+
                       <div class="form-row mt-4">
                         <div class="form-group col-md-3">
-                          <span class="note">Scan / Enter Barcode </span><span class="manto">*</span>
+                          <label class="note">Scan / Enter Barcode <span class="manto">*</span></label>
                           <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
                           <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
                           <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" 
-                          [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched" ngModel #sampleBarcode="ngModel" required> 
-                          <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.touched">Please enter Barcode</small>
+                          ngModel #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
+                          <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small>
+                          <div *ngIf="collectionForm.submitted && sampleBarcode.invalid">     
+                            <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
+                          </div> 
                         </div>
                         <div class="form-group col-md-3">
-                          <span class="note">Date of Collection </span><span class="manto">*</span>
+                          <label class="note">Date of Collection <span class="manto">*</span></label>
                           <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
-                            placeholder="Select Date..." name="sampleCollectionDate" ngModel #sampleCollectionDate="ngModel" required>
+                            placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required>
                         </div>
                         <div class="form-group col-md-3">
-                          <span class="note">Time of Collection </span><span class="manto">*</span>
-                          <input id="popupTime" class="form-control flatpickr flatpickr-input" type="text" placeholder="Select Time..." name="collectionTime" ngModel #collectionTime="ngModel" required>
+                          <label class="note">Time of Collection <span class="manto">*</span></label>
+                          <input id="popupTime" class="form-control flatpickr flatpickr-input" type="text"  [(ngModel)]="collectionTime " 
+                           placeholder="Select Time..."  name="collectionTime" required>
                         </div>
                       </div>
                     </div>
-                  
+
                     <div class="modal-footer">
-                      <button type="submit" class="mr-2 btn btn-primary"  [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" id="linkto" name="linkto">Submit</button>
+                      <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+                      <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
                       <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
                     </div>
-                  </form>   
+                  </form>
                 </div>
                 <!-- <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i> -->
                 <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
               </ng-template>
-           
-  
-            <!-- The Modal -->
-            <div class="modal fade  bd-example-modal-xl2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
-                      Recollection</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="col-md-12" id="myTable" style="padding-top: 1%;">
-                      <div class="form-row">
-                        <div class="form-group col-md-3">
-                          <span class="note">Subject Name </span>
-                          <input class="form-control field" name="pincode" required="" type="text"
-                            placeholder="Alkha Rajesh" readonly="">
-                        </div>
-  
-                        <div class="form-group col-md-3">
-                          <span class="note">Subject ID </span><span class="manto"></span>
-                          <input class="form-control field" name="ancnumber" type="text" placeholder="OD001202032110"
-                            tabindex="6" autocomplete="off" readonly="">
-                        </div>
-                        <div class="form-group col-md-3">
-                          <span class="note">RCH ID </span><span class="manto"></span>
-                          <input class="form-control field" name="ancnumber" type="text" placeholder="123456" tabindex="6"
-                            autocomplete="off" readonly="">
-                        </div>
-                        <div class="form-group col-md-3">
-                          <span class="note">Reason </span><span class="manto"></span>
-                          <input class="form-control field" name="collection" required="" type="text"
-                            placeholder="Damaged Sample" readonly="">
-                        </div>
-  
-                      </div>
-  
-                      <div class="form-row mt-4">
-                        <div class="form-group col-md-3">
-                          <span class="note">Scan / Enter Barcode </span><span class="manto">*</span>
-                          <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
-                          <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
-                          <input class="form-control field" name="pincode" type="text" placeholder="">
-  
-                        </div>
-                        <div class="form-group col-md-3">
-                          <span class="note">Date of Collection </span><span class="manto">*</span>
-                          <input id="popupReDate" class="form-control flatpickr flatpickr-input active " type="text"
-                            placeholder="dd/mm/yyyy">
-                        </div>
-                        <div class="form-group col-md-3">
-                          <span class="note">Time of Collection </span><span class="manto">*</span>
-                          <input id="popupReTime" class="form-control flatpickr flatpickr-input active" type="text"
-                            placeholder="">
-                        </div>
-  
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="mr-2 btn btn-primary" id="linktobuttonsamplecolre">Submit</button>
-                      <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
-                    </div>
-  
-                  </div>
-                </div>
-  
-  
-              </div>
-              <!--  END CONTENT AREA  -->
-            </div>
             <!-- END MAIN CONTAINER -->
           </div>
-        
+
         </div>
       </div>
-  
+
     </div>
   </div>
   <!--  END CONTENT AREA  -->

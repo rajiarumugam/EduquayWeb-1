@@ -4,13 +4,16 @@
 
 var fd = flatpickr(document.getElementById('scFromDate'), {
     dateFormat: "d/m/Y",
-    defaultDate: "today"
+    //defaultDate: "today"
 });
 
 
 var td = flatpickr(document.getElementById('scToDate'), {
     dateFormat: "d/m/Y",
     defaultDate: "today"
+    
+    // minDate: "today",
+    // maxDate: new Date().fp_incr(14)
 });
 
 //var dr = flatpickr(document.getElementById('spouseReg'), {

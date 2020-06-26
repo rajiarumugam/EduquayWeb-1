@@ -1,7 +1,9 @@
 .layout-px-spacing {
     min-height: calc(100vh - 166px) !important;
 }
-
+.submitted select.form-control.ng-untouched.ng-pristine.ng-invalid{
+    border: solid 1px red;
+  }
 
 h5.float-left {
     color: #1b55e2;

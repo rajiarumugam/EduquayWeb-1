@@ -23,16 +23,20 @@ export interface SubjuctList {
     contactNo: string;
     gestationalAge: string;
     sampleType: string;
+    reason: string;
 }
 
-export interface SampleCollectionSubjectDetailResponse  {
+export interface subjectTypesResponse{
     status: string;
     message: string;
-    subjectDetail: subjectDetail[];
+    subjectTypes: subjuctType[];
 }
-export interface subjectDetail {
-      uniqueSubjectId: string,
-      subjectName: string,
-      rchId: string,
-      reason: string
+
+export interface subjuctType{
+     id: number;
+     subjectTypeName: string;
+     comments: string;
+
 }
+
+

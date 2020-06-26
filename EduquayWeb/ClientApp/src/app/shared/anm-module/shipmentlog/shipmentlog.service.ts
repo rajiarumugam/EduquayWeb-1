@@ -10,7 +10,7 @@ import { ShipmentResponse } from './shipment-response';
 })
 export class ShipmentlogService {
 
-  shipmentLogApi: string = 'api/v1/ANMCHCShipment/RetrieveANMCHCShipmentLog';
+  shipmentLogApi: string = 'api/v1/ANMCHCShipment/RetrieveANMShipmentLog';
   constructor(
 
     private httpClient: HttpClient,

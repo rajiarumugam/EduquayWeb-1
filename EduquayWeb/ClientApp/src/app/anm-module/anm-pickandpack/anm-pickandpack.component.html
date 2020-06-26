@@ -46,15 +46,15 @@
                         </form>
                     </div> -->
                         <div class="form-row">
-                            <div class="col-md-10">
-                                <div class="alert alert-danger mb-4" role="alert" *ngIf="picknpackErrorMessage !== ''">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Oops!</strong>{{picknpackErrorMessage}}
+                            <div class="col-md-12">
+                                <div *ngIf="picknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': picknpackErrorMessage ==='No subjects found', 'alert-danger': picknpackErrorMessage !== 'No subjects found'}">
+                                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{picknpackErrorMessage}}
                                   </div>
+                              
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table id="anmpickpack-tblconfig" class="table table-bordered table-hover">
+                            <table id="anmpickpack-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                 <thead>
                                     <tr>
                                         <th><span>S.No</span></th>
@@ -69,8 +69,7 @@
                                         <th>
                                             <div class="n-chk">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input" id="select_all"
-                                                        checked>
+                                                    <input type="checkbox" class="new-control-input" id="select_all">
                                                     <span class="new-control-indicator leftspace"></span>Add to Shipment
                                                 </label>
                                             </div>
@@ -82,7 +81,7 @@
                                     <tr *ngFor="let picknpack of sampleList; index as i" >
                                         <td class="sno text-center">{{i +1}}</td>
                                         <td class="sname text-left">{{picknpack.subjectName}}</td>
-                                        <td class="sid">{{picknpack.uniqueSubjectID}}</td>
+                                        <td class="sid">{{picknpack.uniqueSubjectId}}</td>
                                         <td class="sid text-center">{{picknpack.rchId}}</td>
                                         <td class="sid">{{picknpack.barcodeNo}}</td>
                                         <td class="datetimenew">{{picknpack.sampleDateTime}}</td>
@@ -90,26 +89,8 @@
                                         <td class="sno">
                                             <div class="n-chk">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input checkbox" value="1"
-                                                        checked>
-                                                    <span class="new-control-indicator"></span>&nbsp;
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td class="text-left">Selvi Manikkam Prabhakaran</td>
-                                        <td class="text-center">OD001202032112</td>
-                                        <td class="sid text-center">321654</td>
-                                        <td class="text-center">020154</td>
-                                        <td class="text-center">13/04/2020 11:25</td>
-                                        <!-- <td><input type="checkbox" class="checkbox" value="2"/></td> -->
-                                        <td class="text-center">
-                                            <div class="n-chk">
-                                                <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input checkbox" value="2"
-                                                        checked>
+                                                    <input type="checkbox" class="new-control-input checkbox" value="{{picknpack.sampleSelected}}" (change)="updateSampleSelected($event, picknpack, inputEl.checked)" #inputEl
+                                                        checked = "{{picknpack.sampleSelected}}">
                                                     <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div>
@@ -120,24 +101,22 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <a class="btn btn-primary float-right" data-toggle="modal"
-                                    data-target=".bd-example-modal-xl" role="button">Create Shipment</a>
+                                <a class="btn btn-primary float-right" (click)="openPicknpack(picknPackdetail)"
+                                 role="button">Create Shipment</a>
                             </div>
                         </div>
-                        <div class="container p-4">
+                        <!-- <div class="container p-4">
                             <div class="row">
                                 <div class="col-md-12 border-bottom">
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                                <div class="modal-content">
+                        </div> -->
+                        <ng-template #picknPackdetail let-modal>
+                       
                                     <div class="modal-header">
                                         <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
                                         </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
                                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                                 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -148,194 +127,143 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <form class="text-left"
+                                         (ngSubmit)="shipmentForm.form.valid && onSubmit(shipmentForm)" #shipmentForm="ngForm" novalidate>
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-md-12" id="text">
-                                                    <input type="radio" name="tabs blue" id="tab2" checked=""
-                                                        style="visibility:hidden;">
-                                                    <!--<label for="tab2" style="height:47px; top:-14px;background-color: #009EE0;"> <a href="#" style="text-decoration:none; color:#FFFFFF; margin-left:-12px;">Registration</a></label>-->
-                                                    <div id="tab-content1" class="tab-content">
-                                                        <div id="namefoo" style="color: #000;">
-                                                            <p style="margin-bottom: 7px;"> </p>
-                                                        </div>
-
-
                                                         <div class="form-row">
                                                             <div class="form-group col-md-3">
-                                                                <span class="note">ANM Name </span><span
-                                                                    class="manto">*</span>
+                                                                <label>ANM Name <span
+                                                                    class="manto">*</span></label>
                                                                 <input class="form-control field" name="name"
-                                                                    required="" type="text" placeholder="Name"
-                                                                    tabindex="1" autocomplete="off">
+                                                                    readonly type="text" placeholder="Name">
+                                                                   
                                                             </div>
 
                                                             <div class="form-group col-md-3">
-                                                                <span class="note">RI Point </span><span
-                                                                    class="manto">*</span>
-                                                                <select name="occupationoption"
-                                                                    class="form-control field" id="occuptnid"
-                                                                    tabindex="7" required="">
-                                                                    <option value="">Choose</option>
-                                                                    <option value="male">XXXXX</option>
-                                                                    <option value="female">XXXXX</option>
-                                                                </select>
+                                                                <label for="inputriPoint">RI Point<span
+                                                                    class="manto">*</span></label>
+                                                                    <select class="form-control" (change)="onChangeriPoint($event.target.value)"
+                                                                    name=DDriPoint #DDriPoint="ngModel" [class.is-invalid]="DDriPoint.invalid && DDriPoint.touched || shipmentForm.submitted && DDriPoint.invalid"
+                                                                    required [(ngModel)]="selectedriPoint">
+                                                                      <option value="">--Select--</option>
+                                                                      <option *ngFor="let riPoint of riPoints"
+                                                                              [(value)]= "riPoint.id ">
+                                                                          {{ riPoint.riSite }}
+                                                                      </option>
+                                                                      </select>
+                                                                      <small class=" ml-2 text-danger" *ngIf="DDriPoint.invalid && DDriPoint.touched">Please choose a RI Point</small>
+                                                                      <div *ngIf="shipmentForm.submitted && DDriPoint.invalid">     
+                                                                        <small *ngIf="DDriPoint.untouched" class=" ml-2 text-danger">RI Point is required</small>  
+                                                                      </div>  
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <span class="note">ILR Point </span><span
-                                                                    class="manto">*</span>
-                                                                <select name="occupationoption"
-                                                                    class="form-control field" id="occuptnid"
-                                                                    tabindex="7" required="">
-                                                                    <option value="">Choose</option>
-                                                                    <option value="male">XXXXX</option>
-                                                                    <option value="female">XXXXX</option>
-                                                                </select>
+                                                                <label for="inputilrPoint">ILR Point<span
+                                                                    class="manto">*</span></label>
+                                                                    <select id="inputilrPoint" class="form-control"
+                                                                    name="DDilrPoint" #DDilrPoint="ngModel" [class.is-invalid]="DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid"
+                                                                    required [(ngModel)]="selectedilrPoint">
+                                                                      <option value="" selected>--Select--</option>
+                                                                      <option *ngFor="let ilrpnt of ilrPoints"
+                                                                              [(value)]= "ilrpnt.id ">
+                                                                          {{ ilrpnt.ilrPoint }}
+                                                                      </option>
+                                                                      </select>
+                                                                      <small class=" ml-2 text-danger" *ngIf="DDilrPoint.invalid && DDilrPoint.touched ">Please choose a ILR Point</small>
+                                                                      <div *ngIf="shipmentForm.submitted && DDilrPoint.invalid">  
+                                                                        <small *ngIf="DDilrPoint.untouched" class=" ml-2 text-danger">ILR Point is required</small>  
+                                                                      </div> 
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <span class="note">Receiving Testing CHC </span><span
-                                                                    class="manto">*</span>
-                                                                <select name="occupationoption"
-                                                                    class="form-control field" id="occuptnid"
-                                                                    tabindex="7" required="">
-                                                                    <option value="">Select</option>
-                                                                    <option value="male">example</option>
-                                                                    <option value="female">example</option>
+                                                                <label for="inputTestingCHC">Receiving Testing CHC<span
+                                                                    class="manto">*</span></label>
+                                                                <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid"
+                                                                    class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
+                                                                    <option value="" selected>--Select--</option>
+                                                                    <option *ngFor="let testingChcName of testingCHCNames"
+                                                                              [(value)]= "testingChcName.id">
+                                                                          {{ testingChcName. chcName }}
+                                                                      </option>
                                                                 </select>
+                                                                <small class=" ml-2 text-danger" [class.d-none]="DDLtestingChc.valid || DDLtestingChc.untouched ">Please choose a Receiving Testing CHC</small>
+                                                                <div *ngIf="shipmentForm.submitted && DDLtestingChc.invalid">  
+                                                                    <small *ngIf="DDLtestingChc.untouched" class=" ml-2 text-danger">Receiving Testing CHC is required</small>  
+                                                                  </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-row my-2">
                                                             <div class="form-group col-md-3">
-                                                                <span class="note"> AVD Name </span><span
-                                                                    class="manto">*</span>
-                                                                <select name="occupationoption"
-                                                                    class="form-control field" id="occuptnid"
-                                                                    tabindex="7" required="">
-                                                                    <option value="">Choose</option>
-                                                                    <option value="male">XXXXX</option>
-                                                                    <option value="female">XXXXX</option>
+                                                                <label for="inputAvdName">AVD Name<span
+                                                                    class="manto">*</span></label>
+                                                                <select name="inputAvdName"
+                                                                name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid"
+                                                                class="form-control field" id="inputAvdName" required [(ngModel)]="selectedAvdName">
+                                                                <option value="">--Select--</option>
+                                                                <option *ngFor="let AvdName of AvdNames"
+                                                                          [(value)]= "AvdName.id">
+                                                                      {{ AvdName. avdName }}
+                                                                  </option>
                                                                 </select>
+                                                                <small class=" ml-2 text-danger" [class.d-none]="DDLavdName.valid || DDLavdName.untouched ">Please choose a Receiving Testing CHC</small>
+                                                                <div *ngIf="shipmentForm.submitted && DDLavdName.invalid">  
+                                                                    <small *ngIf="DDLavdName.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
+                                                                  </div>
                                                             </div>
 
                                                             <div class="form-group col-md-3">
-                                                                <span class="note">Contact Number </span><span
-                                                                    class="manto">*</span>
-                                                                <input class="form-control field" name="mobile"
-                                                                    required="" type="number" pattern=".{10,}"
-                                                                    title="Mobile number must have 10 digits."
-                                                                    onkeypress="return numbersonly(this, event)"
-                                                                    placeholder="Mobile number" tabindex="4"
-                                                                    maxlength="10" autocomplete="off">
-
+                                                                <label>Contact Number<span
+                                                                    class="manto">*</span></label>
+                                                                <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel pattern="^\d{10}$" 
+                                                                [class.is-invalid]="contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid"
+                                                                    required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo">
+                                                                    <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
+                                                                        <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched ">The Contact number is required</small>
+                                                                        <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number must be 10 digits</small>
+                                                                    </div>
+                                                                    <div *ngIf="shipmentForm.submitted && contactNo.invalid">  
+                                                                        <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
+                                                                    </div>
                                                             </div>
+                                                            
                                                             <div class="form-group col-md-2">
-                                                                <span class="note">Shipment Date </span><span
-                                                                    class="manto">*</span>
+                                                                <label>Shipment Date<span
+                                                                    class="manto">*</span></label>
                                                                 <input id="shipmentdate"
-                                                                    class="form-control flatpickr flatpickr-input active "
-                                                                    type="text" placeholder="dd/mm/yy">
+                                                                    class="form-control flatpickr flatpickr-input"
+                                                                    type="text" placeholder="Select Date..."  name="dateOfShipment" [(ngModel)]="dateOfShipment">
                                                             </div>
                                                             <div class="form-group col-md-2">
-                                                                <span class="note">Shipment Time </span><span
-                                                                    class="manto">*</span>
+                                                                <label>Shipment Time <span
+                                                                    class="manto">*</span></label>
                                                                 <input id="shipmenttime"
                                                                     class="form-control flatpickr flatpickr-input active "
-                                                                    type="text" placeholder="dd/mm/yy">
+                                                                    type="text" placeholder="Select Time..." name="timeOfShipment" 
+                                                                    [(ngModel)]="timeOfShipment">
                                                             </div>
                                                         </div>
                                                         <br>
 
-                                                        <!-- The Modal -->
-                                                        <div id="myModal3" class="modal mt-5">
-
-                                                            <!-- Modal content -->
-                                                            <div class="modal-content">
-                                                                <span class="close3">&times;</span>
-                                                                <div class="text-center">
-                                                                    <h5>Shipment ID is generated: THSIK2020321</h5>
-                                                                    <a href="viewshipmentlogchc.html"> <span>Go to
-                                                                            Shipment log</span> </a>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary"
+                                                            <button type="submit" class="btn btn-primary"
                                                                 id="linktobuttonpickpak">Submit</button>
-                                                            <button class="btn" data-dismiss="modal"><i
+                                                            <button class="btn"  (click)="modal.dismiss()"><i
                                                                     class="flaticon-cancel-12"></i> Close</button>
                                                         </div>
 
-
-                                                        <div id="fadeinModal1" class="modal animated fadeInDown"
-                                                            tabindex="-1" role="dialog"
-                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                            <svg aria-hidden="true"
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                width="24" height="24"
-                                                                                viewBox="0 0 24 24" fill="none"
-                                                                                stroke="currentColor" stroke-width="2"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                class="feather feather-x">
-                                                                                <line x1="18" y1="6" x2="6" y2="18">
-                                                                                </line>
-                                                                                <line x1="6" y1="6" x2="18" y2="18">
-                                                                                </line>
-                                                                            </svg>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body text-center">
-                                                                        <h5>Shipment ID is Generated: THSIK2020321
-                                                                        </h5>
-                                                                        <button type="button" class="btn btn-primary"
-                                                                            onclick="window.location.href='viewshipmentloganm.html'">Go
-                                                                            to Shipment Log</button>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn" data-dismiss="modal"><i
-                                                                                class="flaticon-cancel-12"></i>
-                                                                            Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
 
                                                     </div>
 
                                                 </div>
                                             </div>
-                                        </div>
+                                    </form>
                                     </div>
-
-                                </div>
-                            </div>
-                        </div>
+                                    <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i>
+                                </ng-template>
+                          
+                       
                     </div>
-
-                    <!-- <div class="row mt-4">
-                    <div class="col-md-12">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
-                                <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="collection.html">3</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="Completed.html">4</a></li>
-                                <li class="page-item"><a class="page-link" href="shipmentlog.html">5</a></li>
-                                <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div> -->
-                </div>
             </div>
         </div>
     </div>
