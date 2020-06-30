@@ -145,3 +145,64 @@ width: auto;
 vertical-align: middle;
 }
 }
+
+
+::ng-deep .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-horizontal-content-container
+  {
+      padding:0 !important;
+  }
+
+  .reges-form-main-container
+  {
+    background: #f6f6f6;
+    padding: 5px;
+  }
+
+  .reges-form-main-container:hover
+  {
+    background: #f3f3f3;
+    display: block;
+    -webkit-box-shadow: 2px 2px 2px 2px #1b55e26b;
+    -moz-box-shadow: 2px 2px 2px 2px #1b55e26b;
+    box-shadow: 2px 2px 4px 4px #1b55e26b;
+  }
+  .float-right
+  {
+    float:right;
+  }
+  .reges-form-bottom-btns
+  {
+      margin-top:15px;
+      margin-bottom: 10px;
+  }
+
+  .reg-btn-disable
+  {
+      color:#888ea8;
+      background: #ebedf2;
+  }
+  .reg-btn-enable
+  {
+      color:#ffffff;
+      background: #1b55e2;
+  }
+.red-border-class
+{
+    border: 1px solid red;
+}
+.label-border-class
+{
+    color: red !important;
+}
+::ng-deep input.flatpickr-input
+{
+    border:none;
+}
+/*.form-control.ng-untouched,
+.form-control.ng-valid {
+    border: 1px solid red;
+}*/
