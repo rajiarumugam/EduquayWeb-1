@@ -138,9 +138,25 @@
       </ul>
     </div>
     <div class="col-md-4 ml-4">
-      <h6 class="float-right" style="padding-top: 2%;font-size: 15px;font-weight: 600;">
-        <span>{{today | date:'dd/MM/yyyy, EEEE, HH:mm':'+0530'}}</span>
-      </h6>
+      <form>
+      <div class="form-row">
+        <div class="col-6 mt-1 text-center">
+          <label for="language">Language: </label>
+          <select class="selectpicker form-control-sm ml-2" #selectedLang (change)="switchLang(selectedLang.value)">
+            <option *ngFor="let language of translate.getLangs()" 
+              [value]="language"
+              [selected]="language === translate.currentLang">
+              {{ language }}
+            </option>
+          </select>
+        </div>
+        <div class="col-6" style="margin-top: auto;">
+          <h6 class="float-right" style="font-size: 15px;font-weight: 600;">
+            <span>{{today | date:'dd/MM/yyyy, EEEE, HH:mm':'+0530'}}</span>
+          </h6>
+        </div>
+      </div>
+    </form>
     </div>
   </header>
 </div>
