@@ -1,4 +1,251 @@
 <div class="tab-pane fade show active" id="antenatal" role="tabpanel" aria-labelledby="antenatal-tab">
+    
+    <mat-horizontal-stepper [linear]="false" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+              <div class="reges-form-main-container">
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="dateOfRegistration" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }">Date of Reg</label><span class="manto"> *</span>
+                            <!--<input id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" type="text"
+                                placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }"> -->
+                                <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }" [(ngModel)]="selecteddor"></ng2-flatpickr>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">District</label><span class="manto"> *</span>
+                            <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="selected($event.target.value)" formControlName = "district" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">
+                                <option [ngValue]="null">Select District</option>
+                                <option [value]="district.id" *ngFor="let district of districts">{{district.districtName}}</option>
+                            </select>
+                            
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputCHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">CHC</label><span class="manto"> *</span>
+                            <select id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">
+                                <option [ngValue]="null">Select CHC</option>
+                                <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputPHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">PHC</label><span class="manto"> *</span>
+                            <select id="inputPHC" class="form-control" required [(ngModel)]="selectedphc" formControlName = "phc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">
+                                <option [ngValue]="null">Select PHC</option>
+                                <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.phcName}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputSC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">SC</label><span class="manto"> *</span>
+                            <select id="inputSC" class="form-control" required [(ngModel)]="selectedsc" formControlName = "sc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">
+                                <option [ngValue]="null">Select SC</option>
+                                <option [value]="sc.id" *ngFor="let sc of SCdata">{{sc.scName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">RI Point</label><span class="manto"> *</span>
+                            <select id="inputRIC" class="form-control" required [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">
+                                <option [ngValue]="null">Select RI Point</option>
+                                <option [value]="ri.id" *ngFor="let ri of RIdata">{{ri.riSite}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">Pincode</label><span class="manto"> *</span>
+                            <input type="number" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">Contact Number</label><span class="manto"> *</span>
+                            <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">
+                        </div>
+                    </div>
+
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputSubtitle">Subject Title</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Ms." readonly [(ngModel)]="selectedsubjectTitle" formControlName = "subjectitle" >
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">First Name</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="inputFirstname" placeholder="First Name" [(ngModel)]="selectedfirstname" required formControlName = "firstname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputMiddlename">Middle Name</label>
+                            <input type="Text" class="form-control" id="inputMiddlename" placeholder="Middle Name" [(ngModel)]="selectedmiddlename" formControlName = "middlename">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">Last Name</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="inputLastname" placeholder="Last Name" [(ngModel)]="selectedlastname" formControlName = "lastname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputdob">Date of Birth</label>
+                            <!--<input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text"
+                                placeholder="Select Date.." [(ngModel)]="selecteddob" formControlName = "dob" >-->
+                                <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" [config]="startOptions" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
+                            </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputRCHID" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">RCH ID</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="inputRCHID" placeholder="RCH ID" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }">LMP Date</label><span class="manto"> *</span>
+                            <!--<input id="dateOfLMP" class="form-control flatpickr flatpickr-input active" type="text"
+                                placeholder="Select Date.." [(ngModel)]="selectedlmpdate" formControlName = "lmpdate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }">-->
+                                <ng2-flatpickr id="dateOfLMP" name="lmpdate" class="form-control flatpickr flatpickr-input active" [config]="startOptions" placeholder="Select Date.." formControlName = "lmpdate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }" [(ngModel)]="selectedlmpdate"></ng2-flatpickr>
+                        </div>
+
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.g.invalid }">G</label><span class="manto"> *</span>
+                            <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.g.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputP" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.p.invalid }">P</label><span class="manto"> *</span>
+                            <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.p.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }">L</label><span class="manto"> *</span>
+                            <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputA" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.a.invalid }">A</label><span class="manto"> *</span>
+                            <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.a.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div> 
+                <div class="reges-form-bottom-btns">
+                    <button mat-button matStepperPrevious class="reg-btn-disable">Previous</button>
+                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep();">Next</button>
+                </div>
+           
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+          <form [formGroup]="secondFormGroup">
+            <div class="reges-form-main-container">
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputECnumber">EC Number</label>
+                        <input type="Text" class="form-control" id="inputECnumber" placeholder="EC Number" [(ngModel)]="selectedECNumber" formControlName = "ECNumber">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputGovtIdType">Govt ID Type</label>
+                        <select id="inputGovtIdType" class="form-control" [(ngModel)]="selectedgovtIDType" formControlName = "govtIDType" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govtIDType.invalid }">
+                            <option [ngValue]="null">Select</option>
+                            <option [value]="gid.id" *ngFor="let gid of governmentIDData">{{gid.govIdTypeName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputGovtIdDetail">Govt ID Detail</label>
+                        <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "GovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }">
+                    </div>
+                </div>
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputReligion" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.religion.invalid }">Religion</label><span class="manto"> *</span>
+                        <select id="inputReligion" class="form-control" required [(ngModel)]="selectedreligion" formControlName = "religion" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.religion.invalid }">
+                            <option [ngValue]="null">Select</option>
+                            <option [value]="religion.id" *ngFor="let religion of religionData">{{religion.religionName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCaste" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }">Caste</label><span class="manto"> *</span>
+                        <select id="inputPHCom" class="form-control" required [(ngModel)]="selectedcaste" formControlName = "caste" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }" (change)="casteChange();">
+                            <option [ngValue]="null">Select</option>
+                            <option [value]="caste.id" *ngFor="let caste of casteData">{{caste.casteName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCommunity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.community.invalid }">Community</label><span class="manto"> *</span>
+                        <select id="inputCommunity" class="form-control" required [(ngModel)]="selectedcommunity" formControlName = "community" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.community.invalid }">
+                            <option [ngValue]="null">Select</option>
+                            <option [value]="community.id" *ngFor="let community of communityData">{{community.communityName}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputPlotNo" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot Number<span class="manto">
+                            *</span></label>
+                        <input type="text" class="form-control" id="inputPlotNo" placeholder="House Number" required [(ngModel)]="selectedhouse" formControlName = "house" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCaste" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street & Locality</label><span class="manto"> *</span>
+                        <input type="text" class="form-control" id="inputCaste" placeholder="Street" required [(ngModel)]="selectedstreet" formControlName = "street" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City / Village</label><span class="manto"> *</span>
+                        <input type="text" class="form-control" id="inputCity" placeholder="City" required [(ngModel)]="selectedcity" formControlName = "city" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputMoblie" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">State</label><span class="manto"> *</span>
+                        <input type="text" class="form-control" id="inputMoblie" placeholder="Odisha" [(ngModel)]="selectedstate" formControlName = "state" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">
+                    </div>
+                </div>
+
+               <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputSubtitle">Subject Title</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Mr." readonly="" [(ngModel)]="selectedsubjectTitle1" formControlName = "subjectTitle">
+                    </div>                    
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="spouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First Name</label><span class="manto">
+                            *</span>
+                        <input type="Text" class="form-control" id="spouseFirstname" placeholder="First Name" required [(ngModel)]="selectedspouseFirstName" formControlName = "spouseFirstName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="spouseMiddlename">Middle Name</label>
+                        <input type="Text" class="form-control" id="spouseMiddlename" placeholder="Middle Name" [(ngModel)]="selectedspouseMiddleName" formControlName = "spouseMiddleName">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="spouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">Last Name</label><span class="manto"> *</span>
+                        <input type="Text" class="form-control" id="spouseLastname" placeholder="Last Name" [(ngModel)]="selectedspouseLastName" formControlName = "spouseLastName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">
+                    </div>
+                </div>
+                <div class="form-row my-2">
+                    <div class="form-group col-md-2">
+                        <label class="birthreg" for="inputmoblienospouse" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">Spouse Contact Number<span
+                            class="manto"> *</span></label>
+                        <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
+                            required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" for="inputPincode1">Email</label>
+                        <input type="email" class="form-control" id="inputPincode1" placeholder="Email" required [(ngModel)]="selectedspouseEmail" formControlName = "spouseEmail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseEmail.invalid }">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="reges-form-bottom-btns">
+                <button mat-button class="reg-btn-enable" (click)="prevStep();">Previous</button>
+                <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    
     <form>
         <!-- <div class="row mt-4">
         <div class="col-md-12">
@@ -7,275 +254,6 @@
                 women eligible to be screened on a voluntary basis. "</span>
         </div>
     </div> -->
-
-        <div id="circle-basic1" class="mt-4">
-            <h3>Basic Info</h3>
-            <section>
-                <form class="text-left" #f="ngForm">
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="dateOfRegistration">Date of Reg</label><span class="manto"> *</span>
-                        <input id="dateOfRegistration" class="form-control flatpickr flatpickr-input active" type="text"
-                            placeholder="Select Date..">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputDistrict">District {{selectedDistrict}}</label><span class="manto"> *</span>
-                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="selected($event.target.value)">
-                            <option selected value='0'>Select District</option>
-                            <option *ngFor="let district of districts" value={{district.id}} >{{district.districtName}}</option>
-                        </select>
-                        
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputCHC">CHC</label><span class="manto"> *</span>
-                        <select id="inputCHC" class="form-control" required>
-                            <option selected value='0'>Select CHC</option>
-                            <option value='1'>some1</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputPHC">PHC</label><span class="manto"> *</span>
-                        <select id="inputPHC" class="form-control" required>
-                            <option selected value='0'>Select PHC</option>
-                            <option>some 2</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputSC">SC</label><span class="manto"> *</span>
-                        <select id="inputSC" class="form-control" required>
-                            <option selected></option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputRIC">RI Point</label><span class="manto"> *</span>
-                        <select id="inputRIC" class="form-control" required>
-                            <option selected></option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputPincode">Pincode</label><span class="manto"> *</span>
-                        <input type="number" class="form-control" id="inputPincode" placeholder="Pincode" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputContact">Contact Number</label><span class="manto"> *</span>
-                        <input type="number" class="form-control" id="inputContact" placeholder="Mobile No" required>
-                    </div>
-                </div>
-
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputSubtitle">Subject Title</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Ms." readonly>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputFirstname">First Name</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputFirstname" placeholder="First Name" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputMiddlename">Middle Name</label>
-                        <input type="Text" class="form-control" id="inputMiddlename" placeholder="Middle Name">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputLastname">Last Name</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputLastname" placeholder="Last Name">
-                    </div>
-                </div>
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputdob">Date of Birth</label>
-                        <input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text"
-                            placeholder="Select Date..">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputAge">Age</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputAge" placeholder="Age" required="">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputRCHID">RCH ID</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputRCHID" placeholder="RCH ID" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputDistrict">LMP Date</label><span class="manto"> *</span>
-                        <input id="dateOfLMP" class="form-control flatpickr flatpickr-input active" type="text"
-                            placeholder="Select Date..">
-                    </div>
-
-                </div>
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputG">G</label><span class="manto"> *</span>
-                        <select id="inputG" class="form-control">
-                            <option selected>Select</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputP">P</label><span class="manto"> *</span>
-                        <select id="inputP" class="form-control">
-                            <option selected>Select</option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputL">L</label><span class="manto"> *</span>
-                        <select id="inputL" class="form-control">
-                            <option selected>Select</option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputA">A</label><span class="manto"> *</span>
-                        <select id="inputA" class="form-control">
-                            <option selected>Select</option>
-
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                        </select>
-                    </div>
-                </div>                
-            </form>
-            </section>
-            <h3>Socio-Demographic Info</h3>
-            <section>
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputECnumber">EC Number</label>
-                        <input type="Text" class="form-control" id="inputECnumber" placeholder="EC Number" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputGovtIdType">Govt ID Type</label>
-                        <select id="inputGovtIdType" class="form-control">
-                            <option selected>Select</option>
-                            <option>Driving License</option>
-                            <option>Voter ID</option>
-                            <option>PAN card</option>
-                            <option>Ration Card</option>
-                            <option>Passport</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputGovtIdDetail">Govt ID Detail</label>
-                        <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail" required>
-                    </div>
-                </div>
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputReligion">Religion</label><span class="manto"> *</span>
-                        <select id="inputReligion" class="form-control" required>
-                            <option selected></option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputCaste">Caste</label><span class="manto"> *</span>
-                        <select id="inputPHCom" class="form-control" required>
-                            <option selected></option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputCommunity">Community</label><span class="manto"> *</span>
-                        <select id="inputCommunity" class="form-control" required>
-                            <option selected></option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputPlotNo">House / Plot Number</label><span class="manto">
-                            *</span>
-                        <input type="text" class="form-control" id="inputPlotNo" placeholder="House Number" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputCaste">Street & Locality</label><span class="manto"> *</span>
-                        <input type="text" class="form-control" id="inputCaste" placeholder="Street" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputCity">City / Village</label><span class="manto"> *</span>
-                        <input type="text" class="form-control" id="inputCity" placeholder="City" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputMoblie">State</label><span class="manto"> *</span>
-                        <input type="text" class="form-control" id="inputMoblie" placeholder="Odisha">
-                    </div>
-                </div>
-
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputSubtitle">Subject Title</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Mr." readonly="">
-                    </div>                    
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="spouseFirstname">Spouse First Name</label><span class="manto">
-                            *</span>
-                        <input type="Text" class="form-control" id="spouseFirstname" placeholder="First Name" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="spouseMiddlename">Middle Name</label>
-                        <input type="Text" class="form-control" id="spouseMiddlename" placeholder="Middle Name">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="spouseLastname">Last Name</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="spouseLastname" placeholder="Last Name">
-                    </div>
-                </div>
-                <div class="form-row my-2">
-                    <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputmoblienospouse">Spouse Contact Number</label><span
-                            class="manto"> *</span>
-                        <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
-                            required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="birthreg" for="inputPincode1">Email</label>
-                        <input type="email" class="form-control" id="inputPincode1" placeholder="Email" required>
-                    </div>
-
-                </div>
-
-            </section>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <span style="color: #1b55e2;;font-style: italic;" id="tabWiseNote"><b>" NOTE:</b>
@@ -304,10 +282,10 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <h4>Subject ID is Generated: <b>1234567</b></h4>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='anccollection.html'">Go
-                        to Blood Sample
-                        Collection</button>
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    <h4 class="subject-id">Subject ID is <b>{{createdSubjectId}}</b></h4>
+                    <button type="button" class="btn btn-primary modal-btn modal-btn-1">Collect sample now</button>
+                    <button type="button" class="btn btn-primary modal-btn">Collect sample later</button>
 
                 </div>
                 <div class="modal-footer">
@@ -322,9 +300,4 @@
 
 
 
-<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
-<i appLoadScript [script]="'assets/plugins/flatpickr/antenatal-flatpickr.js'"></i>
-<i appLoadScript [script]="'assets/assets/js/anm/anm-awregistration.js'"></i>
-
-<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert-central.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/flatpickr/antenatal-flatpickr.js'"></i>-->

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
@@ -21,6 +21,17 @@ import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm
 import { AnmCollectionComponent } from './anm-module/anm-collection/anm-collection.component';
 import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component';
 import { DataTablesModule } from 'angular-datatables';
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatSliderModule } from '@angular/material/slider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
 const ngWizardConfig: NgWizardConfig = {
@@ -54,6 +65,16 @@ const ngWizardConfig: NgWizardConfig = {
     FormsModule,
     NgbModule,
     DataTablesModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatInputModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatCardModule,
+    MatSliderModule,
+    ReactiveFormsModule,
+    Ng2FlatpickrModule,
     NgWizardModule.forRoot(ngWizardConfig)
   ],
   providers: [
