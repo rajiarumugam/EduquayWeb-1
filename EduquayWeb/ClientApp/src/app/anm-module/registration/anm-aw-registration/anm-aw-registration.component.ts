@@ -58,7 +58,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selecteddob;
   selecteddor;
   selectedage;
-  GPLADATA = [0,1,2,3,4,5,6,7,8,9];
+  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -75,7 +75,6 @@ export class AnmAwRegistrationComponent implements OnInit {
       componentFn: (id, value) => this.callFromOutside(id, value),
       component: this,
     };
-    console.log('reference added');
   }
 
   ngOnInit() {
@@ -132,13 +131,12 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity();
+    this.getCommunity(0);
     this.getGovernmentIDType();
     
   }
 
   public callFromOutside(id, subject: any): any {
-    console.log('validating tab: ' + subject);
     let subjectdetail = JSON.parse(subject);
   }
   selected(eventval){
@@ -219,15 +217,29 @@ export class AnmAwRegistrationComponent implements OnInit {
     });
   }
 
-  getCommunity(){
-    this.masterService.getCommunity()
-    .subscribe(response => {
-      this.communityData = response['community'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.communityData = [];
-      this.erroMessage = err.toString();
-    });
+  getCommunity(id){
+    if(id === 0)
+    {
+        this.masterService.getCommunity()
+        .subscribe(response => {
+          this.communityData = response['community'];
+        },
+        (err: HttpErrorResponse) =>{
+          this.communityData = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else{
+      this.masterService.getCommunityPerCaste(id)
+        .subscribe(response => {
+          this.communityData = response['community'];
+        },
+        (err: HttpErrorResponse) =>{
+          this.communityData = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    
   }
 
   getGovernmentIDType(){
@@ -244,7 +256,6 @@ export class AnmAwRegistrationComponent implements OnInit {
    
   calculateAge()
   {
-     console.log(this.selecteddob);
      var today = new Date();
      var birthDate = new Date(this.selecteddob);
      var age = today.getFullYear() - birthDate.getFullYear();
@@ -256,13 +267,15 @@ export class AnmAwRegistrationComponent implements OnInit {
      this.selectedage = age;
      //return age;
   }
+  casteChange()
+  {
+    this.getCommunity(this.selectedcaste);
+  }
 
   nextStep() {
     this.firstFormCheck = true;
-    console.log('hitting here'+this.firstFormGroup.valid);
       if(this.firstFormGroup.valid)
         this.stepper.next();
-        
     }
 
     prevStep() {
@@ -272,26 +285,18 @@ export class AnmAwRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
-      console.log('on submit'+this.secondFormGroup.valid);
 
-    if(this.secondFormGroup.valid && this.firstFormGroup.valid)
-    {
-      var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-      this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
-        console.log(response);
-        this.createdSubjectId = response.uniqueSubjectId;
-        $('#fadeinModal').modal('show');
-      },
-      (err: HttpErrorResponse) =>{
-        console.log(err);
-      });
-    }
-      console.log(this.firstFormGroup.get('dor').value+"::::"+moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY")+":::::"+this.firstFormGroup.get('district').value+":::::"+this.firstFormGroup.get('chc').value+":::::"+this.firstFormGroup.get('phc').value+":::::"+this.firstFormGroup.get('sc').value+":::::"+this.firstFormGroup.get('ripoint').value+":::::"+this.firstFormGroup.get('pincode').value+":::::"+this.firstFormGroup.get('contactNumber').value+":::::"+this.firstFormGroup.get('subjectitle').value+":::::"+this.firstFormGroup.get('firstname').value+":::::"+this.firstFormGroup.get('middlename').value+":::::"+this.firstFormGroup.get('dob').value+":::::"+this.firstFormGroup.get('age').value+":::::"+this.firstFormGroup.get('rchid').value+":::::"+this.firstFormGroup.get('lmpdate').value+":::::"+this.firstFormGroup.get('g').value+":::::"+this.firstFormGroup.get('p').value+":::::"+this.firstFormGroup.get('l').value+":::::"+this.firstFormGroup.get('a').value+":::::");
-
-      console.log(this.secondFormGroup.get('ECNumber').value+":::::"+this.secondFormGroup.get('govtIDType').value+":::::"+this.secondFormGroup.get('GovtIDDetail').value+":::::"+this.secondFormGroup.get('religion').value+":::::"+this.secondFormGroup.get('caste').value+":::::"+this.secondFormGroup.get('community').value+":::::"+this.secondFormGroup.get('house').value+":::::"+this.secondFormGroup.get('street').value+":::::"+this.secondFormGroup.get('city').value+":::::"+this.secondFormGroup.get('state').value+":::::"+this.secondFormGroup.get('subjectTitle').value+":::::"+this.secondFormGroup.get('spouseFirstName').value+":::::"+this.secondFormGroup.get('spouseMiddleName').value+":::::"+this.secondFormGroup.get('spouseLastName').value+":::::"+this.secondFormGroup.get('spouseContactNumber').value+":::::"+this.secondFormGroup.get('spouseEmail').value+":::::");
-
-
-      console.log(this.dataDindinginServce());
+      if(this.secondFormGroup.valid && this.firstFormGroup.valid)
+      {
+        var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
+        this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+          this.createdSubjectId = response.uniqueSubjectId;
+          $('#fadeinModal').modal('show');
+        },
+        (err: HttpErrorResponse) =>{
+          console.log(err);
+        });
+      }
     }
 
     dataDindinginServce()

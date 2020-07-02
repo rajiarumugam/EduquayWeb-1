@@ -10,10 +10,6 @@ import { ENDPOINT } from '../../../app.constant';
   providedIn: 'root'
 })
 export class masterService {
-  districtendpoint: string = "";
-  chcendpoint: string = "api/v1/WebMaster/RetrieveDistrict/";
-  phcendpoint: string = "api/v1/WebMaster/RetrieveDistrict/";
-  reendpoint: string = "api/v1/WebMaster/RetrieveDistrict/";
   userId = 1;
   constructor(private _http: HttpClientService, private genericService: GenericService) { }
 
@@ -60,6 +56,13 @@ export class masterService {
 
   getCommunity(): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECOMMUNITY);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+
+  getCommunityPerCaste(caste): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECOMMUNITY+"/"+caste);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }

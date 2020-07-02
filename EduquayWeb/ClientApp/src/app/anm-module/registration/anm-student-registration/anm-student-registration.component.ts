@@ -53,6 +53,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selecteddor;
   selectedage;
   GENDERDATA = ["Male","Female","Others"];
+  sectionArray = ['PRE KG','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'];
   subjectTitleArray = ["Mr","Miss"];
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -60,6 +61,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+
 
   createdSubjectId;
   userId = 2;
@@ -131,7 +133,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity();
+    this.getCommunity(0);
     this.getGovernmentIDType();
   }
 
@@ -209,15 +211,29 @@ export class AnmStudentRegistrationComponent implements OnInit {
     });
   }
 
-  getCommunity(){
-    this.masterService.getCommunity()
-    .subscribe(response => {
-      this.communityData = response['community'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.communityData = [];
-      this.erroMessage = err.toString();
-    });
+  getCommunity(id){
+    if(id === 0)
+    {
+        this.masterService.getCommunity()
+        .subscribe(response => {
+          this.communityData = response['community'];
+        },
+        (err: HttpErrorResponse) =>{
+          this.communityData = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else{
+      this.masterService.getCommunityPerCaste(id)
+        .subscribe(response => {
+          this.communityData = response['community'];
+        },
+        (err: HttpErrorResponse) =>{
+          this.communityData = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    
   }
 
   getGovernmentIDType(){
@@ -245,145 +261,138 @@ export class AnmStudentRegistrationComponent implements OnInit {
      this.selectedage = age;
      //return age;
   }
-
-  nextStep(id) {
+  casteChange()
+  {
+    this.getCommunity(this.selectedcaste);
+  }
+  nextStep(id) 
+  {
     if(id === 1)
     {
       this.firstFormCheck = true;
-      this.stepper.next();
       if(this.firstFormGroup.valid)
         this.stepper.next();
     }
     else 
     {
-      console.log(this.secondFormGroup.valid);
       this.secondFormCheck = true;
-       if(this.secondFormGroup.valid)
+      if(this.secondFormGroup.valid)
         this.stepper.next();
     }
-        
-    console.log('hitting here'+this.firstFormGroup.valid);
         //this.stepper.next();
-        
-    }
+  }
 
     prevStep() {
       this.stepper.previous();
       }
 
-
       formSubmit()
     {
-
-   /* if(this.secondFormGroup.valid && this.firstFormGroup.valid)
-    {
-      var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD+this.userId);
-      this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
-        console.log(response);
-        this.createdSubjectId = response.uniqueSubjectId;
-        $('#fadeinModal').modal('show');
-      },
-      (err: HttpErrorResponse) =>{
-        console.log(err);
-      });
-    }*/
-
-      console.log(this.firstFormGroup.get('dor').value+"::::"+moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY")+":::::"+this.firstFormGroup.get('district').value+":::::"+this.firstFormGroup.get('chc').value+":::::"+this.firstFormGroup.get('phc').value+":::::"+this.firstFormGroup.get('sc').value+":::::"+this.firstFormGroup.get('ripoint').value+":::::"+this.firstFormGroup.get('subjectitle').value+":::::"+this.firstFormGroup.get('firstname').value+":::::"+this.firstFormGroup.get('middlename').value+":::::"+this.firstFormGroup.get('lastname').value+":::::"+this.firstFormGroup.get('dob').value+":::::"+this.firstFormGroup.get('age').value+":::::"+this.firstFormGroup.get('gender').value+":::::");
-      console.log(this.secondFormGroup.get('religion').value+":::::"+this.secondFormGroup.get('caste').value+":::::"+this.secondFormGroup.get('community').value+":::::"+this.secondFormGroup.get('contactNumber').value+":::::"+this.secondFormGroup.get('house').value+":::::"+this.secondFormGroup.get('street').value+":::::"+this.secondFormGroup.get('city').value+":::::"+this.secondFormGroup.get('state').value+":::::"+this.secondFormGroup.get('pincode').value+":::::"+this.secondFormGroup.get('motherFirstName').value+":::::"+this.secondFormGroup.get('motherMiddleName').value+":::::"+this.secondFormGroup.get('motherLastName').value+":::::"+this.secondFormGroup.get('mothergovtIDType').value+":::::"+this.secondFormGroup.get('motherContactNumber').value+":::::"+this.secondFormGroup.get('fatherFirstName').value+":::::"+this.secondFormGroup.get('fatherMiddleName').value+":::::"+this.secondFormGroup.get('fatherLastName').value+":::::"+this.secondFormGroup.get('fathergovtIDType').value+":::::"+this.secondFormGroup.get('fatherContactNumber').value+":::::"+this.secondFormGroup.get('guardianFirstName').value+":::::"+this.secondFormGroup.get('guardianMiddleName').value+":::::"+this.secondFormGroup.get('guardianLastName').value+":::::"+this.secondFormGroup.get('guardiangovtIDType').value+":::::"+this.secondFormGroup.get('guardianContactNumber').value);
-      console.log()
-
-      console.log(this.dataDindinginServce());
+        if(this.secondFormGroup.valid && this.firstFormGroup.valid)
+          {
+            var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
+            this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+              console.log(response);
+              this.createdSubjectId = response.uniqueSubjectId;
+              $('#fadeinModal').modal('show');
+            },
+            (err: HttpErrorResponse) =>{
+              console.log(err);
+            });
+          }
+        console.log(this.dataDindinginServce());
     }
 
     dataDindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 1,
-          "childSubjectTypeId": 1,
+          "subjectTypeId": 3,
+          "childSubjectTypeId": 3,
           "uniqueSubjectId": "",
-          "districtId": this.firstFormGroup.get('district').value != undefined ? this.firstFormGroup.get('district').value != undefined : 0,
-          "chcId": this.firstFormGroup.get('chc').value,
-          "phcId": this.firstFormGroup.get('phc').value,
-          "scId": this.firstFormGroup.get('sc').value,
-          "riId": this.firstFormGroup.get('ripoint').value,
+          "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
+          "chcId": Number(this.firstFormGroup.get('chc').value),
+          "phcId": Number(this.firstFormGroup.get('phc').value),
+          "scId": Number(this.firstFormGroup.get('sc').value),
+          "riId": Number(this.firstFormGroup.get('ripoint').value),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
           "lastName": this.firstFormGroup.get('lastname').value,
           "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
-          "age": this.firstFormGroup.get('age').value,
-          "gender": "Female",
-          "maritalStatus": true,
-          "mobileNo": this.firstFormGroup.get('contactNumber').value,
-          "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
-          "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
-          "spouseSubjectId": "string",
-          "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
-          "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
-          "spouseLastName": this.secondFormGroup.get('spouseLastName').value,
-          "spouseContactNo": this.secondFormGroup.get('spouseContactNumber').value,
+          "age": Number(this.firstFormGroup.get('age').value),
+          "gender": this.firstFormGroup.get('gender').value,
+          "maritalStatus": false,
+          "mobileNo": ""+this.secondFormGroup.get('contactNumber').value,
+          "emailId": "",
+          "govIdTypeId": 0,
+          "govIdDetail": "",
+          "spouseSubjectId": "",
+          "spouseFirstName": "",
+          "spouseMiddleName": "",
+          "spouseLastName": "",
+          "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": this.userId,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": this.userId,
-          "createdBy": this.userId,
+          "registeredFrom": Number(this.userId),
+          "createdBy": Number(this.userId),
           "source": "N"
         },
         "subjectAddressRequest": {
-          "religionId": this.secondFormGroup.get('religion').value,
-          "casteId": this.secondFormGroup.get('caste').value,
-          "communityId": this.secondFormGroup.get('community').value,
+          "religionId": Number(this.secondFormGroup.get('religion').value),
+          "casteId": Number(this.secondFormGroup.get('caste').value),
+          "communityId": Number(this.secondFormGroup.get('community').value),
           "address1": this.secondFormGroup.get('house').value,
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
-          "pincode": this.firstFormGroup.get('pincode').value,
+          "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": this.userId
+          "updatedBy": Number(this.userId)
         },
         "subjectPregnancyRequest": {
-          "rchId": this.firstFormGroup.get('rchid').value,
-          "ecNumber": this.secondFormGroup.get('ECNumber').value,
-          "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
-          "g": this.firstFormGroup.get('g').value,
-          "p": this.firstFormGroup.get('p').value,
-          "l": this.firstFormGroup.get('l').value,
-          "a": this.firstFormGroup.get('a').value,
-          "updatedBy": this.userId
+          "rchId": '0',
+          "ecNumber": "",
+          "lmpDate": "",
+          "g": 0,
+          "p": 0,
+          "l": 0,
+          "a": 0,
+          "updatedBy": Number(this.userId)
         },
         "subjectParentRequest": {
-          "motherFirstName": "",
-          "motherMiddleName": "",
-          "motherLastName": "",
-          "motherGovIdTypeId": 0,
-          "motherGovIdDetail": "",
-          "motherContactNo": "",
-          "fatherFirstName": "",
-          "fatherMiddleName": "",
-          "fatherLastName": "",
-          "fatherGovIdTypeId": 0,
-          "fatherGovIdDetail": "",
-          "fatherContactNo": "",
-          "gaurdianFirstName": "",
-          "gaurdianMiddleName": "",
-          "gaurdianLastName": "",
-          "gaurdianGovIdTypeId": 0,
-          "gaurdianGovIdDetail": "",
-          "gaurdianContactNo": "",
-          "rbskId": "",
-          "schoolName": "",
-          "schoolAddress1": "",
-          "schoolAddress2": "",
-          "schoolAddress3": "",
-          "schoolPincode": "",
-          "schoolCity": "",
-          "schoolState": "",
-          "standard": "",
-          "section": "",
-          "rollNo": "",
-          "updatedBy": this.userId
+          "motherFirstName": this.secondFormGroup.get('motherFirstName').value,
+          "motherMiddleName": this.secondFormGroup.get('motherMiddleName').value != undefined ? this.secondFormGroup.get('motherMiddleName').value : '',
+          "motherLastName": this.secondFormGroup.get('motherLastName').value,
+          "motherGovIdTypeId": this.secondFormGroup.get('mothergovtIDType').value != undefined ? Number(this.secondFormGroup.get('mothergovtIDType').value) : 0,
+          "motherGovIdDetail": this.secondFormGroup.get('motherGovtIDDetail').value != undefined ? this.secondFormGroup.get('motherGovtIDDetail').value : '',
+          "motherContactNo": ""+this.secondFormGroup.get('motherContactNumber').value,
+          "fatherFirstName": this.secondFormGroup.get('fatherFirstName').value != undefined ? this.secondFormGroup.get('fatherFirstName').value : '',
+          "fatherMiddleName": this.secondFormGroup.get('fatherMiddleName').value != undefined ? this.secondFormGroup.get('fatherMiddleName').value : '',
+          "fatherLastName": this.secondFormGroup.get('fatherLastName').value != undefined ? this.secondFormGroup.get('fatherLastName').value : '',
+          "fatherGovIdTypeId": this.secondFormGroup.get('fathergovtIDType').value != undefined ? Number(this.secondFormGroup.get('fathergovtIDType').value) : 0,
+          "fatherGovIdDetail": this.secondFormGroup.get('fatherGovtIDDetail').value != undefined ? this.secondFormGroup.get('fatherGovtIDDetail').value : '',
+          "fatherContactNo": this.secondFormGroup.get('fatherContactNumber').value != undefined ? ""+this.secondFormGroup.get('fatherContactNumber').value : '',
+          "gaurdianFirstName": this.secondFormGroup.get('guardianFirstName').value != undefined ? this.secondFormGroup.get('guardianFirstName').value : '',
+          "gaurdianMiddleName": this.secondFormGroup.get('guardianMiddleName').value != undefined ? this.secondFormGroup.get('guardianMiddleName').value : '',
+          "gaurdianLastName": this.secondFormGroup.get('guardianLastName').value != undefined ? this.secondFormGroup.get('guardianLastName').value : '',
+          "gaurdianGovIdTypeId": this.secondFormGroup.get('guardiangovtIDType').value != undefined ? Number(this.secondFormGroup.get('guardiangovtIDType').value) : 0,
+          "gaurdianGovIdDetail": this.secondFormGroup.get('guardianGovtIDDetail').value != undefined ? this.secondFormGroup.get('guardianGovtIDDetail').value : '',
+          "gaurdianContactNo": this.secondFormGroup.get('guardianContactNumber').value != undefined ? ""+this.secondFormGroup.get('guardianContactNumber').value : '',
+
+          "rbskId": this.thirdFormGroup.get('rbskid').value != undefined ? this.thirdFormGroup.get('rbskid').value : '',
+          "schoolName": this.thirdFormGroup.get('schoolname').value != undefined ? this.thirdFormGroup.get('schoolname').value : '',
+          "schoolAddress1": this.thirdFormGroup.get('schoolstreet').value != undefined ? this.thirdFormGroup.get('schoolstreet').value : '',
+          "schoolAddress2": '',
+          "schoolAddress3": '',
+          "schoolPincode": this.thirdFormGroup.get('schoolpincode').value != undefined ? this.thirdFormGroup.get('schoolpincode').value : '',
+          "schoolCity": this.thirdFormGroup.get('schoolcity').value != undefined ? this.thirdFormGroup.get('schoolcity').value : '',
+          "schoolState": this.thirdFormGroup.get('schoolstate').value != undefined ? this.thirdFormGroup.get('schoolstate').value : '',
+          "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
+          "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
+          "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
+          "updatedBy": Number(this.userId)
         }
       };
 

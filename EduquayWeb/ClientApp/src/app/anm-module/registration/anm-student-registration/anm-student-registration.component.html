@@ -115,7 +115,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputCaste" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }">Caste</label><span class="manto"> *</span>
-                        <select id="inputPHCom" class="form-control" required [(ngModel)]="selectedcaste" formControlName = "caste" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }">
+                        <select id="inputPHCom" class="form-control" required [(ngModel)]="selectedcaste" formControlName = "caste" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }" (change)="casteChange();">
                             <option [ngValue]="null">Select</option>
                             <option [value]="caste.id" *ngFor="let caste of casteData">{{caste.casteName}}</option>
                         </select>
@@ -296,7 +296,7 @@
                       <label class="birthreg" for="schoolStandard">Standard</label>
                       <select id="schoolStandard" class="form-control" [(ngModel)]="selectedschoolstandard" formControlName = "schoolstandard">
                           <option [ngValue]="null">Select</option>
-                          <option [value]="gid.id" *ngFor="let gid of governmentIDData">{{gid.govIdTypeName}}</option>
+                          <option [value]="section" *ngFor="let section of sectionArray">{{section}}</option>
                       </select>
                   </div>
                     <div class="form-group col-md-3">
