@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import '~ng-wizard/themes/ng_wizard.min.css';
+@import '~ng-wizard/themes/ng_wizard_theme_arrows.min.css';
+@import '~ng-wizard/themes/ng_wizard_theme_circles.min.css';
+@import '~ng-wizard/themes/ng_wizard_theme_dots.min.css';
+
 html { min-height: 100% }
 body {
     color: #191a1d;

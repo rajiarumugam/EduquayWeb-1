@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
 import { SampleCollectionResponse, SubjuctList, SampleCollectionPostResponse, subjuctType, subjectTypesResponse } from 'src/app/shared/anm-module/sample-collection-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { DataTableDirective } from 'angular-datatables';
 //import { FormGroup, FormBuilder } from '@angular/forms';
 
 
@@ -19,11 +20,13 @@ import { formatDate } from '@angular/common';
   templateUrl: './sample-collection.component.html',
   styleUrls: ['./sample-collection.component.css']
 })
-export class SampleCollectionComponent implements OnInit {
- //@ViewChild('f', { static: false }) collectionForm: NgForm;
- //@ViewChild('collectionForm' , { static: false }) collectionForm : NgForm;
- //collectionForm: FormGroup;
- //@ViewChild('s', { static: false }) getSampleCollectionData: NgForm;
+export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  loadDataTable: boolean = false;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  
   sCollectionErrorMessage: string;
   scRequest: SampleCollectionRequest;
   sampleCollectionResponse: SampleCollectionResponse;
@@ -50,7 +53,8 @@ export class SampleCollectionComponent implements OnInit {
   subjectTypes: subjuctType[] = [];
   selectedSubjectType: string = '1';
   selected: null;
-  
+
+
   //sampleTypes = ['Antenatal Woman', 'Spouse', 'Child', 'Walk-in'];
 
   constructor(
@@ -62,6 +66,26 @@ export class SampleCollectionComponent implements OnInit {
     ) {  }
 
   ngOnInit() {
+
+    this.dtOptions = {
+      pagingType: 'simple_numbers',
+      pageLength: 5,
+      processing: true,
+      stripeClasses: [],
+      lengthMenu: [5, 10, 20, 50],
+      language: {
+        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        searchPlaceholder: "Search...",
+        lengthMenu: "Records / Page :  _MENU_",
+        paginate: {
+          first: '',
+          last: '', // or '←' 
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        }, 
+      }   
+    };
+
     this.collectionDate = this.dateService.getDate();
     this.fromDate = this.dateService.getDate();
     this.toDate = this.dateService.getDate();
@@ -122,13 +146,16 @@ export class SampleCollectionComponent implements OnInit {
         else{
           this.subjectList = this.sampleCollectionResponse.subjectList;
         }
-      }else{
+      }
+      else{
         this.sCollectionErrorMessage = response.message;
       }
+      this.rerender();
+      this.loadDataTable = true;
     },
     (err: HttpErrorResponse) => {
+      if (this.loadDataTable) this.rerender();
       this.sCollectionErrorMessage = err.toString();
-
     });
   }
 
@@ -213,18 +240,27 @@ export class SampleCollectionComponent implements OnInit {
     }
   }
 
-  // resetValues(){
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first   
+      dtInstance.clear();   
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again       
+      this.dtTrigger.next();
+    });
+  }   
 
-  //   this.barcodeNo = '';
-  //   this.collectionDate = '';
-  //   this.collectionTime = '';
+     
 
-  // }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }   
 
 
-  // Validate barcode before submit
-  // clear controls once the data is submitted
-  // close the popup once the click on the swal Ok button
-  // default date and time value in the control
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
 
 }
