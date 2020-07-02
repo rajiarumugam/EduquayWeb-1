@@ -21,6 +21,10 @@
       "@angular/*": [
         "../node_modules/@angular/*"
       ]
-    }
+    },
+  //   "compilerOptions": {
+  //     "experimentalDecorators": true,
+  //     "allowJs": true
+  // }
   }
 }

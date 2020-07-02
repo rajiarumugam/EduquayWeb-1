@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 //import { library } from '@fortawesome/fontawesome-svg-core'
 //import { fas } from '@fortawesome/free-solid-svg-icons'
 //import { far } from '@fortawesome/free-regular-svg-icons'
@@ -36,6 +37,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   avdNameResponse: AvdNameResponse;
   anmaddshipmentRequest: AnmAddShipmentRequest;
   anmaddshipmentResponse: AnmAddShipmentResponse;
+  picknpackInitResponse: any;
   sampleList: SampleList[] = [];
   riPoints: RIModel[] = [];
   selectedriPoint: '';
@@ -66,23 +68,59 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     private PicknpackService: PicknpackService,
     private modalService: NgbModal,
     private dateService: DateService,
+    private router: Router,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit() {
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      
+      pagingType: 'simple_numbers',
+      pageLength: 5,
+      processing: true,
+      stripeClasses: [],
+      lengthMenu: [5, 10, 20, 50],
+      language: {
+        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        searchPlaceholder: "Search...",
+        lengthMenu: "Records / Page :  _MENU_",
+        paginate: {
+          first: '',
+          last: '', // or '←' 
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        },
+        //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
+        
+      } 
     };
+    
     this.dateOfShipment =  this.dateService.getDate();
     this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
     this.ddlRiPoint();
     this.anmpicknpackList();
+
+    this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
+    if (this.picknpackInitResponse.status === 'false') {
+      this.sampleList = [];
+      if (this.picknpackInitResponse.message !== null && this.picknpackInitResponse.message.code === "ENOTFOUND") {
+        this.picknpackErrorMessage = "Unable to connect to api source";
+      }
+      else if (this.picknpackInitResponse.message !== null || this.picknpackInitResponse.message == undefined) {
+        this.picknpackErrorMessage = this.picknpackInitResponse.message;
+      }
+    }
+    else {
+      
+      if (this.picknpackInitResponse.sampleList!= null && this.picknpackInitResponse.sampleList.length > 0) {
+        this.sampleList = this.picknpackInitResponse.sampleList;
+      }
+    }
   }
 
   ddlRiPoint(){
     //this.riPointRequest = {userId: 1};
-    var userId = 1;
+    var userId = 2;
     let riPoint= this.PicknpackService.getRiPoint(userId).subscribe(response =>{
        this.riPointResponse = response;
        if(this.riPointResponse !== null && this.riPointResponse.status === "true"){
@@ -219,67 +257,68 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     });
   }
 
-   onSubmit(shipmentForm: NgForm) 
-   {
+  onSubmit(shipmentForm: NgForm) {
     this.picknpackErrorMessage = '';
-     this.fetchBarcode();
+    this.fetchBarcode();
     //var shipmentId = "123";
     console.log(shipmentForm.value);
-    if(this.selectedBarcodes === ''){
+    if (this.selectedBarcodes === '') {
       this.picknpackErrorMessage = 'Please select atleast one sample to create shipment';
       return false;
     }
-    
+
     this.avdContactNo = shipmentForm.value.contactNo;
     this.riId = shipmentForm.value.DDriPoint;
     this.ilrId = shipmentForm.value.DDilrPoint;
     this.testingCHCId = shipmentForm.value.DDLtestingChc;
     this.avdId = shipmentForm.value.DDLavdName;
-   // console.log('openSampleCOlllection()');
-   this.anmaddshipmentRequest = {
-    anmId: 1,
-    riId: +(this.riId),
-    ilrId: +(this.ilrId),
-    avdId: +(this.avdId),
-    avdContactNo: this.avdContactNo,
-    testingCHCId: +(this.testingCHCId),
-    dateOfShipment: this.dateOfShipment,
-    timeOfShipment: this.timeOfShipment,
-    barcodeNo: this.selectedBarcodes,
-    shipmentFrom: 4,
-    createdBy: 1,
-    source: 'N',
-   }
-   let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
-   .subscribe(response => {
-    this.anmaddshipmentResponse = response;
-    if(this.anmaddshipmentResponse !== null && this.anmaddshipmentResponse.status === "true"){
-      this.showResponseMessage(this.anmaddshipmentResponse.shipmentId, 's');
-      this.anmpicknpackList();
-    }else{
-      this.showResponseMessage(this.anmaddshipmentResponse.errorMessage, 'e');
-              this.picknpackErrorMessage = response.message;
+    // console.log('openSampleCOlllection()');
+    this.anmaddshipmentRequest = {
+      anmId: 1,
+      riId: +(this.riId),
+      ilrId: +(this.ilrId),
+      avdId: +(this.avdId),
+      avdContactNo: this.avdContactNo,
+      testingCHCId: +(this.testingCHCId),
+      dateOfShipment: this.dateOfShipment,
+      timeOfShipment: this.timeOfShipment,
+      barcodeNo: this.selectedBarcodes,
+      shipmentFrom: 4,
+      createdBy: 2,
+      source: 'N',
     }
+    let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
+      .subscribe(response => {
+        this.anmaddshipmentResponse = response;
+        if (this.anmaddshipmentResponse !== null && this.anmaddshipmentResponse.status === "true") {
+          this.showResponseMessage(this.anmaddshipmentResponse.shipment.shipmentId, 's');
+          this.anmpicknpackList();
+        } else {
+          this.showResponseMessage(this.anmaddshipmentResponse.shipment.errorMessage, 'e');
+          this.picknpackErrorMessage = response.message;
+        }
 
-  },
-  (err: HttpErrorResponse) => {
-    this.showResponseMessage(err.toString(), 'e');
-    this.picknpackErrorMessage = err.toString();
-  });
-    }
+      },
+        (err: HttpErrorResponse) => {
+          this.showResponseMessage(err.toString(), 'e');
+          this.picknpackErrorMessage = err.toString();
+        });
+  }
 
     showResponseMessage(shipmentId: string, type: string){
       var messageType = '';
+      var title = `Shipment Id is ${shipmentId}`;
       if(type === 'e'){
         Swal.fire({icon:'error', title: shipmentId, confirmButtonText: 'Close'})
       }
       else{
-        Swal.fire({icon:'success', title: shipmentId,
+        Swal.fire({icon:'success', title: title,
         showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
            .then((result) => {
              if (result.value) {
-               location.href=  `/app/anm-viewshipment`;
-               //location.href=  `/app/anm-viewshipment/${shipmentId}`;
+              this.modalService.dismissAll();
+              //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
+              this.router.navigateByUrl(`/app/anm-viewshipment?q=${shipmentId}`);
              
              }
              else{

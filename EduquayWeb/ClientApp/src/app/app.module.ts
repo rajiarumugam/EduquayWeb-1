@@ -21,6 +21,11 @@ import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm
 import { AnmCollectionComponent } from './anm-module/anm-collection/anm-collection.component';
 import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component';
 import { DataTablesModule } from 'angular-datatables';
+import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.default
+};
 
 @NgModule({
   declarations: [
@@ -48,7 +53,8 @@ import { DataTablesModule } from 'angular-datatables';
     HttpClientModule,
     FormsModule,
     NgbModule,
-    DataTablesModule
+    DataTablesModule,
+    NgWizardModule.forRoot(ngWizardConfig)
   ],
   providers: [
 

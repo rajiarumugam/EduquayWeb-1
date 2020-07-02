@@ -7,6 +7,10 @@ function myFunctionSearch() {
     }
 }
 
+function isFormValid(){
+	return true;
+}
+
 function myDefinition() {
     var x = document.getElementById("myTable");
     if (x.style.display === "none") {
