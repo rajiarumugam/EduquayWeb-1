@@ -1,0 +1,20 @@
+{
+    "Language": "Hindi",
+    "Sitetitle": "Hoekige site met meerdere talen",
+    "FromDate":     "तारीख से",
+    "ToDate":       "तारीख तक",
+    "SubjectType":  "व्यक्ति का प्रकार",
+
+    "SNo": "अनु क्रमांक",
+    "SubjectName": "विषय नाम",
+    "SubjectID": "विषय आईडी",
+    "RCHID": "आरसीएच आईडी",
+    "SpouseName": "जीवनसाथी का नाम",
+    "SampleType": "नमूना प्रकार",
+    "Contact": "संपर्क करें",
+    "SubjectRegDate": "विषय रजि",
+    "GA": "गर्भधारण की उम्र",
+    "SampleCollection": "नमूना संग्रह"
+
+
+}
