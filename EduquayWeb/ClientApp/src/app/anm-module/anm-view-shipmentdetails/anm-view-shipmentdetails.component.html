@@ -40,44 +40,12 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="row my-4">
                             <div class="col-md-4">
-                                <span><b>Shipment ID : </b></span><span>THSIK2020321</span>
+                                <span><b>Shipment ID : </b></span><span>{{shipmentItem.shipmentId}}</span>
                             </div>
                             <div class="col-md-4">
-                                <span><b>Shipment Date & Time : </b></span><span>05/02/2020 17:00</span>
-                            </div>
-                            <div class="col-md-4 d-flex justify-content-end">
-                                <!-- <div class="btn-toolbar mb-2 mb-md-0">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-light">
-                                            <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button>
-                                        <button type="button" class="btn btn-sm btn-outline-light">
-                                            <img src="assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button>
-                                    </div>
-                                </div> -->
-                            </div>
-                            <!-- <div class="col-md-4 d-flex justify-content-end">
-                                <div class="btn-toolbar mb-2 mb-md-0">
-                                    <a class="btn btn-light" href="#" aria-label="print">
-                                        <i class="fa fa-file-excel-o" aria-hidden="true" style="color: green;font-size: 24px;"></i>
-                                    </a>
-                                    <a class="btn btn-light" href="#" aria-label="print">
-                                        <i class="fa fa-file-pdf-o" aria-hidden="true" style="color: red;font-size: 24px;"></i>
-                                    </a>
-                                </div>
-                            </div> -->
-                       
+                                <span><b>Shipment Date & Time : </b></span><span>{{shipmentItem.shipmentDateTime}}</span>
+                            </div>                            
                         </div>
-
-                        <!-- </div> -->
-                        <!-- <div class="row my-4">
-                            <div class="col-md-4">
-                                <span><b>Shipment ID : </b></span><span>THSIK2020321</span>
-                            </div>
-                            <div class="col-md-4">
-                                <span><b>Shipment Date & Time : </b></span><span>05/02/2020 17:00</span>
-                            </div>
-
-                        </div> -->
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12 border-bottom">
@@ -86,25 +54,25 @@
                         </div>
                         <div class="row my-4">
                             <div class="col-md-3">
-                                <span><b>ANM Name : </b></span><span>Pooja</span>
+                                <span><b>ANM Name : </b></span><span>{{shipmentItem.anmName}}</span>
                             </div>
                             
                             <div class="col-md-3">
-                                <span><b>RI Point : </b></span><span>Burja</span>
+                                <span><b>RI Point : </b></span><span>{{shipmentItem.riPoint}}</span>
                             </div>
                             <div class="col-md-3">
-                                <span><b>ILR Point : </b></span><span>Laxmipur</span>
+                                <span><b>ILR Point : </b></span><span>{{shipmentItem.ilrPoint}}</span>
                             </div>
                             <div class="col-md-3">
-                                <span><b>Receiving Testing CHC : </b></span><span>CHC Angul</span>
+                                <span><b>Receiving Testing CHC : </b></span><span>{{shipmentItem.testingCHC}}</span>
                             </div>
                         </div>
                         <div class="row my-4">
                             <div class="col-md-3">
-                                <span><b>AVD Name : </b></span><span>Suraj</span>
+                                <span><b>AVD Name : </b></span><span>{{shipmentItem.avdName}}</span>
                             </div>
                             <div class="col-md-3">
-                                <span><b>Contact Number : </b></span><span>9876765456</span>
+                                <span><b>Contact Number : </b></span><span>{{shipmentItem.contactNo}}</span>
                             </div>
                         </div>
 
@@ -115,59 +83,28 @@
                                     <tr>
                                         <th class="text-center"><span>S.No</span></th>
                                         <th class="text-center"> <span>Subject Name</span></th>
-                                       
                                         <th class="text-center"><span>Subject ID</span></th>
                                         <th class="text-center"><span>RCH ID</span></th>
                                         <th class="text-center"><span>Barcode</span></th>
                                         <th class="text-center"><span>Sample Collection Date & Time</span></th>
-
-                                        <!-- <th><span>Select</span></th> -->
                                     </tr>
 
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="sno text-center">1</td>
-                                        <td class="sname text-left">Soori Thangaraj</td>
-                                        
-                                        <td class="text-center">OD001202032110</td>
-                                        <td class="text-center">123456</td>
-                                        <td class="text-center">020155</td>
-                                        <td class="text-center"></td>
-
+                                    <tr *ngFor="let sample of shipmentItem.samplesDetail; index as i">
+                                        <td class="sno text-center">{{i+1}}</td>
+                                        <td class="sname text-left">{{sample.subjectName}}</td> 
+                                        <td class="text-center">{{sample.uniqueSubjectId}}</td>
+                                        <td class="text-center">{{sample.rchId}}</td>
+                                        <td class="text-center">{{sample.barcodeNo}}</td>
+                                        <td class="text-center">{{sample.sampleCollectionDateTime}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td class="text-left">Selvi Manikkam</td>
-                                       
-                                        <td class="text-center">OD001202032112</td>
-                                        <td class="text-center">214563</td>
-                                        <td class="text-center">020154</td>
-                                        <td class="text-center"></td>
-
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row mt-4">
-                        <div class="col-md-12">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="collection.html">3</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
-                                    <li class="page-item active"><a class="page-link" href="shipmentlog.html">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> -->
+               
             </div>
         </div>
 	</div>	

@@ -5,7 +5,7 @@ export interface PicknpackRequest {
 
 export interface AnmAddShipmentRequest{
     barcodeNo: string;
-    shipmentFrom?: number;
+    shipmentFrom: number;
     anmId: number;
     riId: number;
     ilrId: number;

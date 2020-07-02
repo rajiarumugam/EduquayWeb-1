@@ -19,8 +19,8 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" href="Completed.html" role="button"
-                                    title="Pick & Pack"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-pickpack']" role="button"
+                                    ngbTooltip="Pick & Pack"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
@@ -29,8 +29,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="float-right mb-4">
-                                <a class="btn btn-outline-primary bs-tooltip" href="profile.html" role="button"
-                                    title="Subject Profile"><i class="fas fa-chevron-right pNav-right"></i></a>
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-subprofile']" role="button"
+                                ngbTooltip="Subject Profile"><i class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -78,13 +78,13 @@
                             </div> -->
                             <div class="form-row">
                                 <div class="col-md-10">
-                                    <div *ngIf="picknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='No subjects found', 'alert-danger': shipmentLogErrorMessage !== 'No subjects found'}">
+                                    <div *ngIf="picknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='No samples found', 'alert-danger': shipmentLogErrorMessage !== 'No samples found'}">
                                         <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{shipmentLogErrorMessage}}
                                       </div>
                                 </div>
                             </div>
                             <div class="table-responsive mt-4">
-                                <table id="shipmentlog-tblconfig" class="table table-bordered table-hover">
+                                <table id="anmshipmentlog-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                     <thead>
                                         <tr>
                                             <th><span>S.No</span></th>
@@ -160,7 +160,7 @@
                                         </div>
                                         
                                         <div class="col-md-3">
-                                            <span><b>RI Point : </b></span><span>{{shipmentId}}</span>
+                                            <span><b>RI Point : </b></span><span>{{riPoint}}</span>
                                         </div>
                                         <div class="col-md-3">
                                             <span><b>ILR Point : </b></span><span>{{ilrPoint}}</span>
