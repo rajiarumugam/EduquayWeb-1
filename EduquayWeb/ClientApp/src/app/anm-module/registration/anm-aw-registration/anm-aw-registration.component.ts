@@ -10,6 +10,8 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { HttpClientService } from '../../../shared/http-client.service';
 import { ENDPOINT } from '../../../app.constant';
+import { GenericService } from '../../../shared/generic.service';
+declare var $: any 
 
 declare var exposedFunction;
 
@@ -65,8 +67,9 @@ export class AnmAwRegistrationComponent implements OnInit {
   };
 
   userId = 2;
+  createdSubjectId="";
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -273,8 +276,11 @@ export class AnmAwRegistrationComponent implements OnInit {
 
     if(this.secondFormGroup.valid && this.firstFormGroup.valid)
     {
-      this.httpClientService.post<any>({url:ENDPOINT.SUBJECT.ADD, body: this.dataDindinginServce() }).subscribe(response => {
+      var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
+      this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
         console.log(response);
+        this.createdSubjectId = response.uniqueSubjectId;
+        $('#fadeinModal').modal('show');
       },
       (err: HttpErrorResponse) =>{
         console.log(err);
@@ -294,57 +300,57 @@ export class AnmAwRegistrationComponent implements OnInit {
         "subjectPrimaryRequest": {
           "subjectTypeId": 1,
           "childSubjectTypeId": 1,
-          "uniqueSubjectId": "string",
-          "districtId": this.firstFormGroup.get('district').value != undefined ? this.firstFormGroup.get('district').value != undefined : 0,
-          "chcId": this.firstFormGroup.get('chc').value,
-          "phcId": this.firstFormGroup.get('phc').value,
-          "scId": this.firstFormGroup.get('sc').value,
-          "riId": this.firstFormGroup.get('ripoint').value,
+          "uniqueSubjectId": "",
+          "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
+          "chcId": Number(this.firstFormGroup.get('chc').value),
+          "phcId": Number(this.firstFormGroup.get('phc').value),
+          "scId": Number(this.firstFormGroup.get('sc').value),
+          "riId": Number(this.firstFormGroup.get('ripoint').value),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
           "lastName": this.firstFormGroup.get('lastname').value,
           "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
-          "age": this.firstFormGroup.get('age').value,
+          "age": Number(this.firstFormGroup.get('age').value),
           "gender": "Female",
-          "maritalStatus": "Yes",
-          "mobileNo": this.firstFormGroup.get('contactNumber').value,
+          "maritalStatus": true,
+          "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
           "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
-          "spouseSubjectId": "string",
+          "spouseSubjectId": "",
           "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
           "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
           "spouseLastName": this.secondFormGroup.get('spouseLastName').value,
-          "spouseContactNo": this.secondFormGroup.get('spouseContactNumber').value,
+          "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": 0,
+          "assignANMId": this.userId,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": this.userId,
-          "createdBy": this.userId,
+          "registeredFrom": Number(this.userId),
+          "createdBy": Number(this.userId),
           "source": "N"
         },
         "subjectAddressRequest": {
-          "religionId": this.secondFormGroup.get('religion').value,
-          "casteId": this.secondFormGroup.get('caste').value,
-          "communityId": this.secondFormGroup.get('community').value,
+          "religionId": Number(this.secondFormGroup.get('religion').value),
+          "casteId": Number(this.secondFormGroup.get('caste').value),
+          "communityId": Number(this.secondFormGroup.get('community').value),
           "address1": this.secondFormGroup.get('house').value,
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
-          "pincode": this.firstFormGroup.get('pincode').value,
+          "pincode": ""+this.firstFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": this.userId
+          "updatedBy": Number(this.userId)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchid').value,
           "ecNumber": this.secondFormGroup.get('ECNumber').value,
           "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
-          "g": this.firstFormGroup.get('g').value,
-          "p": this.firstFormGroup.get('p').value,
-          "l": this.firstFormGroup.get('l').value,
-          "a": this.firstFormGroup.get('a').value,
-          "updatedBy": this.userId
+          "g": Number(this.firstFormGroup.get('g').value),
+          "p": Number(this.firstFormGroup.get('p').value),
+          "l": Number(this.firstFormGroup.get('l').value),
+          "a": Number(this.firstFormGroup.get('a').value),
+          "updatedBy": Number(this.userId)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -376,7 +382,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": this.userId
+          "updatedBy": Number(this.userId)
         }
       };
 
