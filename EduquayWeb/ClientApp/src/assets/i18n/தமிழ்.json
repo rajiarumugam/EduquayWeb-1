@@ -1,0 +1,20 @@
+{
+    "Language": "Tamil",
+    "Sitetitle": "Hoekige site met meerdere talen",
+    "FromDate":     "தேதி முதல்",
+    "ToDate":       "தேதி வரை",
+    "SubjectType":  "நபர் வகை",
+
+    "SNo": "வ எண்",
+    "SubjectName": "நபரின் பெயர்",
+    "SubjectID": "நபரின் எண்",
+    "RCHID": "RCH ID",
+    "SpouseName": "கணவன் பெயர்",
+    "SampleType": "மாதிரி வகை",
+    "Contact": "தொடர்பு கொள்ளுங்கள்",
+    "SubjectRegDate": "பதிவு தேதி",
+    "GA": "கர்பகால வயது",
+    "SampleCollection": "மாதிரி சேகரிப்பு"
+    
+
+}

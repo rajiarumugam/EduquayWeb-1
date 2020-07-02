@@ -1,0 +1,19 @@
+{
+    "Language": "English",
+    "Sitetitle":    "Angular Multi Language Site",
+    "FromDate":     "From Date",
+    "ToDate":       "To Date",
+    "SubjectType":  "Subject Type",
+
+    "SNo": "S.No",
+    "SubjectName": "Subject Name",
+    "SubjectID": "Subject ID",
+    "RCHID": "RCH ID",
+    "SpouseName": "Spouse Name",
+    "SampleType": "Sample Type",
+    "Contact": "Contact",
+    "SubjectRegDate": "Subject Reg Date",
+    "GA": "GA",
+    "SampleCollection": "Sample Collection"
+
+}

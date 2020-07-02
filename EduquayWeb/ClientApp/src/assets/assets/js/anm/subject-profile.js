@@ -1,18 +1,6 @@
-$(document).scroll(function () {
-	var y = $(this).scrollTop();
-	var navWrap = $('#tblBasicInfo').offset().top - 100;
-	
-	console.log(y + ' - '+ navWrap);
-	if (y > navWrap) {
-		$('#showhidediv').fadeIn(100);
-	}
-	else{
-		$('#showhidediv').fadeOut();
-	}
+
+
+var newDt = flatpickr(document.getElementById('dobnewdate'), {
+    dateFormat: "d/m/Y",
+    //defaultDate: "today"
 });
-
-
-
-function isFormValid(){
-	return true;
-}

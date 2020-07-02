@@ -17,17 +17,17 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-4">
-              <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" href="live-screener-entry.html"
-                  role="button" title="Subject Registration"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+              <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-subregn']"
+                  role="button" ngbTooltip="Subject Registration"><i class="fas fa-chevron-left pNav-left"></i></a></div>
             </div>
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Sample Collection</h5>
+                <h5 class="float-center">Sample Collection </h5>
               </div>
             </div>
             <div class="col-md-4">
               <div class="float-right mb-4">
-                <a class="btn btn-outline-primary bs-tooltip" href="Completed.html" role="button" title="Pick & Pack"><i
+                <a class="btn btn-outline-primary bs-tooltip"  [routerLink]="['/app/anm-pickpack']" role="button" ngbTooltip="Pick & Pack"><i
                     class="fas fa-chevron-right pNav-right"></i></a>
               </div>
             </div>
@@ -46,7 +46,8 @@
 
             <div class="form-row mt-4">
               <div class="form-group col-md-2">
-                <label for="inputFromdate">From Date</label>
+                <label for="inputFromdate">{{'FromDate' | translate }}
+                </label>
                 <div class="form-group mb-0">
                   <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
                   [(ngModel)]="fromDate" required
@@ -54,14 +55,14 @@
                 </div>
               </div>
               <div class="form-group col-md-2">
-                <label for="inputTodate">To Date</label>
+                <label for="inputTodate">{{'ToDate' | translate }}</label>
                 <div class="form-group mb-0">
                   <input id="scToDate" class="form-control flatpickr flatpickr-input" name="toDate" type="text"
                   [(ngModel)]="toDate"  required  placeholder="Select Date...">
                 </div>
               </div>
               <div class="form-group col-md-2">
-                <label for="inputSubjectcategory">Subject Type</label>
+                <label for="inputSubjectcategory">{{'SubjectType' | translate }}</label>
                 <select id="inputSubjectcategory" class="form-control" name=DDsubjectType #DDsubjectType="ngModel"
                 required [(ngModel)]="selectedSubjectType">
                   <option value="">--Select--</option>
@@ -90,20 +91,20 @@
             <div class="row my-4">
               <div class="col-md-12">
                 <div class="table-responsive">
-                  <table id="zero-config" class="table table-bordered table-hover" style="width:100%">
+                  <table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                       <tr>
-                        <th><span>S.No</span></th>
-                        <th><span>Subject Name</span></th>
-                        <th><span>Subject ID</span></th>
-                        <th><span>RCH ID</span></th>
-                        <th><span>Spouse Name</span></th>
-                        <th><span>Subject Type</span></th>
-                        <th><span>Sample Type</span></th>
-                        <th><span>Contact</span></th>
-                        <th><span>Subject Reg Date</span></th>
-                        <th><span>GA</span></th>
-                        <th><span class="wordwrap">Sample Collection</span></th>
+                        <th><span>{{'SNo' | translate }}</span></th>
+                        <th><span>{{'SubjectName' | translate }}</span></th>
+                        <th><span>{{'SubjectID' | translate }}</span></th>
+                        <th><span>{{'RCHID' | translate }}</span></th>
+                        <th><span>{{'SpouseName' | translate }}</span></th>
+                        <th><span>{{'SubjectType' | translate }}</span></th>
+                        <th><span>{{'SampleType' | translate }}</span></th>
+                        <th><span>{{'Contact' | translate }}</span></th>
+                        <th><span>{{'SubjectRegDate' | translate }}</span></th>
+                        <th><span>{{'GA' | translate }}</span></th>
+                        <th><span class="wordwrap">{{'SampleCollection' | translate }}</span></th>
                       </tr>
 
                     </thead>
@@ -177,7 +178,7 @@
                           <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
                           <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
                           <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" 
-                          ngModel #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
+                           [(ngModel)]="sampleBarcode" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
                           <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small>
                           <div *ngIf="collectionForm.submitted && sampleBarcode.invalid">     
                             <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
