@@ -13,6 +13,7 @@ export const ENDPOINT = {
     },
     "SUBJECT":
     {
-        "ADD":"api/v1/Subject/Add"
+        "ADD":"api/v1/Subject/Add",
+        "RETRIVE":"api/v1/Subject/RetrieveANWSubjects"
     }
 }
