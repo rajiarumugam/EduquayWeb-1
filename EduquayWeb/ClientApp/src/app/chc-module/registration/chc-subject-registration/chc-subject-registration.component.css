@@ -12,7 +12,6 @@ h5.float-left {
     font-size: 25px;
 }
 
-
 .modaltitle {
     color: #1b55e2;
     font-weight: 600;
@@ -65,7 +64,7 @@ padding: 9px 6px !important;
     height: 20px;
     background: #eee;
     border-radius: 3px;
-
+    /*box-shadow: inset 0 1px 3px rgba(0,0,0,.3)*/
 }
 
 /* checked mark aspect */
@@ -124,7 +123,7 @@ padding: 9px 6px !important;
     outline: none !important;
 }
 
-
+/* hover style just for information */
 
 [type="checkbox"]:not(:checked)+label {
     color: #ddd;
@@ -139,114 +138,9 @@ font-weight: 600;
 }
 
 @media (min-width: 576px) {
-.form-inline .form-control {
-display: inline-block;
-width: auto;
-vertical-align: middle;
-}
-}
-
-
-::ng-deep .mat-horizontal-stepper-header-container {
-    display: none !important;
-  }
-
-  ::ng-deep .mat-horizontal-content-container
-  {
-      padding:0 !important;
-  }
-
-  .reges-form-main-container
-  {
-    background: #f6f6f6;
-    padding: 5px;
-  }
-
-  .reges-form-main-container:hover
-  {
-    background: #f3f3f3;
-    display: block;
-    -webkit-box-shadow: 2px 2px 2px 2px #1b55e26b;
-    -moz-box-shadow: 2px 2px 2px 2px #1b55e26b;
-    box-shadow: 2px 2px 4px 4px #1b55e26b;
-  }
-  .float-right
-  {
-    float:right;
-  }
-  .reges-form-bottom-btns
-  {
-      margin-top:15px;
-      margin-bottom: 10px;
-  }
-
-  .reg-btn-disable
-  {
-      color:#888ea8;
-      background: #ebedf2;
-  }
-  .reg-btn-enable
-  {
-      color:#ffffff;
-      background: #1b55e2;
-  }
-.red-border-class
-{
-    border: 1px solid red;
-}
-.label-border-class
-{
-    color: red !important;
-}
-::ng-deep input.flatpickr-input
-{
-    border:none;
-}
-::ng-deep .modal-content .modal-footer,::ng-deep .modal-content .modal-header
-{
-    display: none !important;
-}
-.fa-check-circle
-{
-    font-size: 50px !important;
-}
-.subject-id
-{
-    margin-top:20px;
-}
-.modal-btn
-{
-    border: 0;
-    border-radius: .25em;
-    background: initial;
-    background-color: #1b55e2;
-    color: #fff;
-    padding: 12px 12px !important;
-    font-size: 14px !important;
-    margin-top:20px;
-}
-.modal-btn-1
-{
-    margin-right:20px;
-}
-/*.form-control.ng-untouched,
-.form-control.ng-valid {
-    border: 1px solid red;
-}*/
-
-::ng-deep .swal2-popup
-{
-    width: 30em !important;
-}
-::ng-deep .swal2-popup .swal2-styled.swal2-cancel
-{
-    display: inline-block;
-    border-left-color: rgb(27, 85, 226);
-    border-right-color: rgb(27, 85, 226);
-    border: 0;
-    border-radius: .25em;
-    background: initial;
-    background-color: #1b55e2;
-    color: #fff;
-    font-size: 14px;
+    .form-inline .form-control {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
 }

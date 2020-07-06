@@ -1,31 +1,24 @@
 import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
-import { DistrictService } from 'src/app/shared/master/district/district.service';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { HttpClientService } from '../../../shared/http-client.service';
-import { ENDPOINT } from '../../../app.constant';
-import { GenericService } from '../../../shared/generic.service';
-import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss';
+import { HttpClientService } from '../../../../shared/http-client.service';
+import { ENDPOINT } from '../../../../app.constant';
+import { GenericService } from '../../../../shared/generic.service';
 declare var $: any 
-
-declare var exposedFunction;
-
+import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-anm-aw-registration',
-  templateUrl: './anm-aw-registration.component.html',
-  styleUrls: ['./anm-aw-registration.component.css']
+  selector: 'che-spouse-registration',
+  templateUrl: './che-spouse-registration.component.html',
+  styleUrls: ['./che-spouse-registration.component.css']
 })
-
-export class AnmAwRegistrationComponent implements OnInit {
-  //@ViewChild('f', { static: false }) subRegBasic: NgForm;
+export class CheSpouseRegistrationComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   districts: District[] = [];
@@ -47,7 +40,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedreligion = null;
   selectedcaste = null;
   selectedcommunity = null;
-  selectedsubjectTitle = "Ms.";
+  selectedsubjectTitle = "Mr.";
   selectedsubjectTitle1 = "Mr."
   CHCdata = [];
   PHCdata = [];
@@ -59,6 +52,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   governmentIDData = [];
   selecteddob;
   selectedage;
+  selecteddor = new Date(Date.now());
   GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -66,74 +60,77 @@ export class AnmAwRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
-  selecteddor = new Date(Date.now());
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: '',
+    maxDate: new Date(Date.now())
+  };
   userId = 2;
   createdSubjectId="";
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) {
-    window['angularComponentReference'] = {
-      zone: zone,
-      componentFn: (id, value) => this.callFromOutside(id, value),
-      component: this,
-    };
-  }
+  spouseData = [];
+  selectedanwname;
+  selectedsubjectId;
+  selectedrchId;
+  selectedMobile;
+  selectedgender;
+
+  fromDate = "";
+  toDate = "";
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }
 
   ngOnInit() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
     
-   /* swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
+    
+    this.dtOptions = {
+      pagingType: 'simple_numbers',
+      pageLength: 5,
+      processing: true,
+      stripeClasses: [],
+      lengthMenu: [5, 10, 20, 50],
+      language: {
+        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        searchPlaceholder: "Search...",
+        lengthMenu: "Records / Page :  _MENU_",
+        paginate: {
+          first: '',
+          last: '', // or '←' 
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        },
+        //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })*/
+      } 
+    };
+    this.dtTrigger.next();
+
+    /*
+    phc: ['', Validators.required],
+      sc: ['', Validators.required],
+      ripoint: ['', Validators.required],
+    */
     this.firstFormGroup = this._formBuilder.group({
+      anwname:['', Validators.required],
+      subjectId:['', Validators.required],
+      rchId: ['', Validators.required],
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      phc: ['', Validators.required],
-      sc: ['', Validators.required],
-      ripoint: ['', Validators.required],
-      pincode: ['', Validators.required],
-      contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      subjectitle: ['Ms.'],
+      
+      contactNumber: [''],
+      gender: ['', Validators.required],
+      /*pincode: ['', Validators.required],
+      ,*/
+      subjectitle: ['Mr.'],
       firstname: ['', Validators.required],
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', Validators.required],
-      rchid: ['', Validators.required],
-      lmpdate: ['', Validators.required],
-      g: ['', Validators.required],
-      p: ['', Validators.required],
-      l: ['', Validators.required],
-      a: ['', Validators.required]
+      age: ['', Validators.required]
    });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -147,36 +144,55 @@ export class AnmAwRegistrationComponent implements OnInit {
       street: ['', Validators.required],
       city : ['', Validators.required],
       state: ['', Validators.required],
-      subjectTitle : ['Mr.'],
-      spouseFirstName: ['', Validators.required],
-      spouseMiddleName: [''],
-      spouseLastName: ['', Validators.required],
       spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      spouseEmail: ['',Validators.email]
+      spouseEmail: ['',Validators.email],
+      pincode:['', Validators.required],
+      ripoint: ['', Validators.required]
     });
 
     
+    this.getSpouseDetails();
   
     
     this.getDistrictData();
     this.getCHC();
-    this.getPHC();
-    this.getSC();
+    //this.getPHC();
+    //this.getSC();
     this.getRI();
     this.getReligion();
     this.getCaste();
     this.getCommunity(0);
     this.getGovernmentIDType();
-    
   }
 
-  public callFromOutside(id, subject: any): any {
-    let subjectdetail = JSON.parse(subject);
+  getSpouseDetails()
+  {
+    console.log(this.fromDate);
+    console.log(this.toDate);
+    var _subjectObj = {
+      "anmId":2,
+      "fromDate":this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
+      "toDate":this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
+    }
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVE);
+        this.httpClientService.post<any>({url:apiUrl, body: _subjectObj }).subscribe(response => {
+          console.log(response);
+          this.spouseData = response.anwSubjects;
+        },
+        (err: HttpErrorResponse) =>{
+          console.log(err);
+        });
   }
-  selected(eventval){
-    console.log(eventval);
+  openRegForm(data)
+  {
+      console.log(data);
+      this.selectedanwname = data.firstName;
+      this.selectedsubjectId= data.uniqueSubjectId;
+      this.selectedrchId = data.rchId;
+      this.selectedMobile=data.contactNo;
+      this.selectedgender = 'Male';
+      $('#fadeinModal').modal('show');
   }
-
   getDistrictData(){
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
@@ -308,7 +324,9 @@ export class AnmAwRegistrationComponent implements OnInit {
 
   nextStep() {
     this.firstFormCheck = true;
-      if(this.firstFormGroup.valid)
+    console.log(this.firstFormGroup.valid);
+      /*if(this.firstFormGroup.valid)
+        this.stepper.next();*/
         this.stepper.next();
     }
 
@@ -319,29 +337,35 @@ export class AnmAwRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
+      console.log(this.secondFormGroup.valid);
+      console.log(this.firstFormGroup.valid);
+      console.log(this.dataDindinginServce());
 
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
+
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
-             .then((result) => {
-               if (result.value) {
-                console.log('hitting 1');
-                $('#fadeinModal').modal('hide');
-               
-               }
-               else{
-                this.firstFormGroup.reset();
-                this.secondFormGroup.reset();
-                this.secondFormCheck = false;
-                this.firstFormCheck = false;
-                this.stepper.selectedIndex = 0;
-                $('#fadeinModal').modal('hide');
-               }
-             });
+    showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+       .then((result) => {
+         if (result.value) {
+          console.log('hitting 1');
+          $('#fadeinModal').modal('hide');
+         
+         }
+         else{
+          this.firstFormGroup.reset();
+          this.secondFormGroup.reset();
+          this.secondFormCheck = false;
+          this.firstFormCheck = false;
+          this.stepper.selectedIndex = 0;
+          $('#fadeinModal').modal('hide');
+         }
+       });
+          //$('#fadeinModal').modal('show');
+          
         },
         (err: HttpErrorResponse) =>{
           console.log(err);
@@ -353,8 +377,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 1,
-          "childSubjectTypeId": 1,
+          "subjectTypeId": 2,
+          "childSubjectTypeId": 2,
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
           "chcId": Number(this.firstFormGroup.get('chc').value),
@@ -367,17 +391,17 @@ export class AnmAwRegistrationComponent implements OnInit {
           "lastName": this.firstFormGroup.get('lastname').value,
           "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
           "age": Number(this.firstFormGroup.get('age').value),
-          "gender": "Female",
+          "gender": "Male",
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
           "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
           "spouseSubjectId": "",
-          "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
-          "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
-          "spouseLastName": this.secondFormGroup.get('spouseLastName').value,
-          "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
+          "spouseFirstName": "",
+          "spouseMiddleName": "",
+          "spouseLastName": "",
+          "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": this.userId,
@@ -393,18 +417,18 @@ export class AnmAwRegistrationComponent implements OnInit {
           "address1": this.secondFormGroup.get('house').value,
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
-          "pincode": ""+this.firstFormGroup.get('pincode').value,
+          "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
           "updatedBy": Number(this.userId)
         },
         "subjectPregnancyRequest": {
-          "rchId": this.firstFormGroup.get('rchid').value,
+          "rchId": this.firstFormGroup.get('rchId').value,
           "ecNumber": this.secondFormGroup.get('ECNumber').value,
-          "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
-          "g": Number(this.firstFormGroup.get('g').value),
-          "p": Number(this.firstFormGroup.get('p').value),
-          "l": Number(this.firstFormGroup.get('l').value),
-          "a": Number(this.firstFormGroup.get('a').value),
+          "lmpDate": "",
+          "g": 0,
+          "p": 0,
+          "l": 0,
+          "a": 0,
           "updatedBy": Number(this.userId)
         },
         "subjectParentRequest": {

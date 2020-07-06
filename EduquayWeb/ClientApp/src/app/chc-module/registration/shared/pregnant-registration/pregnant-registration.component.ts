@@ -8,9 +8,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { HttpClientService } from '../../../shared/http-client.service';
-import { ENDPOINT } from '../../../app.constant';
-import { GenericService } from '../../../shared/generic.service';
+import { HttpClientService } from '../../../../shared/http-client.service';
+import { ENDPOINT } from '../../../../app.constant';
+import { GenericService } from '../../../../shared/generic.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 declare var $: any 
@@ -19,12 +19,12 @@ declare var exposedFunction;
 
 
 @Component({
-  selector: 'app-anm-aw-registration',
-  templateUrl: './anm-aw-registration.component.html',
-  styleUrls: ['./anm-aw-registration.component.css']
+  selector: 'chc-pregnant-registration',
+  templateUrl: './pregnant-registration.component.html',
+  styleUrls: ['./pregnant-registration.component.css']
 })
 
-export class AnmAwRegistrationComponent implements OnInit {
+export class ChcpregnantRegistrationComponent implements OnInit {
   //@ViewChild('f', { static: false }) subRegBasic: NgForm;
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
@@ -87,46 +87,23 @@ export class AnmAwRegistrationComponent implements OnInit {
       buttonsStyling: false
     })
     
-   /* swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })*/
+    /*----First form removed elements---- */
+    /*
+    phc: ['', Validators.required],
+      sc: ['', Validators.required],
+      ripoint: ['', Validators.required],
+            dob: [''],
+    */
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      phc: ['', Validators.required],
-      sc: ['', Validators.required],
-      ripoint: ['', Validators.required],
       pincode: ['', Validators.required],
       contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       subjectitle: ['Ms.'],
       firstname: ['', Validators.required],
       middlename: [''],
       lastname: ['', Validators.required],
-      dob: [''],
       age: ['', Validators.required],
       rchid: ['', Validators.required],
       lmpdate: ['', Validators.required],
@@ -137,6 +114,7 @@ export class AnmAwRegistrationComponent implements OnInit {
    });
 
     this.secondFormGroup = this._formBuilder.group({
+      dob: [''],
       ECNumber: [''],
       govtIDType: [''],
       GovtIDDetail: [''],
@@ -160,9 +138,9 @@ export class AnmAwRegistrationComponent implements OnInit {
     
     this.getDistrictData();
     this.getCHC();
-    this.getPHC();
-    this.getSC();
-    this.getRI();
+    //this.getPHC();
+    //this.getSC();
+    //this.getRI();
     this.getReligion();
     this.getCaste();
     this.getCommunity(0);
@@ -308,7 +286,8 @@ export class AnmAwRegistrationComponent implements OnInit {
 
   nextStep() {
     this.firstFormCheck = true;
-      if(this.firstFormGroup.valid)
+      /*if(this.firstFormGroup.valid)
+        this.stepper.next();*/
         this.stepper.next();
     }
 

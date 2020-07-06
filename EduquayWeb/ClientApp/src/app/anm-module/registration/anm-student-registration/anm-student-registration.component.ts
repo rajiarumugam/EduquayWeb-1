@@ -11,6 +11,7 @@ import { HttpClientService } from '../../../shared/http-client.service';
 import { ENDPOINT } from '../../../app.constant';
 import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-anm-student-registration',
@@ -50,7 +51,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   communityData = [];
   governmentIDData = [];
   selecteddob;
-  selecteddor;
+  selecteddor = new Date(Date.now());
   selectedage;
   GENDERDATA = ["Male","Female","Others"];
   sectionArray = ['PRE KG','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'];
@@ -88,7 +89,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       religion: ['', Validators.required],
       caste: ['', Validators.required],
       community: ['', Validators.required],
-      contactNumber: ['', Validators.required],
+      contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
@@ -99,19 +100,19 @@ export class AnmStudentRegistrationComponent implements OnInit {
       motherLastName: ['', Validators.required],
       mothergovtIDType: [''],
       motherGovtIDDetail: [''],
-      motherContactNumber: ['', Validators.required],
+      motherContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       fatherFirstName: [''],
       fatherMiddleName: [''],
       fatherLastName: [''],
       fathergovtIDType: [''],
       fatherGovtIDDetail: [''],
-      fatherContactNumber: [''],
+      fatherContactNumber: ['',[Validators.min(1000000000), Validators.max(9999999999)]],
       guardianFirstName: [''],
       guardianMiddleName: [''],
       guardianLastName: [''],
       guardiangovtIDType: [''],
       guardianGovtIDDetail: [''],
-      guardianContactNumber: ['']
+      guardianContactNumber: ['',[Validators.min(1000000000), Validators.max(9999999999)]]
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -294,7 +295,24 @@ export class AnmStudentRegistrationComponent implements OnInit {
             this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
               console.log(response);
               this.createdSubjectId = response.uniqueSubjectId;
-              $('#fadeinModal').modal('show');
+              Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+             .then((result) => {
+               if (result.value) {
+                console.log('hitting 1');
+                $('#fadeinModal').modal('hide');
+               
+               }
+               else{
+                this.firstFormGroup.reset();
+                this.secondFormGroup.reset();
+                this.thirdFormGroup.reset();
+                this.secondFormCheck = false;
+                this.firstFormCheck = false;
+                this.stepper.selectedIndex = 0;
+                $('#fadeinModal').modal('hide');
+               }
+             });
             },
             (err: HttpErrorResponse) =>{
               console.log(err);
