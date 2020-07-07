@@ -1,0 +1,35 @@
+<div class="row mt-4" id="showform" name="showform" style="padding-left: 17px;">
+    <div class="n-chk form-group col-md-3">
+        <label for="pregnant" class="mr-2">Pregnant</label>
+        <label class="new-control new-radio radio-primary" for="pregnant">
+            <input type="radio" class="new-control-input" name="colorRadio" value="pregnant" id="pregnant" (change)="inputChange($event)">
+            <span class="new-control-indicator" for="pregnant"></span>&nbsp;
+        </label>
+    </div>
+    <div class="n-chk form-group col-md-4">
+        <label for="married" class="mr-2">Married &amp; Spouse Registered</label>
+        <label class="new-control new-radio radio-primary" for="married">
+            <input type="radio" class="new-control-input" name="colorRadio" value="married" id="married" (change)="inputChange($event)">
+            <span class="new-control-indicator" for="married"></span>&nbsp;
+        </label>
+    </div>
+    <div class="n-chk form-group col-md-2">
+        <label for="age" class="mr-2">Age &lt; 18</label>
+                <label class="new-control new-radio radio-primary" for="age">
+                    <input type="radio" class="new-control-input" name="colorRadio" value="age18" id="age" (change)="inputChange($event)">
+                    <span class="new-control-indicator" for="age"></span>&nbsp;
+                </label>
+    </div>
+    <div class="n-chk form-group col-md-3">
+        <label for="other" class="mr-2">Other Walk-ins</label>
+        <label class="new-control new-radio radio-primary" for="other">
+            <input type="radio" class="new-control-input" name="colorRadio" checked="" value="other" id="other" (change)="inputChange($event)">
+            <span class="new-control-indicator" for="other"></span>&nbsp;
+        </label>
+    </div>
+</div>
+
+<chc-pregnant-registration *ngIf="selectedRegScreen === 'pregnant' ? true : false"></chc-pregnant-registration>
+<chc-student-registration *ngIf="selectedRegScreen === 'age18' ? true : false"></chc-student-registration>
+<che-spouse-registration *ngIf="selectedRegScreen === 'married' ? true : false"></che-spouse-registration>
+<chc-walkin-registration *ngIf="selectedRegScreen === 'other' ? true : false"></chc-walkin-registration>

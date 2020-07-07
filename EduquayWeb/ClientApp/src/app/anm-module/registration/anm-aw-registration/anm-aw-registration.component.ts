@@ -11,6 +11,8 @@ import * as moment from 'moment';
 import { HttpClientService } from '../../../shared/http-client.service';
 import { ENDPOINT } from '../../../app.constant';
 import { GenericService } from '../../../shared/generic.service';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 declare var $: any 
 
 declare var exposedFunction;
@@ -56,7 +58,6 @@ export class AnmAwRegistrationComponent implements OnInit {
   communityData = [];
   governmentIDData = [];
   selecteddob;
-  selecteddor;
   selectedage;
   GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
@@ -65,7 +66,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
-
+  selecteddor = new Date(Date.now());
   userId = 2;
   createdSubjectId="";
 
@@ -78,7 +79,40 @@ export class AnmAwRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+   /* swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      } else if (
+        
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })*/
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -87,7 +121,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       sc: ['', Validators.required],
       ripoint: ['', Validators.required],
       pincode: ['', Validators.required],
-      contactNumber: ['', Validators.required],
+      contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       subjectitle: ['Ms.'],
       firstname: ['', Validators.required],
       middlename: [''],
@@ -117,8 +151,8 @@ export class AnmAwRegistrationComponent implements OnInit {
       spouseFirstName: ['', Validators.required],
       spouseMiddleName: [''],
       spouseLastName: ['', Validators.required],
-      spouseContactNumber: ['', Validators.required],
-      spouseEmail: ['']
+      spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+      spouseEmail: ['',Validators.email]
     });
 
     
@@ -291,7 +325,23 @@ export class AnmAwRegistrationComponent implements OnInit {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
-          $('#fadeinModal').modal('show');
+          Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+             .then((result) => {
+               if (result.value) {
+                console.log('hitting 1');
+                $('#fadeinModal').modal('hide');
+               
+               }
+               else{
+                this.firstFormGroup.reset();
+                this.secondFormGroup.reset();
+                this.secondFormCheck = false;
+                this.firstFormCheck = false;
+                this.stepper.selectedIndex = 0;
+                $('#fadeinModal').modal('hide');
+               }
+             });
         },
         (err: HttpErrorResponse) =>{
           console.log(err);
