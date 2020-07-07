@@ -49,8 +49,19 @@
     "SpouseFirstName":"Spouse First Name",
     "SpouseContactNumber":"Spouse Contact Number",
     "Email":"Email",
-    "Submit":"Submit"
-
+    "Submit":"Submit",
+    "ANWName":"ANW's Name",
+    "Gender":"Gender",
+    "City_Village_Pincode":"City/Village, pincode",
+    "RegSpouse":"Reg Spouse",
+    "GuardianFirstName":"Guardian's First Name",
+    "FatherFirstName":"Father's First Name",
+    "MotherFirstName":"Mother's First Name",
+    "RollNumber":"Roll Number",
+    "Standard":"Standard",
+    "RBSKID":"RBSK ID",
+    "SchoolName":"School Name",
+    "Section":"Section"
 
 
 }
