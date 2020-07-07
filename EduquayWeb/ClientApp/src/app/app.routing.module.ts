@@ -40,7 +40,7 @@ import { AnmViewShipmentdetailsComponent } from "./anm-module/anm-view-shipmentd
 import { SampleCollectionResolverService } from "./shared/anm-module/sample-collection-resolver.service";
 import { ShipmentlogResolverService } from "./shared/anm-module/shipmentlog/shipmentlog-resolver.service";
 import { PicknpackResolverService } from "./shared/anm-module/picnpack/picknpack-resolver.service";
-
+import { DamagedSamplesResolverService } from "./shared/anm-module/notifications/damaged-samples/damaged-samples-resolver.service";
 
 
 const routes: Routes = [
@@ -65,8 +65,8 @@ const routes: Routes = [
       {
         path: 'anm-notification', component: AnmNotificationComponent,
         children: [
-          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full' },
-          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full' },
+          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full', resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full'},
           { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full' },
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full' },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },

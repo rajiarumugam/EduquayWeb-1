@@ -23,6 +23,7 @@ import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentd
 import { DataTablesModule } from 'angular-datatables';
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
+
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
 };
