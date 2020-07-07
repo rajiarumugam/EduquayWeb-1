@@ -63,6 +63,7 @@ export interface AddressDetail{
     address2: string;
     address3: string;
     pincode: string;
+    stateName: string;
 }
 
 export interface PregnancyDetail{

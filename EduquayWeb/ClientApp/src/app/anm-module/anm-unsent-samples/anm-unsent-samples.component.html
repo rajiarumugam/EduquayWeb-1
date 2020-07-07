@@ -1,12 +1,17 @@
 <div class="tab-pane fade show active" id="unsentsamples" role="tabpanel" aria-labelledby="unsentsamples-tab">
-
+    <div class="form-row">
+        <div class="col-md-12">
+            <div *ngIf="unsentSamplesErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': unsentSamplesErrorMessage ==='No sample data  found', 'alert-danger': unsentSamplesErrorMessage !== 'No sample data  found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{unsentSamplesErrorMessage}}
+            </div>  
+        </div>
+      </div>
     <div class="table-responsive mb-4">
-        <table id="unsentsampleTableconfig" class="table table-bordered table-hover tbl-ht">
+        <table id="unsentsample-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>
                     <th class="text-center"><span>S.No</span></th>
                     <th class="text-center"><span>Subject Name</span></th>
-
                     <th class="text-center">Subject ID</th>
                     <th class="text-center"><span>RCH ID</span></th>
                     <!-- <th class="text-center">Subject Type</th> -->
@@ -263,19 +268,16 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary float-right" data-toggle="modal" data-target=".bd-example-modal-xl3"
+            <a class="btn btn-primary float-right"  (click)="openunsentSamples(unsentSamplesDetail)"
                 role="button">Create Shipment</a>
         </div>
     </div>
 </div>
 <!-- The Modal -->
-<div class="modal fade bd-example-modal-xl3" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-        <div class="modal-content">
+    <ng-template #unsentSamplesDetail let-modal>
             <div class="modal-header">
                 <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" (click)="modal.dismiss()">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-x">
@@ -381,7 +383,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" id="linktobuttonunsent"
                                         data-toggle="modal" data-target="#fadeinModal1">Submit</button>
-                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                                    <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
                                         Close</button>
                                 </div>
 
@@ -391,11 +393,9 @@
                     </div>
                 </div>
             </div>
+            <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
+            <i appLoadScript [script]="'assets/assets/js/anm-module/unsentsamples-popup.js'"></i>
+    </ng-template>
 
-        </div>
-    </div>
-</div>
-<i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
 <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/flatpickr/notificationunsent-flatpickr.js'"></i>
 <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

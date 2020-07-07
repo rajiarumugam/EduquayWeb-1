@@ -54,7 +54,6 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   selectedSubjectType: string = '1';
   selected: null;
 
-
   //sampleTypes = ['Antenatal Woman', 'Spouse', 'Child', 'Walk-in'];
 
   constructor(

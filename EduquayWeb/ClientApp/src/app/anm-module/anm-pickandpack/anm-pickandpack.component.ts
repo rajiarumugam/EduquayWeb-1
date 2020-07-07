@@ -73,6 +73,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     ) { }
 
   ngOnInit() {
+    
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -273,6 +274,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     this.testingCHCId = shipmentForm.value.DDLtestingChc;
     this.avdId = shipmentForm.value.DDLavdName;
     // console.log('openSampleCOlllection()');
+    //Remove below 2 lines after successfully tested
+    // this.showResponseMessage('Successfully registered', 's');
+    // return false;
     this.anmaddshipmentRequest = {
       anmId: 1,
       riId: +(this.riId),
@@ -342,12 +346,12 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           if(isFirst){
             this.selectedBarcodes += element.barcodeNo;
             isFirst = false;
-          }else{
+          }
+          else{
             this.selectedBarcodes += ',' + element.barcodeNo;
           }
         }
       });
-
     }
 
     rerender(): void {
