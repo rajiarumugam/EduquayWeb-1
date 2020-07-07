@@ -250,3 +250,11 @@ vertical-align: middle;
     color: #fff;
     font-size: 14px;
 }
+
+.new-control.new-radio .new-control-indicator
+{
+    left:0 !important;
+}
+#showform label{
+    cursor: pointer;
+}

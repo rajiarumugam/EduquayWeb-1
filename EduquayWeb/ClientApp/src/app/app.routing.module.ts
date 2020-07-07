@@ -43,6 +43,14 @@ import { PicknpackResolverService } from "./shared/anm-module/picnpack/picknpack
 import { DamagedSamplesResolverService } from "./shared/anm-module/notifications/damaged-samples/damaged-samples-resolver.service";
 
 
+import { CheSubjectRegistrationComponent } from './chc-module/registration/chc-subject-registration/chc-subject-registration.component'
+import { WalkinRegistrationComponent } from './chc-module/registration/walkin-registration/walkin-registration.component';
+import { ChcpregnantRegistrationComponent } from "./chc-module/registration/shared/pregnant-registration/pregnant-registration.component";
+import { ChcStudentRegistrationComponent } from "./chc-module/registration/shared/chc-student-registration/chc-student-registration.component";
+import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared/che-spouse-registration/che-spouse-registration.component";
+import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
+import { from } from "rxjs";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -75,6 +83,17 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'chc-subregn', component: CheSubjectRegistrationComponent,
+        children:[
+          {path: '', component: WalkinRegistrationComponent, pathMatch: 'full'},
+          {path: 'awreg', component: WalkinRegistrationComponent, pathMatch: 'full'},
+          {path: 'spouse', component: AnmSpouseRegistrationComponent, pathMatch: 'full'},
+          {path: 'student', component: AnmStudentRegistrationComponent, pathMatch: 'full'},
+          {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
+          {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
+        ]
+      },
+      {
         path: 'anm-subregn', component: AnmSubjectRegistrationComponent,
         children:[
           {path: '', component: AnmAwRegistrationComponent, pathMatch: 'full'},
@@ -92,6 +111,7 @@ const routes: Routes = [
       { path: 'anm-shipment', component: AnmShipmentComponent, resolve: {shipmentLogData: ShipmentlogResolverService } },
       { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'}
+      
     ]
   },
 
@@ -138,7 +158,11 @@ export const RoutingComponents = [
   AnmStudentRegistrationComponent,
   AnmWalkinLt18RegistrationComponent,
   AnmWalkinGt18RegistrationComponent,
-  AnmViewShipmentdetailsComponent
-  
-
+  AnmViewShipmentdetailsComponent,
+  WalkinRegistrationComponent,
+  CheSubjectRegistrationComponent,
+  ChcpregnantRegistrationComponent,
+  ChcStudentRegistrationComponent,
+  CheSpouseRegistrationComponent,
+  ChcwalkinRegistrationComponent
 ];
