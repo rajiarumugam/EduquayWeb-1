@@ -8,5 +8,5 @@ var f2 = flatpickr(document.getElementById('sampleTime'), {
     enableTime: true,
     noCalendar: true,
     dateFormat: "H:i",
-    defaultDate: "today"
+    defaultDate: new Date().getTime(),
 });

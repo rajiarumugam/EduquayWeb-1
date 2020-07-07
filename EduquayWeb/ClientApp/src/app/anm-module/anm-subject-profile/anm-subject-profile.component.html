@@ -60,10 +60,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 filtered-list-search">
+                            <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
                                 <form class="form-inline my-2 my-lg-0">
-                                    <label for="inputSearch" class="ml-3"><span class="note">Search by Subject ID /
-                                            RCH ID / Phone Number / Any Government IDs</span></label>
+                                    <label for="inputSearch" class="ml-3"><span class="note">Search by Subject ID </span></label>
                                     <div class="w-100">
                                         <input type="text" class="w-100 form-control product-search br-30"
                                             name="searchsubjectid" type="text" placeholder="Search"
@@ -242,8 +241,8 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputState">State</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Odisha">
+                                                    <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.stateName" name="stateName"
+                                                        placeholder="State">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputPincode">Pincode</label>
@@ -326,81 +325,48 @@
                                             <div class="form-row my-2">
                                                 <div class="form-group col-md-3">
                                                     <label for="inputG">G</label>
-                                                    <select id="inputG" class="form-control">
-                                                        <option selected>Select</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-                                                        <option>10</option>
-                                                    </select>
+                                                    <select id="inputG" class="form-control" name="DDLG"
+                                                    [(ngModel)]="selectedG">
+                                                    <option value="0">--Select--</option>
+                                                    <option *ngFor="let Glist of Glists" [(value)]="Glist.id ">
+                                                        {{ Glist.gvalue }}
+                                                    </option>
+                                                </select>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputP">P</label>
-                                                    <select id="inputP" class="form-control">
-                                                        <option selected>Select</option>
-                                                        <option>0</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-    
-                                                    </select>
+                                                    <select id="inputP" class="form-control" name="DDLP"
+                                                    [(ngModel)]="selectedP">
+                                                    <option value="0">--Select--</option>
+                                                    <option *ngFor="let Plist of Glists" [(value)]="Plist.id ">
+                                                        {{ Plist.pvalue }}
+                                                    </option>
+                                                </select>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputL">L</label>
-                                                    <select id="inputL" class="form-control">
-                                                        <option selected>Select</option>
-                                                        <option>0</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-    
-                                                    </select>
+                                                    <select id="inputL" class="form-control" name="DDLL"
+                                                    [(ngModel)]="selectedL">
+                                                    <option value="0">--Select--</option>
+                                                    <option *ngFor="let Llist of Llists" [(value)]="Llist.id ">
+                                                        {{ Llist.lvalue }}
+                                                    </option>
+                                                </select>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputA">A</label>
-                                                    <select id="inputA" class="form-control">
-                                                        <option selected>Select</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-    
-                                                    </select>
+                                                    <select id="inputA" class="form-control" name="DDLA"
+                                                    [(ngModel)]="selectedA">
+                                                    <option value="0">--Select--</option>
+                                                    <option *ngFor="let Alist of Alists" [(value)]="Alist.id ">
+                                                        {{ Alist.avalue }}
+                                                    </option>
+                                                </select>
                                                 </div>
                                             </div>
     
                                         </ng-wizard-step>
                                      
-                                        <!-- <ng-wizard-step [title]="'Step 3'" [description]="'Step 3 description'">
-                                            <span>Step 3 content</span>
-                                        </ng-wizard-step>
-                                     
-                                        <ng-wizard-step [title]="'Step 4'" [description]="'Step 4 description'">
-                                            <span>Step 4 content</span>
-                                        </ng-wizard-step> -->
                                      
                                     </ng-wizard>
                                 <!-- <div id="circle-basic" class="">
@@ -713,7 +679,7 @@
                                                                 <strong class="ml-5">RCH ID : </strong>
                                                                 {{personalInfo.rchId}}
                                                             </h5>
-                                                        </span>
+                                                        </span>  
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -813,10 +779,10 @@
 
                                                 <tr>
                                                     <td><b>Address</b></td>
-                                                    <td colspan="3">{{socioDemographicInfo.address1}}
-                                                        {{socioDemographicInfo.address2}}
-                                                        {{socioDemographicInfo.address3}}
-                                                        {{socioDemographicInfo.address4}}</td>
+                                                    <td colspan="3">{{socioDemographicInfo.address1}},
+                                                        {{socioDemographicInfo.address2}},
+                                                        {{socioDemographicInfo.address3}},
+                                                        {{socioDemographicInfo.stateName}}, {{socioDemographicInfo.pincode}} </td>
                                                     <td><b>District</b></td>
                                                     <td>{{basicInfo.districtName}}</td>
 
@@ -1140,9 +1106,12 @@
                             </div>
                         </div>
                     </div>
-                    <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
+                   
                     <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
                     <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+                    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
                 </div>
                 
             </div>
@@ -1151,8 +1120,3 @@
     </div>
 </div>
 <!--  END MAIN CONTAINER  -->
-
-<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
-<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
-<i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
