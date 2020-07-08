@@ -50,6 +50,7 @@ import { ChcStudentRegistrationComponent } from "./chc-module/registration/share
 import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared/che-spouse-registration/che-spouse-registration.component";
 import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
 import { from } from "rxjs";
+import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -98,7 +99,7 @@ const routes: Routes = [
         children:[
           {path: '', component: AnmAwRegistrationComponent, pathMatch: 'full'},
           {path: 'awreg', component: AnmAwRegistrationComponent, pathMatch: 'full'},
-          {path: 'spouse', component: AnmSpouseRegistrationComponent, pathMatch: 'full'},
+          {path: 'spouse', component: AnmSpouseRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},
           {path: 'student', component: AnmStudentRegistrationComponent, pathMatch: 'full'},
           {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},

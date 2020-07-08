@@ -10,6 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { NgForm } from '@angular/forms';
+import { TokenService } from 'src/app/shared/token.service';
+import { user } from 'src/app/shared/auth-response';
 
 
 
@@ -24,6 +26,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  user: user;
 
   damagedSamplesErrorMessage: string;
   damagedSamplesInitResponse: any;
@@ -51,13 +54,16 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
-    private dateService: DateService
+    private dateService: DateService,
+    private tokenService: TokenService
 
   ) { }
 
   ngOnInit() {
 
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
+      
       pagingType: 'simple_numbers',
       pageLength: 5,
       processing: true,
@@ -66,6 +72,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
+        
         lengthMenu: "Records / Page :  _MENU_",
         paginate: {
           first: '',
@@ -102,7 +109,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   anmdamagedSamples(){
     this.damagedSamples = [];
     this.damagedSamplesErrorMessage ='';
-    this.damagedsamplesRequest = {anmId: 1, notification: 1};
+    this.damagedsamplesRequest = {anmId: this.user.userTypeId, notification: 1};
     let samplesList = this.DamagedSamplesService.getdamagedSamples(this.damagedsamplesRequest)
     .subscribe(response => {
       this.damagedsamplesResponse = response;
@@ -202,7 +209,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.fetchBarcodes();
    
     this.damagedUpdateStatusRequest = {
-      anmId: 1,
+      anmId: this.user.userTypeId,
       barcodeNo: this.notifySamples,
      
     }
