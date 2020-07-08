@@ -12,6 +12,10 @@ import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { SpouseregistrationService } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.service';
+import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.models';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-anm-spouse-registration',
@@ -21,6 +25,8 @@ import Swal from 'sweetalert2';
 export class AnmSpouseRegistrationComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  positiveSpouseResponse: PositiveSpouseResponse;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -69,7 +75,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   userId = 2;
   createdSubjectId="";
 
-  spouseData = [];
+  spouseData: positiveSubject[] = [];
   selectedanwname;
   selectedsubjectId;
   selectedrchId;
@@ -81,7 +87,15 @@ export class AnmSpouseRegistrationComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }
+  constructor(
+    private masterService: masterService, 
+    zone: NgZone,
+    private _formBuilder: FormBuilder,
+    private httpClientService:HttpClientService,
+    private spouseregistrationService: SpouseregistrationService,
+    private genericService: GenericService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
     
@@ -145,10 +159,47 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       pincode:['', Validators.required]
     });
 
-    
-    this.getSpouseDetails();
-  
-    
+    this.spouseData = [];
+    var positiveSpouseResponse = this.route.snapshot.data.positiveSubjects;
+    if(this.positiveSpouseResponse !== undefined && this.positiveSpouseResponse.status.toString() === "true"){
+      this.spouseData = positiveSpouseResponse.anwSubjects;
+    }
+    else{
+      this.erroMessage = positiveSpouseResponse.message;
+    }
+
+  }
+
+  getSpouseDetails() {
+    console.log(this.fromDate);
+    console.log(this.toDate);
+    var _subjectObj = {
+      "anmId": 2,
+      "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
+      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
+    }
+    this.spouseregistrationService.spouseDetails(_subjectObj).subscribe(response => {
+      this.positiveSpouseResponse = response;
+      if(this.positiveSpouseResponse !== undefined && this.positiveSpouseResponse.status.toString() === "true"){
+        if(this.positiveSpouseResponse.anwSubjects.length > 0){
+          this.spouseData = this.positiveSpouseResponse.anwSubjects;
+        }
+        else{
+          this.erroMessage = this.positiveSpouseResponse.message;  
+        }
+        this.rerender();
+      }
+      else{
+        this.erroMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  openRegForm(data) {
+    console.log(data);
     this.getDistrictData();
     this.getCHC();
     this.getPHC();
@@ -158,39 +209,15 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.getCaste();
     this.getCommunity(0);
     this.getGovernmentIDType();
+
+    this.selectedanwname = data.firstName;
+    this.selectedsubjectId = data.uniqueSubjectId;
+    this.selectedrchId = data.rchId;
+    this.selectedMobile = data.contactNo;
+    this.selectedgender = 'Male';
+    $('#fadeinModal').modal('show');
   }
 
-  getSpouseDetails()
-  {
-    console.log(this.fromDate);
-    console.log(this.toDate);
-    var _subjectObj = {
-      "anmId":2,
-      "fromDate":this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
-      "toDate":this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
-    }
-    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVE);
-        this.httpClientService.post<any>({url:apiUrl, body: _subjectObj }).subscribe(response => {
-          console.log(response);
-          this.spouseData = response.anwSubjects;
-          setTimeout(()=>{  
-          this.dtTrigger.next();
-        }, 1000);
-        },
-        (err: HttpErrorResponse) =>{
-          console.log(err);
-        });
-  }
-  openRegForm(data)
-  {
-      console.log(data);
-      this.selectedanwname = data.firstName;
-      this.selectedsubjectId= data.uniqueSubjectId;
-      this.selectedrchId = data.rchId;
-      this.selectedMobile=data.contactNo;
-      this.selectedgender = 'Male';
-      $('#fadeinModal').modal('show');
-  }
   getDistrictData(){
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
@@ -466,4 +493,26 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       return _obj;
     }
 
+    
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }   
+  
+       
+  
+    ngAfterViewInit(): void {
+      this.dtTrigger.next();
+    }   
+  
+  
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
+    }
 }

@@ -356,7 +356,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first 
+        dtInstance.clear();     
         dtInstance.destroy();
         // Call the dtTrigger to rerender again       
         this.dtTrigger.next();
