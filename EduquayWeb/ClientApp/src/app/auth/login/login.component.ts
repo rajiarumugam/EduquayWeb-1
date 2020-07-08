@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
         if (this.authResult && (this.authResult.status)) {
           this.tokenService.setToken('currentUser', this.authResult.token, 'somename');
+          this.tokenService.setUser('lu', this.authResult.userDetail);
           this.router.navigate(['/app'], { relativeTo: this.route });
         } else if ((this.authResult && (!this.authResult.status))) {
           this.isLoginError = true;
