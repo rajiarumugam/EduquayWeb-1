@@ -3,7 +3,10 @@ export interface authResponse {
   status: boolean,
   errors: string[],
   token: string,
-  username: string
+  username: string,
+  created: string,
+  expiry: string,
+  userDetail: user
 }
 export interface error {
   type: string,
@@ -14,16 +17,27 @@ export interface errors {
   errors: Array<error>
 }
 
-export interface Patient {
-  id: string,
-  govtId: string,
+export interface user {
+  id: number,
+  userTypeId: number,
+  userRoleId: number,
+  userGovCode: string,
+  userName: string,
+  stateId: number,
+  districtId: number,
+  blockId: number,
+  chcId: number,
+  phcId: number,
+  scId: number,
+  riId: string,
+  name: string,
   firstName: string,
+  middleName: string,
   lastName: string,
-  location: string
+  email: string,
+  registeredFrom: number,
+  sampleCollectionFrom: number,
+  shipmentFrom: number
 }
 
-export interface PatientResponse {
-  status: string,
-  message: string,
-  patients: Patient[]
-}
+

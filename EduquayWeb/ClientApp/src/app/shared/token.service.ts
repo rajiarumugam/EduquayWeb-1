@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { user } from './auth-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,14 @@ export class TokenService {
     } else {
       return null;
     }
+  }
+
+  setUser(key: string, value: user ){
+    sessionStorage.setItem(key, JSON.stringify(value));
+  }
+  
+  getUser(key: string) {
+    return sessionStorage.getItem(key);
   }
 
   clearToken() {
