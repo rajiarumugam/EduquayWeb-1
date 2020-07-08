@@ -24,9 +24,9 @@ export class SpouseResolverService implements Resolve<any> {
       route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot
     ): Observable<any> | Promise<any> | any {
-    //var loggedUser = this.tokenService.getUser('lu');
+    var user = JSON.parse(this.tokenService.getUser('lu'));
     var _subjectObj = {
-      "anmId":2,
+      "anmId":user.userTypeId,
       "fromDate":this.fromDate,
       "toDate":this.toDate
     }
