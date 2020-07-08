@@ -28,7 +28,8 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   positiveSpouseResponse: PositiveSpouseResponse;
   districts: District[] = [];
-  erroMessage: string;
+  errorMessage: string;
+  errorSpouseMessage: string;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   firstFormCheck = false;
@@ -165,7 +166,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       this.spouseData = positiveSpouseResponse.anwSubjects;
     }
     else{
-      this.erroMessage = positiveSpouseResponse.message;
+      this.errorMessage = positiveSpouseResponse.message;
     }
 
   }
@@ -185,12 +186,12 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           this.spouseData = this.positiveSpouseResponse.anwSubjects;
         }
         else{
-          this.erroMessage = this.positiveSpouseResponse.message;  
+          this.errorMessage = this.positiveSpouseResponse.message;  
         }
         this.rerender();
       }
       else{
-        this.erroMessage = response.message;
+        this.errorMessage = response.message;
       }
     },
       (err: HttpErrorResponse) => {
@@ -225,7 +226,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   getCHC(){
@@ -235,7 +236,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   getPHC(){
@@ -245,7 +246,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -256,7 +257,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   getRI(){
@@ -266,7 +267,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   
@@ -277,7 +278,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -288,7 +289,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -301,7 +302,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
-          this.erroMessage = err.toString();
+          this.errorMessage = err.toString();
         });
     }
     else{
@@ -311,7 +312,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
-          this.erroMessage = err.toString();
+          this.errorMessage = err.toString();
         });
     }
     
@@ -324,7 +325,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.governmentIDData = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -394,6 +395,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
         },
         (err: HttpErrorResponse) =>{
           console.log(err);
+          this.errorSpouseMessage = err.toString();
         });
       }
     }
