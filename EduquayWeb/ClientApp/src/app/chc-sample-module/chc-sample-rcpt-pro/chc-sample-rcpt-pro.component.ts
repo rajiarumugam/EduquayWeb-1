@@ -6,9 +6,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { HttpClientService } from '../../../shared/http-client.service';
-import { ENDPOINT } from '../../../app.constant';
-import { GenericService } from '../../../shared/generic.service';
+import { HttpClientService } from '../../shared/http-client.service';
+import { ENDPOINT } from '../../app.constant';
+import { GenericService } from '../../shared/generic.service';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -18,11 +18,11 @@ import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-modu
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
-  selector: 'app-anm-spouse-registration',
-  templateUrl: './anm-spouse-registration.component.html',
-  styleUrls: ['./anm-spouse-registration.component.css']
+  selector: 'app-chc-sample-rcpt-pro-registration',
+  templateUrl: './chc-sample-rcpt-pro.component.html',
+  styleUrls: ['./chc-sample-rcpt-pro.component.css']
 })
-export class AnmSpouseRegistrationComponent implements OnInit {
+export class CHCSampleRcptProComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;

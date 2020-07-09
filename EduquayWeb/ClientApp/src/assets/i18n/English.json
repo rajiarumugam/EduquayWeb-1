@@ -61,7 +61,12 @@
     "Standard":"Standard",
     "RBSKID":"RBSK ID",
     "SchoolName":"School Name",
-    "Section":"Section"
+    "Section":"Section",
+    "Lookup":"Lookup",
+    "ShipmentDateAndTime":"Shipment Date & Time",
+    "SendingLocation":"Sending Location",
+    "SenderName":"Sender Name",
+    "ShipmentID":"Shipment ID"
 
 
 }

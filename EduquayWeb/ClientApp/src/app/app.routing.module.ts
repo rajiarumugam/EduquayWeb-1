@@ -51,7 +51,10 @@ import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared
 import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
 import { from } from "rxjs";
 import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
+import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
 
+import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
+import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -92,6 +95,12 @@ const routes: Routes = [
           {path: 'student', component: AnmStudentRegistrationComponent, pathMatch: 'full'},
           {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
+        ]
+      },
+      {
+        path: 'chc-sample', component: CHCSampleRcptProComponent,
+        children:[
+          {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
       {
@@ -165,5 +174,7 @@ export const RoutingComponents = [
   ChcpregnantRegistrationComponent,
   ChcStudentRegistrationComponent,
   CheSpouseRegistrationComponent,
-  ChcwalkinRegistrationComponent
+  ChcwalkinRegistrationComponent,
+  CHCSampleRcptComponent,
+  CHCSampleRcptProComponent
 ];

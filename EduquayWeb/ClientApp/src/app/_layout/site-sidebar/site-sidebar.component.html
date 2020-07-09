@@ -107,8 +107,8 @@
                 </div>
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chcsam'}" id="chcsam" data-parent="#accordionExample">
-                <li>
-                    <a href="deliveryconfirm.html">  Sample Rcpt </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/chc-sample']"> Sample Rcpt </a>
                 </li>
                 <li>
                     <a href="receivedmanual.html"> Sample Rcpt - Manual  </a>
