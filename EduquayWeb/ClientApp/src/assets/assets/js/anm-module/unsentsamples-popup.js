@@ -1,6 +1,7 @@
 var dr = flatpickr(document.getElementById('shipmentdate'), {
     dateFormat: "d/m/Y",
-    defaultDate: "today"
+    defaultDate: "today",
+    maxDate: "today"
 });
 
 var f2 = flatpickr(document.getElementById('shipmenttime'), {
@@ -8,4 +9,5 @@ var f2 = flatpickr(document.getElementById('shipmenttime'), {
     noCalendar: true,
     dateFormat: "H:i",
     defaultDate: new Date().getTime(),
+    maxDate: new Date().getTime()
 });

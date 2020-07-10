@@ -424,20 +424,20 @@ select.form-control.form-custom {
     vertical-align: middle;
 }
 .btn {
-    padding: 10px 25px !important;
-    letter-spacing: 1px !important;
-    text-shadow: none !important;
-    font-size: 14px !important;
+    padding: 10px 25px;
+    letter-spacing: 1px;
+    text-shadow: none;
+    font-size: 14px;
     color: #1b55e2;
-    border: 1px solid #e8e8e8 !important;
-    font-weight: 700 !important;
+    border: 1px solid #e8e8e8;
+    font-weight: 700;
     white-space: normal;
     word-wrap: break-word;
     transition: .2s ease-out;
     touch-action: manipulation;
-    cursor: pointer !important;
+    cursor: pointer;
     background-color: #ffffff;
-    box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1);
     will-change: opacity, transform;
     transition: all 0.3s ease-out;
     -webkit-transition: all 0.3s ease-out;
@@ -2130,5 +2130,19 @@ input.in-error, select.in-error, textarea.in-error {
 }  
 label.in-error {
     color: #ff0000 !important;
+}
+
+a{
+    cursor: pointer;
+}
+
+select{
+    cursor: pointer; 
+}
+
+ /* Label invalid class */
+ .label-border-class
+{
+    color: red !important;
 }
 
