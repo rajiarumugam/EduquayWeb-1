@@ -1,35 +1,35 @@
 import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
-import { DistrictService } from 'src/app/shared/master/district/district.service';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { HttpClientService } from '../../../../shared/http-client.service';
-import { ENDPOINT } from '../../../../app.constant';
-import { GenericService } from '../../../../shared/generic.service';
-import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss';
+import { HttpClientService } from '../../shared/http-client.service';
+import { ENDPOINT } from '../../app.constant';
+import { GenericService } from '../../shared/generic.service';
 declare var $: any 
-
-declare var exposedFunction;
-
+import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { SpouseregistrationService } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.service';
+import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.models';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
-  selector: 'chc-pregnant-registration',
-  templateUrl: './pregnant-registration.component.html',
-  styleUrls: ['./pregnant-registration.component.css']
+  selector: 'app-chc-sample-rcpt-pro-registration',
+  templateUrl: './chc-sample-rcpt-pro.component.html',
+  styleUrls: ['./chc-sample-rcpt-pro.component.css']
 })
-
-export class ChcpregnantRegistrationComponent implements OnInit {
-  //@ViewChild('f', { static: false }) subRegBasic: NgForm;
+export class CHCSampleRcptProComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  positiveSpouseResponse: PositiveSpouseResponse;
   districts: District[] = [];
-  erroMessage: string;
+  errorMessage: string;
+  errorSpouseMessage: string;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   firstFormCheck = false;
@@ -47,7 +47,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedreligion = null;
   selectedcaste = null;
   selectedcommunity = null;
-  selectedsubjectTitle = "Ms.";
+  selectedsubjectTitle = "Mr.";
   selectedsubjectTitle1 = "Mr."
   CHCdata = [];
   PHCdata = [];
@@ -59,6 +59,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   governmentIDData = [];
   selecteddob;
   selectedage;
+  selecteddor = new Date(Date.now());
   GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -66,55 +67,82 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
-  selecteddor = new Date(Date.now());
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: '',
+    maxDate: new Date(Date.now())
+  };
   userId = 2;
   createdSubjectId="";
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) {
-    window['angularComponentReference'] = {
-      zone: zone,
-      componentFn: (id, value) => this.callFromOutside(id, value),
-      component: this,
-    };
-  }
+  spouseData: positiveSubject[] = [];
+  selectedanwname;
+  selectedsubjectId;
+  selectedrchId;
+  selectedMobile;
+  selectedgender;
+
+  fromDate = "";
+  toDate = "";
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  constructor(
+    private masterService: masterService, 
+    zone: NgZone,
+    private _formBuilder: FormBuilder,
+    private httpClientService:HttpClientService,
+    private spouseregistrationService: SpouseregistrationService,
+    private genericService: GenericService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
     
-    /*----First form removed elements---- */
-    /*
-    phc: ['', Validators.required],
-      sc: ['', Validators.required],
-      ripoint: ['', Validators.required],
-            dob: [''],
-    */
+    
+    this.dtOptions = {
+      pagingType: 'simple_numbers',
+      pageLength: 5,
+      processing: true,
+      stripeClasses: [],
+      lengthMenu: [5, 10, 20, 50],
+      language: {
+        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        searchPlaceholder: "Search...",
+        lengthMenu: "Records / Page :  _MENU_",
+        paginate: {
+          first: '',
+          last: '', // or '←' 
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        }, 
+      }   
+    };
+    
     this.firstFormGroup = this._formBuilder.group({
+      anwname:['', Validators.required],
+      subjectId:['', Validators.required],
+      rchId: ['', Validators.required],
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      pincode: ['', Validators.required],
-      contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      subjectitle: ['Ms.'],
+      phc: ['', Validators.required],
+      sc: ['', Validators.required],
+      ripoint: ['', Validators.required],
+      contactNumber: [''],
+      gender: ['', Validators.required],
+      /*pincode: ['', Validators.required],
+      ,*/
+      subjectitle: ['Mr.'],
       firstname: ['', Validators.required],
       middlename: [''],
       lastname: ['', Validators.required],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
-      rchid: ['', Validators.required],
-      lmpdate: ['', Validators.required],
-      g: ['', Validators.required],
-      p: ['', Validators.required],
-      l: ['', Validators.required],
-      a: ['', Validators.required]
+      dob: [''],
+      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]]
    });
 
     this.secondFormGroup = this._formBuilder.group({
-      dob: [''],
       ECNumber: [''],
       govtIDType: [''],
       GovtIDDetail: [''],
@@ -125,34 +153,68 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       street: ['', Validators.required],
       city : ['', Validators.required],
       state: ['', Validators.required],
-      subjectTitle : ['Mr.'],
-      spouseFirstName: ['', Validators.required],
-      spouseMiddleName: [''],
-      spouseLastName: ['', Validators.required],
       spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      spouseEmail: ['',Validators.email]
+      spouseEmail: ['',Validators.email],
+      pincode:['', Validators.required]
     });
 
-    
-  
-    
+    this.spouseData = [];
+    var positiveSpouseResponse = this.route.snapshot.data.positiveSubjects;
+    if(this.positiveSpouseResponse !== undefined && this.positiveSpouseResponse.status.toString() === "true"){
+      this.spouseData = positiveSpouseResponse.anwSubjects;
+    }
+    else{
+      this.errorMessage = positiveSpouseResponse.message;
+    }
+
+  }
+
+  getSpouseDetails() {
+    console.log(this.fromDate);
+    console.log(this.toDate);
+    var _subjectObj = {
+      "anmId": 2,
+      "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
+      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
+    }
+    this.spouseregistrationService.spouseDetails(_subjectObj).subscribe(response => {
+      this.positiveSpouseResponse = response;
+      if(this.positiveSpouseResponse !== undefined && this.positiveSpouseResponse.status.toString() === "true"){
+        if(this.positiveSpouseResponse.anwSubjects.length > 0){
+          this.spouseData = this.positiveSpouseResponse.anwSubjects;
+        }
+        else{
+          this.errorMessage = this.positiveSpouseResponse.message;  
+        }
+        this.rerender();
+      }
+      else{
+        this.errorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  openRegForm(data) {
+    console.log(data);
     this.getDistrictData();
     this.getCHC();
-    //this.getPHC();
-    //this.getSC();
-    //this.getRI();
+    this.getPHC();
+    this.getSC();
+    this.getRI();
     this.getReligion();
     this.getCaste();
     this.getCommunity(0);
     this.getGovernmentIDType();
-    
-  }
 
-  public callFromOutside(id, subject: any): any {
-    let subjectdetail = JSON.parse(subject);
-  }
-  selected(eventval){
-    console.log(eventval);
+    this.selectedanwname = data.firstName;
+    this.selectedsubjectId = data.uniqueSubjectId;
+    this.selectedrchId = data.rchId;
+    this.selectedMobile = data.contactNo;
+    this.selectedgender = 'Male';
+    $('#fadeinModal').modal('show');
   }
 
   getDistrictData(){
@@ -162,7 +224,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   getCHC(){
@@ -172,7 +234,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   getPHC(){
@@ -182,7 +244,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -193,7 +255,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   getRI(){
@@ -203,7 +265,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
   
@@ -214,7 +276,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -225,7 +287,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -238,7 +300,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
-          this.erroMessage = err.toString();
+          this.errorMessage = err.toString();
         });
     }
     else{
@@ -248,7 +310,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
-          this.erroMessage = err.toString();
+          this.errorMessage = err.toString();
         });
     }
     
@@ -261,7 +323,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     },
     (err: HttpErrorResponse) =>{
       this.governmentIDData = [];
-      this.erroMessage = err.toString();
+      this.errorMessage = err.toString();
     });
   }
 
@@ -286,9 +348,10 @@ export class ChcpregnantRegistrationComponent implements OnInit {
 
   nextStep() {
     this.firstFormCheck = true;
-      /*if(this.firstFormGroup.valid)
-        this.stepper.next();*/
+    console.log(this.firstFormGroup.valid);
+      if(this.firstFormGroup.valid)
         this.stepper.next();
+        //this.stepper.next();
     }
 
     prevStep() {
@@ -298,32 +361,39 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
+      console.log(this.secondFormGroup.valid);
+      console.log(this.firstFormGroup.valid);
+      console.log(this.dataDindinginServce());
 
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
+
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
-             .then((result) => {
-               if (result.value) {
-                console.log('hitting 1');
-                $('#fadeinModal').modal('hide');
-               
-               }
-               else{
-                this.firstFormGroup.reset();
-                this.secondFormGroup.reset();
-                this.secondFormCheck = false;
-                this.firstFormCheck = false;
-                this.stepper.selectedIndex = 0;
-                $('#fadeinModal').modal('hide');
-               }
-             });
+    showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+       .then((result) => {
+         if (result.value) {
+          console.log('hitting 1');
+          $('#fadeinModal').modal('hide');
+         
+         }
+         else{
+          this.firstFormGroup.reset();
+          this.secondFormGroup.reset();
+          this.secondFormCheck = false;
+          this.firstFormCheck = false;
+          this.stepper.selectedIndex = 0;
+          $('#fadeinModal').modal('hide');
+         }
+       });
+          //$('#fadeinModal').modal('show');
+          
         },
         (err: HttpErrorResponse) =>{
           console.log(err);
+          this.errorSpouseMessage = err.toString();
         });
       }
     }
@@ -332,8 +402,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 1,
-          "childSubjectTypeId": 1,
+          "subjectTypeId": 2,
+          "childSubjectTypeId": 2,
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
           "chcId": Number(this.firstFormGroup.get('chc').value),
@@ -346,17 +416,17 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "lastName": this.firstFormGroup.get('lastname').value,
           "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
           "age": Number(this.firstFormGroup.get('age').value),
-          "gender": "Female",
+          "gender": "Male",
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
           "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
           "spouseSubjectId": "",
-          "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
-          "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
-          "spouseLastName": this.secondFormGroup.get('spouseLastName').value,
-          "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
+          "spouseFirstName": "",
+          "spouseMiddleName": "",
+          "spouseLastName": "",
+          "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": this.userId,
@@ -372,18 +442,18 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "address1": this.secondFormGroup.get('house').value,
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
-          "pincode": ""+this.firstFormGroup.get('pincode').value,
+          "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
           "updatedBy": Number(this.userId)
         },
         "subjectPregnancyRequest": {
-          "rchId": this.firstFormGroup.get('rchid').value,
+          "rchId": this.firstFormGroup.get('rchId').value,
           "ecNumber": this.secondFormGroup.get('ECNumber').value,
-          "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
-          "g": Number(this.firstFormGroup.get('g').value),
-          "p": Number(this.firstFormGroup.get('p').value),
-          "l": Number(this.firstFormGroup.get('l').value),
-          "a": Number(this.firstFormGroup.get('a').value),
+          "lmpDate": "",
+          "g": 0,
+          "p": 0,
+          "l": 0,
+          "a": 0,
           "updatedBy": Number(this.userId)
         },
         "subjectParentRequest": {
@@ -423,4 +493,26 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       return _obj;
     }
 
+    
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }   
+  
+       
+  
+    ngAfterViewInit(): void {
+      this.dtTrigger.next();
+    }   
+  
+  
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
+    }
 }

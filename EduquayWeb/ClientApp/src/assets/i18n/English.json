@@ -61,7 +61,28 @@
     "Standard":"Standard",
     "RBSKID":"RBSK ID",
     "SchoolName":"School Name",
-    "Section":"Section"
+    "Section":"Section",
+    "Lookup":"Lookup",
+    "ShipmentDateAndTime":"Shipment Date & Time",
+    "SendingLocation":"Sending Location",
+    "SenderName":"Sender Name",
+    "ShipmentID":"Shipment ID",
+    "Barcode":"Barcode",
+    "SampleTimeout":"Sample Timeout",
+    "SampleDamaged":"Sample Damaged",
+    "BarcodeDamaged":"Barcode Damaged",
+    "Accept":"Accept",
+    "Reject":"Reject",
+    "DateAndTime":"Date & Time",
+    "ILROutDateTime":"ILR Out Date & Time",
+    "ILRInDateTime":"ILR In Date & Time",
+    "ProcessingDateAndTime":"Processing Date & Time",
+    "ReceivedDate":"Received Date",
+    "ILRPoint":"ILR Point",
+    "CollectionCHC":"Collection CHC",
+    "CBCTestReadings":"CBC Test Readings",
+    "MCV":"MCV",
+    "":""
 
 
 }

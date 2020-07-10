@@ -4,7 +4,7 @@
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-      <app-site-sidebar module="chc" subMenum="sample-collection"></app-site-sidebar>
+      <app-site-sidebar module="chcsam" subMenum="chcsam"></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
     <!--  BEGIN CONTENT AREA  -->
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">Subject Registration</h5>
+                            <h5 class="float-center">Sample Receipt</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -35,13 +35,6 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="antenatal-tab" data-toggle="tab"
-                                [routerLink]="['/app/chc-subregn']" role="tab" aria-controls="home"
-                                aria-selected="true">Walk-in Registration</a>
-                        </li>
-                    </ul>
                     <div class="tab-content mt-5" id="myTabContent">
                         <router-outlet></router-outlet>
                     </div>

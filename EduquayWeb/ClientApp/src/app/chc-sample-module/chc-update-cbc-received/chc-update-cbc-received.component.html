@@ -1,0 +1,25 @@
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th rowspan="2"><span>{{'SNo' | translate }}</span></th>
+            <th rowspan="2"><span>{{'SubjectID' | translate }}</span></th>
+            <th rowspan="2"><span>{{'RCHID' | translate }}</span></th>
+            <th rowspan="2"><span>{{'Barcode' | translate }}</span></th>
+            <th colspan="2"><span>{{'CBCTestReadings' | translate }}</span></th>
+        </tr>
+        <tr class="combined">
+            <th style="text-align: center;"><b>{{'MCV' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'RDW' | translate }}</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of chcReceiptsData;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.shipmentId }}</td>
+            <td style="text-align: center;">{{ person.senderName }}</td>
+            <td style="text-align: center;">{{ person.sendingLocation }}</td>
+            <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
+            <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
+        </tr>
+    </tbody>
+</table>
