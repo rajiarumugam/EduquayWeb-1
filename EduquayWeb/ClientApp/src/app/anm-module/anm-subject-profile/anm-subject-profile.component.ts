@@ -106,7 +106,13 @@ export class AnmSubjectProfileComponent implements OnInit {
   anmSubjectProfile() {
     //this.basicInfo = {};  
     //this.basicInfo['firstName']='';  
+
     this.subjectProfileErrorMessage = '';
+    if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
+      this.subjectProfileErrorMessage = 'Please select atleast one sample to create shipment';
+      return false;
+    }
+
     this.subjectProfileRequest = { subjectId: this.searchsubjectid };
     let subProfile = this.SubjectProfileService.getsubjectProfile(this.subjectProfileRequest)
       .subscribe(response => {
@@ -133,6 +139,7 @@ export class AnmSubjectProfileComponent implements OnInit {
         });
 
   }
+
   editSubjectProfile(subjectProfiledetail, basicInfo: PrimaryDetail, socioDemographicInfo: AddressDetail, personalInfo: PregnancyDetail) {
     this.ddlReligion();
     this.ddlGovtIdType();

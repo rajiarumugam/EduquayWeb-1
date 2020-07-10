@@ -11,6 +11,8 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { user } from 'src/app/shared/auth-response';
+import { TokenService } from 'src/app/shared/token.service';
 //import { library } from '@fortawesome/fontawesome-svg-core'
 //import { fas } from '@fortawesome/free-solid-svg-icons'
 //import { far } from '@fortawesome/free-regular-svg-icons'
@@ -27,6 +29,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  user: user;
 
   picknpackErrorMessage: string;
   picknpackRequest: PicknpackRequest;
@@ -63,17 +66,19 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   shipmentId: string;
   errorMessage: string;
   selectedBarcodes: string;
+  name: string;
 
   constructor(
     private PicknpackService: PicknpackService,
     private modalService: NgbModal,
     private dateService: DateService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService
     ) { }
 
   ngOnInit() {
-    
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -176,10 +181,11 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     this.picknpackErrorMessage = '';
     this.fetchBarcode();
-    if (this.selectedBarcodes === '') {
-      this.picknpackErrorMessage = 'Please select atleast one sample to create shipment';
+    if(this.selectedBarcodes === ""){
+      this.showResponseMessage(`Please select atleast one sample to create shipment`, 'e');
       return false;
-    }
+    } 
+    this.name = this.user.name;
     this.modalService.open(
       picknPackdetail, {
       centered: true,
@@ -263,8 +269,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     this.fetchBarcode();
     //var shipmentId = "123";
     console.log(shipmentForm.value);
+
     if (this.selectedBarcodes === '') {
-      this.picknpackErrorMessage = 'Please select atleast one sample to create shipment';
+      this.showResponseMessage(`Please select atleast one sample to create shipment`, 'e');
       return false;
     }
 
@@ -278,7 +285,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
     this.anmaddshipmentRequest = {
-      anmId: 1,
+      anmId: this.user.userTypeId,
       riId: +(this.riId),
       ilrId: +(this.ilrId),
       avdId: +(this.avdId),

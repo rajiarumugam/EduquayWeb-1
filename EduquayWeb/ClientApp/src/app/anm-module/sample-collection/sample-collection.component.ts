@@ -6,6 +6,7 @@ import { SampleCollectionRequest, SampleCollectionDateTimeRequest } from 'src/ap
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert2';
+import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { DateService } from 'src/app/shared/utility/date.service';
@@ -86,8 +87,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     };
 
     this.collectionDate = this.dateService.getDate();
-    this.fromDate = this.dateService.getDate();
-    this.toDate = this.dateService.getDate();
+    this.fromDate = moment().format("DD/MM/YYYY");
+    this.toDate = moment().format("DD/MM/YYYY");
     this.collectionTime = this.dateService.getTime();
     console.log(this.sampleCollectionService.sampleCollectionApi);
     this.anmSubjectTypes();

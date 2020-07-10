@@ -44,7 +44,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <a class="btn btn-primary float-right" id="linktobuttonupdates" (click)="updateStatus()" role="button">Update Status</a>
+          <a class="btn btn-primary float-right" (click)="timeoutSamplesUpdateStatus()" role="button">Update Status</a>
         </div>
       </div>
 </div>
@@ -62,7 +62,7 @@
       </button>
     </div>
     <div class="modal-body form-body">
-      <form class="text-left" (ngSubmit)="damagedSamplesForm.form.valid && onSubmit(damagedSamplesForm)" #damagedSamplesForm="ngForm" novalidate>
+      <form class="text-left" (ngSubmit)="timeoutSamplesForm.form.valid && onSubmit(timeoutSamplesForm)" #timeoutSamplesForm="ngForm" novalidate>
         <div class="col-md-12" id="myTable" style="padding-top: 1%;">
           <div class="form-row">
             <div class="form-group col-md-3">
@@ -92,12 +92,13 @@
 
           <div class="form-row mt-4">
             <div class="form-group col-md-3">
-              <label class="note">Scan / Enter Barcode <span class="manto">*</span></label>
+              <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || timeoutSamplesForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
               <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel
-              [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || damagedSamplesForm.submitted && sampleBarcode.invalid"
+              oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
+              [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || timeoutSamplesForm.submitted && sampleBarcode.invalid"
                #sampleBarcode="ngModel" required>
               <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small> 
-              <div *ngIf="damagedSamplesForm.submitted && sampleBarcode.invalid">     
+              <div *ngIf="timeoutSamplesForm.submitted && sampleBarcode.invalid">     
                 <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
               </div> 
             </div>
