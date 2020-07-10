@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,8 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { NgForm } from '@angular/forms';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { AnmNotificationComponent } from '../anm-notification/anm-notification.component';
+
 
 
 
@@ -21,13 +23,16 @@ import { user } from 'src/app/shared/auth-response';
   styleUrls: ['./anm-damaged-samples.component.css']
 })
 export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnInit {
-
+  //Child component
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+  
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   user: user;
 
+  recordCount: number;
   damagedSamplesErrorMessage: string;
   damagedSamplesInitResponse: any;
   damagedsamplesRequest: DamagedSamplesRequest;
@@ -60,7 +65,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   ) { }
 
   ngOnInit() {
-
+    this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = { 
       pagingType: 'simple_numbers',
@@ -102,9 +107,9 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
         this.damagedSamples = this.damagedSamplesInitResponse.sampleList;
       }
     }
-   
   }
   anmdamagedSamples(){
+    this.recordCount = 0;
     this.damagedSamples = [];
     this.damagedSamplesErrorMessage ='';
     this.damagedsamplesRequest = {anmId: this.user.userTypeId, notification: 1};
@@ -117,11 +122,13 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
         }
         else{
           this.damagedSamples = this.damagedsamplesResponse.sampleList;
+          this.recordCount = this.damagedSamples.length;
         }
       }
       else{
         this.damagedSamplesErrorMessage = response.message;
       }
+      this.onLoadSubject.emit(this.damagedSamples.length);   
       this.rerender();
       this.loadDataTable = true;
     },
