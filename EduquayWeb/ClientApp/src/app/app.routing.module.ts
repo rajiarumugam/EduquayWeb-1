@@ -55,6 +55,9 @@ import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolve
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
+import { CHCUpdateCBCComponent } from "./chc-sample-module/chc-update-cbc/chc-update-cbc.component";
+import { CBCReceivedSampleComponent } from "./chc-sample-module/chc-update-cbc-received/chc-update-cbc-received.component";
+import { CBCUploadComponent } from "./chc-sample-module/chc-update-cbc-upload/chc-update-cbc-upload.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -101,6 +104,13 @@ const routes: Routes = [
         path: 'chc-sample', component: CHCSampleRcptProComponent,
         children:[
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+        ]
+      },
+      {
+        path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
+        children:[
+          {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
+          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -176,5 +186,8 @@ export const RoutingComponents = [
   CheSpouseRegistrationComponent,
   ChcwalkinRegistrationComponent,
   CHCSampleRcptComponent,
-  CHCSampleRcptProComponent
+  CHCSampleRcptProComponent,
+  CHCUpdateCBCComponent,
+  CBCReceivedSampleComponent,
+  CBCUploadComponent
 ];

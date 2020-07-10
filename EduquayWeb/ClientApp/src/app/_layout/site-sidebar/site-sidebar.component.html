@@ -68,7 +68,7 @@
                     </svg>
                 </div>
             </a>
-            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chc'}" id="chc" data-parent="#accordionExample" style="">
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chc'}" id="chc" data-parent="#accordionExample">
                 <li>
                     <a href="chc-notification.html">  Notifications </a>
                 </li>
@@ -114,7 +114,7 @@
                     <a href="receivedmanual.html"> Sample Rcpt - Manual  </a>
                 </li>
                 <li>
-                    <a href="samplelist.html"> Update CBC Results </a>
+                    <a [routerLink]="['/app/chc-update-cbc']"> Update CBC Results </a>
                 </li>
                 <li>
                     <a href="testresults.html"> Update SST Results </a>

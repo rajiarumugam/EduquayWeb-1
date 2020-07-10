@@ -2,23 +2,23 @@ import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { ENDPOINT } from './../../app.constant';
+import { ENDPOINT } from '../../app.constant';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
-import { GenericService } from './../../shared/generic.service';
-import { HttpClientService } from './../../shared/http-client.service';
+import { GenericService } from '../../shared/generic.service';
+import { HttpClientService } from '../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-chc-sample-rec',
-  templateUrl: './chc-sample-rec.component.html',
-  styleUrls: ['./chc-sample-rec.component.css']
+  selector: 'app-chc-update-cbc-received',
+  templateUrl: './chc-update-cbc-received.component.html',
+  styleUrls: ['./chc-update-cbc-received.component.css']
 })
-export class CHCSampleRcptComponent implements OnInit {
+export class CBCReceivedSampleComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
@@ -142,7 +142,7 @@ export class CHCSampleRcptComponent implements OnInit {
           val.sampleDamaged = false;
           val.barcodeDamaged = false;
       }
-      else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+      else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 0)
       {
           val.sampleTimeout = false;
           val.accept = true;
@@ -178,22 +178,6 @@ export class CHCSampleRcptComponent implements OnInit {
         this.popupData['receiptDetail'][index].sampleDamaged = false;
         this.popupData['receiptDetail'][index].barcodeDamaged = false;
       }
-      else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
-      {
-        this.popupData['receiptDetail'][index].sampleTimeout = false;
-        this.popupData['receiptDetail'][index].accept = true;
-        this.popupData['receiptDetail'][index].reject = false;
-        this.popupData['receiptDetail'][index].sampleDamaged = false;
-        this.popupData['receiptDetail'][index].barcodeDamaged = false;
-      }
-      else
-      {
-        this.popupData['receiptDetail'][index].sampleTimeout = true;
-        this.popupData['receiptDetail'][index].accept = false;
-        this.popupData['receiptDetail'][index].reject = true;
-        this.popupData['receiptDetail'][index].sampleDamaged = false;
-        this.popupData['receiptDetail'][index].barcodeDamaged = false;
-    }
     }
   }
   barcodeDamageChange(index)

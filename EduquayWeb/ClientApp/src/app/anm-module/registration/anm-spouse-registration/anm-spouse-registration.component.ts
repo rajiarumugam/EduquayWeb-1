@@ -139,7 +139,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', Validators.required]
+      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
    });
 
     this.secondFormGroup = this._formBuilder.group({
