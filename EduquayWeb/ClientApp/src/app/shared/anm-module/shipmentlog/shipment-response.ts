@@ -4,7 +4,7 @@ export interface ShipmentResponse {
     shipmentLogs: ShipmentList[];
 }
 
-export interface ShipmentList {
+export class ShipmentList {
     id: number;
     shipmentId: string;
     anmName: string;
@@ -17,7 +17,7 @@ export interface ShipmentList {
     samplesDetail: SamplesDetail[];
 }
 
-export interface SamplesDetail {
+export class SamplesDetail {
     shipmentId: number;
     uniqueSubjectId: string;
     subjectName: string;

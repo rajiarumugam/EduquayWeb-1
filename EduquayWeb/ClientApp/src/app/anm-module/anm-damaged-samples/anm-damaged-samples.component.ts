@@ -62,8 +62,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   ngOnInit() {
 
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dtOptions = {
-      
+    this.dtOptions = { 
       pagingType: 'simple_numbers',
       pageLength: 5,
       processing: true,
@@ -72,7 +71,6 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
-        
         lengthMenu: "Records / Page :  _MENU_",
         paginate: {
           first: '',
@@ -168,7 +166,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
 
-    let sampleCollection = this.DamagedSamplesService.postdamagedSample(this.addSampleRecollectionRequest)
+    let damagedsampleCollection = this.DamagedSamplesService.postdamagedSample(this.addSampleRecollectionRequest)
     .subscribe(response => {
       this.addSampleRecollectionResponse = response;
       if(this.addSampleRecollectionResponse !== null && this.addSampleRecollectionResponse.status === "true"){
@@ -207,6 +205,11 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   damagedSamplesUpdateStatus(){
     this.damagedSamplesErrorMessage = '';
     this.fetchBarcodes();
+
+    if(this.notifySamples === ""){
+      this.showResponseMessage(`Please select at least one sample to update the status`, 'e');
+      return false;
+    }
    
     this.damagedUpdateStatusRequest = {
       anmId: this.user.userTypeId,
@@ -216,7 +219,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
-    let addshipment = this.DamagedSamplesService.updatedamagedSample(this.damagedUpdateStatusRequest)
+    let adddamagedsample = this.DamagedSamplesService.updatedamagedSample(this.damagedUpdateStatusRequest)
       .subscribe(response => {
         this.damagedUpdateStatusResponse = response;
         if (this.damagedUpdateStatusResponse !== null && this.damagedUpdateStatusResponse.status === "true") {

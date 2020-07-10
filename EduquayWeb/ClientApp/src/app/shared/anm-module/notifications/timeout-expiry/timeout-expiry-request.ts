@@ -12,3 +12,8 @@ export interface AddtimeoutSampleRecollectionRequest{
     collectionFrom: number;
     collectedBy: number;
 }
+
+export interface TimeoutUpdateStatusRequest{
+    barcodeNo: string;
+    anmId: number;
+}

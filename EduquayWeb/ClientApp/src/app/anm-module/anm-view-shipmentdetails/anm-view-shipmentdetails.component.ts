@@ -50,6 +50,7 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
   anmshipmentLog(){
     this.shipmentList = [];
     this.sampleDetails = [];
+    this.shipmentItem = new ShipmentList();
     this.shipmentRequest = {userId: 1, shipmentFrom: 4 };
     let shipmentLog = this.ShipmentlogService.getshipmentLog(this.shipmentRequest)
     .subscribe(response => {
@@ -61,6 +62,9 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
         else{
           //this.shipmentList = this.shipmentResponse.shipmentLogs;
           this.shipmentItem = this.shipmentResponse.shipmentLogs.find(shipment => shipment.shipmentId === this.shipmentId);
+          if(this.shipmentItem.samplesDetail.length > 0){
+            this.sampleDetails = this.shipmentItem.samplesDetail;
+          }
         }
       }
       else{

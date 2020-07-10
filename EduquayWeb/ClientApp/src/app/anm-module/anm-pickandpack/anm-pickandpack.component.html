@@ -113,7 +113,6 @@
                             </div>
                         </div> -->
                         <ng-template #picknPackdetail let-modal>
-                       
                                     <div class="modal-header">
                                         <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
                                         </h5>
@@ -137,13 +136,13 @@
                                                             <div class="form-group col-md-3">
                                                                 <label>ANM Name <span
                                                                     class="manto">*</span></label>
-                                                                <input class="form-control field" name="name"
-                                                                    readonly type="text" placeholder="Name">
+                                                                    <input class="form-control field" readonly="" type="text" placeholder="ANM Name"
+                                                                    [(ngModel)]="name" name="ANMName" >
                                                                    
                                                             </div>
 
                                                             <div class="form-group col-md-3">
-                                                                <label for="inputriPoint">RI Point<span
+                                                                <label [ngClass]="{'label-border-class':DDriPoint.invalid && DDriPoint.touched || shipmentForm.submitted && DDriPoint.invalid}" for="inputriPoint">RI Point<span
                                                                     class="manto">*</span></label>
                                                                     <select class="form-control" (change)="onChangeriPoint($event.target.value)"
                                                                     name=DDriPoint #DDriPoint="ngModel" [class.is-invalid]="DDriPoint.invalid && DDriPoint.touched || shipmentForm.submitted && DDriPoint.invalid"
@@ -160,7 +159,7 @@
                                                                       </div>  
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <label for="inputilrPoint">ILR Point<span
+                                                                <label [ngClass]="{'label-border-class':DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid}" for="inputilrPoint">ILR Point<span
                                                                     class="manto">*</span></label>
                                                                     <select id="inputilrPoint" class="form-control"
                                                                     name="DDilrPoint" #DDilrPoint="ngModel" [class.is-invalid]="DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid"
@@ -177,7 +176,7 @@
                                                                       </div> 
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <label for="inputTestingCHC">Receiving Testing CHC<span
+                                                                <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">Receiving Testing CHC<span
                                                                     class="manto">*</span></label>
                                                                 <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid"
                                                                     class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
@@ -196,7 +195,7 @@
 
                                                         <div class="form-row my-2">
                                                             <div class="form-group col-md-3">
-                                                                <label for="inputAvdName">AVD Name<span
+                                                                <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid}" for="inputAvdName">AVD Name<span
                                                                     class="manto">*</span></label>
                                                                 <select name="inputAvdName"
                                                                 name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid"
@@ -214,9 +213,10 @@
                                                             </div>
 
                                                             <div class="form-group col-md-3">
-                                                                <label>Contact Number<span
+                                                                <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid}">Contact Number<span
                                                                     class="manto">*</span></label>
-                                                                <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel pattern="^\d{10}$" 
+                                                                <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel  
+                                                                oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');"  pattern="^\d{10}$" 
                                                                 [class.is-invalid]="contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid"
                                                                     required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo">
                                                                     <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">

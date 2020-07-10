@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { TimeoutExpiryRequest, AddtimeoutSampleRecollectionRequest } from 'src/app/shared/anm-module/notifications/timeout-expiry/timeout-expiry-request';
-import { TimeoutExpiryResponse, AddtimeoutSampleRecollectionResponse, TimeoutSampleList } from 'src/app/shared/anm-module/notifications/timeout-expiry/timeout-expiry-response';
+import { TimeoutExpiryRequest, AddtimeoutSampleRecollectionRequest, TimeoutUpdateStatusRequest } from 'src/app/shared/anm-module/notifications/timeout-expiry/timeout-expiry-request';
+import { TimeoutExpiryResponse, AddtimeoutSampleRecollectionResponse, TimeoutSampleList, TimeoutUpdateStatusResponse } from 'src/app/shared/anm-module/notifications/timeout-expiry/timeout-expiry-response';
 import { TimeoutExpiryServiceService } from 'src/app/shared/anm-module/notifications/timeout-expiry/timeout-expiry-service.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,6 +10,8 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { TokenService } from 'src/app/shared/token.service';
+import { user } from 'src/app/shared/auth-response';
 
 @Component({
   selector: 'app-anm-timeout-samples',
@@ -22,6 +24,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  user: user;
 
   timeoutSamplesErrorMessage: string;
   timeoutSamplesInitResponse: any;
@@ -29,6 +32,8 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   timeoutsamplesResponse: TimeoutExpiryResponse;
   addtimeoutSampleRecollectionRequest: AddtimeoutSampleRecollectionRequest;
   addtimeoutSampleRecollectionResponse: AddtimeoutSampleRecollectionResponse;
+  timeoutUpdateStatusRequest: TimeoutUpdateStatusRequest;
+  timeoutUpdateStatusResponse: TimeoutUpdateStatusResponse;
   result: string;
   timeoutSamples: TimeoutSampleList[] = [];
   subjectName: string;
@@ -38,6 +43,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   barcodeNo: string;
   collectionDate: string;
   collectionTime: string;
+  notifySamples: string;
   
     constructor(
   
@@ -45,12 +51,14 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       private modalService: NgbModal,
       private router: Router,
       private route: ActivatedRoute,
-      private dateService: DateService
+      private dateService: DateService,
+      private tokenService: TokenService
   
     ) { }
   
     ngOnInit() {
-  
+
+      this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 5,
@@ -73,7 +81,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       this.collectionDate = this.dateService.getDate();
       this.collectionTime = this.dateService.getTime();
       console.log(this.TimeoutExpiryServiceService.timeoutSamplesApi);
-      this.anmtimeoutSamples();
+      //this.anmtimeoutSamples();
   
       this.timeoutSamplesInitResponse = this.route.snapshot.data.timeoutSamplesData;
       if (this.timeoutSamplesInitResponse.status === 'false') {
@@ -183,13 +191,47 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
         Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
         .then((result) => {
           if (result.value) {
-            this.modalService.dismissAll();
+            if(this.modalService.hasOpenModals){
+              this.modalService.dismissAll();
+            }
           }
         });
       }
     }
   
-  
+    
+  timeoutSamplesUpdateStatus(){
+    this.timeoutSamplesErrorMessage = '';
+    this.fetchBarcodes();
+
+    if(this.notifySamples === ""){
+      this.showResponseMessage(`Please select at least one sample to update the status`, 'e');
+      return false;
+    }   
+    this.timeoutUpdateStatusRequest = {
+      anmId: this.user.userTypeId,
+      barcodeNo: this.notifySamples, 
+    }
+    //Remove below 2 lines after successfully tested
+    // this.showResponseMessage('Successfully registered', 's');
+    // return false;
+    let adddamagedsample = this.TimeoutExpiryServiceService.updatetimeoutSample(this.timeoutUpdateStatusRequest)
+      .subscribe(response => {
+       this.timeoutUpdateStatusResponse= response;
+        if (this.timeoutUpdateStatusResponse !== null && this.timeoutUpdateStatusResponse.status === "true") {
+          this.showResponseMessage(this.timeoutUpdateStatusResponse.result, 's');
+        } else {
+          this.showResponseMessage(this.timeoutUpdateStatusResponse.result, 'e');
+          this.timeoutSamplesErrorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          this.showResponseMessage(err.toString(), 'e');
+          this.timeoutSamplesErrorMessage = err.toString();
+        });
+
+  }
   
   
     updateNotification(timeoutSample: TimeoutSampleList, notifiedStatus: string){
@@ -201,24 +243,41 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       }
     }
   
-    updateStatus(){
-      var notifySamples = '';
+    // updateStatus(){
+    //   var notifySamples = '';
+    //   this.timeoutSamples.forEach(element => {
+    //     if(element.notifiedStatus === 'True'){
+    //       notifySamples += element.sampleCollectionId + ",";
+    //     }
+    //   });
+  
+    //   if(notifySamples !== ''){
+    //     notifySamples = notifySamples.substr(0, notifySamples.length-1);
+    //     console.log(notifySamples);
+    //   }
+  
+    // }
+    fetchBarcodes(){
+      this.notifySamples = '';
+      var isFirst = true;
       this.timeoutSamples.forEach(element => {
-        if(element.notifiedStatus === 'True'){
-          notifySamples += element.sampleCollectionId + ",";
+        console.log('notifiedStatus :' + element.notifiedStatus);
+        if(element.notifiedStatus === "True"){
+          if(isFirst){
+            this.notifySamples += element.barcodeNo;
+            isFirst = false;
+          }
+          else{
+            this.notifySamples += ',' + element.barcodeNo;
+          }
         }
       });
-  
-      if(notifySamples !== ''){
-        notifySamples = notifySamples.substr(0, notifySamples.length-1);
-        console.log(notifySamples);
-      }
-  
     }
-  
+    
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first 
+        dtInstance.clear();     
         dtInstance.destroy();
         // Call the dtTrigger to rerender again       
         this.dtTrigger.next();
