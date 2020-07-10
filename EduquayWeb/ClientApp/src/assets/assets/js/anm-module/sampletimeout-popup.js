@@ -1,7 +1,8 @@
 
 var f1 = flatpickr(document.getElementById('dateOfSample'), {
     dateFormat: "d/m/Y",
-    defaultDate: "today"
+    defaultDate: "today",
+    maxDate: "today"
 });
 
 var f2 = flatpickr(document.getElementById('sampleTime'), {
@@ -9,4 +10,5 @@ var f2 = flatpickr(document.getElementById('sampleTime'), {
     noCalendar: true,
     dateFormat: "H:i",
     defaultDate: new Date().getTime(),
+    maxDate: new Date().getTime()
 });

@@ -22,3 +22,9 @@ export interface AddtimeoutSampleRecollectionResponse{
     message: string;
     result: string;
 }
+
+export interface TimeoutUpdateStatusResponse{
+    status: string;
+    message: string;
+    result: string;
+}

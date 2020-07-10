@@ -94,8 +94,9 @@
 
             <div class="form-row mt-4">
               <div class="form-group col-md-3">
-                <label class="note">Scan / Enter Barcode <span class="manto">*</span></label>
+                <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || damagedSamplesForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
                 <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel
+                oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
                 [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || damagedSamplesForm.submitted && sampleBarcode.invalid"
                  #sampleBarcode="ngModel" required>
                 <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small> 
@@ -135,7 +136,6 @@
 
 <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
 <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
 
 <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/notificationunsent-flatpickr.js'"></i>
 <i appLoadScript [script]="'assets/plugins/flatpickr/notificationtimeout-flatpickr.js'"></i>

@@ -76,3 +76,8 @@ label.new-control.new-checkbox.checkbox-outline-primary {
 
     padding: 9px 6px !important;
 }
+
+
+.small-border-class{
+    color: red !important;
+}

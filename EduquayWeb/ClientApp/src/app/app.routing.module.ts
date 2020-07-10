@@ -52,6 +52,8 @@ import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared
 import { from } from "rxjs";
 import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
 import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
+import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
+import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
@@ -81,8 +83,8 @@ const routes: Routes = [
         path: 'anm-notification', component: AnmNotificationComponent,
         children: [
           { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full', resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full'},
-          { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full' },
+          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full', resolve:{unsentSamplesData: UnsentSamplesResolverService}},
+          { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full', resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full' },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
