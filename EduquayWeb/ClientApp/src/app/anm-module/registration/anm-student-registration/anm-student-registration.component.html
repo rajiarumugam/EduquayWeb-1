@@ -12,7 +12,7 @@
                                 <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }" [(ngModel)]="selecteddor"></ng2-flatpickr>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">{{'DateOfReg' | translate }}District</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">{{'District' | translate }}</label><span class="manto"> *</span>
                             <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" formControlName = "district" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">
                                 <option [ngValue]="null">Select District</option>
                                 <option [value]="district.id" *ngFor="let district of districts">{{district.districtName}}</option>
@@ -20,14 +20,14 @@
                             
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputCHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">{{'DateOfReg' | translate }}CHC</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputCHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">{{'CHC' | translate }}</label><span class="manto"> *</span>
                             <select id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">
                                 <option [ngValue]="null">Select CHC</option>
                                 <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputPHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">{{'DateOfReg' | translate }}PHC</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputPHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">{{'PHC' | translate }}</label><span class="manto"> *</span>
                             <select id="inputPHC" class="form-control" required [(ngModel)]="selectedphc" formControlName = "phc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">
                                 <option [ngValue]="null">Select PHC</option>
                                 <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.phcName}}</option>
@@ -37,14 +37,14 @@
 
                     <div class="form-row my-2">
                         <div class="form-group col-md-2">
-                            <label class="birthreg" for="inputSC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">SC</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputSC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">{{'SC' | translate }}</label><span class="manto"> *</span>
                             <select id="inputSC" class="form-control" required [(ngModel)]="selectedsc" formControlName = "sc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">
                                 <option [ngValue]="null">Select SC</option>
                                 <option [value]="sc.id" *ngFor="let sc of SCdata">{{sc.scName}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">RI Point</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">{{'RIPoint' | translate }}</label><span class="manto"> *</span>
                             <select id="inputRIC" class="form-control" required [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">
                                 <option [ngValue]="null">Select RI Point</option>
                                 <option [value]="ri.id" *ngFor="let ri of RIdata">{{ri.riSite}}</option>
@@ -75,17 +75,17 @@
                     </div>
                     <div class="form-row my-2">
                         <div class="form-group col-md-2">
-                            <label class="birthreg" for="inputdob">{{'LastName' | translate }}Date of Birth</label>
+                            <label class="birthreg" for="inputdob">{{'DateOfBirth' | translate }}</label>
                             <!--<input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text"
                                 placeholder="Select Date.." [(ngModel)]="selecteddob" formControlName = "dob" >-->
                                 <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" [config]="startOptions" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
                             </div>
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'LastName' | translate }}Age</label><span class="manto"> *</span>
-                            <input type="Text" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                            <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.gender.invalid }">{{'LastName' | translate }}Gender</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.gender.invalid }">{{'Gender' | translate }}</label><span class="manto"> *</span>
                             <select id="inputG" class="form-control" [(ngModel)]="selectedgender" formControlName = "gender" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.gender.invalid }">
                                 <option [ngValue]="null">Select</option>
                                 <option [value]="data" *ngFor="let data of GENDERDATA">{{data}}</option>

@@ -1,0 +1,175 @@
+
+
+<div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Confirm Shipment Receipt</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                        
+                                <h6 class="mb-4" style="text-align: center;"><b>{{'SenderName' | translate }} : </b> <span class="ml-2">{{popupData?.senderName}} </span>
+                                </h6>
+                       
+                            <div class="form-row my-2">
+                                <div class="col-md-3">
+                                    <h6 class="ml-2"><b>{{'ShipmentID' | translate }} : </b> <span class="ml-2"> {{popupData?.shipmentId}} </span></h6>
+                                </div>
+                                <div class="col-md-3" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
+                                    <h6 class="ml-2"><b>{{'RIPoint' | translate }} : </b> <span class="ml-2">
+                                        {{popupData?.riPoint}} </span></h6>
+                                </div>
+                                <div class="col-md-3" *ngIf="popupData?.shipmentFrom === 'CHC - CHC' ? true : false">
+                                    <h6 class="ml-2"><b>{{'CollectionCHC' | translate }} : </b> <span class="ml-2">
+                                        {{popupData?.collectionCHC}} </span></h6>
+                                </div>
+                                <div class="col-md-3" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
+                                    <h6 class="ml-2"><b>{{'ILRPoint' | translate }} : </b> <span class="ml-2">
+                                        {{popupData?.ilrPoint}} </span></h6>
+                                </div>
+                            </div>
+                            <div class="form-row my-2">
+                                <div class="col-md-2" [formGroup]="form">
+                                    <h6 class="ml-2"><b>{{'ReceivedDate' | translate }}</b>
+                                        <ng2-flatpickr id="scFromDate" name="receivedDate" formControlName="receivedDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." [(ngModel)]="receivedDate"></ng2-flatpickr></h6>
+                                </div>
+                                <div class="col-md-3" [formGroup]="form">
+                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ProcessingDateAndTime' | translate }}</b>
+                                        <ng2-flatpickr id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }"></ng2-flatpickr>
+                                        </h6>
+                                </div>
+                                <div class="col-md-2" [formGroup]="ILRform" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
+                                    <h6 class="ml-2"><b>{{'ILRInDateTime' | translate }}</b>
+                                        <ng2-flatpickr id="scFromDate" name="ilrInDateTime" formControlName="ilrInDateTime" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="ILRInDate"></ng2-flatpickr>
+                                        </h6>
+                                </div>
+                                <div class="col-md-2" [formGroup]="ILRform" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
+                                    <h6 class="ml-2"><b>{{'ILROutDateTime' | translate }}</b>
+                                        <ng2-flatpickr id="scFromDate" name="ilrOutDateTime" formControlName="ilrOutDateTime" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="ILROutDate"></ng2-flatpickr>
+                                       </h6>
+                                </div>
+                            </div>
+                       
+                    </div>
+                <div class="table-responsive mt-3" style="overflow-x: hidden;">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th><span>{{'SNo' | translate }}</span></th>
+                                <th><span>{{'SubjectName' | translate }}</span></th>
+                                <th><span>{{'SubjectID' | translate }}</span></th>
+                                <th><span>{{'RCHID' | translate }}</span></th>
+                                <th><span>{{'Barcode' | translate }}</span></th>
+                                <th class="datetimenewchc wordwrap"><span>{{'SampleCollection' | translate }} <br> {{'DateAndTime' | translate }}</span></th>
+                                <!-- <th class="text-center"><span>ILR In Time</span></th>
+                                <th class="text-center"><span>ILR Out Time</span></th> -->
+                               <th><span>{{'SampleTimeout' | translate }}</span></th>
+                                <th><span>{{'SampleDamaged' | translate }}</span></th>
+                                 <th><span>{{'BarcodeDamaged' | translate }}</span>
+                                </th>
+                                <th><span>{{'Accept' | translate }}</span></th>
+                                <th><span>{{'Reject' | translate }}</span></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let receipt of popupData?.receiptDetail;index as i">
+                                <td class="sno">{{i+1}}</td>
+                                <td class="sname text-left">{{receipt.subjectName}}</td>
+                                <td>{{receipt.subjectId}}</td>
+                                <td class="">{{receipt.rchId}}</td>
+                                <td>{{receipt.barcodeNo}}</td>
+                                <td>{{receipt.sampleCollectionDateTime}}</td>
+                                <!-- <td class="text-center"></td>
+                                <td class="text-center"></td> -->
+                                <td class="n-chk text-center"><label
+                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox"
+                                            class="new-control-input" disabled [checked]="receipt.sampleTimeout">
+                                        <span
+                                            class="new-control-indicator"></span>&nbsp;
+                                    </label></td>
+                                <td class="n-chk text-center"><label
+                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox"
+                                            class="new-control-input" [checked]="receipt.sampleDamaged" (change)="sampleDamageChange(i)">
+                                        <span
+                                            class="new-control-indicator"></span>&nbsp;
+                                    </label></td>
+                                <td class="n-chk text-center"><label
+                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox"
+                                            class="new-control-input" [checked]="receipt.barcodeDamaged" (change)="barcodeDamageChange(i)">
+                                        <span
+                                            class="new-control-indicator"></span>&nbsp;
+                                    </label></td>
+                                <td class="n-chk text-center">
+                                    <label
+                                        class="new-control new-radio radio-primary">
+                                        <input type="radio" class="new-control-input"
+                                            name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.accept" disabled>
+                                        <span
+                                            class="new-control-indicator"></span>&nbsp;
+                                    </label>
+                                </td>
+                                <td class="n-chk text-center">
+                                    <label
+                                        class="new-control new-radio radio-primary">
+                                        <input type="radio" class="new-control-input"
+                                            name="colorRadio-{{i}}-2" value="Cplus" [checked]="receipt.reject" disabled>
+                                        <span
+                                            class="new-control-indicator"></span>&nbsp;
+                                    </label>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                    <div class="row float-right">
+                        <input type="Submit" class="btn btn-success float-right" value="Submit" id="linktobuttonconfirmdlvry" (click)="sampleSubmit();">
+                        <button class="btn float-right" data-dismiss="modal"><i class="flaticon-cancel-12"></i>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th>{{'SNo' | translate }}</th>
+            <th>{{'ShipmentID' | translate }}</th>
+            <th>{{'SenderName' | translate }}</th>
+            <th>{{'SendingLocation' | translate }}</th>
+            <th>{{'ShipmentDateAndTime' | translate }}</th>
+            <th>{{'Lookup' | translate }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of chcReceiptsData;index as i">
+            <td>{{ i + 1}}</td>
+            <td>{{ person.shipmentId }}</td>
+            <td>{{ person.senderName }}</td>
+            <td>{{ person.sendingLocation }}</td>
+            <td>{{ person.shipmentDateTime }}</td>
+            <td class="user-plus" (click)="openPopup(person);"><i class="fas fa-search fa-2x" aria-hidden="true" style="font-size: 18px;"></i></td>
+        </tr>
+    </tbody>
+</table>

@@ -51,9 +51,15 @@ import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared
 import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
 import { from } from "rxjs";
 import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
+import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
 import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
 import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
 
+import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
+import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
+import { CHCUpdateCBCComponent } from "./chc-sample-module/chc-update-cbc/chc-update-cbc.component";
+import { CBCReceivedSampleComponent } from "./chc-sample-module/chc-update-cbc-received/chc-update-cbc-received.component";
+import { CBCUploadComponent } from "./chc-sample-module/chc-update-cbc-upload/chc-update-cbc-upload.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -94,6 +100,19 @@ const routes: Routes = [
           {path: 'student', component: AnmStudentRegistrationComponent, pathMatch: 'full'},
           {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
+        ]
+      },
+      {
+        path: 'chc-sample', component: CHCSampleRcptProComponent,
+        children:[
+          {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+        ]
+      },
+      {
+        path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
+        children:[
+          {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
+          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -167,5 +186,10 @@ export const RoutingComponents = [
   ChcpregnantRegistrationComponent,
   ChcStudentRegistrationComponent,
   CheSpouseRegistrationComponent,
-  ChcwalkinRegistrationComponent
+  ChcwalkinRegistrationComponent,
+  CHCSampleRcptComponent,
+  CHCSampleRcptProComponent,
+  CHCUpdateCBCComponent,
+  CBCReceivedSampleComponent,
+  CBCUploadComponent
 ];
