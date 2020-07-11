@@ -268,7 +268,7 @@ export class CHCSampleRcptComponent implements OnInit {
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {
-                          console.log('hitting 1');
+                   
                         }
                         
                       });

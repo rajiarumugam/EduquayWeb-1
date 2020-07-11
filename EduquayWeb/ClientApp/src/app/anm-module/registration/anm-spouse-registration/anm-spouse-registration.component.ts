@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SpouseregistrationService } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.service';
 import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.models';
 import { DataTableDirective } from 'angular-datatables';
+import { TokenService } from 'src/app/shared/token.service';
 
 @Component({
   selector: 'app-anm-spouse-registration',
@@ -73,6 +74,10 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     defaultDate: '',
     maxDate: new Date(Date.now())
   };
+
+  startOptions2: FlatpickrOptions = {
+    enable: ["2025-03-30"]
+  };
   userId = 2;
   createdSubjectId="";
 
@@ -95,12 +100,13 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     private httpClientService:HttpClientService,
     private spouseregistrationService: SpouseregistrationService,
     private genericService: GenericService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService
     ) { }
 
   ngOnInit() {
     
-    
+    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -169,9 +175,19 @@ export class AnmSpouseRegistrationComponent implements OnInit {
 
   }
 
+  fromDateChange()
+  {
+      console.log(this.fromDate);
+
+      this.startOptions2 = {
+        mode: 'single',
+        dateFormat: 'd/m/Y',
+        defaultDate: '',
+        maxDate: new Date(Date.now()),
+        enable: []
+      };
+  }
   getSpouseDetails() {
-    console.log(this.fromDate);
-    console.log(this.toDate);
     var _subjectObj = {
       "anmId": 2,
       "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
@@ -206,7 +222,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
 
     this.selectedanwname = data.firstName;
@@ -214,6 +230,15 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.selectedrchId = data.rchId;
     this.selectedMobile = data.contactNo;
     this.selectedgender = 'Male';
+    this.selectedDistrict = data.districtId;
+    this.selectedchc = data.chcId;
+    this.selectedphc = data.phcId;
+    this.selectedsc = data.scId;
+    this.selectedripoint = data.riId;
+    this.selectedreligion = data.religionId;
+    this.selectedcaste = data.casteId;
+    this.getCommunity(this.selectedcaste);
+    this.selectedcommunity = data.communityId;
     $('#fadeinModal').modal('show');
   }
 
@@ -292,6 +317,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   }
 
   getCommunity(id){
+    console.log(id);
     if(id === 0)
     {
         this.masterService.getCommunity()
@@ -337,7 +363,6 @@ export class AnmSpouseRegistrationComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
-     console.log(age);
      this.selectedage = age;
      //return age;
   }
@@ -348,7 +373,6 @@ export class AnmSpouseRegistrationComponent implements OnInit {
 
   nextStep() {
     this.firstFormCheck = true;
-    console.log(this.firstFormGroup.valid);
       if(this.firstFormGroup.valid)
         this.stepper.next();
         //this.stepper.next();
@@ -361,21 +385,16 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
-      console.log(this.secondFormGroup.valid);
-      console.log(this.firstFormGroup.valid);
-      console.log(this.dataDindinginServce());
-
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-        this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+        this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
     showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
        .then((result) => {
          if (result.value) {
-          console.log('hitting 1');
           $('#fadeinModal').modal('hide');
          
          }
@@ -398,7 +417,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       }
     }
 
-    dataDindinginServce()
+    dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {
