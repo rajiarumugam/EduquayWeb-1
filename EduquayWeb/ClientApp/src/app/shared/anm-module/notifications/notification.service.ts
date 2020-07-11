@@ -8,6 +8,7 @@ import { DamagedSamplesResponse } from './damaged-samples/damaged-samples-respon
 import { TimeoutExpiryResponse } from './timeout-expiry/timeout-expiry-response';
 import { NotificationModel } from './notification.model';
 import { Observable } from 'rxjs';
+import { UnsentSamplesResponse } from './unsent-samples/unsent-samples-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,8 @@ export class NotificationService {
   timeoutSamplesResponse: TimeoutExpiryResponse;
   timeoutSampleCount: number;
   
+  unsentSamplesResponse: UnsentSamplesResponse;
+
   positiveSampleCount: number = 0;
   unsentSampleCount: number = 0;
   pndtdSampleCount: number = 0;
@@ -35,26 +38,28 @@ export class NotificationService {
   ) { }
 
 
-  async notificationCount(){
+  notificationCount() {
     this.notificationModel = new NotificationModel();
-    this.user = JSON.parse(this.tokenService.getUser('lu'));  
-    await this.damagedSamples().then((data) => {
-      data !== undefined ? this.damagedSampleCount = +data : 0;
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    return new Promise(async resolve => {
+      await this.damagedSamples().then((data) => {
+        data !== undefined ? this.damagedSampleCount = +data : 0;
+      });
+      await this.unsentSamples(this.user.id).then((data) => {
+        data !== undefined ? this.unsentSampleCount = +data : 0;
+      });
+      await this.timeoutSamples().then((data) => {
+        data !== undefined ? this.timeoutSampleCount = +data : 0;
+      });
+      this.notificationModel.damaged = this.damagedSampleCount;
+      this.notificationModel.unsent = this.unsentSampleCount;
+      this.notificationModel.timeout = this.timeoutSampleCount;
+      this.notificationModel.positive = this.positiveSampleCount;
+      this.notificationModel.pndreferral = this.pndtdSampleCount;
+      this.notificationModel.mtpreferral = this.mtpSampleCount;
+      this.notificationModel.chcupdate = this.chcUpdateSampleCount;
+      resolve(this.notificationModel);
     });
-    await this.unsentSamples().then((data) => {
-      data !== undefined ? this.unsentSampleCount = +data : 0;
-    });
-    await this.timeoutSamples().then((data) => {
-      data !== undefined ? this.timeoutSampleCount = +data : 0;
-    });
-    this.notificationModel.damaged = this.damagedSampleCount;
-    this.notificationModel.unsent = this.unsentSampleCount;
-    this.notificationModel.timeout = this.timeoutSampleCount;
-    this.notificationModel.positive = this.positiveSampleCount;
-    this.notificationModel.pndreferral = this.pndtdSampleCount;
-    this.notificationModel.mtpreferral = this.mtpSampleCount;
-    this.notificationModel.chcupdate = this.chcUpdateSampleCount;
-    return this.notificationModel;
   }
 
   async damagedSamples(){
@@ -65,16 +70,27 @@ export class NotificationService {
       this.damagedSamplesResponse = response;
       if(this.damagedSamplesResponse.status === "true"){
         if(this.damagedSamplesResponse.sampleList != undefined && this.damagedSamplesResponse.sampleList.length > 0){
-          resolve(  this.damagedSamplesResponse.sampleList.length);
+          this.damagedSampleCount = this.damagedSamplesResponse.sampleList.length;
         }
       }
+      resolve(this.damagedSampleCount);
     });
   });
   }
 
-  async unsentSamples(){
+  async unsentSamples(userId) {
+    this.unsentSampleCount = 0;
     return new Promise(resolve => {
-      resolve()
+      let unsentsample = this.unsentServiceService.getunsentSampleList(userId)
+        .subscribe(response => {
+          this.unsentSamplesResponse = response;
+          if (this.unsentSamplesResponse !== null && this.unsentSamplesResponse.status === "true") {
+            if (this.unsentSamplesResponse.unsentSamplesDetail !== undefined && this.unsentSamplesResponse.unsentSamplesDetail.length > 0) {
+              this.unsentSampleCount = this.unsentSamplesResponse.unsentSamplesDetail.length;
+            }
+          }
+          resolve(this.unsentSampleCount);
+        });
     });
   }
 
@@ -86,9 +102,10 @@ export class NotificationService {
         this.timeoutSamplesResponse = response;
         if (this.timeoutSamplesResponse.status === "true") {
           if (this.timeoutSamplesResponse.sampleList != undefined && this.timeoutSamplesResponse.sampleList.length > 0) {
-            resolve(this.timeoutSamplesResponse.sampleList.length);
+            this.timeoutSampleCount = this.timeoutSamplesResponse.sampleList.length;
           }
         }
+        resolve(this.timeoutSampleCount);
       });
     });
   }

@@ -68,7 +68,7 @@
                                         <th>
                                             <div class="n-chk">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input" id="select_all">
+                                                    <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()">
                                                     <span class="new-control-indicator leftspace"></span>Add to Shipment
                                                 </label>
                                             </div>
@@ -87,11 +87,18 @@
                                         <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
                                         <td class="sno">
                                             <div class="n-chk">
-                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                <!-- <label class="new-control new-checkbox checkbox-outline-primary">
                                                     <input type="checkbox" class="new-control-input checkbox" 
                                                     value="{{picknpack.sampleSelected}}" 
                                                     (change)="updateSampleSelected($event, picknpack, inputEl.checked)" #inputEl
                                                         checked = "{{picknpack.sampleSelected}}">
+                                                    <span class="new-control-indicator"></span>&nbsp;
+                                                </label> -->
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input type="checkbox" class="new-control-input checkbox" 
+                                                    value="{{picknpack.sampleSelected}}" 
+                                                    (change)="checkIfAllSelected()"
+                                                    [(ngModel)]="picknpack.sampleSelected">
                                                     <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div>
@@ -215,13 +222,13 @@
                                                             <div class="form-group col-md-3">
                                                                 <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid}">Contact Number<span
                                                                     class="manto">*</span></label>
-                                                                <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel  
-                                                                oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');"  pattern="^\d{10}$" 
+                                                                <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10"
+                                                                oninput="this.value = this.value.replace(/[^[0-9]{1,10}]/g, '').replace(/(\..*)\./g, '$1');" 
                                                                 [class.is-invalid]="contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid"
                                                                     required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo">
                                                                     <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
                                                                         <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched ">The Contact number is required</small>
-                                                                        <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number must be 10 digits</small>
+                                                                        <!-- <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number must be 10 digits</small> -->
                                                                     </div>
                                                                     <div *ngIf="shipmentForm.submitted && contactNo.invalid">  
                                                                         <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  

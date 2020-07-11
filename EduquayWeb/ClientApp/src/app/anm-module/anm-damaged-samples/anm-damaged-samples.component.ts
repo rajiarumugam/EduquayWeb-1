@@ -12,9 +12,6 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { NgForm } from '@angular/forms';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
-import { AnmNotificationComponent } from '../anm-notification/anm-notification.component';
-
-
 
 
 @Component({
@@ -25,14 +22,14 @@ import { AnmNotificationComponent } from '../anm-notification/anm-notification.c
 export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnInit {
   //Child component
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
-  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
   
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   user: user;
 
-  recordCount: number;
+  recordCount: number; //step 2
   damagedSamplesErrorMessage: string;
   damagedSamplesInitResponse: any;
   damagedsamplesRequest: DamagedSamplesRequest;
@@ -109,7 +106,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     }
   }
   anmdamagedSamples(){
-    this.recordCount = 0;
+    this.recordCount = 0; //step 3
     this.damagedSamples = [];
     this.damagedSamplesErrorMessage ='';
     this.damagedsamplesRequest = {anmId: this.user.userTypeId, notification: 1};
@@ -122,13 +119,13 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
         }
         else{
           this.damagedSamples = this.damagedsamplesResponse.sampleList;
-          this.recordCount = this.damagedSamples.length;
+          this.recordCount = this.damagedSamples.length; //step 4
         }
       }
       else{
         this.damagedSamplesErrorMessage = response.message;
       }
-      this.onLoadSubject.emit(this.damagedSamples.length);   
+      this.onLoadSubject.emit(this.recordCount);    //step 5
       this.rerender();
       this.loadDataTable = true;
     },

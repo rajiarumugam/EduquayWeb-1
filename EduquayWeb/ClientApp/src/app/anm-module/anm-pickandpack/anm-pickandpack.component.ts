@@ -67,6 +67,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   errorMessage: string;
   selectedBarcodes: string;
   name: string;
+  sampleSelected: boolean;
+  selectedAll: any;
 
   constructor(
     private PicknpackService: PicknpackService,
@@ -104,7 +106,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
     this.ddlRiPoint();
-    this.anmpicknpackList();
+   // this.anmpicknpackList();
 
     this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
     if (this.picknpackInitResponse.status === 'false') {
@@ -339,9 +341,23 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       }
     }
 
-    updateSampleSelected(event, object, value){
-        object.sampleSelected = value;
+    // updateSampleSelected(event, object, value){
+    //     object.sampleSelected = value;
+    //     console.log(this.sampleList);
+    // }
+    selectAll() {
+      for (var i = 0; i < this.sampleList.length; i++) {
+        this.sampleList[i].sampleSelected = this.selectedAll;
         console.log(this.sampleList);
+      }
+    }
+  
+    checkIfAllSelected() {
+      console.log(this.sampleList);
+      this.selectedAll = this.sampleList.every(function (item: any) {
+        return item.sampleSelected == true;
+  
+      })
     }
 
     fetchBarcode(){

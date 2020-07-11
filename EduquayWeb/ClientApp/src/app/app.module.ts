@@ -78,7 +78,7 @@ const ngWizardConfig: NgWizardConfig = {
     MatSliderModule,
     ReactiveFormsModule,
     Ng2FlatpickrModule,
-    NgWizardModule.forRoot(ngWizardConfig)
+   
   ],
   providers: [
 

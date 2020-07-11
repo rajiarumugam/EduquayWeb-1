@@ -1,8 +1,8 @@
-export class UnsentSamplesResponse {
+export interface UnsentSamplesResponse {
 
     status: string;
     message: string;
-    sampleList: UnsentSampleList[];
+    unsentSamplesDetail: UnsentSampleList[];
 }
 
 export interface UnsentSampleList {
@@ -13,6 +13,8 @@ export interface UnsentSampleList {
     barcodeNo: string;
     sampleDateTime: string;
     sampleSelected: boolean;
+    gestationalAge: string;
+    sampleAging:  string;
     //masterSelected:boolean;
 }
 
@@ -69,5 +71,10 @@ export interface AddUnsentSampleResponse {
 export interface AddUnsentSample {
     shipmentId: string,
     errorMessage: string
+}
+
+export interface MoveTimeoutExpiryResponse {
+    status: string;
+    message: string;
 }
 
