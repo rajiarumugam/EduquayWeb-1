@@ -41,8 +41,8 @@
                     <td class="sid text-center">{{sample.rchId}}</td>
                     <td class="sid text-center">{{sample.barcodeNo}}</td>
                     <td class="datetimenew text-center">{{sample.sampleDateTime}}</td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
+                    <td class="text-center">{{sample.sampleAging}}</td>
+                    <td class="text-center">{{sample.gestationalAge}}</td>
                     <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
                     <td class="sno text-center">
                         <div class="n-chk">
@@ -61,7 +61,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-danger float-right ml-2" 
+            <a class="btn btn-danger float-right ml-2" (click)="moveExpirySamples()"
                 role="button">Move to Expiry</a>
             <a class="btn btn-primary float-right"  (click)="openunsentSamples(unsentSamplesDetail)"
                 role="button">Create Shipment</a>
@@ -170,12 +170,12 @@
                                     <div class="form-group col-md-3">
                                         <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || unsentsampleForm.submitted && contactNo.invalid}">Contact Number<span
                                             class="manto">*</span></label>
-                                        <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel  
-                                        oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');"  pattern="^\d{10}$" 
+                                        <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10" 
+                                        oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
                                         [class.is-invalid]="contactNo.invalid && contactNo.touched || unsentsampleForm.submitted && contactNo.invalid"
                                             required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo">
                                             <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
-                                                <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched">The Contact number must be 10 digits</small>
+                                                <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched">The Contact number is required</small>
                                                 <!-- <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number must be 10 digits</small> -->
                                             </div>
                                             <div *ngIf="unsentsampleForm.submitted && contactNo.invalid">  

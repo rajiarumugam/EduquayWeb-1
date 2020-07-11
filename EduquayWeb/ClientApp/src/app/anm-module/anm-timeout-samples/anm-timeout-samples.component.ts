@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { TimeoutExpiryRequest, AddtimeoutSampleRecollectionRequest, TimeoutUpdateStatusRequest } from 'src/app/shared/anm-module/notifications/timeout-expiry/timeout-expiry-request';
@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+//import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-anm-timeout-samples',
@@ -21,6 +22,8 @@ import { user } from 'src/app/shared/auth-response';
 export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>(); 
+
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -34,6 +37,8 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   addtimeoutSampleRecollectionResponse: AddtimeoutSampleRecollectionResponse;
   timeoutUpdateStatusRequest: TimeoutUpdateStatusRequest;
   timeoutUpdateStatusResponse: TimeoutUpdateStatusResponse;
+
+  recordCount: number;
   result: string;
   timeoutSamples: TimeoutSampleList[] = [];
   subjectName: string;
@@ -58,6 +63,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   
     ngOnInit() {
 
+      this.recordCount = 0;
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = {
         pagingType: 'simple_numbers',
@@ -102,6 +108,8 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
      
     }
     anmtimeoutSamples(){
+
+      this.recordCount = 0;
       this.timeoutSamples = [];
       this.timeoutSamplesErrorMessage ='';
       this.timeoutsamplesRequest = {anmId: 1, notification: 3};
@@ -114,11 +122,13 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
           }
           else{
             this.timeoutSamples = this.timeoutsamplesResponse.sampleList;
+            this.recordCount = this.timeoutSamples.length;
           }
         }
         else{
           this.timeoutSamplesErrorMessage = response.message;
         }
+        this.onLoadSubject.emit(this.recordCount);
         this.rerender();
         this.loadDataTable = true;
       },

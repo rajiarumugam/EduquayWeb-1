@@ -1,6 +1,6 @@
-export interface UnsentSamplesRequest {
-    userId: number;
-    collectionFrom: number;
+export interface MoveTimeoutExpiryRequest {
+    barcodeNo: string;
+    anmId: number;
 }
 
 export interface AddUnsentSampleRequest{

@@ -45,7 +45,7 @@ export class NotificationService {
       await this.damagedSamples().then((data) => {
         data !== undefined ? this.damagedSampleCount = +data : 0;
       });
-      await this.unsentSamples().then((data) => {
+      await this.unsentSamples(this.user.id).then((data) => {
         data !== undefined ? this.unsentSampleCount = +data : 0;
       });
       await this.timeoutSamples().then((data) => {
@@ -78,16 +78,15 @@ export class NotificationService {
   });
   }
 
-  async unsentSamples() {
+  async unsentSamples(userId) {
     this.unsentSampleCount = 0;
-    let unsentSamplesRequest = { userId: 1, collectionFrom: 10 };
     return new Promise(resolve => {
-      let unsentsample = this.unsentServiceService.getunsentSampleList(unsentSamplesRequest)
+      let unsentsample = this.unsentServiceService.getunsentSampleList(userId)
         .subscribe(response => {
           this.unsentSamplesResponse = response;
           if (this.unsentSamplesResponse !== null && this.unsentSamplesResponse.status === "true") {
-            if (this.unsentSamplesResponse.sampleList !== undefined && this.unsentSamplesResponse.sampleList.length > 0) {
-              this.unsentSampleCount = this.unsentSamplesResponse.sampleList.length;
+            if (this.unsentSamplesResponse.unsentSamplesDetail !== undefined && this.unsentSamplesResponse.unsentSamplesDetail.length > 0) {
+              this.unsentSampleCount = this.unsentSamplesResponse.unsentSamplesDetail.length;
             }
           }
           resolve(this.unsentSampleCount);

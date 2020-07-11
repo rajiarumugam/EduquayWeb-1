@@ -177,7 +177,8 @@
                           <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
                           <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
                           <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
-                          <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');"
+                          <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="10"
+                          oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');"
                           #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
                           <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small>
                           <div *ngIf="collectionForm.submitted && sampleBarcode.invalid">     

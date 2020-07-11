@@ -32,13 +32,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
-import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
-
-
-const ngWizardConfig: NgWizardConfig = {
-  theme: THEME.default
-};
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +69,7 @@ const ngWizardConfig: NgWizardConfig = {
     MatSliderModule,
     ReactiveFormsModule,
     Ng2FlatpickrModule,
-    NgWizardModule.forRoot(ngWizardConfig)
+   
   ],
   providers: [
 

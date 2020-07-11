@@ -100,9 +100,9 @@
                             <div class="modal-body form-body">
                                 <!--form popup-->
                                 <!-- <div class="widget-content widget-content-area"> -->
-                                    <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
- 
-                                        <ng-wizard-step [title]="'Step 1'" [description]="'Step 1 description'">
+                                    <mat-horizontal-stepper [linear]="false" #stepper>
+                                        <mat-step [stepControl]="firstFormGroup">
+                                            
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="table-responsive">
@@ -194,9 +194,14 @@
                                                    
                                                 </div>
                                             </div>
-                                        </ng-wizard-step>
-                                     
-                                        <ng-wizard-step [title]="'Step 2'" [description]="'Step 2 description'">
+                                            <div class="reges-form-bottom-btns">
+                                                <button mat-button matStepperPrevious class="reg-btn-disable" >{{'Previous' | translate }}</button>
+                                                <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">{{'Next' | translate }}</button>
+                                            </div>    
+                                        
+                                        </mat-step>
+                                        <mat-step [stepControl]="secondFormGroup">
+                                           
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="table-responsive">
@@ -325,8 +330,8 @@
                                             <div class="form-row my-2">
                                                 <div class="form-group col-md-3">
                                                     <label for="inputG">G</label>
-                                                    <select id="inputG" class="form-control" name="DDLG"
-                                                    [(ngModel)]="selectedG">
+                                                    <select id="inputG" class="form-control" name="ddlG"
+                                                    [(ngModel)]="selectedg">
                                                     <option value="0">--Select--</option>
                                                     <option *ngFor="let Glist of Glists" [(value)]="Glist.id ">
                                                         {{ Glist.gvalue }}
@@ -335,8 +340,8 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputP">P</label>
-                                                    <select id="inputP" class="form-control" name="DDLP"
-                                                    [(ngModel)]="selectedP">
+                                                    <select id="inputP" class="form-control" name="ddlP"
+                                                    [(ngModel)]="selectedp">
                                                     <option value="0">--Select--</option>
                                                     <option *ngFor="let Plist of Glists" [(value)]="Plist.id ">
                                                         {{ Plist.pvalue }}
@@ -345,8 +350,8 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputL">L</label>
-                                                    <select id="inputL" class="form-control" name="DDLL"
-                                                    [(ngModel)]="selectedL">
+                                                    <select id="inputL" class="form-control" name="ddlL"
+                                                    [(ngModel)]="selectedl">
                                                     <option value="0">--Select--</option>
                                                     <option *ngFor="let Llist of Llists" [(value)]="Llist.id ">
                                                         {{ Llist.lvalue }}
@@ -355,8 +360,8 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="inputA">A</label>
-                                                    <select id="inputA" class="form-control" name="DDLA"
-                                                    [(ngModel)]="selectedA">
+                                                    <select id="inputA" class="form-control" name="ddlA"
+                                                    [(ngModel)]="selectedg">
                                                     <option value="0">--Select--</option>
                                                     <option *ngFor="let Alist of Alists" [(value)]="Alist.id ">
                                                         {{ Alist.avalue }}
@@ -364,11 +369,15 @@
                                                 </select>
                                                 </div>
                                             </div>
-    
-                                        </ng-wizard-step>
-                                     
-                                     
-                                    </ng-wizard>
+                                            <div class="reges-form-bottom-btns">
+                                                <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">{{'Previous' | translate }}</button>
+                                                <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">{{'Submit' | translate }}</button>
+                                            </div>    
+                                        
+                                        </mat-step>
+                                    </mat-horizontal-stepper>
+                                            
+                                          
                                 <!-- <div id="circle-basic" class="">
                                     <h3>Section-1</h3>
                                     <section>
