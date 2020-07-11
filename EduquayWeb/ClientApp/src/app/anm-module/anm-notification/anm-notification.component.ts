@@ -12,7 +12,7 @@ import { NotificationModel } from 'src/app/shared/anm-module/notifications/notif
 export class AnmNotificationComponent implements OnInit {
   //Parent component
 
-  notificationModel: NotificationModel;
+  notificationModel: NotificationModel = new NotificationModel();
 
   damagedSample: number = 0;
   unsentSample: number = 0;
@@ -33,18 +33,21 @@ export class AnmNotificationComponent implements OnInit {
   }
 
   async notificationCount(){
-    this.notificationModel = await this.notificationService.notificationCount();
-    this.damagedSample =  this.notificationModel.damaged;
-    this.unsentSample = this.notificationModel.unsent;
-    this.timeoutSample = this.notificationModel.timeout;
-    this.positiveSample = this.notificationModel.positive;
-    this.pndReferralSample = this.notificationModel.pndreferral;
-    this.mtpReferralSample = this.notificationModel.mtpreferral;
-    this.updateChcSample = this.notificationModel.chcupdate;
+    await this.notificationService.notificationCount().then((data) => {
+      this.notificationModel = data as NotificationModel;
+      this.damagedSample =  this.notificationModel.damaged;
+      this.unsentSample = this.notificationModel.unsent;
+      this.timeoutSample = this.notificationModel.timeout;
+      this.positiveSample = this.notificationModel.positive;
+      this.pndReferralSample = this.notificationModel.pndreferral;
+      this.mtpReferralSample = this.notificationModel.mtpreferral;
+      this.updateChcSample = this.notificationModel.chcupdate;
+    });
   }
 
   showNumberOnBadge(componentReference): void{
     console.log(componentReference, componentReference.recordCount);
+    if(componentReference.onLoadSubject === undefined) return;
     componentReference.onLoadSubject.subscribe((data) => {
       if(this.router.url.indexOf('unsent') >= 0){
         this.unsentSample = data;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../shared/token.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { user } from 'src/app/shared/auth-response';
 
 @Component({
   selector: 'app-site-header',
@@ -12,6 +13,10 @@ export class SiteHeaderComponent implements OnInit {
   isPageLoaded: boolean;
   today: number = Date.now();
   langualgeSelected: string;
+  user: user;
+  userName: string;
+  userId: string;
+
 
   constructor(
     private tokenService: TokenService, 
@@ -26,6 +31,12 @@ export class SiteHeaderComponent implements OnInit {
   ngOnInit() {
     setInterval(() => { this.today = Date.now() }, 1);
     this.isPageLoaded = true;
+    this.getLoggedUser();
+  }
+
+  getLoggedUser(){
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.userName = `${this.user.firstName} ${this.user.lastName}`;
   }
 
   logout() {
