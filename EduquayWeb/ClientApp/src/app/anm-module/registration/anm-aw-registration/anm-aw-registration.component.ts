@@ -13,6 +13,7 @@ import { ENDPOINT } from '../../../app.constant';
 import { GenericService } from '../../../shared/generic.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+import { TokenService } from 'src/app/shared/token.service';
 declare var $: any 
 
 declare var exposedFunction;
@@ -70,7 +71,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   userId = 2;
   createdSubjectId="";
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -87,32 +88,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       buttonsStyling: false
     })
     
-   /* swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })*/
+    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -323,13 +299,13 @@ export class AnmAwRegistrationComponent implements OnInit {
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-        this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+        this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-                console.log('hitting 1');
+         
                 $('#fadeinModal').modal('hide');
                
                }
@@ -349,7 +325,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       }
     }
 
-    dataDindinginServce()
+    dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {

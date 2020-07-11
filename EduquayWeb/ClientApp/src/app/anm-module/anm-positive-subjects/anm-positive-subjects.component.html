@@ -1,120 +1,327 @@
-<div class="tab-pane fade show active" id="positivesub" role="tabpanel"
-                                    aria-labelledby="positivesub-tab">
+<div class="tab-pane fade show active" id="positivesub" role="tabpanel" aria-labelledby="positivesub-tab">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div *ngIf="damagedSamplesErrorMessage" class="alert mt-3 mb-2"
+                [ngClass]="{'alert-warning': positiveSubjectErrorMessage ==='No sample data  found', 'alert-danger': positiveSubjectErrorMessage !== 'No sample data  found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
+                {{positiveSubjectErrorMessage}}
+            </div>
+        </div>
+    </div>
 
-                                    <div class="table-responsive mb-4 mt-4">
-                                        <table id="zero-config3" class="table table-bordered table-hover tbl-ht">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">S.No</th>
-                                                    <th class="text-center">Subject Name</th>
-                                                    <th class="text-center">Subject ID</th>
-                                                    <th class="text-center">Subject Type</th>
-                                                    <th class="text-center">Contact</th>
-                                                    <th class="text-center">HPLC Test Results</th>
-                                                    <th class="text-center">GA</th>
-                                                    <th class="text-center">Notified</th>
-                                                    <th class="no-content">Reg Spouse</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-left">Savita Sekar</td>
-                                                    <td class="text-center">OD001202032110</td>
-                                                    <td class="text-left">Antenatal Woman</td>
-                                                    <td class="text-center">8807347437</td>
-                                                    <td class="text-left">Thalassemia Screening Positive</td>
-                                                    <td class="text-center"> 14.3 </td>
-                                                    <td class="text-center"><select name="occupationoption"
-                                                            class="form-control field" id="occuptnid" tabindex="7"
-                                                            required="">
-                                                            <option value="">No</option>
-                                                            <option value="male">Yes</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="text-center"><a href="#" data-toggle="modal"
-                                                            data-target="#modalAddRegistration"><i
-                                                                class="fas fa-user-plus fa-2x"
-                                                                aria-hidden="true"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td class="text-left">Priya Prakash</td>
-                                                    <td class="text-center">OD001202032111</td>
-                                                    <td class="text-left">Walkin</td>
-                                                    <td class="text-center">8807347447</td>
-                                                    <td class="text-left">Sickle cell disease</td>
-                                                    <td class="text-center"> 14.3 </td>
-                                                    <td><select name="occupationoption" class="form-control field"
-                                                            id="occuptnid" tabindex="7" required="">
-                                                            <option value="">No</option>
-                                                            <option value="male">Yes</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="text-center"><a href="#" data-toggle="modal"
-                                                            data-target="#modalAddRegistration"><i
-                                                                class="fas fa-user-plus fa-2x"
-                                                                aria-hidden="true"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">3</td>
-                                                    <td class="text-left">Pooja Karthick</td>
-                                                    <td class="text-center">OD001202032112</td>
-                                                    <td class="text-left">Antenatal Woman</td>
-                                                    <td class="text-center">8807347460</td>
-                                                    <td class="text-left">HbE</td>
-                                                    <td class="text-center"> 14.3 </td>
-                                                    <td><select name="occupationoption" class="form-control field"
-                                                            id="occuptnid" tabindex="7" required="">
-                                                            <option value="">No</option>
-                                                            <option value="male">Yes</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="text-center"><a href="#" data-toggle="modal"
-                                                            data-target="#modalAddRegistration"><i
-                                                                class="fas fa-user-plus fa-2x"
-                                                                aria-hidden="true"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <!-- <div><a class="btn btn-primary float-right" href="#" role="button">Update
+    <div class="table-responsive mb-4 mt-4">
+        <table id="positivesubject-tblconfig" class="table table-bordered table-hover tbl-ht"  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+                <tr>
+                    <th class="text-center">S.No</th>
+                    <th class="text-center">Subject Name</th>
+                    <th class="text-center">Subject ID</th>
+                    <th class="text-center">Subject Type</th>
+                    <th class="text-center">Contact</th>
+                    <th class="text-center">HPLC Test Results</th>
+                    <th class="text-center">GA</th>
+                    <th class="text-center">Notified</th>
+                    <th class="no-content">Reg Spouse</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="text-left">Savita Sekar</td>
+                    <td class="text-center">OD001202032110</td>
+                    <td class="text-left">Antenatal Woman</td>
+                    <td class="text-center">8807347437</td>
+                    <td class="text-left">Thalassemia Screening Positive</td>
+                    <td class="text-center"> 14.3 </td>
+                    <td class="text-center"><select name="occupationoption" class="form-control field" id="occuptnid"
+                            tabindex="7" required="">
+                            <option value="">No</option>
+                            <option value="male">Yes</option>
+                        </select>
+                    </td>
+                    <td class="text-center"><a (click)="openpositiveSubjects(positiveSubjectsDetail)"><i
+                        class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
+            </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="text-left">Priya Prakash</td>
+                    <td class="text-center">OD001202032111</td>
+                    <td class="text-left">Walkin</td>
+                    <td class="text-center">8807347447</td>
+                    <td class="text-left">Sickle cell disease</td>
+                    <td class="text-center"> 14.3 </td>
+                    <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7"
+                            required="">
+                            <option value="">No</option>
+                            <option value="male">Yes</option>
+                        </select>
+                    </td>
+                    <td class="text-center"><a href="#" data-toggle="modal" data-target="#modalAddRegistration"><i
+                                class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td class="text-left">Pooja Karthick</td>
+                    <td class="text-center">OD001202032112</td>
+                    <td class="text-left">Antenatal Woman</td>
+                    <td class="text-center">8807347460</td>
+                    <td class="text-left">HbE</td>
+                    <td class="text-center"> 14.3 </td>
+                    <td><select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7"
+                            required="">
+                            <option value="">No</option>
+                            <option value="male">Yes</option>
+                        </select>
+                    </td>
+                    <td class="text-center"><a (click)="openpositiveSubject(positiveSubjectsDetail)"><i
+                                class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div><a class="btn btn-primary float-right" href="#" role="button">Update
                                                 Status</a></div> -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a class="btn btn-primary float-right" id="linktobuttonpositives"
-                                                role="button">Update Status</a>
-                                        </div>
-                                    </div>
-                                </div>
- <!-- The Modal -->
- <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
- aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="modalAddRegistration">
- <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-     <div class="modal-content">
-         <div class="modal-header">
-             <h4 class="modal-title modaltitle">Spouse Registration</h4>
-             <button type="button" class="close" data-dismiss="modal"
-                 aria-label="Close">
-                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                     width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                     stroke-linejoin="round" class="feather feather-x">
-                     <line x1="18" y1="6" x2="6" y2="18"></line>
-                     <line x1="6" y1="6" x2="18" y2="18"></line>
-                 </svg>
-             </button>
-         </div>
-         <div class="modal-body form-body">
-            Modal content
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary float-right" id="linktobuttonpositives" role="button">Update Status</a>
         </div>
     </div>
 </div>
-</div>            
+<!-- The Modal -->
+<ng-template #positiveSubjectsDetail let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title modaltitle">Spouse Registration</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="feather feather-x">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="modal-body form-body">
+        <mat-horizontal-stepper [linear]="false" #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <div class="reges-form-main-container">
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="danwname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.anwname.invalid }">{{'ANWName' | translate }}</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="danwname" placeholder="Name" required="true" [(ngModel)]="selectedanwname" formControlName = "anwname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.anwname.invalid }" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="subjectId" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.subjectId.invalid }">{{'SubjectID' | translate }}</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="subjectId" placeholder="RCH ID" required [(ngModel)]="selectedsubjectId" formControlName = "subjectId" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.subjectId.invalid }" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.rchId.invalid }">{{'RCHID' | translate }}</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="inputRCHID" placeholder="RCH ID" required [(ngModel)]="selectedrchId" formControlName = "rchId" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchId.invalid }" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'ContactNumber' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" readonly>
+                        </div>
+
+                    </div>
+                        <div class="form-row my-2">
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="dateOfRegistration" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }">{{'DateOfReg' | translate }}</label><span class="manto"> *</span>
+                                <!--<input id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" type="text"
+                                    placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }"> -->
+                                    <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }" [(ngModel)]="selecteddor"></ng2-flatpickr>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">{{'District' | translate }}</label><span class="manto"> *</span>
+                                <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" formControlName = "district" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.district.invalid }">
+                                    <option [ngValue]="null">Select District</option>
+                                    <option [value]="district.id" *ngFor="let district of districts">{{district.districtName}}</option>
+                                </select>
                                 
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputCHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">{{'CHC' | translate }}</label><span class="manto"> *</span>
+                                <select id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">
+                                    <option [ngValue]="null">Select CHC</option>
+                                    <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputPHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">{{'PHC' | translate }}</label><span class="manto"> *</span>
+                                <select id="inputPHC" class="form-control" required [(ngModel)]="selectedphc" formControlName = "phc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">
+                                    <option [ngValue]="null">Select PHC</option>
+                                    <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.phcName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputSC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">{{'SC' | translate }}</label><span class="manto"> *</span>
+                                <select id="inputSC" class="form-control" required [(ngModel)]="selectedsc" formControlName = "sc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">
+                                    <option [ngValue]="null">Select SC</option>
+                                    <option [value]="sc.id" *ngFor="let sc of SCdata">{{sc.scName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">{{'RIPoint' | translate }}</label><span class="manto"> *</span>
+                                <select id="inputRIC" class="form-control" required [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">
+                                    <option [ngValue]="null">Select RI Point</option>
+                                    <option [value]="ri.id" *ngFor="let ri of RIdata">{{ri.riSite}}</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <!--<div class="form-row my-2">
+                            
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">Pincode</label><span class="manto"> *</span>
+                                <input type="number" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">Contact Number</label><span class="manto"> *</span>
+                                <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">
+                            </div>
+                        </div>-->
+    
+                        <div class="form-row my-2">
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputSubtitle">{{'SubjectTitle' | translate }}</label><span class="manto"> *</span>
+                                <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Ms." readonly [(ngModel)]="selectedsubjectTitle" formControlName = "subjectitle" >
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">{{'FirstName' | translate }}</label><span class="manto"> *</span>
+                                <input type="Text" class="form-control" id="inputFirstname" placeholder="First Name" [(ngModel)]="selectedfirstname" required formControlName = "firstname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputMiddlename">{{'MiddleName' | translate }}</label>
+                                <input type="Text" class="form-control" id="inputMiddlename" placeholder="Middle Name" [(ngModel)]="selectedmiddlename" formControlName = "middlename">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">{{'LastName' | translate }}</label><span class="manto"> *</span>
+                                <input type="Text" class="form-control" id="inputLastname" placeholder="Last Name" [(ngModel)]="selectedlastname" formControlName = "lastname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">
+                            </div>
+                        </div>
+                        <div class="form-row my-2">
+                            <div class="form-group col-md-2">
+                                <label class="birthreg" for="inputdob">{{'DateOfBirth' | translate }}</label>
+                                <!--<input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text"
+                                    placeholder="Select Date.." [(ngModel)]="selecteddob" formControlName = "dob" >-->
+                                    <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" [config]="startOptions" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
+                                </div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>
+                                <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" for="inputgender" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.gender.invalid }">{{'Gender' | translate }}</label><span class="manto"> *</span>
+                                <input type="Text" class="form-control" id="inputgender" placeholder="Gender" required [(ngModel)]="selectedgender" formControlName = "gender" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.gender.invalid }" readonly>
+                            </div>
+                            
+    
+                        </div>
+                    </div> 
+                    <div class="reges-form-bottom-btns">
+                        <button mat-button matStepperPrevious class="reg-btn-disable float-left">{{'Previous' | translate }}</button>
+                        <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">{{'Next' | translate }}</button>
+                    </div>
+            
+            </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+            <form [formGroup]="secondFormGroup">
+                <div class="reges-form-main-container">
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputReligion" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.religion.invalid }">{{'Religion' | translate }}</label><span class="manto"> *</span>
+                            <select id="inputReligion" class="form-control" required [(ngModel)]="selectedreligion" formControlName = "religion" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.religion.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="religion.id" *ngFor="let religion of religionData">{{religion.religionName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputCaste" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }">{{'Caste' | translate }}</label><span class="manto"> *</span>
+                            <select id="inputPHCom" class="form-control" required [(ngModel)]="selectedcaste" formControlName = "caste" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.caste.invalid }" (change)="casteChange();">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="caste.id" *ngFor="let caste of casteData">{{caste.casteName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputCommunity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.community.invalid }">{{'Community' | translate }}</label><span class="manto"> *</span>
+                            <select id="inputCommunity" class="form-control" required [(ngModel)]="selectedcommunity" formControlName = "community" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.community.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="community.id" *ngFor="let community of communityData">{{community.communityName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputmoblienospouse" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">{{'ContactNumber' | translate }}<span
+                                class="manto"> *</span></label>
+                            <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
+                                required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputPincode1">{{'Email' | translate }}</label>
+                            <input type="email" class="form-control" id="inputPincode1" placeholder="Email" [(ngModel)]="selectedspouseEmail" formControlName = "spouseEmail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseEmail.invalid }">
+                        </div>
+                        
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputGovtIdType">{{'GovtIDType' | translate }}</label>
+                            <select id="inputGovtIdType" class="form-control" [(ngModel)]="selectedgovtIDType" formControlName = "govtIDType" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govtIDType.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="gid.id" *ngFor="let gid of governmentIDData">{{gid.govIdTypeName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputGovtIdDetail">{{'GovtIDDetail' | translate }}</label>
+                            <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "GovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }">
+                        </div>
+                    </div>
+                    
+    
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputPlotNo" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">{{'HousePlotNumber' | translate }}<span class="manto">
+                                *</span></label>
+                            <input type="text" class="form-control" id="inputPlotNo" placeholder="House Number" required [(ngModel)]="selectedhouse" formControlName = "house" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputCaste" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">{{'StreetAndLocality' | translate }}</label><span class="manto"> *</span>
+                            <input type="text" class="form-control" id="inputCaste" placeholder="Street" required [(ngModel)]="selectedstreet" formControlName = "street" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">{{'CityOrVillage' | translate }}</label><span class="manto"> *</span>
+                            <input type="text" class="form-control" id="inputCity" placeholder="City" required [(ngModel)]="selectedcity" formControlName = "city" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputMoblie" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">{{'State' | translate }}</label><span class="manto"> *</span>
+                            <input type="text" class="form-control" id="inputMoblie" placeholder="Odisha" [(ngModel)]="selectedstate" formControlName = "state" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">
+                        </div>
+                    </div>
+    
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-2">
+                            <label class="birthreg" for="inputECnumber">{{'ECNumber' | translate }}</label>
+                            <input type="Text" class="form-control" id="inputECnumber" placeholder="EC Number" [(ngModel)]="selectedECNumber" formControlName = "ECNumber">
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="reges-form-bottom-btns">
+                    <button mat-button class="reg-btn-enable float-left" (click)="prevStep(stepper);">{{'Previous' | translate }}</button>
+                    <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">{{'Submit' | translate }}</button>
+                </div>
+            </form>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</ng-template>        
+
 
 <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
 <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->

@@ -67,6 +67,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   errorMessage: string;
   selectedBarcodes: string;
   name: string;
+  sampleSelected: boolean;
+  selectedAll: any;
 
   constructor(
     private PicknpackService: PicknpackService,
@@ -103,8 +105,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     this.dateOfShipment =  this.dateService.getDate();
     this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
-    this.ddlRiPoint();
-    this.anmpicknpackList();
+    this.ddlRiPoint(this.user.id);
+   // this.anmpicknpackList();
 
     this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
     if (this.picknpackInitResponse.status === 'false') {
@@ -124,13 +126,11 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     }
   }
 
-  ddlRiPoint(){
-    //this.riPointRequest = {userId: 1};
-    var userId = 2;
+  ddlRiPoint(userId){
     let riPoint= this.PicknpackService.getRiPoint(userId).subscribe(response =>{
        this.riPointResponse = response;
        if(this.riPointResponse !== null && this.riPointResponse.status === "true"){
-           this.riPoints  = this.riPointResponse.riDetails;
+           this.riPoints  = this.riPointResponse.ri;
            this.selectedriPoint = "";
          }
          else{
@@ -151,7 +151,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
   anmpicknpackList(){
     this.sampleList = [];
-    this.picknpackRequest = {userId: 1, collectionFrom: 10 };
+    this.picknpackRequest = {userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
     let picknpack = this.PicknpackService.getpickandpackList(this.picknpackRequest)
     .subscribe(response => {
       this.picknpackResponse = response;
@@ -294,8 +294,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       dateOfShipment: this.dateOfShipment,
       timeOfShipment: this.timeOfShipment,
       barcodeNo: this.selectedBarcodes,
-      shipmentFrom: 4,
-      createdBy: 2,
+      shipmentFrom: this.user.shipmentFrom,
+      createdBy: this.user.id,
       source: 'N',
     }
     let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
@@ -339,9 +339,23 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       }
     }
 
-    updateSampleSelected(event, object, value){
-        object.sampleSelected = value;
+    // updateSampleSelected(event, object, value){
+    //     object.sampleSelected = value;
+    //     console.log(this.sampleList);
+    // }
+    selectAll() {
+      for (var i = 0; i < this.sampleList.length; i++) {
+        this.sampleList[i].sampleSelected = this.selectedAll;
         console.log(this.sampleList);
+      }
+    }
+  
+    checkIfAllSelected() {
+      console.log(this.sampleList);
+      this.selectedAll = this.sampleList.every(function (item: any) {
+        return item.sampleSelected == true;
+  
+      })
     }
 
     fetchBarcode(){

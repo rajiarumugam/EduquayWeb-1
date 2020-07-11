@@ -12,6 +12,7 @@ import { ENDPOINT } from '../../../app.constant';
 import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
 import Swal from 'sweetalert2';
+import { TokenService } from 'src/app/shared/token.service';
 
 @Component({
   selector: 'app-anm-student-registration',
@@ -66,9 +67,10 @@ export class AnmStudentRegistrationComponent implements OnInit {
 
   createdSubjectId;
   userId = 2;
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
   ngOnInit() {
+    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -292,14 +294,14 @@ export class AnmStudentRegistrationComponent implements OnInit {
         if(this.secondFormGroup.valid && this.firstFormGroup.valid)
           {
             var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-            this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+            this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
               console.log(response);
               this.createdSubjectId = response.uniqueSubjectId;
               Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-                console.log('hitting 1');
+         
                 $('#fadeinModal').modal('hide');
                
                }
@@ -318,10 +320,10 @@ export class AnmStudentRegistrationComponent implements OnInit {
               console.log(err);
             });
           }
-        console.log(this.dataDindinginServce());
+        console.log(this.dataBindinginServce());
     }
 
-    dataDindinginServce()
+    dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {

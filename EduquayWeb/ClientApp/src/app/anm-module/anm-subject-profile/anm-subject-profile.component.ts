@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgWizardConfig, THEME, StepChangedArgs, NgWizardService } from 'ng-wizard';
+import { MatStepper } from '@angular/material/stepper';
+import { FormGroup } from '@angular/forms';
+
 
 
 @Component({
@@ -14,7 +16,8 @@ import { NgWizardConfig, THEME, StepChangedArgs, NgWizardService } from 'ng-wiza
 })
 export class AnmSubjectProfileComponent implements OnInit {
 
-  
+  @ViewChild('stepper', { static: false }) stepper: MatStepper;
+    
   subjectProfileErrorMessage: string;
   subjectProfileRequest: SubjectProfileRequest;
   subjectProfileResponse: SubjectProfileResponse;
@@ -79,22 +82,13 @@ export class AnmSubjectProfileComponent implements OnInit {
   a: number;
   Glists: number [];
   selectedG: number = 0 ;
+  // firstFormGroup: FormGroup;
+  // secondFormGroup: FormGroup;
 
-  config: NgWizardConfig = {
-    selected: 0,
-    theme: THEME.arrows,
-    lang: { next: 'Next', previous: 'Previous' },
-    toolbarSettings: {
-      toolbarExtraButtons: [
-        { text: 'Submit', class: 'btn btn-info', event: () => { alert("Finished!!!"); } }
-      ]
-    }
-  };
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
     private modalService: NgbModal,
-    private ngWizardService: NgWizardService,
     private httpService: HttpClient
   ) { }
 
@@ -109,7 +103,7 @@ export class AnmSubjectProfileComponent implements OnInit {
 
     this.subjectProfileErrorMessage = '';
     if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
-      this.subjectProfileErrorMessage = 'Please select atleast one sample to create shipment';
+      this.subjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
       return false;
     }
 
@@ -141,6 +135,7 @@ export class AnmSubjectProfileComponent implements OnInit {
   }
 
   editSubjectProfile(subjectProfiledetail, basicInfo: PrimaryDetail, socioDemographicInfo: AddressDetail, personalInfo: PregnancyDetail) {
+    
     this.ddlReligion();
     this.ddlGovtIdType();
     this.ddlCaste();
@@ -173,26 +168,6 @@ export class AnmSubjectProfileComponent implements OnInit {
       scrollable: true,
       ariaLabelledBy: 'modal-basic-title'
     });
-  }
-
-  showPreviousStep(event?: Event) {
-    this.ngWizardService.previous();
-  }
-
-  showNextStep(event?: Event) {
-    this.ngWizardService.next();
-  }
-
-  resetWizard(event?: Event) {
-    this.ngWizardService.reset();
-  }
-
-  setTheme(theme: THEME) {
-    this.ngWizardService.theme(theme);
-  }
-
-  stepChanged(args: StepChangedArgs) {
-    console.log(args.step);
   }
 
   ddlReligion() {
@@ -302,5 +277,16 @@ export class AnmSubjectProfileComponent implements OnInit {
       }
     );
   }
+
+  nextStep(stepper: MatStepper) {
+    //this.firstFormCheck = true;
+    //if(this.firstFormGroup.valid)
+    stepper.next();
+  }
+
+  prevStep(stepper: MatStepper) {
+    stepper.previous();
+  }
+
   
 }

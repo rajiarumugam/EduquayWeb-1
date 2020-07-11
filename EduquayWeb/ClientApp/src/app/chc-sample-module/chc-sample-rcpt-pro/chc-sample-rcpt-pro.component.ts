@@ -363,19 +363,19 @@ export class CHCSampleRcptProComponent implements OnInit {
       this.secondFormCheck = true;
       console.log(this.secondFormGroup.valid);
       console.log(this.firstFormGroup.valid);
-      console.log(this.dataDindinginServce());
+      console.log(this.dataBindinginServce());
 
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-        this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+        this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
     showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
        .then((result) => {
          if (result.value) {
-          console.log('hitting 1');
+   
           $('#fadeinModal').modal('hide');
          
          }
@@ -398,7 +398,7 @@ export class CHCSampleRcptProComponent implements OnInit {
       }
     }
 
-    dataDindinginServce()
+    dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {

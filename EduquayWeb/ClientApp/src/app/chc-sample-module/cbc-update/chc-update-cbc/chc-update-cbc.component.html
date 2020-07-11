@@ -6,7 +6,7 @@
   <div class="search-overlay"></div>
   <!--  BEGIN SIDEBAR  -->
   <div class="sidebar-wrapper sidebar-theme">
-    <app-site-sidebar module="anm" subMenum="sample-collection"></app-site-sidebar>
+    <app-site-sidebar module="chcsam" subMenum="chcsam"></app-site-sidebar>
   </div>
   <!--  END SIDEBAR  -->
   <!--  BEGIN CONTENT AREA  -->
@@ -42,13 +42,13 @@
                 <a class="nav-link active" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/chc-update-cbc']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Received Samples<span class="badge badge-pill badge-warning shadow mx-1">4</span>
+                   Received Samples<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-cbc/upload']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Upload CBC Results<span class="badge badge-pill badge-warning shadow ml-1">4</span>
+                   Upload CBC Results<span class="badge badge-pill badge-warning shadow ml-1">{{uploadCBCCount}}</span>
                 </a>
               </li>
               

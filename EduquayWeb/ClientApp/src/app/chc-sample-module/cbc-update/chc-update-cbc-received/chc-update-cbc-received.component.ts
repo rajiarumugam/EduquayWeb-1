@@ -2,16 +2,18 @@ import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { ENDPOINT } from '../../app.constant';
+import { ENDPOINT } from '../../../app.constant';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
-import { GenericService } from '../../shared/generic.service';
-import { HttpClientService } from '../../shared/http-client.service';
+import { GenericService } from '../../../shared/generic.service';
+import { HttpClientService } from '../../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
+
+import { DataService } from './../../../shared/data.service';
 
 @Component({
   selector: 'app-chc-update-cbc-received',
@@ -60,10 +62,12 @@ export class CBCReceivedSampleComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private genericService: GenericService,
-    private httpClientService:HttpClientService
+    private httpClientService:HttpClientService,
+    private DataService:DataService
     ) { }
 
   ngOnInit() {
+    
     this.form = this._formBuilder.group({
       processingDate: ['', Validators.required],
       receivedDate: [""]
@@ -93,11 +97,10 @@ export class CBCReceivedSampleComponent implements OnInit {
 
     this.chcReceiptsData = [];
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
-
-    console.log('test');
     console.log(chcReceiptsArr);
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
       this.chcReceiptsData = chcReceiptsArr.chcReceipts;
+      this.DataService.sendData(JSON.stringify({'page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length}));
     }
     else{
       this.errorMessage = chcReceiptsArr.message;
@@ -252,7 +255,7 @@ export class CBCReceivedSampleComponent implements OnInit {
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {
-                          console.log('hitting 1');
+                   
                         }
                         
                       });
