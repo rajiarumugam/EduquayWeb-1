@@ -127,7 +127,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   ddlRiPoint(userId){
-    //this.riPointRequest = {userId: 1};
     let riPoint= this.PicknpackService.getRiPoint(userId).subscribe(response =>{
        this.riPointResponse = response;
        if(this.riPointResponse !== null && this.riPointResponse.status === "true"){
@@ -152,7 +151,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
   anmpicknpackList(){
     this.sampleList = [];
-    this.picknpackRequest = {userId: 1, collectionFrom: 10 };
+    this.picknpackRequest = {userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
     let picknpack = this.PicknpackService.getpickandpackList(this.picknpackRequest)
     .subscribe(response => {
       this.picknpackResponse = response;

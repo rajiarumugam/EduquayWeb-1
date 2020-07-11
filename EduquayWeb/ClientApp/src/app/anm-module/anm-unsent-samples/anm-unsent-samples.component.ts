@@ -132,7 +132,6 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   ddlRiPoint(userId) {
-    //this.riPointRequest = {userId: 1};
     let riPoint = this.UnsentSamplesServiceService.getRiPoint(userId).subscribe(response => {
       this.riPointResponse = response;
       if (this.riPointResponse !== null && this.riPointResponse.status === "true") {
@@ -158,11 +157,6 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   anmunsentSampleList(userId) {
     this.recordCount = 0;
     this.unsentSamples = [];
-    //this.unsentSamplesRequest = { userId: 1, collectionFrom: 10 };
-    // if(this.user.id === 1){
-    //    this.unsentSamplesErrorMessage = "successful";
-    //   return false;
-    // }
    this.UnsentSamplesServiceService.getunsentSampleList(userId)
       .subscribe(response => {
         this.unsentSamplesResponse = response;
