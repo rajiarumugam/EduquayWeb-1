@@ -372,8 +372,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         this.movetimeoutExpiryResponse = response;
         if (this.movetimeoutExpiryResponse !== null && this.movetimeoutExpiryResponse.status === "true") {
           this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 's');
-          // this.anmunsentSampleList();
-        } else {
+          this.anmunsentSampleList(this.user.id);
+        } 
+        else {
           this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 'e');
           this.unsentSamplesErrorMessage = response.message;
         }
