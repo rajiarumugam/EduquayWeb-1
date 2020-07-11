@@ -371,7 +371,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? +this.secondFormGroup.get('govtIDType').value : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
           "spouseSubjectId": "",
           "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
