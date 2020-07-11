@@ -8,6 +8,7 @@ import { DamagedSamplesResponse } from './damaged-samples/damaged-samples-respon
 import { TimeoutExpiryResponse } from './timeout-expiry/timeout-expiry-response';
 import { NotificationModel } from './notification.model';
 import { Observable } from 'rxjs';
+import { UnsentSamplesResponse } from './unsent-samples/unsent-samples-response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,8 @@ export class NotificationService {
   timeoutSamplesResponse: TimeoutExpiryResponse;
   timeoutSampleCount: number;
   
+  unsentSamplesResponse: UnsentSamplesResponse;
+
   positiveSampleCount: number = 0;
   unsentSampleCount: number = 0;
   pndtdSampleCount: number = 0;
@@ -75,9 +78,20 @@ export class NotificationService {
   });
   }
 
-  async unsentSamples(){
+  async unsentSamples() {
+    this.unsentSampleCount = 0;
+    let unsentSamplesRequest = { userId: 1, collectionFrom: 10 };
     return new Promise(resolve => {
-      resolve()
+      let unsentsample = this.unsentServiceService.getunsentSampleList(unsentSamplesRequest)
+        .subscribe(response => {
+          this.unsentSamplesResponse = response;
+          if (this.unsentSamplesResponse !== null && this.unsentSamplesResponse.status === "true") {
+            if (this.unsentSamplesResponse.sampleList !== undefined && this.unsentSamplesResponse.sampleList.length > 0) {
+              this.unsentSampleCount = this.unsentSamplesResponse.sampleList.length;
+            }
+          }
+          resolve(this.unsentSampleCount);
+        });
     });
   }
 
