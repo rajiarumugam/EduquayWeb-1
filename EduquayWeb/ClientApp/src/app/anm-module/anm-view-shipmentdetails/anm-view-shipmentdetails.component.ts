@@ -48,6 +48,7 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
   }
 
   anmshipmentLog(){
+    //update the user id
     this.shipmentList = [];
     this.sampleDetails = [];
     this.shipmentItem = new ShipmentList();
