@@ -110,7 +110,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     this.timeOfShipment = this.dateService.getTime();
     console.log(this.UnsentSamplesServiceService.unsentSampleApi);
     //this.anmunsentSampleList();
-    this.ddlRiPoint();
+    this.ddlRiPoint(this.user.id);
 
     this.unsentSampleInitResponse = this.route.snapshot.data.unsentSamplesData;
     if (this.unsentSampleInitResponse.status === 'false') {
@@ -131,13 +131,12 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
   }
 
-  ddlRiPoint() {
+  ddlRiPoint(userId) {
     //this.riPointRequest = {userId: 1};
-    var userId = 2;
     let riPoint = this.UnsentSamplesServiceService.getRiPoint(userId).subscribe(response => {
       this.riPointResponse = response;
       if (this.riPointResponse !== null && this.riPointResponse.status === "true") {
-        this.riPoints = this.riPointResponse.riDetails;
+        this.riPoints = this.riPointResponse.ri;
         this.selectedriPoint = "";
       }
       else {
@@ -318,8 +317,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       dateOfShipment: this.dateOfShipment,
       timeOfShipment: this.timeOfShipment,
       barcodeNo: this.selectedBarcodes,
-      shipmentFrom: 4,
-      createdBy: 1,
+      shipmentFrom: this.user.shipmentFrom,
+      createdBy: this.user.id,
       source: 'N',
     }
     //Remove below 2 lines after successfully tested
@@ -353,11 +352,6 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     }
     
     this.expirysamplesBarcode();
-    
-
-
-
-
     //Remove below 2 lines after successfully tested
     // this.expirySampleResponseMessage('Successfully registered', 's');
     // return false;
@@ -393,13 +387,6 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     }
     else{
       Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
-      .then((result) => {
-        if (result.value) {
-          if(this.modalService.hasOpenModals){
-            this.modalService.dismissAll();
-          }
-        }
-      });
     }
   }
 
