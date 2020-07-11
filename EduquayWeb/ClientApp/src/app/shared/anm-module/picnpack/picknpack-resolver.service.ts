@@ -14,6 +14,7 @@ export class PicknpackResolverService implements Resolve<any>{
   picknpackRequest: PicknpackRequest;
   constructor(
     private PicknpackService: PicknpackService,
+    private tokenService: TokenService
    
   ) { }
 
@@ -21,8 +22,9 @@ export class PicknpackResolverService implements Resolve<any>{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
    
-    this.picknpackRequest = {userId: 1, collectionFrom: 10 };
+    this.picknpackRequest = {userId: user.id, collectionFrom: user.sampleCollectionFrom };
     return this.PicknpackService.getpickandpackList(this.picknpackRequest).pipe(
       catchError(error => {
         console.log(error);
