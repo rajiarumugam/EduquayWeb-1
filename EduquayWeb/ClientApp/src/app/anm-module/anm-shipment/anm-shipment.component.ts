@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ShipmentlogService } from 'src/app/shared/anm-module/shipmentlog/shipmentlog.service';
 import { ShipmentRequest } from 'src/app/shared/anm-module/shipmentlog/shipment-request';
 import { ShipmentResponse, ShipmentList, SamplesDetail } from 'src/app/shared/anm-module/shipmentlog/shipment-response';
@@ -7,6 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { TokenService } from 'src/app/shared/token.service';
+import { user } from 'src/app/shared/auth-response';
 
 
 @Component({
@@ -15,12 +17,15 @@ import { Subject } from 'rxjs';
   styleUrls: ['./anm-shipment.component.css']
 })
 export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
+  
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
+  user: user;
   shipmentLogErrorMessage: string;
   shipmentRequest: ShipmentRequest;
   shipmentResponse: ShipmentResponse;
@@ -45,11 +50,12 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
   constructor(
     private ShipmentlogService: ShipmentlogService,
     private modalService: NgbModal,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService
     ) { }
 
   ngOnInit() {
-
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -93,7 +99,7 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
   anmshipmentLog(){
     this.shipmentList = [];
     this.sampleDetails = [];
-    this.shipmentRequest = {userId: 1, shipmentFrom: 4 };
+    this.shipmentRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
     let shipmentLog = this.ShipmentlogService.getshipmentLog(this.shipmentRequest)
     .subscribe(response => {
       this.shipmentResponse = response;

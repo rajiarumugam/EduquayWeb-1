@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
 import { SampleCollectionResponse, SubjuctList, SampleCollectionPostResponse, subjuctType, subjectTypesResponse } from 'src/app/shared/anm-module/sample-collection-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,6 +13,8 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DataTableDirective } from 'angular-datatables';
+import { TokenService } from 'src/app/shared/token.service';
+import { user } from 'src/app/shared/auth-response';
 //import { FormGroup, FormBuilder } from '@angular/forms';
 
 
@@ -24,10 +26,12 @@ import { DataTableDirective } from 'angular-datatables';
 export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   
+  user: user;
   sCollectionErrorMessage: string;
   scRequest: SampleCollectionRequest;
   sampleCollectionResponse: SampleCollectionResponse;
@@ -61,12 +65,13 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     private sampleCollectionService: SampleCollectionService,
     private modalService: NgbModal,
     private dateService: DateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService
     // private fb: FormBuilder
     ) {  }
 
   ngOnInit() {
-
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -134,8 +139,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.subjectList = [];
     this.sCollectionErrorMessage ='';
     this.scRequest = {
-      userId: 1, fromDate: this.fromDate, toDate: this.toDate, subjectType: +(this.selectedSubjectType),
-      registeredFrom: 8};
+      userId: this.user.id, fromDate: this.fromDate, toDate: this.toDate, subjectType: +(this.selectedSubjectType),
+      registeredFrom: this.user.registeredFrom};
     let sampleCollection = this.sampleCollectionService.getSampleCollection(this.scRequest)
     .subscribe(response => {
       this.sampleCollectionResponse = response;

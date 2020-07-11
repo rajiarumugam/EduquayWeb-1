@@ -26,7 +26,6 @@ export class UnsentSamplesResolverService implements Resolve<any>{
 
     var user = JSON.parse(this.tokenService.getUser('lu'));
     this.userId = user.id;
-    //this.unsentSamplesRequest = {userId: 1, collectionFrom: 10 };
     return this.UnsentSamplesServiceService.getunsentSampleList(this.userId).pipe(
       catchError(error => {
         console.log(error);

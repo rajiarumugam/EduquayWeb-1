@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ShipmentRequest } from 'src/app/shared/anm-module/shipmentlog/shipment-request';
 import { ShipmentResponse, ShipmentList, SamplesDetail } from 'src/app/shared/anm-module/shipmentlog/shipment-response';
 import { ShipmentlogService } from 'src/app/shared/anm-module/shipmentlog/shipmentlog.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { TokenService } from 'src/app/shared/token.service';
+import { user } from 'src/app/shared/auth-response';
 
 @Component({
   selector: 'app-anm-view-shipmentdetails',
@@ -11,7 +13,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./anm-view-shipmentdetails.component.css']
 })
 export class AnmViewShipmentdetailsComponent implements OnInit {
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
 
+  user: user;
   shipmentLogErrorMessage: string;
   shipmentRequest: ShipmentRequest;
   shipmentResponse: ShipmentResponse;
@@ -36,11 +40,13 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
   
   constructor(
     private ShipmentlogService: ShipmentlogService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private tokenService: TokenService
   ) { }
 
   
   ngOnInit() {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.activatedRoute.queryParams.subscribe(params => {
       this.shipmentId = params['q'];
       this.anmshipmentLog();
@@ -48,10 +54,11 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
   }
 
   anmshipmentLog(){
+    //update the user id
     this.shipmentList = [];
     this.sampleDetails = [];
     this.shipmentItem = new ShipmentList();
-    this.shipmentRequest = {userId: 1, shipmentFrom: 4 };
+    this.shipmentRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
     let shipmentLog = this.ShipmentlogService.getshipmentLog(this.shipmentRequest)
     .subscribe(response => {
       this.shipmentResponse = response;
