@@ -34,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
+import { DataService } from './shared/data.service';
+
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -93,7 +95,8 @@ const ngWizardConfig: NgWizardConfig = {
     AuthGuard,
     CommonService,
     ConstantService,
-    GenericService
+    GenericService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

@@ -280,3 +280,17 @@ vertical-align: middle;
     align-items: center;
     height: 100%;
   }
+
+  .user-plus i,.user-plus{
+    cursor: pointer;
+    color: #1b55e2;
+}
+.user-plus:hover i
+{
+  color: blue;
+}
+.modal-title
+{
+  color: #1b55e2;
+  display: inline-block;
+}

@@ -57,9 +57,9 @@ import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
-import { CHCUpdateCBCComponent } from "./chc-sample-module/chc-update-cbc/chc-update-cbc.component";
-import { CBCReceivedSampleComponent } from "./chc-sample-module/chc-update-cbc-received/chc-update-cbc-received.component";
-import { CBCUploadComponent } from "./chc-sample-module/chc-update-cbc-upload/chc-update-cbc-upload.component";
+import { CHCUpdateCBCComponent } from "./chc-sample-module/cbc-update/chc-update-cbc/chc-update-cbc.component";
+import { CBCReceivedSampleComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-received/chc-update-cbc-received.component";
+import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-upload/chc-update-cbc-upload.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -112,7 +112,7 @@ const routes: Routes = [
         path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
         children:[
           {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
-          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full'}
+          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
       {

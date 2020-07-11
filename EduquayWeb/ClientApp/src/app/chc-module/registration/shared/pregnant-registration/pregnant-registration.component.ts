@@ -302,13 +302,13 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-        this.httpClientService.post<any>({url:apiUrl, body: this.dataDindinginServce() }).subscribe(response => {
+        this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-                console.log('hitting 1');
+         
                 $('#fadeinModal').modal('hide');
                
                }
@@ -328,7 +328,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       }
     }
 
-    dataDindinginServce()
+    dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {
