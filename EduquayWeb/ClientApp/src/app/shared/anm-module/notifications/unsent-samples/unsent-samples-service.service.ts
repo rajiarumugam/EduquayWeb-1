@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/shared/token.service';
 export class UnsentSamplesServiceService {
 
   unsentSampleApi: string = "api/v1/ANMNotifications/RetrieveANMUnsentSamples";
-  riPointApi: string = "api/v1/WebMaster/RetrieveRI";
+  riPointApi: string = "api/v1/RI/Retrieve";
   ilrPointApi: string = "api/v1/WebMaster/RetrieveILR";
   testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHC";
   avdNameApi: string = "api/v1/WebMaster/RetrieveAVD";
@@ -20,7 +20,6 @@ export class UnsentSamplesServiceService {
   timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimoutExpiry"
 
   userId: number;
-  
 
   constructor(
     private httpClient: HttpClient,
@@ -42,9 +41,7 @@ export class UnsentSamplesServiceService {
   }
 
   getRiPoint(userId){
-    var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.id;
-    let apiUrl = this.genericServices.buildApiUrl(`${this.riPointApi}/${userId}`);
+    let apiUrl = this.genericServices.buildApiUrl(this.riPointApi);
     return this.http.get<RiPointResponse>({url: apiUrl });
   }
 

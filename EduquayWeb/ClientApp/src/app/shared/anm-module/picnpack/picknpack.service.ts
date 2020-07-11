@@ -4,7 +4,6 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { PicknpackRequest, AnmAddShipmentRequest} from './picknpack-request';
 import { PicknpackResponse, RiPointResponse, ILRpointResponse, TestingCHCResponse, AvdNameResponse, AnmAddShipmentResponse } from './picknpack-response';
-import { TokenService } from '../../token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +11,16 @@ import { TokenService } from '../../token.service';
 export class PicknpackService {
 
   pickandpackListApi: string = "api/v1/ANMCHCPickandPack/Retrieve";
-  riPointApi: string = "api/v1/WebMaster/RetrieveRI";
+  riPointApi: string = "api/v1/RI/Retrieve";
   ilrPointApi: string = "api/v1/WebMaster/RetrieveILR";
   testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHC";
   avdNameApi: string = "api/v1/WebMaster/RetrieveAVD";
   AddShipmentApi: string = "api/v1/ANMCHCShipment/AddANMShipment";
 
-  userId: number;
-
   constructor(
     private httpClient: HttpClient,
     private genericServices: GenericService,
-    private http: HttpClientService,
-    private tokenService: TokenService
+    private http: HttpClientService
   ) { }
 
   getpickandpackList(pnpList: PicknpackRequest){
@@ -33,9 +29,7 @@ export class PicknpackService {
   }
 
   getRiPoint(userId){
-    var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.id;
-    let apiUrl = this.genericServices.buildApiUrl(`${this.riPointApi}/${userId}`);
+    let apiUrl = this.genericServices.buildApiUrl(this.riPointApi);
     return this.http.get<RiPointResponse>({url: apiUrl });
   }
 

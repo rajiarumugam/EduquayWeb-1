@@ -103,7 +103,7 @@ export class AnmSubjectProfileComponent implements OnInit {
 
     this.subjectProfileErrorMessage = '';
     if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
-      this.subjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
+      this.subjectProfileErrorMessage = 'Please enter the Subject ID';
       return false;
     }
 

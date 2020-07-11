@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 import { SampleCollectionRequest } from './sample-collection-request';
 import { formatDate } from '@angular/common';
 import { catchError } from 'rxjs/operators';
-import { TokenService } from '../token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,7 @@ export class SampleCollectionResolverService implements Resolve<any>{
   selectedSubjectType: string = '1';
 
   constructor(
-    private sampleCollectionService: SampleCollectionService,
-    private tokenService: TokenService
+    private sampleCollectionService: SampleCollectionService
   ) { }
 
 
@@ -27,11 +25,9 @@ export class SampleCollectionResolverService implements Resolve<any>{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-    var user = JSON.parse(this.tokenService.getUser('lu'));
-    
     this.scRequest = {
-      userId: user.id, fromDate: '', toDate: '', subjectType: +(this.selectedSubjectType),
-      registeredFrom: user.registeredFrom
+      userId: 1, fromDate: '', toDate: '', subjectType: +(this.selectedSubjectType),
+      registeredFrom: 8
     };
 
     return this.sampleCollectionService.getSampleCollection(this.scRequest).pipe(

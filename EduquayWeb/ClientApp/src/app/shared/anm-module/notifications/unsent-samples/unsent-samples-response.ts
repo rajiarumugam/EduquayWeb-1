@@ -21,7 +21,7 @@ export interface UnsentSampleList {
 export interface RiPointResponse {
     status: string;
     message: string;
-    ri: RIModel[];
+    riDetails: RIModel[];
 }
 
 export interface RIModel {

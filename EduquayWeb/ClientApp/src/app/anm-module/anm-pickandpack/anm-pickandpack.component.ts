@@ -105,7 +105,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     this.dateOfShipment =  this.dateService.getDate();
     this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
-    this.ddlRiPoint(this.user.id);
+    this.ddlRiPoint();
    // this.anmpicknpackList();
 
     this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
@@ -126,12 +126,13 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     }
   }
 
-  ddlRiPoint(userId){
+  ddlRiPoint(){
     //this.riPointRequest = {userId: 1};
+    var userId = 2;
     let riPoint= this.PicknpackService.getRiPoint(userId).subscribe(response =>{
        this.riPointResponse = response;
        if(this.riPointResponse !== null && this.riPointResponse.status === "true"){
-           this.riPoints  = this.riPointResponse.ri;
+           this.riPoints  = this.riPointResponse.riDetails;
            this.selectedriPoint = "";
          }
          else{
@@ -295,8 +296,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       dateOfShipment: this.dateOfShipment,
       timeOfShipment: this.timeOfShipment,
       barcodeNo: this.selectedBarcodes,
-      shipmentFrom: this.user.shipmentFrom,
-      createdBy: this.user.id,
+      shipmentFrom: 4,
+      createdBy: 2,
       source: 'N',
     }
     let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
