@@ -42,7 +42,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 </div>
                             </div>
                             <div class="form-row my-2">
-                                <div class="col-md-2" [formGroup]="form">
+                                <div class="col-md-3" [formGroup]="form">
                                     <h6 class="ml-2"><b>{{'ReceivedDate' | translate }}</b>
                                         <ng2-flatpickr id="scFromDate" name="receivedDate" formControlName="receivedDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." [(ngModel)]="receivedDate"></ng2-flatpickr></h6>
                                 </div>
@@ -51,12 +51,12 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <ng2-flatpickr id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }"></ng2-flatpickr>
                                         </h6>
                                 </div>
-                                <div class="col-md-2" [formGroup]="ILRform" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
+                                <div class="col-md-3" [formGroup]="ILRform" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
                                     <h6 class="ml-2"><b>{{'ILRInDateTime' | translate }}</b>
                                         <ng2-flatpickr id="scFromDate" name="ilrInDateTime" formControlName="ilrInDateTime" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="ILRInDate"></ng2-flatpickr>
                                         </h6>
                                 </div>
-                                <div class="col-md-2" [formGroup]="ILRform" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
+                                <div class="col-md-3" [formGroup]="ILRform" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
                                     <h6 class="ml-2"><b>{{'ILROutDateTime' | translate }}</b>
                                         <ng2-flatpickr id="scFromDate" name="ilrOutDateTime" formControlName="ilrOutDateTime" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="ILROutDate"></ng2-flatpickr>
                                        </h6>
@@ -164,11 +164,11 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
     </thead>
     <tbody>
         <tr *ngFor="let person of chcReceiptsData;index as i">
-            <td>{{ i + 1}}</td>
-            <td>{{ person.shipmentId }}</td>
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.shipmentId }}</td>
             <td>{{ person.senderName }}</td>
             <td>{{ person.sendingLocation }}</td>
-            <td>{{ person.shipmentDateTime }}</td>
+            <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
             <td class="user-plus" (click)="openPopup(person);"><i class="fas fa-search fa-2x" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>
     </tbody>

@@ -32,6 +32,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
+import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+
+import { DataService } from './shared/data.service';
+
+
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.default
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +95,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthGuard,
     CommonService,
     ConstantService,
-    GenericService
+    GenericService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })
