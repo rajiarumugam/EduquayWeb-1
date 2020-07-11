@@ -223,7 +223,7 @@
                                                                 <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid}">Contact Number<span
                                                                     class="manto">*</span></label>
                                                                 <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10"
-                                                                oninput="this.value = this.value.replace(/[^[0-9]{1,10}]/g, '').replace(/(\..*)\./g, '$1');" 
+                                                                oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
                                                                 [class.is-invalid]="contactNo.invalid && contactNo.touched || shipmentForm.submitted && contactNo.invalid"
                                                                     required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo">
                                                                     <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
