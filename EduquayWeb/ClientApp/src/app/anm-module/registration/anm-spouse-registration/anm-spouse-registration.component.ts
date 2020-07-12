@@ -12,11 +12,12 @@ import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SpouseregistrationService } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.service';
 import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.models';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
+
 
 @Component({
   selector: 'app-anm-spouse-registration',
@@ -93,7 +94,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     defaultDate: '',
     maxDate: new Date(Date.now())
   };
-  userId = 2;
+  user;
   createdSubjectId="";
   
 
@@ -130,12 +131,13 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     private spouseregistrationService: SpouseregistrationService,
     private genericService: GenericService,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
     ) { }
 
   ngOnInit() {
     
-    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -450,6 +452,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
        .then((result) => {
          if (result.value) {
           $('#fadeinModal').modal('hide');
+          this.router.navigateByUrl("app/anm-sample-collection");
          
          }
          else{
@@ -502,10 +505,10 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -517,7 +520,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchId').value,
@@ -527,7 +530,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "p": 0,
           "l": 0,
           "a": 0,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -559,7 +562,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 

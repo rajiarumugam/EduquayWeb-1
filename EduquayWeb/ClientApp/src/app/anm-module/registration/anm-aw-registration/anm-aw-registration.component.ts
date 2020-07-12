@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { TokenService } from 'src/app/shared/token.service';
 declare var $: any 
-
+import { Router, ActivatedRoute } from '@angular/router';
 declare var exposedFunction;
 
 
@@ -74,7 +74,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     maxDate: new Date(Date.now())
   };
   selecteddor = new Date(Date.now());
-  userId = 2;
+  user;
   createdSubjectId="";
 
   selectedPincode;
@@ -96,7 +96,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedspouseContactNumber;
   selectedspouseEmail;
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -104,16 +104,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
+  ngOnInit() {    
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -330,8 +322,8 @@ export class AnmAwRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-         
                 $('#fadeinModal').modal('hide');
+                this.router.navigateByUrl("app/anm-sample-collection");
                
                }
                else{
@@ -381,10 +373,10 @@ export class AnmAwRegistrationComponent implements OnInit {
           "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": this.user.registeredFrom,
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -396,7 +388,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.firstFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchid').value,
@@ -406,7 +398,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "p": Number(this.firstFormGroup.get('p').value),
           "l": Number(this.firstFormGroup.get('l').value),
           "a": Number(this.firstFormGroup.get('a').value),
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -438,7 +430,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 

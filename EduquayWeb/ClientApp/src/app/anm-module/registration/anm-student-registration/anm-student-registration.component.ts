@@ -13,6 +13,7 @@ import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-anm-student-registration',
@@ -72,7 +73,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
 
 
   createdSubjectId;
-  userId = 2;
+  user;
 
   selectedfirstname;
   selectedmiddlename;
@@ -107,10 +108,10 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedschoolsection;
   selectedrollnumber;
 
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) { }
 
   ngOnInit() {
-    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -341,9 +342,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-         
                 $('#fadeinModal').modal('hide');
-               
+                this.router.navigateByUrl("app/anm-sample-collection");
                }
                else{
                 this.firstFormGroup.reset();
@@ -394,10 +394,10 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -409,7 +409,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": '0',
@@ -419,7 +419,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "p": 0,
           "l": 0,
           "a": 0,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": this.secondFormGroup.get('motherFirstName').value,
@@ -452,7 +452,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
           "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
           "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 
