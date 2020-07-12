@@ -182,6 +182,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
       this.districts = response['district'];
+      this.selectedDistrict = this.user.districtId;
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
@@ -192,6 +193,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
       this.CHCdata = response['chc'];
+      this.selectedchc = this.user.chcId;
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -202,6 +204,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedPHC()
     .subscribe(response => {
       this.PHCdata = response['phc'];
+      this.selectedphc = this.user.phcId;
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
@@ -213,6 +216,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
+      this.selectedsc = this.user.scId;
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -223,6 +227,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
+      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];

@@ -45,7 +45,7 @@ type AOA = any[][];
     console.log(target.files[0].type);
     if(target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     {
-        alert('Please only Excel file!');
+        alert('Please upload only Excel file!');
     }
     else
     {
