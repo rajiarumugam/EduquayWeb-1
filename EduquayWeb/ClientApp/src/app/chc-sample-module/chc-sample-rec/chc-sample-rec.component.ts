@@ -51,6 +51,7 @@ export class CHCSampleRcptComponent implements OnInit {
   fromDate = "";
   toDate = "";
   formCheck = false;
+  selectedreceivedDate;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();

@@ -41,6 +41,7 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
   barcodeNo: string;
   sampleCollectionDateTime: string;
   sampleDetails: SamplesDetail[] = [];
+  picknpackErrorMessage;
 
   constructor(
     private ShipmentlogService: ShipmentlogService,

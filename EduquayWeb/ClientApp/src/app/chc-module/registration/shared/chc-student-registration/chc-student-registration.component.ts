@@ -62,7 +62,45 @@ export class ChcStudentRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
 
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedMobile;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedPincode;
+  selectedmotherFirstName;
+  selectedmotherMiddleName;
+  selectedmotherLastName;
+  selectedmotherGovtIDDetail;
+  selectedmotherContactNumber;
+  selectedfatherFirstName;
+  selectedfatherMiddleName;
+  selectedfatherLastName;
+  selectedfatherGovtIDDetail;
+  selectedfatherContactNumber;
+  selectedguardianFirstName;
+  selectedguardianMiddleName;
+  selectedguardianLastName;
+  selectedguardianGovtIDDetail;
+  selectedguardianContactNumber;
+  selectedschoolName;
+  selectedschoolstreet;
+  selectedschoolcity;
+  selectedschoolstate;
+  selectedSchoolPincode;
+  selectedrbskid;
+  selectedschoolsection;
+  selectedrollnumber;
 
   createdSubjectId;
   userId = 2;

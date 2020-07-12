@@ -140,7 +140,7 @@
                             
                             </form>
                             </mat-step>
-                            <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+                            <mat-step [stepControl]="secondFormGroup">
                             <form [formGroup]="secondFormGroup">
                                 <div class="reges-form-main-container">
                                     <div class="form-row my-2">
@@ -240,18 +240,18 @@
                 </div>
             </div>
     </div>
-<div class="form-row mt-4">
+<div class="form-row mt-4" [formGroup]="dateform">
     <div class="form-group col-md-2">
       <label for="inputFromdate">{{'FromDate' | translate }}
       </label>
       <div class="form-group mb-0">
-          <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate" (change)="fromDateChange();"></ng2-flatpickr>
+          <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate" (change)="fromDateChange();"></ng2-flatpickr>
       </div>
     </div>
     <div class="form-group col-md-2">
       <label for="inputTodate">{{'ToDate' | translate }}</label>
       <div class="form-group mb-0">
-        <ng2-flatpickr id="scToDate" name="toDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+        <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
       </div>
     </div>
     <div class="col-md-2 mt-3">

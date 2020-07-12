@@ -44,7 +44,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="form-row my-2">
                                 <div class="col-md-3" [formGroup]="form">
                                     <h6 class="ml-2"><b>{{'ReceivedDate' | translate }}</b>
-                                        <ng2-flatpickr id="scFromDate" name="receivedDate" formControlName="receivedDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." [(ngModel)]="receivedDate"></ng2-flatpickr></h6>
+                                        <ng2-flatpickr id="scFromDate" name="receivedDate" formControlName="receivedDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." [(ngModel)]="selectedreceivedDate"></ng2-flatpickr></h6>
                                 </div>
                                 <div class="col-md-3" [formGroup]="form">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ProcessingDateAndTime' | translate }}</b>

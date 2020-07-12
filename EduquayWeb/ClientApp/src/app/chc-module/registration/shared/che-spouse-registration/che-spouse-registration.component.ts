@@ -79,6 +79,19 @@ export class CheSpouseRegistrationComponent implements OnInit {
   fromDate = "";
   toDate = "";
 
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedspouseContactNumber;
+  selectedspouseEmail;
+  selectedGovtIDDetail;
+  selectedhouse;
+  selectedstreet;
+  selectedstate;
+  selectedPincode;
+  selectedECNumber;
+  selectedcity;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }

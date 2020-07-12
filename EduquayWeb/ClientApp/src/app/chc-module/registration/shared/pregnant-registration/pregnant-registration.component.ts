@@ -66,9 +66,34 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
   selecteddor = new Date(Date.now());
   userId = 2;
   createdSubjectId="";
+
+  selectedPincode;
+  selectedMobile;
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedrchid;
+  selectedlmpdate;
+  selectedECNumber;
+  selectedGovtIDDetail;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedspouseFirstName;
+  selectedspouseMiddleName;
+  selectedspouseLastName;
+  selectedspouseContactNumber;
+  selectedspouseEmail;
 
   constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) {
     window['angularComponentReference'] = {

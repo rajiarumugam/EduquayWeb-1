@@ -64,6 +64,40 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   };
 
 
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedMobile;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedPincode;
+  selectedmotherFirstName;
+  selectedmotherMiddleName;
+  selectedmotherLastName;
+  selectedmotherGovtIDDetail;
+  selectedmotherContactNumber;
+  selectedfatherFirstName;
+  selectedfatherMiddleName;
+  selectedfatherLastName;
+  selectedfatherGovtIDDetail;
+  selectedfatherContactNumber;
+  selectedguardianFirstName;
+  selectedguardianMiddleName;
+  selectedguardianLastName;
+  selectedguardianGovtIDDetail;
+  selectedguardianContactNumber;
+  selectedschoolName;
+  selectedschoolstreet;
+  selectedschoolcity;
+  selectedschoolstate;
+  selectedSchoolPincode;
+  selectedrbskid;
+  selectedschoolsection;
+  selectedrollnumber;
+
+
   createdSubjectId;
   userId = 2;
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }

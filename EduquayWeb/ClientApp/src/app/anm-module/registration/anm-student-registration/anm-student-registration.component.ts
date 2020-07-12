@@ -63,10 +63,50 @@ export class AnmStudentRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
 
 
   createdSubjectId;
   userId = 2;
+
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedMobile;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedPincode;
+  selectedmotherFirstName;
+  selectedmotherMiddleName;
+  selectedmotherLastName;
+  selectedmotherGovtIDDetail;
+  selectedmotherContactNumber;
+  selectedfatherFirstName;
+  selectedfatherMiddleName;
+  selectedfatherLastName;
+  selectedfatherGovtIDDetail;
+  selectedfatherContactNumber;
+  selectedguardianFirstName;
+  selectedguardianMiddleName;
+  selectedguardianLastName;
+  selectedguardianGovtIDDetail;
+  selectedguardianContactNumber;
+  selectedschoolName;
+  selectedschoolstreet;
+  selectedschoolcity;
+  selectedschoolstate;
+  selectedSchoolPincode;
+  selectedrbskid;
+  selectedschoolsection;
+  selectedrollnumber;
+
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
   ngOnInit() {
