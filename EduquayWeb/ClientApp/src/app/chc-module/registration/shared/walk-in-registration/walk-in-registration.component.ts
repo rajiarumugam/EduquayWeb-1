@@ -12,6 +12,7 @@ import { ENDPOINT } from '../../../../app.constant';
 import { GenericService } from '../../../../shared/generic.service';
 declare var $: any 
 import Swal from 'sweetalert2';
+import { TokenService } from 'src/app/shared/token.service';
 
 @Component({
   selector: 'chc-walkin-registration',
@@ -64,11 +65,46 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   };
 
 
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedMobile;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedPincode;
+  selectedmotherFirstName;
+  selectedmotherMiddleName;
+  selectedmotherLastName;
+  selectedmotherGovtIDDetail;
+  selectedmotherContactNumber;
+  selectedfatherFirstName;
+  selectedfatherMiddleName;
+  selectedfatherLastName;
+  selectedfatherGovtIDDetail;
+  selectedfatherContactNumber;
+  selectedguardianFirstName;
+  selectedguardianMiddleName;
+  selectedguardianLastName;
+  selectedguardianGovtIDDetail;
+  selectedguardianContactNumber;
+  selectedschoolName;
+  selectedschoolstreet;
+  selectedschoolcity;
+  selectedschoolstate;
+  selectedSchoolPincode;
+  selectedrbskid;
+  selectedschoolsection;
+  selectedrollnumber;
+
+
   createdSubjectId;
-  userId = 2;
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }
+  user;
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
   ngOnInit() {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -352,10 +388,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -367,7 +403,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": '0',
@@ -377,7 +413,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "p": 0,
           "l": 0,
           "a": 0,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": this.secondFormGroup.get('motherFirstName').value,
@@ -410,7 +446,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
           "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
           "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 

@@ -1,6 +1,6 @@
 <div class="form-row mt-2 ml-2">
     <div class="form-group col-md-3 ml-2 mt-1">
-         <input type="file" class="custom-file-input" id="customFile" name="filename">
+         <input type="file" class="custom-file-input" id="customFile" name="filename" (change)="onFileChange($event)" multiple="false">
 <label class="custom-file-label ml-2" for="customFile">Choose file</label>
 
     </div>

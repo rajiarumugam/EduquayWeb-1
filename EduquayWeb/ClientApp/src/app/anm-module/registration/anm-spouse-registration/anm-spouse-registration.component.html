@@ -35,7 +35,8 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'ContactNumber' | translate }}</label><span class="manto"> *</span>
-                                            <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" readonly>
+                                            <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" readonly oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                            maxlength = "10">
                                         </div>
                 
                                     </div>
@@ -123,7 +124,8 @@
                                                 </div>
                                             <div class="form-group col-md-3">
                                                 <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>
-                                                <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                                                <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                maxlength = "2">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label class="birthreg" for="inputgender" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.gender.invalid }">{{'Gender' | translate }}</label><span class="manto"> *</span>
@@ -140,7 +142,7 @@
                             
                             </form>
                             </mat-step>
-                            <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+                            <mat-step [stepControl]="secondFormGroup">
                             <form [formGroup]="secondFormGroup">
                                 <div class="reges-form-main-container">
                                     <div class="form-row my-2">
@@ -169,7 +171,8 @@
                                             <label class="birthreg" for="inputmoblienospouse" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">{{'ContactNumber' | translate }}<span
                                                 class="manto"> *</span></label>
                                             <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
-                                                required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">
+                                                required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                maxlength = "10">
                                         </div>
                                     </div>
                                     <div class="form-row my-2">
@@ -240,18 +243,18 @@
                 </div>
             </div>
     </div>
-<div class="form-row mt-4">
+<div class="form-row mt-4" [formGroup]="dateform">
     <div class="form-group col-md-2">
       <label for="inputFromdate">{{'FromDate' | translate }}
       </label>
       <div class="form-group mb-0">
-          <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate" (change)="fromDateChange();"></ng2-flatpickr>
+          <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate" (change)="fromDateChange();"></ng2-flatpickr>
       </div>
     </div>
     <div class="form-group col-md-2">
       <label for="inputTodate">{{'ToDate' | translate }}</label>
       <div class="form-group mb-0">
-        <ng2-flatpickr id="scToDate" name="toDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+        <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
       </div>
     </div>
     <div class="col-md-2 mt-3">

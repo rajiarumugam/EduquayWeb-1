@@ -51,6 +51,7 @@ export class CHCSampleRcptComponent implements OnInit {
   fromDate = "";
   toDate = "";
   formCheck = false;
+  selectedreceivedDate;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -129,36 +130,39 @@ export class CHCSampleRcptComponent implements OnInit {
 
   processingDateChange()
   {
-
-    this.popupData['receiptDetail'].forEach(function(val,index){
-      console.log(val);
-      console.log(index);
-      console.log(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')));
-      if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
-      {
+    if(this.form.get('processingDate').value.length > 0)
+    {
+      this.popupData['receiptDetail'].forEach(function(val,index){
+        console.log(val);
+        console.log(index);
+        console.log(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')));
+        if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
+        {
+            val.sampleTimeout = true;
+            val.accept = false;
+            val.reject = true;
+            val.sampleDamaged = false;
+            val.barcodeDamaged = false;
+        }
+        else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+        {
+            val.sampleTimeout = false;
+            val.accept = true;
+            val.reject = false;
+            val.sampleDamaged = false;
+            val.barcodeDamaged = false;
+        }
+        else
+        {
           val.sampleTimeout = true;
           val.accept = false;
           val.reject = true;
           val.sampleDamaged = false;
           val.barcodeDamaged = false;
       }
-      else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
-      {
-          val.sampleTimeout = false;
-          val.accept = true;
-          val.reject = false;
-          val.sampleDamaged = false;
-          val.barcodeDamaged = false;
-      }
-      else
-      {
-        val.sampleTimeout = true;
-        val.accept = false;
-        val.reject = true;
-        val.sampleDamaged = false;
-        val.barcodeDamaged = false;
+      },this);
     }
-    },this);
+    
   }
 
   sampleDamageChange(index)
@@ -239,7 +243,7 @@ export class CHCSampleRcptComponent implements OnInit {
               for(var i=0;i<this.popupData['receiptDetail'].length;i++)
               {
                   var _obj = {};
-                  _obj['shipmentId'] = this.popupData['receiptDetail'][i].shipmentId;
+                  _obj['shipmentId'] = this.popupData.shipmentId;
                   _obj['receivedDate'] = this.form.get('receivedDate').value != undefined ? moment(new Date(this.form.get('receivedDate').value)).format("DD/MM/YYYY") : '';
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
                   if(this.popupData.shipmentFrom === 'ANM - CHC')
