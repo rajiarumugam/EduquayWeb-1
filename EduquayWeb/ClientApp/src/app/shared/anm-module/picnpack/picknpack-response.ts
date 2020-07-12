@@ -17,7 +17,7 @@ export interface SampleList {
 export interface RiPointResponse {
     status: string;
     message: string;
-    riDetails: RIModel[];
+    ri: RIModel[];
 }
 
 export interface RIModel {

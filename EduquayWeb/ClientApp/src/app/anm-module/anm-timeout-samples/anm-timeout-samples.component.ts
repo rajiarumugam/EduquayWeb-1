@@ -112,7 +112,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       this.recordCount = 0;
       this.timeoutSamples = [];
       this.timeoutSamplesErrorMessage ='';
-      this.timeoutsamplesRequest = {anmId: 1, notification: 3};
+      this.timeoutsamplesRequest = {anmId: this.user.userTypeId, notification: 3};
       let samplesList = this.TimeoutExpiryServiceService.gettimeoutSamples(this.timeoutsamplesRequest)
       .subscribe(response => {
         this.timeoutsamplesResponse = response;
@@ -163,10 +163,10 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
         uniqueSubjectId: this.uniqueSubjectId,
         reason: this.reason,
         barcodeNo: this.barcodeNo,
-        collectionFrom: 10,
+        collectionFrom: this.user.sampleCollectionFrom,
         sampleCollectionDate: this.collectionDate,
         sampleCollectionTime: this.collectionTime,
-        collectedBy: 1,
+        collectedBy: this.user.id,
       };
   
       //Remove below 2 lines after successfully tested
