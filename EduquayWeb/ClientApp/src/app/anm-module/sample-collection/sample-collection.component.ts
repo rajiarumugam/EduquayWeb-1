@@ -201,10 +201,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       uniqueSubjectId: this.uniqueSubjectId,
       reason: this.reason,
       barcodeNo: this.barcodeNo,
-      collectionFrom: 10,
+      collectionFrom: this.user.sampleCollectionFrom,
       sampleCollectionDate: this.collectionDate,
       sampleCollectionTime: this.collectionTime,
-      collectedBy: 1,
+      collectedBy: this.user.id,
     };
 
     //Remove below 2 lines after successfully tested
