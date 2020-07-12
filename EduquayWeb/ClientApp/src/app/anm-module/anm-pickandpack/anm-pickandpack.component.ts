@@ -179,6 +179,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
   openPicknpack(picknPackdetail) {
     this.picknpackErrorMessage = '';
+    this.fetchBarcode();
+
     if(this.sampleList === null || this.sampleList.length <= 0){
       this.showResponseMessage(`Sample collection does not exist to pick and pack`, 'e');
       return false;
@@ -188,7 +190,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       return false;
     } 
     
-    this.fetchBarcode();
 
     this.name = this.user.name;
     this.modalService.open(
