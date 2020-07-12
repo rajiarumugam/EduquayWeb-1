@@ -191,7 +191,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     this.fetchBarcode();
 
     if (this.selectedBarcodes === "") {
-      this.showResponseMessage(`Please select atleast one sample to create shipment`, 'e');
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }
 
@@ -201,7 +201,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     }
 
     // if (this.selectedBarcodes === '') {
-    //   this.unsentSamplesErrorMessage = 'Please select atleast one sample to create shipment';
+    //   this.unsentSamplesErrorMessage = 'Please select at least one sample to create shipment';
     //   return false;
     // }
     this.name = this.user.name;
@@ -289,9 +289,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     //var shipmentId = "123";
     console.log(unsentsampleForm.value);
     if (this.selectedBarcodes === '') {
-      this.showResponseMessage(`Please select atleast one sample to create shipment`, 'e');
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
-      // this.unsentSamplesErrorMessage = 'Please select atleast one sample to create shipment';
+      // this.unsentSamplesErrorMessage = 'Please select at least one sample to create shipment';
       // return false;
     }
 
@@ -340,8 +340,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   moveExpirySamples(){
 
     this.unsentSamplesErrorMessage = '';
-    if (this.selectedBarcodes === '') {
-      this.expirySampleResponseMessage(`Please select atleast one sample to create shipment`, 'e');
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+      this.expirySampleResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }
     
