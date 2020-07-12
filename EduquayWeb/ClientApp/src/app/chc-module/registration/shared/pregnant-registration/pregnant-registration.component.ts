@@ -14,6 +14,7 @@ import { GenericService } from '../../../../shared/generic.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 declare var $: any 
+import { TokenService } from 'src/app/shared/token.service';
 
 declare var exposedFunction;
 
@@ -66,11 +67,36 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
   selecteddor = new Date(Date.now());
-  userId = 2;
+  user;
   createdSubjectId="";
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) {
+  selectedPincode;
+  selectedMobile;
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedrchid;
+  selectedlmpdate;
+  selectedECNumber;
+  selectedGovtIDDetail;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedspouseFirstName;
+  selectedspouseMiddleName;
+  selectedspouseLastName;
+  selectedspouseContactNumber;
+  selectedspouseEmail;
+
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -79,6 +105,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -359,10 +386,10 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -374,7 +401,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.firstFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchid').value,
@@ -384,7 +411,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "p": Number(this.firstFormGroup.get('p').value),
           "l": Number(this.firstFormGroup.get('l').value),
           "a": Number(this.firstFormGroup.get('a').value),
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -416,7 +443,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 
