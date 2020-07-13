@@ -5,7 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SampleCollectionRequest, SampleCollectionDateTimeRequest } from 'src/app/shared/anm-module/sample-collection-request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import swal from 'sweetalert2';
+import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -59,6 +59,35 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   selectedSubjectType: string = '1';
   selected: null;
 
+  startOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: moment().add(-1, 'day').format('DD/MM/yyyy'),
+    maxDate: new Date(Date.now()),
+    onClose: function(selectedDates, dateStr, instance){
+      this.endOptions.set('minDate', dateStr);    
+    }
+  };
+  endOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  collectionDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  collectionTimeOptions: FlatpickrOptions = {
+    mode: 'single',
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",    
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
   //sampleTypes = ['Antenatal Woman', 'Spouse', 'Child', 'Walk-in'];
 
   constructor(
@@ -72,6 +101,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.InitializeDateRange();    
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -243,6 +273,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
         }
       });
     }
+  }
+
+  InitializeDateRange(){
+
   }
 
   rerender(): void {
