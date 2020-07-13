@@ -179,6 +179,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
   openPicknpack(picknPackdetail) {
     this.picknpackErrorMessage = '';
+    this.fetchBarcode();
+
     if(this.sampleList === null || this.sampleList.length <= 0){
       this.showResponseMessage(`Sample collection does not exist to pick and pack`, 'e');
       return false;
@@ -188,7 +190,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       return false;
     } 
     
-    this.fetchBarcode();
 
     this.name = this.user.name;
     this.modalService.open(
@@ -275,7 +276,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //var shipmentId = "123";
     console.log(shipmentForm.value);
 
-    if (this.selectedBarcodes === '') {
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }

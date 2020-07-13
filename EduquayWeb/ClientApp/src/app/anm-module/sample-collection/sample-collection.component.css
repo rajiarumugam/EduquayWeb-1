@@ -60,6 +60,9 @@ table.dataTable td, table.dataTable th {
   box-sizing: content-box;
   padding: 4px 11px;
 }
-
+::ng-deep input.flatpickr-input
+{
+    border:none;
+}
 
 /*END PAGE LEVEL PLUGINS/CUSTOM STYLES */

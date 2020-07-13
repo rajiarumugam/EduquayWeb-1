@@ -204,7 +204,7 @@ vertical-align: middle;
 }
 ::ng-deep .modal-content .modal-footer,::ng-deep .modal-content .modal-header
 {
-    display: none !important;
+    /*display: none !important;*/
 }
 .fa-check-circle
 {
