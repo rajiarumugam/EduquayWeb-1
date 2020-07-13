@@ -5,7 +5,7 @@ import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, Pre
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 
 
@@ -80,20 +80,63 @@ export class AnmSubjectProfileComponent implements OnInit {
   p: number;
   l: number;
   a: number;
+  barcodes: string;
   Glists: number [];
   selectedG: number = 0 ;
-  // firstFormGroup: FormGroup;
-  // secondFormGroup: FormGroup;
-
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  firstFormCheck = false;
+  secondFormCheck = false;
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
     private modalService: NgbModal,
-    private httpService: HttpClient
+    private httpService: HttpClient,
+    private _formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
     console.log(this.SubjectProfileService.subjectProfileApi);
+
+    this.firstFormGroup = this._formBuilder.group({
+      // dor: ['', Validators.required],
+      // district: ['', Validators.required],
+      // chc: ['', Validators.required],
+      // phc: ['', Validators.required],
+      // sc: ['', Validators.required],
+      // ripoint: ['', Validators.required],
+      // pincode: ['', Validators.required],
+      // contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+      // subjectitle: ['Ms.'],
+      firstname: ['', Validators.required],
+      middlename: [''],
+      lastname: ['', Validators.required],
+      dob: [''],
+      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      DDLreligion: ['', Validators.required],
+      DDLcaste: ['', Validators.required],
+      DDLcommunity: ['', Validators.required],
+   });
+   this.secondFormGroup = this._formBuilder.group({
+    ecNumber: [''],
+    DDLGovtIDType: [''],
+    GovtIDDetail: [''],
+    house: ['', Validators.required],
+    street: ['', Validators.required],
+    city : ['', Validators.required],
+    stateName: ['', Validators.required],
+    mobileNo: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+    spouseFirstName: ['', Validators.required],
+    spouseMiddleName: [''],
+    spouseLastName: ['', Validators.required],
+    spouseContactNo: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+    emailId: ['',Validators.email],
+    rchId: ['', Validators.required],
+  });
+
+  this.ddlReligion();
+  this.ddlGovtIdType();
+  this.ddlCaste();
     
   }
 
@@ -136,28 +179,53 @@ export class AnmSubjectProfileComponent implements OnInit {
 
   editSubjectProfile(subjectProfiledetail, basicInfo: PrimaryDetail, socioDemographicInfo: AddressDetail, personalInfo: PregnancyDetail) {
     
-    this.ddlReligion();
-    this.ddlGovtIdType();
-    this.ddlCaste();
-    this.ddlGvalue();
-    this.firstName = basicInfo.firstName;
-    this.lastName = basicInfo.lastName;
-    this.middleName = basicInfo.middleName;
-    this.dob = basicInfo.dob;
-    this.age = basicInfo.age;
-    this.mobileNo = basicInfo.mobileNo;
-    this.spouseFirstName = basicInfo.spouseFirstName;
-    this.spouseMiddleName = basicInfo.spouseMiddleName;
-    this.spouseLastName = basicInfo.spouseLastName;
-    this.spouseContactNo = basicInfo.spouseContactNo;
-    this.govIdDetail = basicInfo.govIdDetail;
-    this.address1 = socioDemographicInfo.address1;
-    this.address2 = socioDemographicInfo.address2;
-    this.address3 = socioDemographicInfo.address3;
-    this.stateName = socioDemographicInfo.stateName;
-    this.pincode = socioDemographicInfo.pincode;
-    this.ecNumber = personalInfo.ecNumber;
-    this.rchId = personalInfo.rchId;
+   
+    //this.ddlGvalue();
+    this.firstFormGroup = new FormGroup({
+      firstName: new FormControl(this.basicInfo.firstName),
+      lastName: new FormControl(this.basicInfo.lastName),
+      middleName: new FormControl(this.basicInfo.middleName),
+      dob: new FormControl(this.basicInfo.dob),
+      age: new FormControl(this.basicInfo.age),
+      DDLreligion: new FormControl(this.socioDemographicInfo.religionName),
+      
+    });
+    this.secondFormGroup = new FormGroup({
+      house: new FormControl(this.socioDemographicInfo.address1),
+      street: new FormControl(this.socioDemographicInfo.address2), 
+      city: new FormControl(this.socioDemographicInfo.address3),
+      stateName: new FormControl(this.socioDemographicInfo.stateName),
+      pincode: new FormControl(this.socioDemographicInfo.pincode),
+      mobileNo: new FormControl(this.basicInfo.mobileNo),
+      emailId: new FormControl(this.basicInfo.emailId),
+      govIdDetail: new FormControl(this.basicInfo.govIdDetail),
+      rchId: new FormControl(this.personalInfo.rchId),
+      ecNumber: new FormControl(this.personalInfo.ecNumber),
+      spouseFirstName: new FormControl(this.basicInfo.spouseFirstName),
+      spouseMiddleName: new FormControl(this.basicInfo.spouseMiddleName),
+      spouseLastName: new FormControl(this.basicInfo.spouseLastName),
+      spouseContactNo: new FormControl(this.basicInfo.spouseContactNo),
+
+    });
+    // this.firstName = basicInfo.firstName;
+    // this.lastName = basicInfo.lastName;
+    // this.middleName = basicInfo.middleName;
+    // this.dob = basicInfo.dob;
+    // this.age = basicInfo.age;
+    // this.mobileNo = basicInfo.mobileNo;
+    // this.spouseFirstName = basicInfo.spouseFirstName;
+    // this.spouseMiddleName = basicInfo.spouseMiddleName;
+    // this.spouseLastName = basicInfo.spouseLastName;
+    // this.spouseContactNo = basicInfo.spouseContactNo;
+    // this.govIdDetail = basicInfo.govIdDetail;
+    // this.address1 = socioDemographicInfo.address1;
+    // this.address2 = socioDemographicInfo.address2;
+    // this.address3 = socioDemographicInfo.address3;
+    // this.stateName = socioDemographicInfo.stateName;
+    // this.pincode = socioDemographicInfo.pincode;
+    // this.ecNumber = personalInfo.ecNumber;
+    // this.rchId = personalInfo.rchId;
+    // this.barcodes = personalInfo.barcodes;
     // this.selectedreligion = socioDemographicInfo.religionName;
     // this.selectedgovtidtype = basicInfo.govIdDetail;
 
@@ -179,6 +247,9 @@ export class AnmSubjectProfileComponent implements OnInit {
         this.religions = this.religionResponse.religion;
         if (this.religions.length > 0) {
           this.selectedreligion = this.socioDemographicInfo.religionId.toString();
+          // this.firstFormGroup = new FormGroup({
+          //   DDLreligion : new FormControl(this.socioDemographicInfo.religionId.toString())
+          // });
         }
 
       }
@@ -191,6 +262,7 @@ export class AnmSubjectProfileComponent implements OnInit {
 
       });
   }
+  
 
   ddlGovtIdType() {
     this.govtIdTypes = [];
@@ -278,11 +350,16 @@ export class AnmSubjectProfileComponent implements OnInit {
     );
   }
 
-  nextStep(stepper: MatStepper) {
-    //this.firstFormCheck = true;
-    //if(this.firstFormGroup.valid)
-    stepper.next();
-  }
+  // nextStep(stepper: MatStepper) {
+  //   //this.firstFormCheck = true;
+  //   //if(this.firstFormGroup.valid)
+  //   stepper.next();
+  // }
+  nextStep() {
+    this.firstFormCheck = true;
+      if(this.firstFormGroup.valid)
+        this.stepper.next();
+    }
 
   prevStep(stepper: MatStepper) {
     stepper.previous();

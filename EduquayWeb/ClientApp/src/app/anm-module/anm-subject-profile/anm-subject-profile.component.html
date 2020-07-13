@@ -128,42 +128,41 @@
                                                 </div>
                                                 <div class="form-row my-2">       
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputFirstname">First
+                                                        <label for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">First
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.firstName" name="firstName"
-                                                    placeholder="First Name" required>
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.firstName" formControlName="firstName"
+                                                    placeholder="First Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputMiddlename">Middle
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.middleName" name="middleName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.middleName" formControlName="middleName"
                                                         placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputLastname">Last
+                                                        <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">Last
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.lastName" name="lastName"
-                                                        placeholder="Last Name">
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.lastName" formControlName="lastName"
+                                                        placeholder="Last Name" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
                                                     </div>
                                                 </div>
                                                 <div class="form-row mt-4">
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputdob">Date of Birth</label>
+                                                        <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">Date of Birth</label>
                                                         <input type="Text" class="form-control flatpickr flatpickr-input active"
-                                                        [(ngModel)]="basicInfo.dob" name="dob"
+                                                        [(ngModel)]="basicInfo.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
                                                     id="dobnewdate" placeholder="select Date..." required>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputAge">Age</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.age" name="age"
-                                                            placeholder="Age" required>
+                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.age" formControlName="age"
+                                                            placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
         
-                                                    
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputReligion">Religion</label>
-                                                        <select id="inputReligion" class="form-control" name="DDLreligion" 
-                                                            [(ngModel)]="selectedreligion">
+                                                        <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
+                                                        <select id="inputReligion" class="form-control" formControlName="DDLreligion" 
+                                                            [(ngModel)]="selectedreligion" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">
                                                             <option value="0">--Select--</option>
                                                             <option *ngFor="let religion of religions" [(value)]="religion.id ">
                                                                 {{ religion.religionName }}
@@ -171,9 +170,9 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputCaste">Caste</label>
-                                                        <select id="inputCaste" class="form-control" name="DDLcaste" (change)="onChangecaste($event.target.value)"
-                                                        [(ngModel)]="selectedcaste">
+                                                        <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">Caste</label>
+                                                        <select id="inputCaste" class="form-control" formControlName="DDLcaste" (change)="onChangecaste($event.target.value)"
+                                                        [(ngModel)]="selectedcaste" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">
                                                         <option value="0">--Select--</option>
                                                         <option *ngFor="let caste of castes" [(value)]="caste.id ">
                                                             {{ caste.casteName }}
@@ -181,9 +180,9 @@
                                                     </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputCommunity">Community</label>
-                                                        <select id="inputCommunity" class="form-control" name="DDLcommunity" 
-                                                        [(ngModel)]="selectedcommunity">
+                                                        <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">Community</label>
+                                                        <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" 
+                                                        [(ngModel)]="selectedcommunity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">
                                                         <option value="0">--Select--</option>
                                                         <option *ngFor="let community of communities" [(value)]="community.id ">
                                                             {{ community.communityName }}
@@ -194,8 +193,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="reges-form-bottom-btns">
-                                                    <button mat-button matStepperPrevious class="reg-btn-disable" >{{'Previous' | translate }}</button>
-                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">{{'Next' | translate }}</button>
+                                                    <button mat-button matStepperPrevious class="reg-btn-disable" >Previous</button>
+                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep();">Next</button>
                                                 </div>    
                                             </form>
                                         </mat-step>
@@ -226,50 +225,47 @@
                                                 </div>
                                                 <div class="form-row my-2">
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputHouseno">House / Plot
+                                                        <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot
                                                             Number</label><span class="manto"></span>
-                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.address1" name="address1"
-                                                            placeholder="House Number" required>
+                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.address1" formControlName="house"
+                                                            placeholder="House Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputStreet">Street &
+                                                        <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street &
                                                             Locality</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.address2" name="address2"
-                                                            placeholder="Street" required>
+                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.address2" formControlName="street"
+                                                            placeholder="Street" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputCity">City /
+                                                        <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City /
                                                             Village</label><span class="manto"></span>
-                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.address3" name="address3"
-                                                            placeholder="City" required>
+                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.address3" formControlName="city"
+                                                            placeholder="City" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid}">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputState">State</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.stateName" name="stateName"
-                                                            placeholder="State">
+                                                        <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">State</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="socioDemographicInfo.stateName" formControlName="stateName"
+                                                            placeholder="State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputPincode">Pincode</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="socioDemographicInfo.pincode" name="pincode"
-                                                        ngModel #subjectpincode="ngModel"
-                                                            placeholder="Pincode" required>
+                                                        <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">Pincode</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="socioDemographicInfo.pincode" formControlName="pincode"
+                                                        ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputContact">Contact</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="basicInfo.mobileNo" name="mobileNo"
-                                                    
-                                                            placeholder="Contact Number" required>
+                                                        <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="basicInfo.mobileNo" formControlName="mobileNo"
+                                                        placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputEmail">Email</label>
-                                                        <input type="email" class="form-control" [(ngModel)]="basicInfo.emailId" name="emailId"
-                                                    
-                                                            placeholder="Email" required>
+                                                        <input type="email" class="form-control" [(ngModel)]="basicInfo.emailId" formControlName="emailId"
+                                                         placeholder="Email" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputGovtId">Govt ID Type</label>
-                                                        <select id="inputGovtId" class="form-control" name="DDLGovtIDType"
-                                                        [(ngModel)]="selectedgovtidtype">
+                                                        <label for="inputGovtId" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLGovtIDType"
+                                                        [(ngModel)]="selectedgovtidtype" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
                                                         <option value="0">--Select--</option>
                                                         <option *ngFor="let govId of govtIdTypes" [(value)]="govId.id ">
                                                             {{ govId.govIdTypeName }}
@@ -277,56 +273,53 @@
                                                     </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputGovtdetail">Govt ID Detail</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="basicInfo.govIdDetail" name="govIdDetail"
-                                                    
-                                                            placeholder="Enter Detail" required>
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="basicInfo.govIdDetail" formControlName="govIdDetail"
+                                                        placeholder="Enter Detail" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputrchid">RCH ID</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="personalInfo.rchId" name="rchId"
-                                                    
-                                                            placeholder="RCH ID" required>
+                                                        <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="personalInfo.rchId" formControlName="rchId"
+                                                        placeholder="RCH ID" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputecno">EC Number</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="personalInfo.ecNumber" name="ecNumber"
-                                                    
-                                                            placeholder="EC Number" required>
+                                                        <input type="number" class="form-control" [(ngModel)]="personalInfo.ecNumber" formControlName="ecNumber"
+                                                        placeholder="EC Number" required>
                                                     </div>
         
                                                 </div>
                                                 <div class="form-row my-2">
         
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseFirstname">Spouse First
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.spouseFirstName" name="spouseFirstName"
-                                                    
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.spouseFirstName" formControlName="spouseFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }"
                                                             placeholder="First Name" required>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputSpouseMiddlename">Middle
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.spouseMiddleName" name="spouseMiddleName"
-                                                    
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.spouseMiddleName" formControlName="spouseMiddleName"
+                                                            
                                                             placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseLastname">Last
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">Last
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.spouseLastName" name="spouseLastName"
-                                                    
+                                                        <input type="Text" class="form-control" [(ngModel)]="basicInfo.spouseLastName" formControlName="spouseLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }"
                                                             placeholder="Last Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputspusemoblieno">Spouse Contact</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="basicInfo.spouseContactNo" name="subjectspouseContactNo"
-                                                    
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">Spouse Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="basicInfo.spouseContactNo" formControlName="spouseContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }"
                                                             placeholder="Contact Number" required>
                                                     </div>
                                                 </div>
-                                                <div class="form-row my-2">
+                                                <!-- <div class="form-row my-2">
                                                     <div class="form-group col-md-3">
                                                         <label for="inputG">G</label>
                                                         <select id="inputG" class="form-control" name="ddlG"
@@ -367,10 +360,10 @@
                                                         </option>
                                                     </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="reges-form-bottom-btns">
-                                                    <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">{{'Previous' | translate }}</button>
-                                                    <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">{{'Submit' | translate }}</button>
+                                                    <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">Previous</button>
+                                                    <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
                                                 </div>    
                                             </form>
                                         </mat-step>
@@ -855,7 +848,8 @@
                                                     <td>G{{personalInfo.g}}-P{{personalInfo.p}}-L{{personalInfo.l}}-A{{personalInfo.a}}
                                                     </td>
                                                     <td><b>Barcodes</b></td>
-                                                    <td><b>3423422</b>|3423434|3423442</td>
+                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                    <td>{{personalInfo.barcodes}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -105,3 +105,13 @@ div.dataTables_wrapper div.dataTables_filter svg {
           color:#ffffff;
           background: #1b55e2;
       }
+
+      /* validation style */
+      .red-border-class
+{
+    border: 1px solid red;
+}
+.label-border-class
+{
+    color: red !important;
+}
