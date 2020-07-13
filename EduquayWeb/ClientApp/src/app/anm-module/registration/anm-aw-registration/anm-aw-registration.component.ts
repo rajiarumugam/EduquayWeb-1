@@ -29,6 +29,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   //@ViewChild('f', { static: false }) subRegBasic: NgForm;
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -70,10 +71,18 @@ export class AnmAwRegistrationComponent implements OnInit {
   startOptions1: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now()),
-    maxDate: new Date(Date.now())
+    defaultDate: "",
+    maxDate: ""
+  };
+  startOptionsLMP: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now() - (this.DAY*30)),
+    minDate: "",
+    maxDate: new Date(Date.now() - (this.DAY*30)),
   };
   selecteddor = new Date(Date.now());
+  selectedlmpdate = new Date(Date.now() - (this.DAY*30));
   user;
   createdSubjectId="";
 
@@ -83,7 +92,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedmiddlename;
   selectedlastname;
   selectedrchid;
-  selectedlmpdate;
+  
   selectedECNumber;
   selectedGovtIDDetail;
   selectedhouse;
@@ -130,7 +139,7 @@ export class AnmAwRegistrationComponent implements OnInit {
    });
 
     this.secondFormGroup = this._formBuilder.group({
-      ECNumber: [''],
+      ECNumber: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
       govtIDType: [''],
       GovtIDDetail: [''],
       religion: ['', Validators.required],
@@ -209,6 +218,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     .subscribe(response => {
       this.SCdata = response['sc'];
       this.selectedsc = this.user.scId;
+      if(this.selectedsc === "" && this.SCdata[0])
+        this.selectedsc = this.SCdata[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -220,6 +231,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     .subscribe(response => {
       this.RIdata = response['ri'];
       this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+      if(this.selectedripoint === "" && this.RIdata[0])
+        this.selectedripoint = this.RIdata[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -231,6 +244,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
+      if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -242,6 +257,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
+      if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -255,6 +272,8 @@ export class AnmAwRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -265,6 +284,8 @@ export class AnmAwRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -308,6 +329,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.firstFormCheck = true;
       if(this.firstFormGroup.valid)
         this.stepper.next();
+
+        //this.stepper.next();
     }
 
     prevStep() {
@@ -338,6 +361,7 @@ export class AnmAwRegistrationComponent implements OnInit {
                 this.firstFormCheck = false;
                 this.stepper.selectedIndex = 0;
                 $('#fadeinModal').modal('hide');
+                this.prePopulateFormDetails();
                }
              });
         },
@@ -347,6 +371,28 @@ export class AnmAwRegistrationComponent implements OnInit {
       }
     }
 
+    prePopulateFormDetails()
+    {
+      setTimeout(()=>{    
+          this.selectedDistrict = this.user.districtId;
+          this.selectedchc = this.user.chcId;
+          this.selectedphc = this.user.phcId;
+          this.selectedsc = this.user.scId;
+          this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+          if(this.selectedripoint === "" && this.RIdata[0])
+            this.selectedripoint = this.RIdata[0].id;
+          if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;
+          if(this.casteData[0])
+            this.selectedcaste = this.casteData[0].id;
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
+
+
+          this.selecteddor = new Date(Date.now());
+          this.selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+        }, 100);
+    }
     dataBindinginServce()
     {
       var _obj = {
@@ -396,7 +442,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
-          "rchId": this.firstFormGroup.get('rchid').value,
+          "rchId": ''+this.firstFormGroup.get('rchid').value,
           "ecNumber": this.secondFormGroup.get('ECNumber').value,
           "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
           "g": Number(this.firstFormGroup.get('g').value),

@@ -30,7 +30,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   firstFormCheck = false;
   secondFormCheck = false;
   selectedDistrict = null;
-  selectedgender = null;
+  selectedgender = "Male";
   selectedchc = null;
   selectedphc = null;
   selectedripoint = null;
@@ -39,7 +39,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedreligion = null;
   selectedcaste = null;
   selectedcommunity = null;
-  selectedsubjectTitle = null;
+  selectedsubjectTitle = "Mr";
   selectedfathergovtIDType = null;
   selectedguardiangovtIDType = null;
   selectedschoolstandard = null;
@@ -67,7 +67,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   startOptions1: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now()),
+    defaultDate: "",
     maxDate: new Date(Date.now())
   };
 
@@ -242,6 +242,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
+      if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -253,6 +255,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
+      if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -266,6 +270,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -276,6 +282,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -316,6 +324,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   }
   nextStep(id) 
   {
+    this.stepper.next();
     if(id === 1)
     {
       this.firstFormCheck = true;
@@ -358,6 +367,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
                 this.firstFormCheck = false;
                 this.stepper.selectedIndex = 0;
                 $('#fadeinModal').modal('hide');
+                this.prePopulateFormDetails();
                }
              });
             },
@@ -368,6 +378,27 @@ export class AnmStudentRegistrationComponent implements OnInit {
         console.log(this.dataBindinginServce());
     }
 
+    prePopulateFormDetails()
+    {
+      setTimeout(()=>{    
+          this.selectedDistrict = this.user.districtId;
+          this.selectedchc = this.user.chcId;
+          this.selectedphc = this.user.phcId;
+          this.selectedsc = this.user.scId;
+          this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+          if(this.selectedripoint === "" && this.RIdata[0])
+            this.selectedripoint = this.RIdata[0].id;
+          if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;
+          if(this.casteData[0])
+            this.selectedcaste = this.casteData[0].id;
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
+
+
+          this.selecteddor = new Date(Date.now());
+        }, 100);
+    }
     dataBindinginServce()
     {
       var _obj = {
@@ -464,5 +495,12 @@ export class AnmStudentRegistrationComponent implements OnInit {
       return _obj;
     }
 
+    subjectTitleChange()
+    {
+        if(this.selectedsubjectTitle === "Mr")
+            this.selectedgender = "Male";
+        if(this.selectedsubjectTitle === "Miss")
+            this.selectedgender = "Female";
+    }
 
 }
