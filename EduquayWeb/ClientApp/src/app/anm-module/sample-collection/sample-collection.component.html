@@ -49,16 +49,18 @@
                 <label for="inputFromdate">{{'FromDate' | translate }}
                 </label>
                 <div class="form-group mb-0">
-                  <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
+                  <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
                   [(ngModel)]="fromDate" required
-                    placeholder="Select Date...">
+                    placeholder="Select Date..."> -->
+                    <ng2-flatpickr id="scFromDate" name="scFromDate" class="form-control flatpickr flatpickr-input active" #startPicker [config]="startOptions" placeholder="Select Date.." formControlName = "dor" [(ngModel)]="fromDate"></ng2-flatpickr>
                 </div>
               </div>
               <div class="form-group col-md-2">
                 <label for="inputTodate">{{'ToDate' | translate }}</label>
                 <div class="form-group mb-0">
-                  <input id="scToDate" class="form-control flatpickr flatpickr-input" name="toDate" type="text"
-                  [(ngModel)]="toDate"  required  placeholder="Select Date...">
+                  <!-- <input id="scToDate" class="form-control flatpickr flatpickr-input" name="toDate" type="text"
+                  [(ngModel)]="toDate"  required  placeholder="Select Date..."> -->
+                  <ng2-flatpickr id="scToDate" name="scToDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="endOptions" placeholder="Select Date.." formControlName = "dor" [(ngModel)]="toDate"></ng2-flatpickr>
                 </div>
               </div>
               <div class="form-group col-md-2">
@@ -187,13 +189,16 @@
                         </div>
                         <div class="form-group col-md-3">
                           <label class="note">Date of Collection <span class="manto">*</span></label>
-                          <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
-                            placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required>
+                          <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                            placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                            <ng2-flatpickr id="popupDate" name="collectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate" [(ngModel)]="collectionDate"></ng2-flatpickr>
+
                         </div>
                         <div class="form-group col-md-3">
                           <label class="note">Time of Collection <span class="manto">*</span></label>
-                          <input id="popupTime" class="form-control flatpickr flatpickr-input" type="text"  [(ngModel)]="collectionTime " 
-                           placeholder="Select Time..."  name="collectionTime" required>
+                          <!-- <input id="popupTime" class="form-control flatpickr flatpickr-input" type="text"  [(ngModel)]="collectionTime " 
+                           placeholder="Select Time..."  name="collectionTime" required> -->
+                           <ng2-flatpickr id="popupTime" name="collectionTime" class="form-control flatpickr flatpickr-input active" #collectionTimePicker [config]="collectionTimeOptions" placeholder="Select Date.." formControlName = "collectionTime" [(ngModel)]="collectionTime"></ng2-flatpickr>
                         </div>
                       </div>
                     </div>

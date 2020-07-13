@@ -178,13 +178,19 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   openPicknpack(picknPackdetail) {
-
     this.picknpackErrorMessage = '';
     this.fetchBarcode();
-    if(this.selectedBarcodes === ""){
-      this.showResponseMessage(`Please select atleast one sample to create shipment`, 'e');
+
+    if(this.sampleList === null || this.sampleList.length <= 0){
+      this.showResponseMessage(`Sample collection does not exist to pick and pack`, 'e');
+      return false;
+    }
+    if(this.selectedBarcodes === '' || this.selectedBarcodes === undefined){
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     } 
+    
+
     this.name = this.user.name;
     this.modalService.open(
       picknPackdetail, {
@@ -270,8 +276,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //var shipmentId = "123";
     console.log(shipmentForm.value);
 
-    if (this.selectedBarcodes === '') {
-      this.showResponseMessage(`Please select atleast one sample to create shipment`, 'e');
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }
 
@@ -285,7 +291,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
     this.anmaddshipmentRequest = {
-      anmId: this.user.userTypeId,
+      anmId: this.user.id,
       riId: +(this.riId),
       ilrId: +(this.ilrId),
       avdId: +(this.avdId),

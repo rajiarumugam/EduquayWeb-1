@@ -56,7 +56,8 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'ContactNumber' | translate }}</label><span class="manto"> *</span>
-                            <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">
+                            <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "10">
                         </div>
                     </div>
 
@@ -87,7 +88,8 @@
                             </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>
-                            <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                            <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "2">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputRCHID" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">{{'RCHID' | translate }}</label><span class="manto"> *</span>
@@ -140,7 +142,7 @@
            
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
             <div class="reges-form-main-container">
                 <div class="form-row my-2">
@@ -228,7 +230,8 @@
                         <label class="birthreg" for="inputmoblienospouse" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">{{'SpouseContactNumber' | translate }}<span
                             class="manto"> *</span></label>
                         <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
-                            required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">
+                            required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "10">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputPincode1">{{'Email' | translate }}</label>

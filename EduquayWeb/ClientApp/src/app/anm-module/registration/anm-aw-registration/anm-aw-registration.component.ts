@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { TokenService } from 'src/app/shared/token.service';
 declare var $: any 
-
+import { Router, ActivatedRoute } from '@angular/router';
 declare var exposedFunction;
 
 
@@ -67,11 +67,36 @@ export class AnmAwRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
   selecteddor = new Date(Date.now());
-  userId = 2;
+  user;
   createdSubjectId="";
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) {
+  selectedPincode;
+  selectedMobile;
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedrchid;
+  selectedlmpdate;
+  selectedECNumber;
+  selectedGovtIDDetail;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedspouseFirstName;
+  selectedspouseMiddleName;
+  selectedspouseLastName;
+  selectedspouseContactNumber;
+  selectedspouseEmail;
+
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -79,16 +104,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
+  ngOnInit() {    
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -157,6 +174,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
       this.districts = response['district'];
+      this.selectedDistrict = this.user.districtId;
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
@@ -167,6 +185,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
       this.CHCdata = response['chc'];
+      this.selectedchc = this.user.chcId;
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -177,6 +196,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedPHC()
     .subscribe(response => {
       this.PHCdata = response['phc'];
+      this.selectedphc = this.user.phcId;
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
@@ -188,6 +208,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
+      this.selectedsc = this.user.scId;
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -198,6 +219,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
+      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -305,8 +327,8 @@ export class AnmAwRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-         
                 $('#fadeinModal').modal('hide');
+                this.router.navigateByUrl("app/anm-sample-collection");
                
                }
                else{
@@ -347,7 +369,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? +this.secondFormGroup.get('govtIDType').value : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
           "spouseSubjectId": "",
           "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
@@ -356,10 +378,10 @@ export class AnmAwRegistrationComponent implements OnInit {
           "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": this.user.registeredFrom,
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -371,7 +393,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.firstFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchid').value,
@@ -381,7 +403,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "p": Number(this.firstFormGroup.get('p').value),
           "l": Number(this.firstFormGroup.get('l').value),
           "a": Number(this.firstFormGroup.get('a').value),
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -413,7 +435,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 

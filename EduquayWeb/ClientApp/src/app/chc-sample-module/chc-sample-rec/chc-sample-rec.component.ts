@@ -51,6 +51,7 @@ export class CHCSampleRcptComponent implements OnInit {
   fromDate = "";
   toDate = "";
   formCheck = false;
+  selectedreceivedDate;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -93,9 +94,6 @@ export class CHCSampleRcptComponent implements OnInit {
 
     this.chcReceiptsData = [];
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
-
-    console.log('test');
-    console.log(chcReceiptsArr);
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
       this.chcReceiptsData = chcReceiptsArr.chcReceipts;
     }
@@ -106,7 +104,6 @@ export class CHCSampleRcptComponent implements OnInit {
   }
   
   openPopup(data) {
-    console.log(data);
     var _data:any = data;
     this.popupData = _data;
     this.popupData['receiptDetail'].forEach(function(val,index){
@@ -129,72 +126,42 @@ export class CHCSampleRcptComponent implements OnInit {
 
   processingDateChange()
   {
-
-    this.popupData['receiptDetail'].forEach(function(val,index){
-      console.log(val);
-      console.log(index);
-      console.log(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')));
-      if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
-      {
-          val.sampleTimeout = true;
-          val.accept = false;
-          val.reject = true;
-          val.sampleDamaged = false;
-          val.barcodeDamaged = false;
-      }
-      else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
-      {
-          val.sampleTimeout = false;
-          val.accept = true;
-          val.reject = false;
-          val.sampleDamaged = false;
-          val.barcodeDamaged = false;
-      }
-      else
-      {
-        val.sampleTimeout = true;
-        val.accept = false;
-        val.reject = true;
-        val.sampleDamaged = false;
-        val.barcodeDamaged = false;
+    if(this.form.get('processingDate').value.length > 0)
+    {
+      this.popupData['receiptDetail'].forEach(function(val,index){
+        if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
+            this.resettingTableEvents(val,true,false,true,false,false);
+        else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+            this.resettingTableEvents(val,false,true,false,false,false);
+        else
+          this.resettingTableEvents(val,true,false,true,false,false);
+      },this);
     }
-    },this);
+    
   }
 
   sampleDamageChange(index)
   {
     this.popupData['receiptDetail'][index].sampleDamaged = !this.popupData['receiptDetail'][index].sampleDamaged;
     if(this.popupData['receiptDetail'][index].sampleDamaged)
-    {
-      this.popupData['receiptDetail'][index].sampleTimeout = false;
-      this.popupData['receiptDetail'][index].accept = false;
-      this.popupData['receiptDetail'][index].reject = true;
-    }else{
+      this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
+    else{
       if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
-      {
-        this.popupData['receiptDetail'][index].sampleTimeout = true;
-        this.popupData['receiptDetail'][index].accept = false;
-        this.popupData['receiptDetail'][index].reject = true;
-        this.popupData['receiptDetail'][index].sampleDamaged = false;
-        this.popupData['receiptDetail'][index].barcodeDamaged = false;
-      }
+        this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
       else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
-      {
-        this.popupData['receiptDetail'][index].sampleTimeout = false;
-        this.popupData['receiptDetail'][index].accept = true;
-        this.popupData['receiptDetail'][index].reject = false;
-        this.popupData['receiptDetail'][index].sampleDamaged = false;
-        this.popupData['receiptDetail'][index].barcodeDamaged = false;
-      }
+        this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
       else
-      {
-        this.popupData['receiptDetail'][index].sampleTimeout = true;
-        this.popupData['receiptDetail'][index].accept = false;
-        this.popupData['receiptDetail'][index].reject = true;
-        this.popupData['receiptDetail'][index].sampleDamaged = false;
-        this.popupData['receiptDetail'][index].barcodeDamaged = false;
+        this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
     }
-    }
+  }
+
+  resettingTableEvents(arr,sampleTO,accept,reject,sampleD,barcodeD)
+  {
+      arr.sampleTimeout = sampleTO;
+      arr.accept = accept;
+      arr.reject = reject;
+      arr.sampleDamaged = sampleD;
+      arr.barcodeDamaged = barcodeD;
   }
   barcodeDamageChange(index)
   {
@@ -216,9 +183,6 @@ export class CHCSampleRcptComponent implements OnInit {
         this.dtTrigger.next();
       });
     }   
-  
-       
-  
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }   
@@ -226,20 +190,16 @@ export class CHCSampleRcptComponent implements OnInit {
     sampleSubmit()
     {
           this.formCheck = true;
-          console.log(this.form.get('processingDate').value);
-          console.log(this.form.get('receivedDate').value);
           
           if(this.form.get('processingDate').value)
           {
               var user = JSON.parse(this.tokenService.getUser('lu'));
-              console.log(user);
-              console.log(this.popupData['receiptDetail']);
               var _sampleResult = [];
 
               for(var i=0;i<this.popupData['receiptDetail'].length;i++)
               {
                   var _obj = {};
-                  _obj['shipmentId'] = this.popupData['receiptDetail'][i].shipmentId;
+                  _obj['shipmentId'] = this.popupData.shipmentId;
                   _obj['receivedDate'] = this.form.get('receivedDate').value != undefined ? moment(new Date(this.form.get('receivedDate').value)).format("DD/MM/YYYY") : '';
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
                   if(this.popupData.shipmentFrom === 'ANM - CHC')
@@ -264,7 +224,9 @@ export class CHCSampleRcptComponent implements OnInit {
               var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDRECEIVEDSHIPMENT);
               this.httpClientService.post<any>({url:apiUrl, body: {_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
-                Swal.fire({icon:'success', title: 'Shipment Received Successfully',
+                if(response.status)
+                {
+                  Swal.fire({icon:'success', title: 'Shipment Received Successfully',
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {
@@ -272,11 +234,14 @@ export class CHCSampleRcptComponent implements OnInit {
                         }
                         
                       });
+                }else{
+                    this.errorMessage = response.message;
+                }
+                
                     },
                     (err: HttpErrorResponse) =>{
                       console.log(err);
                     });
-              console.log(_sampleResult);
           }
     }
   

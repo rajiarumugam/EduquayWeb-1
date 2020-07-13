@@ -12,11 +12,12 @@ import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SpouseregistrationService } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.service';
 import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.models';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
+
 
 @Component({
   selector: 'app-anm-spouse-registration',
@@ -27,12 +28,16 @@ export class AnmSpouseRegistrationComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChild('startPicker1', { static: false }) pickerStart;
+  @ViewChild('endPicker', { static: false }) pickerEnd;
+
   positiveSpouseResponse: PositiveSpouseResponse;
   districts: District[] = [];
   errorMessage: string;
   errorSpouseMessage: string;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  dateform:FormGroup;
   firstFormCheck = false;
   secondFormCheck = false;
   selectedDistrict = null;
@@ -61,6 +66,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   selecteddob;
   selectedage;
   selecteddor = new Date(Date.now());
+  DAY = 86400000;
   GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -68,18 +74,29 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  /*startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: '',
+    minDate: new Date(Date.now() - (this.DAY*365)),
+    maxDate: new Date(Date.now())
+  };*/
   startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: "",
+    maxDate: new Date(Date.now()),
+  };
+
+  startOptions2: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: '',
     maxDate: new Date(Date.now())
   };
-
-  startOptions2: FlatpickrOptions = {
-    enable: ["2025-03-30"]
-  };
-  userId = 2;
+  user;
   createdSubjectId="";
+  
 
   spouseData: positiveSubject[] = [];
   selectedanwname;
@@ -91,6 +108,19 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   fromDate = "";
   toDate = "";
 
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedspouseContactNumber;
+  selectedspouseEmail;
+  selectedGovtIDDetail;
+  selectedhouse;
+  selectedstreet;
+  selectedstate;
+  selectedPincode;
+  selectedECNumber;
+  selectedcity;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   constructor(
@@ -101,12 +131,13 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     private spouseregistrationService: SpouseregistrationService,
     private genericService: GenericService,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
     ) { }
 
   ngOnInit() {
     
-    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -126,6 +157,10 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       }   
     };
     
+    this.dateform = this._formBuilder.group({
+      fromDate: [''],
+      toDate: ['']
+    });
     this.firstFormGroup = this._formBuilder.group({
       anwname:['', Validators.required],
       subjectId:['', Validators.required],
@@ -173,19 +208,40 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       this.errorMessage = positiveSpouseResponse.message;
     }
 
+
+    // End Date Changes
+    this.dateform.controls.toDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate1 = changes[0].getTime();
+      console.log(selectedDate1);
+      const monthLaterDate = selectedDate1;
+      this.pickerStart.flatpickr.set({
+        maxDate: new Date(selectedDate1)
+      });
+      console.log(this.pickerStart.flatpickr);
+    });
+
+    // Start Date Changes
+    this.dateform.controls.fromDate.valueChanges.subscribe(changes => {
+      // console.log('start: ', changes);
+      if (!changes[0]) return;
+      const selectedDate = changes[0].getTime();
+      const monthLaterDate = selectedDate + (this.DAY*30);
+      // console.log(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
+      this.pickerEnd.flatpickr.set({
+        minDate: new Date(selectedDate),
+      });
+      // this.pickerEnd.flatpickr.setDate(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
+      // console.log(this.pickerEnd.flatpickr);
+    });
+
+    
   }
 
   fromDateChange()
   {
       console.log(this.fromDate);
-
-      this.startOptions2 = {
-        mode: 'single',
-        dateFormat: 'd/m/Y',
-        defaultDate: '',
-        maxDate: new Date(Date.now()),
-        enable: []
-      };
   }
   getSpouseDetails() {
     var _subjectObj = {
@@ -396,6 +452,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
        .then((result) => {
          if (result.value) {
           $('#fadeinModal').modal('hide');
+          this.router.navigateByUrl("app/anm-sample-collection");
          
          }
          else{
@@ -448,10 +505,10 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -463,7 +520,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchId').value,
@@ -473,7 +530,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "p": 0,
           "l": 0,
           "a": 0,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -505,7 +562,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 

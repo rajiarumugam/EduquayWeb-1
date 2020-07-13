@@ -78,7 +78,7 @@
                             </div> -->
                             <div class="form-row">
                                 <div class="col-md-10">
-                                    <div *ngIf="picknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='No samples found', 'alert-danger': shipmentLogErrorMessage !== 'No samples found'}">
+                                    <div *ngIf="shipmentLogErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='No samples found', 'alert-danger': shipmentLogErrorMessage !== 'No samples found'}">
                                         <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{shipmentLogErrorMessage}}
                                       </div>
                                 </div>
@@ -104,7 +104,7 @@
                                             <td style="text-align: center">{{shipment.shipmentId}}</td>
                                             <td style="text-align: center">{{shipment.shipmentDateTime}}</td>
                                             <td style="text-align: center">{{shipment.ilrPoint}}</td>
-                                            <td style="text-align: center">{{shipment.avdName}}</td>
+                                            <td style="text-align: left">{{shipment.avdName}}</td>
                                             <td style="text-align: center">{{shipment.testingCHC}}</td>
                                             <td style="text-align: center"><a (click)="openShipment(shippedSampleDetail, shipment)">
                                                 <i class="fa fa-file-text-o text-primary"

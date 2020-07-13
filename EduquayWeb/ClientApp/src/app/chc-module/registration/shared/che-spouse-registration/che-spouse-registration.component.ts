@@ -12,6 +12,7 @@ import { GenericService } from '../../../../shared/generic.service';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+import { TokenService } from 'src/app/shared/token.service';
 
 @Component({
   selector: 'che-spouse-registration',
@@ -66,7 +67,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
     defaultDate: '',
     maxDate: new Date(Date.now())
   };
-  userId = 2;
+  user;
   createdSubjectId="";
 
   spouseData = [];
@@ -79,13 +80,26 @@ export class CheSpouseRegistrationComponent implements OnInit {
   fromDate = "";
   toDate = "";
 
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedspouseContactNumber;
+  selectedspouseEmail;
+  selectedGovtIDDetail;
+  selectedhouse;
+  selectedstreet;
+  selectedstate;
+  selectedPincode;
+  selectedECNumber;
+  selectedcity;
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService) { }
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
   ngOnInit() {
     
-    
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -197,6 +211,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
       this.districts = response['district'];
+      this.selectedDistrict = this.user.districtId;
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
@@ -207,6 +222,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
       this.CHCdata = response['chc'];
+      this.selectedchc = this.user.chcId;
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -217,6 +233,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedPHC()
     .subscribe(response => {
       this.PHCdata = response['phc'];
+      this.selectedphc = this.user.phcId;
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
@@ -228,6 +245,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
+      this.selectedsc = this.user.scId;
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -238,6 +256,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
+      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -404,10 +423,10 @@ export class CheSpouseRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -419,7 +438,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": this.firstFormGroup.get('rchId').value,
@@ -429,7 +448,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
           "p": 0,
           "l": 0,
           "a": 0,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": "",
@@ -461,7 +480,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
           "standard": "",
           "section": "",
           "rollNo": "",
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 

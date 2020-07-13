@@ -204,7 +204,7 @@ vertical-align: middle;
 }
 ::ng-deep .modal-content .modal-footer,::ng-deep .modal-content .modal-header
 {
-    display: none !important;
+    /*display: none !important;*/
 }
 .fa-check-circle
 {
@@ -248,5 +248,5 @@ vertical-align: middle;
     background: initial;
     background-color: #1b55e2;
     color: #fff;
-    font-size: 14px;
+    font-size: 13px;
 }

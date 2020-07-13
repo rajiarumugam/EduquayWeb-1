@@ -13,6 +13,7 @@ import { GenericService } from '../../../shared/generic.service';
 declare var $: any 
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-anm-student-registration',
@@ -63,14 +64,54 @@ export class AnmStudentRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
 
 
   createdSubjectId;
-  userId = 2;
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
+  user;
+
+  selectedfirstname;
+  selectedmiddlename;
+  selectedlastname;
+  selectedMobile;
+  selectedhouse;
+  selectedstreet;
+  selectedcity;
+  selectedstate;
+  selectedPincode;
+  selectedmotherFirstName;
+  selectedmotherMiddleName;
+  selectedmotherLastName;
+  selectedmotherGovtIDDetail;
+  selectedmotherContactNumber;
+  selectedfatherFirstName;
+  selectedfatherMiddleName;
+  selectedfatherLastName;
+  selectedfatherGovtIDDetail;
+  selectedfatherContactNumber;
+  selectedguardianFirstName;
+  selectedguardianMiddleName;
+  selectedguardianLastName;
+  selectedguardianGovtIDDetail;
+  selectedguardianContactNumber;
+  selectedschoolName;
+  selectedschoolstreet;
+  selectedschoolcity;
+  selectedschoolstate;
+  selectedSchoolPincode;
+  selectedrbskid;
+  selectedschoolsection;
+  selectedrollnumber;
+
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) { }
 
   ngOnInit() {
-    this.userId = JSON.parse(this.tokenService.getUser('lu')).id;
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
@@ -144,6 +185,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
       this.districts = response['district'];
+      this.selectedDistrict = this.user.districtId;
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
@@ -154,6 +196,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
       this.CHCdata = response['chc'];
+      this.selectedchc = this.user.chcId;
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -164,6 +207,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedPHC()
     .subscribe(response => {
       this.PHCdata = response['phc'];
+      this.selectedphc = this.user.phcId;
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
@@ -175,6 +219,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
+      this.selectedsc = this.user.scId;
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -185,6 +230,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
+      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -301,9 +347,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-         
                 $('#fadeinModal').modal('hide');
-               
+                this.router.navigateByUrl("app/anm-sample-collection");
                }
                else{
                 this.firstFormGroup.reset();
@@ -354,10 +399,10 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.userId,
+          "assignANMId": this.user.id,
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-          "registeredFrom": Number(this.userId),
-          "createdBy": Number(this.userId),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
           "source": "N"
         },
         "subjectAddressRequest": {
@@ -369,7 +414,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": this.secondFormGroup.get('state').value,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": '0',
@@ -379,7 +424,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "p": 0,
           "l": 0,
           "a": 0,
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
           "motherFirstName": this.secondFormGroup.get('motherFirstName').value,
@@ -412,7 +457,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
           "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
           "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
-          "updatedBy": Number(this.userId)
+          "updatedBy": Number(this.user.id)
         }
       };
 
