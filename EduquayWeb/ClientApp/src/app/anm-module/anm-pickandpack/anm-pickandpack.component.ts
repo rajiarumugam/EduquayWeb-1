@@ -276,7 +276,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //var shipmentId = "123";
     console.log(shipmentForm.value);
 
-    if (this.selectedBarcodes === '') {
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }
