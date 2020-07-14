@@ -59,6 +59,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   reason: string;
   barcodeNo: string;
   collectionDate: string;
+  sampleCollectionDate: string;
+  sampleCollectionTime: string;
   collectionTime: string;
   resultFromPostResponse: string;
   subjectTypes: subjuctType[] = [];
@@ -87,10 +89,12 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
   collectionDateOptions: FlatpickrOptions = {
     mode: 'single',
-    dateFormat: 'd/m/Y',
+    dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
     minDate: this.dyCollectionDate,
-    maxDate: new Date(Date.now())
+    maxDate: new Date(Date.now()),
+    enableTime: true,
+    
   };
   collectionTimeOptions: FlatpickrOptions = {
     mode: 'single',
@@ -229,11 +233,13 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.uniqueSubjectId = subject.uniqueSubjectId;
     this.rchId = subject.rchId;
     this.reason = subject.reason;
-
+    this.sampleCollectionDate = moment().format("DD/MM/YYYY");
+    this.sampleCollectionTime = moment().format("HH:mm");
     //const dateParts = subject.dateOfRegister.split('/');
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
     const regDate = new Date(subject.dateOfRegister.replace(pattern,'$3/$2/$1'));
     this.collectionDateOptions.minDate = regDate;
+    this.collectionTimeOptions.minDate = regDate;
 
     this.modalService.open(
       subjectDetailModal,{
@@ -253,7 +259,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     //this.submitted = true;
     console.log(collectionForm.value);
     //collectionForm.reset();
-    this.barcodeNo = collectionForm.value.sampleBarcode;
+    this.barcodeNo = this.popupform.controls.barcode.value; //collectionForm.value.sampleBarcode;
     // if(this.barcodeNo === '' || this.barcodeNo == null){
     //   return false;
     // }
@@ -265,8 +271,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       reason: this.reason,
       barcodeNo: this.barcodeNo,
       collectionFrom: this.user.sampleCollectionFrom,
-      sampleCollectionDate: this.collectionDate,
-      sampleCollectionTime: this.collectionTime,
+      sampleCollectionDate: this.sampleCollectionDate,
+      sampleCollectionTime: this.sampleCollectionTime,
       collectedBy: this.user.id,
     };
 
@@ -311,13 +317,16 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   InitializeDateRange() {
     this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
     this.scToDate = moment().format("DD/MM/YYYY");
+
     this.dateform = this._formBuilder.group({
       fromDate: [moment().add(-1, 'day')],
       toDate: [moment()],
       selectedSubjectType: ['0']
     });
     this.popupform = this._formBuilder.group({
-      collectionDate: [moment().add(-1, 'day')]
+      collectionDate: [moment().add(-1, 'day')],
+      collectionTime: [new Date()],
+      barcode: ['']
     });
 
     // Start Date Changes
@@ -353,6 +362,27 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       // });
     });
 
+    //Change of sample collection date
+    this.popupform.controls.collectionDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate2 = changes[0].getTime();
+      this.sampleCollectionDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+      this.sampleCollectionTime = moment(new Date(selectedDate2)).format("HH:mm");
+    });
+
+    // //Change of sample collection time
+    // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
+    //   console.log('end: ', changes);
+    //   if (!changes[0]) return;
+    //   const selectedDate3 = changes[0].getTime();
+    //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
+
+    //   //const monthLaterDate = selectedDate1;
+    //   // this.startPicker.flatpickr.set({
+    //   //   defaultDate: new Date(selectedDate1)
+    //   // });
+    // });
   }
 
   rerender(): void {
