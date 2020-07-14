@@ -202,10 +202,10 @@ vertical-align: middle;
 {
     border:none;
 }
-::ng-deep .modal-content .modal-footer,::ng-deep .modal-content .modal-header
+/*.modal-content .modal-footer,::ng-deep .modal-content .modal-header
 {
-    /*display: none !important;*/
-}
+    display: none !important;
+}*/
 .fa-check-circle
 {
     font-size: 50px !important;
