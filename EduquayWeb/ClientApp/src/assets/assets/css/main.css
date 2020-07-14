@@ -2146,3 +2146,7 @@ select{
     color: red !important;
 }
 
+input.flatpickr-input {
+    border: none ! important;
+}
+

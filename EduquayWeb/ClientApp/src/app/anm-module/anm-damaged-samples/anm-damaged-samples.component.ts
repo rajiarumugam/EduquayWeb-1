@@ -12,6 +12,8 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { NgForm } from '@angular/forms';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import * as moment from 'moment';
+import { FlatpickrOptions } from 'ng2-flatpickr';
 
 
 @Component({
@@ -48,6 +50,21 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   collectionDate: string;
   collectionTime: string;
   notifySamples: string;
+
+  collectionDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  collectionTimeOptions: FlatpickrOptions = {
+    mode: 'single',
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",    
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
   
 
   constructor(
@@ -83,8 +100,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
         //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
       }
     };
-    this.collectionDate = this.dateService.getDate();
-    this.collectionTime = this.dateService.getTime();
+    // this.collectionDate = this.dateService.getDate();
+    // this.collectionTime = this.dateService.getTime();
+    this.collectionDate = moment().format("DD/MM/YYYY");
+    this.collectionTime = moment().format("HH:mm");
     console.log(this.DamagedSamplesService.damagedSamplesApi);
     //this.anmdamagedSamples();
 

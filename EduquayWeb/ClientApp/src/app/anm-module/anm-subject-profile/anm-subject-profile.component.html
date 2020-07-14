@@ -143,7 +143,7 @@
                                                         <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">Last
                                                             Name</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="basicInfo.lastName" formControlName="lastName"
-                                                        placeholder="Last Name" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
+                                                        placeholder="Last Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
                                                     </div>
                                                 </div>
                                                 <div class="form-row mt-4">
@@ -161,17 +161,17 @@
         
                                                     <div class="form-group col-md-4">
                                                         <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
-                                                        <select id="inputReligion" class="form-control" formControlName="DDLreligion" 
+                                                        <select id="inputReligion" class="form-control" formControlName="DDLreligion" required
                                                             [(ngModel)]="selectedreligion" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">
                                                             <option value="0">--Select--</option>
-                                                            <option *ngFor="let religion of religions" [(value)]="religion.id ">
+                                                            <option *ngFor="let religion of religions" [(value)]="religion.id">
                                                                 {{ religion.religionName }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">Caste</label>
-                                                        <select id="inputCaste" class="form-control" formControlName="DDLcaste" (change)="onChangecaste($event.target.value)"
+                                                        <select id="inputCaste" class="form-control" formControlName="DDLcaste" required (change)="onChangecaste($event.target.value)"
                                                         [(ngModel)]="selectedcaste" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">
                                                         <option value="0">--Select--</option>
                                                         <option *ngFor="let caste of castes" [(value)]="caste.id ">
@@ -181,7 +181,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">Community</label>
-                                                        <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" 
+                                                        <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" required
                                                         [(ngModel)]="selectedcommunity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">
                                                         <option value="0">--Select--</option>
                                                         <option *ngFor="let community of communities" [(value)]="community.id ">
@@ -194,7 +194,7 @@
                                                 </div>
                                                 <div class="reges-form-bottom-btns">
                                                     <button mat-button matStepperPrevious class="reg-btn-disable" >Previous</button>
-                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep();">Next</button>
+                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">Next</button>
                                                 </div>    
                                             </form>
                                         </mat-step>

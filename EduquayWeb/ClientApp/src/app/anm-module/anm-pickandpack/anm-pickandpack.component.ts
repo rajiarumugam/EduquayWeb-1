@@ -13,6 +13,8 @@ import { Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
 //import { library } from '@fortawesome/fontawesome-svg-core'
 //import { fas } from '@fortawesome/free-solid-svg-icons'
 //import { far } from '@fortawesome/free-regular-svg-icons'
@@ -70,6 +72,22 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   sampleSelected: boolean;
   selectedAll: any;
 
+  shipmentDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  shipmentTimeOptions: FlatpickrOptions = {
+    mode: 'single',
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",    
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  
+
   constructor(
     private PicknpackService: PicknpackService,
     private modalService: NgbModal,
@@ -102,8 +120,10 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       } 
     };
     
-    this.dateOfShipment =  this.dateService.getDate();
-    this.timeOfShipment = this.dateService.getTime();
+    // this.dateOfShipment =  this.dateService.getDate();
+    // this.timeOfShipment = this.dateService.getTime();
+    this.dateOfShipment = moment().format("DD/MM/YYYY");
+    this.timeOfShipment = moment().format("HH:mm");
     console.log(this.PicknpackService.pickandpackListApi);
     this.ddlRiPoint(this.user.id);
    // this.anmpicknpackList();

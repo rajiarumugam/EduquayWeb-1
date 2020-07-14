@@ -72,6 +72,7 @@ body.swal2-iosfix {
     background-color: #1b55e2;
     color: #fff;
     font-size: 13px !important;
+    /* font-weight: 700 !important; */
 }
   .swal2-modal.background-modal .swal2-title {
     color: #fff !important; }
@@ -142,6 +143,7 @@ body.swal2-iosfix {
 .swal2-popup .swal2-styled.swal2-cancel {
     background-color: #fff;
     color: #1b55e2;
+    /* color: #f9f9fb ! important; */
     font-weight: 700;
     border: 1px solid #ccc;
 }
@@ -384,7 +386,7 @@ body.swal2-iosfix {
     color: #ffbb44 !important;
     /* border: 5px solid #f1f2f3 !important; */
     box-shadow: 0px 3px 25px 0px rgba(113, 106, 202, 0.2);
-    font-size: 60px;
+    font-size: 14px;
     line-height: 80px;
     text-align: center; }
   .swal2-icon.swal2-info {
@@ -392,7 +394,7 @@ body.swal2-iosfix {
     /* color: #1b55e2 !important;
     border: 5px solid #f1f2f3 !important;
     box-shadow: 0px 3px 25px 0px rgba(113, 106, 202, 0.2); */
-    font-size: 60px;
+    font-size: 14px;
     line-height: 80px;
     text-align: center; }
     .swal2-icon.swal2-info {

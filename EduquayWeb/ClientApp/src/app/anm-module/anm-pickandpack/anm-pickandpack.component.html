@@ -238,17 +238,23 @@
                                                             <div class="form-group col-md-2">
                                                                 <label>Shipment Date<span
                                                                     class="manto">*</span></label>
-                                                                <input id="shipmentdate"
+                                                                <!-- <input id="shipmentdate"
                                                                     class="form-control flatpickr flatpickr-input"
-                                                                    type="text" placeholder="Select Date..."  name="dateOfShipment" [(ngModel)]="dateOfShipment">
+                                                                    type="text" placeholder="Select Date..."  name="dateOfShipment" [(ngModel)]="dateOfShipment"> -->
+                                                                <ng2-flatpickr id="shipmentdate" class="form-control flatpickr flatpickr-input" type="text" #collectionDatePicker
+                                                                [config]="shipmentDateOptions" placeholder="Select Date..." name="dateOfShipment" [(ngModel)]="dateOfShipment"
+                                                                required formControlName="dateOfShipment" ></ng2-flatpickr>
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label>Shipment Time <span
                                                                     class="manto">*</span></label>
-                                                                <input id="shipmenttime"
-                                                                    class="form-control flatpickr flatpickr-input active "
+                                                                <!-- <input id="shipmenttime"
+                                                                    class="form-control flatpickr flatpickr-input active"
                                                                     type="text" placeholder="Select Time..." name="timeOfShipment" 
-                                                                    [(ngModel)]="timeOfShipment">
+                                                                    [(ngModel)]="timeOfShipment"> -->
+                                                                <ng2-flatpickr id="shipmenttime" class="form-control flatpickr flatpickr-input" type="text"  
+                                                                [(ngModel)]="timeOfShipment" #collectionTimePicker [config]="shipmentTimeOptions" formControlName="timeOfShipment"
+                                                                placeholder="Select Time..."  name="timeOfShipment" required></ng2-flatpickr>
                                                             </div>
                                                         </div>
                                                         <br>
@@ -267,7 +273,7 @@
                                             </div>
                                     </form>
                                     </div>
-                                    <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i>
+                                    <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
                                 </ng-template>
                           
                        
