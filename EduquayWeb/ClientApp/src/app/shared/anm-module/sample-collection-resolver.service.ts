@@ -13,8 +13,8 @@ import { TokenService } from '../token.service';
 export class SampleCollectionResolverService implements Resolve<any>{
   sampleCollectionResponse;
   scRequest: SampleCollectionRequest;
-  fromDate: string = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
-  toDate: string = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
+  scFromDate: string = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
+  scToDate: string = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
   selectedSubjectType: string = '1';
 
   constructor(
@@ -30,7 +30,8 @@ export class SampleCollectionResolverService implements Resolve<any>{
     var user = JSON.parse(this.tokenService.getUser('lu'));
     
     this.scRequest = {
-      userId: user.id, fromDate: '', toDate: '', subjectType: +(this.selectedSubjectType),
+      userId: user.id,  fromDate: this.scFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
+      toDate: this.scToDate, subjectType: +(this.selectedSubjectType),
       registeredFrom: user.registeredFrom
     };
 

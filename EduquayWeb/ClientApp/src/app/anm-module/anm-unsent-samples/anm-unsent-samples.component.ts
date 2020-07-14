@@ -357,7 +357,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     this.unsentSamplesErrorMessage = '';
     this.expirysamplesBarcode();
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs for move it to expiry`, 'e');
       return false;
     }
     if(this.selectedBarcodes !== null){
@@ -483,7 +483,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging >= '0') {
+      if (element.sampleSelected === true && element.sampleAging >= '24') {
       //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
