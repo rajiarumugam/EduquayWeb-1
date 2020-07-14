@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="positivesub" role="tabpanel" aria-labelledby="positivesub-tab">
     <div class="form-row">
         <div class="col-md-12">
-            <div *ngIf="damagedSamplesErrorMessage" class="alert mt-3 mb-2"
+            <div *ngIf="positiveSamplesErrorMessage" class="alert mt-3 mb-2"
                 [ngClass]="{'alert-warning': positiveSubjectErrorMessage ==='No sample data  found', 'alert-danger': positiveSubjectErrorMessage !== 'No sample data  found'}">
                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
                 {{positiveSubjectErrorMessage}}

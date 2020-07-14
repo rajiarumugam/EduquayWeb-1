@@ -650,9 +650,6 @@ select.form-control.form-custom {
     color: #1b55e2;
     font-size: 30px !important;
 }	
-.tbl-ht {
-    /*min-height: 425px; */
-}
 
 /* Font End */
 
@@ -1669,9 +1666,6 @@ table .badge-info, table .badge-secondary, table .badge-dark  {
     100%{ -webkit-transform:rotate(359deg); transform:rotate(359deg) }
 }
 
-.nav {
-    /*background-color: #007bff36;    */
-}
 
 .toast-primary {
     background: #1b55e2;
@@ -2146,7 +2140,7 @@ select{
     color: red !important;
 }
 
-input.flatpickr-input {
-    border: none ! important;
+input.flatpickr-input{
+    border: none;
+    width: 99%;
 }
-

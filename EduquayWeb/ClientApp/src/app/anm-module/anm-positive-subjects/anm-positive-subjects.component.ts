@@ -18,6 +18,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  positiveSamplesErrorMessage: string;
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -65,6 +66,10 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       scrollable: true,
       ariaLabelledBy: 'modal-basic-title'
     });
+
+  }
+
+  openpositiveSubject(positiveSubjectsDetail){
 
   }
 

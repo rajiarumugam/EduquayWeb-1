@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormBuilder, FormGroup } from '@angular/forms';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
@@ -26,6 +26,10 @@ import { user } from 'src/app/shared/auth-response';
 export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChild('startPicker', { static: false }) startPicker;
+  @ViewChild('endPicker', { static: false }) endPicker;
+  @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
+
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -42,8 +46,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   sampleCollectionPostResponse: SampleCollectionPostResponse;
   subjectTypesListResponse: subjectTypesResponse;
   userId: number;
-  fromDate: string;
-  toDate: string;
+  fromDate: string = "";
+  toDate: string = "";
+  scFromDate: string ="";
+  scToDate: string = "";
   subjectType: number;
   registeredFrom: number;
   subjectName: string;
@@ -58,26 +64,32 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   subjectTypes: subjuctType[] = [];
   selectedSubjectType: string = '1';
   selected: null;
+  
+  /*Date Range configuration starts*/
+  dateform: FormGroup;
+  popupform: FormGroup;
+  DAY = 86400000;
+  dyCollectionDate: Date = new Date(Date.now());
 
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: moment().add(-1, 'day').format('DD/MM/yyyy'),
-    maxDate: new Date(Date.now()),
-    onClose: function(selectedDates, dateStr, instance){
-      this.endOptions.set('minDate', dateStr);    
-    }
+    maxDate: new Date(Date.now())
   };
   endOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: new Date(Date.now()),
+    minDate: new Date(moment().add(-1, 'day').format()),
     maxDate: new Date(Date.now())
   };
+
   collectionDateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: new Date(Date.now()),
+    minDate: this.dyCollectionDate,
     maxDate: new Date(Date.now())
   };
   collectionTimeOptions: FlatpickrOptions = {
@@ -88,6 +100,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  /*Date Range configuration ends*/
   //sampleTypes = ['Antenatal Woman', 'Spouse', 'Child', 'Walk-in'];
 
   constructor(
@@ -95,8 +108,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     private modalService: NgbModal,
     private dateService: DateService,
     private route: ActivatedRoute,
-    private tokenService: TokenService
-    // private fb: FormBuilder
+    private tokenService: TokenService,
+    private _formBuilder: FormBuilder,
     ) {  }
 
   ngOnInit() {
@@ -165,42 +178,62 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     });
   }
 
-  anmSampleCollection(){
+  anmSampleCollection() {
     this.subjectList = [];
-    this.sCollectionErrorMessage ='';
+    this.sCollectionErrorMessage = '';
+    if (!this.validateDateRange()) {
+      this.sCollectionErrorMessage = "Select valid date range to search for subjects";
+      return;
+    }
     this.scRequest = {
-      userId: this.user.id, fromDate: this.fromDate, toDate: this.toDate, subjectType: +(this.selectedSubjectType),
-      registeredFrom: this.user.registeredFrom};
+      userId: this.user.id,
+      fromDate: this.scFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
+      toDate: this.scToDate, // != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+      subjectType: +(this.selectedSubjectType),
+      registeredFrom: this.user.registeredFrom
+    };
     let sampleCollection = this.sampleCollectionService.getSampleCollection(this.scRequest)
-    .subscribe(response => {
-      this.sampleCollectionResponse = response;
-      if(this.sampleCollectionResponse !== null && this.sampleCollectionResponse.status === "true"){
-        if(this.sampleCollectionResponse.subjectList.length <= 0){
+      .subscribe(response => {
+        this.sampleCollectionResponse = response;
+        if (this.sampleCollectionResponse !== null && this.sampleCollectionResponse.status === "true") {
+          if (this.sampleCollectionResponse.subjectList.length <= 0) {
+            this.sCollectionErrorMessage = response.message;
+          }
+          else {
+            this.subjectList = this.sampleCollectionResponse.subjectList;
+          }
+        }
+        else {
           this.sCollectionErrorMessage = response.message;
         }
-        else{
-          this.subjectList = this.sampleCollectionResponse.subjectList;
-        }
-      }
-      else{
-        this.sCollectionErrorMessage = response.message;
-      }
-      this.rerender();
-      this.loadDataTable = true;
-    },
-    (err: HttpErrorResponse) => {
-      if (this.loadDataTable) this.rerender();
-      this.sCollectionErrorMessage = err.toString();
-    });
+        this.rerender();
+        this.loadDataTable = true;
+      },
+        (err: HttpErrorResponse) => {
+          if (this.loadDataTable) this.rerender();
+          this.sCollectionErrorMessage = err.toString();
+        });
+  }
+
+  validateDateRange(): boolean{
+    if(new Date(this.dateform.controls.fromDate.value) > new Date(this.dateform.controls.toDate.value)){
+      return false;
+    }
+    return true;
   }
 
   openSampleColllection(subjectDetailModal, subject: SubjuctList){
+
     this.subjectName= subject.subjectName;
     this.subjectId = subject.id;
     this.uniqueSubjectId = subject.uniqueSubjectId;
     this.rchId = subject.rchId;
     this.reason = subject.reason;
 
+    //const dateParts = subject.dateOfRegister.split('/');
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    const regDate = new Date(subject.dateOfRegister.replace(pattern,'$3/$2/$1'));
+    this.collectionDateOptions.minDate = regDate;
 
     this.modalService.open(
       subjectDetailModal,{
@@ -275,7 +308,50 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     }
   }
 
-  InitializeDateRange(){
+  InitializeDateRange() {
+    this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
+    this.scToDate = moment().format("DD/MM/YYYY");
+    this.dateform = this._formBuilder.group({
+      fromDate: [moment().add(-1, 'day')],
+      toDate: [moment()],
+      selectedSubjectType: ['0']
+    });
+    this.popupform = this._formBuilder.group({
+      collectionDate: [moment().add(-1, 'day')]
+    });
+
+    // Start Date Changes
+    this.dateform.controls.fromDate.valueChanges.subscribe(changes => {
+      if (!changes[0]) return;
+      const selectedDate = changes[0].getTime();
+      this.scFromDate = moment(new Date(selectedDate)).format("DD/MM/YYYY");
+      const monthLaterDate = selectedDate + (this.DAY * 30);
+      // console.log(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
+      if (changes > this.dateform.controls.toDate.value) {
+        this.endPicker.flatpickr.set({
+          defaultDate: new Date(Date.now()),
+          minDate: new Date(selectedDate),
+        });
+      }
+      else {
+        this.endPicker.flatpickr.set({
+          minDate: new Date(selectedDate),
+        });
+      }
+    });
+
+    // // End Date Changes
+    this.dateform.controls.toDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate1 = changes[0].getTime();
+      this.scToDate = moment(new Date(selectedDate1)).format("DD/MM/YYYY");
+
+      //const monthLaterDate = selectedDate1;
+      // this.startPicker.flatpickr.set({
+      //   defaultDate: new Date(selectedDate1)
+      // });
+    });
 
   }
 
