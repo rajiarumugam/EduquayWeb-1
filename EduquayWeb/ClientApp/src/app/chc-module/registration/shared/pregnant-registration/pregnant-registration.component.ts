@@ -29,6 +29,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   //@ViewChild('f', { static: false }) subRegBasic: NgForm;
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -73,6 +74,13 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptionsLMP: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now() - (this.DAY*30)),
+    minDate: "",
+    maxDate: new Date(Date.now() - (this.DAY*30)),
+  };
   selecteddor = new Date(Date.now());
   user;
   createdSubjectId="";
@@ -83,7 +91,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedmiddlename;
   selectedlastname;
   selectedrchid;
-  selectedlmpdate;
+  selectedlmpdate = new Date(Date.now() - (this.DAY*30));
   selectedECNumber;
   selectedGovtIDDetail;
   selectedhouse;
