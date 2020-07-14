@@ -35,12 +35,12 @@
                         </div>-->
                         <div class="form-group col-md-2">
                             <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
-                            <input type="number" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">
+                            <input type="number" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" numbersOnly>
                         </div>
                         <div class="form-group col-md-2">
                             <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'ContactNumber' | translate }}</label><span class="manto"> *</span>
                             <input type="number" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            maxlength = "10">
+                            maxlength = "10" numbersOnly>
                         </div>
                     </div>
 
@@ -95,15 +95,15 @@
                         <div class="form-group col-md-2">
                             <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>
                             <input type="number" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            maxlength = "2">
+                            maxlength = "2" numbersOnly>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputRCHID" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">{{'RCHID' | translate }}</label><span class="manto"> *</span>
-                            <input type="Text" class="form-control" id="inputRCHID" placeholder="RCH ID" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">
+                            <input type="Text" class="form-control" id="inputRCHID" placeholder="{{'RCHID' | translate }}" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }">{{'LMPDate' | translate }}</label><span class="manto"> *</span>
-                                <ng2-flatpickr id="dateOfLMP" name="lmpdate" class="form-control flatpickr flatpickr-input active" [config]="startOptions" placeholder="Select Date.." formControlName = "lmpdate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }" [(ngModel)]="selectedlmpdate"></ng2-flatpickr>
+                                <ng2-flatpickr id="dateOfLMP" name="lmpdate" class="form-control flatpickr flatpickr-input active" [config]="startOptionsLMP" placeholder="Select Date.." formControlName = "lmpdate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }" [(ngModel)]="selectedlmpdate"></ng2-flatpickr>
                         </div>
 
                     </div>
@@ -240,7 +240,7 @@
                             class="manto"> *</span></label>
                         <input type="number" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
                             required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            maxlength = "10">
+                            maxlength = "10" numbersOnly>
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputPincode1">{{'Email' | translate }}</label>
