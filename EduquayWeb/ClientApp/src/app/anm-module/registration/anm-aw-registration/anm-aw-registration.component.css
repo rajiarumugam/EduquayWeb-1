@@ -202,10 +202,6 @@ vertical-align: middle;
 {
     border:none;
 }
-/*.modal-content .modal-footer,::ng-deep .modal-content .modal-header
-{
-    display: none !important;
-}*/
 .fa-check-circle
 {
     font-size: 50px !important;

@@ -206,7 +206,7 @@ vertical-align: middle;
 {
     display: none !important;
 }
-::ng-deep .modal-content .modal-footer,::ng-deep .modal-content .modal-header
+::ng-deep .modal-content .modal-footer
 {
     display: none !important;
 }

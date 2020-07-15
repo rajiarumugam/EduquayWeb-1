@@ -15,9 +15,11 @@ type AOA = any[][];
     chcReceiptsData;
     errorMessage;
 
-    data: AOA = [[1, 2], [3, 4]];
+    data: AOA = [];
     wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
     fileName: string = 'SheetJS.xlsx';
+
+    chcUploadResultData = [];
 
     constructor(
       private DataService:DataService,
@@ -29,7 +31,7 @@ type AOA = any[][];
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
     console.log(chcReceiptsArr);
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
-      this.chcReceiptsData = chcReceiptsArr.chcReceipts;
+      this.chcReceiptsData = chcReceiptsArr.cbcDetail;
       this.DataService.sendData(JSON.stringify({'page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length}));
     }
     else{
@@ -63,6 +65,20 @@ type AOA = any[][];
         /* save data */
         this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
         console.log(this.data);
+        this.chcUploadResultData = [];
+        var _tempData = this.data;
+        console.log(_tempData.shift());
+        this.data.forEach(function(val,index){
+          var _obj = {};
+          _obj['barcodeNo'] = val[3];
+          _obj['subjectId'] = val[1];
+          _obj['rchId'] = val[2];
+          _obj['mcv'] = val[4];
+          _obj['rdw'] = val[5];
+
+          this.chcUploadResultData.push(_obj);
+        },this);
+        console.log(this.chcUploadResultData);
       };
       reader.readAsBinaryString(target.files[0]);
     }

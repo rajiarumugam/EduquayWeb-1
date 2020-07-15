@@ -324,7 +324,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   }
   nextStep(id) 
   {
-    this.stepper.next();
+    //this.stepper.next();
     if(id === 1)
     {
       this.firstFormCheck = true;

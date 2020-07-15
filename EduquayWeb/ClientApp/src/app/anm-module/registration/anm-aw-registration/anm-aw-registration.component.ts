@@ -4,7 +4,7 @@ import { masterService } from 'src/app/shared/master/district/masterdata.service
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
@@ -29,6 +29,12 @@ export class AnmAwRegistrationComponent implements OnInit {
   //@ViewChild('f', { static: false }) subRegBasic: NgForm;
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
+  @ViewChild('lmpdatePicker', { static: false }) LMPPicker;
+
+  
+
   DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
@@ -104,7 +110,9 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedspouseLastName;
   selectedspouseContactNumber;
   selectedspouseEmail;
-
+  Ldisabled = true;
+  Pdisabled = true;
+  Adisabled = true;
   constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
     window['angularComponentReference'] = {
       zone: zone,
@@ -130,7 +138,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       lastname: ['', Validators.required],
       dob: [''],
       age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
-      rchid: ['', Validators.required],
+      rchid: ['', [Validators.required,Validators.min(100000000), Validators.max(999999999)]],
       lmpdate: ['', Validators.required],
       g: ['', Validators.required],
       p: ['', Validators.required],
@@ -167,7 +175,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
     
   }
@@ -241,6 +249,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   }
   
   getReligion(){
+    this.religionData = [];
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
@@ -254,6 +263,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   }
 
   getCaste(){
+    this.selectedcaste = [];
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
@@ -267,6 +277,8 @@ export class AnmAwRegistrationComponent implements OnInit {
   }
 
   getCommunity(id){
+    console.log(id);
+    this.communityData = [];
     if(id === 0)
     {
         this.masterService.getCommunity()
@@ -340,7 +352,6 @@ export class AnmAwRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
-
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
@@ -378,6 +389,7 @@ export class AnmAwRegistrationComponent implements OnInit {
           this.selectedchc = this.user.chcId;
           this.selectedphc = this.user.phcId;
           this.selectedsc = this.user.scId;
+          this.communityData = [];
           this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
           if(this.selectedripoint === "" && this.RIdata[0])
             this.selectedripoint = this.RIdata[0].id;
@@ -389,8 +401,17 @@ export class AnmAwRegistrationComponent implements OnInit {
             this.selectedcommunity = this.communityData[0].id;
 
 
+          //this.selecteddor = new Date(Date.now());
+          //this.selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+
           this.selecteddor = new Date(Date.now());
-          this.selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+      
+          this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
+          this.LMPPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*30.00025)));
+          this.DOBPicker.flatpickr.setDate("");
+
+          
+       
         }, 100);
     }
     dataBindinginServce()
@@ -442,8 +463,8 @@ export class AnmAwRegistrationComponent implements OnInit {
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
-          "rchId": ''+this.firstFormGroup.get('rchid').value,
-          "ecNumber": this.secondFormGroup.get('ECNumber').value,
+          "rchId": '121'+this.firstFormGroup.get('rchid').value,
+          "ecNumber": ''+this.secondFormGroup.get('ECNumber').value,
           "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
           "g": Number(this.firstFormGroup.get('g').value),
           "p": Number(this.firstFormGroup.get('p').value),
@@ -486,6 +507,33 @@ export class AnmAwRegistrationComponent implements OnInit {
       };
 
       return _obj;
+    }
+
+    gonChange()
+    {
+      this.Pdisabled = false;
+      this.Ldisabled = true;
+      this.selectedl = null;
+      this.selecteda = null;
+      this.selectedp = null;
+    }
+    ponChange()
+    {
+      this.selecteda = +this.selectedg - +this.selectedp;
+      if(this.selecteda === 0)
+      this.selecteda = "00";
+      this.Ldisabled = false;
+    }
+    ecNumberChange()
+    {
+      if(this.selectedECNumber)
+      {
+        if(this.selectedECNumber.length > 0)
+        {   const validators = [ Validators.required,Validators.min(100000000000), Validators.max(9999999999999999)];
+            this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
+        }
+      }
+       
     }
 
 }
