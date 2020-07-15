@@ -342,7 +342,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       if(this.firstFormGroup.valid)
         this.stepper.next();
 
-        this.stepper.next();
+        //this.stepper.next();
     }
 
     prevStep() {
