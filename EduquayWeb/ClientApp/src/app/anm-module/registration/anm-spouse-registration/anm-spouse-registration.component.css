@@ -205,14 +205,11 @@ vertical-align: middle;
     background-color: transparent !important;
     max-width: 100%;
 }
-::ng-deep .modal-content .modal-footer,::ng-deep .modal-content .modal-header
+::ng-deep .modal-content .modal-footer
 {
     display: none !important;
 }
-::ng-deep .modal-content .modal-header
-{
-    display: block !important;
-}
+
 .fa-check-circle
 {
     font-size: 50px !important;

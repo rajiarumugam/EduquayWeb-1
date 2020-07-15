@@ -19,6 +19,7 @@ export const ENDPOINT = {
     "CHC_SAMPLE_REC":
     {
         "RETRIVECHCRECEIPT":"api/CHCReceiptProcessing/RetrieveCHCReceipt/",
-        "ADDRECEIVEDSHIPMENT":"api/CHCReceiptProcessing/AddReceivedShipments"
+        "ADDRECEIVEDSHIPMENT":"api/CHCReceiptProcessing/AddReceivedShipments",
+        "RETRIVECBC":"api/CHCReceiptProcessing/RetrieveCBC/"
     }
 }
