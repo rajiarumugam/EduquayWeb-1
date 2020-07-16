@@ -69,6 +69,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   selected: null;
   sub: any;
   subjectIdParam: string = '';
+  subjectTypeParam: string = '0';
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -168,24 +169,29 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.sub = this.route.queryParams.subscribe(params => {
       this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
     });
+
   }
 
-  anmSubjectTypes(){
+  anmSubjectTypes() {
 
-   this.sampleCollectionService.getSubjectType().subscribe(response =>{
+    // this.sub = this.route.params.subscribe(params => {
+    //   this.subjectTypeParam = params['subtype'] == undefined ? '' : params['subtype'];
+    //   this.subjectTypeParam == 'f' ? this.selectedSubjectType = '1' : (this.subjectTypeParam == 'm' ? this.selectedSubjectType = '2' : (this.subjectTypeParam == 's' ? this.selectedSubjectType = '3' : this.selectedSubjectType = ''));
+    // });
+    this.selectedSubjectType = '';
+    this.sampleCollectionService.getSubjectType().subscribe(response => {
       this.subjectTypesListResponse = response;
-      if(this.subjectTypesListResponse !== null && this.subjectTypesListResponse.status === "true"){
-          this.subjectTypes  = this.subjectTypesListResponse.subjectTypes;
-          this.selectedSubjectType = "1";
-        }
-        else{
-          this.sCollectionErrorMessage = response.message;
-        }
+      if (this.subjectTypesListResponse !== null && this.subjectTypesListResponse.status === "true") {
+        this.subjectTypes = this.subjectTypesListResponse.subjectTypes;
+      }
+      else {
+        this.sCollectionErrorMessage = response.message;
+      }
     },
-    (err: HttpErrorResponse) => {
-      this.sCollectionErrorMessage = err.toString();
+      (err: HttpErrorResponse) => {
+        this.sCollectionErrorMessage = err.toString();
 
-    });
+      });
   }
 
   anmSampleCollection() {
