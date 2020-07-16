@@ -82,7 +82,10 @@
     "CollectionCHC":"Collection CHC",
     "CBCTestReadings":"CBC Test Readings",
     "MCV":"MCV",
-    "":""
+    "":"",
+    "UpdateSSTResults":"Update SST Results",
+    "Positive":"Positive",
+    "Negative":"Negative"
 
 
 }

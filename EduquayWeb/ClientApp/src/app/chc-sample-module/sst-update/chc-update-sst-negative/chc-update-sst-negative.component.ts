@@ -3,20 +3,23 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 
-import { DataService } from './../../../shared/data.service';
+import { DataService } from '../../../shared/data.service';
 
 @Component({
-  selector: 'app-chc-update-cbc-received',
-  templateUrl: './chc-update-cbc-received.component.html',
-  styleUrls: ['./chc-update-cbc-received.component.css']
+  selector: 'app-chc-update-sst-negative',
+  templateUrl: './chc-update-sst-negative.component.html',
+  styleUrls: ['./chc-update-sst-negative.component.css']
 })
-export class CBCReceivedSampleComponent implements OnInit {
+export class SSTUpdateNegativeComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
   errorSpouseMessage: string;
 
   chcReceiptsData: any[] = [];
+  popupData:any;
+  processingDate;
+
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -27,6 +30,7 @@ export class CBCReceivedSampleComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+  
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -66,10 +70,20 @@ export class CBCReceivedSampleComponent implements OnInit {
     }
 
   }
+
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }   
   
     ngAfterViewInit(): void {
       this.dtTrigger.next();
-    }   
+    } 
   
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
