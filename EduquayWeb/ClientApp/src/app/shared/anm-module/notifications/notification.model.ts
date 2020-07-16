@@ -6,4 +6,5 @@ export class NotificationModel{
     pndreferral: number;
     mtpreferral: number;
     chcupdate: number;
+    postmtp: number;
 }

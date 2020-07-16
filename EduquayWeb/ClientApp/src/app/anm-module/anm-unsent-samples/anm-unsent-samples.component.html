@@ -182,12 +182,17 @@
                                                 <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
                                             </div>
                                     </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-3" [formGroup]="popupform">
+                                        <label class="note">Date of Collection <span class="manto">*</span></label>
+                                        <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                          placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                        <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
+                                         [config]="shipmentDateOptions" placeholder="Select Date.." formControlName = "shipmentDate">
+                                        </ng2-flatpickr>
+                                      </div>
+                                    <!-- <div class="form-group col-md-2">
                                         <label>Shipment Date<span
                                             class="manto">*</span></label>
-                                        <!-- <input id="shipmentdate"
-                                            class="form-control flatpickr flatpickr-input"
-                                            type="text" placeholder="Select Date..."  name="dateOfShipment" [(ngModel)]="dateOfShipment"> -->
                                         <ng2-flatpickr id="shipmentdate" class="form-control flatpickr flatpickr-input" type="text" #collectionDatePicker
                                         [config]="shipmentDateOptions" placeholder="Select Date..." name="dateOfShipment" [(ngModel)]="dateOfShipment"
                                         formControlName="dateOfShipment" required></ng2-flatpickr>
@@ -195,14 +200,10 @@
                                     <div class="form-group col-md-2">
                                         <label>Shipment Time <span
                                             class="manto">*</span></label>
-                                        <!-- <input id="shipmenttime"
-                                            class="form-control flatpickr flatpickr-input active "
-                                            type="text" placeholder="Select Time..." name="timeOfShipment" 
-                                            [(ngModel)]="timeOfShipment"> -->
                                         <ng2-flatpickr id="shipmenttime" class="form-control flatpickr flatpickr-input" type="text"  
                                         [(ngModel)]="timeOfShipment" #collectionTimePicker [config]="shipmentTimeOptions"
                                         placeholder="Select Time..."  name="timeOfShipment" formControlName="timeOfShipment" required></ng2-flatpickr>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <br>
 

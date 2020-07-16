@@ -4,7 +4,7 @@ import { PicknpackService } from 'src/app/shared/anm-module/picnpack/picknpack.s
 import { PicknpackRequest, AnmAddShipmentRequest } from 'src/app/shared/anm-module/picnpack/picknpack-request';
 import { PicknpackResponse, SampleList, RiPointResponse, RIModel, ILRpointResponse, IlrModel, TestingCHCResponse, TestingChcModel, AvdNameResponse, AvdNameModel, AnmAddShipmentResponse } from 'src/app/shared/anm-module/picnpack/picknpack-response';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgModel, NgForm } from '@angular/forms';
+import { NgModel, NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { DateService } from 'src/app/shared/utility/date.service';
@@ -28,6 +28,7 @@ import * as moment from 'moment';
 })
 export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChild('shipmentDatePicker', { static: false }) shipmentDatePicker;
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -60,6 +61,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   ilrId: number;
   avdId: number;
   avdContactNo: string;
+  alternateAVD: string;
+  alternateAVDContactNo: string;
   testingCHCId: number;
   dateOfShipment: string;
   timeOfShipment: string;
@@ -71,34 +74,44 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   name: string;
   sampleSelected: boolean;
   selectedAll: any;
+  sampleDateTime: string;
+  sampleShipmentDate: string;
+  sampleShipmentTime:string;
+  popupform: FormGroup;
+  DAY = 86400000;
+  dyCollectionDate: Date = new Date(Date.now());
 
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
-    dateFormat: 'd/m/Y',
+    dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
-    maxDate: new Date(Date.now())
-  };
-  shipmentTimeOptions: FlatpickrOptions = {
-    mode: 'single',
+    //minDate: this.dyCollectionDate,
+    maxDate: new Date(Date.now()),
     enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",    
-    defaultDate: new Date(Date.now()),
-    maxDate: new Date(Date.now())
   };
+  // shipmentTimeOptions: FlatpickrOptions = {
+  //   mode: 'single',
+  //   enableTime: true,
+  //   noCalendar: true,
+  //   dateFormat: "H:i",    
+  //   defaultDate: new Date(Date.now()),
+  //   maxDate: new Date(Date.now())
+  // };
   
 
   constructor(
     private PicknpackService: PicknpackService,
     private modalService: NgbModal,
-    private dateService: DateService,
+    //private dateService: DateService,
     private router: Router,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private _formBuilder: FormBuilder
     ) { }
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.InitializeDateRange();   
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -122,11 +135,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     
     // this.dateOfShipment =  this.dateService.getDate();
     // this.timeOfShipment = this.dateService.getTime();
-    this.dateOfShipment = moment().format("DD/MM/YYYY");
-    this.timeOfShipment = moment().format("HH:mm");
     console.log(this.PicknpackService.pickandpackListApi);
     this.ddlRiPoint(this.user.id);
-   // this.anmpicknpackList();
+    //this.anmpicknpackList();
 
     this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
     if (this.picknpackInitResponse.status === 'false') {
@@ -209,7 +220,10 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     } 
-    
+    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+    this.sampleShipmentTime = moment().format("HH:mm");
+
+    this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
 
     this.name = this.user.name;
     this.modalService.open(
@@ -302,6 +316,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     }
 
     this.avdContactNo = shipmentForm.value.contactNo;
+    this.alternateAVD = shipmentForm.value.alternatename;
+    this.alternateAVDContactNo = shipmentForm.value.alternatecontactNo;
     this.riId = shipmentForm.value.DDriPoint;
     this.ilrId = shipmentForm.value.DDilrPoint;
     this.testingCHCId = shipmentForm.value.DDLtestingChc;
@@ -310,20 +326,27 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
+    if (!this.validateDateRange()) {
+      this.picknpackErrorMessage = "Select valid date range to search for subjects";
+      return;
+    }
     this.anmaddshipmentRequest = {
       anmId: this.user.id,
       riId: +(this.riId),
       ilrId: +(this.ilrId),
       avdId: +(this.avdId),
       avdContactNo: this.avdContactNo,
+      alternateAVD: this.alternateAVD,
+      alternateAVDContactNo: this.alternateAVDContactNo,
       testingCHCId: +(this.testingCHCId),
-      dateOfShipment: this.dateOfShipment,
-      timeOfShipment: this.timeOfShipment,
+      dateOfShipment: this.sampleShipmentDate,
+      timeOfShipment: this.sampleShipmentTime,
       barcodeNo: this.selectedBarcodes,
       shipmentFrom: this.user.shipmentFrom,
       createdBy: this.user.id,
       source: 'N',
     }
+    //return false;
     let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
       .subscribe(response => {
         this.anmaddshipmentResponse = response;
@@ -422,5 +445,43 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
+
+    InitializeDateRange() {
+     
+      this.popupform = this._formBuilder.group({
+        shipmentDate: [new Date(moment().add(-1, 'day').format())],
+      });
+
+  
+      //Change of sample shipment date
+      this.popupform.controls.shipmentDate.valueChanges.subscribe(changes => {
+        console.log('end: ', changes);
+        if (!changes[0]) return;
+        const selectedDate2 = changes[0].getTime();
+        this.sampleShipmentDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+        this.sampleShipmentTime = moment(new Date(selectedDate2)).format("HH:mm");
+      });
+  
+      // //Change of sample collection time
+      // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
+      //   console.log('end: ', changes);
+      //   if (!changes[0]) return;
+      //   const selectedDate3 = changes[0].getTime();
+      //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
+  
+      //   //const monthLaterDate = selectedDate1;
+      //   // this.startPicker.flatpickr.set({
+      //   //   defaultDate: new Date(selectedDate1)
+      //   // });
+      // });
+    }
+
+    validateDateRange(): boolean{
+      if(this.sampleDateTime > this.sampleShipmentDate){
+        return false;
+      }
+      return true;
+    }
+  
   
 }

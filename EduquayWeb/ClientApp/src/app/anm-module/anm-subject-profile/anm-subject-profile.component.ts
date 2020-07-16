@@ -145,6 +145,7 @@ export class AnmSubjectProfileComponent implements OnInit {
     this.subjectProfileErrorMessage = '';
     if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
       this.subjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
+      this.basicInfo = undefined ;
       return false;
     }
 
@@ -167,6 +168,7 @@ export class AnmSubjectProfileComponent implements OnInit {
         }
         else {
           this.subjectProfileErrorMessage = response.message;
+          this.basicInfo = undefined ;
         }
       },
         (err: HttpErrorResponse) => {

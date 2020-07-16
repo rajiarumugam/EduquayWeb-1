@@ -9,7 +9,7 @@ import { DamagedSamplesResponse, DamagedSampleList, AddSampleRecollectionRespons
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DateService } from 'src/app/shared/utility/date.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import * as moment from 'moment';
@@ -25,6 +25,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   //Child component
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
+  @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
   
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -50,12 +51,19 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   collectionDate: string;
   collectionTime: string;
   notifySamples: string;
+  sampleCollectionDate: string;
+  sampleCollectionTime: string;
+  popupform: FormGroup;
+  DAY = 86400000;
 
   collectionDateOptions: FlatpickrOptions = {
     mode: 'single',
-    dateFormat: 'd/m/Y',
+    dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
-    maxDate: new Date(Date.now())
+    // minDate: this.dyCollectionDate,
+    maxDate: new Date(Date.now()),
+    enableTime: true,
+    
   };
   collectionTimeOptions: FlatpickrOptions = {
     mode: 'single',
@@ -74,13 +82,15 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private router: Router,
     private route: ActivatedRoute,
     private dateService: DateService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private _formBuilder: FormBuilder
 
   ) { }
 
   ngOnInit() {
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.InitializeDateRange(); 
     this.dtOptions = { 
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -102,8 +112,8 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     };
     // this.collectionDate = this.dateService.getDate();
     // this.collectionTime = this.dateService.getTime();
-    this.collectionDate = moment().format("DD/MM/YYYY");
-    this.collectionTime = moment().format("HH:mm");
+    // this.collectionDate = moment().format("DD/MM/YYYY");
+    // this.collectionTime = moment().format("HH:mm");
     console.log(this.DamagedSamplesService.damagedSamplesApi);
     //this.anmdamagedSamples();
 
@@ -159,6 +169,8 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.uniqueSubjectId = sample.uniqueSubjectId;
     this.rchId = sample.rchID;
     this.reason = sample.reason;
+    this.sampleCollectionDate = moment().format("DD/MM/YYYY");
+    this.sampleCollectionTime = moment().format("HH:mm");
 
     this.modalService.open(
       damagedSamplesDetail, {
@@ -180,8 +192,8 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       reason: this.reason,
       barcodeNo: this.barcodeNo,
       collectionFrom: 10,
-      sampleCollectionDate: this.collectionDate,
-      sampleCollectionTime: this.collectionTime,
+      sampleCollectionDate: this.sampleCollectionDate,
+      sampleCollectionTime: this.sampleCollectionTime,
       collectedBy: 1,
     };
 
@@ -341,6 +353,35 @@ fetchBarcodes(){
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  InitializeDateRange() {
+      
+    this.popupform = this._formBuilder.group({
+      collectionDate: [new Date(moment().add(-1, 'day').format())],
+    });
+ 
+    //Change of sample collection date
+    this.popupform.controls.collectionDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate2 = changes[0].getTime();
+      this.sampleCollectionDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+      this.sampleCollectionTime = moment(new Date(selectedDate2)).format("HH:mm");
+    });
+
+    // //Change of sample collection time
+    // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
+    //   console.log('end: ', changes);
+    //   if (!changes[0]) return;
+    //   const selectedDate3 = changes[0].getTime();
+    //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
+
+    //   //const monthLaterDate = selectedDate1;
+    //   // this.startPicker.flatpickr.set({
+    //   //   defaultDate: new Date(selectedDate1)
+    //   // });
+    // });
   }
 
 }

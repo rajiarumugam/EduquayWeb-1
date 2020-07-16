@@ -234,13 +234,25 @@
                                                                         <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
                                                                     </div>
                                                             </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label>Alternate AVD Name<span
+                                                                    class="manto"></span></label>
+                                                                <input class="form-control field" name="alternatename" #alternatename="ngModel" ngModel  
+                                                                type="text" placeholder="Alternative AVD Name" [(ngModel)]="alternateAVD">       
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label>Alternate AVD Contact Number<span
+                                                                    class="manto"></span></label>
+                                                                <input class="form-control field" name="alternatecontactNo" #alternatecontactNo="ngModel" ngModel maxlength="10"
+                                                                oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
+                                                                type="tel" placeholder="Alternate Contact Number" [(ngModel)]="alternateAVDContactNo">
+                                                                   
+                                                            </div>
                                                             
-                                                            <div class="form-group col-md-2">
+                                                            <!-- <div class="form-group col-md-2">
                                                                 <label>Shipment Date<span
                                                                     class="manto">*</span></label>
-                                                                <!-- <input id="shipmentdate"
-                                                                    class="form-control flatpickr flatpickr-input"
-                                                                    type="text" placeholder="Select Date..."  name="dateOfShipment" [(ngModel)]="dateOfShipment"> -->
+                                                               
                                                                 <ng2-flatpickr id="shipmentdate" class="form-control flatpickr flatpickr-input" type="text" #collectionDatePicker
                                                                 [config]="shipmentDateOptions" placeholder="Select Date..." name="dateOfShipment" [(ngModel)]="dateOfShipment"
                                                                 required formControlName="dateOfShipment" ></ng2-flatpickr>
@@ -248,17 +260,22 @@
                                                             <div class="form-group col-md-2">
                                                                 <label>Shipment Time <span
                                                                     class="manto">*</span></label>
-                                                                <!-- <input id="shipmenttime"
-                                                                    class="form-control flatpickr flatpickr-input active"
-                                                                    type="text" placeholder="Select Time..." name="timeOfShipment" 
-                                                                    [(ngModel)]="timeOfShipment"> -->
+                                                               
                                                                 <ng2-flatpickr id="shipmenttime" class="form-control flatpickr flatpickr-input" type="text"  
                                                                 [(ngModel)]="timeOfShipment" #collectionTimePicker [config]="shipmentTimeOptions" formControlName="timeOfShipment"
                                                                 placeholder="Select Time..."  name="timeOfShipment" required></ng2-flatpickr>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
-                                                        <br>
-
+                                                        <div class="form-row my-2" [formGroup]="popupform">
+                                                            <div class="form-group col-md-3">
+                                                                <label class="note">Date of Collection <span class="manto">*</span></label>
+                                                                <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                                                  placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                                                <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
+                                                                 [config]="shipmentDateOptions" placeholder="Select Date.." formControlName = "shipmentDate">
+                                                                </ng2-flatpickr>
+                                                              </div>
+                                                        </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" class="btn btn-primary"
                                                                 id="linktobuttonpickpak">Submit</button>

@@ -11,6 +11,8 @@ export interface AnmAddShipmentRequest{
     ilrId: number;
     avdId: number;
     avdContactNo: string;
+    alternateAVD: string;
+    alternateAVDContactNo: string;
     testingCHCId: number;
     dateOfShipment: string;
     timeOfShipment: string;

@@ -36,6 +36,8 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
   testingCHC: string;
   avdName: string;
   contactNo: string;
+  alternateAVD:string;
+  alternateAVDContactNo:string;
   ilrPoint: string;
   riPoint: string;
   shipmentDateTime: string;
@@ -133,6 +135,8 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     this.riPoint = shipment.riPoint;
     this.testingCHC = shipment.testingCHC;
     this.contactNo = shipment.contactNo;
+    this.alternateAVD = shipment.alternateAVD;
+    this.alternateAVDContactNo = shipment.alternateAVDContactNo;
     this.sampleDetails = shipment.samplesDetail;
 
     this.modalService.open(
