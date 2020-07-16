@@ -81,6 +81,11 @@
                    Update CHC Reg<span class="badge badge-pill badge-warning shadow ml-1">{{updateChcSample}}</span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" id="postmtp-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/postmtp']" role="tab"
+                    aria-controls="contact" aria-selected="false">Post MTP Follow-up <span
+                        class="badge badge-pill badge-warning shadow ml-1">{{postmtpfollowup}}</span></a>
+            </li>
             </ul>
             <div class="tab-content mt-5" id="myTabContent">
               <router-outlet (activate)="showNumberOnBadge($event)"></router-outlet>

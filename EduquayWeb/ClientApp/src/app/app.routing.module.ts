@@ -60,6 +60,7 @@ import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-p
 import { CHCUpdateCBCComponent } from "./chc-sample-module/cbc-update/chc-update-cbc/chc-update-cbc.component";
 import { CBCReceivedSampleComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-received/chc-update-cbc-received.component";
 import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-upload/chc-update-cbc-upload.component";
+import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -89,7 +90,8 @@ const routes: Routes = [
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full' },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
-          { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' }
+          { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' },
+          { path: 'postmtp', component: AnmPostMtpFollowupComponent, pathMatch: 'full' }
         ]
       },
       {
@@ -171,6 +173,7 @@ export const RoutingComponents = [
   AnmPndReferralComponent,
   AnmMtpReferralComponent,
   AnmUpdateChcComponent,
+  AnmPostMtpFollowupComponent,
   SampleCollectionComponent,
   AnmPickandPackComponent,
   AnmShipmentComponent,

@@ -64,6 +64,7 @@ export interface AddressDetail{
     address3: string;
     pincode: string;
     stateName: string;
+    selectedreligion: string;
 }
 
 export interface PregnancyDetail{
@@ -78,6 +79,7 @@ export interface PregnancyDetail{
     p: number;
     l: number;
     a: number;
+    barcodes: string;
 }
 
 export interface ParentDetail{

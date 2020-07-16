@@ -25,6 +25,8 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
   testingCHC: string;
   avdName: string;
   contactNo: string;
+  alternateAVD:string;
+  alternateAVDContactNo:string;
   ilrPoint: string;
   riPoint: string;
   shipmentDateTime: string;

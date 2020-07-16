@@ -104,16 +104,25 @@
                   <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
                 </div> 
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-3" [formGroup]="popupform">
                 <label class="note">Date of Collection <span class="manto">*</span></label>
-                <input id="sccollectDate" class="form-control flatpickr flatpickr-input" type="date"
-                  placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required>
+                <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                  placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+                 [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
+                </ng2-flatpickr>
+              </div>
+              <!-- <div class="form-group col-md-3">
+                <label class="note">Date of Collection <span class="manto">*</span></label>
+                <ng2-flatpickr id="sccollectDate" class="form-control flatpickr flatpickr-input" type="text" #collectionDatePicker [config]="collectionDateOptions"
+                  placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" formControlName="collectionDate" required></ng2-flatpickr>
               </div>
               <div class="form-group col-md-3">
                 <label class="note">Time of Collection <span class="manto">*</span></label>
-                <input id="timeofSample" class="form-control flatpickr flatpickr-input" type="text"  [(ngModel)]="collectionTime " 
-                 placeholder="Select Time..."  name="collectionTime" required>
-              </div>
+                <ng2-flatpickr id="timeofSample" class="form-control flatpickr flatpickr-input" type="text"  
+                [(ngModel)]="collectionTime" #collectionTimePicker [config]="collectionTimeOptions"
+                 placeholder="Select Time..."  name="collectionTime" formControlName="collectionTime" required></ng2-flatpickr>
+              </div> -->
             </div>
           </div>
 
@@ -130,8 +139,8 @@
         <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
        
       </div> -->
-      <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
-      <i appLoadScript [script]="'assets/assets/js/anm-module/samplerecollection-popup.js'"></i>
+      <!-- <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i> -->
+      <!-- <i appLoadScript [script]="'assets/assets/js/anm-module/samplerecollection-popup.js'"></i> -->
    </ng-template>
 
 <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->

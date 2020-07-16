@@ -21,6 +21,7 @@ export class AnmNotificationComponent implements OnInit {
   pndReferralSample: number = 0;
   mtpReferralSample: number = 0;
   updateChcSample: number = 0;
+  postmtpfollowup: number = 0;
   //Sample: number;
 
   constructor(
@@ -42,6 +43,7 @@ export class AnmNotificationComponent implements OnInit {
       this.pndReferralSample = this.notificationModel.pndreferral;
       this.mtpReferralSample = this.notificationModel.mtpreferral;
       this.updateChcSample = this.notificationModel.chcupdate;
+      this.postmtpfollowup = this.notificationModel.postmtp;
     });
   }
 
@@ -66,6 +68,9 @@ export class AnmNotificationComponent implements OnInit {
       }
       else if(this.router.url.indexOf('updatechc') >= 0){
         this.updateChcSample = data;
+      }
+      else if(this.router.url.indexOf('postmtp') >= 0){
+        this.postmtpfollowup = data;
       }
       else{
         this.damagedSample = data;

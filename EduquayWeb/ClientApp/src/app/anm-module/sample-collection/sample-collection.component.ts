@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
 import { SampleCollectionResponse, SubjuctList, SampleCollectionPostResponse, subjuctType, subjectTypesResponse } from 'src/app/shared/anm-module/sample-collection-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,6 +29,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   @ViewChild('startPicker', { static: false }) startPicker;
   @ViewChild('endPicker', { static: false }) endPicker;
   @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
+  @ViewChild('sampleCollectiondetail',{static: false}) private sampleCollectiondetailTpl: TemplateRef<any>;
 
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
@@ -66,7 +67,9 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   subjectTypes: subjuctType[] = [];
   selectedSubjectType: string = '1';
   selected: null;
-  
+  sub: any;
+  subjectIdParam: string = '';
+
   /*Date Range configuration starts*/
   dateform: FormGroup;
   popupform: FormGroup;
@@ -162,6 +165,9 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
         this.subjectList = this.sampleCollectionInitResponse.subjectList;
       }
     }
+    this.sub = this.route.queryParams.subscribe(params => {
+      this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
+    });
   }
 
   anmSubjectTypes(){
@@ -235,11 +241,12 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.reason = subject.reason;
     this.sampleCollectionDate = moment().format("DD/MM/YYYY");
     this.sampleCollectionTime = moment().format("HH:mm");
-    //const dateParts = subject.dateOfRegister.split('/');
+    //const dateParts = subject.dateOfRegister.split('/'); 01/02/2020 11:32
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
     const regDate = new Date(subject.dateOfRegister.replace(pattern,'$3/$2/$1'));
     this.collectionDateOptions.minDate = regDate;
-    this.collectionTimeOptions.minDate = regDate;
+    //this.collectionTimeOptions.minDate = regDate;
 
     this.modalService.open(
       subjectDetailModal,{
@@ -259,7 +266,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     //this.submitted = true;
     console.log(collectionForm.value);
     //collectionForm.reset();
-    this.barcodeNo = this.popupform.controls.barcode.value; //collectionForm.value.sampleBarcode;
+    this.barcodeNo = collectionForm.value.sampleBarcode;
     // if(this.barcodeNo === '' || this.barcodeNo == null){
     //   return false;
     // }
@@ -278,7 +285,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
-    // return false;
+    //return false;
 
     let sampleCollection = this.sampleCollectionService.postSampleCollection(this.sampleCollectionDateTimeRequest)
     .subscribe(response => {
@@ -324,9 +331,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       selectedSubjectType: ['0']
     });
     this.popupform = this._formBuilder.group({
-      collectionDate: [moment().add(-1, 'day')],
-      collectionTime: [new Date()],
-      barcode: ['']
+      collectionDate: [new Date(moment().add(-1, 'day').format())],
     });
 
     // Start Date Changes
@@ -399,6 +404,11 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+    if(this.subjectIdParam !== ''){
+      var subDetail = this.subjectList.find(x => x.uniqueSubjectId === this.subjectIdParam)
+      if(subDetail===undefined) return;
+      this.openSampleColllection(this.sampleCollectiondetailTpl , subDetail);
+    }    
   }   
 
 
