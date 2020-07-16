@@ -61,6 +61,7 @@ import { CHCUpdateCBCComponent } from "./chc-sample-module/cbc-update/chc-update
 import { CBCReceivedSampleComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-received/chc-update-cbc-received.component";
 import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-upload/chc-update-cbc-upload.component";
 import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
+import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -113,8 +114,8 @@ const routes: Routes = [
       {
         path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
         children:[
-          {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
-          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+          {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
+          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
         ]
       },
       {

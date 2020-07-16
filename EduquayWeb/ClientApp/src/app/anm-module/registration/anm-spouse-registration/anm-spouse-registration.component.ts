@@ -2,7 +2,7 @@ import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
@@ -30,6 +30,9 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('startPicker1', { static: false }) pickerStart;
   @ViewChild('endPicker', { static: false }) pickerEnd;
+
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
 
   positiveSpouseResponse: PositiveSpouseResponse;
   districts: District[] = [];
@@ -211,29 +214,22 @@ export class AnmSpouseRegistrationComponent implements OnInit {
 
     // End Date Changes
     this.dateform.controls.toDate.valueChanges.subscribe(changes => {
-      console.log('end: ', changes);
       if (!changes[0]) return;
       const selectedDate1 = changes[0].getTime();
-      console.log(selectedDate1);
       const monthLaterDate = selectedDate1;
       this.pickerStart.flatpickr.set({
         maxDate: new Date(selectedDate1)
       });
-      console.log(this.pickerStart.flatpickr);
     });
 
     // Start Date Changes
     this.dateform.controls.fromDate.valueChanges.subscribe(changes => {
-      // console.log('start: ', changes);
       if (!changes[0]) return;
       const selectedDate = changes[0].getTime();
       const monthLaterDate = selectedDate + (this.DAY*30);
-      // console.log(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
       this.pickerEnd.flatpickr.set({
         minDate: new Date(selectedDate),
       });
-      // this.pickerEnd.flatpickr.setDate(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
-      // console.log(this.pickerEnd.flatpickr);
     });
 
     
@@ -245,7 +241,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   }
   getSpouseDetails() {
     var _subjectObj = {
-      "anmId": 2,
+      "anmId": this.user.id,
       "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
       "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
     }
@@ -270,7 +266,6 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   }
 
   openRegForm(data) {
-    console.log(data);
     this.getDistrictData();
     this.getCHC();
     this.getPHC();
@@ -281,6 +276,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     //this.getCommunity(0);
     this.getGovernmentIDType();
 
+    this.selecteddor = new Date(Date.now());
     this.selectedanwname = data.firstName;
     this.selectedsubjectId = data.uniqueSubjectId;
     this.selectedrchId = data.rchId;
@@ -295,6 +291,22 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.selectedcaste = data.casteId;
     this.getCommunity(this.selectedcaste);
     this.selectedcommunity = data.communityId;
+    this.selectedfirstname = data.spouseFirstName;
+    this.selectedmiddlename = data.spouseMiddleName;
+    this.selectedlastname = data.spouseLastName;
+    this.selectedspouseContactNumber = data.spouseContactNo;
+    this.selectedhouse = data.address1;
+    this.selectedstreet = data.address2;
+    this.selectedcity = data.address3;
+    this.selectedstate = data.stateName;
+    this.selectedPincode = data.pincode;
+    this.selectedECNumber = data.ecNumber;
+    //this.selectedspouseEmail = data.ecNumber;
+
+    this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.025)));
+    this.DOBPicker.flatpickr.setDate("");
+
+
     $('#fadeinModal').modal('show');
   }
 
@@ -333,6 +345,13 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
+      if((this.selectedsc === "" || this.SCdata.findIndex(i => i.id === this.selectedsc) == -1))
+      {
+          if(this.SCdata[0] != undefined)
+              setTimeout(() => {
+                this.selectedsc = this.SCdata[0].id;
+              }, 1);  
+      }  
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -343,6 +362,13 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
+      if((this.selectedripoint === "" || this.RIdata.findIndex(i => i.id === this.selectedripoint) == -1))
+      {
+          if(this.RIdata[0] != undefined)
+              setTimeout(() => {
+                this.selectedripoint = this.RIdata[0].id;
+              }, 1);  
+      }  
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -377,7 +403,6 @@ export class AnmSpouseRegistrationComponent implements OnInit {
   }
 
   getCommunity(id){
-    console.log(id);
     if(id === 0)
     {
         this.masterService.getCommunity()
@@ -439,7 +464,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     this.firstFormCheck = true;
       if(this.firstFormGroup.valid)
         this.stepper.next();
-        //this.stepper.next();
+       // this.stepper.next();
     }
 
     prevStep() {
@@ -449,6 +474,7 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
+    
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
@@ -588,6 +614,19 @@ export class AnmSpouseRegistrationComponent implements OnInit {
       });
     }   
   
+    ecNumberChange()
+    {
+      
+      if(this.selectedECNumber)
+      {
+        if(this.selectedECNumber.length > 0)
+        {   
+            const validators = [ Validators.required,Validators.min(100000000000), Validators.max(9999999999999999)];
+            this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
+        }
+      }
+       
+    }
        
   
     ngAfterViewInit(): void {

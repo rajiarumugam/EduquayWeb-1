@@ -99,7 +99,7 @@ export class CBCReceivedSampleComponent implements OnInit {
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
     console.log(chcReceiptsArr);
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
-      this.chcReceiptsData = chcReceiptsArr.chcReceipts;
+      this.chcReceiptsData = chcReceiptsArr.cbcDetail;
       this.DataService.sendData(JSON.stringify({'page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length}));
     }
     else{
