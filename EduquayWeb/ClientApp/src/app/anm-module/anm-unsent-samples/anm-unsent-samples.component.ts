@@ -8,10 +8,12 @@ import { UnsentSampleList, RIModel, IlrModel, TestingChcModel, AvdNameModel, Uns
 import { AddUnsentSampleRequest, MoveTimeoutExpiryRequest } from 'src/app/shared/anm-module/notifications/unsent-samples/unsent-samples-request';
 import { UnsentSamplesServiceService } from 'src/app/shared/anm-module/notifications/unsent-samples/unsent-samples-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-anm-unsent-samples',
@@ -22,7 +24,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
-  
+
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -71,7 +73,31 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   sampleSelected: boolean;
   selectedAll: any;
   userId: number;
-  
+  sampleAging: string;
+  sampleDateTime: string;
+  sampleShipmentDate: string;
+  sampleShipmentTime: string;
+  popupform: FormGroup;
+  DAY = 86400000;
+
+  shipmentDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y H:i',
+    defaultDate: new Date(Date.now()),
+    //minDate: this.dyCollectionDate,
+    maxDate: new Date(Date.now()),
+    enableTime: true,
+  };
+
+  // shipmentTimeOptions: FlatpickrOptions = {
+  //   mode: 'single',
+  //   enableTime: true,
+  //   noCalendar: true,
+  //   dateFormat: "H:i",    
+  //   defaultDate: new Date(Date.now()),
+  //   maxDate: new Date(Date.now())
+  // };
+
 
   constructor(
     private UnsentSamplesServiceService: UnsentSamplesServiceService,
@@ -79,13 +105,15 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private router: Router,
     private route: ActivatedRoute,
     private dateService: DateService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private _formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
 
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.InitializeDateRange();
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -106,8 +134,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       }
     };
 
-    this.dateOfShipment = this.dateService.getDate();
-    this.timeOfShipment = this.dateService.getTime();
+    // this.dateOfShipment = this.dateService.getDate();
+    // this.timeOfShipment = this.dateService.getTime();
     console.log(this.UnsentSamplesServiceService.unsentSampleApi);
     //this.anmunsentSampleList();
     this.ddlRiPoint(this.user.id);
@@ -157,7 +185,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   anmunsentSampleList(userId) {
     this.recordCount = 0;
     this.unsentSamples = [];
-   this.UnsentSamplesServiceService.getunsentSampleList(userId)
+    this.UnsentSamplesServiceService.getunsentSampleList(userId)
       .subscribe(response => {
         this.unsentSamplesResponse = response;
         if (this.unsentSamplesResponse !== null && this.unsentSamplesResponse.status === "true") {
@@ -170,13 +198,13 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
               element.sampleSelected = true;
             });
             this.recordCount = this.unsentSamples.length;
-            
+
           }
         }
         else {
           this.unsentSamplesErrorMessage = response.message;
         }
-        this.onLoadSubject.emit(this.recordCount);  
+        this.onLoadSubject.emit(this.recordCount);
         this.rerender();
       },
         (err: HttpErrorResponse) => {
@@ -304,8 +332,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       avdId: +(this.avdId),
       avdContactNo: this.avdContactNo,
       testingCHCId: +(this.testingCHCId),
-      dateOfShipment: this.dateOfShipment,
-      timeOfShipment: this.timeOfShipment,
+      dateOfShipment: this.sampleShipmentDate,
+      timeOfShipment: this.sampleShipmentTime,
       barcodeNo: this.selectedBarcodes,
       shipmentFrom: this.user.shipmentFrom,
       createdBy: this.user.id,
@@ -333,19 +361,36 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         });
   }
 
-  moveExpirySamples(){
-
+  getconfirmation() {
     this.unsentSamplesErrorMessage = '';
+    this.expirysamplesBarcode();
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
       return false;
     }
-    
-    this.expirysamplesBarcode();
-    //Remove below 2 lines after successfully tested
-    // this.expirySampleResponseMessage('Successfully registered', 's');
-    // return false;
+    if (this.selectedBarcodes !== null) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this back!",
+        icon: 'warning',
+        showCancelButton: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Move it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.value) {
+          this.moveExpirySamples();
+        }
+      })
+    }
 
+  }
+
+  moveExpirySamples() {
+
+    this.unsentSamplesErrorMessage = '';
+    
     this.movetimeoutExpiryRequest = {
       anmId: this.user.userTypeId,
       barcodeNo: this.selectedBarcodes,
@@ -357,7 +402,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         if (this.movetimeoutExpiryResponse !== null && this.movetimeoutExpiryResponse.status === "true") {
           this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 's');
           this.anmunsentSampleList(this.user.id);
-        } 
+        }
         else {
           this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 'e');
           this.unsentSamplesErrorMessage = response.message;
@@ -370,13 +415,13 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         });
   }
 
-  expirySampleResponseMessage(message: string, type: string){
+  expirySampleResponseMessage(message: string, type: string) {
     var messageType = '';
-    if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
     }
-    else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+    else {
+      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
     }
   }
 
@@ -429,8 +474,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging <= '24') {
-      //if (element.sampleSelected) {
+      if (element.sampleSelected === true && element.sampleAging < '24') {
+        //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
           isFirst = false;
@@ -447,8 +492,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging >= '24') {
-      //if (element.sampleSelected) {
+      if (element.sampleSelected === true && element.sampleAging > '24') {
+        //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
           isFirst = false;
@@ -477,6 +522,37 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+
+  InitializeDateRange() {
+
+    this.popupform = this._formBuilder.group({
+      shipmentDate: [new Date(moment().add(-1, 'day').format())],
+    });
+
+
+    //Change of sample shipment date
+    this.popupform.controls.shipmentDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate2 = changes[0].getTime();
+      this.sampleShipmentDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+      this.sampleShipmentTime = moment(new Date(selectedDate2)).format("HH:mm");
+    });
+
+    // //Change of sample collection time
+    // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
+    //   console.log('end: ', changes);
+    //   if (!changes[0]) return;
+    //   const selectedDate3 = changes[0].getTime();
+    //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
+
+    //   //const monthLaterDate = selectedDate1;
+    //   // this.startPicker.flatpickr.set({
+    //   //   defaultDate: new Date(selectedDate1)
+    //   // });
+    // });
   }
 
 }

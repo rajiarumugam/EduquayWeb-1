@@ -60,6 +60,7 @@ import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-p
 import { CHCUpdateCBCComponent } from "./chc-sample-module/cbc-update/chc-update-cbc/chc-update-cbc.component";
 import { CBCReceivedSampleComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-received/chc-update-cbc-received.component";
 import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-upload/chc-update-cbc-upload.component";
+import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 
 import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update-sst/chc-update-sst.component";
@@ -95,7 +96,8 @@ const routes: Routes = [
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full' },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
-          { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' }
+          { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' },
+          { path: 'postmtp', component: AnmPostMtpFollowupComponent, pathMatch: 'full' }
         ]
       },
       {
@@ -143,6 +145,7 @@ const routes: Routes = [
 
       },
       { path: 'anm-sample-collection', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
+      { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
       //{ path: 'test/:id', component: AboutComponent }
       { path: 'anm-pickpack', component: AnmPickandPackComponent, resolve: {picknpackData: PicknpackResolverService} },
       { path: 'anm-shipment', component: AnmShipmentComponent, resolve: {shipmentLogData: ShipmentlogResolverService } },
@@ -185,6 +188,7 @@ export const RoutingComponents = [
   AnmPndReferralComponent,
   AnmMtpReferralComponent,
   AnmUpdateChcComponent,
+  AnmPostMtpFollowupComponent,
   SampleCollectionComponent,
   AnmPickandPackComponent,
   AnmShipmentComponent,

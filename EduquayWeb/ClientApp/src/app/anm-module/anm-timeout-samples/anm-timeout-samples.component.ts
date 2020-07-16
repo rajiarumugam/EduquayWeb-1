@@ -8,10 +8,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
 //import { EventEmitter } from 'protractor';
 
 @Component({
@@ -23,6 +25,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>(); 
+  @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
 
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -49,6 +52,28 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   collectionDate: string;
   collectionTime: string;
   notifySamples: string;
+  sampleCollectionDate: string;
+  sampleCollectionTime: string;
+  popupform: FormGroup;
+  DAY = 86400000;
+
+  collectionDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y H:i',
+    defaultDate: new Date(Date.now()),
+    // minDate: this.dyCollectionDate,
+    maxDate: new Date(Date.now()),
+    enableTime: true,
+    
+  };
+  collectionTimeOptions: FlatpickrOptions = {
+    mode: 'single',
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",    
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
   
     constructor(
   
@@ -57,7 +82,8 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       private router: Router,
       private route: ActivatedRoute,
       private dateService: DateService,
-      private tokenService: TokenService
+      private tokenService: TokenService,
+      private _formBuilder: FormBuilder
   
     ) { }
   
@@ -65,6 +91,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
       this.recordCount = 0;
       this.user = JSON.parse(this.tokenService.getUser('lu'));
+      this.InitializeDateRange(); 
       this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 5,
@@ -84,8 +111,10 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.collectionDate = this.dateService.getDate();
-      this.collectionTime = this.dateService.getTime();
+      // this.collectionDate = this.dateService.getDate();
+      // this.collectionTime = this.dateService.getTime();
+      // this.collectionDate = moment().format("DD/MM/YYYY");
+      // this.collectionTime = moment().format("HH:mm");
       console.log(this.TimeoutExpiryServiceService.timeoutSamplesApi);
       //this.anmtimeoutSamples();
   
@@ -143,6 +172,8 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       this.uniqueSubjectId = sample.uniqueSubjectId;
       this.rchId = sample.rchID;
       this.reason = sample.reason;
+      this.sampleCollectionDate = moment().format("DD/MM/YYYY");
+      this.sampleCollectionTime = moment().format("HH:mm");
   
       this.modalService.open(
         timeoutSamplesDetail, {
@@ -164,14 +195,14 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
         reason: this.reason,
         barcodeNo: this.barcodeNo,
         collectionFrom: this.user.sampleCollectionFrom,
-        sampleCollectionDate: this.collectionDate,
-        sampleCollectionTime: this.collectionTime,
+        sampleCollectionDate: this.sampleCollectionDate,
+        sampleCollectionTime: this.sampleCollectionTime,
         collectedBy: this.user.id,
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
-      // return false;
+       return false;
   
       let timeoutSamples = this.TimeoutExpiryServiceService.posttimeoutSample(this.addtimeoutSampleRecollectionRequest)
       .subscribe(response => {
@@ -301,6 +332,35 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
+    }
+
+    InitializeDateRange() {
+      
+      this.popupform = this._formBuilder.group({
+        collectionDate: [new Date(moment().add(-1, 'day').format())],
+      });
+   
+      //Change of sample collection date
+      this.popupform.controls.collectionDate.valueChanges.subscribe(changes => {
+        console.log('end: ', changes);
+        if (!changes[0]) return;
+        const selectedDate2 = changes[0].getTime();
+        this.sampleCollectionDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+        this.sampleCollectionTime = moment(new Date(selectedDate2)).format("HH:mm");
+      });
+  
+      // //Change of sample collection time
+      // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
+      //   console.log('end: ', changes);
+      //   if (!changes[0]) return;
+      //   const selectedDate3 = changes[0].getTime();
+      //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
+  
+      //   //const monthLaterDate = selectedDate1;
+      //   // this.startPicker.flatpickr.set({
+      //   //   defaultDate: new Date(selectedDate1)
+      //   // });
+      // });
     }
 
 

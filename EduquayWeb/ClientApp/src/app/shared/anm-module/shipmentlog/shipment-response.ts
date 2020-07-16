@@ -10,6 +10,8 @@ export class ShipmentList {
     anmName: string;
     testingCHC: string;
     avdName: string;
+    alternateAVD:string;
+    alternateAVDContactNo:string;
     contactNo: string;
     ilrPoint: string;
     riPoint: string;

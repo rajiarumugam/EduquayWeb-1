@@ -360,7 +360,7 @@ export class AnmAwRegistrationComponent implements OnInit {
              .then((result) => {
                if (result.value) {
                 $('#fadeinModal').modal('hide');
-                this.router.navigateByUrl("app/anm-sample-collection");
+                this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
                
                }
                else{
