@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.ngDisabled = "disabled";
     this.isProcessing = true;
     console.log(this.loginForm);
-    let emailInput = this.loginForm.value.email;
+    let emailInput = this.loginForm.value.userid;
     let passwordInput = this.loginForm.value.password;
     let authRespose = this.authService.userAuthentication(emailInput, passwordInput)
       .subscribe(response => {
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.loginForm);
-    console.log(this.loginForm.value.email);
+    console.log(this.loginForm.value.userid);
   }
 
   loginprocess(status){
