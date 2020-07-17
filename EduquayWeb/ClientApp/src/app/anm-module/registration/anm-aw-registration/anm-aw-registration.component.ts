@@ -277,7 +277,6 @@ export class AnmAwRegistrationComponent implements OnInit {
   }
 
   getCommunity(id){
-    console.log(id);
     this.communityData = [];
     if(id === 0)
     {
@@ -328,7 +327,6 @@ export class AnmAwRegistrationComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
-     console.log(age);
      this.selectedage = age;
      //return age;
   }
@@ -362,7 +360,7 @@ export class AnmAwRegistrationComponent implements OnInit {
              .then((result) => {
                if (result.value) {
                 $('#fadeinModal').modal('hide');
-                this.router.navigateByUrl("app/anm-sample-collection");
+                this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
                
                }
                else{

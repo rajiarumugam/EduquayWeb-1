@@ -63,6 +63,12 @@ import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cb
 import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 import { PositiveSubjectsResolverService } from "./shared/anm-module/positive-subjects/positive-subjects-resolver.service";
+
+import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update-sst/chc-update-sst.component";
+import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
+import { SSTUpdatePositiveComponent } from "./chc-sample-module/sst-update/chc-update-sst-positive/chc-update-sst-positive.component";
+import { SSTUpdateNegativeComponent } from "./chc-sample-module/sst-update/chc-update-sst-negative/chc-update-sst-negative.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -113,6 +119,14 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'chc-update-sst', component: CHCUpdateSSTComponent,
+        children:[
+          {path: '', component: SSTReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
+          {path: 'positive', component: SSTUpdatePositiveComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
+          {path: 'negative', component: SSTUpdateNegativeComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
+        ]
+      },
+      {
         path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
         children:[
           {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
@@ -132,6 +146,7 @@ const routes: Routes = [
 
       },
       { path: 'anm-sample-collection', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
+      { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
       //{ path: 'test/:id', component: AboutComponent }
       { path: 'anm-pickpack', component: AnmPickandPackComponent, resolve: {picknpackData: PicknpackResolverService} },
       { path: 'anm-shipment', component: AnmShipmentComponent, resolve: {shipmentLogData: ShipmentlogResolverService } },
@@ -196,5 +211,9 @@ export const RoutingComponents = [
   CHCSampleRcptProComponent,
   CHCUpdateCBCComponent,
   CBCReceivedSampleComponent,
-  CBCUploadComponent
+  CBCUploadComponent,
+  CHCUpdateSSTComponent,
+  SSTReceivedSampleComponent,
+  SSTUpdatePositiveComponent,
+  SSTUpdateNegativeComponent
 ];

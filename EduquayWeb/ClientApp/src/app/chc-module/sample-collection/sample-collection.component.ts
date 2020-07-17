@@ -225,6 +225,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     // });
   }
 
+  anmSampleCollection(){}
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first   

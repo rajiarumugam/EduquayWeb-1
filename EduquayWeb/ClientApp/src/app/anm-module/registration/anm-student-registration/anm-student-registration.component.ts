@@ -22,6 +22,9 @@ import { Router } from '@angular/router';
 })
 export class AnmStudentRegistrationComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
+  DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -177,7 +180,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
   }
 
@@ -324,7 +327,6 @@ export class AnmStudentRegistrationComponent implements OnInit {
   }
   nextStep(id) 
   {
-    //this.stepper.next();
     if(id === 1)
     {
       this.firstFormCheck = true;
@@ -344,7 +346,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       this.stepper.previous();
       }
 
-      formSubmit()
+    formSubmit()
     {
         if(this.secondFormGroup.valid && this.firstFormGroup.valid)
           {
@@ -357,7 +359,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
              .then((result) => {
                if (result.value) {
                 $('#fadeinModal').modal('hide');
-                this.router.navigateByUrl("app/anm-sample-collection");
+                this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
                }
                else{
                 this.firstFormGroup.reset();
@@ -381,10 +383,13 @@ export class AnmStudentRegistrationComponent implements OnInit {
     prePopulateFormDetails()
     {
       setTimeout(()=>{    
+          this.selectedsubjectTitle = "Mr";
+          this.selectedgender = "Male";
           this.selectedDistrict = this.user.districtId;
           this.selectedchc = this.user.chcId;
           this.selectedphc = this.user.phcId;
           this.selectedsc = this.user.scId;
+          this.communityData = [];
           this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
           if(this.selectedripoint === "" && this.RIdata[0])
             this.selectedripoint = this.RIdata[0].id;
@@ -397,6 +402,9 @@ export class AnmStudentRegistrationComponent implements OnInit {
 
 
           this.selecteddor = new Date(Date.now());
+
+          this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*.025)));
+          this.DOBPicker.flatpickr.setDate("");
         }, 100);
     }
     dataBindinginServce()

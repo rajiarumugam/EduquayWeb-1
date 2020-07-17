@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './../../../shared/data.service';
+import { DataService } from '../../../shared/data.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-chc-update-cbc',
-  templateUrl: './chc-update-cbc.component.html',
-  styleUrls: ['./chc-update-cbc.component.css']
+  selector: 'app-chc-update-sst',
+  templateUrl: './chc-update-sst.component.html',
+  styleUrls: ['./chc-update-sst.component.css']
 })
-export class CHCUpdateCBCComponent implements OnInit {
+export class CHCUpdateSSTComponent implements OnInit {
   receivedSampleCount;
   uploadCBCCount = 0;
   subscription: Subscription;
@@ -15,18 +15,17 @@ export class CHCUpdateCBCComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.DataService.receiveData().subscribe(x => { 
-      if(JSON.parse(x).screen === "CBC")
+      if(JSON.parse(x).screen === "SST")
       {
-          if(JSON.parse(x).page === "upload")
-          {
-            this.uploadCBCCount = JSON.parse(x).uploadcount;
+        if(JSON.parse(x).page === "upload")
+        {
+          this.uploadCBCCount = JSON.parse(x).uploadcount;
+          this.receivedSampleCount = JSON.parse(x).receivedcount;
+        }
+            
+        if(JSON.parse(x).page === "received")
             this.receivedSampleCount = JSON.parse(x).receivedcount;
-          }
-              
-          if(JSON.parse(x).page === "received")
-              this.receivedSampleCount = JSON.parse(x).receivedcount;
       }
-      
     });
   }
 

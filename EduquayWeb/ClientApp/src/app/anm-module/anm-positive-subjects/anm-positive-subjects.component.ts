@@ -46,6 +46,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
 
   //positiveSpouseResponse: PositiveSpouseResponse;
   positiveSubjectsList: positiveSubjects[]=[];
+  positiveSamplesErrorMessage: string;
   districts: District[] = [];
   errorMessage: string;
   positiveSubjectInitResponse: any;

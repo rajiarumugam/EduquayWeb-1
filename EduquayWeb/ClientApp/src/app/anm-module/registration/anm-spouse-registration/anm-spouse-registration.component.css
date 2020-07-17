@@ -205,10 +205,11 @@ vertical-align: middle;
     background-color: transparent !important;
     max-width: 100%;
 }
+/*
 ::ng-deep .modal-content .modal-footer
 {
     display: none !important;
-}
+}*/
 
 .fa-check-circle
 {
