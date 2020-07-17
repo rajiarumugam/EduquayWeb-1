@@ -14,7 +14,24 @@ export class DataService {
         this.subject.next();
     }
  
-    getData(): Observable<any> {
+    receiveData(): Observable<any> {
         return this.subject.asObservable();
+    }
+
+    /*----GETTER & SETTER----- */
+    data:any = {};
+    setdata(value)
+    {
+        Object.assign(this.data,value);
+    }
+
+    getdata()
+    {
+        return this.data;
+    }
+
+    deleteProp(propName)
+    {
+        delete this.data[propName];
     }
 }

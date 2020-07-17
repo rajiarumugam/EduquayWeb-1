@@ -13,10 +13,6 @@ import { ENDPOINT } from 'src/app/app.constant';
 })
 export class CHCSampleResolverService implements Resolve<any> {
 
-
-  fromDate: string = moment().add(-5, 'days') .format("DD/MM/YYYY");
-  toDate: string = moment().format("DD/MM/YYYY");
-
   constructor(
     private tokenService: TokenService,
     private httpClient: HttpClientService,

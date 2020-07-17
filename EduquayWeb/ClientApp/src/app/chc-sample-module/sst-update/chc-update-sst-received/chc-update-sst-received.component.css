@@ -160,7 +160,6 @@ vertical-align: middle;
   {
     background: #f6f6f6;
     padding: 5px;
-    min-height:440px;
   }
 
   .reges-form-main-container:hover
@@ -202,16 +201,11 @@ vertical-align: middle;
 ::ng-deep input.flatpickr-input
 {
     border:none;
+    background: transparent !important;
+    background-color: transparent !important;
+    max-width: 100%;
 }
-/*
-.modal-content .modal-footer
-{
-    display: none !important;
-}
-::ng-deep .modal-content .modal-footer
-{
-    display: none !important;
-}*/
+
 .fa-check-circle
 {
     font-size: 50px !important;
@@ -239,6 +233,27 @@ vertical-align: middle;
 .form-control.ng-valid {
     border: 1px solid red;
 }*/
+.user-plus
+{
+    text-align: center;
+}
+.float-left
+{
+    float:left;
+}
+
+@media (min-width: 576px)
+{
+    .modal-dialog {
+        max-width: 90% !important;
+        margin: 1.75rem auto;
+    }
+}
+
+.form-group
+{
+    text-align: left !important;
+}
 
 ::ng-deep .swal2-popup
 {
@@ -254,5 +269,11 @@ vertical-align: middle;
     background: initial;
     background-color: #1b55e2;
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
 }
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
