@@ -62,6 +62,12 @@ import { CBCReceivedSampleComponent } from "./chc-sample-module/cbc-update/chc-u
 import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-upload/chc-update-cbc-upload.component";
 import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
+
+import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update-sst/chc-update-sst.component";
+import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
+import { SSTUpdatePositiveComponent } from "./chc-sample-module/sst-update/chc-update-sst-positive/chc-update-sst-positive.component";
+import { SSTUpdateNegativeComponent } from "./chc-sample-module/sst-update/chc-update-sst-negative/chc-update-sst-negative.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -109,6 +115,14 @@ const routes: Routes = [
         path: 'chc-sample', component: CHCSampleRcptProComponent,
         children:[
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+        ]
+      },
+      {
+        path: 'chc-update-sst', component: CHCUpdateSSTComponent,
+        children:[
+          {path: '', component: SSTReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
+          {path: 'positive', component: SSTUpdatePositiveComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
+          {path: 'negative', component: SSTUpdateNegativeComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
         ]
       },
       {
@@ -196,5 +210,9 @@ export const RoutingComponents = [
   CHCSampleRcptProComponent,
   CHCUpdateCBCComponent,
   CBCReceivedSampleComponent,
-  CBCUploadComponent
+  CBCUploadComponent,
+  CHCUpdateSSTComponent,
+  SSTReceivedSampleComponent,
+  SSTUpdatePositiveComponent,
+  SSTUpdateNegativeComponent
 ];

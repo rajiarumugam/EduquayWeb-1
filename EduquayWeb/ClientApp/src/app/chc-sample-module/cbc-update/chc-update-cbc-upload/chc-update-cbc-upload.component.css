@@ -1,0 +1,23 @@
+.upload-btn-cont
+{
+    display: block;
+    height: 40px;
+}
+
+::ng-deep .swal2-icon.swal2-warning.swal2-icon-show
+{
+    width: 1em !important;
+    line-height: 11px !important;
+    height: 1em !important;
+    margin: 0.25em auto 0.35em !important;
+}
+::ng-deep .swal2-icon .swal2-icon-content
+{
+    font-size: 1em !important;
+}
+::ng-deep .swal2-styled.swal2-cancel
+{
+    font-size: 13px;
+    color:#3085d6 !important;
+    border:1px solid #3085d6;
+}
