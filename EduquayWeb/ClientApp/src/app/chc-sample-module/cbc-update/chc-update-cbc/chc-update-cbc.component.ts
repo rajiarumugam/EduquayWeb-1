@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../../shared/data.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chc-update-cbc',
@@ -11,7 +12,8 @@ export class CHCUpdateCBCComponent implements OnInit {
   receivedSampleCount;
   uploadCBCCount = 0;
   subscription: Subscription;
-  constructor(private DataService:DataService) { }
+  currentPage = "";
+  constructor(private DataService:DataService,private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.DataService.receiveData().subscribe(x => { 
@@ -28,6 +30,8 @@ export class CHCUpdateCBCComponent implements OnInit {
       }
       
     });
+
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
   }
 
   receivedSamples(event)
