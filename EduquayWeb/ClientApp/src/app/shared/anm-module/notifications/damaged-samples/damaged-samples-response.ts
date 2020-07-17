@@ -14,7 +14,8 @@ export interface DamagedSampleList {
     gestationalAge: string;
     notifiedStatus: string;
     sampleType: string;
-    reason: string;    
+    reason: string;   
+    sampleCollectionDateTime: string; 
    
 }
 

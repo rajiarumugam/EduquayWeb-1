@@ -174,7 +174,12 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       this.reason = sample.reason;
       this.sampleCollectionDate = moment().format("DD/MM/YYYY");
       this.sampleCollectionTime = moment().format("HH:mm");
-  
+
+      //var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+      var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+      const regDate = new Date(sample.sampleCollectionDateTime.replace(pattern,'$3/$2/$1 $4:$5'));
+      this.collectionDateOptions.minDate = regDate;
+
       this.modalService.open(
         timeoutSamplesDetail, {
         centered: true,
@@ -202,7 +207,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
-       return false;
+       //return false;
   
       let timeoutSamples = this.TimeoutExpiryServiceService.posttimeoutSample(this.addtimeoutSampleRecollectionRequest)
       .subscribe(response => {

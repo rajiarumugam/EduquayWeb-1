@@ -34,6 +34,5 @@ export class DamagedSamplesService {
   updatedamagedSample(updatedamagedSample: DamagedUpdateStatusRequest){
     let apiUrl = this.genericServices.buildApiUrl(this.updatedamagedSamplesApi);
     return this.http.post<DamagedUpdateStatusResponse>({url:apiUrl, body: updatedamagedSample });
-
   }
 }
