@@ -247,12 +247,18 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.reason = subject.reason;
     this.sampleCollectionDate = moment().format("DD/MM/YYYY");
     this.sampleCollectionTime = moment().format("HH:mm");
-    //const dateParts = subject.dateOfRegister.split('/'); 01/02/2020 11:32
-    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-    //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-    const regDate = new Date(subject.dateOfRegister.replace(pattern,'$3/$2/$1'));
-    this.collectionDateOptions.minDate = regDate;
-    //this.collectionTimeOptions.minDate = regDate;
+  
+    if(subject.sampleType === "F"){
+      var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+      //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+      const regDate = new Date(subject.dateOfRegister.replace(pattern,'$3/$2/$1'));
+      this.collectionDateOptions.minDate = regDate;
+    }
+    else{
+      var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+      const regDate = new Date(subject.oldSampleCollectionDate.replace(pattern,'$3/$2/$1'));
+      this.collectionDateOptions.minDate = regDate;
+    }
 
     this.modalService.open(
       subjectDetailModal,{
@@ -291,7 +297,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
-    //return false;
+    return false;
 
     let sampleCollection = this.sampleCollectionService.postSampleCollection(this.sampleCollectionDateTimeRequest)
     .subscribe(response => {

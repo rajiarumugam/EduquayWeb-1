@@ -9,6 +9,8 @@ import { TimeoutExpiryResponse } from './timeout-expiry/timeout-expiry-response'
 import { NotificationModel } from './notification.model';
 import { Observable } from 'rxjs';
 import { UnsentSamplesResponse } from './unsent-samples/unsent-samples-response';
+import { PositiveSubjectsResponse } from '../positive-subjects/positive-subjects-response';
+import { PositiveSubjectsService } from '../positive-subjects/positive-subjects.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,7 @@ export class NotificationService {
   timeoutSampleCount: number;
   
   unsentSamplesResponse: UnsentSamplesResponse;
+  positivubjectResponse: PositiveSubjectsResponse;
 
   positiveSampleCount: number = 0;
   unsentSampleCount: number = 0;
@@ -35,6 +38,7 @@ export class NotificationService {
     private damagedSampleService: DamagedSamplesService,
     private unsentServiceService: UnsentSamplesServiceService,
     private timeoutExpiryService: TimeoutExpiryServiceService,
+    private positiveSubjectsService: PositiveSubjectsService
   ) { }
 
 
@@ -42,6 +46,9 @@ export class NotificationService {
     this.notificationModel = new NotificationModel();
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     return new Promise(async resolve => {
+      await this.positiveSubjects(this.user.id).then((data) => {
+        data !== undefined ? this.positiveSampleCount = +data : 0;
+      });
       await this.damagedSamples().then((data) => {
         data !== undefined ? this.damagedSampleCount = +data : 0;
       });
@@ -51,6 +58,7 @@ export class NotificationService {
       await this.timeoutSamples().then((data) => {
         data !== undefined ? this.timeoutSampleCount = +data : 0;
       });
+      
       this.notificationModel.damaged = this.damagedSampleCount;
       this.notificationModel.unsent = this.unsentSampleCount;
       this.notificationModel.timeout = this.timeoutSampleCount;
@@ -58,6 +66,7 @@ export class NotificationService {
       this.notificationModel.pndreferral = this.pndtdSampleCount;
       this.notificationModel.mtpreferral = this.mtpSampleCount;
       this.notificationModel.chcupdate = this.chcUpdateSampleCount;
+      //this.notificationModel.postmtp = this.postmtpSampleCount;
       resolve(this.notificationModel);
     });
   }
@@ -90,6 +99,22 @@ export class NotificationService {
             }
           }
           resolve(this.unsentSampleCount);
+        });
+    });
+  }
+
+  async positiveSubjects(userId) {
+    this.positiveSampleCount = 0;
+    return new Promise(resolve => {
+      let unsentsample = this.positiveSubjectsService.getPositiveSubject(userId)
+        .subscribe(response => {
+          this.positivubjectResponse = response;
+          if (this.positivubjectResponse !== null && this.positivubjectResponse.status === "true") {
+            if (this.positivubjectResponse.positiveSubjects !== undefined && this.positivubjectResponse.positiveSubjects.length > 0) {
+              this.positiveSampleCount = this.positivubjectResponse.positiveSubjects.length;
+            }
+          }
+          resolve(this.positiveSampleCount);
         });
     });
   }

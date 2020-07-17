@@ -15,6 +15,7 @@ export interface TimeoutSampleList {
     notifiedStatus: string;
     sampleType: string;
     reason: string;
+    sampleCollectionDateTime: string;
 }
 
 export interface AddtimeoutSampleRecollectionResponse{

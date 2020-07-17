@@ -24,6 +24,7 @@ export interface SubjuctList {
     gestationalAge: string;
     sampleType: string;
     reason: string;
+    oldSampleCollectionDate: string;
 }
 
 export interface subjectTypesResponse{

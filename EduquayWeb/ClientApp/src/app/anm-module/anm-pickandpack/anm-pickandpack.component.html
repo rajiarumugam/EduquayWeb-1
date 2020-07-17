@@ -18,9 +18,8 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-sample-collection']"
-                                    role="button" ngbTooltip="Sample Collection"><i
-                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Sample Collection" placement="right" [routerLink]="['/app/anm-sample-collection']"
+                                    role="button"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
@@ -29,8 +28,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="float-right mb-4">
-                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-shipment']" role="button"
-                                ngbTooltip="Shipment Log"><i class="fas fa-chevron-right pNav-right"></i></a>
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-shipment']" role="button" ngbTooltip="Shipment Log" placement="left"
+                                ><i class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -77,7 +76,7 @@
 
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let picknpack of sampleList; index as i" >
+                                    <tr *ngFor="let picknpack of sampleList; index as i">
                                         <td class="sno text-center">{{i +1}}</td>
                                         <td class="sname text-left">{{picknpack.subjectName}}</td>
                                         <td class="sid">{{picknpack.uniqueSubjectId}}</td>

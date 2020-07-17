@@ -8,14 +8,19 @@ import { Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 declare var $: any;
+import * as moment from 'moment';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpClientService } from 'src/app/shared/http-client.service';
 import { GenericService } from 'src/app/shared/generic.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { positiveSubjects, PositiveSubjectsResponse, UpdatePositiveSubjectsResponse } from 'src/app/shared/anm-module/positive-subjects/positive-subjects-response';
+import { PositiveSubjectsService } from 'src/app/shared/anm-module/positive-subjects/positive-subjects.service';
+import { PositiveSubjectsRequest } from 'src/app/shared/anm-module/positive-subjects/positive-subjects-request';
+import { ENDPOINT } from 'src/app/app.constant';
 
 @Component({
   selector: 'app-anm-positive-subjects',
@@ -33,17 +38,20 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   user: user;
 
   positiveSubjectErrorMessage: string;
-  @ViewChild('startPicker1', { static: false }) pickerStart;
-  @ViewChild('endPicker', { static: false }) pickerEnd;
+  positiveSubjectResponse: PositiveSubjectsResponse;
+  updatepositiveSubjectRequest: PositiveSubjectsRequest;
+  updatepositiveSubjectResponse: UpdatePositiveSubjectsResponse;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
 
   //positiveSpouseResponse: PositiveSpouseResponse;
+  positiveSubjectsList: positiveSubjects[]=[];
   positiveSamplesErrorMessage: string;
   districts: District[] = [];
   errorMessage: string;
-  errorSpouseMessage: string;
+  positiveSubjectInitResponse: any;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  dateform:FormGroup;
   firstFormCheck = false;
   secondFormCheck = false;
   selectedDistrict = null;
@@ -71,6 +79,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   governmentIDData = [];
   selecteddob;
   selectedage;
+  registerSpouse: number;
   selecteddor = new Date(Date.now());
   DAY = 86400000;
   GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
@@ -127,8 +136,10 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   selectedECNumber;
   selectedcity;
 
-
+  notifySamples: string;
+ 
   constructor(
+    private PositiveSubjectsService: PositiveSubjectsService,
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
@@ -162,10 +173,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
         },
       } 
     };
-    this.dateform = this._formBuilder.group({
-      fromDate: [''],
-      toDate: ['']
-    });
+
     this.firstFormGroup = this._formBuilder.group({
       anwname:['', Validators.required],
       subjectId:['', Validators.required],
@@ -204,45 +212,54 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       pincode:['', Validators.required]
     });
 
-    // End Date Changes
-    this.dateform.controls.toDate.valueChanges.subscribe(changes => {
-      console.log('end: ', changes);
-      if (!changes[0]) return;
-      const selectedDate1 = changes[0].getTime();
-      console.log(selectedDate1);
-      const monthLaterDate = selectedDate1;
-      this.pickerStart.flatpickr.set({
-        maxDate: new Date(selectedDate1)
-      });
-      console.log(this.pickerStart.flatpickr);
-    });
-
-    // Start Date Changes
-    this.dateform.controls.fromDate.valueChanges.subscribe(changes => {
-      // console.log('start: ', changes);
-      if (!changes[0]) return;
-      const selectedDate = changes[0].getTime();
-      const monthLaterDate = selectedDate + (this.DAY*30);
-      // console.log(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
-      this.pickerEnd.flatpickr.set({
-        minDate: new Date(selectedDate),
-      });
-      // this.pickerEnd.flatpickr.setDate(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
-      // console.log(this.pickerEnd.flatpickr);
-    });
+    
+    this.positiveSubjectInitResponse = this.route.snapshot.data.positiveSubjectData;
+    if (this.positiveSubjectInitResponse.status === 'false') {
+      this.positiveSubjectsList = [];
+      if (this.positiveSubjectInitResponse.message !== null && this.positiveSubjectInitResponse.message.code === "ENOTFOUND") {
+        this.positiveSubjectErrorMessage = "Unable to connect to api source";
+      }
+      else if (this.positiveSubjectInitResponse.message !== null || this.positiveSubjectInitResponse.message == undefined) {
+        this.positiveSubjectErrorMessage = this.positiveSubjectInitResponse.message;
+      }
+    }
+    else {
+      
+      if (this.positiveSubjectInitResponse.positiveSubjects!= null && this.positiveSubjectInitResponse.positiveSubjects.length > 0) {
+        this.positiveSubjectsList = this.positiveSubjectInitResponse.positiveSubjects;
+      }
+    }
 
   }
 
-  fromDateChange()
-  {
-      console.log(this.fromDate);
+  getpositiveSubjectList(userId){
+    this.positiveSubjectsList = [];
+    let positiveSubject = this.PositiveSubjectsService.getPositiveSubject(userId)
+    .subscribe(response => {
+      this.positiveSubjectResponse = response;
+      if (this.positiveSubjectResponse !== null && this.positiveSubjectResponse.status === "true") {
+        if (this.positiveSubjectResponse.positiveSubjects.length <= 0) {
+          this.positiveSubjectErrorMessage = response.message;
+        }
+        else {
+          this.positiveSubjectsList = this.positiveSubjectResponse.positiveSubjects;
+        }
+      }
+      else {
+        this.positiveSubjectErrorMessage = response.message;
+      }
+      this.rerender();
+      this.loadDataTable = true;
+    },
+      (err: HttpErrorResponse) => {
+        if (this.loadDataTable) this.rerender();
+        this.positiveSubjectErrorMessage = err.toString();
+      });
+    
   }
 
-  openpositiveSubject(some){}
-
-  openpositiveSubjects(positiveSubjectsDetail){
-
-    //console.log(data);
+  
+  openpositiveSubjects(positiveSubjectsDetail, positiveSub: positiveSubjects){
     this.getDistrictData();
     this.getCHC();
     this.getPHC();
@@ -253,22 +270,39 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     //this.getCommunity(0);
     this.getGovernmentIDType();
 
-    // this.selectedanwname = data.firstName;
-    // this.selectedsubjectId = data.uniqueSubjectId;
-    // this.selectedrchId = data.rchId;
-    // this.selectedMobile = data.contactNo;
-    // this.selectedgender = 'Male';
-    // this.selectedDistrict = data.districtId;
-    // this.selectedchc = data.chcId;
-    // this.selectedphc = data.phcId;
-    // this.selectedsc = data.scId;
-    // this.selectedripoint = data.riId;
-    // this.selectedreligion = data.religionId;
-    // this.selectedcaste = data.casteId;
-    // this.getCommunity(this.selectedcaste);
-    // this.selectedcommunity = data.communityId;
-    // $('#fadeinModal').modal('show');
+    this.selecteddor = new Date(Date.now());
+    this.selectedanwname = positiveSub.subjectName;
+    this.selectedsubjectId = positiveSub.uniqueSubjectId;
+    this.selectedrchId = positiveSub.rchId;
+    //this.selectedMobile = positiveSub.contactNo;
+    this.selectedMobile = '9874587451';
+    this.selectedgender = 'Male';
+    this.selectedDistrict = positiveSub.districtId;
+    this.selectedchc = positiveSub.chcId;
+    this.selectedphc = positiveSub.phcId;
+    this.selectedsc = positiveSub.scId;
+    this.selectedripoint = positiveSub.riId;
+    this.selectedreligion = positiveSub.religionId;
+    this.selectedcaste = positiveSub.casteId;
+    this.getCommunity(this.selectedcaste);
+    this.selectedcommunity = positiveSub.communityId;
+    this.selectedfirstname = positiveSub.spouseFirstName;
+    this.selectedmiddlename = positiveSub.spouseMiddleName;
+    this.selectedlastname = positiveSub.spouseLastName;
+    this.selectedspouseContactNumber = positiveSub.spouseContactNo;
+    this.selectedhouse = positiveSub.address1;
+    this.selectedstreet = positiveSub.address2;
+    this.selectedcity = positiveSub.address3;
+    this.selectedstate = positiveSub.stateName;
+    this.selectedPincode = positiveSub.pincode;
+    this.selectedECNumber = positiveSub.ecNumber;
+    //this.selectedspouseEmail = data.ecNumber;
 
+    // this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.025)));
+    // this.DOBPicker.flatpickr.setDate("");
+
+
+    // $('#fadeinModal').modal('show');
     this.modalService.open(
       positiveSubjectsDetail, {
       centered: true,
@@ -279,6 +313,108 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
 
   }
 
+  
+ positiveSubjectUpdateStatus(){
+    this.positiveSubjectErrorMessage = '';
+    this.fetchBarcodes();
+
+    if(this.notifySamples === ""){
+      this.showResponseMessage(`Please select at least one sample to update the status`, 'e');
+      return false;
+    }
+   
+    this.updatepositiveSubjectRequest = {
+      anmId: this.user.userTypeId,
+      barcodeNo: this.notifySamples,
+     
+    }
+    //Remove below 2 lines after successfully tested
+    // this.showResponseMessage('Successfully registered', 's');
+    // return false;
+    let updatepositivesample = this.PositiveSubjectsService.updatePositiveSubject(this.updatepositiveSubjectRequest)
+      .subscribe(response => {
+        this.updatepositiveSubjectResponse = response;
+        if (this.updatepositiveSubjectResponse !== null && this.updatepositiveSubjectResponse.status === "true") {
+          this.showResponseMessage(this.updatepositiveSubjectResponse.result, 's');
+        } else {
+          this.showResponseMessage(this.updatepositiveSubjectResponse.result, 'e');
+          this.positiveSubjectErrorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          this.showResponseMessage(err.toString(), 'e');
+          this.positiveSubjectErrorMessage = err.toString();
+        });
+
+  }
+
+  showResponseMessage(message: string, type: string){
+    var messageType = '';
+    if(type === 'e'){
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+    }
+    else{
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+      .then((result) => {
+        if (result.value) {
+          if(this.modalService.hasOpenModals){
+            this.modalService.dismissAll();
+          }
+        }
+      });
+    }
+  }
+
+  updateNotification(positiveSample: positiveSubjects, notifiedStatus: boolean){
+    if(notifiedStatus === false){
+      positiveSample.notifiedStatus = false;
+    }
+    else{
+      positiveSample.notifiedStatus = true;
+    }
+  }
+
+  fetchBarcodes(){
+    this.notifySamples = '';
+    var isFirst = true;
+    this.positiveSubjectsList.forEach(element => {
+      console.log('notifiedStatus :' + element.notifiedStatus);
+      if(element.notifiedStatus === true){
+        if(isFirst){
+          this.notifySamples += element.barcodeNo;
+          isFirst = false;
+        }
+        else{
+          this.notifySamples += ',' + element.barcodeNo;
+        }
+      }
+    });
+  }
+
+  
+
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first 
+      dtInstance.clear();     
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again       
+      this.dtTrigger.next();
+    });
+  }   
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }   
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  
   getDistrictData(){
     this.masterService.getuserBasedDistrict()
     .subscribe(response => {
@@ -314,6 +450,13 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
+      if((this.selectedsc === "" || this.SCdata.findIndex(i => i.id === this.selectedsc) == -1))
+      {
+          if(this.SCdata[0] != undefined)
+              setTimeout(() => {
+                this.selectedsc = this.SCdata[0].id;
+              }, 1);  
+      }  
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -324,6 +467,13 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
+      if((this.selectedripoint === "" || this.RIdata.findIndex(i => i.id === this.selectedripoint) == -1))
+      {
+          if(this.RIdata[0] != undefined)
+              setTimeout(() => {
+                this.selectedripoint = this.RIdata[0].id;
+              }, 1);  
+      }  
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -358,7 +508,6 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   }
 
   getCommunity(id){
-    console.log(id);
     if(id === 0)
     {
         this.masterService.getCommunity()
@@ -416,37 +565,153 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.getCommunity(this.selectedcaste);
   }
 
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first 
-      dtInstance.clear();     
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again       
-      this.dtTrigger.next();
-    });
-  }   
-
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }   
-
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
+  // }
   nextStep(stepper: MatStepper) {
-    //this.firstFormCheck = true;
-    //if(this.firstFormGroup.valid)
     this.firstFormCheck = true;
-    if(this.firstFormGroup.valid)
-    stepper.next();
-  }
+      if(this.firstFormGroup.valid)
+       stepper.next();
+    }
+
+    // prevStep() {
+    //   this.stepper.previous();
+    //   }
 
   prevStep(stepper: MatStepper) {
     stepper.previous();
   }
+
+    formSubmit()
+    {
+      this.secondFormCheck = true;
+    
+      if(this.secondFormGroup.valid && this.firstFormGroup.valid)
+      {
+        var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
+        this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
+          this.createdSubjectId = response.uniqueSubjectId;
+          this.getpositiveSubjectList(this.user.id);
+
+          Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+    showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+       .then((result) => {
+         if (result.value) {
+          $('#fadeinModal').modal('hide');
+          this.router.navigateByUrl("app/anm-sample-collection");
+         
+         }
+         else{
+          this.firstFormGroup.reset();
+          this.secondFormGroup.reset();
+          this.secondFormCheck = false;
+          this.firstFormCheck = false;
+          this.stepper.selectedIndex = 0;
+          $('#fadeinModal').modal('hide');
+         }
+       });
+          //$('#fadeinModal').modal('show');
+          
+        },
+        (err: HttpErrorResponse) =>{
+          console.log(err);
+          this.positiveSubjectErrorMessage = err.toString();
+        });
+      }
+    }
+
+    dataBindinginServce()
+    {
+      var _obj = {
+        "subjectPrimaryRequest": {
+          "subjectTypeId": 1,
+          "childSubjectTypeId": 1,
+          "uniqueSubjectId": "",
+          "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
+          "chcId": Number(this.firstFormGroup.get('chc').value),
+          "phcId": Number(this.firstFormGroup.get('phc').value),
+          "scId": Number(this.firstFormGroup.get('sc').value),
+          "riId": Number(this.firstFormGroup.get('ripoint').value),
+          "subjectTitle": this.firstFormGroup.get('subjectitle').value,
+          "firstName": this.firstFormGroup.get('firstname').value,
+          "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
+          "lastName": this.firstFormGroup.get('lastname').value,
+          "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
+          "age": Number(this.firstFormGroup.get('age').value),
+          "gender": "Male",
+          "maritalStatus": true,
+          "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
+          "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
+          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+          "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
+          "spouseSubjectId": "",
+          "spouseFirstName": "",
+          "spouseMiddleName": "",
+          "spouseLastName": "",
+          "spouseContactNo": "",
+          "spouseGovIdTypeId": 0,
+          "spouseGovIdDetail": "",
+          "assignANMId": this.user.id,
+          "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
+          "registeredFrom": Number(this.user.registeredFrom),
+          "createdBy": Number(this.user.id),
+          "source": "N"
+        },
+        "subjectAddressRequest": {
+          "religionId": Number(this.secondFormGroup.get('religion').value),
+          "casteId": Number(this.secondFormGroup.get('caste').value),
+          "communityId": Number(this.secondFormGroup.get('community').value),
+          "address1": this.secondFormGroup.get('house').value,
+          "address2": this.secondFormGroup.get('street').value,
+          "address3": this.secondFormGroup.get('city').value,
+          "pincode": ""+this.secondFormGroup.get('pincode').value,
+          "stateName": this.secondFormGroup.get('state').value,
+          "updatedBy": Number(this.user.id)
+        },
+        "subjectPregnancyRequest": {
+          "rchId": this.firstFormGroup.get('rchId').value,
+          "ecNumber": this.secondFormGroup.get('ECNumber').value,
+          "lmpDate": "",
+          "g": 0,
+          "p": 0,
+          "l": 0,
+          "a": 0,
+          "updatedBy": Number(this.user.id)
+        },
+        "subjectParentRequest": {
+          "motherFirstName": "",
+          "motherMiddleName": "",
+          "motherLastName": "",
+          "motherGovIdTypeId": 0,
+          "motherGovIdDetail": "",
+          "motherContactNo": "",
+          "fatherFirstName": "",
+          "fatherMiddleName": "",
+          "fatherLastName": "",
+          "fatherGovIdTypeId": 0,
+          "fatherGovIdDetail": "",
+          "fatherContactNo": "",
+          "gaurdianFirstName": "",
+          "gaurdianMiddleName": "",
+          "gaurdianLastName": "",
+          "gaurdianGovIdTypeId": 0,
+          "gaurdianGovIdDetail": "",
+          "gaurdianContactNo": "",
+          "rbskId": "",
+          "schoolName": "",
+          "schoolAddress1": "",
+          "schoolAddress2": "",
+          "schoolAddress3": "",
+          "schoolPincode": "",
+          "schoolCity": "",
+          "schoolState": "",
+          "standard": "",
+          "section": "",
+          "rollNo": "",
+          "updatedBy": Number(this.user.id)
+        }
+      };
+
+      return _obj;
+    }
 
 
 }
