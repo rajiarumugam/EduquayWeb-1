@@ -38,7 +38,7 @@
             <div class="widget-content widget-content-area br-6">
               <div class="form-row mt-4">
                 <div class="col-sm-12">
-                  <div *ngIf="sCollectionErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': chcsCollectionErrorMessage ==='No subjects found', 'alert-danger': chcsCollectionErrorMessage !== 'No subjects found'}">
+                  <div *ngIf="chcsCollectionErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': chcsCollectionErrorMessage ==='No subjects found', 'alert-danger': chcsCollectionErrorMessage !== 'No subjects found'}">
                     <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{chcsCollectionErrorMessage}}
                   </div>
                 </div>
@@ -72,7 +72,7 @@
                   <select id="inputSubjectcategory" class="form-control" name=DDsubjectType #DDsubjectType formControlName="selectedSubjectType"
                   required [(ngModel)]="selectedSubjectType" >
                     <option value="">--Select--</option>
-                    <option *ngFor="let subType of subjectTypes"
+                    <option *ngFor="let subType of chcsubjectTypes"
                             [(value)]= " subType.id ">
                         {{ subType.subjectTypeName }}
                     </option>

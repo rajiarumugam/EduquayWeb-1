@@ -37,6 +37,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   @ViewChild('endPicker', { static: false }) pickerEnd;
 
   //positiveSpouseResponse: PositiveSpouseResponse;
+  positiveSamplesErrorMessage: string;
   districts: District[] = [];
   errorMessage: string;
   errorSpouseMessage: string;
@@ -236,6 +237,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   {
       console.log(this.fromDate);
   }
+
+  openpositiveSubject(some){}
 
   openpositiveSubjects(positiveSubjectsDetail){
 
