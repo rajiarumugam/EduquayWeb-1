@@ -303,10 +303,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     .subscribe(response => {
       this.sampleCollectionPostResponse = response;
       if(this.sampleCollectionPostResponse !== null && this.sampleCollectionPostResponse.status === "true"){
-        this.showResponseMessage(this.sampleCollectionPostResponse.result, 's')
+        this.showResponseMessage(this.sampleCollectionPostResponse.message, 's')
          this.anmSampleCollection();
       }else{
-        this.showResponseMessage(this.sampleCollectionPostResponse.result, 'e');
+        this.showResponseMessage(this.sampleCollectionPostResponse.message, 'e');
                 this.sCollectionErrorMessage = response.message;
       }
 
