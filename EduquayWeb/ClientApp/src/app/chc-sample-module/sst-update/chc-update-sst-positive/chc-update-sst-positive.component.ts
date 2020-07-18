@@ -68,6 +68,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
       var _tempData = chcReceiptsArr.sstDetail;
+      var _tempReceivedData = JSON.parse(JSON.stringify(chcReceiptsArr.sstDetail));
       if(this.DataService.getdata().sstPositive != undefined)
       {
         this.positiveList = this.DataService.getdata().sstPositive;
@@ -83,7 +84,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
       }
         this.chcReceiptsData = _tempData;
         this.tempCHCData = JSON.parse(JSON.stringify(_tempData));
-        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-this.positiveList.length-this.negativeList.length}));
+        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.positiveList.length-this.negativeList.length}));
       
     }
     else{
@@ -94,21 +95,18 @@ export class SSTUpdatePositiveComponent implements OnInit {
 
   searchBarCodetype()
   {
-    console.log(this.searchbarcode);
     let term = this.searchbarcode;
     var _index = this.tempCHCData.findIndex(com => com.barcodeNo === term)
-    console.log(_index);
     if(_index >= 0)
     {
       this.positiveList.push(this.tempCHCData[_index]);
       this.tempCHCData.splice(_index,1);
-      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-this.positiveList.length-this.negativeList.length}));
+      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length}));
       this.rerender();
       this.searchbarcode = ""; 
       this.DataService.setdata({'sstPositive':this.positiveList});
       this.showUploadResult = true;
     } 
-    console.log(this.positiveList);
   }
   clicksearchBarcode()
   {
@@ -117,13 +115,14 @@ export class SSTUpdatePositiveComponent implements OnInit {
 
   removeItem(index)
   {
+    this.tempCHCData.push(this.positiveList[index]);
     this.positiveList.splice(index,1);
-    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-this.positiveList.length-this.negativeList.length}));
+    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length-this.positiveList.length-this.negativeList.length}));
     this.DataService.setdata({'sstPositive':this.positiveList});
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Your work has been saved',
+      title: 'Sample moved to Received Sample.',
       showConfirmButton: false,
       timer: 2000
     })
@@ -153,7 +152,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
           _obj['barcodeNo'] = val.barcodeNo;
           _tempArr.push(_obj);
         }.bind(this));
-        this.chcsampleService.addCBCtest({"ssTestRequest":_tempArr})
+        this.chcsampleService.addSSTtest({"ssTestRequest":_tempArr})
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
@@ -161,8 +160,9 @@ export class SSTUpdatePositiveComponent implements OnInit {
               text: 'Positive results submitted successfully.',
               icon: 'success'
             }).then((result) => {
+              var _tempPositiveLength = this.positiveList.length;
               this.positiveList = [];
-              this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-this.positiveList.length-this.negativeList.length}));
+              this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-_tempPositiveLength-this.negativeList.length}));
               this.DataService.deleteProp('sstPositive');
               this.showUploadResult = false;
             });

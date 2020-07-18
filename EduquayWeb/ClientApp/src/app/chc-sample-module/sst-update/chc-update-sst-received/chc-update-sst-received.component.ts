@@ -55,6 +55,7 @@ export class SSTReceivedSampleComponent implements OnInit {
     this.chcReceiptsData = [];
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
+      var _tempReceivedData = JSON.parse(JSON.stringify(chcReceiptsArr.sstDetail));
       var _tempData = chcReceiptsArr.sstDetail;
       if(this.DataService.getdata().sstNegative != undefined)
       {
@@ -74,7 +75,7 @@ export class SSTReceivedSampleComponent implements OnInit {
       }
       
         this.chcReceiptsData = _tempData;
-        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-this.negativeList.length-this.positiveList.length}));
+        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.negativeList.length-this.positiveList.length}));
     }
     else{
       this.errorMessage = chcReceiptsArr.message;
