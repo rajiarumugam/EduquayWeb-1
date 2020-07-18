@@ -297,7 +297,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
-    return false;
+    //return false;
 
     let sampleCollection = this.sampleCollectionService.postSampleCollection(this.sampleCollectionDateTimeRequest)
     .subscribe(response => {
