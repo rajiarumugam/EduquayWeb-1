@@ -85,7 +85,8 @@
     "":"",
     "UpdateSSTResults":"Update SST Results",
     "Positive":"Positive",
-    "Negative":"Negative"
+    "Negative":"Negative",
+    "Delete":"Delete"
 
 
 }

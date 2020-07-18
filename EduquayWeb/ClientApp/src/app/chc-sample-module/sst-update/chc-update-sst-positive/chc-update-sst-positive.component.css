@@ -277,3 +277,33 @@ vertical-align: middle;
     align-items: center;
     height: 100%;
   }
+
+  .user-plus i,.user-plus{
+    cursor: pointer;
+    color: #1b55e2;
+}
+.user-plus:hover i
+{
+  color: blue;
+}
+
+::ng-deep .swal2-container.swal2-top-end, ::ng-deep .swal2-container.swal2-top-right {
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+::ng-deep .swal2-container.swal2-top-end .swal2-popup
+{
+    position: absolute;
+}
+
+.upload-btn-cont
+{
+    display: block;
+    height: 40px;
+}
+::ng-deep .swal2-styled.swal2-cancel
+{
+    font-size: 13px;
+    color:#3085d6 !important;
+    border:1px solid #3085d6;
+}
