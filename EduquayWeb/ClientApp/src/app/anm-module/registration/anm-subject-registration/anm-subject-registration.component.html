@@ -35,17 +35,17 @@
                 <div class="widget-content widget-content-area br-6">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="antenatal-tab" data-toggle="tab"
+                            <a class="nav-link" [ngClass]="{'active': (currentPage == 'awreg' || currentPage == 'anm-subregn') ? true : false}" id="antenatal-tab" data-toggle="tab"
                                 [routerLink]="['/app/anm-subregn/awreg']" role="tab" aria-controls="home"
                                 aria-selected="true">Antenatal Woman
                                 Registration</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="spouseregistration-tab" [routerLink]="['/app/anm-subregn/spouse']" data-toggle="tab" 
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'spouse' ? true : false}" id="spouseregistration-tab" [routerLink]="['/app/anm-subregn/spouse']" data-toggle="tab" 
                                 role="tab" aria-controls="profile" aria-selected="true">Spouse Registration</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="studentregistration-tab" [routerLink]="['/app/anm-subregn/student']" data-toggle="tab" 
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'student' ? true : false}" id="studentregistration-tab" [routerLink]="['/app/anm-subregn/student']" data-toggle="tab" 
                                 role="tab" aria-controls="contact" aria-selected="true">School Registration</a>
                         </li>
                     </ul>

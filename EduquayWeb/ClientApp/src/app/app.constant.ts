@@ -21,6 +21,8 @@ export const ENDPOINT = {
         "RETRIVECHCRECEIPT":"api/CHCReceiptProcessing/RetrieveCHCReceipt/",
         "ADDRECEIVEDSHIPMENT":"api/CHCReceiptProcessing/AddReceivedShipments",
         "RETRIVECBC":"api/CHCReceiptProcessing/RetrieveCBC/",
-        "ADDCBCTEST":"api/CHCReceiptProcessing/AddCBCTest"
+        "ADDCBCTEST":"api/CHCReceiptProcessing/AddCBCTest",
+        "RETRIVESST":"api/CHCReceiptProcessing/RetrieveSST/",
+        "ADDSSTTEST":"api/CHCReceiptProcessing/AddSSTest"
     }
 }

@@ -19,7 +19,8 @@
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-4">
-      
+              <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Update CBC Results" placement="right" [routerLink]="['/app/chc-update-cbc']"
+                role="button" ><i class="fas fa-chevron-left pNav-left"></i></a></div>
             </div>
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
@@ -30,7 +31,7 @@
             <div class="col-md-4">
               <div class="float-right mb-4">
                 <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-subregn/awreg']" role="button"
-                ngbTooltip="Registration"><i class="fas fa-chevron-right pNav-right"></i></a>
+                ngbTooltip="Pick & Pack"><i class="fas fa-chevron-right pNav-right"></i></a>
               </div>
             </div>
           </div>
@@ -39,22 +40,22 @@
           <div class="widget-content widget-content-area br-6">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="damagedsample-tab" data-toggle="tab"
+                <a class="nav-link" [ngClass]="{'active': currentPage == 'chc-update-sst' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/chc-update-sst']" role="tab" aria-controls="home"
                    aria-selected="true">
                    Received Samples<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-sst/positive']"
+                <a class="nav-link" [ngClass]="{'active': currentPage == 'positive' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-sst/positive']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Update Positive<span class="badge badge-pill badge-warning shadow ml-1">{{uploadCBCCount}}</span>
+                   Update Positive<span class="badge badge-pill badge-warning shadow ml-1">{{positiveCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-sst/negative']"
+                <a class="nav-link" [ngClass]="{'active': currentPage == 'negative' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-sst/negative']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Update Negative<span class="badge badge-pill badge-warning shadow ml-1">{{uploadCBCCount}}</span>
+                   Update Negative<span class="badge badge-pill badge-warning shadow ml-1">{{negativeCount}}</span>
                 </a>
               </li>
             </ul>
