@@ -176,10 +176,17 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       });
   }
   onChangeriPoint() {
-    this.getILRPoints(this.selectedriPoint);
-    this.getTestingCHC(this.selectedriPoint);
-    this.getAVDName(this.selectedriPoint);
-
+    
+    if(this.selectedriPoint === ''){
+      this.selectedilrPoint = '';
+      this.selectedtestingCHC = '';
+      this.selectedAvdName = '';
+    }
+    else{
+      this.getILRPoints(this.selectedriPoint);
+      this.getTestingCHC(this.selectedriPoint);
+      this.getAVDName(this.selectedriPoint);
+    }
   }
 
   anmpicknpackList() {
@@ -241,8 +248,12 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
 
   getILRPoints(riPointId) {
+    
     this.ilrPoints = [];
     this.selectedilrPoint = '';
+    if(riPointId === ''){
+      this.selectedilrPoint='';
+    }
     this.PicknpackService.getIlrPoint(riPointId)
       .subscribe(response => {
         this.ilrpointResponse = response;
@@ -266,6 +277,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   getTestingCHC(riPointId) {
     this.testingCHCNames = [];
     this.selectedtestingCHC = "";
+    if(riPointId === ''){
+      this.selectedtestingCHC='';
+    }
     this.PicknpackService.getTestingCHC(riPointId)
       .subscribe(response => {
         this.testingCHCResponse = response;
@@ -288,6 +302,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   getAVDName(riPointId) {
     this.AvdNames = [];
     this.selectedAvdName = "";
+    if(riPointId === ''){
+      this.selectedAvdName='';
+    }
     this.PicknpackService.getAvdName(riPointId)
       .subscribe(response => {
         this.avdNameResponse = response;
