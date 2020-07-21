@@ -21,4 +21,10 @@ export class chcsampleService {
 
   }
 
+  addSSTtest(obj){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDSSTTEST);
+    return this.http.post<any>({url:apiUrl, body: obj });
+
+  }
+
 }

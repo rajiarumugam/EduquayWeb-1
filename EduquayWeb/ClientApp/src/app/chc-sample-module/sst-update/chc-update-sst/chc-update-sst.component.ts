@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../shared/data.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chc-update-sst',
@@ -9,24 +10,22 @@ import { Subscription } from 'rxjs';
 })
 export class CHCUpdateSSTComponent implements OnInit {
   receivedSampleCount;
-  uploadCBCCount = 0;
+  positiveCount = 0;
+  negativeCount = 0;
   subscription: Subscription;
-  constructor(private DataService:DataService) { }
+  currentPage = "";
+  constructor(private DataService:DataService,private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.DataService.receiveData().subscribe(x => { 
       if(JSON.parse(x).screen === "SST")
       {
-        if(JSON.parse(x).page === "upload")
-        {
-          this.uploadCBCCount = JSON.parse(x).uploadcount;
+          this.negativeCount = JSON.parse(x).negativecount;
           this.receivedSampleCount = JSON.parse(x).receivedcount;
-        }
-            
-        if(JSON.parse(x).page === "received")
-            this.receivedSampleCount = JSON.parse(x).receivedcount;
+          this.positiveCount = JSON.parse(x).positivecount;
       }
     });
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
   }
 
   receivedSamples(event)

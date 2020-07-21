@@ -222,9 +222,9 @@ export class CHCSampleRcptComponent implements OnInit {
               }
 
               var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDRECEIVEDSHIPMENT);
-              this.httpClientService.post<any>({url:apiUrl, body: {_sampleResult}}).subscribe(response => {
+              this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
-                if(response.status)
+                if(response.status === "true")
                 {
                   Swal.fire({icon:'success', title: 'Shipment Received Successfully',
                     showCancelButton: false, confirmButtonText: 'OK'})

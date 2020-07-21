@@ -19,6 +19,8 @@ export class SSTReceivedSampleComponent implements OnInit {
   chcReceiptsData: any[] = [];
   popupData:any;
   processingDate;
+  negativeList = [];
+  positiveList = [];
 
 
   dtOptions: DataTables.Settings = {};
@@ -53,17 +55,27 @@ export class SSTReceivedSampleComponent implements OnInit {
     this.chcReceiptsData = [];
     var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
     if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
-      var _tempData = chcReceiptsArr.cbcDetail;
-      if(this.DataService.getdata().cbcuploaddata != undefined)
+      var _tempReceivedData = JSON.parse(JSON.stringify(chcReceiptsArr.sstDetail));
+      var _tempData = chcReceiptsArr.sstDetail;
+      if(this.DataService.getdata().sstNegative != undefined)
       {
-          var _tempUploadData = this.DataService.getdata().cbcuploaddata;
-          _tempUploadData.forEach((obj)=>{
+        this.negativeList = this.DataService.getdata().sstNegative;
+        this.negativeList.forEach((obj)=>{
             var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
             _tempData.splice(existNotification,1);
           });
       }
+      if(this.DataService.getdata().sstPositive != undefined)
+      {
+        this.positiveList = this.DataService.getdata().sstPositive;
+        this.positiveList.forEach((obj)=>{
+            var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
+            _tempData.splice(existNotification,1);
+          });
+      }
+      
         this.chcReceiptsData = _tempData;
-      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length}));
+        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.negativeList.length-this.positiveList.length}));
     }
     else{
       this.errorMessage = chcReceiptsArr.message;
