@@ -181,9 +181,10 @@
                           <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
                           <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
                           <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
-                          <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="6"
+                          <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
                           #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
-                          <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small>
+                          <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched">The barcode must be alphabets or digits</small>
+                          <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
                           <div *ngIf="collectionForm.submitted && sampleBarcode.invalid">     
                             <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
                           </div> 

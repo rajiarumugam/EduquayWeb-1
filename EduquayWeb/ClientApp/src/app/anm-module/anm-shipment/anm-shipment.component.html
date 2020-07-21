@@ -177,9 +177,12 @@
                                             <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>Alternate AVD Name : </b></span><span>{{alternateAVD}}</span>
+                                            <span [hidden]="!alternateAVD"><b>Alternate AVD Name : </b></span><span>{{alternateAVD}}</span>
                                         </div>
-                                        <div class="col-md-3">
+                                       
+                                    </div>
+                                    <div class="row my-4">
+                                        <div class="col-md-6" [hidden]="!alternateAVDContactNo">
                                             <span><b>Alternate AVD Contact Number : </b></span><span>{{alternateAVDContactNo}}</span>
                                         </div>
                                     </div>

@@ -12,7 +12,7 @@ export interface SampleList {
     barcodeNo: string;
     sampleDateTime: string;
     sampleSelected: boolean;
-    selecteddate: any;
+    sampleAging: string;
 }
 
 export interface RiPointResponse {
