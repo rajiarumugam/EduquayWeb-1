@@ -54,6 +54,7 @@ import { SpouseResolverService } from "./shared/anm-module/registration/spouse/s
 import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
 import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
 import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
+import { ChcSampleCollectionComponent } from "./chc-module/sample-collection/chc-sample-collection.component";
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
@@ -68,7 +69,12 @@ import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update
 import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
 import { SSTUpdatePositiveComponent } from "./chc-sample-module/sst-update/chc-update-sst-positive/chc-update-sst-positive.component";
 import { SSTUpdateNegativeComponent } from "./chc-sample-module/sst-update/chc-update-sst-negative/chc-update-sst-negative.component";
+<<<<<<< HEAD
+import { ChcSampleCollectionResolverService } from "./shared/chc-module/sample-collection/chc-sample-collection-resolver.service";
+import { ChcPicknpackComponent } from "./chc-module/chc-picknpack/chc-picknpack.component";
+=======
 import { CHCupdateSSTReceivedService } from "./shared/chc-sample/chc-update-sst-resolver.service";
+>>>>>>> bf0b532e823d20503908488ceee185313fb87548
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -113,6 +119,9 @@ const routes: Routes = [
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
         ]
       },
+      { path: 'chc-sample-collection', component: SampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
+      { path: 'chc-pickandpack', component: ChcPicknpackComponent},
+      
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
         children:[
@@ -152,8 +161,8 @@ const routes: Routes = [
       { path: 'anm-pickpack', component: AnmPickandPackComponent, resolve: {picknpackData: PicknpackResolverService} },
       { path: 'anm-shipment', component: AnmShipmentComponent, resolve: {shipmentLogData: ShipmentlogResolverService } },
       { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
-      { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'}
-      
+      { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
+     
     ]
   },
 
@@ -202,6 +211,7 @@ export const RoutingComponents = [
   AnmWalkinLt18RegistrationComponent,
   AnmWalkinGt18RegistrationComponent,
   AnmViewShipmentdetailsComponent,
+  ChcSampleCollectionComponent,
   WalkinRegistrationComponent,
   CheSubjectRegistrationComponent,
   ChcpregnantRegistrationComponent,
@@ -210,6 +220,7 @@ export const RoutingComponents = [
   ChcwalkinRegistrationComponent,
   CHCSampleRcptComponent,
   CHCSampleRcptProComponent,
+  ChcPicknpackComponent,
   CHCUpdateCBCComponent,
   CBCReceivedSampleComponent,
   CBCUploadComponent,

@@ -17,7 +17,7 @@ export class UnsentSamplesServiceService {
   testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHC";
   avdNameApi: string = "api/v1/WebMaster/RetrieveAVD";
   AddUnsentSampleApi: string = "api/v1/ANMCHCShipment/AddANMShipment";
-  timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimoutExpiry"
+  timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimeoutExpiry"
 
   userId: number;
   

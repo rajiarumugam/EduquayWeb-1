@@ -18,7 +18,7 @@
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-4">
-                <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-subregn']"
+                <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/chc-subregn']"
                     role="button" ngbTooltip="Subject Registration"><i class="fas fa-chevron-left pNav-left"></i></a></div>
               </div>
               <div class="col-md-4">
@@ -28,7 +28,7 @@
               </div>
               <div class="col-md-4">
                 <div class="float-right mb-4">
-                  <a class="btn btn-outline-primary bs-tooltip"  [routerLink]="['/app/anm-pickpack']" role="button" ngbTooltip="Pick & Pack"><i
+                  <a class="btn btn-outline-primary bs-tooltip"  [routerLink]="['/app/chc-pickandpack']" role="button" placement="left" ngbTooltip="Pick & Pack"><i
                       class="fas fa-chevron-right pNav-right"></i></a>
                 </div>
               </div>
@@ -126,7 +126,7 @@
                           <td class="mobile">{{subject.contactNo}}</td>
                           <td class="">{{subject.dateOfRegister}}</td>
                           <td> {{subject.gestationalAge}} </td>
-                          <td><a (click)="openchcSampleColllection(sampleCollectiondetail, subject)" role="button"><i
+                          <td><a (click)="openchcSampleColllection(chcSampleCollectiondetail, subject)" role="button"><i
                                 class="fas fa-vial fa-2x"></i></a>
                         </tr>
                       </tbody>
@@ -136,7 +136,7 @@
               </div>
               <!-- The Modal -->
   
-                <ng-template #sampleCollectiondetail let-modal>
+                <ng-template #chcSampleCollectiondetail let-modal>
   
                     <div class="modal-header">
                       <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
@@ -150,7 +150,7 @@
                       </button>
                     </div>
                   <div class="modal-body">
-                    <form class="text-left" (ngSubmit)="collectionForm.form.valid && onSubmit(collectionForm)" #collectionForm="ngForm" novalidate>
+                    <form class="text-left" (ngSubmit)="chcCollectionForm.form.valid && onSubmit(chcCollectionForm)" #chcCollectionForm="ngForm" novalidate>
                       <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                         <div class="form-row">
                           <div class="form-group col-md-3">
@@ -180,14 +180,14 @@
   
                         <div class="form-row mt-4">
                           <div class="form-group col-md-3">
-                            <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
+                            <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || chcCollectionForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
                             <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
                             <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
                             <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="10"
                             oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');"
-                            #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
+                            #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || chcCollectionForm.submitted && sampleBarcode.invalid" required>
                             <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">Please Enter Barcode</small>
-                            <div *ngIf="collectionForm.submitted && sampleBarcode.invalid">     
+                            <div *ngIf="chcCollectionForm.submitted && sampleBarcode.invalid">     
                               <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
                             </div> 
                           </div>

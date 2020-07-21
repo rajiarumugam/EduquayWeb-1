@@ -32,6 +32,7 @@ export class NotificationService {
   pndtdSampleCount: number = 0;
   mtpSampleCount:number = 0;
   chcUpdateSampleCount:number = 0;
+  postmtpSampleCount:number = 0;
 
   constructor(
     private tokenService: TokenService,
@@ -66,7 +67,7 @@ export class NotificationService {
       this.notificationModel.pndreferral = this.pndtdSampleCount;
       this.notificationModel.mtpreferral = this.mtpSampleCount;
       this.notificationModel.chcupdate = this.chcUpdateSampleCount;
-      //this.notificationModel.postmtp = this.postmtpSampleCount;
+      this.notificationModel.postmtp = this.postmtpSampleCount;
       resolve(this.notificationModel);
     });
   }

@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class SampleCollectionResolverService implements Resolve<any>{
+export class ChcSampleCollectionResolverService implements Resolve<any>{
 
   chcsampleCollectionResponse;
   chcscRequest: SampleCollectionRequest;

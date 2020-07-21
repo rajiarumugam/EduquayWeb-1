@@ -37,7 +37,8 @@ import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
 import { DataService } from './shared/data.service';
 import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component';
-import { SampleCollectionComponent } from './chc-module/sample-collection/sample-collection.component';
+import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.component';
+//import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -56,7 +57,8 @@ const ngWizardConfig: NgWizardConfig = {
     AnmViewShipmentdetailsComponent,
     NumberDirective,
     AnmPostMtpFollowupComponent,
-    SampleCollectionComponent
+    ChcPicknpackComponent,
+    //ChcSampleCollectionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

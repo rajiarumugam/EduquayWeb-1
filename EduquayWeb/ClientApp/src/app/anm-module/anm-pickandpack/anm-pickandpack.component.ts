@@ -27,7 +27,7 @@ import * as moment from 'moment';
   styleUrls: ['./anm-pickandpack.component.css']
 })
 export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChild('shipmentDatePicker', { static: false }) shipmentDatePicker;
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -76,10 +76,12 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   selectedAll: any;
   sampleDateTime: string;
   sampleShipmentDate: string;
-  sampleShipmentTime:string;
+  sampleShipmentTime: string;
   popupform: FormGroup;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
+  selecteddate: any;
+  logdate: string[] = [];
 
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -97,7 +99,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   //   defaultDate: new Date(Date.now()),
   //   maxDate: new Date(Date.now())
   // };
-  
+
 
   constructor(
     private PicknpackService: PicknpackService,
@@ -107,11 +109,11 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.InitializeDateRange();   
+    this.InitializeDateRange();
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -129,10 +131,10 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         },
         //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
-        
-      } 
+
+      }
     };
-    
+
     // this.dateOfShipment =  this.dateService.getDate();
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
@@ -150,80 +152,82 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       }
     }
     else {
-      
-      if (this.picknpackInitResponse.sampleList!= null && this.picknpackInitResponse.sampleList.length > 0) {
+
+      if (this.picknpackInitResponse.sampleList != null && this.picknpackInitResponse.sampleList.length > 0) {
         this.sampleList = this.picknpackInitResponse.sampleList;
       }
     }
   }
 
-  ddlRiPoint(userId){
-    let riPoint= this.PicknpackService.getRiPoint(userId).subscribe(response =>{
-       this.riPointResponse = response;
-       if(this.riPointResponse !== null && this.riPointResponse.status === "true"){
-           this.riPoints  = this.riPointResponse.ri;
-           this.selectedriPoint = "";
-         }
-         else{
-           this.picknpackErrorMessage = response.message;
-         }
-     },
-     (err: HttpErrorResponse) => {
-       this.picknpackErrorMessage = err.toString();
- 
-     });
-   }
-   onChangeriPoint(){
+  ddlRiPoint(userId) {
+    let riPoint = this.PicknpackService.getRiPoint(userId).subscribe(response => {
+      this.riPointResponse = response;
+      if (this.riPointResponse !== null && this.riPointResponse.status === "true") {
+        this.riPoints = this.riPointResponse.ri;
+        this.selectedriPoint = "";
+      }
+      else {
+        this.picknpackErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.picknpackErrorMessage = err.toString();
+
+      });
+  }
+  onChangeriPoint() {
     this.getILRPoints(this.selectedriPoint);
     this.getTestingCHC(this.selectedriPoint);
     this.getAVDName(this.selectedriPoint);
 
-   }
+  }
 
-  anmpicknpackList(){
+  anmpicknpackList() {
     this.sampleList = [];
-    this.picknpackRequest = {userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
+    this.picknpackRequest = { userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
     let picknpack = this.PicknpackService.getpickandpackList(this.picknpackRequest)
-    .subscribe(response => {
-      this.picknpackResponse = response;
-      if(this.picknpackResponse !== null && this.picknpackResponse.status === "true"){
-        if(this.picknpackResponse.sampleList.length <= 0){
+      .subscribe(response => {
+        this.picknpackResponse = response;
+        if (this.picknpackResponse !== null && this.picknpackResponse.status === "true") {
+          if (this.picknpackResponse.sampleList.length <= 0) {
+            this.picknpackErrorMessage = response.message;
+          }
+          else {
+            this.sampleList = this.picknpackResponse.sampleList;
+            this.sampleList.forEach(element => {
+              element.sampleSelected = true;
+            });
+            this.rerender();
+          }
+        }
+        else {
           this.picknpackErrorMessage = response.message;
         }
-        else{
-          this.sampleList = this.picknpackResponse.sampleList;
-          this.sampleList.forEach(element => {
-            element.sampleSelected = true;
-          });
-          this.rerender();
-        }
-      }
-      else{
-        this.picknpackErrorMessage = response.message;
-      }
-    },
-    (err: HttpErrorResponse) => {
-      this.picknpackErrorMessage = err.toString();
-    });
-    
+      },
+        (err: HttpErrorResponse) => {
+          this.picknpackErrorMessage = err.toString();
+        });
+
   }
 
   openPicknpack(picknPackdetail) {
     this.picknpackErrorMessage = '';
     this.fetchBarcode();
+    this.fetchMaxDate();
 
-    if(this.sampleList === null || this.sampleList.length <= 0){
+    if (this.sampleList === null || this.sampleList.length <= 0) {
       this.showResponseMessage(`Sample collection does not exist to pick and pack`, 'e');
       return false;
     }
-    if(this.selectedBarcodes === '' || this.selectedBarcodes === undefined){
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
-    } 
+    }
     this.sampleShipmentDate = moment().format("DD/MM/YYYY");
     this.sampleShipmentTime = moment().format("HH:mm");
 
-    this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
+    //this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
+
 
     this.name = this.user.name;
     this.modalService.open(
@@ -236,72 +240,72 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
 
-  getILRPoints(riPointId){
+  getILRPoints(riPointId) {
     this.ilrPoints = [];
     this.selectedilrPoint = '';
     this.PicknpackService.getIlrPoint(riPointId)
-    .subscribe(response =>{
-    this.ilrpointResponse = response;
-      if(this.ilrpointResponse !== null && this.ilrpointResponse.status === "true"){
-         this.ilrPoints = this.ilrpointResponse.ilr;
-         if(this.ilrPoints.length > 0){
-          this.selectedilrPoint = this.ilrPoints[0].id.toString();
-         }
+      .subscribe(response => {
+        this.ilrpointResponse = response;
+        if (this.ilrpointResponse !== null && this.ilrpointResponse.status === "true") {
+          this.ilrPoints = this.ilrpointResponse.ilr;
+          if (this.ilrPoints.length > 0) {
+            this.selectedilrPoint = this.ilrPoints[0].id.toString();
+          }
         }
-        else{
+        else {
           this.picknpackErrorMessage = response.message;
         }
-    },
-    (err: HttpErrorResponse) => {
-      this.picknpackErrorMessage = err.toString();
+      },
+        (err: HttpErrorResponse) => {
+          this.picknpackErrorMessage = err.toString();
 
-    });
+        });
 
   }
 
-  getTestingCHC(riPointId){
+  getTestingCHC(riPointId) {
     this.testingCHCNames = [];
     this.selectedtestingCHC = "";
     this.PicknpackService.getTestingCHC(riPointId)
-    .subscribe(response =>{
-   this.testingCHCResponse = response;
-      if(this.testingCHCResponse !== null && this.testingCHCResponse.status === "true"){
-         this.testingCHCNames = this.testingCHCResponse.testingCHC;
-         if(this.testingCHCNames.length > 0){
-          this.selectedtestingCHC = this.testingCHCNames[0].id.toString();
-         }
+      .subscribe(response => {
+        this.testingCHCResponse = response;
+        if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
+          this.testingCHCNames = this.testingCHCResponse.testingCHC;
+          if (this.testingCHCNames.length > 0) {
+            this.selectedtestingCHC = this.testingCHCNames[0].id.toString();
+          }
         }
-        else{
+        else {
           this.picknpackErrorMessage = response.message;
         }
-    },
-    (err: HttpErrorResponse) => {
-      this.picknpackErrorMessage = err.toString();
+      },
+        (err: HttpErrorResponse) => {
+          this.picknpackErrorMessage = err.toString();
 
-    });
+        });
   }
 
-  getAVDName(riPointId){
+  getAVDName(riPointId) {
     this.AvdNames = [];
     this.selectedAvdName = "";
     this.PicknpackService.getAvdName(riPointId)
-    .subscribe(response =>{
-   this.avdNameResponse = response;
-      if(this.avdNameResponse !== null && this.avdNameResponse.status === "true"){
-         this.AvdNames = this.avdNameResponse.avd;
-         if(this.AvdNames.length > 0){
-          this.selectedAvdName = this.AvdNames[0].id.toString();
-         }
-          
+      .subscribe(response => {
+        this.avdNameResponse = response;
+        if (this.avdNameResponse !== null && this.avdNameResponse.status === "true") {
+          this.AvdNames = this.avdNameResponse.avd;
+          if (this.AvdNames.length > 0) {
+            this.selectedAvdName = this.AvdNames[0].id.toString();
+          }
+
         }
-        else{
+        else {
           this.picknpackErrorMessage = response.message;
         }
-    },
-    (err: HttpErrorResponse) => {
-      this.picknpackErrorMessage = err.toString();
+      },
+        (err: HttpErrorResponse) => {
+          this.picknpackErrorMessage = err.toString();
 
-    });
+        });
   }
 
   onSubmit(shipmentForm: NgForm) {
@@ -326,10 +330,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
-    if (!this.validateDateRange()) {
-      this.picknpackErrorMessage = "Select valid date range to search for subjects";
-      return;
-    }
+
     this.anmaddshipmentRequest = {
       anmId: this.user.id,
       riId: +(this.riId),
@@ -346,7 +347,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       createdBy: this.user.id,
       source: 'N',
     }
-    //return false;
+    return false;
     let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
       .subscribe(response => {
         this.anmaddshipmentResponse = response;
@@ -365,123 +366,187 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         });
   }
 
-    showResponseMessage(shipmentId: string, type: string){
-      var messageType = '';
-      var title = `Shipment Id is ${shipmentId}`;
-      if(type === 'e'){
-        Swal.fire({icon:'error', title: shipmentId, confirmButtonText: 'Close'})
-      }
-      else{
-        Swal.fire({icon:'success', title: title,
-        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
-           .then((result) => {
-             if (result.value) {
-              this.modalService.dismissAll();
-              //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
-              this.router.navigateByUrl(`/app/anm-viewshipment?q=${shipmentId}`);
-             
-             }
-             else{
-               this.modalService.dismissAll();
-             }
-           });
-      }
+  showResponseMessage(shipmentId: string, type: string) {
+    var messageType = '';
+    var title = `Shipment Id is ${shipmentId}`;
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
     }
-
-    // updateSampleSelected(event, object, value){
-    //     object.sampleSelected = value;
-    //     console.log(this.sampleList);
-    // }
-    selectAll() {
-      for (var i = 0; i < this.sampleList.length; i++) {
-        this.sampleList[i].sampleSelected = this.selectedAll;
-        console.log(this.sampleList);
-      }
-    }
-  
-    checkIfAllSelected() {
-      console.log(this.sampleList);
-      this.selectedAll = this.sampleList.every(function (item: any) {
-        return item.sampleSelected == true;
-  
+    else {
+      Swal.fire({
+        icon: 'success', title: title,
+        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
       })
-    }
+        .then((result) => {
+          if (result.value) {
+            this.modalService.dismissAll();
+            //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
+            this.router.navigateByUrl(`/app/anm-viewshipment?q=${shipmentId}`);
 
-    fetchBarcode(){
-      this.selectedBarcodes = '';
-      var isFirst = true;
-      this.sampleList.forEach(element => {
-        console.log('sampleSelected :' + element.sampleSelected);
-        if(element.sampleSelected){
-          if(isFirst){
-            this.selectedBarcodes += element.barcodeNo;
-            isFirst = false;
           }
-          else{
-            this.selectedBarcodes += ',' + element.barcodeNo;
+          else {
+            this.modalService.dismissAll();
           }
+        });
+    }
+  }
+
+  // updateSampleSelected(event, object, value){
+  //     object.sampleSelected = value;
+  //     console.log(this.sampleList);
+  // }
+  selectAll() {
+    for (var i = 0; i < this.sampleList.length; i++) {
+      this.sampleList[i].sampleSelected = this.selectedAll;
+      console.log(this.sampleList);
+    }
+  }
+
+  checkIfAllSelected() {
+    console.log(this.sampleList);
+    this.selectedAll = this.sampleList.every(function (item: any) {
+      return item.sampleSelected == true;
+
+    })
+  }
+
+  fetchMaxDate() {
+
+    this.selecteddate = '';
+    var isFirst = true;
+    var getdates;
+
+    this.sampleList.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected) {
+        //   var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+        //   const regDate = new Date(element.sampleDateTime.replace(pattern,'$3/$2/$1 $4:$5'));
+        // // var maximumDate=new Date(Math.max.apply(null, regDate)); 
+        // // //var minimumDate=new Date(Math.min.apply(null, regDate)); 
+        // // this.shipmentDateOptions.minDate = maximumDate;
+        //   this.selecteddate += regDate;
+        // new Date(Math.max.apply(null, a.map(function(e) {
+        //   return new Date(e.MeasureDate);
+        // }))); 
+        if (isFirst) {
+          getdates = [{ "selecteddate": element.sampleDateTime }];
+          isFirst = false;
         }
-      });
-    }
-
-    rerender(): void {
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first 
-        dtInstance.clear();     
-        dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
-        this.dtTrigger.next();
-      });
-    }   
-  
-       
-  
-    ngAfterViewInit(): void {
-      this.dtTrigger.next();
-    }   
-  
-  
-    ngOnDestroy(): void {
-      // Do not forget to unsubscribe the event
-      this.dtTrigger.unsubscribe();
-    }
-
-    InitializeDateRange() {
-     
-      this.popupform = this._formBuilder.group({
-        shipmentDate: [new Date(moment().add(-1, 'day').format())],
-      });
-
-  
-      //Change of sample shipment date
-      this.popupform.controls.shipmentDate.valueChanges.subscribe(changes => {
-        console.log('end: ', changes);
-        if (!changes[0]) return;
-        const selectedDate2 = changes[0].getTime();
-        this.sampleShipmentDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
-        this.sampleShipmentTime = moment(new Date(selectedDate2)).format("HH:mm");
-      });
-  
-      // //Change of sample collection time
-      // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
-      //   console.log('end: ', changes);
-      //   if (!changes[0]) return;
-      //   const selectedDate3 = changes[0].getTime();
-      //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
-  
-      //   //const monthLaterDate = selectedDate1;
-      //   // this.startPicker.flatpickr.set({
-      //   //   defaultDate: new Date(selectedDate1)
-      //   // });
-      // });
-    }
-
-    validateDateRange(): boolean{
-      if(this.sampleDateTime > this.sampleShipmentDate){
-        return false;
+        else {
+          //logdate  += [',' + element.sampleDateTime];
+          getdates.push({ "selecteddate": element.sampleDateTime });
+        }
       }
-      return true;
-    }
-  
-  
+
+
+    });
+    var comparedate;
+    comparedate = getdates.reduce(function (r, a) {
+      return r.selecteddate > a.selecteddate ? r : a;
+    });
+    var maximumdate = Object.values(comparedate);
+    console.log(maximumdate);
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    var maxDate = new Date(maximumdate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    console.log(maxDate);
+    this.shipmentDateOptions.minDate = maxDate;
+
+
+    //document.write('<pre>' + JSON.stringify(latest, 0, 4) + '</pre>');
+    // let moments = [logdate].map(d => moment(d)),
+    // maxDate = moment.max(moments);
+    // console.log(maxDate);
+    // this.shipmentDateOptions.minDate = maxDate.toString();
+    // const maxDate=moment().max(this.selecteddate);
+    //let moments = [element.sampleDateTime].map(d => moment(d)),
+    //maxDate = moment.max(moments);
+    //console.log(maxDate);
+
+
+    //this.shipmentDateOptions.minDate = maxDate;
+
+    // function sortDates(a, b)
+    // {
+    //     return a.getTime() - b.getTime();
+    // }
+    // // var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    // // var regDate = new Date(this.selecteddate.replace(pattern,'$3/$2/$1 $4:$5'));
+    // var sorted = this.selecteddate.sort(sortDates);
+    // //var minDate = sorted[0];
+    // var maxDate = sorted[sorted.length-1];
+    // console.log(maxDate);
+
+  }
+
+  fetchBarcode() {
+    this.selectedBarcodes = '';
+    var isFirst = true;
+    this.sampleList.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected) {
+        if (isFirst) {
+          this.selectedBarcodes += element.barcodeNo;
+          isFirst = false;
+        }
+        else {
+          this.selectedBarcodes += ',' + element.barcodeNo;
+        }
+      }
+    });
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first 
+      dtInstance.clear();
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again       
+      this.dtTrigger.next();
+    });
+  }
+
+
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  InitializeDateRange() {
+
+    this.popupform = this._formBuilder.group({
+      shipmentDate: [new Date(moment().add(-1, 'day').format())],
+    });
+
+
+    //Change of sample shipment date
+    this.popupform.controls.shipmentDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate2 = changes[0].getTime();
+      this.sampleShipmentDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+      this.sampleShipmentTime = moment(new Date(selectedDate2)).format("HH:mm");
+    });
+
+    // //Change of sample collection time
+    // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
+    //   console.log('end: ', changes);
+    //   if (!changes[0]) return;
+    //   const selectedDate3 = changes[0].getTime();
+    //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
+
+    //   //const monthLaterDate = selectedDate1;
+    //   // this.startPicker.flatpickr.set({
+    //   //   defaultDate: new Date(selectedDate1)
+    //   // });
+    // });
+  }
+
+
+
 }

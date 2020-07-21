@@ -256,8 +256,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     }
     else{
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-      const regDate = new Date(subject.oldSampleCollectionDate.replace(pattern,'$3/$2/$1'));
-      this.collectionDateOptions.minDate = regDate;
+      const oldCollectionDate = new Date(subject.oldSampleCollectionDate.replace(pattern,'$3/$2/$1'));
+      this.collectionDateOptions.minDate = oldCollectionDate;
     }
 
     this.modalService.open(
