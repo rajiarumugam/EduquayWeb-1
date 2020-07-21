@@ -5,6 +5,8 @@ import { HttpClientService } from '../../http-client.service';
 import { PicknpackRequest, AnmAddShipmentRequest} from './picknpack-request';
 import { PicknpackResponse, RiPointResponse, ILRpointResponse, TestingCHCResponse, AvdNameResponse, AnmAddShipmentResponse } from './picknpack-response';
 import { TokenService } from '../../token.service';
+import { MoveTimeoutExpiryRequest } from '../notifications/unsent-samples/unsent-samples-request';
+import { MoveTimeoutExpiryResponse } from '../notifications/unsent-samples/unsent-samples-response';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class PicknpackService {
   testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHC";
   avdNameApi: string = "api/v1/WebMaster/RetrieveAVD";
   AddShipmentApi: string = "api/v1/ANMCHCShipment/AddANMShipment";
+  timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimeoutExpiry"
 
   userId: number;
 
@@ -58,6 +61,10 @@ export class PicknpackService {
     let apiUrl = this.genericServices.buildApiUrl(this.AddShipmentApi);
     return this.http.post<AnmAddShipmentResponse>({url: apiUrl, body: addshipment});
 
+  }
+  PnPMoveExpirySamples(moveExpirySamples: MoveTimeoutExpiryRequest){
+    let apiUrl = this.genericServices.buildApiUrl(this.timeoutExpirySampleApi);
+    return this.http.post<MoveTimeoutExpiryResponse>({url: apiUrl, body: moveExpirySamples});
   }
 }
 

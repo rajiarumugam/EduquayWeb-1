@@ -15,6 +15,8 @@ import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
+import { MoveTimeoutExpiryRequest } from 'src/app/shared/anm-module/notifications/unsent-samples/unsent-samples-request';
+import { MoveTimeoutExpiryResponse } from 'src/app/shared/anm-module/notifications/unsent-samples/unsent-samples-response';
 //import { library } from '@fortawesome/fontawesome-svg-core'
 //import { fas } from '@fortawesome/free-solid-svg-icons'
 //import { far } from '@fortawesome/free-regular-svg-icons'
@@ -44,6 +46,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   anmaddshipmentRequest: AnmAddShipmentRequest;
   anmaddshipmentResponse: AnmAddShipmentResponse;
   picknpackInitResponse: any;
+  movetimeoutExpiryRequest: MoveTimeoutExpiryRequest;
+  movetimeoutExpiryResponse: MoveTimeoutExpiryResponse;
   sampleList: SampleList[] = [];
   riPoints: RIModel[] = [];
   selectedriPoint: '';
@@ -82,6 +86,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   dyCollectionDate: Date = new Date(Date.now());
   selecteddate: any;
   logdate: string[] = [];
+  sampleAging: string;
 
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -176,7 +181,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       });
   }
   onChangeriPoint() {
-    
+
     if(this.selectedriPoint === ''){
       this.selectedilrPoint = '';
       this.selectedtestingCHC = '';
@@ -230,11 +235,14 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }
+    // if (picknPackdetail.sampleAging > 24 || picknPackdetail.sampleAging === undefined) {
+    //   this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
+    //   return false;
+    // }
     this.sampleShipmentDate = moment().format("DD/MM/YYYY");
     this.sampleShipmentTime = moment().format("HH:mm");
 
     //this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
-
 
     this.name = this.user.name;
     this.modalService.open(
@@ -251,9 +259,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     
     this.ilrPoints = [];
     this.selectedilrPoint = '';
-    if(riPointId === ''){
-      this.selectedilrPoint='';
-    }
     this.PicknpackService.getIlrPoint(riPointId)
       .subscribe(response => {
         this.ilrpointResponse = response;
@@ -271,15 +276,11 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.picknpackErrorMessage = err.toString();
 
         });
-
   }
 
   getTestingCHC(riPointId) {
     this.testingCHCNames = [];
     this.selectedtestingCHC = "";
-    if(riPointId === ''){
-      this.selectedtestingCHC='';
-    }
     this.PicknpackService.getTestingCHC(riPointId)
       .subscribe(response => {
         this.testingCHCResponse = response;
@@ -302,9 +303,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   getAVDName(riPointId) {
     this.AvdNames = [];
     this.selectedAvdName = "";
-    if(riPointId === ''){
-      this.selectedAvdName='';
-    }
     this.PicknpackService.getAvdName(riPointId)
       .subscribe(response => {
         this.avdNameResponse = response;
@@ -364,7 +362,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       createdBy: this.user.id,
       source: 'N',
     }
-    return false;
+    //return false;
     let addshipment = this.PicknpackService.anmAddSipment(this.anmaddshipmentRequest)
       .subscribe(response => {
         this.anmaddshipmentResponse = response;
@@ -407,6 +405,70 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         });
     }
   }
+  getconfirmation() {
+    this.picknpackErrorMessage = '';
+    this.expirysamplesBarcode();
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      return false;
+    }
+    if (this.selectedBarcodes !== null) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this back!",
+        icon: 'warning',
+        showCancelButton: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Move it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.value) {
+          this.pickpackMoveExpirySamples();
+        }
+      })
+    }
+
+  }
+
+  pickpackMoveExpirySamples() {
+
+    this.picknpackErrorMessage = '';
+    
+    this.movetimeoutExpiryRequest = {
+      anmId: this.user.userTypeId,
+      barcodeNo: this.selectedBarcodes,
+    }
+
+    let expirysamples = this.PicknpackService.PnPMoveExpirySamples(this.movetimeoutExpiryRequest)
+      .subscribe(response => {
+        this.movetimeoutExpiryResponse = response;
+        if (this.movetimeoutExpiryResponse !== null && this.movetimeoutExpiryResponse.status === "true") {
+          this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 's');
+          this.anmpicknpackList();
+        }
+        else {
+          this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 'e');
+          this.picknpackErrorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          this.expirySampleResponseMessage(err.toString(), 'e');
+          this.picknpackErrorMessage = err.toString();
+        });
+  }
+
+  expirySampleResponseMessage(message: string, type: string) {
+    var messageType = '';
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
+    }
+    else {
+      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
+    }
+  }
+
 
   // updateSampleSelected(event, object, value){
   //     object.sampleSelected = value;
@@ -435,7 +497,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     this.sampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected) {
+      if (element.sampleSelected === true && element.sampleAging < "24") {
         //   var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
         //   const regDate = new Date(element.sampleDateTime.replace(pattern,'$3/$2/$1 $4:$5'));
         // // var maximumDate=new Date(Math.max.apply(null, regDate)); 
@@ -454,9 +516,13 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           getdates.push({ "selecteddate": element.sampleDateTime });
         }
       }
-
-
     });
+
+    if (getdates === '' || getdates === undefined) {
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      return false;
+    }
+    
     var comparedate;
     comparedate = getdates.reduce(function (r, a) {
       return r.selecteddate > a.selecteddate ? r : a;
@@ -500,7 +566,25 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     var isFirst = true;
     this.sampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected) {
+      if (element.sampleSelected === true && element.sampleAging < "24") {
+        if (isFirst) {
+          this.selectedBarcodes += element.barcodeNo;
+          isFirst = false;
+        }
+        else {
+          this.selectedBarcodes += ',' + element.barcodeNo;
+        }
+      }
+    });
+  }
+
+  expirysamplesBarcode() {
+    this.selectedBarcodes = '';
+    var isFirst = true;
+    this.sampleList.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected === true && element.sampleAging > "24") {
+        //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
           isFirst = false;
