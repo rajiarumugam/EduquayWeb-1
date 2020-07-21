@@ -13,6 +13,8 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./chc-picknpack.component.css']
 })
 export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  chcPicknpackErrorMessage: string;
   
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChild('shipmentDatePicker', { static: false }) shipmentDatePicker;

@@ -67,7 +67,7 @@
                                         <th>
                                             <div class="n-chk">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()">
+                                                    <input type="checkbox" class="new-control-input">
                                                     <span class="new-control-indicator leftspace"></span>Add to Shipment
                                                 </label>
                                             </div>
@@ -76,32 +76,36 @@
 
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let chcpicknpack of chcSampleList; index as i">
+                                    <!-- <tr *ngFor="let chcpicknpack of chcSampleList; index as i">
                                         <td class="sno text-center">{{i +1}}</td>
                                         <td class="sname text-left">{{chcpicknpack.subjectName}}</td>
                                         <td class="sid">{{chcpicknpack.uniqueSubjectId}}</td>
                                         <td class="sid text-center">{{chcpicknpack.rchId}}</td>
                                         <td class="sid">{{chcpicknpack.barcodeNo}}</td>
                                         <td class="datetimenew">{{chcpicknpack.sampleDateTime}}</td>
-                                        <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
                                         <td class="sno">
                                             <div class="n-chk">
-                                                <!-- <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input checkbox" 
-                                                    value="{{picknpack.sampleSelected}}" 
-                                                    (change)="updateSampleSelected($event, picknpack, inputEl.checked)" #inputEl
-                                                        checked = "{{picknpack.sampleSelected}}">
-                                                    <span class="new-control-indicator"></span>&nbsp;
-                                                </label> -->
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="new-control-input checkbox" 
-                                                    value="{{chcpicknpack.sampleSelected}}" 
-                                                    (change)="checkIfAllSelected()"
-                                                    [(ngModel)]="chcpicknpack.sampleSelected">
+                                                    <input type="checkbox" class="new-control-input checkbox" >
                                                     <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div>
                                         </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="sno">1</td>
+                                        <td class="sname text-left">Soori Thangaraj Manickkavelu</td>
+                                        <td class="sid">OD001202032110</td>
+                                        <td class="sid text-center">123456</td>
+                                        <td class="sid">020155</td>
+                                        <td>13/04/2020 14:25</td>
+                                        <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
+                                        <td class="sno text-center"><div class="n-chk">
+                                            <label class="new-control new-checkbox checkbox-outline-primary">
+                                              <input type="checkbox" class="new-control-input checkbox" value="1" checked>
+                                              <span class="new-control-indicator"></span>&nbsp;
+                                            </label>
+                                        </div></td>
                                     </tr>
                                 </tbody>
                             </table>
