@@ -176,9 +176,16 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       });
   }
   onChangeriPoint() {
-    this.getILRPoints(this.selectedriPoint);
-    this.getTestingCHC(this.selectedriPoint);
-    this.getAVDName(this.selectedriPoint);
+    if(this.selectedriPoint === ''){
+      this.selectedilrPoint = '';
+      this.selectedtestingCHC = '';
+      this.selectedAvdName = '';
+    }
+    else{
+      this.getILRPoints(this.selectedriPoint);
+      this.getTestingCHC(this.selectedriPoint);
+      this.getAVDName(this.selectedriPoint);
+    }
 
   }
 
@@ -490,6 +497,12 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         }
       }    
     });
+
+    if (getdates === '' || getdates === undefined) {
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      return false;
+    }
+    
     var comparedate;
     comparedate = getdates.reduce(function (r, a) {
       return r.selecteddate > a.selecteddate ? r : a;   

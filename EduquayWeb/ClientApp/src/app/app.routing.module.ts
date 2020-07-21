@@ -69,12 +69,9 @@ import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update
 import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
 import { SSTUpdatePositiveComponent } from "./chc-sample-module/sst-update/chc-update-sst-positive/chc-update-sst-positive.component";
 import { SSTUpdateNegativeComponent } from "./chc-sample-module/sst-update/chc-update-sst-negative/chc-update-sst-negative.component";
-<<<<<<< HEAD
 import { ChcSampleCollectionResolverService } from "./shared/chc-module/sample-collection/chc-sample-collection-resolver.service";
 import { ChcPicknpackComponent } from "./chc-module/chc-picknpack/chc-picknpack.component";
-=======
 import { CHCupdateSSTReceivedService } from "./shared/chc-sample/chc-update-sst-resolver.service";
->>>>>>> bf0b532e823d20503908488ceee185313fb87548
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
