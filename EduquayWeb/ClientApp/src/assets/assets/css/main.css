@@ -724,6 +724,9 @@ Width: 4rem !important;
 .datetime {
     width: 10rem !important;
 }
+.us-datetime{
+    width: 9rem !important;
+}
 
 .infant-datetime{
     width: 9rem !important; 
