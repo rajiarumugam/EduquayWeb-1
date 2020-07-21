@@ -1,9 +1,9 @@
 export interface SampleCollectionRequest {
-    userId?: number;
+    userId: number;
     fromDate: string;
     toDate: string;
     subjectType: number;
-    registeredFrom?: number;
+    registeredFrom: number;
 }
 
 export interface SampleCollectionDateTimeRequest{
@@ -14,7 +14,7 @@ export interface SampleCollectionDateTimeRequest{
     sampleCollectionTime: string;
     reason: string;
     collectionFrom: number;
-    collectedBy?: number;
+    collectedBy: number;
 }
 
 

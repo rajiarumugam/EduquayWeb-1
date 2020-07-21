@@ -256,8 +256,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     }
     else{
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-      const regDate = new Date(subject.oldSampleCollectionDate.replace(pattern,'$3/$2/$1'));
-      this.collectionDateOptions.minDate = regDate;
+      const oldCollectionDate = new Date(subject.oldSampleCollectionDate.replace(pattern,'$3/$2/$1'));
+      this.collectionDateOptions.minDate = oldCollectionDate;
     }
 
     this.modalService.open(
@@ -297,16 +297,16 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
-    return false;
+    //return false;
 
     let sampleCollection = this.sampleCollectionService.postSampleCollection(this.sampleCollectionDateTimeRequest)
     .subscribe(response => {
       this.sampleCollectionPostResponse = response;
       if(this.sampleCollectionPostResponse !== null && this.sampleCollectionPostResponse.status === "true"){
-        this.showResponseMessage(this.sampleCollectionPostResponse.result, 's')
+        this.showResponseMessage(this.sampleCollectionPostResponse.message, 's')
          this.anmSampleCollection();
       }else{
-        this.showResponseMessage(this.sampleCollectionPostResponse.result, 'e');
+        this.showResponseMessage(this.sampleCollectionPostResponse.message, 'e');
                 this.sCollectionErrorMessage = response.message;
       }
 

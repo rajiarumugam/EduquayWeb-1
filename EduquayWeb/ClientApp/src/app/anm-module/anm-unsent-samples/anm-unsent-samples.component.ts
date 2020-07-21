@@ -217,6 +217,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     this.unsentSamplesErrorMessage = '';
     this.fetchBarcode();
+    this.fetchMaxDate();
 
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
@@ -227,6 +228,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
       return false;
     }
+
+    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+    this.sampleShipmentTime = moment().format("HH:mm");
 
     this.name = this.user.name;
     this.modalService.open(
@@ -355,10 +359,10 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         }
 
       },
-        (err: HttpErrorResponse) => {
-          this.showResponseMessage(err.toString(), 'e');
-          this.unsentSamplesErrorMessage = err.toString();
-        });
+      (err: HttpErrorResponse) => {
+        this.showResponseMessage(err.toString(), 'e');
+        this.unsentSamplesErrorMessage = err.toString();
+      });
   }
 
   getconfirmation() {
@@ -469,12 +473,42 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     })
   }
 
+  fetchMaxDate(){
+    
+    var isFirst = true;
+    var getdates;
+    
+    this.unsentSamples.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if(element.sampleSelected === true && element.sampleAging < "24"){
+        if(isFirst){
+          getdates = [{"selecteddate" : element.sampleDateTime}];
+          isFirst = false;
+        }
+        else{
+          getdates.push({"selecteddate" : element.sampleDateTime});
+        }
+      }    
+    });
+    var comparedate;
+    comparedate = getdates.reduce(function (r, a) {
+      return r.selecteddate > a.selecteddate ? r : a;   
+    });
+    var maximumdate = Object.values(comparedate);
+    console.log(maximumdate);
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    var maxDate = new Date(maximumdate.toString().replace(pattern,'$3/$2/$1 $4:$5'));
+    console.log(maxDate);
+    this.shipmentDateOptions.minDate = maxDate;
+ 
+  }
+
   fetchBarcode() {
     this.selectedBarcodes = '';
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging < '24') {
+      if (element.sampleSelected === true && element.sampleAging < "24") {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
@@ -492,7 +526,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging > '24') {
+      if (element.sampleSelected === true && element.sampleAging > "24") {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;

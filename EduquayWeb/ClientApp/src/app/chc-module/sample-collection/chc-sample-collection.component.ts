@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEm
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
-import { SampleCollectionRequest } from 'src/app/shared/chc-module/sample-collection/sample-collection-request';
-import { SampleCollectionResponse } from 'src/app/shared/chc-module/sample-collection/sample-collection-response';
+import { SampleCollectionRequest } from 'src/app/shared/anm-module/sample-collection-request';
+import { SampleCollectionResponse } from 'src/app/shared/anm-module/sample-collection-response';
 import { SubjuctList, SampleCollectionPostResponse, subjectTypesResponse, subjuctType } from 'src/app/shared/anm-module/sample-collection-response';
 import { SampleCollectionDateTimeRequest } from 'src/app/shared/anm-module/sample-collection-request';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
@@ -14,13 +14,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sample-collection',
-  templateUrl: './sample-collection.component.html',
-  styleUrls: ['./sample-collection.component.css']
+  templateUrl: './chc-sample-collection.component.html',
+  styleUrls: ['./chc-sample-collection.component.css']
 })
-export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('startPicker', { static: false }) startPicker;
@@ -42,6 +44,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   chcsampleCollectionDateTimeRequest: SampleCollectionDateTimeRequest;
   chcsampleCollectionPostResponse: SampleCollectionPostResponse;
   chcsubjectTypesListResponse: subjectTypesResponse;
+  chcsubjectTypes: subjuctType[] = [];
   userId: number;
   fromDate: string = "";
   toDate: string = "";
@@ -60,7 +63,6 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   chcSampleCollectionTime: string;
   collectionTime: string;
   resultFromPostResponse: string;
-  chcsubjectTypes: subjuctType[] = [];
   selectedSubjectType: string = '1';
   selected: null;
   
@@ -135,7 +137,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     };
 
     console.log(this.sampleCollectionService.sampleCollectionApi);
-    //this.anmSubjectTypes();
+    this.chcSubjectTypesList();
 
     this.chcsampleCollectionInitResponse = this.route.snapshot.data.chcSampleCollectionData;
     if (this.chcsampleCollectionInitResponse.status === 'false') {
@@ -155,6 +157,168 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       }
     }
   }
+
+  chcSubjectTypesList() {
+
+    // this.sub = this.route.params.subscribe(params => {
+    //   this.subjectTypeParam = params['subtype'] == undefined ? '' : params['subtype'];
+    //   this.subjectTypeParam == 'f' ? this.selectedSubjectType = '1' : (this.subjectTypeParam == 'm' ? this.selectedSubjectType = '2' : (this.subjectTypeParam == 's' ? this.selectedSubjectType = '3' : this.selectedSubjectType = ''));
+    // });
+    this.selectedSubjectType = '';
+    this.sampleCollectionService.getSubjectType().subscribe(response => {
+      this.chcsubjectTypesListResponse = response;
+      if (this.chcsubjectTypesListResponse !== null && this.chcsubjectTypesListResponse.status === "true") {
+        this.chcsubjectTypes = this.chcsubjectTypesListResponse.subjectTypes;
+      }
+      else {
+        this.chcsCollectionErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.chcsCollectionErrorMessage = err.toString();
+
+      });
+  }
+
+ chcSampleCollection(){
+  this.chcsubjectList = [];
+  this.chcsCollectionErrorMessage = '';
+  if (!this.validateDateRange()) {
+    this.chcsCollectionErrorMessage = "Select valid date range to search for subjects";
+    return;
+  }
+  this.chcscRequest = {
+    userId: this.user.id,
+    fromDate: this.chcSCFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
+    toDate: this.chcSCToDate, // != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+    subjectType: +(this.selectedSubjectType),
+    registeredFrom: this.user.registeredFrom
+  };
+  let sampleCollection = this.sampleCollectionService.getSampleCollection(this.chcscRequest)
+    .subscribe(response => {
+      this.chcsampleCollectionResponse = response;
+      if (this.chcsampleCollectionResponse !== null && this.chcsampleCollectionResponse.status === "true") {
+        if (this.chcsampleCollectionResponse.subjectList.length <= 0) {
+          this.chcsCollectionErrorMessage = response.message;
+        }
+        else {
+          this.chcsubjectList = this.chcsampleCollectionResponse.subjectList;
+        }
+      }
+      else {
+        this.chcsCollectionErrorMessage = response.message;
+      }
+      this.rerender();
+      this.loadDataTable = true;
+    },
+      (err: HttpErrorResponse) => {
+        if (this.loadDataTable) this.rerender();
+        this.chcsCollectionErrorMessage = err.toString();
+      });
+ }
+
+ validateDateRange(): boolean{
+  if(new Date(this.dateform.controls.fromDate.value) > new Date(this.dateform.controls.toDate.value)){
+    return false;
+  }
+  return true;
+}
+
+openchcSampleColllection(chcSampleCollectiondetail, subject: SubjuctList){
+
+  this.subjectName= subject.subjectName;
+  this.subjectId = subject.id;
+  this.uniqueSubjectId = subject.uniqueSubjectId;
+  this.rchId = subject.rchId;
+  this.reason = subject.reason;
+  this.chcSampleCollectionDate = moment().format("DD/MM/YYYY");
+  this.chcSampleCollectionTime = moment().format("HH:mm");
+
+  if(subject.sampleType === "F"){
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    const regDate = new Date(subject.dateOfRegister.replace(pattern,'$3/$2/$1'));
+    this.collectionDateOptions.minDate = regDate;
+  }
+  else{
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    const oldCollectionDate = new Date(subject.oldSampleCollectionDate.replace(pattern,'$3/$2/$1'));
+    this.collectionDateOptions.minDate = oldCollectionDate;
+  }
+
+  this.modalService.open(
+    chcSampleCollectiondetail,{
+      centered: true,
+      size: 'xl',
+      scrollable: true,
+      ariaLabelledBy: 'modal-basic-title'
+    });
+}
+
+// onSubmit(){
+//   console.log("res:", this.collectionForm.getRawValue());
+//  // console.log('openSampleCOlllection()');
+//   Swal.fire('Hey user!', 'I don\'t like you.', 'success');
+// }
+onSubmit(chcCollectionForm: NgForm){
+  //this.submitted = true;
+  console.log(chcCollectionForm.value);
+  //collectionForm.reset();
+  this.barcodeNo = chcCollectionForm.value.sampleBarcode;
+  // if(this.barcodeNo === '' || this.barcodeNo == null){
+  //   return false;
+  // }
+   // this.collectionDate = collectionForm.value.sampleCollectionDate;
+  // this.collectionTime = collectionForm.value.collectionTime;
+
+  this.chcsampleCollectionDateTimeRequest = {
+    uniqueSubjectId: this.uniqueSubjectId,
+    reason: this.reason,
+    barcodeNo: this.barcodeNo,
+    collectionFrom: this.user.sampleCollectionFrom,
+    sampleCollectionDate: this.chcSampleCollectionDate,
+    sampleCollectionTime: this.chcSampleCollectionTime,
+    collectedBy: this.user.id,
+  };
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  //return false;
+
+  let sampleCollection = this.sampleCollectionService.postSampleCollection(this.chcsampleCollectionDateTimeRequest)
+  .subscribe(response => {
+    this.chcsampleCollectionPostResponse = response;
+    if(this.chcsampleCollectionPostResponse !== null && this.chcsampleCollectionPostResponse.status === "true"){
+      this.showResponseMessage(this.chcsampleCollectionPostResponse.message, 's')
+       this.chcSampleCollection();
+    }else{
+      this.showResponseMessage(this.chcsampleCollectionPostResponse.message, 'e');
+              this.chcsCollectionErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.chcsCollectionErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+showResponseMessage(message: string, type: string){
+  var messageType = '';
+  if(type === 'e'){
+    Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+  }
+  else{
+    Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+    .then((result) => {
+      if (result.value) {
+        this.modalService.dismissAll();
+      }
+    });
+  }
+}
+
 
   ChcInitializeDateRange() {
     this.chcSCFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
@@ -225,7 +389,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     // });
   }
 
-  anmSampleCollection(){}
+ 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first   
