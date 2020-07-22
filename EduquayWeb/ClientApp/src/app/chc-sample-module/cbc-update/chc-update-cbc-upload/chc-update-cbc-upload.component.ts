@@ -178,9 +178,9 @@ type AOA = any[][];
               text: 'HPLC results uploaded successfully.',
               icon: 'success'
             }).then((result) => {
-              this.chcUploadResultData = [];
-              this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
+              this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":0,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
               this.DataService.deleteProp('cbcuploaddata');
+              this.chcUploadResultData = [];
               this.showUploadResult = false;
             });
         } else {
