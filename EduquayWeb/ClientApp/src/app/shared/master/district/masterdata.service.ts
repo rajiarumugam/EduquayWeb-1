@@ -77,5 +77,11 @@ export class masterService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
+  getAssociatedANM(chcid)
+  {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVE_ASSOCIATED_ANM+chcid);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 
 }

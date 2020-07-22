@@ -12,6 +12,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { GenericService } from './../../shared/generic.service';
 import { HttpClientService } from './../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
 
 @Component({
   selector: 'app-chc-sample-rec',
@@ -102,7 +103,8 @@ export class CHCSampleRcptComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private genericService: GenericService,
-    private httpClientService:HttpClientService
+    private httpClientService:HttpClientService,
+    private chcsampleService: chcsampleService
     ) { }
 
   ngOnInit() {
@@ -143,7 +145,6 @@ export class CHCSampleRcptComponent implements OnInit {
     else{
       this.errorMessage = chcReceiptsArr.message;
     }
-
   }
   
   openPopup(data) {
@@ -336,7 +337,21 @@ export class CHCSampleRcptComponent implements OnInit {
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {
-                   
+                          $('#fadeinModal').modal('hide');
+                          this.chcsampleService.retriveCHCReceipt().subscribe(response => {
+                            console.log(response);
+                            console.log('Get Data');
+                            if(response.status === "true")
+                            {
+                              this.chcReceiptsData = response.chcReceipts;
+                              this.rerender();
+                            }
+                                      
+                          },
+                          (err: HttpErrorResponse) =>{
+                            console.log(err);
+                          });
+                          
                         }
                         
                       });

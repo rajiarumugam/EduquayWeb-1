@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../generic.service';
 import { HttpClientService } from '../http-client.service';
 import { ENDPOINT } from 'src/app/app.constant';
+import { catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { TokenService } from 'src/app/shared/token.service';
 
 
 @Injectable({
@@ -13,7 +16,16 @@ export class chcsampleService {
   constructor(
     private httpClient: HttpClient,
     private genericService: GenericService,
-    private http: HttpClientService) { }
+    private http: HttpClientService,
+    private tokenService: TokenService) { }
+
+  retriveCHCReceipt()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECHCRECEIPT+user.chcId);
+    return this.http.get<any>( {url:apiUrl});
+  }
+  
 
   addCBCtest(obj){
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDCBCTEST);

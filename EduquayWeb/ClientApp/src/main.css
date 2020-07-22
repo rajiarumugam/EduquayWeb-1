@@ -201,6 +201,11 @@ span.red {
     padding: .5rem 1.25rem;
     border-radius: 6px;
 }
+.form-control-with-search
+{
+    width:80% !important;
+    display:inline-block !important;
+}
 .form-control:focus {
     box-shadow: 0 0 5px 2px rgba(194, 213, 255, 0.6196078431372549);
     border-color: #1b55e2;
