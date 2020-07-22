@@ -106,11 +106,11 @@ export class SSTUpdateNegativeComponent implements OnInit {
     {
       this.negativeList.push(this.tempCHCData[_index]);
       this.tempCHCData.splice(_index,1);
-      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.chcReceiptsData.length-this.negativeList.length-this.positiveList.length}));
-      this.rerender();
       this.searchbarcode = ""; 
       this.DataService.setdata({'sstNegative':this.negativeList});
       this.showUploadResult = true;
+      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length}));
+      this.rerender();
     } 
   }
   clicksearchBarcode()
@@ -122,7 +122,8 @@ export class SSTUpdateNegativeComponent implements OnInit {
   {
     this.tempCHCData.push(this.negativeList[index]);
     this.negativeList.splice(index,1);
-    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length-this.negativeList.length-this.positiveList.length}));
+    this.rerender();
+    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length}));
     this.DataService.setdata({'sstNegative':this.negativeList});
     Swal.fire({
       position: 'top-end',

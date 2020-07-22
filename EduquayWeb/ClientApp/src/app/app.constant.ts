@@ -10,6 +10,7 @@ export const ENDPOINT = {
         "RETRIEVECASTE":"api/v1/WebMaster/RetrieveCaste",
         "RETRIEVECOMMUNITY":"api/v1/WebMaster/RetrieveCommunity",
         "RETRIEVE_GOV_ID_TYPE":"api/v1/WebMaster/RetrieveGovIdType",
+        "RETRIEVE_ASSOCIATED_ANM":"api/v1/WebMaster/RetrieveAssociatedANM/",
     },
     "SUBJECT":
     {

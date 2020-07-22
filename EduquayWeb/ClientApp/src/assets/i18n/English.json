@@ -86,7 +86,15 @@
     "UpdateSSTResults":"Update SST Results",
     "Positive":"Positive",
     "Negative":"Negative",
-    "Delete":"Delete"
+    "Delete":"Delete",
+    "AssociatedCHC":"Associated CHC",
+    "AssociatedANM":"Associated ANM",
+    "SCAddress":"SC Address",
+    "SCPincode":"SC Pincode",
+    "ANM":"ANM",
+    "ANMContact":"ANM Contact",
+    "SubCentre":"Sub-Centre",
+    "TestingCHC":"Testing CHC"
 
 
 }
