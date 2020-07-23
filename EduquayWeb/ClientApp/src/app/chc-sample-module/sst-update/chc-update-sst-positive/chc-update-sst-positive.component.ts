@@ -72,6 +72,10 @@ export class SSTUpdatePositiveComponent implements OnInit {
       if(this.DataService.getdata().sstPositive != undefined)
       {
         this.positiveList = this.DataService.getdata().sstPositive;
+        this.positiveList.forEach((obj)=>{
+          var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
+          _tempData.splice(existNotification,1);
+        });
         this.showUploadResult = true;
       }
       if(this.DataService.getdata().sstNegative != undefined)
@@ -95,18 +99,20 @@ export class SSTUpdatePositiveComponent implements OnInit {
 
   searchBarCodetype()
   {
+
     let term = this.searchbarcode;
     var _index = this.tempCHCData.findIndex(com => com.barcodeNo === term)
     if(_index >= 0)
     {
       this.positiveList.push(this.tempCHCData[_index]);
       this.tempCHCData.splice(_index,1);
-      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length}));
-      this.rerender();
       this.searchbarcode = ""; 
       this.DataService.setdata({'sstPositive':this.positiveList});
       this.showUploadResult = true;
+      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length}));
+      this.rerender();
     } 
+
   }
   clicksearchBarcode()
   {
@@ -117,6 +123,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
   {
     this.tempCHCData.push(this.positiveList[index]);
     this.positiveList.splice(index,1);
+    this.rerender();
     this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length-this.positiveList.length-this.negativeList.length}));
     this.DataService.setdata({'sstPositive':this.positiveList});
     Swal.fire({

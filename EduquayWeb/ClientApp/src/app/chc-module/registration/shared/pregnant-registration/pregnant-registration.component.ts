@@ -4,7 +4,7 @@ import { masterService } from 'src/app/shared/master/district/masterdata.service
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
@@ -15,6 +15,9 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 declare var $: any 
 import { TokenService } from 'src/app/shared/token.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 declare var exposedFunction;
 
@@ -27,8 +30,11 @@ declare var exposedFunction;
 
 export class ChcpregnantRegistrationComponent implements OnInit {
   //@ViewChild('f', { static: false }) subRegBasic: NgForm;
-
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
+  @ViewChild('lmpdatePicker', { static: false }) LMPPicker;
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
@@ -44,11 +50,12 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedchc = null;
   selectedphc = null;
   selectedripoint = null;
-  selectedsc = null;
+  selectedsc = "";
   selectedgovtIDType = null;
   selectedreligion = null;
   selectedcaste = null;
   selectedcommunity = null;
+  selectedTestingchc = null;
   selectedsubjectTitle = "Ms.";
   selectedsubjectTitle1 = "Mr."
   CHCdata = [];
@@ -61,6 +68,10 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   governmentIDData = [];
   selecteddob;
   selectedage;
+  selectedassociatedANM;
+  Ldisabled = true;
+  Pdisabled = true;
+  Adisabled = true;
   GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -71,8 +82,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   startOptions1: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now()),
-    maxDate: new Date(Date.now())
+    defaultDate: "",
+    maxDate: ""
   };
   startOptionsLMP: FlatpickrOptions = {
     mode: 'single',
@@ -104,7 +115,12 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedspouseContactNumber;
   selectedspouseEmail;
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) {
+  selectedAssociatedANMID;
+
+  associatedANMData = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -121,12 +137,31 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       },
       buttonsStyling: false
     })
+
+    this.dtOptions = {
+      pagingType: 'simple_numbers',
+      pageLength: 5,
+      processing: true,
+      stripeClasses: [],
+      lengthMenu: [5, 10, 20, 50],
+      language: {
+        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        searchPlaceholder: "Search...",
+        lengthMenu: "Records / Page :  _MENU_",
+        paginate: {
+          first: '',
+          last: '', // or '←' 
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        }, 
+      }   
+    };
     
     /*----First form removed elements---- */
     /*
     phc: ['', Validators.required],
-      sc: ['', Validators.required],
-      ripoint: ['', Validators.required],
+      
+      
             dob: [''],
     */
     this.firstFormGroup = this._formBuilder.group({
@@ -145,12 +180,15 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       g: ['', Validators.required],
       p: ['', Validators.required],
       l: ['', Validators.required],
-      a: ['', Validators.required]
+      a: ['', Validators.required],
+      ripoint: ['', Validators.required],
+      sc: ['', Validators.required],
+      testingchc: ['', Validators.required]
    });
 
     this.secondFormGroup = this._formBuilder.group({
       dob: [''],
-      ECNumber: [''],
+      ECNumber: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
       govtIDType: [''],
       GovtIDDetail: [''],
       religion: ['', Validators.required],
@@ -174,11 +212,11 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.getDistrictData();
     this.getCHC();
     //this.getPHC();
-    //this.getSC();
-    //this.getRI();
+    this.getSC();
+    this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
     
   }
@@ -251,6 +289,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
+      if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -262,6 +302,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
+      if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -270,11 +312,14 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   }
 
   getCommunity(id){
+    this.communityData = [];
     if(id === 0)
     {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -285,6 +330,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -324,6 +371,51 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.getCommunity(this.selectedcaste);
   }
 
+  getANMDetails()
+  {
+      this.masterService.getAssociatedANM(this.selectedchc)
+    .subscribe(response => {
+    console.log(response);
+    this.associatedANMData = response.associatedANMDetail;
+    this.dtTrigger.next();
+    $('#fadeinModal').modal('show');
+    },
+    (err: HttpErrorResponse) =>{
+     
+    });
+
+      
+  }
+  associatedClick(i)
+  {
+      console.log(i);
+      this.selectedAssociatedANMID = i;
+      this.selectedassociatedANM = this.associatedANMData[i].anmName;
+      this.selectedsc = this.associatedANMData[i].scName;
+      this.selectedripoint = this.associatedANMData[i].riPoint;
+      this.selectedTestingchc = this.associatedANMData[i].testingCHCId;
+
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Confirm Associated ANM is "+this.associatedANMData[i].anmName,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#ffffff'
+      }).then((result) => {
+        if (result.value) {
+          $('#fadeinModal').modal('hide');
+         }
+         else{
+          
+          $('#fadeinModal').modal('show');
+         }
+          
+        })
+    
+    }
   nextStep() {
     this.firstFormCheck = true;
       /*if(this.firstFormGroup.valid)
@@ -350,6 +442,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
                if (result.value) {
          
                 $('#fadeinModal').modal('hide');
+                this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
                
                }
                else{
@@ -359,6 +452,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
                 this.firstFormCheck = false;
                 this.stepper.selectedIndex = 0;
                 $('#fadeinModal').modal('hide');
+                this.prePopulateFormDetails();
                }
              });
         },
@@ -367,7 +461,38 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         });
       }
     }
+    prePopulateFormDetails()
+    {
+      setTimeout(()=>{    
+          this.selectedDistrict = this.user.districtId;
+          this.selectedchc = this.user.chcId;
+          this.selectedphc = this.user.phcId;
+          this.selectedsc = this.user.scId;
+          this.communityData = [];
+          this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+          if(this.selectedripoint === "" && this.RIdata[0])
+            this.selectedripoint = this.RIdata[0].id;
+          if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;
+          if(this.casteData[0])
+            this.selectedcaste = this.casteData[0].id;
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
 
+
+          //this.selecteddor = new Date(Date.now());
+          //this.selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+
+          this.selecteddor = new Date(Date.now());
+      
+          this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
+          this.LMPPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*30.00025)));
+          this.DOBPicker.flatpickr.setDate("");
+
+          
+       
+        }, 100);
+    }
     dataBindinginServce()
     {
       var _obj = {
@@ -461,6 +586,49 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       };
 
       return _obj;
+    }
+
+    gonChange()
+    {
+      this.Pdisabled = false;
+      this.Ldisabled = true;
+      this.selectedl = null;
+      this.selecteda = null;
+      this.selectedp = null;
+    }
+    ponChange()
+    {
+      this.selecteda = +this.selectedg - +this.selectedp;
+      if(this.selecteda === 0)
+      this.selecteda = "00";
+      this.Ldisabled = false;
+    }
+    ecNumberChange()
+    {
+      if(this.selectedECNumber)
+      {
+        if(this.selectedECNumber.length > 0)
+        {   
+          console.log("hitting here");
+          const validators = [ Validators.required,Validators.min(100000000000), Validators.max(9999999999999999)];
+            this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
+        }
+      }
+       
+    }
+
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }   
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
     }
 
 }

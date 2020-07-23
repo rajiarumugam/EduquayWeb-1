@@ -12,6 +12,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { GenericService } from './../../shared/generic.service';
 import { HttpClientService } from './../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
 
 @Component({
   selector: 'app-chc-sample-rec',
@@ -21,10 +22,18 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CHCSampleRcptComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChild('receivedPicker', { static: false }) receivedPicker;
+  @ViewChild('processingPicker', { static: false }) processingPicker;
+  @ViewChild('ilrInDatePicker', { static: false }) ilrInDatePicker;
+  @ViewChild('ilrOutDatePicker', { static: false }) ilrOutDatePicker;
+  
   errorMessage: string;
   errorSpouseMessage: string;
   form: FormGroup;
   ILRform:FormGroup;
+  receivedDateSelected = false;
+  ILRInDate;
+  ILROutDate;
   
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -39,8 +48,40 @@ export class CHCSampleRcptComponent implements OnInit {
     maxDate: new Date(),
     static: true
   };
-  
-  userId = 2;
+  ilrInDateOptions: FlatpickrOptions = {
+    enableTime: true,
+    dateFormat: 'd/m/Y H:i',
+    defaultDate: "",
+    maxDate: new Date(),
+    static: true,
+    time_24hr: true,
+    enable: ["22/10/2036"]
+  };
+  ilrOutDateOptions: FlatpickrOptions = {
+    enableTime: true,
+    dateFormat: 'd/m/Y H:i',
+    defaultDate: "",
+    maxDate: new Date(),
+    static: true,
+    time_24hr: true,
+    enable: ["22/10/2036"]
+  };
+  receiveddateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: "",
+    maxDate: new Date(Date.now())
+  };
+
+  processingOption: FlatpickrOptions = {
+    mode: 'single',
+    defaultDate: "",
+    enable: ["22/10/2036"],
+    enableTime: true,
+    dateFormat: 'd/m/Y H:i',
+    time_24hr: true,
+    maxDate: new Date(Date.now())
+  };
   createdSubjectId="";
 
   chcReceiptsData: any[] = [];
@@ -52,6 +93,7 @@ export class CHCSampleRcptComponent implements OnInit {
   toDate = "";
   formCheck = false;
   selectedreceivedDate;
+  currentshipmentDateTime;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -61,15 +103,18 @@ export class CHCSampleRcptComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private genericService: GenericService,
-    private httpClientService:HttpClientService
+    private httpClientService:HttpClientService,
+    private chcsampleService: chcsampleService
     ) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
       processingDate: ['', Validators.required],
-      receivedDate: [""]
+      receivedDate: ["", Validators.required]
     });
     this.ILRform= this._formBuilder.group({
+      ilrInDateTime: [''],
+        ilrOutDateTime: [""]
     });
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -100,12 +145,22 @@ export class CHCSampleRcptComponent implements OnInit {
     else{
       this.errorMessage = chcReceiptsArr.message;
     }
-
   }
   
   openPopup(data) {
+    console.log(data);
     var _data:any = data;
     this.popupData = _data;
+    this.formCheck = false;
+    if(this.popupData.shipmentFrom === 'ANM - CHC')
+    {
+      /*this.ILRform= this._formBuilder.group({
+        ilrInDateTime: ["", Validators.required],
+        ilrOutDateTime: ["", Validators.required]
+      });*/
+      
+    }
+    
     this.popupData['receiptDetail'].forEach(function(val,index){
         val.sampleTimeout = false;
         val.accept = false;
@@ -114,24 +169,75 @@ export class CHCSampleRcptComponent implements OnInit {
         val.barcodeDamaged = false;
         
     });
-    if(this.popupData.shipmentFrom === 'ANM - CHC')
+    console.log(data.shipmentDateTime);
+    this.receivedPicker.flatpickr.set({
+      defaultDate: "",
+      minDate: data.shipmentDateTime
+    });
+    this.processingPicker.flatpickr.set({
+      defaultDate: ""
+    });
+    if(this.ilrInDatePicker)
     {
-      this.ILRform= this._formBuilder.group({
-        ilrInDateTime: [''],
-        ilrOutDateTime: [""]
-      });
+        this.ilrInDatePicker.flatpickr.set({
+          defaultDate: ""
+        });
+        this.ilrInDatePicker.flatpickr.setDate("");
     }
+    if(this.ilrOutDatePicker)
+    {
+      this.ilrOutDatePicker.flatpickr.set({
+        defaultDate: ""
+      });
+      this.ilrOutDatePicker.flatpickr.setDate("");
+    }
+    
+    this.processingDate = "";
+    this.selectedreceivedDate = ""; 
+    this.ILRInDate = "";
+    this.ILROutDate = ""; 
+    this.processingPicker.flatpickr.setDate("");
+    this.receivedPicker.flatpickr.setDate("");
+    
+    
+    this.currentshipmentDateTime = data.shipmentDateTime;
     $('#fadeinModal').modal('show');
   }
+  receivedDateChange()
+  {
 
+      this.processingPicker.flatpickr.set({
+        minDate: new Date(this.selectedreceivedDate),
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
+      this.ilrInDatePicker.flatpickr.set({
+        maxDate: new Date(this.selectedreceivedDate),
+        minDate: this.currentshipmentDateTime,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
+  }
+  inDateChange()
+  {
+    this.ilrOutDatePicker.flatpickr.set({
+      minDate: new Date(this.ILRInDate),
+      maxDate: new Date(this.selectedreceivedDate),
+      enable: [],
+      enableTime: true,
+      dateFormat: 'd/m/Y H:i',
+    });
+  }
   processingDateChange()
   {
     if(this.form.get('processingDate').value.length > 0)
     {
       this.popupData['receiptDetail'].forEach(function(val,index){
-        if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
+        if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) > 24)
             this.resettingTableEvents(val,true,false,true,false,false);
-        else if(this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(val.sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+        else if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) < 24 && this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) >= 0)
             this.resettingTableEvents(val,false,true,false,false,false);
         else
           this.resettingTableEvents(val,true,false,true,false,false);
@@ -169,9 +275,9 @@ export class CHCSampleRcptComponent implements OnInit {
   }
   compareDate(date1,date2)
   {
-    var _d = new Date(date2);
+      var _d = date2;
       var a = moment(date1[0]);
-      var b = moment(_d);
+      var b = moment(_d, 'DD/MM/YYYY hh:mm', true);
       return (a.diff(b, 'hours')); 
   }
     rerender(): void {
@@ -190,8 +296,9 @@ export class CHCSampleRcptComponent implements OnInit {
     sampleSubmit()
     {
           this.formCheck = true;
-          
-          if(this.form.get('processingDate').value)
+          console.log(this.ILRform.valid);
+          console.log(this.form.valid);
+          if(this.ILRform.valid && this.form.valid)
           {
               var user = JSON.parse(this.tokenService.getUser('lu'));
               var _sampleResult = [];
@@ -230,7 +337,21 @@ export class CHCSampleRcptComponent implements OnInit {
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {
-                   
+                          $('#fadeinModal').modal('hide');
+                          this.chcsampleService.retriveCHCReceipt().subscribe(response => {
+                            console.log(response);
+                            console.log('Get Data');
+                            if(response.status === "true")
+                            {
+                              this.chcReceiptsData = response.chcReceipts;
+                              this.rerender();
+                            }
+                                      
+                          },
+                          (err: HttpErrorResponse) =>{
+                            console.log(err);
+                          });
+                          
                         }
                         
                       });
@@ -243,6 +364,8 @@ export class CHCSampleRcptComponent implements OnInit {
                       console.log(err);
                     });
           }
+
+         
     }
   
     ngOnDestroy(): void {

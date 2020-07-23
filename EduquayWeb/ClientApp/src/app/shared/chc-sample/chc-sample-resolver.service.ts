@@ -24,7 +24,6 @@ export class CHCSampleResolverService implements Resolve<any> {
       state: RouterStateSnapshot
     ): Observable<any> | Promise<any> | any {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    console.log(user);
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECHCRECEIPT+user.chcId);
     return this.httpClient.get<any>( {url:apiUrl}).pipe(
       catchError(error => {

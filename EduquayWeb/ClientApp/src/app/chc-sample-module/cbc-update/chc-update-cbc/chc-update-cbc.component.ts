@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../../shared/data.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized } from '@angular/router';
+import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chc-update-cbc',
@@ -13,9 +14,24 @@ export class CHCUpdateCBCComponent implements OnInit {
   uploadCBCCount = 0;
   subscription: Subscription;
   currentPage = "";
-  constructor(private DataService:DataService,private router: Router) { }
+  constructor(private DataService:DataService,private router: Router) {
+
+   
+   }
 
   ngOnInit() {
+
+    this.router.events
+    .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
+    .subscribe((events: RoutesRecognized[]) => {
+      
+      //console.log('previous url', events[0].urlAfterRedirects.indexOf('chc-update-cbc'));
+      //console.log('current url', events[1].urlAfterRedirects);
+      if(events[0].urlAfterRedirects.indexOf('chc-update-cbc') == -1)
+      {
+          this.DataService.deleteProp('cbcuploaddata');
+      }
+    });
     this.subscription = this.DataService.receiveData().subscribe(x => { 
       if(JSON.parse(x).screen === "CBC")
       {
