@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
-import { PicknpackRequest, AnmAddShipmentRequest} from './picknpack-request';
-import { PicknpackResponse, RiPointResponse, ILRpointResponse, TestingCHCResponse, AvdNameResponse, AnmAddShipmentResponse } from './picknpack-response';
+import { PicknpackRequest, AnmAddShipmentRequest, PickpackMoveTimeoutExpiryRequest} from './picknpack-request';
+import { PicknpackResponse, RiPointResponse, ILRpointResponse, TestingCHCResponse, AvdNameResponse, AnmAddShipmentResponse, PickpackMoveTimeoutExpiryResponse } from './picknpack-response';
 import { TokenService } from '../../token.service';
-import { MoveTimeoutExpiryRequest } from '../notifications/unsent-samples/unsent-samples-request';
-import { MoveTimeoutExpiryResponse } from '../notifications/unsent-samples/unsent-samples-response';
+
 
 @Injectable({
   providedIn: 'root'
@@ -62,9 +61,9 @@ export class PicknpackService {
     return this.http.post<AnmAddShipmentResponse>({url: apiUrl, body: addshipment});
 
   }
-  PnPMoveExpirySamples(moveExpirySamples: MoveTimeoutExpiryRequest){
+  PnPMoveExpirySamples(moveExpirySamples: PickpackMoveTimeoutExpiryRequest){
     let apiUrl = this.genericServices.buildApiUrl(this.timeoutExpirySampleApi);
-    return this.http.post<MoveTimeoutExpiryResponse>({url: apiUrl, body: moveExpirySamples});
+    return this.http.post<PickpackMoveTimeoutExpiryResponse>({url: apiUrl, body: moveExpirySamples});
   }
 }
 

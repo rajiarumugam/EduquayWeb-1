@@ -70,3 +70,7 @@ export interface Shipment {
     errorMessage: string
 }
 
+export interface PickpackMoveTimeoutExpiryResponse {
+    status: string;
+    message: string;
+}

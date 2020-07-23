@@ -20,5 +20,10 @@ export interface AnmAddShipmentRequest{
     source: string
 }
 
+export interface PickpackMoveTimeoutExpiryRequest {
+    barcodeNo: string;
+    anmId: number;
+}
+
 
 

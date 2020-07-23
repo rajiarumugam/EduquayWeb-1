@@ -27,6 +27,7 @@ export interface user {
   districtId: number,
   blockId: number,
   chcId: number,
+  chcName: string;
   phcId: number,
   scId: number,
   riId: string,

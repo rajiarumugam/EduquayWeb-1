@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 // import { Router } from '@angular/router';
 import { PicknpackService } from 'src/app/shared/anm-module/picnpack/picknpack.service';
-import { PicknpackRequest, AnmAddShipmentRequest } from 'src/app/shared/anm-module/picnpack/picknpack-request';
-import { PicknpackResponse, SampleList, RiPointResponse, RIModel, ILRpointResponse, IlrModel, TestingCHCResponse, TestingChcModel, AvdNameResponse, AvdNameModel, AnmAddShipmentResponse } from 'src/app/shared/anm-module/picnpack/picknpack-response';
+import { PicknpackRequest, AnmAddShipmentRequest, PickpackMoveTimeoutExpiryRequest } from 'src/app/shared/anm-module/picnpack/picknpack-request';
+import { PicknpackResponse, SampleList, RiPointResponse, RIModel, ILRpointResponse, IlrModel, TestingCHCResponse, TestingChcModel, AvdNameResponse, AvdNameModel, AnmAddShipmentResponse, PickpackMoveTimeoutExpiryResponse } from 'src/app/shared/anm-module/picnpack/picknpack-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgModel, NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,12 +15,6 @@ import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { MoveTimeoutExpiryRequest } from 'src/app/shared/anm-module/notifications/unsent-samples/unsent-samples-request';
-import { MoveTimeoutExpiryResponse } from 'src/app/shared/anm-module/notifications/unsent-samples/unsent-samples-response';
-//import { library } from '@fortawesome/fontawesome-svg-core'
-//import { fas } from '@fortawesome/free-solid-svg-icons'
-//import { far } from '@fortawesome/free-regular-svg-icons'
-//import { fab } from '@fortawesome/free-brands-svg-icons'
 
 
 @Component({
@@ -46,8 +40,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   anmaddshipmentRequest: AnmAddShipmentRequest;
   anmaddshipmentResponse: AnmAddShipmentResponse;
   picknpackInitResponse: any;
-  movetimeoutExpiryRequest: MoveTimeoutExpiryRequest;
-  movetimeoutExpiryResponse: MoveTimeoutExpiryResponse;
+  pickpackmovetimeoutExpiryRequest: PickpackMoveTimeoutExpiryRequest;
+  pickpackmovetimeoutExpiryResponse: PickpackMoveTimeoutExpiryResponse;
   sampleList: SampleList[] = [];
   riPoints: RIModel[] = [];
   selectedriPoint: '';
@@ -435,20 +429,20 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     this.picknpackErrorMessage = '';
     
-    this.movetimeoutExpiryRequest = {
+    this.pickpackmovetimeoutExpiryRequest = {
       anmId: this.user.userTypeId,
       barcodeNo: this.selectedBarcodes,
     }
 
-    let expirysamples = this.PicknpackService.PnPMoveExpirySamples(this.movetimeoutExpiryRequest)
+    let expirysamples = this.PicknpackService.PnPMoveExpirySamples(this.pickpackmovetimeoutExpiryRequest)
       .subscribe(response => {
-        this.movetimeoutExpiryResponse = response;
-        if (this.movetimeoutExpiryResponse !== null && this.movetimeoutExpiryResponse.status === "true") {
-          this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 's');
+        this.pickpackmovetimeoutExpiryResponse = response;
+        if (this.pickpackmovetimeoutExpiryResponse !== null && this.pickpackmovetimeoutExpiryResponse.status === "true") {
+          this.expirySampleResponseMessage(this.pickpackmovetimeoutExpiryResponse.message, 's');
           this.anmpicknpackList();
         }
         else {
-          this.expirySampleResponseMessage(this.movetimeoutExpiryResponse.message, 'e');
+          this.expirySampleResponseMessage(this.pickpackmovetimeoutExpiryResponse.message, 'e');
           this.picknpackErrorMessage = response.message;
         }
 
@@ -533,8 +527,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     var maxDate = new Date(maximumdate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
     console.log(maxDate);
     this.shipmentDateOptions.minDate = maxDate;
-
-
     //document.write('<pre>' + JSON.stringify(latest, 0, 4) + '</pre>');
     // let moments = [logdate].map(d => moment(d)),
     // maxDate = moment.max(moments);
@@ -544,7 +536,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //let moments = [element.sampleDateTime].map(d => moment(d)),
     //maxDate = moment.max(moments);
     //console.log(maxDate);
-
 
     //this.shipmentDateOptions.minDate = maxDate;
 
@@ -606,8 +597,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     });
   }
 
-
-
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }
@@ -634,20 +623,6 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       this.sampleShipmentTime = moment(new Date(selectedDate2)).format("HH:mm");
     });
 
-    // //Change of sample collection time
-    // this.popupform.controls.collectionTime.valueChanges.subscribe(changes => {
-    //   console.log('end: ', changes);
-    //   if (!changes[0]) return;
-    //   const selectedDate3 = changes[0].getTime();
-    //   this.sampleCollectionTime = moment(new Date(selectedDate3)).format("HH:i");
-
-    //   //const monthLaterDate = selectedDate1;
-    //   // this.startPicker.flatpickr.set({
-    //   //   defaultDate: new Date(selectedDate1)
-    //   // });
-    // });
   }
-
-
 
 }
