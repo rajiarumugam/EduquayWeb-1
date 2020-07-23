@@ -116,6 +116,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedspouseEmail;
 
   selectedAssociatedANMID;
+  associatedCount = 0;
 
   associatedANMData = [];
   dtOptions: DataTables.Settings = {};
@@ -140,7 +141,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
 
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 5,
+      pageLength: 10,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
@@ -206,9 +207,6 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       spouseEmail: ['',Validators.email]
     });
 
-    
-  
-    
     this.getDistrictData();
     this.getCHC();
     //this.getPHC();
@@ -377,14 +375,15 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     .subscribe(response => {
     console.log(response);
     this.associatedANMData = response.associatedANMDetail;
-    this.dtTrigger.next();
+    if(this.associatedCount === 0)
+        this.dtTrigger.next();
+    else
+        this.rerender();
+    this.associatedCount++;
     $('#fadeinModal').modal('show');
     },
     (err: HttpErrorResponse) =>{
-     
     });
-
-      
   }
   associatedClick(i)
   {
@@ -394,7 +393,6 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       this.selectedsc = this.associatedANMData[i].scName;
       this.selectedripoint = this.associatedANMData[i].riPoint;
       this.selectedTestingchc = this.associatedANMData[i].testingCHCId;
-
 
       Swal.fire({
         title: 'Are you sure?',
@@ -409,10 +407,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           $('#fadeinModal').modal('hide');
          }
          else{
-          
           $('#fadeinModal').modal('show');
          }
-          
         })
     
     }
@@ -488,28 +484,25 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
           this.LMPPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*30.00025)));
           this.DOBPicker.flatpickr.setDate("");
-
-          
-       
         }, 100);
     }
     dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 1,
+          "subjectTypeId": 4,
           "childSubjectTypeId": 1,
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
-          "chcId": Number(this.firstFormGroup.get('chc').value),
-          "phcId": Number(this.firstFormGroup.get('phc').value),
-          "scId": Number(this.firstFormGroup.get('sc').value),
-          "riId": Number(this.firstFormGroup.get('ripoint').value),
+          "chcId": Number(this.associatedANMData[this.selectedAssociatedANMID].testingCHCId),
+          "phcId": 0,
+          "scId": Number(this.associatedANMData[this.selectedAssociatedANMID].scId),
+          "riId": Number(this.associatedANMData[this.selectedAssociatedANMID].riId),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
           "lastName": this.firstFormGroup.get('lastname').value,
-          "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
+          "dob": this.secondFormGroup.get('dob').value != undefined ? moment(new Date(this.secondFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
           "age": Number(this.firstFormGroup.get('age').value),
           "gender": "Female",
           "maritalStatus": true,
@@ -524,7 +517,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "spouseContactNo": ""+this.secondFormGroup.get('spouseContactNumber').value,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.user.id,
+          "assignANMId": Number(this.associatedANMData[this.selectedAssociatedANMID].associatedANMId),
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
           "registeredFrom": Number(this.user.registeredFrom),
           "createdBy": Number(this.user.id),
@@ -542,7 +535,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
-          "rchId": this.firstFormGroup.get('rchid').value,
+          "rchId": '121'+this.firstFormGroup.get('rchid').value,
           "ecNumber": this.secondFormGroup.get('ECNumber').value,
           "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
           "g": Number(this.firstFormGroup.get('g').value),
@@ -609,7 +602,6 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       {
         if(this.selectedECNumber.length > 0)
         {   
-          console.log("hitting here");
           const validators = [ Validators.required,Validators.min(100000000000), Validators.max(9999999999999999)];
             this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
         }

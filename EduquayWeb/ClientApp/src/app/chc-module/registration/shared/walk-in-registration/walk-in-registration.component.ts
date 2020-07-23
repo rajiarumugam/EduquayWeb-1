@@ -13,6 +13,8 @@ import { GenericService } from '../../../../shared/generic.service';
 declare var $: any 
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'chc-walkin-registration',
@@ -20,7 +22,11 @@ import { TokenService } from 'src/app/shared/token.service';
   styleUrls: ['./walk-in-registration.component.css']
 })
 export class ChcwalkinRegistrationComponent implements OnInit {
+  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
+  DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -29,7 +35,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   firstFormCheck = false;
   secondFormCheck = false;
   selectedDistrict = null;
-  selectedgender = null;
+  selectedgender = "Male";
   selectedchc = null;
   selectedphc = null;
   selectedripoint = null;
@@ -38,11 +44,9 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedreligion = null;
   selectedcaste = null;
   selectedcommunity = null;
-  selectedsubjectTitle = null;
   selectedfathergovtIDType = null;
   selectedguardiangovtIDType = null;
-  selectedschoolstandard = null;
-  selectedsubjectTitle1 = "Mr."
+  selectedsubjectTitle = "Mr"
   CHCdata = [];
   PHCdata = [];
   RIdata =[];
@@ -63,8 +67,15 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: "",
+    maxDate: new Date(Date.now())
+  };
 
-
+  selectedgovtIDType = null;
+  selectedGovtIDDetail;
   selectedfirstname;
   selectedmiddlename;
   selectedlastname;
@@ -89,27 +100,26 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedguardianLastName;
   selectedguardianGovtIDDetail;
   selectedguardianContactNumber;
-  selectedschoolName;
-  selectedschoolstreet;
-  selectedschoolcity;
-  selectedschoolstate;
-  selectedSchoolPincode;
-  selectedrbskid;
-  selectedschoolsection;
-  selectedrollnumber;
 
 
   createdSubjectId;
   user;
+  selectedAssociatedANMID;
+  associatedCount = 0;
+  associatedANMData = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  selectedassociatedANM;
+  selectedTestingchc = null;
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    /*phc: ['', Validators.required], */
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      phc: ['', Validators.required],
       sc: ['', Validators.required],
       ripoint: ['', Validators.required],
       subjectitle: ['', Validators.required],
@@ -118,7 +128,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       lastname: ['', Validators.required],
       dob: [''],
       age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
-      gender: ['', Validators.required]
+      gender: ['', Validators.required],
+      testingchc: ['', Validators.required]
    });
     this.secondFormGroup = this._formBuilder.group({
    
@@ -126,11 +137,19 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       caste: ['', Validators.required],
       community: ['', Validators.required],
       contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+      Email:['',Validators.email],
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', Validators.required],
+      govtIDDetail: [''],
+      govtIDType: [''],
+      maritalStatus: ['']
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+   
       motherFirstName: ['', Validators.required],
       motherMiddleName: [''],
       motherLastName: ['', Validators.required],
@@ -151,26 +170,32 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       guardianContactNumber: ['',[Validators.min(1000000000), Validators.max(9999999999)]]
     });
 
-    this.thirdFormGroup = this._formBuilder.group({
-   
-      schoolname: [''],
-      schoolstreet: [''],
-      schoolcity : [''],
-      schoolstate: [''],
-      schoolpincode: [''],
-      rbskid: [''],
-      schoolstandard: [''],
-      schoolsection: [''],
-      rollnumber: ['']
-    });
+    this.dtOptions = {
+      pagingType: 'simple_numbers',
+      pageLength: 10,
+      processing: true,
+      stripeClasses: [],
+      lengthMenu: [5, 10, 20, 50],
+      language: {
+        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        searchPlaceholder: "Search...",
+        lengthMenu: "Records / Page :  _MENU_",
+        paginate: {
+          first: '',
+          last: '', // or '←' 
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        }, 
+      }   
+    };
     this.getDistrictData();
     this.getCHC();
     this.getPHC();
-    this.getSC();
-    this.getRI();
+    //this.getSC();
+    //this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
   }
 
@@ -235,6 +260,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
+      if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -246,6 +273,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
+      if(this.casteData[0])
+      this.selectedcaste = this.casteData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -259,6 +288,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -269,6 +300,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -324,6 +357,50 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         //this.stepper.next();
   }
 
+  getANMDetails()
+  {
+      this.masterService.getAssociatedANM(this.selectedchc)
+    .subscribe(response => {
+    console.log(response);
+    this.associatedANMData = response.associatedANMDetail;
+    if(this.associatedCount === 0)
+        this.dtTrigger.next();
+    else
+        this.rerender();
+    this.associatedCount++;
+    $('#fadeinModal').modal('show');
+    },
+    (err: HttpErrorResponse) =>{
+    });
+  }
+  associatedClick(i)
+  {
+      console.log(i);
+      this.selectedAssociatedANMID = i;
+      this.selectedassociatedANM = this.associatedANMData[i].anmName;
+      this.selectedsc = this.associatedANMData[i].scName;
+      this.selectedripoint = this.associatedANMData[i].riPoint;
+      this.selectedTestingchc = this.associatedANMData[i].testingCHCId;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Confirm Associated ANM is "+this.associatedANMData[i].anmName,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#ffffff'
+      }).then((result) => {
+        if (result.value) {
+          $('#fadeinModal').modal('hide');
+         }
+         else{
+          $('#fadeinModal').modal('show');
+         }
+        })
+    
+    }
+
     prevStep() {
       this.stepper.previous();
       }
@@ -340,8 +417,6 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-         
-                $('#fadeinModal').modal('hide');
                
                }
                else{
@@ -351,7 +426,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
                 this.secondFormCheck = false;
                 this.firstFormCheck = false;
                 this.stepper.selectedIndex = 0;
-                $('#fadeinModal').modal('hide');
+                this.prePopulateFormDetails();
                }
              });
             },
@@ -359,21 +434,51 @@ export class ChcwalkinRegistrationComponent implements OnInit {
               console.log(err);
             });
           }
+        
         console.log(this.dataBindinginServce());
     }
 
+    prePopulateFormDetails()
+    {
+      setTimeout(()=>{    
+          this.selectedDistrict = this.user.districtId;
+          this.selectedchc = this.user.chcId;
+          this.selectedphc = this.user.phcId;
+          this.selectedsc = "";
+          this.communityData = [];
+          this.selectedassociatedANM = "";
+          this.selectedsubjectTitle = "Mr"
+          this.selectedgender = "Male"
+          this.selectedripoint = "";
+          if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;
+          if(this.casteData[0])
+            this.selectedcaste = this.casteData[0].id;
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
+
+
+          this.selecteddor = new Date(Date.now());
+          this.selecteddob = "";
+      
+          this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
+          this.DOBPicker.flatpickr.setDate("");
+        }, 100);
+    }
     dataBindinginServce()
     {
+
+      console.log(this.secondFormGroup.get('maritalStatus').value);
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 3,
-          "childSubjectTypeId": 3,
+          "subjectTypeId": 4,
+          "childSubjectTypeId": 4,
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
-          "chcId": Number(this.firstFormGroup.get('chc').value),
-          "phcId": Number(this.firstFormGroup.get('phc').value),
-          "scId": Number(this.firstFormGroup.get('sc').value),
-          "riId": Number(this.firstFormGroup.get('ripoint').value),
+          "chcId": Number(this.associatedANMData[this.selectedAssociatedANMID].testingCHCId),
+          "phcId": 0,
+          "scId": Number(this.associatedANMData[this.selectedAssociatedANMID].scId),
+          "riId": Number(this.associatedANMData[this.selectedAssociatedANMID].riId),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
@@ -381,7 +486,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
           "age": Number(this.firstFormGroup.get('age').value),
           "gender": this.firstFormGroup.get('gender').value,
-          "maritalStatus": false,
+          "maritalStatus": this.secondFormGroup.get('maritalStatus').value != undefined ? this.secondFormGroup.get('maritalStatus').value != undefined : false,
           "mobileNo": ""+this.secondFormGroup.get('contactNumber').value,
           "emailId": "",
           "govIdTypeId": 0,
@@ -393,7 +498,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.user.id,
+          "assignANMId": Number(this.associatedANMData[this.selectedAssociatedANMID].associatedANMId),
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
           "registeredFrom": Number(this.user.registeredFrom),
           "createdBy": Number(this.user.id),
@@ -421,41 +526,67 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "updatedBy": Number(this.user.id)
         },
         "subjectParentRequest": {
-          "motherFirstName": this.secondFormGroup.get('motherFirstName').value,
-          "motherMiddleName": this.secondFormGroup.get('motherMiddleName').value != undefined ? this.secondFormGroup.get('motherMiddleName').value : '',
-          "motherLastName": this.secondFormGroup.get('motherLastName').value,
-          "motherGovIdTypeId": this.secondFormGroup.get('mothergovtIDType').value != undefined ? Number(this.secondFormGroup.get('mothergovtIDType').value) : 0,
-          "motherGovIdDetail": this.secondFormGroup.get('motherGovtIDDetail').value != undefined ? this.secondFormGroup.get('motherGovtIDDetail').value : '',
-          "motherContactNo": ""+this.secondFormGroup.get('motherContactNumber').value,
-          "fatherFirstName": this.secondFormGroup.get('fatherFirstName').value != undefined ? this.secondFormGroup.get('fatherFirstName').value : '',
-          "fatherMiddleName": this.secondFormGroup.get('fatherMiddleName').value != undefined ? this.secondFormGroup.get('fatherMiddleName').value : '',
-          "fatherLastName": this.secondFormGroup.get('fatherLastName').value != undefined ? this.secondFormGroup.get('fatherLastName').value : '',
-          "fatherGovIdTypeId": this.secondFormGroup.get('fathergovtIDType').value != undefined ? Number(this.secondFormGroup.get('fathergovtIDType').value) : 0,
-          "fatherGovIdDetail": this.secondFormGroup.get('fatherGovtIDDetail').value != undefined ? this.secondFormGroup.get('fatherGovtIDDetail').value : '',
-          "fatherContactNo": this.secondFormGroup.get('fatherContactNumber').value != undefined ? ""+this.secondFormGroup.get('fatherContactNumber').value : '',
-          "gaurdianFirstName": this.secondFormGroup.get('guardianFirstName').value != undefined ? this.secondFormGroup.get('guardianFirstName').value : '',
-          "gaurdianMiddleName": this.secondFormGroup.get('guardianMiddleName').value != undefined ? this.secondFormGroup.get('guardianMiddleName').value : '',
-          "gaurdianLastName": this.secondFormGroup.get('guardianLastName').value != undefined ? this.secondFormGroup.get('guardianLastName').value : '',
-          "gaurdianGovIdTypeId": this.secondFormGroup.get('guardiangovtIDType').value != undefined ? Number(this.secondFormGroup.get('guardiangovtIDType').value) : 0,
-          "gaurdianGovIdDetail": this.secondFormGroup.get('guardianGovtIDDetail').value != undefined ? this.secondFormGroup.get('guardianGovtIDDetail').value : '',
-          "gaurdianContactNo": this.secondFormGroup.get('guardianContactNumber').value != undefined ? ""+this.secondFormGroup.get('guardianContactNumber').value : '',
+          "motherFirstName": this.thirdFormGroup.get('motherFirstName').value != undefined ? this.thirdFormGroup.get('motherFirstName').value : '',
+          "motherMiddleName": this.thirdFormGroup.get('motherMiddleName').value != undefined ? this.thirdFormGroup.get('motherMiddleName').value : '',
+          "motherLastName": this.thirdFormGroup.get('motherLastName').value != undefined ? this.thirdFormGroup.get('motherLastName').value : '',
+          "motherGovIdTypeId": this.thirdFormGroup.get('mothergovtIDType').value != undefined ? Number(this.thirdFormGroup.get('mothergovtIDType').value) : 0,
+          "motherGovIdDetail": this.thirdFormGroup.get('motherGovtIDDetail').value != undefined ? this.thirdFormGroup.get('motherGovtIDDetail').value : '',
+          "motherContactNo": this.thirdFormGroup.get('motherContactNumber').value != undefined ? ""+this.thirdFormGroup.get('motherContactNumber').value : '',
+          "fatherFirstName": this.thirdFormGroup.get('fatherFirstName').value != undefined ? this.thirdFormGroup.get('fatherFirstName').value : '',
+          "fatherMiddleName": this.thirdFormGroup.get('fatherMiddleName').value != undefined ? this.thirdFormGroup.get('fatherMiddleName').value : '',
+          "fatherLastName": this.thirdFormGroup.get('fatherLastName').value != undefined ? this.thirdFormGroup.get('fatherLastName').value : '',
+          "fatherGovIdTypeId": this.thirdFormGroup.get('fathergovtIDType').value != undefined ? Number(this.thirdFormGroup.get('fathergovtIDType').value) : 0,
+          "fatherGovIdDetail": this.thirdFormGroup.get('fatherGovtIDDetail').value != undefined ? this.thirdFormGroup.get('fatherGovtIDDetail').value : '',
+          "fatherContactNo": this.thirdFormGroup.get('fatherContactNumber').value != undefined ? ""+this.thirdFormGroup.get('fatherContactNumber').value : '',
+          "gaurdianFirstName": this.thirdFormGroup.get('guardianFirstName').value != undefined ? this.thirdFormGroup.get('guardianFirstName').value : '',
+          "gaurdianMiddleName": this.thirdFormGroup.get('guardianMiddleName').value != undefined ? this.thirdFormGroup.get('guardianMiddleName').value : '',
+          "gaurdianLastName": this.thirdFormGroup.get('guardianLastName').value != undefined ? this.thirdFormGroup.get('guardianLastName').value : '',
+          "gaurdianGovIdTypeId": this.thirdFormGroup.get('guardiangovtIDType').value != undefined ? Number(this.thirdFormGroup.get('guardiangovtIDType').value) : 0,
+          "gaurdianGovIdDetail": this.thirdFormGroup.get('guardianGovtIDDetail').value != undefined ? this.thirdFormGroup.get('guardianGovtIDDetail').value : '',
+          "gaurdianContactNo": this.thirdFormGroup.get('guardianContactNumber').value != undefined ? ""+this.thirdFormGroup.get('guardianContactNumber').value : '',
 
-          "rbskId": this.thirdFormGroup.get('rbskid').value != undefined ? this.thirdFormGroup.get('rbskid').value : '',
-          "schoolName": this.thirdFormGroup.get('schoolname').value != undefined ? this.thirdFormGroup.get('schoolname').value : '',
-          "schoolAddress1": this.thirdFormGroup.get('schoolstreet').value != undefined ? this.thirdFormGroup.get('schoolstreet').value : '',
+          "rbskId": "",
+          "schoolName": '',
+          "schoolAddress1": '',
           "schoolAddress2": '',
           "schoolAddress3": '',
-          "schoolPincode": this.thirdFormGroup.get('schoolpincode').value != undefined ? this.thirdFormGroup.get('schoolpincode').value : '',
-          "schoolCity": this.thirdFormGroup.get('schoolcity').value != undefined ? this.thirdFormGroup.get('schoolcity').value : '',
-          "schoolState": this.thirdFormGroup.get('schoolstate').value != undefined ? this.thirdFormGroup.get('schoolstate').value : '',
-          "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
-          "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
-          "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
+          "schoolPincode": '',
+          "schoolCity": '',
+          "schoolState": '',
+          "standard": '',
+          "section": '',
+          "rollNo": '',
           "updatedBy": Number(this.user.id)
         }
       };
 
       return _obj;
+    }
+
+    titleChange()
+    {
+        if(this.selectedsubjectTitle === "Mr")
+        {
+            this.selectedgender = "Male"
+        }
+        else if(this.selectedsubjectTitle === "Miss")
+        {
+            this.selectedgender = "Female"
+        }
+    }
+
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }   
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
     }
 
 

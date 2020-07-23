@@ -181,13 +181,12 @@ export class CheSpouseRegistrationComponent implements OnInit {
 
   getSpouseDetails()
   {
-    console.log(this.fromDate);
-    console.log(this.toDate);
     var _subjectObj = {
       "anmId":this.user.id,
       "fromDate":this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
       "toDate":this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
     }
+    //var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVECHCANWPOSITIVESUBJECTS);
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVE);
         this.httpClientService.post<any>({url:apiUrl, body: _subjectObj }).subscribe(response => {
           console.log(response);
