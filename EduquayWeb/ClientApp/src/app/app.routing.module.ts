@@ -73,6 +73,9 @@ import { ChcSampleCollectionResolverService } from "./shared/chc-module/sample-c
 import { ChcPicknpackComponent } from "./chc-module/chc-picknpack/chc-picknpack.component";
 import { CHCupdateSSTReceivedService } from "./shared/chc-sample/chc-update-sst-resolver.service";
 import { ChcPicknpackResolverService } from "./shared/chc-module/chc-pickandpack/chc-picknpack-resolver.service";
+import { ChcShipmentlogComponent } from "./chc-module/chc-shipmentlog/chc-shipmentlog.component";
+import { ChcShipmentlogResolverService } from "./shared/chc-module/chc-shipmentlog/chc-shipmentlog-resolver.service";
+import { ChcViewShipmentdetailsComponent } from "./chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -119,6 +122,8 @@ const routes: Routes = [
       },
       { path: 'chc-sample-collection', component: SampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
       { path: 'chc-pickandpack', component: ChcPicknpackComponent, resolve: {chcpicknpackData: ChcPicknpackResolverService}},
+      { path: 'chc-shipmentlog', component: ChcShipmentlogComponent, resolve: {chcshipmentLogData: ChcShipmentlogResolverService}},
+      { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -225,5 +230,7 @@ export const RoutingComponents = [
   CHCUpdateSSTComponent,
   SSTReceivedSampleComponent,
   SSTUpdatePositiveComponent,
-  SSTUpdateNegativeComponent
+  SSTUpdateNegativeComponent,
+  ChcShipmentlogComponent,
+  ChcViewShipmentdetailsComponent
 ];

@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/anm-pickpack']" role="button"
-                                    ngbTooltip="Pick & Pack" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                                    ngbTooltip="Pick & Pack to CHC" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
@@ -78,7 +78,7 @@
                             </div> -->
                             <div class="form-row">
                                 <div class="col-md-10">
-                                    <div *ngIf="shipmentLogErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='No samples found', 'alert-danger': shipmentLogErrorMessage !== 'No samples found'}">
+                                    <div *ngIf="shipmentLogErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': shipmentLogErrorMessage ==='', 'alert-danger': shipmentLogErrorMessage !== ''}">
                                         <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{shipmentLogErrorMessage}}
                                       </div>
                                 </div>

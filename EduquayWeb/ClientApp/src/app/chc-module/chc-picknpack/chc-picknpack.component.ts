@@ -302,7 +302,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             this.modalService.dismissAll();
             //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
-            this.router.navigateByUrl(`/app/anm-viewshipment?q=${shipmentId}`);
+            this.router.navigateByUrl(`/app/chc-viewshipment?q=${shipmentId}`);
 
           }
           else {

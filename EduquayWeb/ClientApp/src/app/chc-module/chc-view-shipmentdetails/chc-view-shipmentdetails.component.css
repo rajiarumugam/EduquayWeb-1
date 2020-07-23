@@ -1,0 +1,43 @@
+.layout-px-spacing {
+    min-height: calc(100vh - 166px) !important;
+}
+
+
+h5.float-left {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 25px;
+}
+
+.table-hover>tbody>tr>td {
+    text-align: left;
+    vertical-align: middle;
+    color: #515365;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.table>tbody>tr>td {
+    text-align: center;
+    vertical-align: middle;
+    color: #141415;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.table>tbody {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+p.float-left {
+    color: #191a1d !important;
+}
+
+ p.float-center {
+    text-align: center;
+    color: #191a1d !important;
+}
