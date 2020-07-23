@@ -38,6 +38,8 @@ import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { DataService } from './shared/data.service';
 import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component';
 import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.component';
+import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipmentlog.component';
+import { ChcViewShipmentdetailsComponent } from './chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component';
 //import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
@@ -58,6 +60,8 @@ const ngWizardConfig: NgWizardConfig = {
     NumberDirective,
     AnmPostMtpFollowupComponent,
     ChcPicknpackComponent,
+    ChcShipmentlogComponent,
+    ChcViewShipmentdetailsComponent,
     //ChcSampleCollectionComponent
   ],
   imports: [

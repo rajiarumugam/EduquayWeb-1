@@ -11,8 +11,8 @@ import { ShipmentResponse } from './shipment-response';
 export class ShipmentlogService {
 
   shipmentLogApi: string = 'api/v1/ANMCHCShipment/RetrieveANMShipmentLog';
+  
   constructor(
-
     private httpClient: HttpClient,
     private genericServices: GenericService,
     private http: HttpClientService
