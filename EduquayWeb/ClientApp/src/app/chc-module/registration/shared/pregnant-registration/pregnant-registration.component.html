@@ -26,7 +26,7 @@
                                 <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 associatedanm">
                             <label class="birthreg" for="inputSubtitle">{{'AssociatedANM' | translate }}</label><span class="manto"> *</span>
                             <input type="Text" class="form-control form-control-with-search" id="inputSubtitle" placeholder="Associated ANM" [(ngModel)]="selectedassociatedANM" [ngModelOptions]="{standalone: true}" readonly>
                             <button type="submit" class="btn search-bu" (click)=getANMDetails()>
@@ -134,7 +134,9 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputRCHID" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">{{'RCHID' | translate }}</label><span class="manto"> *</span>
-                            <input type="Text" class="form-control" id="inputRCHID" placeholder="{{'RCHID' | translate }}" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">
+                            <p class="rchid-disable-value">121</p>
+                            <input type="text" class="form-control rchid-input" id="inputRCHID" placeholder="{{'RCHID' | translate }}" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "9" numbersOnly>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }">{{'LMPDate' | translate }}</label><span class="manto"> *</span>
