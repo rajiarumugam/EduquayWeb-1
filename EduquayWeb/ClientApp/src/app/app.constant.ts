@@ -15,7 +15,8 @@ export const ENDPOINT = {
     "SUBJECT":
     {
         "ADD":"api/v1/Subject/Add",
-        "RETRIVE":"api/v1/Subject/RetrieveANWSubjects"
+        "RETRIVE":"api/v1/Subject/RetrieveANWSubjects",
+        "RETRIVECHCANWPOSITIVESUBJECTS":"api/v1/Subject/RetrieveCHCANWPositiveSubjects"
     },
     "CHC_SAMPLE_REC":
     {
