@@ -49,6 +49,7 @@ import { ChcpregnantRegistrationComponent } from "./chc-module/registration/shar
 import { ChcStudentRegistrationComponent } from "./chc-module/registration/shared/chc-student-registration/chc-student-registration.component";
 import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared/che-spouse-registration/che-spouse-registration.component";
 import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
+import { AssociatedANMComponent } from "./chc-module/registration/shared/associated-anm/associated-anm.component";
 import { from } from "rxjs";
 import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
 import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
@@ -232,5 +233,6 @@ export const RoutingComponents = [
   SSTUpdatePositiveComponent,
   SSTUpdateNegativeComponent,
   ChcShipmentlogComponent,
-  ChcViewShipmentdetailsComponent
+  ChcViewShipmentdetailsComponent,
+  AssociatedANMComponent
 ];

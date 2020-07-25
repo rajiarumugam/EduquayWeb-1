@@ -2,7 +2,7 @@ import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
@@ -13,6 +13,7 @@ declare var $: any
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'che-spouse-registration',
@@ -22,6 +23,10 @@ import { TokenService } from 'src/app/shared/token.service';
 export class CheSpouseRegistrationComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
+  DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -64,7 +69,13 @@ export class CheSpouseRegistrationComponent implements OnInit {
   startOptions1: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: '',
+    defaultDate: "",
+    maxDate: ""
+  };
+  startOptionsDOR: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
   user;
@@ -92,6 +103,14 @@ export class CheSpouseRegistrationComponent implements OnInit {
   selectedPincode;
   selectedECNumber;
   selectedcity;
+
+  selectedAssociatedANM;
+  associatedCount = 0;
+  associatedANMData = [];
+  selectedassociatedANM;
+  selectedTestingchc = null;
+
+  openAssociatedANM = false;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -124,8 +143,8 @@ export class CheSpouseRegistrationComponent implements OnInit {
 
     /*
     phc: ['', Validators.required],
-      sc: ['', Validators.required],
-      ripoint: ['', Validators.required],
+      
+      
     */
     this.firstFormGroup = this._formBuilder.group({
       anwname:['', Validators.required],
@@ -134,9 +153,11 @@ export class CheSpouseRegistrationComponent implements OnInit {
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      
+      sc: ['', Validators.required],
       contactNumber: [''],
       gender: ['', Validators.required],
+      ripoint: ['', Validators.required],
+      testingchc:['', Validators.required],
       /*pincode: ['', Validators.required],
       ,*/
       subjectitle: ['Mr.'],
@@ -148,7 +169,6 @@ export class CheSpouseRegistrationComponent implements OnInit {
    });
 
     this.secondFormGroup = this._formBuilder.group({
-      ECNumber: [''],
       govtIDType: [''],
       GovtIDDetail: [''],
       religion: ['', Validators.required],
@@ -159,9 +179,9 @@ export class CheSpouseRegistrationComponent implements OnInit {
       city : ['', Validators.required],
       state: ['', Validators.required],
       spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      spouseEmail: ['',Validators.email],
+      spouseEmail: [''],
       pincode:['', Validators.required],
-      ripoint: ['', Validators.required]
+      ECNumber:[""]
     });
 
     
@@ -175,22 +195,23 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
   }
 
   getSpouseDetails()
   {
     var _subjectObj = {
-      "anmId":this.user.id,
+      "chcId":this.user.chcId,
       "fromDate":this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
-      "toDate":this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
+      "toDate":this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+      "registeredFrom":this.user.registeredFrom
     }
-    //var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVECHCANWPOSITIVESUBJECTS);
-    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVE);
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVECHCANWPOSITIVESUBJECTS);
+    //var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVE);
         this.httpClientService.post<any>({url:apiUrl, body: _subjectObj }).subscribe(response => {
           console.log(response);
-          this.spouseData = response.anwSubjects;
+          this.spouseData = response.anwPositiveSubjects;
         },
         (err: HttpErrorResponse) =>{
           console.log(err);
@@ -267,6 +288,8 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
+      if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -278,6 +301,8 @@ export class CheSpouseRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
+      if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -291,6 +316,8 @@ export class CheSpouseRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -301,6 +328,8 @@ export class CheSpouseRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -343,9 +372,9 @@ export class CheSpouseRegistrationComponent implements OnInit {
   nextStep() {
     this.firstFormCheck = true;
     console.log(this.firstFormGroup.valid);
-      /*if(this.firstFormGroup.valid)
-        this.stepper.next();*/
+      if(this.firstFormGroup.valid)
         this.stepper.next();
+        //this.stepper.next();
     }
 
     prevStep() {
@@ -358,6 +387,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
       console.log(this.secondFormGroup.valid);
       console.log(this.firstFormGroup.valid);
       console.log(this.dataBindinginServce());
+
 
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
@@ -379,6 +409,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
           this.secondFormCheck = false;
           this.firstFormCheck = false;
           this.stepper.selectedIndex = 0;
+          this.prePopulateFormDetails();
           $('#fadeinModal').modal('hide');
          }
        });
@@ -391,18 +422,42 @@ export class CheSpouseRegistrationComponent implements OnInit {
       }
     }
 
+    prePopulateFormDetails()
+    {
+      setTimeout(()=>{    
+          this.selectedDistrict = this.user.districtId;
+          this.selectedchc = this.user.chcId;
+          this.selectedphc = this.user.phcId;
+          this.selectedsc = this.user.scId;
+          this.communityData = [];
+          this.selectedripoint = "";
+       
+          if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;
+          if(this.casteData[0])
+            this.selectedcaste = this.casteData[0].id;
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
+
+
+          this.selecteddor = new Date(Date.now());
+      
+          this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
+          this.DOBPicker.flatpickr.setDate("");
+        }, 100);
+    }
     dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 2,
+          "subjectTypeId": 4,
           "childSubjectTypeId": 2,
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
-          "chcId": Number(this.firstFormGroup.get('chc').value),
-          "phcId": Number(this.firstFormGroup.get('phc').value),
-          "scId": Number(this.firstFormGroup.get('sc').value),
-          "riId": Number(this.firstFormGroup.get('ripoint').value),
+          "chcId": Number(this.selectedAssociatedANM.testingCHCId),
+          "phcId": 0,
+          "scId": Number(this.selectedAssociatedANM.scId),
+          "riId": Number(this.selectedAssociatedANM.riId),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
@@ -413,7 +468,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? Number(this.secondFormGroup.get('govtIDType').value) : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
           "spouseSubjectId": "",
           "spouseFirstName": "",
@@ -422,7 +477,7 @@ export class CheSpouseRegistrationComponent implements OnInit {
           "spouseContactNo": "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
-          "assignANMId": this.user.id,
+          "assignANMId": Number(this.selectedAssociatedANM.associatedANMId),
           "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
           "registeredFrom": Number(this.user.registeredFrom),
           "createdBy": Number(this.user.id),
@@ -484,6 +539,42 @@ export class CheSpouseRegistrationComponent implements OnInit {
       };
 
       return _obj;
+    }
+
+  associatedClick(event)
+  {
+    console.log(event);
+      this.selectedAssociatedANM = event;
+      this.selectedassociatedANM = this.selectedAssociatedANM.anmName;
+      this.selectedsc = this.selectedAssociatedANM.scName;
+      this.selectedripoint = this.selectedAssociatedANM.riPoint;
+      this.selectedTestingchc = this.selectedAssociatedANM.testingCHCId;
+    }
+    ecNumberChange()
+    {
+      if(this.selectedECNumber)
+      {
+        if(this.selectedECNumber.length > 0)
+        {   
+          const validators = [ Validators.required,Validators.min(100000000000), Validators.max(9999999999999999)];
+            this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
+        }
+      }
+       
+    }
+
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }   
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
     }
 
 }

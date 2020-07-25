@@ -21,6 +21,9 @@ import { TokenService } from 'src/app/shared/token.service';
 })
 export class ChcStudentRegistrationComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
+  @ViewChild('dobPicker', { static: false }) DOBPicker;
+  DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -29,7 +32,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   firstFormCheck = false;
   secondFormCheck = false;
   selectedDistrict = null;
-  selectedgender = null;
+  selectedgender = "Male";
   selectedchc = null;
   selectedphc = null;
   selectedripoint = null;
@@ -38,7 +41,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   selectedreligion = null;
   selectedcaste = null;
   selectedcommunity = null;
-  selectedsubjectTitle = null;
+  selectedsubjectTitle = "Mr";
   selectedfathergovtIDType = null;
   selectedguardiangovtIDType = null;
   selectedschoolstandard = null;
@@ -66,7 +69,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   startOptions1: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now()),
+    defaultDate: "",
     maxDate: new Date(Date.now())
   };
 
@@ -107,15 +110,18 @@ export class ChcStudentRegistrationComponent implements OnInit {
   user;
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
+
   ngOnInit() {
+
+    /*phc: ['', Validators.required],
+      sc: ['', Validators.required],
+      ripoint: ['', Validators.required],
+    */
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      phc: ['', Validators.required],
-      sc: ['', Validators.required],
-      ripoint: ['', Validators.required],
       subjectitle: ['', Validators.required],
       firstname: ['', Validators.required],
       middlename: [''],
@@ -169,12 +175,12 @@ export class ChcStudentRegistrationComponent implements OnInit {
     });
     this.getDistrictData();
     this.getCHC();
-    this.getPHC();
+    //this.getPHC();
     this.getSC();
-    this.getRI();
+    //this.getRI();
     this.getReligion();
     this.getCaste();
-    this.getCommunity(0);
+    //this.getCommunity(0);
     this.getGovernmentIDType();
   }
 
@@ -200,17 +206,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
       this.erroMessage = err.toString();
     });
   }
-  getPHC(){
-    this.masterService.getuserBasedPHC()
-    .subscribe(response => {
-      this.PHCdata = response['phc'];
-      this.selectedphc = this.user.phcId;
-    },
-    (err: HttpErrorResponse) =>{
-      this.PHCdata = [];
-      this.erroMessage = err.toString();
-    });
-  }
+  
 
   getSC(){
     this.masterService.getuserBasedSC()
@@ -239,6 +235,8 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
+      if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -250,6 +248,8 @@ export class ChcStudentRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
+      if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -263,6 +263,8 @@ export class ChcStudentRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+          this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -273,6 +275,8 @@ export class ChcStudentRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
+          if(this.communityData[0])
+          this.selectedcommunity = this.communityData[0].id;
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -332,8 +336,8 @@ export class ChcStudentRegistrationComponent implements OnInit {
       this.stepper.previous();
       }
 
-      formSubmit()
-    {
+    formSubmit()
+    {    
         if(this.secondFormGroup.valid && this.firstFormGroup.valid)
           {
             var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
@@ -344,8 +348,6 @@ export class ChcStudentRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-         
-                $('#fadeinModal').modal('hide');
                
                }
                else{
@@ -355,7 +357,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
                 this.secondFormCheck = false;
                 this.firstFormCheck = false;
                 this.stepper.selectedIndex = 0;
-                $('#fadeinModal').modal('hide');
+                this.prePopulateFormDetails();
                }
              });
             },
@@ -366,18 +368,44 @@ export class ChcStudentRegistrationComponent implements OnInit {
         console.log(this.dataBindinginServce());
     }
 
+    prePopulateFormDetails()
+    {
+      setTimeout(()=>{    
+          this.selectedDistrict = this.user.districtId;
+          this.selectedchc = this.user.chcId;
+          this.selectedsubjectTitle = "Mr";
+          this.selectedgender = "Male";
+          this.communityData = [];
+          if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;
+          if(this.casteData[0])
+            this.selectedcaste = this.casteData[0].id;
+          if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;
+
+
+          //this.selecteddor = new Date(Date.now());
+          //this.selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+
+          this.selecteddor = new Date(Date.now());
+      
+          this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
+          this.DOBPicker.flatpickr.setDate("");
+        }, 100);
+    }
+
     dataBindinginServce()
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 3,
+          "subjectTypeId": 4,
           "childSubjectTypeId": 3,
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
           "chcId": Number(this.firstFormGroup.get('chc').value),
-          "phcId": Number(this.firstFormGroup.get('phc').value),
-          "scId": Number(this.firstFormGroup.get('sc').value),
-          "riId": Number(this.firstFormGroup.get('ripoint').value),
+          "phcId": 0,
+          "scId": 0,
+          "riId": 0,
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
@@ -462,5 +490,17 @@ export class ChcStudentRegistrationComponent implements OnInit {
       return _obj;
     }
 
+
+    titleChange()
+    {
+        if(this.selectedsubjectTitle === "Mr")
+        {
+            this.selectedgender = "Male"
+        }
+        else if(this.selectedsubjectTitle === "Miss")
+        {
+            this.selectedgender = "Female"
+        }
+    }
 
 }
