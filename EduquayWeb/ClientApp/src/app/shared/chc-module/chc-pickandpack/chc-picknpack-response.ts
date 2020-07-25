@@ -1,3 +1,4 @@
+
 export interface ChcPicknpackResponse {
     status: string;
     message: string;
@@ -53,3 +54,13 @@ export interface chcMoveTimeoutExpiryResponse {
     message: string;
 }
 
+export interface TestingChcResponse {
+    status: string;
+    message: string;
+    testingCHC: ChcTestingModel[];
+}
+
+export interface ChcTestingModel{
+    id: string;
+    chcName: string;
+}
