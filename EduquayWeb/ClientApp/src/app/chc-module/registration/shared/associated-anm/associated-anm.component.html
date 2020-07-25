@@ -1,0 +1,50 @@
+<div id="fadeinModal1" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+           
+            <div class="modal-content" id="exampleModalLabel">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Associated ANM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    
+                    <table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                          <tr>
+                            <th>{{'SNo' | translate }}</th>
+                            <th>{{'SC' | translate }}</th>
+                            <th>{{'SCAddress' | translate }}</th>
+                            <th>{{'SCPincode' | translate }}</th>
+                            <th>{{'RIPoint' | translate }}</th>
+                            <th>{{'ANM' | translate }}</th>
+                            <th>{{'ANMContact' | translate }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let person of associatedANMData;index as i" (click)="associatedClick(i);">
+                            <td style="text-align: center;">{{ i + 1}}</td>
+                            <td>{{ person.scName }}</td>
+                            <td>{{ person.scAddress }}</td>
+                            <td>{{ person.SCPincode }}</td>
+                            <td>{{ person.riPoint }}</td>
+                            <td>{{ person.anmName }}</td>
+                            <td style="text-align: center;">{{ person.anmContactNo }}</td>
+                          </tr>
+                        </tbody>
+                        </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
