@@ -1,0 +1,1114 @@
+
+<link rel="stylesheet" type="text/css" href="../../../assets/assets/css/profile.css">
+<link rel="stylesheet" type="text/css" href="../../../assets/plugins/jquery-step/jquery.steps.css">
+
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="chc" subMenum="Subject-Profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                    <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                                [routerLink]="['/app/chc-shipmentlog']" role="button" ngbTooltip="Screening Center Shipment Log" placement="right"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">Subject Profile</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <!-- <div class="row mt-4">
+                            <div class="col-md-3">
+                                <span class="note"></span><span class="manto"></span>
+                                <input class="form-control field" name="name" type="text" placeholder="Subject ID / Barcode / RCH ID / DL / Pan" tabindex="1" autocomplete="off" /> 
+                            </div>
+                          <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary my-1">Search</button>
+                          </div>
+                        </div> -->
+
+                        <div class="form-row mt-4">
+                            <div class="col-md-12">
+                                <div *ngIf="chcsubjectProfileErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': chcsubjectProfileErrorMessage ==='No Subject found', 'alert-danger': chcsubjectProfileErrorMessage !== 'No Subject found'}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{chcsubjectProfileErrorMessage}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                <form class="form-inline my-2 my-lg-0">
+                                    <label for="inputSearch" class="ml-3"><span class="note">Search by Subject ID </span></label>
+                                    <div class="w-100">
+                                        <input type="text" class="w-100 form-control product-search br-30"
+                                            name="searchsubjectid" type="text" placeholder="Search"
+                                            [(ngModel)]="searchsubjectid">
+                                        <a (click)="chcSubjectProfile()"><button class="btn btn-primary" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-search">
+                                                    <circle cx="11" cy="11" r="8"></circle>
+                                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                </svg>
+                                            </button></a>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Modal -->
+                        <ng-template #chcsubjectProfiledetail let-modal>
+
+                            <div class="modal-header">
+                                <h5 class="modal-title modaltitle" id="myLargeModalLabel">Subject Profile
+                                </h5>
+                                <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body form-body">
+                                <!--form popup-->
+                                <!-- <div class="widget-content widget-content-area"> -->
+                                    <mat-horizontal-stepper [linear]="false" #stepper>
+                                        <mat-step [stepControl]="firstFormGroup">
+                                            <form [formGroup]="firstFormGroup">    
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <tbody class="">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="float-left mt-0 mr-4">
+                                                                                <h5><b>Subject ID :</b> {{chcbasicInfo.uniqueSubjectId}}
+                                                                                    <strong class="ml-5">Subject
+                                                                                        Name :</strong> {{chcbasicInfo.firstName}} {{chcbasicInfo.lastName}}, {{chcbasicInfo.gender | slice:0:1}}, {{chcbasicInfo.age}} yrs
+                                                                                    <strong class="ml-5">RCH ID : </strong>
+                                                                                    {{chcpersonalInfo.rchId}}
+                                                                                </h5>
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+        
+                                                </div>
+                                                <div class="form-row my-2">       
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">First
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.firstName" formControlName="firstName"
+                                                    placeholder="First Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.middleName" formControlName="middleName"
+                                                        placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.lastName" formControlName="lastName"
+                                                        placeholder="Last Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row mt-4">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">Date of Birth</label>
+                                                        <input type="Text" class="form-control flatpickr flatpickr-input active"
+                                                        [(ngModel)]="chcbasicInfo.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
+                                                    id="dobnewdate" placeholder="select Date..." required>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.age" formControlName="age"
+                                                            placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                                                    </div>
+        
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
+                                                        <select id="inputReligion" class="form-control" formControlName="DDLreligion" required
+                                                            [(ngModel)]="selectedreligion" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">
+                                                            <option value="0">--Select--</option>
+                                                            <option *ngFor="let religion of chcreligions" [(value)]="religion.id">
+                                                                {{ religion.religionName }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">Caste</label>
+                                                        <select id="inputCaste" class="form-control" formControlName="DDLcaste" required (change)="onChangecaste($event.target.value)"
+                                                        [(ngModel)]="selectedcaste" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let caste of chccastes" [(value)]="caste.id ">
+                                                            {{ caste.casteName }}
+                                                        </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">Community</label>
+                                                        <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" required
+                                                        [(ngModel)]="selectedcommunity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let community of chccommunities" [(value)]="community.id ">
+                                                            {{ community.communityName }}
+                                                        </option>
+                                                    </select>
+        
+                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="reges-form-bottom-btns">
+                                                    <button mat-button matStepperPrevious class="reg-btn-disable" >Previous</button>
+                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">Next</button>
+                                                </div>    
+                                            </form>
+                                        </mat-step>
+                                        <mat-step [stepControl]="secondFormGroup">
+                                            <form [formGroup]="secondFormGroup">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <tbody class="">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="float-left mt-0 mr-4">
+                                                                                <h5><b>Subject ID :</b> {{chcbasicInfo.uniqueSubjectId}}
+                                                                                    <strong class="ml-5">Subject
+                                                                                        Name :</strong> {{chcbasicInfo.firstName}} {{chcbasicInfo.lastName}}, {{chcbasicInfo.gender | slice:0:1}}, {{chcbasicInfo.age}} yrs
+                                                                                    <strong class="ml-5">RCH ID : </strong>
+                                                                                    {{chcpersonalInfo.rchId}}
+                                                                                </h5>
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+        
+                                                </div>
+                                                <div class="form-row my-2">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot
+                                                            Number</label><span class="manto"></span>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsocioDemographicInfo.address1" formControlName="house"
+                                                            placeholder="House Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street &
+                                                            Locality</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsocioDemographicInfo.address2" formControlName="street"
+                                                            placeholder="Street" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City /
+                                                            Village</label><span class="manto"></span>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsocioDemographicInfo.address3" formControlName="city"
+                                                            placeholder="City" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid}">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">State</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsocioDemographicInfo.stateName" formControlName="stateName"
+                                                            placeholder="State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">Pincode</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcsocioDemographicInfo.pincode" formControlName="pincode"
+                                                        ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcbasicInfo.mobileNo" formControlName="mobileNo"
+                                                        placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputEmail">Email</label>
+                                                        <input type="email" class="form-control" [(ngModel)]="chcbasicInfo.emailId" formControlName="emailId"
+                                                         placeholder="Email" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputGovtId" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLGovtIDType"
+                                                        [(ngModel)]="selectedgovtidtype" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
+                                                        </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcbasicInfo.govIdDetail" formControlName="govIdDetail"
+                                                        placeholder="Enter Detail" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcpersonalInfo.rchId" formControlName="rchId"
+                                                        placeholder="RCH ID" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputecno">EC Number</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcpersonalInfo.ecNumber" formControlName="ecNumber"
+                                                        placeholder="EC Number" required>
+                                                    </div>
+        
+                                                </div>
+                                                <div class="form-row my-2">
+        
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.spouseFirstName" formControlName="spouseFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }"
+                                                            placeholder="First Name" required>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.spouseMiddleName" formControlName="spouseMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcbasicInfo.spouseLastName" formControlName="spouseLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">Spouse Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcbasicInfo.spouseContactNo" formControlName="spouseContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }"
+                                                            placeholder="Contact Number" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2">
+                                                    <div class="form-group col-md-2">
+                                                        <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">{{'G' | translate }}</label><span class="manto"> *</span>
+                                                        <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }" (change)="gonChange();">
+                                                            <option value="null">Select</option>
+                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="birthreg" for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">{{'P' | translate }}</label><span class="manto"> *</span>
+                                                        <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
+                                                            <option value="null">Select</option>
+                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedg != null ? +selectedg+1 : null; let ind=index;">{{data.value}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"> *</span>
+                                                        <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }" [attr.disabled]="Ldisabled ? Ldisabled : null">
+                                                            <option value="null">Select</option>
+                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedp != null ? +selectedp+1 : null; let ind=index;">{{data.value}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="birthreg" for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">{{'A' | translate }}</label><span class="manto"> *</span>
+                                                        <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }" [attr.disabled]="Adisabled ? Adisabled : null">
+                                                            <option value="null">Select</option>
+                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="reges-form-bottom-btns">
+                                                    <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">Previous</button>
+                                                    <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
+                                                </div>    
+                                            </form>
+                                        </mat-step>
+                                    </mat-horizontal-stepper>
+                                            
+                                          
+                                <!-- <div id="circle-basic" class="">
+                                    <h3>Section-1</h3>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody class="">
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="float-left mt-0 mr-4">
+                                                                        <h5><b>Subject ID :</b> {{basicInfo.uniqueSubjectId}}
+                                                                            <strong class="ml-5">Subject
+                                                                                Name :</strong> {{basicInfo.firstName}} {{basicInfo.lastName}}, {{basicInfo.gender | slice:0:1}}, {{basicInfo.age}} yrs
+                                                                            <strong class="ml-5">RCH ID : </strong>
+                                                                            {{personalInfo.rchId}}
+                                                                        </h5>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row my-2">
+
+                                            <div class="form-group col-md-4">
+                                                <label for="inputFirstname">First
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="basicInfo.firstName" name="FirstName"
+                                                    placeholder="Alkha" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputMiddlename">Middle
+                                                    Name</label>
+                                                <input type="Text" class="form-control" id="inputMiddlename"
+                                                    placeholder="Middle Name">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputLastname">Last
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="basicInfo.lastName" name="LastName"
+                                                    placeholder="Sakthi">
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputdob">Date of Birth</label>
+                                                <input type="Text" class="form-control flatpickr flatpickr-input active"
+                                                    id="dobnewdate" placeholder="DD/MM/YYYY" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputAge">Age</label>
+                                                <input type="Text" class="form-control" id="inputAge"
+                                                    placeholder="28 yrs" required>
+                                            </div>
+
+                                            
+                                            <div class="form-group col-md-4">
+                                                <label for="inputReligion">Religion</label>
+                                                <select id="inputReligion" class="form-control">
+                                                    <option selected>Hindu</option>
+                                                    <option></option>
+                                                    <option></option>
+                                                    <option></option>
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCaste">Caste</label>
+                                                <select id="inputCaste" class="form-control">
+                                                    <option selected>Caste</option>
+                                                    <option></option>
+                                                    <option></option>
+                                                    <option></option>
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCommunity">Community</label>
+                                                <select id="inputCommunity" class="form-control">
+                                                    <option selected>BC</option>
+                                                    <option></option>
+                                                    <option></option>
+                                                    <option></option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <h3>Section-2</h3>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody class="">
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="float-left mt-0 mr-4">
+                                                                        <h5><b>Subject ID :</b> {{basicInfo.uniqueSubjectId}}
+                                                                            <strong class="ml-5">Subject
+                                                                                Name :</strong> {{basicInfo.firstName}} {{basicInfo.lastName}}, {{basicInfo.gender | slice:0:1}}, {{basicInfo.age}} yrs
+                                                                            <strong class="ml-5">RCH ID : </strong>
+                                                                            {{personalInfo.rchId}}
+                                                                        </h5>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row my-2">
+                                            <div class="form-group col-md-3">
+                                                <label for="inputHouseno">House / Plot
+                                                    Number</label><span class="manto"></span>
+                                                <input type="text" class="form-control" id="inputHouseno"
+                                                    placeholder="House Number" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputStreet">Street &
+                                                    Locality</label>
+                                                <input type="text" class="form-control" id="inputStreet"
+                                                    placeholder="Street" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputCity">City /
+                                                    Village</label><span class="manto"></span>
+                                                <input type="text" class="form-control" id="inputCity"
+                                                    placeholder="City" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputState">State</label>
+                                                <input type="text" class="form-control" id="inputState"
+                                                    placeholder="Odisha">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputPincode">Pincode</label>
+                                                <input type="number" class="form-control" id="inputPincode"
+                                                    placeholder="Pincode" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputContact">Contact</label>
+                                                <input type="number" class="form-control" id="inputContact"
+                                                    placeholder="8347464644" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputEmail">Email</label>
+                                                <input type="email" class="form-control" id="inputEmail"
+                                                    placeholder="Email" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputGovtId">Govt ID Type</label>
+                                                <select id="inputGovtId" class="form-control">
+                                                    <option selected>Select</option>
+                                                    <option>Driving License</option>
+                                                    <option>Voter ID</option>
+                                                    <option>PAN card</option>
+                                                    <option>Ration Card</option>
+                                                    <option>Passport</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputGovtdetail">Govt ID Detail</label>
+                                                <input type="text" class="form-control" id="inputGovtdetail"
+                                                    placeholder="Enter Detail" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputrchid">RCH ID</label>
+                                                <input type="text" class="form-control" id="inputrchid"
+                                                    placeholder="RCH ID" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputecno">EC Number</label>
+                                                <input type="number" class="form-control" id="inputecno"
+                                                    placeholder="EC Number" required>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row my-2">
+
+                                            <div class="form-group col-md-3">
+                                                <label for="inputSpouseFirstname">Spouse First
+                                                    Name</label>
+                                                <input type="Text" class="form-control" id="inputSpouseFirstname"
+                                                    placeholder="Sakthi" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputSpouseMiddlename">Middle
+                                                    Name</label>
+                                                <input type="Text" class="form-control" id="inputSpouseMiddlename"
+                                                    placeholder="Middle Name">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputSpouseLastname">Last
+                                                    Name</label>
+                                                <input type="Text" class="form-control" id="inputSpouseLastname"
+                                                    placeholder="Suresh">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputspusemoblieno">Spouse Contact</label>
+                                                <input type="number" class="form-control" id="inputspusemoblieno"
+                                                    placeholder="8347464644" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row my-2">
+                                            <div class="form-group col-md-3">
+                                                <label for="inputG">G</label>
+                                                <select id="inputG" class="form-control">
+                                                    <option selected>Select</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputP">P</label>
+                                                <select id="inputP" class="form-control">
+                                                    <option selected>Select</option>
+                                                    <option>0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputL">L</label>
+                                                <select id="inputL" class="form-control">
+                                                    <option selected>Select</option>
+                                                    <option>0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputA">A</label>
+                                                <select id="inputA" class="form-control">
+                                                    <option selected>Select</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </section>
+                                </div>
+                                
+                            </div> -->
+                            </div>
+                            <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/profileanm-flatpickr.js'"></i> -->
+                            <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
+                            <i appLoadScript [script]="'assets/assets/js/anm-module/anm-subjectprofile.js'"></i>
+                            <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
+                        </ng-template>
+                    </div>
+
+
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12" *ngIf="chcbasicInfo !== undefined">
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <tbody class="">
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-left mt-0 mr-4">
+                                                            <h5><b>Subject ID :</b> {{chcbasicInfo.uniqueSubjectId}}
+                                                                <strong class="ml-5">Subject
+                                                                    Name :</strong> {{chcbasicInfo.firstName}} {{chcbasicInfo.lastName}}, {{chcbasicInfo.gender | slice:0:1}}, {{chcbasicInfo.age}} yrs
+                                                                <strong class="ml-5">RCH ID : </strong>
+                                                                {{chcpersonalInfo.rchId}}
+                                                            </h5>
+                                                        </span>  
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row mt-0">
+                                <div class="col-md-12">
+                                    <span class="float-left mt-0">
+                                        <h5><b>Subject ID : </b>{{chcbasicInfo.uniqueSubjectId}}</h5>
+                                    </span>
+                                    <a class="btn btn-primary float-right mb-2" (click)="editchcSubjectProfile(chcsubjectProfiledetail, chcbasicInfo, chcsocioDemographicInfo, chcpersonalInfo)"
+                                    role="button"> <i class="fa fa-pencil append-icon mr-1"></i>Edit</a>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.firstName}}
+                                                        {{chcbasicInfo.lastName}}</td>
+                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.gender}}</td>
+                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.dob}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Age</b></td>
+                                                    <td>{{chcbasicInfo.age}}</td>
+                                                    <td><b>Contact No</b></td>
+                                                    <td>{{chcbasicInfo.mobileNo}}</td>
+                                                    <td><b>Spouse Name</b></td>
+                                                    <td>{{chcbasicInfo.spouseFirstName}} {{chcbasicInfo.spouseLastName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Spouse Contact</b></td>
+                                                    <td>{{chcbasicInfo.spouseContactNo}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Socio-Demographic Info</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                    <td class="sp-xs-td-15">{{chcsocioDemographicInfo.religionName}}</td>
+                                                    <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                    <td class="sp-xs-td-15">{{chcsocioDemographicInfo.casteName}}</td>
+                                                    <td class="sp-xs-td-9"><b>Community</b></td>
+                                                    <td class="sp-xs-td-15">{{chcsocioDemographicInfo.communityName}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><b>Address</b></td>
+                                                    <td colspan="3">{{chcsocioDemographicInfo.address1}},
+                                                        {{chcsocioDemographicInfo.address2}},
+                                                        {{chcsocioDemographicInfo.address3}},
+                                                        {{chcsocioDemographicInfo.stateName}}, {{chcsocioDemographicInfo.pincode}} </td>
+                                                    <td><b>District</b></td>
+                                                    <td>{{chcbasicInfo.districtName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>CHC</b></td>
+                                                    <td>{{chcbasicInfo.chcName}}</td>
+                                                    <td><b>PHC</b></td>
+                                                    <td>{{chcbasicInfo.phcName}}</td>
+                                                    <td><b>SC</b></td>
+                                                    <td>{{chcbasicInfo.scName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>RI Point</b></td>
+                                                    <td>{{chcbasicInfo.riSite}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Personal Info</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                    <td class="sp-xs-td-15">{{chcpersonalInfo.ecNumber}}</td>
+                                                    <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                    <td class="sp-xs-td-15">{{chcpersonalInfo.rchId}}</td>
+                                                    <td class="sp-xs-td-9"><b>LMP Date</b></td>
+                                                    <td class="sp-xs-td-15">{{chcpersonalInfo.lmpDate}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Gestational Age</b> </td>
+                                                    <td>{{chcpersonalInfo.gestationalperiod}}</td>
+                                                    <td><b>Obstetrics Score</b></td>
+                                                    <td>G{{chcpersonalInfo.g}}-P{{chcpersonalInfo.p}}-L{{chcpersonalInfo.l}}-A{{chcpersonalInfo.a}}
+                                                    </td>
+                                                    <td><b>Barcodes</b></td>
+                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                    <td>{{chcpersonalInfo.barcodes}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Results</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>CBC Test Result</b></td>
+                                                    <td class="sp-xs-td-15">Screening Test Positive</td>
+                                                    <td class="sp-xs-td-9"><b>SST Result</b></td>
+                                                    <td class="sp-xs-td-15">Positive </td>
+                                                    <td class="sp-xs-td-9"><b>HPLC Test Result</b></td>
+                                                    <td class="sp-xs-td-15">Thalassemia</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.subjectTypeId === 1">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Pre PNDT Counselling</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15">12/09/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                    <td class="sp-xs-td-15">Goudakan kadaput</td>
+                                                    <td class="sp-xs-td-9"><b>Counselling Status</b></td>
+                                                    <td class="sp-xs-td-15">consectetur adipisicing </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b> </td>
+                                                    <td colspan="3">
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                                                        enim ad minim veniam.
+                                                    </td>
+                                                    <td><b>The couple has agreed for PNDT</b> </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.subjectTypeId === 1">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">PND Testing</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15" wrap="true">12/09/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b> </td>
+                                                    <td class="sp-xs-td-15">Gourishankar Ray</td>
+                                                    <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                    <td class="sp-xs-td-15">Madhusudan Rao</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Clinical History</b></td>
+                                                    <td>Laxmipur</td>
+                                                    <td><b>Examination</b></td>
+                                                    <td>Goudakankadaput</td>
+                                                    <td><b>Procedure of Testing</b></td>
+                                                    <td>sdsd</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>PNDT Diagnosis</b></td>
+                                                    <td>discovered the undoubtable source. Lorem Ipsum comes from
+                                                        sections</td>
+                                                    <td><b>PNDT Results</b></td>
+                                                    <td> The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet</td>
+                                                    <td><b>PNDT Side Effects</b></td>
+                                                    <td>There are many variations of passages of Lorem Ipsum available,
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.subjectTypeId === 1">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Post PNDT Counselling</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15">29/04/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                    <td class="sp-xs-td-15">Laxmipur CHC</td>
+                                                    <td class="sp-xs-td-9"><b>Counselling Status</b> </td>
+                                                    <td class="sp-xs-td-15"> Lorem Ipsum which looks reasonable</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Counselling Notes/Remarks</b></td>
+                                                    <td colspan="3">Contrary to popular belief, Lorem Ipsum is not
+                                                        simply random text.</td>
+                                                    <td><b>The couple has agreed for MTP</b> </td>
+                                                    <td>comes from a line in section 1.10.32.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.subjectTypeId === 1">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2"> MTP Service</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>Date</b></td>
+                                                    <td class="sp-xs-td-15">12/09/2020</td>
+                                                    <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                    <td class="sp-xs-td-15">Gourishankar Ray</td>
+                                                    <td class="sp-xs-td-9"><b>Clinical History</b></td>
+                                                    <td class="sp-xs-td-15">Various versions have evolved</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Examination</b></td>
+                                                    <td>sometimes by accident, sometimes on purpose</td>
+                                                    <td><b>Procedure of Testing</b></td>
+                                                    <td>All the Lorem Ipsum generators on the Internet tend </td>
+                                                    <td><b>Side Effects</b></td>
+                                                    <td> Lorem Ipsum which looks reasonable</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Condition at Discharge</b></td>
+                                                    <td colspan="5">discovered the undoubtable source. Lorem Ipsum comes
+                                                        from sections</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+                    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+                </div>
+                
+            </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+</div>
+<!--  END MAIN CONTAINER  -->
+

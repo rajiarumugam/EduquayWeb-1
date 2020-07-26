@@ -13,6 +13,7 @@ export class AuthService {
   authresultobj: authResponse;
   loginApi: string = 'api/v1/UserIdentity/Login';
   patientApi: string = 'api/v1/Patient/GetPatients';
+  logoutApi: string = 'api/v1/User/Logout';
 
   constructor(
     private httpClient: HttpClient, 
@@ -50,6 +51,8 @@ export class AuthService {
     // );
     //.pipe(retry(3), catchError(this.handleError('userAuthentication', [])));
   }
+
+  
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -231,8 +231,8 @@ openchcSampleColllection(chcSampleCollectiondetail, subject: SubjuctList){
   this.uniqueSubjectId = subject.uniqueSubjectId;
   this.rchId = subject.rchId;
   this.reason = subject.reason;
-  this.chcSampleCollectionDate = moment().format("DD/MM/YYYY");
-  this.chcSampleCollectionTime = moment().format("HH:mm");
+  this.collectionDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+  this.collectionDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
   if(subject.sampleType === "F"){
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
