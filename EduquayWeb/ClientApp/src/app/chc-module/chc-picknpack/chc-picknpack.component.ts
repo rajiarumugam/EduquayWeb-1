@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { FlatpickrOptions } from 'ng2-flatpickr';
@@ -38,6 +38,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   testingCHCNames: ChcTestingModel[]=[];
   selectedAll: any;
   
+  
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChild('shipmentDatePicker', { static: false }) shipmentDatePicker;
   loadDataTable: boolean = false;
@@ -74,6 +75,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   popupform: FormGroup;
   DAY = 86400000;
   chcId: number;
+  chcpicknPackdetail: any;
+  dataOfPickPack: string;
 
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -202,8 +205,9 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
   }
 
-  openchcPicknpack(chcpicknPackdetail) {
 
+  openchcPicknpack(chcpicknPackdetail) {
+    
     this.chcPicknpackErrorMessage = '';
     this.ddlProviderName();
     this.ddltestingChc(this.user.chcId); 
@@ -224,9 +228,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     //   this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
     //   return false;
     // }
-    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
-    this.sampleShipmentTime = moment().format("HH:mm");
-
+   
+    this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+  
     //this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
 
     this.chclabtechnician = this.user.name;
@@ -241,6 +246,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       ariaLabelledBy: 'modal-basic-title'
     });
   }
+
 
   onSubmit(chcShipmentForm: NgForm) {
     this.chcPicknpackErrorMessage = '';

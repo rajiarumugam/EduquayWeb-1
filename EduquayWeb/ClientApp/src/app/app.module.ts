@@ -40,6 +40,7 @@ import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/
 import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.component';
 import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipmentlog.component';
 import { ChcViewShipmentdetailsComponent } from './chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component';
+import { ChcSubjectProfileComponent } from './chc-module/chc-subject-profile/chc-subject-profile.component';
 //import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
@@ -62,6 +63,7 @@ const ngWizardConfig: NgWizardConfig = {
     ChcPicknpackComponent,
     ChcShipmentlogComponent,
     ChcViewShipmentdetailsComponent,
+    ChcSubjectProfileComponent,
     //ChcSampleCollectionComponent
   ],
   imports: [

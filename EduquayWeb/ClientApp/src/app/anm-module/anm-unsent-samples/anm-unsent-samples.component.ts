@@ -236,8 +236,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       return false;
     }
 
-    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
-    this.sampleShipmentTime = moment().format("HH:mm");
+    this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.name = this.user.name;
     this.modalService.open(
