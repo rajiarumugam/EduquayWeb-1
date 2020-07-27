@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { ChcPicknpackRequest, AddChcShipmentRequest, chcMoveTimeoutExpiryRequest } from './chc-picknpack-request'
-import { ChcPicknpackResponse, ChcResponse, ProviderNameResponse, AddChcShipmentResponse, chcMoveTimeoutExpiryResponse } from './chc-picknpack-response';
+import { ChcPicknpackResponse, ChcResponse, ProviderNameResponse, AddChcShipmentResponse, chcMoveTimeoutExpiryResponse, TestingChcResponse } from './chc-picknpack-response';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,10 @@ export class ChcPicknpackService {
   // getChcApi: string = "api/v1/WebMaster/RetrieveCHC";
   providernameApi: string = "api/v1/WebMaster/RetrieveLogisticsProvider";
   AddChcShipmentApi: string = "api/v1/ANMCHCShipment/AddCHCShipment";
+  testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHCByCollectionCHC"
   timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimeoutExpiry";
 
-  userId: number;
+  chcId: number;
 
   constructor(
     private httpClient: HttpClient,
@@ -35,6 +36,12 @@ export class ChcPicknpackService {
     let apiUrl = this.genericServices.buildApiUrl(this.AddChcShipmentApi);
     return this.http.post<AddChcShipmentResponse>({url: apiUrl, body: addchcshipment});
 
+  }
+
+  getTestingChc(chcId){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericServices.buildApiUrl(`${this.testingChcApi}/${chcId}`);
+    return this.http.get<TestingChcResponse>({url: apiUrl });
   }
 
   // getChc(userId){

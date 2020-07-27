@@ -171,6 +171,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.reason = sample.reason;
     this.sampleCollectionDate = moment().format("DD/MM/YYYY");
     this.sampleCollectionTime = moment().format("HH:mm");
+    this.collectionDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
 
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
     const regDate = new Date(sample.sampleCollectionDateTime.replace(pattern,'$3/$2/$1 $4:$5'));

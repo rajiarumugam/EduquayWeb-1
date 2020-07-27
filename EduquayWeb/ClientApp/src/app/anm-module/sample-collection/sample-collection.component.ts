@@ -245,8 +245,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.uniqueSubjectId = subject.uniqueSubjectId;
     this.rchId = subject.rchId;
     this.reason = subject.reason;
-    this.sampleCollectionDate = moment().format("DD/MM/YYYY");
-    this.sampleCollectionTime = moment().format("HH:mm");
+    // this.sampleCollectionDate = moment().format("DD/MM/YYYY");
+    // this.sampleCollectionTime = moment().format("HH:mm");
+    this.collectionDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    this.collectionDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
   
     if(subject.sampleType === "F"){
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
