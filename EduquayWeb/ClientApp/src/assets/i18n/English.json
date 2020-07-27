@@ -95,7 +95,17 @@
     "ANMContact":"ANM Contact",
     "SubCentre":"Sub-Centre",
     "TestingCHC":"Testing CHC",
-    "MaritalStatus":"Marital Status"
+    "MaritalStatus":"Marital Status",
+    "LabTechnicianName":"Lab Technician Name",
+    "HPLCTestReadings":"HPLC Test Readings",
+    "HbA1a":"HbA1a",
+    "HbA1b":"HbA1b",
+    "HbF":"HbF",
+    "HbLA1c/CHb-1":"HbLA1c/CHb-1",
+    "HbLA1c/CHb-2":"HbLA1c/CHb-2",
+    "HbP3":"HbP3",
+    "HbA0":"HbA0",
+    "HbA2":"HbA2"
 
 
 }

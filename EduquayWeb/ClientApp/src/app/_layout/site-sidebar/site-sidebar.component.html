@@ -149,14 +149,14 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'centrallab'}" id="centrallab" data-parent="#accordionExample"
                 style="">
-                <li>
-                    <a href="centraldelivery.html"> Sample Rcpt </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/centrallab']"> Sample Rcpt </a>
                 </li>
                 <li>
                     <a href="receivedmanualcentral.html"> Sample Rcpt - Manual </a>
                 </li>
-                <li>
-                    <a href="centralsample.html"> Update HPLC Results </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/central-update-hplc']"> Update HPLC Results </a>
                 </li>
                 <li>
                     <a href="centralpickpack.html"> Pick & Pack </a>
@@ -210,8 +210,8 @@
                     </div>
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'molecularlab'}" id="molecularlab" data-parent="#accordionExample">
-                <li>
-                    <a href="geneticlabdelivery.html"> Sample Rcpt </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/molecularlab']"> Sample Rcpt </a>
                 </li>
                 <li>
                     <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>

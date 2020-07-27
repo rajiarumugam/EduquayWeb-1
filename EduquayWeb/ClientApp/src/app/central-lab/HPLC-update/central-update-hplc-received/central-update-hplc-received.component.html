@@ -1,0 +1,37 @@
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th rowspan="2"><span>{{'SNo' | translate }}</span></th>
+            <th rowspan="2"><span>{{'SubjectID' | translate }}</span></th>
+            <th rowspan="2"><span>{{'RCHID' | translate }}</span></th>
+            <th rowspan="2"><span>{{'Barcode' | translate }}</span></th>
+            <th colspan="8"><span>{{'HPLCTestReadings' | translate }}</span></th>
+        </tr>
+        <tr class="combined">
+            <th style="text-align: center;"><b>{{'HbA1a' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbA1b' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbF' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbLA1c/CHb-1' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbLA1c/CHb-2' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbP3' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbA0' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbA2' | translate }}</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of chcReceiptsData;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+        </tr>
+    </tbody>
+</table>
