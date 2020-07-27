@@ -41,6 +41,7 @@ import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.
 import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipmentlog.component';
 import { ChcViewShipmentdetailsComponent } from './chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component';
 import { ChcSubjectProfileComponent } from './chc-module/chc-subject-profile/chc-subject-profile.component';
+import { ChcDamagedSamplesComponent } from './chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component';
 //import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
@@ -64,6 +65,7 @@ const ngWizardConfig: NgWizardConfig = {
     ChcShipmentlogComponent,
     ChcViewShipmentdetailsComponent,
     ChcSubjectProfileComponent,
+    ChcDamagedSamplesComponent,
     //ChcSampleCollectionComponent
   ],
   imports: [
