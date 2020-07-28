@@ -27,13 +27,13 @@ export class CentralHPLCupdateComponent implements OnInit {
       
       //console.log('previous url', events[0].urlAfterRedirects.indexOf('chc-update-cbc'));
       //console.log('current url', events[1].urlAfterRedirects);
-      if(events[0].urlAfterRedirects.indexOf('chc-update-cbc') == -1)
+      if(events[0].urlAfterRedirects.indexOf('central-update-hplc') == -1)
       {
-          this.DataService.deleteProp('cbcuploaddata');
+          this.DataService.deleteProp('centraluploaddata');
       }
     });
     this.subscription = this.DataService.receiveData().subscribe(x => { 
-      if(JSON.parse(x).screen === "CBC")
+      if(JSON.parse(x).screen === "CENTRAL")
       {
           if(JSON.parse(x).page === "upload")
           {

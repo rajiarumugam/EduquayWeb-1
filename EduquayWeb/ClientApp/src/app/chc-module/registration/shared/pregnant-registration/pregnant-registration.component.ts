@@ -119,6 +119,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   associatedCount = 0;
 
   associatedANMData = [];
+
+  statelist = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
@@ -130,6 +132,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -214,6 +217,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
+    this.getState()
     //this.getCommunity(0);
     this.getGovernmentIDType();
     
@@ -308,7 +312,22 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       this.erroMessage = err.toString();
     });
   }
-
+  getState()
+  {
+    this.masterService.getState()
+    .subscribe(response => {
+      console.log(response);
+      this.statelist = response['states'];
+      this.statelist.forEach(function(val,index){
+        val.display = val.stateName;
+      });
+      
+    },
+    (err: HttpErrorResponse) =>{
+      this.casteData = [];
+      this.erroMessage = err.toString();
+    });
+  }
   getCommunity(id){
     this.communityData = [];
     if(id === 0)
@@ -426,8 +445,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
-
-      if(this.secondFormGroup.valid && this.firstFormGroup.valid)
+      console.log(this.selectedstate)
+      /*if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
@@ -455,7 +474,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         (err: HttpErrorResponse) =>{
           console.log(err);
         });
-      }
+      }*/
     }
     prePopulateFormDetails()
     {

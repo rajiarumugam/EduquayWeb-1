@@ -84,4 +84,11 @@ export class masterService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
+  getState()
+  {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVESTATE);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
 }
