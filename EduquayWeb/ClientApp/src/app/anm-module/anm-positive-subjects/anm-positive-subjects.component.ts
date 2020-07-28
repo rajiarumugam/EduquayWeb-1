@@ -274,8 +274,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.selectedanwname = positiveSub.subjectName;
     this.selectedsubjectId = positiveSub.uniqueSubjectId;
     this.selectedrchId = positiveSub.rchId;
-    //this.selectedMobile = positiveSub.contactNo;
-    this.selectedMobile = '9874587451';
+    this.selectedMobile = positiveSub.contactNo;
+    //this.selectedMobile = '9874587451';
     this.selectedgender = 'Male';
     this.selectedDistrict = positiveSub.districtId;
     this.selectedchc = positiveSub.chcId;

@@ -78,6 +78,15 @@ import { ChcShipmentlogComponent } from "./chc-module/chc-shipmentlog/chc-shipme
 import { ChcShipmentlogResolverService } from "./shared/chc-module/chc-shipmentlog/chc-shipmentlog-resolver.service";
 import { ChcViewShipmentdetailsComponent } from "./chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component";
 import { ChcSubjectProfileComponent } from "./chc-module/chc-subject-profile/chc-subject-profile.component";
+import { ChcNotificationComponent } from "./chc-module/chc-notification/chc-notification/chc-notification.component";
+import { ChcDamagedSamplesComponent } from "./chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component";
+import { ChcUnsentSamplesComponent } from "./chc-module/chc-notification/chc-unsent-samples/chc-unsent-samples.component";
+import { ChcTimeoutSamplesComponent } from "./chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component";
+import { ChcDamagedsamplesResolverService } from "./shared/chc-module/chc-damagedsamples-resolver.service";
+import { ChcUnsentSamplesResolverService } from "./shared/chc-module/chc-unsent-samples/chc-unsent-samples-resolver.service";
+import { ChcTimeoutsamplesResolverService } from "./shared/chc-module/chc-timeoutsamples-resolver.service";
+import { ChcPositiveSubjectComponent } from "./chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component";
+import { ChcPositiveSubjectResolverService } from "./shared/chc-module/chc-positive-subject/chc-positive-subject-resolver.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -109,6 +118,15 @@ const routes: Routes = [
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
           { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' },
           { path: 'postmtp', component: AnmPostMtpFollowupComponent, pathMatch: 'full' }
+        ]
+      },
+      {
+        path: 'chc-notification', component: ChcNotificationComponent,
+        children: [
+          { path: '', component: ChcDamagedSamplesComponent, pathMatch: 'full', resolve:{chcdamagedSamplesData: ChcDamagedsamplesResolverService}},
+          { path: 'chc-unsent', component: ChcUnsentSamplesComponent, pathMatch: 'full', resolve:{chcunsentSamplesData: ChcUnsentSamplesResolverService}},
+          { path: 'chc-timeout', component: ChcTimeoutSamplesComponent, pathMatch: 'full', resolve:{chctimeoutSamplesData: ChcTimeoutsamplesResolverService}},
+          { path: 'chc-positive', component: ChcPositiveSubjectComponent, pathMatch: 'full', resolve:{chcpositiveSubjectData: ChcPositiveSubjectResolverService} },
         ]
       },
       {
@@ -236,5 +254,10 @@ export const RoutingComponents = [
   SSTUpdateNegativeComponent,
   ChcShipmentlogComponent,
   ChcViewShipmentdetailsComponent,
-  AssociatedANMComponent
+  AssociatedANMComponent,
+  ChcDamagedSamplesComponent,
+  ChcNotificationComponent,
+  ChcUnsentSamplesComponent,
+  ChcTimeoutSamplesComponent,
+  ChcPositiveSubjectComponent
 ];

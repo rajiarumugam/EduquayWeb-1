@@ -69,8 +69,8 @@
                 </div>
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chc'}" id="chc" data-parent="#accordionExample">
-                <li>
-                    <a href="chc-notification.html">  Notifications </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/chc-notification']">  Notifications </a>
                 </li>
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/chc-subregn']"> Registration </a>

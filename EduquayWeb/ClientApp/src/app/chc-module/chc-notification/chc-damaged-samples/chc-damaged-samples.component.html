@@ -1,1 +1,118 @@
-<p>chc-damaged-samples works!</p>
+
+<div class="tab-pane fade show active" id="damagedsample" role="tabpanel" aria-labelledby="damagedsample-tab">
+    <div class="form-row">
+      <div class="col-md-12">
+          <div *ngIf="chcdamagedSamplesErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': chcdamagedSamplesErrorMessage ==='No sample data  found', 'alert-danger': chcdamagedSamplesErrorMessage !== 'No sample data  found'}">
+              <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{chcdamagedSamplesErrorMessage}}
+          </div>  
+      </div>
+    </div>
+    <div class="table-responsive mb-4">
+      <table id="chc-damagedsample-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+          <tr>
+            <th class="text-center"><span>S.No</span></th>
+            <th class="text-center"><span>Subject Name</span></th>
+            <th class="text-center"><span>Subject ID</span></th>
+            <th class="text-center"><span>RCH ID</span></th>
+            <th class="text-center"><span>Contact</span> </th>
+            <th class="text-center">GA</th>
+            <th><span class="wordwrap">Sample Recollection</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chcsample of chcdamagedSamples; index as i">
+            <td class="sno text-center">{{i +1}}</td>
+            <td class="sname text-left">{{chcsample.subjectName}}</td>
+            <td class="sid text-center">{{chcsample.uniqueSubjectId}}</td>
+            <td class="sid text-center">{{chcsample.rchID}}</td>
+            <td class="number text-center">{{chcsample.contactNo}}</td>
+            <td class="text-center">{{chcsample.gestationalAge}}</td>
+            <td class="text-center"><a class="" (click)="openchcdamagedSamples(chcdamagedSamplesDetail, chcsample)"
+              role="button"><i class="fas fa-vial fa-2x"></i></a>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-primary float-right"  (click)="chcdamagedSamplesUpdateStatus()" role="button">Update Status</a>
+      </div>
+    </div>
+  </div>
+  <!-- The Modal -->
+  <ng-template #chcdamagedSamplesDetail let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title modaltitle">Sample Recollection</h4>
+          <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body form-body">
+          <form class="text-left" (ngSubmit)="chcdamagedSamplesForm.form.valid && onSubmit(chcdamagedSamplesForm)" #chcdamagedSamplesForm="ngForm" novalidate>
+            <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label class="note">Subject Name </label>
+                  <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
+                    [(ngModel)]="subjectName" name="sampleSubjectName" >
+                </div>
+  
+                <div class="form-group col-md-3">
+                  <label class="note">Subject ID <span class="manto"></span></label>
+                  <input class="form-control field" name="uniqueSubjectId" type="text" placeholder="Subject ID" tabindex="6"
+                    autocomplete="off" readonly="" [(ngModel)]="uniqueSubjectId">
+                </div>
+                <div class="form-group col-md-3">
+                  <label class="note">RCH ID <span class="manto"></span></label>
+                  <input class="form-control field" name="ancnumber" type="text" placeholder="RCH ID " tabindex="6"
+                    autocomplete="off" readonly="" [(ngModel)]="rchId">
+                </div>
+  
+                <div class="form-group col-md-3">
+                  <label class="note">Reason <span class="manto"></span></label>
+                  <input class="form-control field" name="collection" required="" type="text"
+                    placeholder="Reason" readonly="" [(ngModel)]="reason">
+                </div>
+  
+              </div>
+  
+              <div class="form-row mt-4">
+                <div class="form-group col-md-3">
+                  <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || chcdamagedSamplesForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
+                  <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
+                  [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || chcdamagedSamplesForm.submitted && sampleBarcode.invalid"
+                   #sampleBarcode="ngModel" required>
+                  <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">The barcode must be alphabets or digits</small> 
+                  <div *ngIf="chcdamagedSamplesForm.submitted && sampleBarcode.invalid">     
+                    <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
+                  </div> 
+                </div>
+                <div class="form-group col-md-3" [formGroup]="popupform">
+                  <label class="note">Date & Time of Collection <span class="manto">*</span></label>
+                  <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+                   [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
+                  </ng2-flatpickr>
+                </div>
+              </div>
+            </div>
+  
+            <div class="modal-footer">
+              <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+              <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+            </div>
+          </form>
+  
+        </div>
+       
+     </ng-template>
+  
+  <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+  <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

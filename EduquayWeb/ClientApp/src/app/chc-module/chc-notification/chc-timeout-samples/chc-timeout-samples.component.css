@@ -1,0 +1,83 @@
+#formValidate .wizard>.content {
+    min-height: 25em;
+}
+
+#example-vertical.wizard>.content {
+    min-height: 24.5em;
+}
+
+.layout-px-spacing {
+    min-height: calc(100vh - 166px) !important;
+}
+
+.modaltitle {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 20px;
+    /* text-align: center; */
+}
+
+.manto {
+    color: red;
+    font-weight: 600;
+}
+
+.note {
+    font-size: 15px;
+    font-weight: 600;
+    color: #575858;
+}
+
+.shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nt-bottom-none {
+    border-bottom: none !important;
+}
+
+.table>tbody {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+.th-left {
+    text-align: left !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter svg {
+    top: 30px !important;
+}
+
+table.dataTable td,
+table.dataTable th {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 4px 11px;
+}
+
+.leftspace {
+    left: -5px !important;
+}
+
+label.new-control.new-checkbox.checkbox-outline-primary {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    letter-spacing: 1px;
+    text-transform: initial;
+}
+
+.swal2-modal .swal2-styled {
+
+    padding: 9px 6px !important;
+}
+
+
+.small-border-class{
+    color: red !important;
+}
