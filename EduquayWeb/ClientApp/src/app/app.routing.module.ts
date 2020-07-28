@@ -88,6 +88,15 @@ import { ChcTimeoutsamplesResolverService } from "./shared/chc-module/chc-timeou
 import { ChcPositiveSubjectComponent } from "./chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component";
 import { ChcPositiveSubjectResolverService } from "./shared/chc-module/chc-positive-subject/chc-positive-subject-resolver.service";
 
+
+import { CentralSampleRcptMainComponent } from "./central-lab/sample-rcpt/central-sample-rcpt-main/central-sample-rcpt-main.component";
+import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sample-rec/central-sample-rec.component";
+import { CentralHPLCupdateComponent } from "./central-lab/HPLC-update/central-update-hplc/central-update-hplc.component";
+import { CentralReceivedSampleComponent } from "./central-lab/HPLC-update/central-update-hplc-received/central-update-hplc-received.component";
+import { CentralHPLCUploadComponent } from "./central-lab/HPLC-update/central-update-hplc-upload/central-update-hplc-upload.component";
+
+import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
+import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -168,6 +177,13 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'central-update-hplc', component: CentralHPLCupdateComponent,
+        children:[
+          {path: '', component: CentralReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
+          {path: 'upload', component: CentralHPLCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
+        ]
+      },
+      {
         path: 'anm-subregn', component: AnmSubjectRegistrationComponent,
         children:[
           {path: '', component: AnmAwRegistrationComponent, pathMatch: 'full'},
@@ -178,6 +194,18 @@ const routes: Routes = [
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
         ]
 
+      },
+      {
+        path: 'centrallab', component: CentralSampleRcptMainComponent,
+        children:[
+          {path: '', component: CentralSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+        ]
+      },
+      {
+        path: 'molecularlab', component: MolecularSampleRcptMainComponent,
+        children:[
+          {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+        ]
       },
       { path: 'anm-sample-collection', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
@@ -259,5 +287,12 @@ export const RoutingComponents = [
   ChcNotificationComponent,
   ChcUnsentSamplesComponent,
   ChcTimeoutSamplesComponent,
-  ChcPositiveSubjectComponent
+  ChcPositiveSubjectComponent,
+  CentralSampleRcptMainComponent,
+  CentralSampleRcptComponent,
+  CentralHPLCupdateComponent,
+  CentralReceivedSampleComponent,
+  CentralHPLCUploadComponent,
+  MolecularSampleRcptMainComponent,
+  MolecularSampleRcptComponent
 ];

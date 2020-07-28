@@ -2,24 +2,24 @@ import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { ENDPOINT } from './../../app.constant';
+import { ENDPOINT } from '../../../app.constant';
 declare var $: any 
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
-import { GenericService } from './../../shared/generic.service';
-import { HttpClientService } from './../../shared/http-client.service';
+import { GenericService } from '../../../shared/generic.service';
+import { HttpClientService } from '../../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
 
 @Component({
-  selector: 'app-chc-sample-rec',
-  templateUrl: './chc-sample-rec.component.html',
-  styleUrls: ['./chc-sample-rec.component.css']
+  selector: 'app-molecular-sample-rec',
+  templateUrl: './molecular-sample-rec.component.html',
+  styleUrls: ['./molecular-sample-rec.component.css']
 })
-export class CHCSampleRcptComponent implements OnInit {
+export class MolecularSampleRcptComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('receivedPicker', { static: false }) receivedPicker;

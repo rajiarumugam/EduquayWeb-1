@@ -58,6 +58,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selecteddob;
   selecteddor = new Date(Date.now());
   selectedage;
+  selectedEmail;
   GENDERDATA = ["Male","Female","Others"];
   sectionArray = ['PRE KG','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'];
   subjectTitleArray = ["Mr","Miss"];

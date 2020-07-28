@@ -1,0 +1,53 @@
+<div class="form-row mt-2 ml-2">
+    <div class="form-group col-md-3 ml-2 mt-1">
+         <input type="file" class="custom-file-input" id="customFile" name="filename" (change)="onFileChange($event)" multiple="false">
+<label class="custom-file-label ml-2" for="customFile">Choose file</label>
+
+    </div>
+    <div class="form-group col-md-5">
+       <input type="button" class="btn btn-primary mt-1 ml-2" value="Show" id="show"/>
+    </div>
+   
+</div>
+
+<table *ngIf="showUploadResult" id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th rowspan="2"><span>{{'SNo' | translate }}</span></th>
+            <th rowspan="2"><span>{{'SubjectID' | translate }}</span></th>
+            <th rowspan="2"><span>{{'RCHID' | translate }}</span></th>
+            <th rowspan="2"><span>{{'Barcode' | translate }}</span></th>
+            <th colspan="8"><span>{{'HPLCTestReadings' | translate }}</span></th>
+        </tr>
+        <tr class="combined">
+            <th style="text-align: center;"><b>{{'HbA1a' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbA1b' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbF' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbLA1c/CHb-1' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbLA1c/CHb-2' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbP3' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbA0' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbA2' | translate }}</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of chcUploadResultData;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+            <td style="text-align: center;">{{ person.mcv }}</td>
+            <td style="text-align: center;">{{ person.rdw }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="col-md-12 upload-btn-cont" *ngIf="showUploadResult">
+    <button class="mr-2 btn btn-primary hplc confirm float-right" (click)="uploadHPLCResult();">Upload HPLC Results</button>
+</div>
