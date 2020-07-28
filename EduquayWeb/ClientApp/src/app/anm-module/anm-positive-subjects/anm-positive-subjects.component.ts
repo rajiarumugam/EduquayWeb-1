@@ -335,9 +335,9 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       .subscribe(response => {
         this.updatepositiveSubjectResponse = response;
         if (this.updatepositiveSubjectResponse !== null && this.updatepositiveSubjectResponse.status === "true") {
-          this.showResponseMessage(this.updatepositiveSubjectResponse.result, 's');
+          this.showResponseMessage(this.updatepositiveSubjectResponse.message, 's');
         } else {
-          this.showResponseMessage(this.updatepositiveSubjectResponse.result, 'e');
+          this.showResponseMessage(this.updatepositiveSubjectResponse.message, 'e');
           this.positiveSubjectErrorMessage = response.message;
         }
 

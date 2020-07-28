@@ -233,6 +233,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //   this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
     //   return false;
     // }
+    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+    this.sampleShipmentTime =  moment().format("HH:mm"); 
     this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 

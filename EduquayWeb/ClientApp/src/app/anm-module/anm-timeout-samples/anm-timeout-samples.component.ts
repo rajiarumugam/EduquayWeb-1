@@ -215,10 +215,10 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       .subscribe(response => {
         this.addtimeoutSampleRecollectionResponse = response;
         if(this.addtimeoutSampleRecollectionResponse !== null && this.addtimeoutSampleRecollectionResponse.status === "true"){
-          this.showResponseMessage(this.addtimeoutSampleRecollectionResponse.result, 's')
+          this.showResponseMessage(this.addtimeoutSampleRecollectionResponse.message, 's')
            this.anmtimeoutSamples();
         }else{
-          this.showResponseMessage(this.addtimeoutSampleRecollectionResponse.result, 'e');
+          this.showResponseMessage(this.addtimeoutSampleRecollectionResponse.message, 'e');
                   this.timeoutSamplesErrorMessage = response.message;
         }
   
@@ -267,9 +267,9 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       .subscribe(response => {
        this.timeoutUpdateStatusResponse= response;
         if (this.timeoutUpdateStatusResponse !== null && this.timeoutUpdateStatusResponse.status === "true") {
-          this.showResponseMessage(this.timeoutUpdateStatusResponse.result, 's');
+          this.showResponseMessage(this.timeoutUpdateStatusResponse.message, 's');
         } else {
-          this.showResponseMessage(this.timeoutUpdateStatusResponse.result, 'e');
+          this.showResponseMessage(this.timeoutUpdateStatusResponse.message, 'e');
           this.timeoutSamplesErrorMessage = response.message;
         }
 
