@@ -11,6 +11,7 @@ export const ENDPOINT = {
         "RETRIEVECOMMUNITY":"api/v1/WebMaster/RetrieveCommunity",
         "RETRIEVE_GOV_ID_TYPE":"api/v1/WebMaster/RetrieveGovIdType",
         "RETRIEVE_ASSOCIATED_ANM":"api/v1/WebMaster/RetrieveAssociatedANM/",
+        "RETRIVESTATE":"api/v1/State/Retrieve"
     },
     "SUBJECT":
     {
@@ -26,5 +27,12 @@ export const ENDPOINT = {
         "ADDCBCTEST":"api/CHCReceiptProcessing/AddCBCTest",
         "RETRIVESST":"api/CHCReceiptProcessing/RetrieveSST/",
         "ADDSSTTEST":"api/CHCReceiptProcessing/AddSSTest"
+    },
+    "CENTRALLAB":
+    {
+        "RETRIVECENTRALLABRECEIPT":"api/v1/CentralLab/RetrieveCentralLabReceipt/",
+        "ADDRECEIVEDSHIPMENTS":"api/v1/CentralLab/AddReceivedShipments",
+        "RETRIVEHPLC":"api/v1/CentralLab/RetrieveHPLC/",
+        "ADDHPLCTEST":"api/v1/CentralLab/AddHPLCTest",
     }
 }

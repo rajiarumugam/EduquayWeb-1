@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { GenericService } from './../../../shared/generic.service';
 import { HttpClientService } from './../../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
+import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 
 @Component({
   selector: 'app-central-sample-rec',
@@ -24,16 +24,12 @@ export class CentralSampleRcptComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('receivedPicker', { static: false }) receivedPicker;
   @ViewChild('processingPicker', { static: false }) processingPicker;
-  @ViewChild('ilrInDatePicker', { static: false }) ilrInDatePicker;
-  @ViewChild('ilrOutDatePicker', { static: false }) ilrOutDatePicker;
   
   errorMessage: string;
   errorSpouseMessage: string;
   form: FormGroup;
-  ILRform:FormGroup;
   receivedDateSelected = false;
-  ILRInDate;
-  ILROutDate;
+  maxmDays = 8;
   
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -48,24 +44,7 @@ export class CentralSampleRcptComponent implements OnInit {
     maxDate: new Date(),
     static: true
   };
-  ilrInDateOptions: FlatpickrOptions = {
-    enableTime: true,
-    dateFormat: 'd/m/Y H:i',
-    defaultDate: "",
-    maxDate: new Date(),
-    static: true,
-    time_24hr: true,
-    enable: ["22/10/2036"]
-  };
-  ilrOutDateOptions: FlatpickrOptions = {
-    enableTime: true,
-    dateFormat: 'd/m/Y H:i',
-    defaultDate: "",
-    maxDate: new Date(),
-    static: true,
-    time_24hr: true,
-    enable: ["22/10/2036"]
-  };
+  
   receiveddateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -85,7 +64,7 @@ export class CentralSampleRcptComponent implements OnInit {
   };
   createdSubjectId="";
 
-  chcReceiptsData: any[] = [];
+  centralReceiptsData: any[] = [];
   popupData:any;
   processingDate;
 
@@ -105,17 +84,13 @@ export class CentralSampleRcptComponent implements OnInit {
     private tokenService: TokenService,
     private genericService: GenericService,
     private httpClientService:HttpClientService,
-    private chcsampleService: chcsampleService
+    private centralsampleService: centralsampleService
     ) { }
 
   ngOnInit() {
     this.form = this._formBuilder.group({
       processingDate: ['', Validators.required],
       receivedDate: ["", Validators.required]
-    });
-    this.ILRform= this._formBuilder.group({
-      ilrInDateTime: [''],
-        ilrOutDateTime: [""]
     });
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -138,13 +113,15 @@ export class CentralSampleRcptComponent implements OnInit {
     
     
 
-    this.chcReceiptsData = [];
-    var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
-    if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
-      this.chcReceiptsData = chcReceiptsArr.chcReceipts;
+    this.centralReceiptsData = [];
+    var cetralReceiptsArr = this.route.snapshot.data.positiveSubjects;
+    console.log(cetralReceiptsArr);
+    if(cetralReceiptsArr !== undefined && cetralReceiptsArr.status.toString() === "true"){
+      this.centralReceiptsData = cetralReceiptsArr.centralLabReceipts;
+      console.log(this.centralReceiptsData);
     }
     else{
-      this.errorMessage = chcReceiptsArr.message;
+      this.errorMessage = cetralReceiptsArr.message;
     }
   }
   
@@ -153,14 +130,6 @@ export class CentralSampleRcptComponent implements OnInit {
     var _data:any = data;
     this.popupData = _data;
     this.formCheck = false;
-    if(this.popupData.shipmentFrom === 'ANM - CHC')
-    {
-      /*this.ILRform= this._formBuilder.group({
-        ilrInDateTime: ["", Validators.required],
-        ilrOutDateTime: ["", Validators.required]
-      });*/
-      
-    }
     
     this.popupData['receiptDetail'].forEach(function(val,index){
         val.sampleTimeout = false;
@@ -178,25 +147,9 @@ export class CentralSampleRcptComponent implements OnInit {
     this.processingPicker.flatpickr.set({
       defaultDate: ""
     });
-    if(this.ilrInDatePicker)
-    {
-        this.ilrInDatePicker.flatpickr.set({
-          defaultDate: ""
-        });
-        this.ilrInDatePicker.flatpickr.setDate("");
-    }
-    if(this.ilrOutDatePicker)
-    {
-      this.ilrOutDatePicker.flatpickr.set({
-        defaultDate: ""
-      });
-      this.ilrOutDatePicker.flatpickr.setDate("");
-    }
     
     this.processingDate = "";
     this.selectedreceivedDate = ""; 
-    this.ILRInDate = "";
-    this.ILROutDate = ""; 
     this.processingPicker.flatpickr.setDate("");
     this.receivedPicker.flatpickr.setDate("");
     
@@ -213,32 +166,16 @@ export class CentralSampleRcptComponent implements OnInit {
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       });
-      this.ilrInDatePicker.flatpickr.set({
-        maxDate: new Date(this.selectedreceivedDate),
-        minDate: this.currentshipmentDateTime,
-        enable: [],
-        enableTime: true,
-        dateFormat: 'd/m/Y H:i',
-      });
   }
-  inDateChange()
-  {
-    this.ilrOutDatePicker.flatpickr.set({
-      minDate: new Date(this.ILRInDate),
-      maxDate: new Date(this.selectedreceivedDate),
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
-  }
+
   processingDateChange()
   {
     if(this.form.get('processingDate').value.length > 0)
     {
       this.popupData['receiptDetail'].forEach(function(val,index){
-        if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) > 24)
+        if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) > 24*this.maxmDays)
             this.resettingTableEvents(val,true,false,true,false,false);
-        else if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) < 24 && this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) >= 0)
+        else if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) < 24*this.maxmDays && this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) >= 0)
             this.resettingTableEvents(val,false,true,false,false,false);
         else
           this.resettingTableEvents(val,true,false,true,false,false);
@@ -253,9 +190,9 @@ export class CentralSampleRcptComponent implements OnInit {
     if(this.popupData['receiptDetail'][index].sampleDamaged)
       this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
     else{
-      if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
+      if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > (24*this.maxmDays))
         this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
-      else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+      else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < (24*this.maxmDays) && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
         this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
       else
         this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
@@ -299,9 +236,8 @@ export class CentralSampleRcptComponent implements OnInit {
     sampleSubmit()
     {
           this.formCheck = true;
-          console.log(this.ILRform.valid);
           console.log(this.form.valid);
-          if(this.ILRform.valid && this.form.valid)
+          if(this.form.valid)
           {
               var user = JSON.parse(this.tokenService.getUser('lu'));
               var _sampleResult = [];
@@ -312,15 +248,6 @@ export class CentralSampleRcptComponent implements OnInit {
                   _obj['shipmentId'] = this.popupData.shipmentId;
                   _obj['receivedDate'] = this.form.get('receivedDate').value != undefined ? moment(new Date(this.form.get('receivedDate').value)).format("DD/MM/YYYY") : '';
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
-                  if(this.popupData.shipmentFrom === 'ANM - CHC')
-                  {
-                    _obj['ilrInDateTime'] = this.ILRform.get('ilrInDateTime').value != undefined ? moment(new Date(this.ILRform.get('ilrInDateTime').value)).format("DD/MM/YYYY HH:MM") : '';
-                    _obj['ilrOutDateTime'] = this.ILRform.get('ilrOutDateTime').value != undefined ? moment(new Date(this.ILRform.get('ilrOutDateTime').value)).format("DD/MM/YYYY HH:MM") : '';
-                  }
-                  else{
-                    _obj['ilrInDateTime'] = "";
-                    _obj['ilrOutDateTime'] = "";
-                  }
                     _obj['sampleDamaged'] = this.popupData['receiptDetail'][i].sampleDamaged;
                   _obj['sampleTimeout'] = this.popupData['receiptDetail'][i].sampleTimeout;
                   _obj['barcodeDamaged'] = this.popupData['receiptDetail'][i].barcodeDamaged;
@@ -331,7 +258,7 @@ export class CentralSampleRcptComponent implements OnInit {
                   _sampleResult.push(_obj);
               }
 
-              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDRECEIVEDSHIPMENT);
+              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDSHIPMENTS);
               this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
                 if(response.status === "true")
@@ -341,22 +268,17 @@ export class CentralSampleRcptComponent implements OnInit {
                       .then((result) => {
                         if (result.value) {
                           $('#fadeinModal').modal('hide');
-                          this.chcsampleService.retriveCHCReceipt().subscribe(response => {
-                            console.log(response);
-                            console.log('Get Data');
+                          this.centralsampleService.retriveCentralReceipt().subscribe(response => {
                             if(response.status === "true")
                             {
-                              this.chcReceiptsData = response.chcReceipts;
+                              this.centralReceiptsData = response.chcReceipts;
                               this.rerender();
-                            }
-                                      
+                            }       
                           },
                           (err: HttpErrorResponse) =>{
                             console.log(err);
                           });
-                          
                         }
-                        
                       });
                 }else{
                     this.errorMessage = response.message;

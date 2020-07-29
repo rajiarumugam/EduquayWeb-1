@@ -16,7 +16,7 @@ export class CentralReceivedSampleComponent implements OnInit {
   errorMessage: string;
   errorSpouseMessage: string;
 
-  chcReceiptsData: any[] = [];
+  centralReceiptsData: any[] = [];
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -46,23 +46,23 @@ export class CentralReceivedSampleComponent implements OnInit {
       }   
     };
     
-    this.chcReceiptsData = [];
-    var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
-    if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
-      var _tempData = chcReceiptsArr.cbcDetail;
-      if(this.DataService.getdata().cbcuploaddata != undefined)
+    this.centralReceiptsData = [];
+    var centralReceiptsArr = this.route.snapshot.data.positiveSubjects;
+    if(centralReceiptsArr !== undefined && centralReceiptsArr.status.toString() === "true"){
+      var _tempData = centralReceiptsArr.hplcDetail;
+      if(this.DataService.getdata().centraluploaddata != undefined)
       {
-          var _tempUploadData = this.DataService.getdata().cbcuploaddata;
+          var _tempUploadData = this.DataService.getdata().centraluploaddata;
           _tempUploadData.forEach((obj)=>{
             var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
             _tempData.splice(existNotification,1);
           });
       }
-        this.chcReceiptsData = _tempData;
-      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length}));
+        this.centralReceiptsData = _tempData;
+      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"received","uploadcount":0,"receivedcount":this.centralReceiptsData.length}));
     }
     else{
-      this.errorMessage = chcReceiptsArr.message;
+      this.errorMessage = centralReceiptsArr.message;
     }
 
   }

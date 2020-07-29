@@ -98,14 +98,15 @@
     "MaritalStatus":"Marital Status",
     "LabTechnicianName":"Lab Technician Name",
     "HPLCTestReadings":"HPLC Test Readings",
-    "HbA1a":"HbA1a",
-    "HbA1b":"HbA1b",
-    "HbF":"HbF",
-    "HbLA1c/CHb-1":"HbLA1c/CHb-1",
-    "HbLA1c/CHb-2":"HbLA1c/CHb-2",
-    "HbP3":"HbP3",
     "HbA0":"HbA0",
-    "HbA2":"HbA2"
+    "HbA2":"HbA2",
+    "HbC":"HbC",
+    "HbD":"HbD",
+    "HbF":"HbF",
+    "HbS":"HbS",
+    "CHC_Shipment_Date_Time":"CHC Shipment Date & Time",
+    "DistrictName":"District Name",
+    "PT_Sample_Collection_Date_Time":"PT Sample Collection Date & Time"
 
 
 }

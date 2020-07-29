@@ -225,6 +225,15 @@ export class CheSpouseRegistrationComponent implements OnInit {
       this.selectedrchId = data.rchId;
       this.selectedMobile=data.contactNo;
       this.selectedgender = 'Male';
+      this.selectedfirstname = data.spouseFirstName;
+      this.selectedmiddlename = data.spouseMiddleName;
+      this.selectedlastname = data.spouseLastName;
+      this.selectedPincode = data.pincode;
+      this.selectedstate = data.stateName;
+      this.selectedcity = data.address3;
+      this.selectedstreet = data.address2;
+      this.selectedhouse = data.address1;
+
       $('#fadeinModal').modal('show');
   }
   getDistrictData(){
