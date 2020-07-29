@@ -151,7 +151,8 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputMoblie" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">{{'State' | translate }}</label><span class="manto"> *</span>
-                        <input type="text" class="form-control" id="inputMoblie" placeholder="Odisha" [(ngModel)]="selectedstate" formControlName = "state" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">
+                        <!--<input type="text" class="form-control" id="inputMoblie" placeholder="Odisha" [(ngModel)]="selectedstate" formControlName = "state" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">-->
+                        <app-select-dropdown [(ngModel)]="selectedstate" class="form-control" formControlName="state" [list]="statelist" returnId="false" placeholder="Select State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }"></app-select-dropdown>
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
@@ -285,7 +286,8 @@
                       </div>
                       <div class="form-group col-md-2">
                           <label class="birthreg" for="inputschoolState">{{'State' | translate }}</label>
-                          <input type="text" class="form-control" id="inputschoolState" placeholder="Odisha" [(ngModel)]="selectedschoolstate" formControlName = "schoolstate">
+                          <!--<input type="text" class="form-control" id="inputschoolState" placeholder="Odisha" [(ngModel)]="selectedschoolstate" formControlName = "schoolstate">-->
+                          <app-select-dropdown [(ngModel)]="selectedschoolstate" class="form-control" id="inputschoolState" formControlName="schoolstate" [list]="statelist" returnId="false" placeholder="Select State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }"></app-select-dropdown>
                       </div>
                       <div class="form-group col-md-2">
                           <label class="birthreg" for="inputSchoolPincode">{{'Pincode' | translate }}</label>
