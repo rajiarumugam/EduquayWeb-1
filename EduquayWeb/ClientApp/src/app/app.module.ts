@@ -44,6 +44,10 @@ import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipme
 import { ChcViewShipmentdetailsComponent } from './chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component';
 import { ChcSubjectProfileComponent } from './chc-module/chc-subject-profile/chc-subject-profile.component';
 import { ChcDamagedSamplesComponent } from './chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component';
+import { ChcUnsentSamplesComponent } from './chc-module/chc-notification/chc-unsent-samples/chc-unsent-samples.component';
+import { ChcTimeoutSamplesComponent } from './chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component';
+import { ChcNotificationComponent } from './chc-module/chc-notification/chc-notification/chc-notification.component';
+import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component';
 //import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
@@ -69,6 +73,10 @@ const ngWizardConfig: NgWizardConfig = {
     ChcViewShipmentdetailsComponent,
     ChcSubjectProfileComponent,
     ChcDamagedSamplesComponent,
+    ChcUnsentSamplesComponent,
+    ChcTimeoutSamplesComponent,
+    ChcNotificationComponent,
+    ChcPositiveSubjectComponent,
     SelectDropdownComponent,
     TextSearchPipe
     //ChcSampleCollectionComponent

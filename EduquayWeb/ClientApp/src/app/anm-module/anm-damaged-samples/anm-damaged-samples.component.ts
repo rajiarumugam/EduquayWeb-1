@@ -210,10 +210,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     .subscribe(response => {
       this.addSampleRecollectionResponse = response;
       if(this.addSampleRecollectionResponse !== null && this.addSampleRecollectionResponse.status === "true"){
-        this.showResponseMessage(this.addSampleRecollectionResponse.result, 's')
+        this.showResponseMessage(this.addSampleRecollectionResponse.message, 's')
          this.anmdamagedSamples();
       }else{
-        this.showResponseMessage(this.addSampleRecollectionResponse.result, 'e');
+        this.showResponseMessage(this.addSampleRecollectionResponse.message, 'e');
                 this.damagedSamplesErrorMessage = response.message;
       }
 
@@ -263,9 +263,9 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       .subscribe(response => {
         this.damagedUpdateStatusResponse = response;
         if (this.damagedUpdateStatusResponse !== null && this.damagedUpdateStatusResponse.status === "true") {
-          this.showResponseMessage(this.damagedUpdateStatusResponse.result, 's');
+          this.showResponseMessage(this.damagedUpdateStatusResponse.message, 's');
         } else {
-          this.showResponseMessage(this.damagedUpdateStatusResponse.result, 'e');
+          this.showResponseMessage(this.damagedUpdateStatusResponse.message, 'e');
           this.damagedSamplesErrorMessage = response.message;
         }
 

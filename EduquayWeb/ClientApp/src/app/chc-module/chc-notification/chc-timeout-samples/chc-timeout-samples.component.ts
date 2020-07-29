@@ -1,30 +1,29 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DateService } from 'src/app/shared/utility/date.service';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { TokenService } from 'src/app/shared/token.service';
-import * as moment from 'moment';
+import { DateService } from 'src/app/shared/utility/date.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
 import Swal from 'sweetalert2';
-import { ChcNotificationSamplesService } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples.service';
 import { ChcNotificationSamplesRequest, AddChcSampleRecollectionRequest } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-request';
 import { ChcNotificationSamplesResponse, AddChcSampleRecollectionResponse, ChcNotifiedSampleList } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-response';
+import { ChcNotificationSamplesService } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples.service';
 
 @Component({
-  selector: 'app-chc-damaged-samples',
-  templateUrl: './chc-damaged-samples.component.html',
-  styleUrls: ['./chc-damaged-samples.component.css']
+  selector: 'app-chc-timeout-samples',
+  templateUrl: './chc-timeout-samples.component.html',
+  styleUrls: ['./chc-timeout-samples.component.css']
 })
-export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnInit {
 
-  //Child component
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
-  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
+  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
 
   loadDataTable: boolean = false;
@@ -32,15 +31,16 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   dtTrigger: Subject<any> = new Subject();
   user: user;
 
-  recordCount: number; //step 2
-  chcdamagedSamplesErrorMessage: string;
-  chcdamagedSamplesInitResponse: any;
-  chcdamagedsamplesRequest: ChcNotificationSamplesRequest;
-  chcdamagedsamplesResponse: ChcNotificationSamplesResponse;
-  chcaddSampleRecollectionRequest: AddChcSampleRecollectionRequest;
-  chcaddSampleRecollectionResponse: AddChcSampleRecollectionResponse;
+  chctimeoutSamplesErrorMessage: string;
+  chctimeoutSamplesInitResponse: any;
+  chctimeoutsamplesRequest: ChcNotificationSamplesRequest;
+  chctimeoutsamplesResponse: ChcNotificationSamplesResponse;
+  chcaddtimeoutSampleRecollectionRequest: AddChcSampleRecollectionRequest;
+  chcaddtimeoutSampleRecollectionResponse: AddChcSampleRecollectionResponse;
+
+  recordCount: number;
   result: string;
-  chcdamagedSamples: ChcNotifiedSampleList[] = [];
+  chctimeoutSamples: ChcNotifiedSampleList[] = [];
   subjectName: string;
   uniqueSubjectId: string;
   rchId: string;
@@ -65,13 +65,15 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   };
 
   constructor(
-    private ChcDamagedSamplesService: ChcNotificationSamplesService,
+
+    private ChctimeoutSamplesService: ChcNotificationSamplesService,
     private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder
+
   ) { }
 
   ngOnInit() {
@@ -98,58 +100,60 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
         //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
       }
     };
-    console.log(this.ChcDamagedSamplesService.notificationSamplesApi);
-    //this.anmdamagedSamples();
+    console.log(this.ChctimeoutSamplesService.notificationSamplesApi);
+    //this.chctimeoutSampleslist();
 
-    this.chcdamagedSamplesInitResponse = this.route.snapshot.data.chcdamagedSamplesData;
-    if (this.chcdamagedSamplesInitResponse.status === 'false') {
-      this.chcdamagedSamples = [];
-      if (this.chcdamagedSamplesInitResponse.message !== null && this.chcdamagedSamplesInitResponse.message.code === "ENOTFOUND") {
-        this.chcdamagedSamplesErrorMessage = "Unable to connect to api source";
+    this.chctimeoutSamplesInitResponse = this.route.snapshot.data.chctimeoutSamplesData;
+    if (this.chctimeoutSamplesInitResponse.status === 'false') {
+      this.chctimeoutSamples = [];
+      if (this.chctimeoutSamplesInitResponse.message !== null && this.chctimeoutSamplesInitResponse.message.code === "ENOTFOUND") {
+        this.chctimeoutSamplesErrorMessage = "Unable to connect to api source";
       }
-      else if (this.chcdamagedSamplesInitResponse.message !== null || this.chcdamagedSamplesInitResponse.message == undefined) {
-        this.chcdamagedSamplesErrorMessage = this.chcdamagedSamplesInitResponse.message;
+      else if (this.chctimeoutSamplesInitResponse.message !== null || this.chctimeoutSamplesInitResponse.message == undefined) {
+        this.chctimeoutSamplesErrorMessage = this.chctimeoutSamplesInitResponse.message;
       }
     }
     else {
 
-      if (this.chcdamagedSamplesInitResponse.sampleList != null && this.chcdamagedSamplesInitResponse.sampleList.length > 0) {
-        this.chcdamagedSamples = this.chcdamagedSamplesInitResponse.sampleList;
+      if (this.chctimeoutSamplesInitResponse.sampleList!= null && this.chctimeoutSamplesInitResponse.sampleList.length > 0) {
+        this.chctimeoutSamples = this.chctimeoutSamplesInitResponse.sampleList;
       }
     }
+
   }
 
-  chcdamagedSampleslist() {
-    this.recordCount = 0; //step 3
-    this.chcdamagedSamples = [];
-    this.chcdamagedSamplesErrorMessage = '';
-    this.chcdamagedsamplesRequest = { userId: this.user.id, notification: 1, collectionFrom: this.user.sampleCollectionFrom };
-    let samplesList = this.ChcDamagedSamplesService.getnotificationChcSamples(this.chcdamagedsamplesRequest)
+  chctimeoutSampleslist() {
+
+    this.recordCount = 0;
+    this.chctimeoutSamples = [];
+    this.chctimeoutSamplesErrorMessage = '';
+    this.chctimeoutsamplesRequest = { userId: this.user.id, notification: 3, collectionFrom: this.user.sampleCollectionFrom };
+    let samplesList = this.ChctimeoutSamplesService.getnotificationChcSamples(this.chctimeoutsamplesRequest)
       .subscribe(response => {
-        this.chcdamagedsamplesResponse = response;
-        if (this.chcdamagedsamplesResponse !== null && this.chcdamagedsamplesResponse.status === "true") {
-          if (this.chcdamagedsamplesResponse.sampleList.length <= 0) {
-            this.chcdamagedSamplesErrorMessage = response.message;
+        this.chctimeoutsamplesResponse = response;
+        if (this.chctimeoutsamplesResponse !== null && this.chctimeoutsamplesResponse.status === "true") {
+          if (this.chctimeoutsamplesResponse.sampleList.length <= 0) {
+            this.chctimeoutSamplesErrorMessage = response.message;
           }
           else {
-            this.chcdamagedSamples = this.chcdamagedsamplesResponse.sampleList;
-            this.recordCount = this.chcdamagedSamples.length; //step 4
+            this.chctimeoutSamples = this.chctimeoutsamplesResponse.sampleList;
+            this.recordCount = this.chctimeoutSamples.length;
           }
         }
         else {
-          this.chcdamagedSamplesErrorMessage = response.message;
+          this.chctimeoutSamplesErrorMessage = response.message;
         }
-        this.onLoadSubject.emit(this.recordCount);    //step 5
+        this.onLoadSubject.emit(this.recordCount);
         this.rerender();
         this.loadDataTable = true;
       },
         (err: HttpErrorResponse) => {
           if (this.loadDataTable) this.rerender();
-          this.chcdamagedSamplesErrorMessage = err.toString();
+          this.chctimeoutSamplesErrorMessage = err.toString();
         });
   }
 
-  openchcdamagedSamples(chcdamagedSamplesDetail, chcsample: ChcNotifiedSampleList) {
+  openchctimeoutSamples(chctimeoutSamplesDetail, chcsample: ChcNotifiedSampleList) {
 
     this.subjectName = chcsample.subjectName;
     this.uniqueSubjectId = chcsample.uniqueSubjectId;
@@ -160,12 +164,13 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.collectionDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.collectionDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
+    //var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
     const regDate = new Date(chcsample.sampleCollectionDateTime.replace(pattern, '$3/$2/$1 $4:$5'));
     this.collectionDateOptions.minDate = regDate;
 
     this.modalService.open(
-      chcdamagedSamplesDetail, {
+      chctimeoutSamplesDetail, {
       centered: true,
       size: 'xl',
       scrollable: true,
@@ -174,40 +179,39 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
   }
 
+  onSubmit(chctimeoutSamplesForm: NgForm) {
 
-  onSubmit(chcdamagedSamplesForm: NgForm) {
-
-    console.log(chcdamagedSamplesForm.value);
-    this.barcodeNo = chcdamagedSamplesForm.value.sampleBarcode;
-    this.chcaddSampleRecollectionRequest = {
+    console.log(chctimeoutSamplesForm.value);
+    this.barcodeNo = chctimeoutSamplesForm.value.sampleBarcode;
+    this.chcaddtimeoutSampleRecollectionRequest = {
       uniqueSubjectId: this.uniqueSubjectId,
       reason: this.reason,
       barcodeNo: this.barcodeNo,
-      collectionFrom: 10,
+      collectionFrom: this.user.sampleCollectionFrom,
       sampleCollectionDate: this.sampleCollectionDate,
       sampleCollectionTime: this.sampleCollectionTime,
-      collectedBy: 1,
+      collectedBy: this.user.id,
     };
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
-    // return false;
+    //return false;
 
-    let damagedsampleCollection = this.ChcDamagedSamplesService.postAddSample(this.chcaddSampleRecollectionRequest)
+    let timeoutSamples = this.ChctimeoutSamplesService.postAddSample(this.chcaddtimeoutSampleRecollectionRequest)
       .subscribe(response => {
-        this.chcaddSampleRecollectionResponse = response;
-        if (this.chcaddSampleRecollectionResponse !== null && this.chcaddSampleRecollectionResponse.status === "true") {
-          this.showResponseMessage(this.chcaddSampleRecollectionResponse.message, 's')
-          this.chcdamagedSampleslist();
+        this.chcaddtimeoutSampleRecollectionResponse = response;
+        if (this.chcaddtimeoutSampleRecollectionResponse !== null && this.chcaddtimeoutSampleRecollectionResponse.status === "true") {
+          this.showResponseMessage(this.chcaddtimeoutSampleRecollectionResponse.message, 's')
+          this.chctimeoutSampleslist();
         } else {
-          this.showResponseMessage(this.chcaddSampleRecollectionResponse.message, 'e');
-          this.chcdamagedSamplesErrorMessage = response.message;
+          this.showResponseMessage(this.chcaddtimeoutSampleRecollectionResponse.message, 'e');
+          this.chctimeoutSamplesErrorMessage = response.message;
         }
 
       },
         (err: HttpErrorResponse) => {
           this.showResponseMessage(err.toString(), 'e');
-          this.chcdamagedSamplesErrorMessage = err.toString();
+          this.chctimeoutSamplesErrorMessage = err.toString();
         });
     //swal ("Here's the title!", "...and here's the text!");
   }
@@ -229,11 +233,10 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     }
   }
 
-  
   fetchBarcodes() {
     this.notifySamples = '';
     var isFirst = true;
-    this.chcdamagedSamples.forEach(element => {
+    this.chctimeoutSamples.forEach(element => {
       console.log('notifiedStatus :' + element.notifiedStatus);
       if (element.notifiedStatus === "True") {
         if (isFirst) {
@@ -249,7 +252,7 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first      
+      // Destroy the table first 
       dtInstance.clear();
       dtInstance.destroy();
       // Call the dtTrigger to rerender again       
@@ -282,6 +285,7 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     });
 
   }
+
 
 
 }
