@@ -20,26 +20,24 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="col-lg-12">
                 <div class="main-box no-header clearfix">
                     <div class="main-box-body clearfix">
-                        
-                                <h6 class="mb-4" style="text-align: center;"><b>{{'SenderName' | translate }} : </b> <span class="ml-2">{{popupData?.senderName}} </span>
-                                </h6>
+                                <div class="form-row my-2">
+                                    <div class="col-md-4 offset-md-3">
+                                        <h6 class="mb-5" style="text-align: center;"><b>{{'CHC_Shipment_Date_Time' | translate }} : </b> <span class="ml-2">{{popupData?.testingCHC}}</span></h6>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <h6 class="ml-1"><b>{{'DistrictName' | translate }} : </b> <span class="ml-2"> {{popupData?.testingCHC}} </span></h6>
+                                   </div>
+                                </div>
                        
                             <div class="form-row my-2">
                                 <div class="col-md-3">
                                     <h6 class="ml-2"><b>{{'ShipmentID' | translate }} : </b> <span class="ml-2"> {{popupData?.shipmentId}} </span></h6>
                                 </div>
-                                <div class="col-md-3" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
-                                    <h6 class="ml-2"><b>{{'RIPoint' | translate }} : </b> <span class="ml-2">
-                                        {{popupData?.riPoint}} </span></h6>
+                                <div class="col-md-4">
+                                    <h6 class="ml-2"><b>{{'CHC_Shipment_Date_Time' | translate }} : </b> <span class="ml-2">
+                                        {{popupData?.shipmentDateTime}} </span></h6>
                                 </div>
-                                <div class="col-md-3" *ngIf="popupData?.shipmentFrom === 'CHC - CHC' ? true : false">
-                                    <h6 class="ml-2"><b>{{'CollectionCHC' | translate }} : </b> <span class="ml-2">
-                                        {{popupData?.collectionCHC}} </span></h6>
-                                </div>
-                                <div class="col-md-3" *ngIf="popupData?.shipmentFrom === 'ANM - CHC' ? true : false">
-                                    <h6 class="ml-2"><b>{{'ILRPoint' | translate }} : </b> <span class="ml-2">
-                                        {{popupData?.ilrPoint}} </span></h6>
-                                </div>
+                               
                             </div>
                             <div class="form-row my-2">
                                 <div class="col-md-3" [formGroup]="form">
@@ -50,16 +48,6 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ProcessingDateAndTime' | translate }}</b>
                                         <ng2-flatpickr [disabled]="true" id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker [config]="processingOption" placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr>
                                         </h6>
-                                </div>
-                                <div class="col-md-3" [formGroup]="ILRform" [hidden]="popupData?.shipmentFrom === 'ANM - CHC' ? false : true">
-                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && ILRform.controls.ilrInDateTime.invalid }"><b>{{'ILRInDateTime' | translate }}</b>
-                                        <ng2-flatpickr id="scFromDate" name="ilrInDateTime" formControlName="ilrInDateTime" class="form-control flatpickr flatpickr-input active" #ilrInDatePicker [config]="ilrInDateOptions" placeholder="Select Date.." [(ngModel)]="ILRInDate" (change)="inDateChange();" [ngClass]="{'red-border-class': formCheck && ILRform.controls.ilrInDateTime.invalid }" [required]="popupData?.shipmentFrom === 'ANM - CHC' ? true: false "></ng2-flatpickr>
-                                        </h6>
-                                </div>
-                                <div class="col-md-3" [formGroup]="ILRform" [hidden]="popupData?.shipmentFrom === 'ANM - CHC' ? false : true">
-                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && ILRform.controls.ilrOutDateTime.invalid }"><b>{{'ILROutDateTime' | translate }}</b>
-                                        <ng2-flatpickr id="scFromDate" name="ilrOutDateTime" formControlName="ilrOutDateTime" class="form-control flatpickr flatpickr-input active" #ilrOutDatePicker [config]="ilrOutDateOptions" placeholder="Select Date.." [(ngModel)]="ILROutDate" [ngClass]="{'red-border-class': formCheck && ILRform.controls.ilrOutDateTime.invalid }" [required]="popupData?.shipmentFrom === 'ANM - CHC' ? true: false "></ng2-flatpickr>
-                                       </h6>
                                 </div>
                             </div>
                        
@@ -73,9 +61,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <th><span>{{'SubjectID' | translate }}</span></th>
                                 <th><span>{{'RCHID' | translate }}</span></th>
                                 <th><span>{{'Barcode' | translate }}</span></th>
-                                <th class="datetimenewchc wordwrap"><span>{{'SampleCollection' | translate }} <br> {{'DateAndTime' | translate }}</span></th>
-                                <!-- <th class="text-center"><span>ILR In Time</span></th>
-                                <th class="text-center"><span>ILR Out Time</span></th> -->
+                                <th class="datetimenewchc wordwrap"><span>{{'PT_Sample_Collection_Date_Time' | translate }} <br> {{'DateAndTime' | translate }}</span></th>
                                <th><span>{{'SampleTimeout' | translate }}</span></th>
                                 <th><span>{{'SampleDamaged' | translate }}</span></th>
                                  <th><span>{{'BarcodeDamaged' | translate }}</span>
@@ -93,8 +79,6 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <td class="">{{receipt.rchId}}</td>
                                 <td>{{receipt.barcodeNo}}</td>
                                 <td>{{receipt.sampleCollectionDateTime}}</td>
-                                <!-- <td class="text-center"></td>
-                                <td class="text-center"></td> -->
                                 <td class="n-chk text-center"><label
                                         class="new-control new-checkbox checkbox-outline-primary">
                                         <input type="checkbox"
@@ -163,11 +147,11 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let person of chcReceiptsData;index as i">
+        <tr *ngFor="let person of centralReceiptsData;index as i">
             <td style="text-align: center;">{{ i + 1}}</td>
             <td style="text-align: center;">{{ person.shipmentId }}</td>
-            <td>{{ person.senderName }}</td>
-            <td>{{ person.sendingLocation }}</td>
+            <td>{{ person.labTechnicianName }}</td>
+            <td>{{ person.testingCHC }}</td>
             <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
             <td class="user-plus" (click)="openPopup(person);"><i class="fas fa-search fa-2x" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>

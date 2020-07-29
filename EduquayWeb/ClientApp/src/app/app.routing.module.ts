@@ -88,7 +88,8 @@ import { ChcTimeoutsamplesResolverService } from "./shared/chc-module/chc-timeou
 import { ChcPositiveSubjectComponent } from "./chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component";
 import { ChcPositiveSubjectResolverService } from "./shared/chc-module/chc-positive-subject/chc-positive-subject-resolver.service";
 
-
+import { CentrallabSampleResolverService } from "./shared/centrallab/central-sample-resolver.service";
+import { CentralupdateHPLCService } from "./shared/centrallab/central-update-hplc-resolver.service";
 import { CentralSampleRcptMainComponent } from "./central-lab/sample-rcpt/central-sample-rcpt-main/central-sample-rcpt-main.component";
 import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sample-rec/central-sample-rec.component";
 import { CentralHPLCupdateComponent } from "./central-lab/HPLC-update/central-update-hplc/central-update-hplc.component";
@@ -179,8 +180,8 @@ const routes: Routes = [
       {
         path: 'central-update-hplc', component: CentralHPLCupdateComponent,
         children:[
-          {path: '', component: CentralReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
-          {path: 'upload', component: CentralHPLCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
+          {path: '', component: CentralReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}},
+          {path: 'upload', component: CentralHPLCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
       },
       {
@@ -198,7 +199,7 @@ const routes: Routes = [
       {
         path: 'centrallab', component: CentralSampleRcptMainComponent,
         children:[
-          {path: '', component: CentralSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+          {path: '', component: CentralSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleResolverService}}
         ]
       },
       {

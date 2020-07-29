@@ -9,6 +9,8 @@ import { AppRoutingModule, RoutingComponents } from './app.routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NumberDirective } from './shared/directive/numbers-only.directive';
+import { TextSearchPipe } from './shared/directive/text-search.pipe';
+import { SelectDropdownComponent } from "./shared/directive/select-dropdown/select-dropdown.component";
 
 import { AuthInterceptorServiceService } from './interceptors/auth-interceptor-service';
 import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
@@ -49,6 +51,7 @@ import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-p
 //import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
+
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
 };
@@ -74,6 +77,8 @@ const ngWizardConfig: NgWizardConfig = {
     ChcTimeoutSamplesComponent,
     ChcNotificationComponent,
     ChcPositiveSubjectComponent,
+    SelectDropdownComponent,
+    TextSearchPipe
     //ChcSampleCollectionComponent
   ],
   imports: [

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
-import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
+import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenService } from 'src/app/shared/token.service';
 
@@ -20,7 +20,7 @@ type AOA = any[][];
   })
   export class CentralHPLCUploadComponent implements OnInit {
     @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
-    chcReceiptsData;
+    centralReceiptsData;
     errorMessage;
     user;
 
@@ -28,33 +28,33 @@ type AOA = any[][];
     wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
     fileName: string = 'SheetJS.xlsx';
     showUploadResult = false;
-    chcUploadResponse;
+    centralUploadResponse;
 
-    chcUploadResultData = [];
+    centralUploadResultData = [];
 
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
     constructor(
       private DataService:DataService,
       private route: ActivatedRoute,
-      private chcsampleService: chcsampleService,
+      private centralsampleService: centralsampleService,
       private tokenService: TokenService
       ) { }
       
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    var chcReceiptsArr = this.route.snapshot.data.positiveSubjects;
-    if(chcReceiptsArr !== undefined && chcReceiptsArr.status.toString() === "true"){
-      this.chcReceiptsData = chcReceiptsArr.cbcDetail;
-      if(this.DataService.getdata().cbcuploaddata != undefined)
+    var centralReceiptsArr = this.route.snapshot.data.positiveSubjects;
+    if(centralReceiptsArr !== undefined && centralReceiptsArr.status.toString() === "true"){
+      this.centralReceiptsData = centralReceiptsArr.hplcDetail;
+      if(this.DataService.getdata().centraluploaddata != undefined)
       {
-          this.chcUploadResultData = this.DataService.getdata().cbcuploaddata;
+          this.centralUploadResultData = this.DataService.getdata().centraluploaddata;
           this.showUploadResult = true;
       }
-      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
+      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
     }
     else{
-      this.errorMessage = chcReceiptsArr.message;
+      this.errorMessage = centralReceiptsArr.message;
     }
 
     this.dtOptions = {
@@ -78,7 +78,7 @@ type AOA = any[][];
   }
 
   onFileChange(evt: any) {
-    this.chcUploadResultData = [];
+    this.centralUploadResultData = [];
     /* wire up file reader */
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -105,33 +105,39 @@ type AOA = any[][];
 
         /* save data */
         this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-        this.chcUploadResultData = [];
+        this.centralUploadResultData = [];
         var _tempData = this.data;
-        this.chcReceiptsData.forEach(function(val1,ind1){
+        this.centralReceiptsData.forEach(function(val1,ind1){
           this.data.forEach(function(val,index){
+            console.log(val);
+            console.log(val1);
             if(val1.barcodeNo == val[3])
             {
               var _obj = {};
               _obj['barcodeNo'] = ""+val[3];
               _obj['subjectId'] = ""+val[1];
               _obj['rchId'] = ""+val[2];
-              _obj['mcv'] = ""+val[4];
-              _obj['rdw'] = ""+val[5];
-              _obj['testingCHCId']= this.user.chcId;
+              _obj['hbF'] = ""+val[8];
+              _obj['hbA0'] = ""+val[4];
+              _obj['hbA2']= ""+val[5];
+              _obj['hbS'] = ""+val[9];
+              _obj['hbC'] = ""+val[6];
+              _obj['hbD']= ""+val[7];
               _obj["createdBy"] = this.user.id;
+              _obj["centralLabId"]=this.user.centralLabId;
     
-              this.chcUploadResultData.push(_obj);
+              this.centralUploadResultData.push(_obj);
             }
            
           },this);
         },this)
         
         
-        if(this.chcUploadResultData.length > 0)
+        if(this.centralUploadResultData.length > 0)
         {
           this.showUploadResult = true;
-          this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
-          this.DataService.setdata({'cbcuploaddata':this.chcUploadResultData});
+          this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
+          this.DataService.setdata({'centraluploaddata':this.centralUploadResultData});
         }
         else{
           this.showUploadResult = false;
@@ -170,17 +176,17 @@ type AOA = any[][];
     }).then((result) => {
       if (result.value) {
 
-        this.chcsampleService.addCBCtest({"cbcTestRequest":this.chcUploadResultData})
+        this.centralsampleService.addHSBCtest({"hplcTestRequest":this.centralUploadResultData})
       .subscribe(response => {
-        this.chcUploadResponse = response;
-        if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
+        this.centralUploadResponse = response;
+        if (this.centralUploadResponse !== null && this.centralUploadResponse.status === "true") {
             Swal.fire({
               text: 'HPLC results uploaded successfully.',
               icon: 'success'
             }).then((result) => {
-              this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":0,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
-              this.DataService.deleteProp('cbcuploaddata');
-              this.chcUploadResultData = [];
+              this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":0,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
+              this.DataService.deleteProp('centraluploaddata');
+              this.centralUploadResultData = [];
               this.showUploadResult = false;
             });
         } else {
