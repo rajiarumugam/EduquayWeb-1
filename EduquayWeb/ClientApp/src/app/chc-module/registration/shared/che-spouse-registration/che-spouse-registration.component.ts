@@ -36,6 +36,12 @@ export class CheSpouseRegistrationComponent implements OnInit {
     defaultDate: "",
     maxDate: ""
   };
+  startOptions2: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: "",
+    maxDate: ""
+  };
   startOptionsDOR: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
