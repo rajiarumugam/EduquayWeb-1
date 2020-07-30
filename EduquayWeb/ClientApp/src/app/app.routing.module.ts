@@ -98,6 +98,7 @@ import { CentralHPLCUploadComponent } from "./central-lab/HPLC-update/central-up
 
 import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
 import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";
+import { ChcSamplePickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -162,6 +163,7 @@ const routes: Routes = [
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
+      { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent},
       {
         path: 'chc-update-sst', component: CHCUpdateSSTComponent,
         children:[
@@ -295,5 +297,6 @@ export const RoutingComponents = [
   CentralReceivedSampleComponent,
   CentralHPLCUploadComponent,
   MolecularSampleRcptMainComponent,
-  MolecularSampleRcptComponent
+  MolecularSampleRcptComponent,
+  ChcSamplePickpackComponent
 ];
