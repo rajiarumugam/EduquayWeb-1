@@ -99,6 +99,9 @@ import { CentralHPLCUploadComponent } from "./central-lab/HPLC-update/central-up
 import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
 import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";
 import { ChcSamplePickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component";
+import { CheSpouseComponent } from "./shared/chc-module/che-spouse/che-spouse.component";
+import { AnmSpouseComponent } from "./shared/anm-module/registration/anm-spouse/anm-spouse.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -298,5 +301,7 @@ export const RoutingComponents = [
   CentralHPLCUploadComponent,
   MolecularSampleRcptMainComponent,
   MolecularSampleRcptComponent,
-  ChcSamplePickpackComponent
+  ChcSamplePickpackComponent,
+  CheSpouseComponent,
+  AnmSpouseComponent
 ];

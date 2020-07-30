@@ -112,6 +112,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   selectedassociatedANM;
   selectedTestingchc = null;
+  statelist = [];
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
 
   ngOnInit() {
@@ -198,6 +199,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     this.getCaste();
     //this.getCommunity(0);
     this.getGovernmentIDType();
+    this.getState();
   }
 
   getDistrictData(){
@@ -276,6 +278,23 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       this.casteData = response['caste'];
       if(this.casteData[0])
       this.selectedcaste = this.casteData[0].id;
+    },
+    (err: HttpErrorResponse) =>{
+      this.casteData = [];
+      this.erroMessage = err.toString();
+    });
+  }
+
+  getState()
+  {
+    this.masterService.getState()
+    .subscribe(response => {
+      console.log(response);
+      this.statelist = response['states'];
+      this.statelist.forEach(function(val,index){
+        val.display = val.stateName;
+      });
+      
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -468,7 +487,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     }
     dataBindinginServce()
     {
-
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
       console.log(this.secondFormGroup.get('maritalStatus').value);
       var _obj = {
         "subjectPrimaryRequest": {
@@ -513,7 +532,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
-          "stateName": this.secondFormGroup.get('state').value,
+          "stateName": _tempStateSelected[0]['stateName'],
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {

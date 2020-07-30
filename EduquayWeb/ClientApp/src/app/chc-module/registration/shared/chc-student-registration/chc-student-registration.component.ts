@@ -54,6 +54,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   casteData = [];
   communityData = [];
   governmentIDData = [];
+  statelist = [];
   selecteddob;
   selecteddor = new Date(Date.now());
   selectedage;
@@ -180,6 +181,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
     //this.getRI();
     this.getReligion();
     this.getCaste();
+    this.getState()
     //this.getCommunity(0);
     this.getGovernmentIDType();
   }
@@ -296,7 +298,22 @@ export class ChcStudentRegistrationComponent implements OnInit {
       this.erroMessage = err.toString();
     });
   }
-
+  getState()
+  {
+    this.masterService.getState()
+    .subscribe(response => {
+      console.log(response);
+      this.statelist = response['states'];
+      this.statelist.forEach(function(val,index){
+        val.display = val.stateName;
+      });
+      
+    },
+    (err: HttpErrorResponse) =>{
+      this.casteData = [];
+      this.erroMessage = err.toString();
+    });
+  }
   calculateAge()
   {
      console.log(this.selecteddob);
@@ -329,7 +346,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
       if(this.secondFormGroup.valid)
         this.stepper.next();
     }
-        //this.stepper.next();
+       // this.stepper.next();
   }
 
     prevStep() {
@@ -396,6 +413,10 @@ export class ChcStudentRegistrationComponent implements OnInit {
 
     dataBindinginServce()
     {
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
+      
+      if(this.selectedschoolstate)
+          var _tempSchoolStateSelected = this.statelist.filter(t=>t.id ===this.selectedschoolstate);
       var _obj = {
         "subjectPrimaryRequest": {
           "subjectTypeId": 4,
@@ -439,7 +460,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
-          "stateName": this.secondFormGroup.get('state').value,
+          "stateName": _tempStateSelected[0]['stateName'],
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
@@ -479,7 +500,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
           "schoolAddress3": '',
           "schoolPincode": this.thirdFormGroup.get('schoolpincode').value != undefined ? this.thirdFormGroup.get('schoolpincode').value : '',
           "schoolCity": this.thirdFormGroup.get('schoolcity').value != undefined ? this.thirdFormGroup.get('schoolcity').value : '',
-          "schoolState": this.thirdFormGroup.get('schoolstate').value != undefined ? this.thirdFormGroup.get('schoolstate').value : '',
+          "schoolState": this.thirdFormGroup.get('schoolstate').value != undefined ? _tempSchoolStateSelected[0]['stateName'] : '',
           "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
           "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
           "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
