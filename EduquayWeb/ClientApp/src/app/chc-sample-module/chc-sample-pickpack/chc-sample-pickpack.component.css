@@ -1,0 +1,44 @@
+.layout-px-spacing {
+    min-height: calc(100vh - 166px) !important;
+}
+
+h5.float-left {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 25px;
+    text-align: left;
+}
+
+.modaltitle {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 20px;
+    /* text-align: center; */
+}
+
+.manto {
+    color: red;
+    font-weight: 600;
+}
+
+.note {
+    font-size: 15px;
+    font-weight: 600;
+    color: #575858;
+}
+
+.vis {
+    display: none;
+}
+
+div.dataTables_wrapper div.dataTables_filter svg {
+    top: 30px !important;
+}
+
+table.dataTable td, table.dataTable th {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 4px 11px;
+}

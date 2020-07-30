@@ -48,6 +48,7 @@ import { ChcUnsentSamplesComponent } from './chc-module/chc-notification/chc-uns
 import { ChcTimeoutSamplesComponent } from './chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component';
 import { ChcNotificationComponent } from './chc-module/chc-notification/chc-notification/chc-notification.component';
 import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component';
+import { ChcSamplePickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component';
 //import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
 
 
@@ -78,7 +79,8 @@ const ngWizardConfig: NgWizardConfig = {
     ChcNotificationComponent,
     ChcPositiveSubjectComponent,
     SelectDropdownComponent,
-    TextSearchPipe
+    TextSearchPipe,
+    ChcSamplePickpackComponent
     //ChcSampleCollectionComponent
   ],
   imports: [

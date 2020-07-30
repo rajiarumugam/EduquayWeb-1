@@ -1,10 +1,10 @@
 <div class="tab-pane fade show active" id="positivesub" role="tabpanel" aria-labelledby="positivesub-tab">
     <div class="form-row">
         <div class="col-md-12">
-            <div *ngIf="chcpositiveSamplesErrorMessage" class="alert mt-3 mb-2"
-                [ngClass]="{'alert-warning': chcpositiveSamplesErrorMessage ==='No positive subjects data found', 'alert-danger': chcpositiveSamplesErrorMessage !== 'No positive subjects data found'}">
+            <div *ngIf="chcpositiveSubjectErrorMessage" class="alert mt-3 mb-2"
+                [ngClass]="{'alert-warning': chcpositiveSubjectErrorMessage ==='No positive subjects data found', 'alert-danger': chcpositiveSubjectErrorMessage !== 'No positive subjects data found'}">
                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
-                {{chcpositiveSamplesErrorMessage}}
+                {{chcpositiveSubjectErrorMessage}}
             </div>
         </div>
     </div>
