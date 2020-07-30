@@ -188,9 +188,10 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pathologist'}" id="pathologist" data-parent="#accordionExample"
                 style="">
-                <li>
-                    <a href="pathosubject.html"> Diagnosis - HPLC </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/pathologist-hplc']"> Diagnosis - HPLC </a>
                 </li>
+               
                 <li>
                     <a href="pathoreport.html"> Report - Diagnosis </a>
                 </li>

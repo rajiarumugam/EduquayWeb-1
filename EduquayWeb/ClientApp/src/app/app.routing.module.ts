@@ -101,6 +101,10 @@ import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecu
 import { CheSpouseComponent } from "./shared/chc-module/che-spouse/che-spouse.component";
 import { AnmSpouseComponent } from "./shared/anm-module/registration/anm-spouse/anm-spouse.component";
 
+import { DiagosisHPLCmainComponent } from "./pathologist/diagnosis/diagnosis-hplc-main/diagnosis-hplc-main.component";
+import { DiagnosisHPLCAbnormaComponent } from "./pathologist/diagnosis/diagnosis-hplc-abnormal/diagnosis-hplc-abnormal.component";
+import { DiagosisReportComponent } from "./pathologist/diagnosis/diagnosis-report/diagnosis-report.component";
+import { DiagosisReportmainComponent } from "./pathologist/diagnosis/diagnosis-report-main/diagnosis-report-main.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -185,6 +189,19 @@ const routes: Routes = [
         children:[
           {path: '', component: CentralReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}},
           {path: 'upload', component: CentralHPLCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
+        ]
+      },
+      {
+        path: 'pathologist-hplc', component: DiagosisHPLCmainComponent,
+        children:[
+          {path: '', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}},
+          {path: 'report', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
+        ]
+      },
+      {
+        path: 'pathologist-hplc-report', component: DiagosisReportmainComponent,
+        children:[
+          {path: '', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
       },
       {
@@ -300,5 +317,9 @@ export const RoutingComponents = [
   MolecularSampleRcptMainComponent,
   MolecularSampleRcptComponent,
   CheSpouseComponent,
-  AnmSpouseComponent
+  AnmSpouseComponent,
+  DiagosisHPLCmainComponent,
+  DiagnosisHPLCAbnormaComponent,
+  DiagosisReportComponent,
+  DiagosisReportmainComponent
 ];
