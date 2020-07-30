@@ -152,7 +152,8 @@
                                                         <!-- <input type="Text" class="form-control flatpickr flatpickr-input active"
                                                         [(ngModel)]="chcbasicInfo.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
                                                     id="dobnewdate" placeholder="select Date..." required> -->
-                                                    <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" ></ng2-flatpickr>
+                                                    <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
+                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob" ></ng2-flatpickr>
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
@@ -320,31 +321,31 @@
                                                             placeholder="Contact Number" required>
                                                     </div>
                                                 </div>
-                                                <div class="form-row my-2">
+                                                <div class="form-row my-2" *ngIf="chcbasicInfo.subjectTypeId === 1">
                                                     <div class="form-group col-md-2">
                                                         <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">{{'G' | translate }}</label><span class="manto"> *</span>
-                                                        <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }" (change)="gonChange();">
+                                                        <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">
                                                             <option value="null">Select</option>
                                                             <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label class="birthreg" for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">{{'P' | translate }}</label><span class="manto"> *</span>
-                                                        <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
+                                                        <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" >
                                                             <option value="null">Select</option>
                                                             <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedg != null ? +selectedg+1 : null; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"> *</span>
-                                                        <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }" [attr.disabled]="Ldisabled ? Ldisabled : null">
+                                                        <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }" >
                                                             <option value="null">Select</option>
                                                             <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedp != null ? +selectedp+1 : null; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label class="birthreg" for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">{{'A' | translate }}</label><span class="manto"> *</span>
-                                                        <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }" [attr.disabled]="Adisabled ? Adisabled : null">
+                                                        <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">
                                                             <option value="null">Select</option>
                                                             <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
                                                         </select>
@@ -360,289 +361,7 @@
                                     </mat-horizontal-stepper>
                                             
                                           
-                                <!-- <div id="circle-basic" class="">
-                                    <h3>Section-1</h3>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody class="">
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="float-left mt-0 mr-4">
-                                                                        <h5><b>Subject ID :</b> {{basicInfo.uniqueSubjectId}}
-                                                                            <strong class="ml-5">Subject
-                                                                                Name :</strong> {{basicInfo.firstName}} {{basicInfo.lastName}}, {{basicInfo.gender | slice:0:1}}, {{basicInfo.age}} yrs
-                                                                            <strong class="ml-5">RCH ID : </strong>
-                                                                            {{personalInfo.rchId}}
-                                                                        </h5>
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
 
-                                        </div>
-                                        <div class="form-row my-2">
-
-                                            <div class="form-group col-md-4">
-                                                <label for="inputFirstname">First
-                                                    Name</label>
-                                                <input type="Text" class="form-control" [(ngModel)]="basicInfo.firstName" name="FirstName"
-                                                    placeholder="Alkha" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputMiddlename">Middle
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputMiddlename"
-                                                    placeholder="Middle Name">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputLastname">Last
-                                                    Name</label>
-                                                <input type="Text" class="form-control" [(ngModel)]="basicInfo.lastName" name="LastName"
-                                                    placeholder="Sakthi">
-                                            </div>
-                                        </div>
-                                        <div class="form-row mt-4">
-                                            <div class="form-group col-md-4">
-                                                <label for="inputdob">Date of Birth</label>
-                                                <input type="Text" class="form-control flatpickr flatpickr-input active"
-                                                    id="dobnewdate" placeholder="DD/MM/YYYY" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputAge">Age</label>
-                                                <input type="Text" class="form-control" id="inputAge"
-                                                    placeholder="28 yrs" required>
-                                            </div>
-
-                                            
-                                            <div class="form-group col-md-4">
-                                                <label for="inputReligion">Religion</label>
-                                                <select id="inputReligion" class="form-control">
-                                                    <option selected>Hindu</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputCaste">Caste</label>
-                                                <select id="inputCaste" class="form-control">
-                                                    <option selected>Caste</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputCommunity">Community</label>
-                                                <select id="inputCommunity" class="form-control">
-                                                    <option selected>BC</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <h3>Section-2</h3>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody class="">
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="float-left mt-0 mr-4">
-                                                                        <h5><b>Subject ID :</b> {{basicInfo.uniqueSubjectId}}
-                                                                            <strong class="ml-5">Subject
-                                                                                Name :</strong> {{basicInfo.firstName}} {{basicInfo.lastName}}, {{basicInfo.gender | slice:0:1}}, {{basicInfo.age}} yrs
-                                                                            <strong class="ml-5">RCH ID : </strong>
-                                                                            {{personalInfo.rchId}}
-                                                                        </h5>
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-row my-2">
-                                            <div class="form-group col-md-3">
-                                                <label for="inputHouseno">House / Plot
-                                                    Number</label><span class="manto"></span>
-                                                <input type="text" class="form-control" id="inputHouseno"
-                                                    placeholder="House Number" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputStreet">Street &
-                                                    Locality</label>
-                                                <input type="text" class="form-control" id="inputStreet"
-                                                    placeholder="Street" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputCity">City /
-                                                    Village</label><span class="manto"></span>
-                                                <input type="text" class="form-control" id="inputCity"
-                                                    placeholder="City" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputState">State</label>
-                                                <input type="text" class="form-control" id="inputState"
-                                                    placeholder="Odisha">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputPincode">Pincode</label>
-                                                <input type="number" class="form-control" id="inputPincode"
-                                                    placeholder="Pincode" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputContact">Contact</label>
-                                                <input type="number" class="form-control" id="inputContact"
-                                                    placeholder="8347464644" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputEmail">Email</label>
-                                                <input type="email" class="form-control" id="inputEmail"
-                                                    placeholder="Email" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputGovtId">Govt ID Type</label>
-                                                <select id="inputGovtId" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>Driving License</option>
-                                                    <option>Voter ID</option>
-                                                    <option>PAN card</option>
-                                                    <option>Ration Card</option>
-                                                    <option>Passport</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputGovtdetail">Govt ID Detail</label>
-                                                <input type="text" class="form-control" id="inputGovtdetail"
-                                                    placeholder="Enter Detail" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputrchid">RCH ID</label>
-                                                <input type="text" class="form-control" id="inputrchid"
-                                                    placeholder="RCH ID" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputecno">EC Number</label>
-                                                <input type="number" class="form-control" id="inputecno"
-                                                    placeholder="EC Number" required>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-row my-2">
-
-                                            <div class="form-group col-md-3">
-                                                <label for="inputSpouseFirstname">Spouse First
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputSpouseFirstname"
-                                                    placeholder="Sakthi" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputSpouseMiddlename">Middle
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputSpouseMiddlename"
-                                                    placeholder="Middle Name">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputSpouseLastname">Last
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputSpouseLastname"
-                                                    placeholder="Suresh">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputspusemoblieno">Spouse Contact</label>
-                                                <input type="number" class="form-control" id="inputspusemoblieno"
-                                                    placeholder="8347464644" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-row my-2">
-                                            <div class="form-group col-md-3">
-                                                <label for="inputG">G</label>
-                                                <select id="inputG" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputP">P</label>
-                                                <select id="inputP" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputL">L</label>
-                                                <select id="inputL" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputA">A</label>
-                                                <select id="inputA" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </section>
-                                </div>
-                                
-                            </div> -->
                             </div>
                             <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/profileanm-flatpickr.js'"></i> -->
                             <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
@@ -826,16 +545,16 @@
                                                 <tr>
                                                     <td class="sp-xs-td-9"><b>EC Number</b></td>
                                                     <td class="sp-xs-td-15">{{chcpersonalInfo.ecNumber}}</td>
-                                                    <td class="sp-xs-td-9"><b>RCH ID</b></td>
-                                                    <td class="sp-xs-td-15">{{chcpersonalInfo.rchId}}</td>
-                                                    <td class="sp-xs-td-9"><b>LMP Date</b></td>
-                                                    <td class="sp-xs-td-15">{{chcpersonalInfo.lmpDate}}</td>
+                                                    <td class="sp-xs-td-9" *ngIf="chcbasicInfo.subjectTypeId === 1"><b>RCH ID</b></td>
+                                                    <td class="sp-xs-td-15" *ngIf="chcbasicInfo.subjectTypeId === 1">{{chcpersonalInfo.rchId}}</td>
+                                                    <td class="sp-xs-td-9" *ngIf="chcbasicInfo.subjectTypeId === 1"><b>LMP Date</b></td>
+                                                    <td class="sp-xs-td-15" *ngIf="chcbasicInfo.subjectTypeId === 1">{{chcpersonalInfo.lmpDate}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Gestational Age</b> </td>
-                                                    <td>{{chcpersonalInfo.gestationalperiod}}</td>
-                                                    <td><b>Obstetrics Score</b></td>
-                                                    <td>G{{chcpersonalInfo.g}}-P{{chcpersonalInfo.p}}-L{{chcpersonalInfo.l}}-A{{chcpersonalInfo.a}}
+                                                    <td *ngIf="chcbasicInfo.subjectTypeId === 1"><b>Gestational Age</b> </td>
+                                                    <td *ngIf="chcbasicInfo.subjectTypeId === 1">{{chcpersonalInfo.gestationalperiod}}</td>
+                                                    <td *ngIf="chcbasicInfo.subjectTypeId === 1"><b>Obstetrics Score</b></td>
+                                                    <td *ngIf="chcbasicInfo.subjectTypeId === 1">G{{chcpersonalInfo.g}}-P{{chcpersonalInfo.p}}-L{{chcpersonalInfo.l}}-A{{chcpersonalInfo.a}}
                                                     </td>
                                                     <td><b>Barcodes</b></td>
                                                     <!-- <td><b>3423422</b>|3423434|3423442</td> -->
