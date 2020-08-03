@@ -277,7 +277,7 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcbasicInfo.govIdDetail" formControlName="govIdDetail"
-                                                        placeholder="Enter Detail" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
@@ -287,7 +287,7 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="inputecno">EC Number</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcpersonalInfo.ecNumber" formControlName="ecNumber"
-                                                        placeholder="EC Number" required>
+                                                        placeholder="EC Number">
                                                     </div>
         
                                                 </div>

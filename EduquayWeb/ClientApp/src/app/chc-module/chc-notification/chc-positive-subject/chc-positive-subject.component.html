@@ -1,3 +1,5 @@
+<che-spouse #chespouse></che-spouse>
+
 <div class="tab-pane fade show active" id="positivesub" role="tabpanel" aria-labelledby="positivesub-tab">
     <div class="form-row">
         <div class="col-md-12">
@@ -24,15 +26,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let positiveSub of chcpositiveSubjectsList; index as i">
+                <tr *ngFor="let person of chcpositiveSubjectsList; index as i">
                     <td class="text-center">{{i +1}}</td>
-                    <td class="text-left">{{positiveSub.subjectName}}</td>
-                    <td class="text-center">{{positiveSub.uniqueSubjectId}}</td>
-                    <td class="text-left">{{positiveSub.rchId}}</td>
-                    <td class="text-center">{{positiveSub.contactNo}}</td>
-                    <td class="text-left">{{positiveSub.hplcResult}}</td>
-                    <td class="text-center">{{positiveSub.gestationalAge}}</td>
-                    <td class="text-center"><a *ngIf="positiveSub.registerSpouse === 1" (click)="openpositiveSubjects(positiveSubjectsDetail, positiveSub)"><i
+                    <td class="text-left">{{person.subjectName}}</td>
+                    <td class="text-center">{{person.uniqueSubjectId}}</td>
+                    <td class="text-left">{{person.rchId}}</td>
+                    <td class="text-center">{{person.contactNo}}</td>
+                    <td class="text-left">{{person.hplcResult}}</td>
+                    <td class="text-center">{{person.gestationalAge}}</td>
+                    <!-- <td class="text-center"><a *ngIf="positiveSub.registerSpouse === 1" (click)="openpositiveSubjects(positiveSubjectsDetail, positiveSub)"><i
+                        class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
+                    </td> -->
+                    <td class="text-center"><a (click)="chespouse.initSpousereg(person)"><i
                         class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
                     </td>
                 </tr>
@@ -44,7 +49,7 @@
     </div>
 </div>
 <!-- The Modal -->
-<ng-template #positiveSubjectsDetail let-modal>
+<!-- <ng-template #positiveSubjectsDetail let-modal>
     <div class="modal-header">
         <h4 class="modal-title modaltitle">Spouse Registration</h4>
         <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
@@ -84,8 +89,7 @@
                         <div class="form-row my-2">
                             <div class="form-group col-md-3">
                                 <label class="birthreg" for="dateOfRegistration" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }">{{'DateOfReg' | translate }}</label><span class="manto"> *</span>
-                                <!--<input id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" type="text"
-                                    placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }"> -->
+                               
                                     <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }" [(ngModel)]="selecteddor"></ng2-flatpickr>
                             </div>
                             <div class="form-group col-md-3">
@@ -103,34 +107,10 @@
                                     <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
                                 </select>
                             </div>
-                            <!-- <div class="form-group col-md-2">
-                                <label class="birthreg" for="inputPHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">{{'PHC' | translate }}</label><span class="manto"> *</span>
-                                <select id="inputPHC" class="form-control" required [(ngModel)]="selectedphc" formControlName = "phc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.phc.invalid }">
-                                    <option [ngValue]="null">Select PHC</option>
-                                    <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.phcName}}</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label class="birthreg" for="inputSC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">{{'SC' | translate }}</label><span class="manto"> *</span>
-                                <select id="inputSC" class="form-control" required [(ngModel)]="selectedsc" formControlName = "sc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">
-                                    <option [ngValue]="null">Select SC</option>
-                                    <option [value]="sc.id" *ngFor="let sc of SCdata">{{sc.scName}}</option>
-                                </select>
-                            </div> -->
                            
                         </div>
     
-                        <!--<div class="form-row my-2">
-                            
-                            <div class="form-group col-md-3">
-                                <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">Pincode</label><span class="manto"> *</span>
-                                <input type="text" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">Contact Number</label><span class="manto"> *</span>
-                                <input type="text" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">
-                            </div>
-                        </div>-->
+                       
     
                         <div class="form-row my-2">
                             <div class="form-group col-md-2">
@@ -153,8 +133,7 @@
                         <div class="form-row my-2">
                             <div class="form-group col-md-2">
                                 <label class="birthreg" for="inputdob">{{'DateOfBirth' | translate }}</label>
-                                <!--<input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text"
-                                    placeholder="Select Date.." [(ngModel)]="selecteddob" formControlName = "dob" >-->
+                               
                                     <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
                                 </div>
                             <div class="form-group col-md-3">
@@ -287,7 +266,7 @@
             </mat-step>
         </mat-horizontal-stepper>
     </div>
-</ng-template>  
+</ng-template>-->
 
       
 

@@ -4,8 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { user, authResponse } from 'src/app/shared/auth-response';
 import { AuthService } from 'src/app/shared/auth.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { GenericService } from 'src/app/shared/generic.service';
+import { ENDPOINT } from '../../app.constant';
+import { HttpClientService } from 'src/app/shared/http-client.service';
 
 @Component({
   selector: 'app-site-header',
@@ -28,6 +30,7 @@ export class SiteHeaderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private httpClient: HttpClient, 
+    private httpClientService:HttpClientService,
     private genericService: GenericService,
     public translate: TranslateService) {
     //https://www.positronx.io/angular-internationalization-i18n-with-ngx-translate-tutorial/
@@ -49,22 +52,40 @@ export class SiteHeaderComponent implements OnInit {
     
   }
 
-  logout() {
-    this.tokenService.deleteToken('currentUser');
-    this.router.navigate(['/login']);
+  // logout() {
+
+  //   this.tokenService.deleteToken('currentUser');
+  //   this.router.navigate(['/login']);
   
-  }
+  // }
  
-  // logout(userId){
+  // pologout(userId){
   //   var user = JSON.parse(this.tokenService.getUser('lu'));
   //   this.userId = user.id;
   //   const logoutApi: string = 'api/v1/User/Logout';
-  //   const headers = new HttpHeaders()
-  //   .set('x-auth-token', sessionStorage.getItem('xAuthToken'));
   //   let logoutUrl = this.genericService.buildApiUrl(`${logoutApi}/${userId}`);
-  //   return this.httpClient.post(logoutUrl,  '' ,{headers: headers, responseType: 'text'});
+  //   return this.httpClient.post(logoutUrl,this.tokenService.deleteToken('currentUser')
+  //     );
+  //     this.router.navigate(['/login'])
 
   // }
+  logout(userId)
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    var _userLogoutObj = {
+      "userId":this.user.id,     
+    }
+    const logoutApi: string = 'api/v1/User/Logout';
+    var apiUrl = this.genericService.buildApiUrl(`${logoutApi}/${user.id}`);
+        this.httpClientService.post<any>({url:apiUrl, body: _userLogoutObj }).subscribe(response => {
+          console.log(response);
+          this.tokenService.deleteToken('currentUser');
+          this.router.navigate(['/login']);
+        },
+        (err: HttpErrorResponse) =>{
+          console.log(err);
+        });
+  }
 
   switchLang(lang: string) {
     this.translate.use(lang);

@@ -172,8 +172,10 @@ export class CheSpouseComponent implements OnInit {
   {
       console.log(data);
       this.selectedanwname = data.firstName;
+      //this.selectedanwname = 'pooja';
       this.selectedsubjectId= data.uniqueSubjectId;
       this.selectedrchId = data.rchId;
+      //this.selectedMobile='9875412568';
       this.selectedMobile=data.contactNo;
       this.selectedgender = 'Male';
       this.selectedfirstname = data.spouseFirstName;
