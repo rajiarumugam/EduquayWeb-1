@@ -106,7 +106,9 @@
     "HbS":"HbS",
     "CHC_Shipment_Date_Time":"CHC Shipment Date & Time",
     "DistrictName":"District Name",
-    "PT_Sample_Collection_Date_Time":"PT Sample Collection Date & Time"
+    "PT_Sample_Collection_Date_Time":"PT Sample Collection Date & Time",
+    "DateofTest":"Date of Test",
+    "UpdateDiagnosis":"Update Diagnosis"
 
 
 }
