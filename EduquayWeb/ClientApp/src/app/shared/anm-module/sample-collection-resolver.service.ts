@@ -15,8 +15,8 @@ import * as moment from 'moment';
 export class SampleCollectionResolverService implements Resolve<any>{
   sampleCollectionResponse;
   scRequest: SampleCollectionRequest;
-  scFromDate: string = moment().add(-1, 'day').format('DD/MM/yyyy');
-  scToDate: string = moment().format('DD/MM/yyyy');
+  scFromDate: string;
+  scToDate: string;
   selectedSubjectType: string = '0';
   sub: any;
   subjectTypeParam: string = '';
@@ -39,8 +39,10 @@ export class SampleCollectionResolverService implements Resolve<any>{
     // });
 
     this.scRequest = {
-      userId: user.id, fromDate: this.scFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
-      toDate: this.scToDate, subjectType: +(this.selectedSubjectType),
+      userId: user.id, 
+      fromDate:  '',
+      toDate: '',
+      subjectType: +(this.selectedSubjectType),
       registeredFrom: user.registeredFrom
     };
 

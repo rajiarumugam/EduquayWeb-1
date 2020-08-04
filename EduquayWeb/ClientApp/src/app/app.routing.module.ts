@@ -320,6 +320,7 @@ export const RoutingComponents = [
   MolecularSampleRcptComponent,
   ChcSamplePickpackComponent,
   CheSpouseComponent,
+  AnmSpouseComponent, 
   AnmSpouseComponent,
   DiagosisHPLCmainComponent,
   DiagnosisHPLCAbnormaComponent,

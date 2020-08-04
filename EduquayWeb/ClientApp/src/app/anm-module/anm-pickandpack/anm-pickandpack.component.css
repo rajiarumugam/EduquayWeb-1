@@ -60,3 +60,12 @@ text-transform: initial;
 .leftspace {
     left: -5px !important;
 }
+
+.red {
+    color: red; 
+   
+}
+
+.tbledatacolor{
+    color: #2d2e31;
+}
