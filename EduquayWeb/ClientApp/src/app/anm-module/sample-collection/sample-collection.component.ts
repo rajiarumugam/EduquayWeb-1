@@ -122,6 +122,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    
     this.InitializeDateRange();    
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -204,7 +205,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.scRequest = {
       userId: this.user.id,
       fromDate: this.scFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
-      toDate: this.scToDate, // != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+      toDate: this.scToDate, // != '' ? moment(new Date(this.scToDate)).format("DD/MM/YYYY") : '',
       subjectType: +(this.selectedSubjectType),
       registeredFrom: this.user.registeredFrom
     };
@@ -338,12 +339,16 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   InitializeDateRange() {
     this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
     this.scToDate = moment().format("DD/MM/YYYY");
-
+    // this.dateform = this._formBuilder.group({
+    //   fromDate: [''],
+    //   toDate: ['']
+    // });
     this.dateform = this._formBuilder.group({
       fromDate: [moment().add(-1, 'day')],
       toDate: [moment()],
       selectedSubjectType: ['0']
     });
+    
     this.popupform = this._formBuilder.group({
       collectionDate: [new Date(moment().add(-1, 'day').format())],
     });

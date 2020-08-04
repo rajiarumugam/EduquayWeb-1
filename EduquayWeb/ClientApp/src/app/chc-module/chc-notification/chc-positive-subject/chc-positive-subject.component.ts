@@ -166,45 +166,42 @@ export class ChcPositiveSubjectComponent implements AfterViewInit, OnDestroy, On
       } 
     };
 
-    this.firstFormGroup = this._formBuilder.group({
-      anwname:['', Validators.required],
-      subjectId:['', Validators.required],
-      rchId: ['', Validators.required],
-      dor: ['', Validators.required],
-      district: ['', Validators.required],
-      chc: ['', Validators.required],
-      // phc: ['', Validators.required],
-      // sc: ['', Validators.required],
-      
-      contactNumber: [''],
-      gender: ['', Validators.required],
-      /*pincode: ['', Validators.required],
-      ,*/
-      subjectitle: ['Mr.'],
-      firstname: ['', Validators.required],
-      middlename: [''],
-      lastname: ['', Validators.required],
-      dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
-   });
+  //   this.firstFormGroup = this._formBuilder.group({
+  //     anwname:['', Validators.required],
+  //     subjectId:['', Validators.required],
+  //     rchId: ['', Validators.required],
+  //     dor: ['', Validators.required],
+  //     district: ['', Validators.required],
+  //     chc: ['', Validators.required],
+     
+  //     contactNumber: [''],
+  //     gender: ['', Validators.required],
+     
+  //     subjectitle: ['Mr.'],
+  //     firstname: ['', Validators.required],
+  //     middlename: [''],
+  //     lastname: ['', Validators.required],
+  //     dob: [''],
+  //     age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+  //  });
 
-    this.secondFormGroup = this._formBuilder.group({
-      ECNumber: [''],
-      govtIDType: [''],
-      GovtIDDetail: [''],
-      religion: ['', Validators.required],
-      caste: ['', Validators.required],
-      community: ['', Validators.required],
-      house: ['', Validators.required],
-      street: ['', Validators.required],
-      city : ['', Validators.required],
-      state: ['', Validators.required],
-      spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      spouseEmail: ['',Validators.email],
-      pincode:['', Validators.required],
-      ripoint: ['', Validators.required],
-      associatedanm: ['', Validators.required],
-    });
+  //   this.secondFormGroup = this._formBuilder.group({
+  //     ECNumber: [''],
+  //     govtIDType: [''],
+  //     GovtIDDetail: [''],
+  //     religion: ['', Validators.required],
+  //     caste: ['', Validators.required],
+  //     community: ['', Validators.required],
+  //     house: ['', Validators.required],
+  //     street: ['', Validators.required],
+  //     city : ['', Validators.required],
+  //     state: ['', Validators.required],
+  //     spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+  //     spouseEmail: ['',Validators.email],
+  //     pincode:['', Validators.required],
+  //     ripoint: ['', Validators.required],
+  //     associatedanm: ['', Validators.required],
+  //   });
 
     this.positiveSubjectInitResponse = this.route.snapshot.data.chcpositiveSubjectData;
     if (this.positiveSubjectInitResponse.status === 'false') {
@@ -252,342 +249,342 @@ export class ChcPositiveSubjectComponent implements AfterViewInit, OnDestroy, On
     
   }
 
-  openpositiveSubjects(positiveSubjectsDetail, positiveSub: chcpositiveSubject){
-    this.getDistrictData();
-    this.getCHC();
-    this.getRI();
-    this.getReligion();
-    this.getAssociatedAnm(this.user.chcId);
-    this.getCaste();
-    //this.getCommunity(0);
-    this.getGovernmentIDType();
+  // openpositiveSubjects(positiveSubjectsDetail, positiveSub: chcpositiveSubject){
+  //   this.getDistrictData();
+  //   this.getCHC();
+  //   this.getRI();
+  //   this.getReligion();
+  //   this.getAssociatedAnm(this.user.chcId);
+  //   this.getCaste();
+  //   //this.getCommunity(0);
+  //   this.getGovernmentIDType();
 
-    this.selecteddor = new Date(Date.now());
-    this.selectedanwname = positiveSub.subjectName;
-    this.selectedsubjectId = positiveSub.uniqueSubjectId;
-    this.selectedrchId = positiveSub.rchId;
-    this.selectedMobile = positiveSub.contactNo;
-    //this.selectedMobile = '9874587451';
-    this.selectedgender = 'Male';
-    this.selectedDistrict = positiveSub.districtId;
-    this.selectedchc = positiveSub.chcId;
-    // this.selectedphc = positiveSub.phcId;
-    // this.selectedsc = positiveSub.scId;
-    this.selectedripoint = positiveSub.riId;
-    //this.selectedripoint = 1;
-    this.selectedreligion = positiveSub.religionId;
-    this.selectedcaste = positiveSub.casteId;
-    this.getCommunity(this.selectedcaste);
-    this.selectedcommunity = positiveSub.communityId;
-    this.selectedfirstname = positiveSub.spouseFirstName;
-    this.selectedmiddlename = positiveSub.spouseMiddleName;
-    this.selectedlastname = positiveSub.spouseLastName;
-    this.selectedspouseContactNumber = positiveSub.spouseContactNo;
-    this.selectedhouse = positiveSub.address1;
-    this.selectedstreet = positiveSub.address2;
-    this.selectedcity = positiveSub.address3;
-    this.selectedstate = positiveSub.stateName;
-    this.selectedPincode = positiveSub.pincode;
-    this.selectedECNumber = positiveSub.ecNumber;
-    //this.selectedspouseEmail = data.ecNumber;
+  //   this.selecteddor = new Date(Date.now());
+  //   this.selectedanwname = positiveSub.subjectName;
+  //   this.selectedsubjectId = positiveSub.uniqueSubjectId;
+  //   this.selectedrchId = positiveSub.rchId;
+  //   this.selectedMobile = positiveSub.contactNo;
+  //   //this.selectedMobile = '9874587451';
+  //   this.selectedgender = 'Male';
+  //   this.selectedDistrict = positiveSub.districtId;
+  //   this.selectedchc = positiveSub.chcId;
+  //   // this.selectedphc = positiveSub.phcId;
+  //   // this.selectedsc = positiveSub.scId;
+  //   this.selectedripoint = positiveSub.riId;
+  //   //this.selectedripoint = 1;
+  //   this.selectedreligion = positiveSub.religionId;
+  //   this.selectedcaste = positiveSub.casteId;
+  //   this.getCommunity(this.selectedcaste);
+  //   this.selectedcommunity = positiveSub.communityId;
+  //   this.selectedfirstname = positiveSub.spouseFirstName;
+  //   this.selectedmiddlename = positiveSub.spouseMiddleName;
+  //   this.selectedlastname = positiveSub.spouseLastName;
+  //   this.selectedspouseContactNumber = positiveSub.spouseContactNo;
+  //   this.selectedhouse = positiveSub.address1;
+  //   this.selectedstreet = positiveSub.address2;
+  //   this.selectedcity = positiveSub.address3;
+  //   this.selectedstate = positiveSub.stateName;
+  //   this.selectedPincode = positiveSub.pincode;
+  //   this.selectedECNumber = positiveSub.ecNumber;
+  //   //this.selectedspouseEmail = data.ecNumber;
 
-    // this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.025)));
-    // this.DOBPicker.flatpickr.setDate("");
+  //   // this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.025)));
+  //   // this.DOBPicker.flatpickr.setDate("");
 
 
-    // $('#fadeinModal').modal('show');
-    this.modalService.open(
-      positiveSubjectsDetail, {
-      centered: true,
-      size: 'xl',
-      scrollable: true,
-      ariaLabelledBy: 'modal-basic-title'
-    });
-
-  }
-
-  getDistrictData(){
-    this.masterService.getuserBasedDistrict()
-    .subscribe(response => {
-      this.districts = response['district'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.districts = [];
-      this.errorMessage = err.toString();
-    });
-  }
-  getCHC(){
-    this.masterService.getuserBasedCHC()
-    .subscribe(response => {
-      this.CHCdata = response['chc'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.CHCdata = [];
-      this.errorMessage = err.toString();
-    });
-  }
-
-  getRI(){
-    this.masterService.getuserBasedRI()
-    .subscribe(response => {
-      this.RIdata = response['ri'];
-      if((this.selectedripoint === 0 || this.RIdata.findIndex(i => i.id === this.selectedripoint) == -1))
-      {
-          if(this.RIdata[0] != undefined)
-              setTimeout(() => {
-                this.selectedripoint = this.RIdata[0].id;
-              }, 1);  
-      }  
-    },
-    (err: HttpErrorResponse) =>{
-      this.RIdata = [];
-      this.errorMessage = err.toString();
-    });
-  }
-
-  getAssociatedAnm(chcId){
-    this.masterService.getAssociatedANM(chcId)
-    .subscribe(response => {
-      this.AssociatedAnm = response['associatedANMDetail'];
-      if(this.AssociatedAnm[0])
-          this.selectedassociatedanm = this.AssociatedAnm[0].associatedANMId;
-    },
-    (err: HttpErrorResponse) =>{
-      this.AssociatedAnm = [];
-      this.errorMessage = err.toString();
-    });
-  }
-  
-  getReligion(){
-    this.masterService.getReligion()
-    .subscribe(response => {
-      this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
-    },
-    (err: HttpErrorResponse) =>{
-      this.religionData = [];
-      this.errorMessage = err.toString();
-    });
-  }
-
-  getCaste(){
-    this.masterService.getCaste()
-    .subscribe(response => {
-      this.casteData = response['caste'];
-      if(this.casteData[0])
-          this.selectedcaste = this.casteData[0].id;
-    },
-    (err: HttpErrorResponse) =>{
-      this.casteData = [];
-      this.errorMessage = err.toString();
-    });
-  }
-
-  getCommunity(id){
-    if(id === 0)
-    {
-        this.masterService.getCommunity()
-        .subscribe(response => {
-          this.communityData = response['community'];
-          if(this.communityData[0])
-              this.selectedcommunity = this.communityData[0].id;
-        },
-        (err: HttpErrorResponse) =>{
-          this.communityData = [];
-          this.errorMessage = err.toString();
-        });
-    }
-    else{
-      this.masterService.getCommunityPerCaste(id)
-        .subscribe(response => {
-          this.communityData = response['community'];
-          if(this.communityData[0])
-              this.selectedcommunity = this.communityData[0].id;
-        },
-        (err: HttpErrorResponse) =>{
-          this.communityData = [];
-          this.errorMessage = err.toString();
-        });
-    }
-    
-  }
-
-  getGovernmentIDType(){
-    this.masterService.getGovernmentTypeId()
-    .subscribe(response => {
-      this.governmentIDData = response['govIdType'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.governmentIDData = [];
-      this.errorMessage = err.toString();
-    });
-  }
-
-   
-  calculateAge()
-  {
-     var today = new Date();
-     var birthDate = new Date(this.selecteddob);
-     var age = today.getFullYear() - birthDate.getFullYear();
-     var m = today.getMonth() - birthDate.getMonth();
-     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-         age--;
-     }
-     this.selectedage = age;
-     //return age;
-  }
-  casteChange()
-  {
-    this.getCommunity(this.selectedcaste);
-  }
+  //   // $('#fadeinModal').modal('show');
+  //   this.modalService.open(
+  //     positiveSubjectsDetail, {
+  //     centered: true,
+  //     size: 'xl',
+  //     scrollable: true,
+  //     ariaLabelledBy: 'modal-basic-title'
+  //   });
 
   // }
-  nextStep(stepper: MatStepper) {
-    this.firstFormCheck = true;
-      if(this.firstFormGroup.valid)
-       stepper.next();
-    }
 
-    // prevStep() {
-    //   this.stepper.previous();
-    //   }
+  // getDistrictData(){
+  //   this.masterService.getuserBasedDistrict()
+  //   .subscribe(response => {
+  //     this.districts = response['district'];
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.districts = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
+  // getCHC(){
+  //   this.masterService.getuserBasedCHC()
+  //   .subscribe(response => {
+  //     this.CHCdata = response['chc'];
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.CHCdata = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
 
-  prevStep(stepper: MatStepper) {
-    stepper.previous();
-  }
-  formSubmit()
-  {
-    this.secondFormCheck = true;
+  // getRI(){
+  //   this.masterService.getuserBasedRI()
+  //   .subscribe(response => {
+  //     this.RIdata = response['ri'];
+  //     if((this.selectedripoint === 0 || this.RIdata.findIndex(i => i.id === this.selectedripoint) == -1))
+  //     {
+  //         if(this.RIdata[0] != undefined)
+  //             setTimeout(() => {
+  //               this.selectedripoint = this.RIdata[0].id;
+  //             }, 1);  
+  //     }  
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.RIdata = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
+
+  // getAssociatedAnm(chcId){
+  //   this.masterService.getAssociatedANM(chcId)
+  //   .subscribe(response => {
+  //     this.AssociatedAnm = response['associatedANMDetail'];
+  //     if(this.AssociatedAnm[0])
+  //         this.selectedassociatedanm = this.AssociatedAnm[0].associatedANMId;
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.AssociatedAnm = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
   
-    if(this.secondFormGroup.valid && this.firstFormGroup.valid)
-    {
-      var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
-      this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
-        this.createdSubjectId = response.uniqueSubjectId;
-        this.getpositiveSubjectList();
+  // getReligion(){
+  //   this.masterService.getReligion()
+  //   .subscribe(response => {
+  //     this.religionData = response['religion'];
+  //     if(this.religionData[0])
+  //         this.selectedreligion = this.religionData[0].id;
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.religionData = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
 
-        Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-  showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
-     .then((result) => {
-       if (result.value) {
-        $('#fadeinModal').modal('hide');
-        this.router.navigateByUrl("app/chc-sample-collection");
+  // getCaste(){
+  //   this.masterService.getCaste()
+  //   .subscribe(response => {
+  //     this.casteData = response['caste'];
+  //     if(this.casteData[0])
+  //         this.selectedcaste = this.casteData[0].id;
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.casteData = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
+
+  // getCommunity(id){
+  //   if(id === 0)
+  //   {
+  //       this.masterService.getCommunity()
+  //       .subscribe(response => {
+  //         this.communityData = response['community'];
+  //         if(this.communityData[0])
+  //             this.selectedcommunity = this.communityData[0].id;
+  //       },
+  //       (err: HttpErrorResponse) =>{
+  //         this.communityData = [];
+  //         this.errorMessage = err.toString();
+  //       });
+  //   }
+  //   else{
+  //     this.masterService.getCommunityPerCaste(id)
+  //       .subscribe(response => {
+  //         this.communityData = response['community'];
+  //         if(this.communityData[0])
+  //             this.selectedcommunity = this.communityData[0].id;
+  //       },
+  //       (err: HttpErrorResponse) =>{
+  //         this.communityData = [];
+  //         this.errorMessage = err.toString();
+  //       });
+  //   }
+    
+  // }
+
+  // getGovernmentIDType(){
+  //   this.masterService.getGovernmentTypeId()
+  //   .subscribe(response => {
+  //     this.governmentIDData = response['govIdType'];
+  //   },
+  //   (err: HttpErrorResponse) =>{
+  //     this.governmentIDData = [];
+  //     this.errorMessage = err.toString();
+  //   });
+  // }
+
+   
+  // calculateAge()
+  // {
+  //    var today = new Date();
+  //    var birthDate = new Date(this.selecteddob);
+  //    var age = today.getFullYear() - birthDate.getFullYear();
+  //    var m = today.getMonth() - birthDate.getMonth();
+  //    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  //        age--;
+  //    }
+  //    this.selectedage = age;
+  //    //return age;
+  // }
+  // casteChange()
+  // {
+  //   this.getCommunity(this.selectedcaste);
+  // }
+
+  // // }
+  // nextStep(stepper: MatStepper) {
+  //   this.firstFormCheck = true;
+  //     if(this.firstFormGroup.valid)
+  //      stepper.next();
+  //   }
+
+  //   // prevStep() {
+  //   //   this.stepper.previous();
+  //   //   }
+
+  // prevStep(stepper: MatStepper) {
+  //   stepper.previous();
+  // }
+  // formSubmit()
+  // {
+  //   this.secondFormCheck = true;
+  
+  //   if(this.secondFormGroup.valid && this.firstFormGroup.valid)
+  //   {
+  //     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
+  //     this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
+  //       this.createdSubjectId = response.uniqueSubjectId;
+  //       this.getpositiveSubjectList();
+
+  //       Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+  // showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+  //    .then((result) => {
+  //      if (result.value) {
+  //       $('#fadeinModal').modal('hide');
+  //       this.router.navigateByUrl("app/chc-sample-collection");
        
-       }
-       else{
-        this.firstFormGroup.reset();
-        this.secondFormGroup.reset();
-        this.secondFormCheck = false;
-        this.firstFormCheck = false;
-        this.stepper.selectedIndex = 0;
-        $('#fadeinModal').modal('hide');
-       }
-     });
-        //$('#fadeinModal').modal('show');
+  //      }
+  //      else{
+  //       this.firstFormGroup.reset();
+  //       this.secondFormGroup.reset();
+  //       this.secondFormCheck = false;
+  //       this.firstFormCheck = false;
+  //       this.stepper.selectedIndex = 0;
+  //       $('#fadeinModal').modal('hide');
+  //      }
+  //    });
+  //       //$('#fadeinModal').modal('show');
         
-      },
-      (err: HttpErrorResponse) =>{
-        console.log(err);
-        this.chcpositiveSubjectErrorMessage = err.toString();
-      });
-    }
-  }
+  //     },
+  //     (err: HttpErrorResponse) =>{
+  //       console.log(err);
+  //       this.chcpositiveSubjectErrorMessage = err.toString();
+  //     });
+  //   }
+  // }
 
-  dataBindinginServce()
-  {
-    var _obj = {
-      "subjectPrimaryRequest": {
-        "subjectTypeId": 1,
-        "childSubjectTypeId": 1,
-        "uniqueSubjectId": "",
-        "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
-        "chcId": Number(this.firstFormGroup.get('chc').value),
-        // "phcId": Number(this.firstFormGroup.get('phc').value),
-        // "scId": Number(this.firstFormGroup.get('sc').value),
-        "riId": Number(this.secondFormGroup.get('ripoint').value),
-        "subjectTitle": this.firstFormGroup.get('subjectitle').value,
-        "firstName": this.firstFormGroup.get('firstname').value,
-        "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
-        "lastName": this.firstFormGroup.get('lastname').value,
-        "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
-        "age": Number(this.firstFormGroup.get('age').value),
-        "gender": "Male",
-        "maritalStatus": true,
-        "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
-        "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-        "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
-        "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
-        "spouseSubjectId": "",
-        "spouseFirstName": "",
-        "spouseMiddleName": "",
-        "spouseLastName": "",
-        "spouseContactNo": "",
-        "spouseGovIdTypeId": 0,
-        "spouseGovIdDetail": "",
-        "assignANMId": Number(this.secondFormGroup.get('associatedanm').value),
-        "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
-        "registeredFrom": Number(this.user.registeredFrom),
-        "createdBy": Number(this.user.id),
-        "source": "N"
-      },
-      "subjectAddressRequest": {
-        "religionId": Number(this.secondFormGroup.get('religion').value),
-        "casteId": Number(this.secondFormGroup.get('caste').value),
-        "communityId": Number(this.secondFormGroup.get('community').value),
-        "address1": this.secondFormGroup.get('house').value,
-        "address2": this.secondFormGroup.get('street').value,
-        "address3": this.secondFormGroup.get('city').value,
-        "pincode": ""+this.secondFormGroup.get('pincode').value,
-        "stateName": this.secondFormGroup.get('state').value,
-        "updatedBy": Number(this.user.id)
-      },
-      "subjectPregnancyRequest": {
-        "rchId": this.firstFormGroup.get('rchId').value,
-        "ecNumber": this.secondFormGroup.get('ECNumber').value,
-        "lmpDate": "",
-        "g": 0,
-        "p": 0,
-        "l": 0,
-        "a": 0,
-        "updatedBy": Number(this.user.id)
-      },
-      "subjectParentRequest": {
-        "motherFirstName": "",
-        "motherMiddleName": "",
-        "motherLastName": "",
-        "motherGovIdTypeId": 0,
-        "motherGovIdDetail": "",
-        "motherContactNo": "",
-        "fatherFirstName": "",
-        "fatherMiddleName": "",
-        "fatherLastName": "",
-        "fatherGovIdTypeId": 0,
-        "fatherGovIdDetail": "",
-        "fatherContactNo": "",
-        "gaurdianFirstName": "",
-        "gaurdianMiddleName": "",
-        "gaurdianLastName": "",
-        "gaurdianGovIdTypeId": 0,
-        "gaurdianGovIdDetail": "",
-        "gaurdianContactNo": "",
-        "rbskId": "",
-        "schoolName": "",
-        "schoolAddress1": "",
-        "schoolAddress2": "",
-        "schoolAddress3": "",
-        "schoolPincode": "",
-        "schoolCity": "",
-        "schoolState": "",
-        "standard": "",
-        "section": "",
-        "rollNo": "",
-        "updatedBy": Number(this.user.id)
-      }
-    };
+  // dataBindinginServce()
+  // {
+  //   var _obj = {
+  //     "subjectPrimaryRequest": {
+  //       "subjectTypeId": 1,
+  //       "childSubjectTypeId": 1,
+  //       "uniqueSubjectId": "",
+  //       "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
+  //       "chcId": Number(this.firstFormGroup.get('chc').value),
+  //       // "phcId": Number(this.firstFormGroup.get('phc').value),
+  //       // "scId": Number(this.firstFormGroup.get('sc').value),
+  //       "riId": Number(this.secondFormGroup.get('ripoint').value),
+  //       "subjectTitle": this.firstFormGroup.get('subjectitle').value,
+  //       "firstName": this.firstFormGroup.get('firstname').value,
+  //       "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
+  //       "lastName": this.firstFormGroup.get('lastname').value,
+  //       "dob": this.firstFormGroup.get('dob').value != undefined ? moment(new Date(this.firstFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
+  //       "age": Number(this.firstFormGroup.get('age').value),
+  //       "gender": "Male",
+  //       "maritalStatus": true,
+  //       "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
+  //       "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
+  //       "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+  //       "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
+  //       "spouseSubjectId": "",
+  //       "spouseFirstName": "",
+  //       "spouseMiddleName": "",
+  //       "spouseLastName": "",
+  //       "spouseContactNo": "",
+  //       "spouseGovIdTypeId": 0,
+  //       "spouseGovIdDetail": "",
+  //       "assignANMId": Number(this.secondFormGroup.get('associatedanm').value),
+  //       "dateOfRegister": moment(new Date(this.firstFormGroup.get('dor').value)).format("DD/MM/YYYY"),
+  //       "registeredFrom": Number(this.user.registeredFrom),
+  //       "createdBy": Number(this.user.id),
+  //       "source": "N"
+  //     },
+  //     "subjectAddressRequest": {
+  //       "religionId": Number(this.secondFormGroup.get('religion').value),
+  //       "casteId": Number(this.secondFormGroup.get('caste').value),
+  //       "communityId": Number(this.secondFormGroup.get('community').value),
+  //       "address1": this.secondFormGroup.get('house').value,
+  //       "address2": this.secondFormGroup.get('street').value,
+  //       "address3": this.secondFormGroup.get('city').value,
+  //       "pincode": ""+this.secondFormGroup.get('pincode').value,
+  //       "stateName": this.secondFormGroup.get('state').value,
+  //       "updatedBy": Number(this.user.id)
+  //     },
+  //     "subjectPregnancyRequest": {
+  //       "rchId": this.firstFormGroup.get('rchId').value,
+  //       "ecNumber": this.secondFormGroup.get('ECNumber').value,
+  //       "lmpDate": "",
+  //       "g": 0,
+  //       "p": 0,
+  //       "l": 0,
+  //       "a": 0,
+  //       "updatedBy": Number(this.user.id)
+  //     },
+  //     "subjectParentRequest": {
+  //       "motherFirstName": "",
+  //       "motherMiddleName": "",
+  //       "motherLastName": "",
+  //       "motherGovIdTypeId": 0,
+  //       "motherGovIdDetail": "",
+  //       "motherContactNo": "",
+  //       "fatherFirstName": "",
+  //       "fatherMiddleName": "",
+  //       "fatherLastName": "",
+  //       "fatherGovIdTypeId": 0,
+  //       "fatherGovIdDetail": "",
+  //       "fatherContactNo": "",
+  //       "gaurdianFirstName": "",
+  //       "gaurdianMiddleName": "",
+  //       "gaurdianLastName": "",
+  //       "gaurdianGovIdTypeId": 0,
+  //       "gaurdianGovIdDetail": "",
+  //       "gaurdianContactNo": "",
+  //       "rbskId": "",
+  //       "schoolName": "",
+  //       "schoolAddress1": "",
+  //       "schoolAddress2": "",
+  //       "schoolAddress3": "",
+  //       "schoolPincode": "",
+  //       "schoolCity": "",
+  //       "schoolState": "",
+  //       "standard": "",
+  //       "section": "",
+  //       "rollNo": "",
+  //       "updatedBy": Number(this.user.id)
+  //     }
+  //   };
 
-    return _obj;
-  }
+  //   return _obj;
+  // }
 
 
   rerender(): void {

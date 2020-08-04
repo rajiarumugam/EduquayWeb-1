@@ -403,7 +403,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   }
   getconfirmation() {
     this.picknpackErrorMessage = '';
-    this.expirysamplesBarcode();
+    this.barcodeNo;
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
       this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
       return false;
@@ -433,7 +433,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     
     this.pickpackmovetimeoutExpiryRequest = {
       anmId: this.user.userTypeId,
-      barcodeNo: this.selectedBarcodes,
+      barcodeNo: this.barcodeNo,
     }
 
     let expirysamples = this.PicknpackService.PnPMoveExpirySamples(this.pickpackmovetimeoutExpiryRequest)
@@ -493,7 +493,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     this.sampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging < "24") {
+      if (element.sampleSelected === true && +element.sampleAging < 24) {
         //   var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
         //   const regDate = new Date(element.sampleDateTime.replace(pattern,'$3/$2/$1 $4:$5'));
         // // var maximumDate=new Date(Math.max.apply(null, regDate)); 
@@ -559,7 +559,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     var isFirst = true;
     this.sampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging < "24") {
+      if (element.sampleSelected === true && +element.sampleAging < 24) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
           isFirst = false;
@@ -571,23 +571,23 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     });
   }
 
-  expirysamplesBarcode() {
-    this.selectedBarcodes = '';
-    var isFirst = true;
-    this.sampleList.forEach(element => {
-      console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging > "24") {
-        //if (element.sampleSelected) {
-        if (isFirst) {
-          this.selectedBarcodes += element.barcodeNo;
-          isFirst = false;
-        }
-        else {
-          this.selectedBarcodes += ',' + element.barcodeNo;
-        }
-      }
-    });
-  }
+  // expirysamplesBarcode() {
+  //   this.selectedBarcodes = '';
+  //   var isFirst = true;
+  //   this.sampleList.forEach(element => {
+  //     console.log('sampleSelected :' + element.sampleSelected);
+  //     if (element.sampleSelected === true && +element.sampleAging > 24) {
+  //       //if (element.sampleSelected) {
+  //       if (isFirst) {
+  //         this.selectedBarcodes += element.barcodeNo;
+  //         isFirst = false;
+  //       }
+  //       else {
+  //         this.selectedBarcodes += ',' + element.barcodeNo;
+  //       }
+  //     }
+  //   });
+  // }
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
