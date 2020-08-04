@@ -451,7 +451,7 @@ export class CheSpouseComponent implements OnInit {
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
           "chcId": Number(this.selectedAssociatedANM.testingCHCId),
-          "phcId": 0,
+          "phcId": Number(this.selectedAssociatedANM.phcId),
           "scId": Number(this.selectedAssociatedANM.scId),
           "riId": Number(this.selectedAssociatedANM.riId),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,

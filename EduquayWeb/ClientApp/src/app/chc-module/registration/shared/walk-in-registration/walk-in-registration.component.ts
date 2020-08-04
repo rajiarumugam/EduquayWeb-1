@@ -496,7 +496,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "uniqueSubjectId": "",
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
           "chcId": Number(this.associatedANMData[this.selectedAssociatedANMID].testingCHCId),
-          "phcId": 0,
+          "phcId": Number(this.associatedANMData[this.selectedAssociatedANMID].phcId),
           "scId": Number(this.associatedANMData[this.selectedAssociatedANMID].scId),
           "riId": Number(this.associatedANMData[this.selectedAssociatedANMID].riId),
           "subjectTitle": this.firstFormGroup.get('subjectitle').value,
