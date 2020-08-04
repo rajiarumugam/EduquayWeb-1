@@ -156,7 +156,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
-      state: ['', Validators.required],
+      state: [''],
       subjectTitle : ['Mr.'],
       spouseFirstName: ['', Validators.required],
       spouseMiddleName: [''],
@@ -203,6 +203,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     .subscribe(response => {
       this.CHCdata = response['chc'];
       this.selectedchc = this.user.chcId;
+      console.log(this.selectedchc);
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -238,9 +239,9 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
-      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+      /*this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
       if(this.selectedripoint === "" && this.RIdata[0])
-        this.selectedripoint = this.RIdata[0].id;
+        this.selectedripoint = this.RIdata[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -253,8 +254,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
+      /*if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -388,11 +389,11 @@ export class AnmAwRegistrationComponent implements OnInit {
           this.selectedphc = this.user.phcId;
           this.selectedsc = this.user.scId;
           this.communityData = [];
-          this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+          /*this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
           if(this.selectedripoint === "" && this.RIdata[0])
-            this.selectedripoint = this.RIdata[0].id;
-          if(this.religionData[0])
-            this.selectedreligion = this.religionData[0].id;
+            this.selectedripoint = this.RIdata[0].id;*/
+          /*if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;*/
           if(this.casteData[0])
             this.selectedcaste = this.casteData[0].id;
           if(this.communityData[0])
