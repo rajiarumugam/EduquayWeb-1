@@ -149,7 +149,7 @@ export class CheSpouseComponent implements OnInit {
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
-      state: ['', Validators.required],
+      state: [''],
       spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       spouseEmail: [''],
       pincode:['', Validators.required],

@@ -140,7 +140,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
-      state: ['', Validators.required],
+      state: [''],
       pincode: ['', Validators.required],
       motherFirstName: ['', Validators.required],
       motherMiddleName: [''],

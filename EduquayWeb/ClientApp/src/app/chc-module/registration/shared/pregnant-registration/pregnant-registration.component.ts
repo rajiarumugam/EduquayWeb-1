@@ -201,7 +201,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
-      state: ['', Validators.required],
+      state: [''],
       subjectTitle : ['Mr.'],
       spouseFirstName: ['', Validators.required],
       spouseMiddleName: [''],
