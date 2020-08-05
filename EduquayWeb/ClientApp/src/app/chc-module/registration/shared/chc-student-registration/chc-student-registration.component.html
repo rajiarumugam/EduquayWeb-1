@@ -190,7 +190,7 @@
                         <label class="birthreg" for="inputmoblienomother" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherContactNumber.invalid }">{{'ContactNumber' | translate }}<span
                             class="manto"> *</span></label>
                         <input type="text" class="form-control" id="inputmoblienomother" placeholder="Mobile No"
-                            required [(ngModel)]="selectedmotherContactNumber" formControlName = "motherContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherContactNumber.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            required [(ngModel)]="selectedmotherContactNumber" formControlName = "motherContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherContactNumber.invalid }" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "10" numbersOnly>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienofather">{{'ContactNumber' | translate }}</label>
-                        <input type="text" class="form-control" id="inputmoblienofather" placeholder="Mobile No" [(ngModel)]="selectedfatherContactNumber" formControlName = "fatherContactNumber" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        <input type="text" class="form-control" id="inputmoblienofather" placeholder="Mobile No" [(ngModel)]="selectedfatherContactNumber" formControlName = "fatherContactNumber" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                         maxlength = "10" numbersOnly>
                     </div>
                 </div>
@@ -254,7 +254,7 @@
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienoguardian">{{'ContactNumber' | translate }}</label>
                         <input type="text" class="form-control" id="inputmoblienoguardian" placeholder="Mobile No"
-                             [(ngModel)]="selectedguardianContactNumber" formControlName = "guardianContactNumber" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                             [(ngModel)]="selectedguardianContactNumber" formControlName = "guardianContactNumber" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                              maxlength = "10" numbersOnly>
                     </div>
                 </div>
