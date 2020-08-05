@@ -77,7 +77,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
 
   createdSubjectId;
   user;
-
+  statelist = [];
   selectedfirstname;
   selectedmiddlename;
   selectedlastname;
@@ -140,7 +140,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       street: ['', Validators.required],
       city : ['', Validators.required],
       state: [''],
-      pincode: ['', Validators.required],
+      pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       motherFirstName: ['', Validators.required],
       motherMiddleName: [''],
       motherLastName: ['', Validators.required],
@@ -167,7 +167,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       schoolstreet: [''],
       schoolcity : [''],
       schoolstate: [''],
-      schoolpincode: [''],
+      schoolpincode: ['',[Validators.min(100000), Validators.max(999999)]],
       rbskid: [''],
       schoolstandard: [''],
       schoolsection: [''],
@@ -180,6 +180,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
+    this.getState();
     //this.getCommunity(0);
     this.getGovernmentIDType();
   }
@@ -245,8 +246,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
+      /*if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -258,8 +259,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
-      if(this.casteData[0])
-          this.selectedcaste = this.casteData[0].id;
+     /* if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -273,8 +274,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-              this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -285,8 +286,8 @@ export class AnmStudentRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-              this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -295,7 +296,22 @@ export class AnmStudentRegistrationComponent implements OnInit {
     }
     
   }
-
+  getState()
+  {
+    this.masterService.getState()
+    .subscribe(response => {
+      console.log(response);
+      this.statelist = response['states'];
+      this.statelist.forEach(function(val,index){
+        val.display = val.stateName;
+      });
+      
+    },
+    (err: HttpErrorResponse) =>{
+      this.casteData = [];
+      this.erroMessage = err.toString();
+    });
+  }
   getGovernmentIDType(){
     this.masterService.getGovernmentTypeId()
     .subscribe(response => {
@@ -390,15 +406,15 @@ export class AnmStudentRegistrationComponent implements OnInit {
           this.selectedphc = this.user.phcId;
           this.selectedsc = this.user.scId;
           this.communityData = [];
-          this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+          //this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
           if(this.selectedripoint === "" && this.RIdata[0])
             this.selectedripoint = this.RIdata[0].id;
-          if(this.religionData[0])
-            this.selectedreligion = this.religionData[0].id;
-          if(this.casteData[0])
+          /*if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;*/
+          /*if(this.casteData[0])
             this.selectedcaste = this.casteData[0].id;
           if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+            this.selectedcommunity = this.communityData[0].id;*/
 
 
           this.selecteddor = new Date(Date.now());
@@ -409,6 +425,9 @@ export class AnmStudentRegistrationComponent implements OnInit {
     }
     dataBindinginServce()
     {
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
+      if(this.selectedschoolstate)
+          var _tempSchoolStateSelected = this.statelist.filter(t=>t.id ===this.selectedschoolstate);
       var _obj = {
         "subjectPrimaryRequest": {
           "subjectTypeId": 3,
@@ -452,7 +471,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
-          "stateName": this.secondFormGroup.get('state').value,
+          "stateName": _tempStateSelected[0]['stateName'],
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
@@ -492,7 +511,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
           "schoolAddress3": '',
           "schoolPincode": this.thirdFormGroup.get('schoolpincode').value != undefined ? this.thirdFormGroup.get('schoolpincode').value : '',
           "schoolCity": this.thirdFormGroup.get('schoolcity').value != undefined ? this.thirdFormGroup.get('schoolcity').value : '',
-          "schoolState": this.thirdFormGroup.get('schoolstate').value != undefined ? this.thirdFormGroup.get('schoolstate').value : '',
+          "schoolState": this.thirdFormGroup.get('schoolstate').value != undefined ? _tempSchoolStateSelected[0]['stateName'] : '',
           "standard": this.thirdFormGroup.get('schoolstandard').value != undefined ? this.thirdFormGroup.get('schoolstandard').value : '',
           "section": this.thirdFormGroup.get('schoolsection').value != undefined ? this.thirdFormGroup.get('schoolsection').value : '',
           "rollNo": this.thirdFormGroup.get('rollnumber').value != undefined ? this.thirdFormGroup.get('rollnumber').value : '',
@@ -509,6 +528,25 @@ export class AnmStudentRegistrationComponent implements OnInit {
             this.selectedgender = "Male";
         if(this.selectedsubjectTitle === "Miss")
             this.selectedgender = "Female";
+    }
+
+    /*govtIdTypeChange()
+    {
+      console.log(this.selectedgovtIDType);
+      if(this.selectedgovtIDType != null)
+      {
+        const validators = [ Validators.required];
+        this.secondFormGroup.addControl('GovtIDDetail', new FormControl('', validators));
+      }
+      else
+      {
+        this.secondFormGroup.addControl('GovtIDDetail', new FormControl(''));
+      }
+            
+    }*/
+    ageEntered()
+    {
+      this.DOBPicker.flatpickr.setDate("");
     }
 
 }
