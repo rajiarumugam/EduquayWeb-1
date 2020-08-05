@@ -36,6 +36,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   
 
   DAY = 86400000;
+  mobNumberPattern = "^((\\+91-?)|0)?[0-9]{10}$";  
   districts: District[] = [];
   erroMessage: string;
   firstFormGroup: FormGroup;
@@ -78,7 +79,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: "",
-    maxDate: ""
+    maxDate: new Date(Date.now())
   };
   startOptionsLMP: FlatpickrOptions = {
     mode: 'single',
@@ -113,6 +114,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   Ldisabled = true;
   Pdisabled = true;
   Adisabled = true;
+  statelist = [];
   constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
     window['angularComponentReference'] = {
       zone: zone,
@@ -130,7 +132,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       phc: ['', Validators.required],
       sc: ['', Validators.required],
       ripoint: ['', Validators.required],
-      pincode: ['', Validators.required],
+      pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       subjectitle: ['Ms.'],
       firstname: ['', Validators.required],
@@ -149,7 +151,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       ECNumber: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
       govtIDType: [''],
-      GovtIDDetail: [''],
+      GovtIDDetail: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
       religion: ['', Validators.required],
       caste: ['', Validators.required],
       community: ['', Validators.required],
@@ -175,6 +177,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.getRI();
     this.getReligion();
     this.getCaste();
+    this.getState();
     //this.getCommunity(0);
     this.getGovernmentIDType();
     
@@ -203,6 +206,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     .subscribe(response => {
       this.CHCdata = response['chc'];
       this.selectedchc = this.user.chcId;
+      console.log(this.selectedchc);
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -238,9 +242,9 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
-      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+      /*this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
       if(this.selectedripoint === "" && this.RIdata[0])
-        this.selectedripoint = this.RIdata[0].id;
+        this.selectedripoint = this.RIdata[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -253,8 +257,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
+      /*if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -269,6 +273,23 @@ export class AnmAwRegistrationComponent implements OnInit {
       this.casteData = response['caste'];
       if(this.casteData[0])
           this.selectedcaste = this.casteData[0].id;
+    },
+    (err: HttpErrorResponse) =>{
+      this.casteData = [];
+      this.erroMessage = err.toString();
+    });
+  }
+
+  getState()
+  {
+    this.masterService.getState()
+    .subscribe(response => {
+      console.log(response);
+      this.statelist = response['states'];
+      this.statelist.forEach(function(val,index){
+        val.display = val.stateName;
+      });
+      
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -349,6 +370,7 @@ export class AnmAwRegistrationComponent implements OnInit {
 
     formSubmit()
     {
+      console.log(this.secondFormGroup.controls.GovtIDDetail.invalid );
       this.secondFormCheck = true;
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
@@ -388,11 +410,11 @@ export class AnmAwRegistrationComponent implements OnInit {
           this.selectedphc = this.user.phcId;
           this.selectedsc = this.user.scId;
           this.communityData = [];
-          this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+          /*this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
           if(this.selectedripoint === "" && this.RIdata[0])
-            this.selectedripoint = this.RIdata[0].id;
-          if(this.religionData[0])
-            this.selectedreligion = this.religionData[0].id;
+            this.selectedripoint = this.RIdata[0].id;*/
+          /*if(this.religionData[0])
+            this.selectedreligion = this.religionData[0].id;*/
           if(this.casteData[0])
             this.selectedcaste = this.casteData[0].id;
           if(this.communityData[0])
@@ -414,6 +436,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     }
     dataBindinginServce()
     {
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
       var _obj = {
         "subjectPrimaryRequest": {
           "subjectTypeId": 1,
@@ -457,12 +480,12 @@ export class AnmAwRegistrationComponent implements OnInit {
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.firstFormGroup.get('pincode').value,
-          "stateName": this.secondFormGroup.get('state').value,
+          "stateName": _tempStateSelected[0]['stateName'],
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
           "rchId": '121'+this.firstFormGroup.get('rchid').value,
-          "ecNumber": ''+this.secondFormGroup.get('ECNumber').value,
+          "ecNumber": this.secondFormGroup.get('ECNumber').value != undefined ? ""+this.secondFormGroup.get('ECNumber').value : '',
           "lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
           "g": Number(this.firstFormGroup.get('g').value),
           "p": Number(this.firstFormGroup.get('p').value),
@@ -512,14 +535,14 @@ export class AnmAwRegistrationComponent implements OnInit {
       this.Pdisabled = false;
       this.Ldisabled = true;
       this.selectedl = null;
-      this.selecteda = null;
+      //this.selecteda = null;
       this.selectedp = null;
     }
     ponChange()
     {
-      this.selecteda = +this.selectedg - +this.selectedp;
-      if(this.selecteda === 0)
-      this.selecteda = "00";
+      //this.selecteda = +this.selectedg - +this.selectedp;
+      /*if(this.selecteda === 0)
+      this.selecteda = "00";*/
       this.Ldisabled = false;
     }
     ecNumberChange()
@@ -533,5 +556,22 @@ export class AnmAwRegistrationComponent implements OnInit {
       }
        
     }
-
+    govtIdTypeChange()
+    {
+      console.log(this.selectedgovtIDType);
+      if(this.selectedgovtIDType != null)
+      {
+        const validators = [ Validators.required];
+        this.secondFormGroup.addControl('GovtIDDetail', new FormControl('', validators));
+      }
+      else
+      {
+        this.secondFormGroup.addControl('GovtIDDetail', new FormControl(''));
+      }
+            
+    }
+    ageEntered()
+    {
+      this.DOBPicker.flatpickr.setDate("");
+    }
 }

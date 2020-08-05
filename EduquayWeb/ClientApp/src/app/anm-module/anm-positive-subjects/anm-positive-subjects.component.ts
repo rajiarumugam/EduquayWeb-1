@@ -206,7 +206,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       house: ['', Validators.required],
       street: ['', Validators.required],
       city : ['', Validators.required],
-      state: ['', Validators.required],
+      state: [''],
       spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       spouseEmail: ['',Validators.email],
       pincode:['', Validators.required]

@@ -21,12 +21,12 @@ export const ENDPOINT = {
     },
     "CHC_SAMPLE_REC":
     {
-        "RETRIVECHCRECEIPT":"api/CHCReceiptProcessing/RetrieveCHCReceipt/",
-        "ADDRECEIVEDSHIPMENT":"api/CHCReceiptProcessing/AddReceivedShipments",
-        "RETRIVECBC":"api/CHCReceiptProcessing/RetrieveCBC/",
-        "ADDCBCTEST":"api/CHCReceiptProcessing/AddCBCTest",
-        "RETRIVESST":"api/CHCReceiptProcessing/RetrieveSST/",
-        "ADDSSTTEST":"api/CHCReceiptProcessing/AddSSTest"
+        "RETRIVECHCRECEIPT":"api/v1/CHCReceiptProcessing/RetrieveCHCReceipt/",
+        "ADDRECEIVEDSHIPMENT":"api/v1/CHCReceiptProcessing/AddReceivedShipments",
+        "RETRIVECBC":"api/v1/CHCReceiptProcessing/RetrieveCBC/",
+        "ADDCBCTEST":"api/v1/CHCReceiptProcessing/AddCBCTest",
+        "RETRIVESST":"api/v1/CHCReceiptProcessing/RetrieveSST/",
+        "ADDSSTTEST":"api/v1/CHCReceiptProcessing/AddSSTest"
     },
     "CENTRALLAB":
     {
