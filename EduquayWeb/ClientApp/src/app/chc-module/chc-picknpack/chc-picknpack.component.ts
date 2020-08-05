@@ -54,8 +54,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   sampleShipmentDate: string;
   sampleShipmentTime: string;
   selectedChc: '';
-  selectedproviderName:'';
-  selectedtestingCHC: '';
+  selectedproviderName:string ='';
+  selectedtestingCHC:string= '';
   barcodeNo: string;
   shipmentFrom: number;
   chcUserId: number;
@@ -148,7 +148,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       this.testingchcResponse = response;
       if (this.testingchcResponse !== null && this.testingchcResponse.status === "true") {
         this.testingCHCNames = this.testingchcResponse.testingCHC;
-        this.selectedtestingCHC = "";
+        //this.selectedtestingCHC = "";
+        if (this.testingCHCNames.length > 0) {
+          this.selectedtestingCHC = this.testingCHCNames[0].id.toString();
+        }
       }
       else {
         this.chcPicknpackErrorMessage = response.message;
@@ -165,7 +168,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       this.providernameResponse = response;
       if (this.providernameResponse !== null && this.providernameResponse.status === "true") {
         this.providerNames = this.providernameResponse.logisticsProvider;
-        this.selectedproviderName = "";
+        if (this.providerNames.length > 0) {
+          this.selectedproviderName = this.providerNames[0].id.toString();
+        }
+        //this.selectedproviderName = "";
       }
       else {
         this.chcPicknpackErrorMessage = response.message;
@@ -355,7 +361,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     this.chcPicknpackErrorMessage = '';
     
     this.chcmovetimeoutExpiryRequest = {
-      anmId: this.user.userTypeId,
+      userId: this.user.id,
       barcodeNo: this.selectedBarcodes,
     }
    // return false;
@@ -410,7 +416,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging < "80") {
+      if (element.sampleSelected === true && +element.sampleAging < 24) {
         
         if (isFirst) {
           getdates = [{ "selecteddate": element.sampleDateTime }];
@@ -444,7 +450,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     var isFirst = true;
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging < "80") {
+      if (element.sampleSelected === true && +element.sampleAging < 24) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
           isFirst = false;
@@ -461,7 +467,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     var isFirst = true;
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging > "24") {
+      if (element.sampleSelected === true && +element.sampleAging > 24) {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;

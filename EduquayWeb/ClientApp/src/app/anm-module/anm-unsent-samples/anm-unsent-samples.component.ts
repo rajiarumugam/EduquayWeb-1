@@ -338,7 +338,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     this.avdId = unsentsampleForm.value.DDLavdName;
 
     this.addUnsentSamplesRequest = {
-      anmId: this.user.userTypeId,
+      anmId: this.user.id,
       riId: +(this.riId),
       ilrId: +(this.ilrId),
       avdId: +(this.avdId),
@@ -404,7 +404,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     this.unsentSamplesErrorMessage = '';
     
     this.movetimeoutExpiryRequest = {
-      anmId: this.user.userTypeId,
+      anmId: this.user.id,
       barcodeNo: this.selectedBarcodes,
     }
 
@@ -488,7 +488,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if(element.sampleSelected === true && element.sampleAging < "24"){
+      if(element.sampleSelected === true && +element.sampleAging < 24){
         if(isFirst){
           getdates = [{"selecteddate" : element.sampleDateTime}];
           isFirst = false;
@@ -522,7 +522,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging < "24") {
+      if (element.sampleSelected === true && +element.sampleAging < 24) {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
@@ -540,7 +540,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var isFirst = true;
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && element.sampleAging > "24") {
+      if (element.sampleSelected === true && +element.sampleAging > 24) {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;

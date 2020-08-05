@@ -25,7 +25,7 @@ export class TimeoutExpiryResolverService implements Resolve<any>{
   ): Observable<any> | Promise<any> | any {
 
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.timeoutsamplesRequest = { anmId: user.userTypeId, notification: 3 };
+    this.timeoutsamplesRequest = { anmId: user.id, notification: 3 };
 
     return this.TimeoutExpiryServiceService.gettimeoutSamples(this.timeoutsamplesRequest).pipe(
       catchError(error => {

@@ -138,7 +138,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.recordCount = 0; //step 3
     this.damagedSamples = [];
     this.damagedSamplesErrorMessage ='';
-    this.damagedsamplesRequest = {anmId: this.user.userTypeId, notification: 1};
+    this.damagedsamplesRequest = {anmId: this.user.id, notification: 1};
     let samplesList = this.DamagedSamplesService.getdamagedSamples(this.damagedsamplesRequest)
     .subscribe(response => {
       this.damagedsamplesResponse = response;
@@ -252,7 +252,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     }
    
     this.damagedUpdateStatusRequest = {
-      anmId: this.user.userTypeId,
+      anmId: this.user.id,
       barcodeNo: this.notifySamples,
      
     }

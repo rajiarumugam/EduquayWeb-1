@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { TimeoutExpiryRequest } from '../anm-module/notifications/timeout-expiry/timeout-expiry-request';
-import { TimeoutExpiryServiceService } from '../anm-module/notifications/timeout-expiry/timeout-expiry-service.service';
 import { TokenService } from '../token.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ChcNotificationSamplesService } from './chc-notification-samples/chc-notification-samples.service';
+import { ChcNotificationSamplesRequest } from './chc-notification-samples/chc-notification-samples-request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChcTimeoutsamplesResolverService implements Resolve<any>{
 
+ 
   chctimeoutsamplesResponse;
-  chctimeoutsamplesRequest: TimeoutExpiryRequest;
+  chctimeoutsamplesRequest: ChcNotificationSamplesRequest;
 
   constructor(
-    private TimeoutExpiryServiceService: TimeoutExpiryServiceService,
+    private ChctimeoutSamplesService: ChcNotificationSamplesService, 
     private tokenService: TokenService
   ) { }
 
@@ -25,9 +26,9 @@ export class ChcTimeoutsamplesResolverService implements Resolve<any>{
   ): Observable<any> | Promise<any> | any {
 
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.chctimeoutsamplesRequest = { anmId: user.userTypeId, notification: 3 };
+    this.chctimeoutsamplesRequest = {  userId: user.id, notification: 3, collectionFrom: user.sampleCollectionFrom };
 
-    return this.TimeoutExpiryServiceService.gettimeoutSamples(this.chctimeoutsamplesRequest).pipe(
+    return this.ChctimeoutSamplesService.getnotificationChcSamples(this.chctimeoutsamplesRequest).pipe(
       catchError(error => {
         console.log(error);
         return of({ message: error.toString(), status: 'false' });

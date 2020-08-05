@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 // import { Router } from '@angular/router';
 import { PicknpackService } from 'src/app/shared/anm-module/picnpack/picknpack.service';
 import { PicknpackRequest, AnmAddShipmentRequest, PickpackMoveTimeoutExpiryRequest } from 'src/app/shared/anm-module/picnpack/picknpack-request';
@@ -25,6 +25,8 @@ import * as moment from 'moment';
 export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChild('shipmentDatePicker', { static: false }) shipmentDatePicker;
+  //@Output() barcodeselected: EventEmitter<any> = new EventEmitter<any>(); 
+  associatedANMData = [];
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -51,6 +53,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   selectedtestingCHC: string = '';
   AvdNames: AvdNameModel[] = [];
   selectedAvdName: string = '';
+  barcodeselected: string;
+  length = 0;
   barcodeNo: string;
   shipmentFrom: number;
   source: string;
@@ -401,17 +405,18 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         });
     }
   }
-  getconfirmation() {
+  getconfirmation(i) {
+    console.log(i);
     this.picknpackErrorMessage = '';
-    this.barcodeNo;
-    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
-      return false;
-    }
-    if (this.selectedBarcodes !== null) {
+    //this.barcodeNo;
+    // if (this.barcodeNo === '' || this.barcodeNo === undefined) {
+    //   this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+    //   return false;
+    // }
+   // if (this.barcodeNo !== null) {
       Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this back!",
+        text: "You want to move sample" + this.sampleList[i].barcodeNo + "to expiry",
         icon: 'warning',
         showCancelButton: true,
         // confirmButtonColor: '#3085d6',
@@ -420,20 +425,21 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         cancelButtonText: 'Cancel'
       }).then((result) => {
         if (result.value) {
+          this.barcodeselected = this.sampleList[i].barcodeNo;
           this.pickpackMoveExpirySamples();
         }
       })
     }
 
-  }
+  //}
 
   pickpackMoveExpirySamples() {
 
     this.picknpackErrorMessage = '';
     
     this.pickpackmovetimeoutExpiryRequest = {
-      anmId: this.user.userTypeId,
-      barcodeNo: this.barcodeNo,
+      anmId: this.user.id,
+      barcodeNo: this.barcodeselected,
     }
 
     let expirysamples = this.PicknpackService.PnPMoveExpirySamples(this.pickpackmovetimeoutExpiryRequest)
@@ -470,6 +476,15 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   //     object.sampleSelected = value;
   //     console.log(this.sampleList);
   // }
+  ngDoCheck(){
+   
+    let count = this.sampleList.filter(ite=>ite.sampleSelected).length
+    if(count != this.length){
+      this.length=count
+    }
+  
+  }
+
   selectAll() {
     for (var i = 0; i < this.sampleList.length; i++) {
       this.sampleList[i].sampleSelected = this.selectedAll;

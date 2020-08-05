@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { DamagedSamplesResponse } from '../anm-module/notifications/damaged-samples/damaged-samples-response';
-import { DamagedSamplesRequest } from '../anm-module/notifications/damaged-samples/damaged-samples-request';
-import { DamagedSamplesService } from '../anm-module/notifications/damaged-samples/damaged-samples.service';
 import { TokenService } from '../token.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';

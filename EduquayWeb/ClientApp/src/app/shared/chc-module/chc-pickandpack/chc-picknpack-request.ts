@@ -20,7 +20,7 @@ export interface AddChcShipmentRequest{
 
 export interface chcMoveTimeoutExpiryRequest {
     barcodeNo: string;
-    anmId: number;
+    userId: number;
 }
 
 
