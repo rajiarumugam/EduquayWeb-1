@@ -324,7 +324,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     }
    
     this.updatepositiveSubjectRequest = {
-      anmId: this.user.userTypeId,
+      anmId: this.user.id,
       barcodeNo: this.notifySamples,
      
     }

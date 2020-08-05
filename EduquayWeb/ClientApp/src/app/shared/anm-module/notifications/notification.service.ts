@@ -74,7 +74,7 @@ export class NotificationService {
 
   async damagedSamples(){
     this.damagedSampleCount = 0;
-    let damagedsamplesRequest = {anmId: this.user.userTypeId, notification: 1};
+    let damagedsamplesRequest = {anmId: this.user.id, notification: 1};
     return new Promise(resolve=>{
     this.damagedSampleService.getdamagedSamples(damagedsamplesRequest).subscribe( response => {
       this.damagedSamplesResponse = response;
@@ -122,7 +122,7 @@ export class NotificationService {
 
   async timeoutSamples() {
     this.timeoutSampleCount = 0;
-    let timeoutsamplesRequest = { anmId: this.user.userTypeId, notification: 3 };
+    let timeoutsamplesRequest = { anmId: this.user.id, notification: 3 };
     return new Promise(resolve => {
       let samplesList = this.timeoutExpiryService.gettimeoutSamples(timeoutsamplesRequest).subscribe(response => {
         this.timeoutSamplesResponse = response;

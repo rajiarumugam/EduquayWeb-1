@@ -18,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-sample-collection',
+  selector: 'app-chc-sample-collection',
   templateUrl: './chc-sample-collection.component.html',
   styleUrls: ['./chc-sample-collection.component.css']
 })
@@ -63,7 +63,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   chcSampleCollectionTime: string;
   collectionTime: string;
   resultFromPostResponse: string;
-  selectedSubjectType: string = '1';
+  selectedSubjectType: string = '0';
   selected: null;
   
   /*Date Range configuration starts*/

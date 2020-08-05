@@ -21,7 +21,7 @@ export interface AddChcUnsentsamplesRequest{
 
 export interface unsentMoveTimeoutExpiryRequest {
     barcodeNo: string;
-    anmId: number;
+    userId: number;
 }
 
 

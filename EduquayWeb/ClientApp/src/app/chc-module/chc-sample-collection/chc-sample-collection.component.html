@@ -71,7 +71,7 @@
                   <label for="inputSubjectcategory">{{'SubjectType' | translate }}</label>
                   <select id="inputSubjectcategory" class="form-control" name=DDsubjectType #DDsubjectType formControlName="selectedSubjectType"
                   required [(ngModel)]="selectedSubjectType" >
-                    <option value="">--Select--</option>
+                    <option value="">All</option>
                     <option *ngFor="let subType of chcsubjectTypes"
                             [(value)]= " subType.id ">
                         {{ subType.subjectTypeName }}
@@ -126,7 +126,7 @@
                           <td class="mobile">{{subject.contactNo}}</td>
                           <td class="">{{subject.dateOfRegister}}</td>
                           <td> {{subject.gestationalAge}} </td>
-                          <td><a (click)="openchcSampleColllection(chcSampleCollectiondetail, subject)" role="button"><i
+                          <td class="text-center"><a (click)="openchcSampleColllection(chcSampleCollectiondetail, subject)" role="button"><i
                                 class="fas fa-vial fa-2x"></i></a>
                         </tr>
                       </tbody>

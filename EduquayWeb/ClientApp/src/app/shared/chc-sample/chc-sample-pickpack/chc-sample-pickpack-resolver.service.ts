@@ -1,34 +1,30 @@
 import { Injectable } from '@angular/core';
+import { ChcSamplePickpackService } from './chc-sample-pickpack.service';
+import { TokenService } from '../../token.service';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { DamagedSamplesRequest } from './damaged-samples-request';
-import { DamagedSamplesService } from './damaged-samples.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { TokenService } from 'src/app/shared/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DamagedSamplesResolverService implements Resolve<any>{
+export class ChcSamplePickpackResolverService implements Resolve<any>{
 
-  damagedsamplesResponse;
-  damagedsamplesRequest: DamagedSamplesRequest;
-
+  chcsamplepicknpickResponse;
   constructor(
-    private DamagedSamplesService: DamagedSamplesService, 
+
+    private ChcSamplePickpackService: ChcSamplePickpackService,
     private tokenService: TokenService
-    ) { }
+
+  ) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.damagedsamplesRequest = {
-     anmId: user.id, notification: 1
-    };
-
-    return this.DamagedSamplesService.getdamagedSamples(this.damagedsamplesRequest).pipe(
+  
+      return this.ChcSamplePickpackService.getsamplePickpackChc(user.chcId).pipe(
       catchError(error => {
         console.log(error);
         return of({ message: error.toString(), status: 'false' });

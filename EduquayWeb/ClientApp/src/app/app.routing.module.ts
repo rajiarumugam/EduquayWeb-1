@@ -55,7 +55,7 @@ import { SpouseResolverService } from "./shared/anm-module/registration/spouse/s
 import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
 import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
 import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
-import { ChcSampleCollectionComponent } from "./chc-module/sample-collection/chc-sample-collection.component";
+import { ChcSampleCollectionComponent } from "./chc-module/chc-sample-collection/chc-sample-collection.component";
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
@@ -106,6 +106,7 @@ import { DiagosisHPLCmainComponent } from "./pathologist/diagnosis/diagnosis-hpl
 import { DiagnosisHPLCAbnormaComponent } from "./pathologist/diagnosis/diagnosis-hplc-abnormal/diagnosis-hplc-abnormal.component";
 import { DiagosisReportComponent } from "./pathologist/diagnosis/diagnosis-report/diagnosis-report.component";
 import { DiagosisReportmainComponent } from "./pathologist/diagnosis/diagnosis-report-main/diagnosis-report-main.component";
+import { ChcSamplePickpackResolverService } from "./shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-resolver.service";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -158,7 +159,7 @@ const routes: Routes = [
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
         ]
       },
-      { path: 'chc-sample-collection', component: SampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
+      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
       { path: 'chc-pickandpack', component: ChcPicknpackComponent, resolve: {chcpicknpackData: ChcPicknpackResolverService}},
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent, resolve: {chcshipmentLogData: ChcShipmentlogResolverService}},
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
@@ -170,7 +171,7 @@ const routes: Routes = [
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
-      { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent},
+      { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent, resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
       {
         path: 'chc-update-sst', component: CHCUpdateSSTComponent,
         children:[

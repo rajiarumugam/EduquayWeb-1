@@ -61,11 +61,11 @@ text-transform: initial;
     left: -5px !important;
 }
 
-.red {
+.tbl-row-red .tbl-data-red {
     color: red; 
    
 }
 
-.tbledatacolor{
+.tbl-row-black .tbl-data-black{
     color: #2d2e31;
 }
