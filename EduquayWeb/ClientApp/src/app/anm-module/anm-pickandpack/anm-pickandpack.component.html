@@ -77,14 +77,15 @@
 
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let picknpack of sampleList; index as i">
-                                        <td class="sno text-center" >{{i +1}}</td>
-                                        <td class="sname text-left" >{{picknpack.subjectName}}</td>
-                                        <td class="sid" >{{picknpack.uniqueSubjectId}}</td>
-                                        <td class="sid text-center" >{{picknpack.rchId}}</td>
-                                        <td class="sid" >{{picknpack.barcodeNo}}</td>
-                                        <td class="datetimenew" >{{picknpack.sampleDateTime}}</td>
-                                        <td class="text-center" >{{picknpack.sampleAging}}</td>
+                                    <tr *ngFor="let picknpack of sampleList; index as i" class="tbl-row-red tbl-row-black"
+                                    [ngClass]="{'tbl-row-black tbl-data-black': +picknpack.sampleAging < 24 , 'tbl-row tbl-data-red': +picknpack.sampleAging > 24 }">
+                                        <td class="sno text-center tbl-data-red tbl-data-black" >{{i +1}}</td>
+                                        <td class="sname text-left tbl-data-red tbl-data-black" >{{picknpack.subjectName}}</td>
+                                        <td class="sid tbl-data-red tbl-data-black" >{{picknpack.uniqueSubjectId}}</td>
+                                        <td class="sid text-center tbl-data-red tbl-data-black" >{{picknpack.rchId}}</td>
+                                        <td class="sid tbl-data-red" >{{picknpack.barcodeNo}}</td>
+                                        <td class="datetimenew tbl-data-red tbl-data-black" >{{picknpack.sampleDateTime}}</td>
+                                        <td class="text-center tbl-data-red tbl-data-black" >{{picknpack.sampleAging}}</td>
                                         <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
                                         <td class="sno" *ngIf=" +picknpack.sampleAging < 24 ">
                                             <div class="n-chk">
@@ -95,9 +96,9 @@
                                                         checked = "{{picknpack.sampleSelected}}">
                                                     <span class="new-control-indicator"></span>&nbsp;
                                                 </label> -->
-                                                <label class="new-control new-checkbox" >
+                                                <label class="new-control new-checkbox">
                                                     <input type="checkbox" class="new-control-input checkbox" 
-                                                    value="{{picknpack.sampleSelected}}" 
+                                                    value="{{picknpack.sampleSelected}}"
                                                     (change)="checkIfAllSelected()"
                                                     [(ngModel)]="picknpack.sampleSelected">
                                                     <span class="new-control-indicator"></span>&nbsp;
@@ -105,7 +106,7 @@
                                             </div>
                                         </td>
                                         <td class="sno" *ngIf=" +picknpack.sampleAging > 24 ">
-                                            <a class="btn btn-danger text-center ml-2" (click)="getconfirmation()"
+                                            <a class="btn btn-danger text-center ml-2" (click)="getconfirmation(i)"
                                             role="button">Move to Expiry</a>
                                         </td>
                                     </tr>
@@ -114,10 +115,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <!-- <a class="btn btn-danger float-right ml-2" (click)="getconfirmation()"
-                                role="button">Move to Expiry</a> -->
+                                
                                 <a class="btn btn-primary float-right" (click)="openPicknpack(picknPackdetail)"
                                  role="button">Create Shipment</a>
+                                 <a class="btn btn-outline-primary float-right mr-2"
+                                role="button">{{length}} Selected</a>
                             </div>
                         </div>
                         <!-- <div class="container p-4">

@@ -14,9 +14,9 @@ export class ChcSampleCollectionResolverService implements Resolve<any>{
 
   chcsampleCollectionResponse;
   chcscRequest: SampleCollectionRequest;
-  chcSCFromDate: string = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
-  chcSCToDate: string = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
-  selectedSubjectType: string = '1';
+  chcSCFromDate: string;
+  chcSCToDate: string;
+  selectedSubjectType: string = '0';
 
   constructor(
     private sampleCollectionService: SampleCollectionService,
@@ -31,8 +31,8 @@ export class ChcSampleCollectionResolverService implements Resolve<any>{
     var user = JSON.parse(this.tokenService.getUser('lu'));
     
     this.chcscRequest = {
-      userId: user.id,  fromDate: this.chcSCFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
-      toDate: this.chcSCToDate, subjectType: +(this.selectedSubjectType),
+      userId: user.id,  fromDate: '',
+      toDate: '', subjectType: +(this.selectedSubjectType),
       registeredFrom: user.registeredFrom
     };
 

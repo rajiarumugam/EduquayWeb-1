@@ -58,8 +58,8 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   sampleShipmentDate: string;
   sampleShipmentTime: string;
   selectedChc: '';
-  selectedproviderName:'';
-  selectedtestingCHC: '';
+  selectedproviderName:string ='';
+  selectedtestingCHC:string = '';
   barcodeNo: string;
   shipmentFrom: number;
   chcUserId: number;
@@ -156,7 +156,10 @@ ddltestingChc(chcId) {
     this.testingchcResponse = response;
     if (this.testingchcResponse !== null && this.testingchcResponse.status === "true") {
       this.testingCHCNames = this.testingchcResponse.testingCHC;
-      this.selectedtestingCHC = "";
+      //this.selectedtestingCHC = "";
+      if (this.testingCHCNames.length > 0) {
+        this.selectedtestingCHC = this.testingCHCNames[0].id.toString();
+      }
     }
     else {
       this.chcunsentSamplesErrorMessage = response.message;
@@ -366,7 +369,7 @@ chcpickpackMoveExpirySamples() {
   this.chcunsentSamplesErrorMessage = '';
   
   this.movetimeoutexpiryRequest = {
-    anmId: this.user.userTypeId,
+    userId: this.user.id,
     barcodeNo: this.selectedBarcodes,
   }
  // return false;
@@ -424,7 +427,7 @@ fetchMaxDate(){
   
   this.chcunsentSamples.forEach(element => {
     console.log('sampleSelected :' + element.sampleSelected);
-    if(element.sampleSelected === true && element.sampleAging < "98"){
+    if(element.sampleSelected === true && +element.sampleAging < 24){
       if(isFirst){
         getdates = [{"selecteddate" : element.sampleDateTime}];
         isFirst = false;
@@ -458,7 +461,7 @@ fetchBarcode() {
   var isFirst = true;
   this.chcunsentSamples.forEach(element => {
     console.log('sampleSelected :' + element.sampleSelected);
-    if (element.sampleSelected === true && element.sampleAging < "98") {
+    if (element.sampleSelected === true && +element.sampleAging < 24) {
       //if (element.sampleSelected) {
       if (isFirst) {
         this.selectedBarcodes += element.barcodeNo;
@@ -476,7 +479,7 @@ expirysamplesBarcode() {
   var isFirst = true;
   this.chcunsentSamples.forEach(element => {
     console.log('sampleSelected :' + element.sampleSelected);
-    if (element.sampleSelected === true && element.sampleAging > "24") {
+    if (element.sampleSelected === true && +element.sampleAging > 24) {
       //if (element.sampleSelected) {
       if (isFirst) {
         this.selectedBarcodes += element.barcodeNo;

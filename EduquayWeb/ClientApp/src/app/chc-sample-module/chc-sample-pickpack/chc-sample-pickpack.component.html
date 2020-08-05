@@ -62,6 +62,13 @@
                         <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="completed-tab">
                             <div class="main-box no-header clearfix">
                                 <div class="main-box-body clearfix">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div *ngIf="samplepicknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': samplepicknpackErrorMessage ==='No sample found', 'alert-danger': samplepicknpackErrorMessage !== 'No sample found'}">
+                                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{samplepicknpackErrorMessage}}
+                                            </div>  
+                                        </div>
+                                    </div>
                                     <div class="table-responsive mt-2">
                                         <table id="zero-config" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                             <thead>
@@ -75,94 +82,28 @@
 
                                                     <th class="text-center"><span class="wordwrap">Sample Collection Date &
                                                             Time</span></th>
-                                                    <th><span>Aging Sample</span></th>
-                                                    <th><span>Damaged</span></th>
+                                                    <!-- <th><span>Aging Sample</span></th>
+                                                    <th><span>Damaged</span></th> -->
                                                 
                                                 </tr>
 
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="sno text-center">1</td>
-                                                    <td class="sname text-left">Soori Thangaraj</td>
-                                                    <td class="sid text-center">OD001202032110</td>
-                                                    <td class="sid text-center">030310</td>
+                                                <tr *ngFor="let samplepicknpack of chcsamplepickpack; index as i">
+                                                    <td class="sno text-center">{{i +1}}</td>
+                                                    <td class="sname text-left">{{samplepicknpack.subjectName}}</td>
+                                                    <td class="sid text-center">{{samplepicknpack.uniqueSubjectId}}</td>
+                                                    <td class="sid text-center">{{samplepicknpack.rchId}}</td>
                                                     <!-- <td class="text-left"></td> -->
-                                                    <td class="sid text-center">020153</td>
-                                                    <td class="textsample text-center">13/04/2020 14:25</td>
-                                                    <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td class="text-left">Selvi Manikkam</td>
-                                                    <td class="text-center">OD001202032112</td>
-                                                    <td class="sid text-center">030311</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="text-center">020154</td>
-
-                                                    <td class="text-center">13/04/2020 11:25</td>
-                                                    <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">3</td>
-                                                    <td class="text-left">Pooja Raghu</td>
-                                                    <td class="text-center">OD001202032113</td>
-                                                    <td class="sid text-center">030312</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="text-center">020155</td>
-
-                                                    <td class="text-center">13/04/2020 11:25</td>
-                                                    <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">4</td>
-                                                    <td class="text-left">Badri Narayanan</td>
-                                                    <td class="text-center">OD001202032114</td>
-                                                    <td class="sid text-center">030313</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="text-center">020156</td>
-
-                                                    <td class="text-center">13/04/2020 11:25</td>
-                                                    <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">5</td>
-                                                    <td class="text-left">Venkata Sudarshan</td>
-                                                    <td class="text-center">OD001202032115</td>
-                                                    <td class="sid text-center">030314</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="text-center">020157</td>
-
-                                                    <td class="text-center">13/04/2020 11:25</td>
-                                                    <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">6</td>
-                                                    <td class="text-left">Mugesh Kumar</td>
-                                                    <td class="text-center">OD001202032116</td>
-                                                    <td class="sid text-center">030315</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="text-center">020158</td>
-
-                                                    <td class="text-center">13/04/2020 11:25</td>
-                                                    <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td>
-                                                </tr>
+                                                    <td class="sid text-center">{{samplepicknpack.barcodeNo}}</td>
+                                                    <td class="textsample text-center">{{samplepicknpack.sampleDateTime}}</td>
+                                                    <!-- <td class="text-center">8 days</td>
+                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
+                                                </tr>    
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                                <a class="btn btn-danger float-right ml-2"
-                                                role="button">Move to Expiry</a>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -175,15 +116,16 @@
                                             <form class="form-inline my-2 my-lg-0">
                                                 <div class="w-100 my-2">
                                                     <input type="text" class="w-100 form-control sample-search br-30"
-                                                        id="txtScanBarcode" placeholder="Scan / Enter Barcode">
-                                                    <button class="btn btn-primary" type="button"><svg
+                                                    name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
+                                                    [(ngModel)]="searchbarcode" debounce="500" >
+                                                <a (click)="clicksearchBarcode(samplepicknPackdetail, samplepicknpack)"><button class="btn btn-primary" type="submit"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                             class="feather feather-search">
                                                             <circle cx="11" cy="11" r="8"></circle>
                                                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                        </svg></button>
+                                                        </svg></button></a>
                                                 </div>
                                             </form>
                                         </div>
@@ -228,7 +170,92 @@
                             </div>
                         </div>
                     </div>
+                    <ng-template #samplepicknPackdetail let-modal>
+                        <div class="modal-header">
+                            <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
+                            </h5>
+                            <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="form-row my-4 ml-3">
+                                <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                    <form class="form-inline my-2 my-lg-0">
+                                        <div class="w-100 my-2">
+                                            <input type="text" class="w-100 form-control sample-search br-30" 
+                                            type="text" placeholder="Scan / Enter Barcode"
+                                            >
+                                        <a>
+                                                <button class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-search">
+                                                    <circle cx="11" cy="11" r="8"></circle>
+                                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                </svg></button></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table
+                                    class="table table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Subject Name</th>
+                                            <th>Subject ID</th>
+                                            <th>RCH ID</th>
+                                            <th>Barcode</th>
+                                            <th>Primary Tube</th>
+                                            <th>Aliquoted HPLC Tube </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let tempScandata of tempCHCDatas; index as i">
+                                            <td>{{i +1}}</td>
+                                            <td class="text-left">{{tempScandata.subjectName}}</td>
+                                            <td class="text-center">{{tempScandata.uniqueSubjectId}}</td>
+                                            <td class="text-center">{{tempScandata.rchId}}</td>
+                                            <td class="text-center">{{tempScandata.barcodeNo}}</td>
+                                            <td><div class="n-chk">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                  <input type="checkbox" class="new-control-input checkbox" checked>
+                                                  <span class="new-control-indicator"></span>&nbsp;
+                                                </label>
+                                            </div></td>
+                                            <td><div class="n-chk" id="checkbox" [hidden]="!searchAliquoteBarcode">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                  <input type="checkbox" class="new-control-input checkbox" checked>
+                                                  <span class="new-control-indicator"></span>&nbsp;
+                                                </label>
+                                            </div></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row" id="button" style="display:none;">
+                                <div class="col-md-12">
+                                    <a class="btn btn-primary float-right closepop" id="show"
+                                        role="button">Add to Shipment</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal"><i
+                                    class="flaticon-cancel-12"></i> Close</button>
 
+                        </div>
+                    </ng-template>
 
                 </div>
             </div>

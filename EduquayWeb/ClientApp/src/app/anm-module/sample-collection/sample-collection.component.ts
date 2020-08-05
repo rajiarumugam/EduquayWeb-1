@@ -65,7 +65,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   collectionTime: string;
   resultFromPostResponse: string;
   subjectTypes: subjuctType[] = [];
-  selectedSubjectType: string = '1';
+  selectedSubjectType: string = '0';
   selected: null;
   sub: any;
   subjectIdParam: string = '';
