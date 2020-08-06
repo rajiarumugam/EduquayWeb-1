@@ -3,3 +3,9 @@
     max-width: 80% !important;
     margin: auto !important;
 }
+.table-hover:not(.table-dark) tbody tr:hover
+{
+    background-color: #e2a03f !important;
+    -webkit-transform: translateY(0px) scale(1);
+    transform: translateY(0px) scale(1);
+}

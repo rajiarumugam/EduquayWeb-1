@@ -50,3 +50,8 @@ h5.float-left {
   border-bottom: none;
   border-top: none;
 }
+
+.form-group label, label
+{
+  padding-left:15px;
+}

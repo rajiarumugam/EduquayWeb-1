@@ -10,8 +10,8 @@ import { filter, pairwise } from 'rxjs/operators';
   styleUrls: ['./diagnosis-hplc-main.component.css']
 })
 export class DiagosisHPLCmainComponent implements OnInit {
-  receivedSampleCount;
-  uploadCBCCount = 0;
+  abnormalCount=0;
+  normalCount = 0;
   subscription: Subscription;
   currentPage = "";
   constructor(private DataService:DataService,private router: Router) {
@@ -33,16 +33,10 @@ export class DiagosisHPLCmainComponent implements OnInit {
       }
     });
     this.subscription = this.DataService.receiveData().subscribe(x => { 
-      if(JSON.parse(x).screen === "CENTRAL")
+      if(JSON.parse(x).screen === "PATHOLOGIST")
       {
-          if(JSON.parse(x).page === "upload")
-          {
-            this.uploadCBCCount = JSON.parse(x).uploadcount;
-            this.receivedSampleCount = JSON.parse(x).receivedcount;
-          }
-              
-          if(JSON.parse(x).page === "received")
-              this.receivedSampleCount = JSON.parse(x).receivedcount;
+        this.abnormalCount = JSON.parse(x).abnormalcount;
+        this.normalCount = JSON.parse(x).normalcount;
       }
       
     });
