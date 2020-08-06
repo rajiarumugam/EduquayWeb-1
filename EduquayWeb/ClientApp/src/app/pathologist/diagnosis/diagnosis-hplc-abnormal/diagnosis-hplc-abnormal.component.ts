@@ -20,6 +20,7 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  currentPage;
   constructor(
     zone: NgZone,
     private route: ActivatedRoute,
@@ -46,21 +47,28 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
         }, 
       }   
     };
-    
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.centralReceiptsData = [];
     var centralReceiptsArr = this.route.snapshot.data.positiveSubjects;
     if(centralReceiptsArr !== undefined && centralReceiptsArr.status.toString() === "true"){
-      var _tempData = centralReceiptsArr.hplcDetail;
-      if(this.DataService.getdata().centraluploaddata != undefined)
-      {
-          var _tempUploadData = this.DataService.getdata().centraluploaddata;
-          _tempUploadData.forEach((obj)=>{
-            var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
-            _tempData.splice(existNotification,1);
-          });
-      }
-        this.centralReceiptsData = _tempData;
-      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"received","uploadcount":0,"receivedcount":this.centralReceiptsData.length}));
+      var _tempData = centralReceiptsArr.subjectDetails;
+      var tempNormalArray;
+      var tempAbnormalArray;
+      console.log(_tempData);
+        tempAbnormalArray = _tempData.filter(function(item) {
+          return !item.isNormal;
+        });
+        
+        tempNormalArray = _tempData.filter(function(item) {
+          return item.isNormal;
+        });
+        this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length}));
+        console.log(tempNormalArray);
+
+      if(this.currentPage === "abnormal")
+        this.centralReceiptsData = tempAbnormalArray;
+      else
+        this.centralReceiptsData = tempNormalArray;
     }
     else{
       this.errorMessage = centralReceiptsArr.message;
@@ -70,6 +78,7 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
 
   openReportComponent(data)
   {
+    this.DataService.setdata({'diagnosisHPLC':data});
     this.router.navigate(['/app/pathologist-hplc-report']);
   }
   

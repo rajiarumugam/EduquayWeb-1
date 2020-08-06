@@ -1,9 +1,10 @@
 import { Component, OnInit,HostListener } from '@angular/core';
 import { DataService } from '../../../shared/data.service';
-import { Subscription } from 'rxjs';
-import { Router, RoutesRecognized } from '@angular/router';
-import { filter, pairwise } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
 declare var $: any;
+import { HttpErrorResponse } from '@angular/common/http';
+import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
 
 @Component({
   selector: 'app-diagnosis-report',
@@ -13,8 +14,10 @@ declare var $: any;
 export class DiagosisReportComponent implements OnInit {
   receivedSampleCount;
   uploadCBCCount = 0;
-  subscription: Subscription;
   currentPage = "";
+  diagnosisReportData;
+  clinicalDiagnosisData = [];
+  HPLCmasterData= [];
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -33,40 +36,44 @@ export class DiagosisReportComponent implements OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService) {
 
    
    }
 
   ngOnInit() {
-
-    this.router.events
-    .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
-    .subscribe((events: RoutesRecognized[]) => {
-      
-      //console.log('previous url', events[0].urlAfterRedirects.indexOf('chc-update-cbc'));
-      //console.log('current url', events[1].urlAfterRedirects);
-      if(events[0].urlAfterRedirects.indexOf('central-update-hplc') == -1)
-      {
-          this.DataService.deleteProp('centraluploaddata');
-      }
-    });
-    this.subscription = this.DataService.receiveData().subscribe(x => { 
-      if(JSON.parse(x).screen === "CENTRAL")
-      {
-          if(JSON.parse(x).page === "upload")
-          {
-            this.uploadCBCCount = JSON.parse(x).uploadcount;
-            this.receivedSampleCount = JSON.parse(x).receivedcount;
-          }
-              
-          if(JSON.parse(x).page === "received")
-              this.receivedSampleCount = JSON.parse(x).receivedcount;
-      }
-      
-    });
-
+    console.log(this.DataService.getdata().diagnosisHPLC);
+    if(this.DataService.getdata().diagnosisHPLC === undefined)
+    {
+      this.router.navigate(['/app/pathologist-hplc/abnormal']);
+    }
+    this.diagnosisReportData = this.DataService.getdata().diagnosisHPLC;
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
+    this.getClinicalDiagnosis();
+    this.getHPLCmaster();
+  }
+
+  getClinicalDiagnosis()
+  {
+    this.masterService.getClinicalDiagnosis()
+    .subscribe(response => {
+      console.log(response);
+      this.clinicalDiagnosisData = response['diagnosis'];
+    },
+    (err: HttpErrorResponse) =>{
+      this.clinicalDiagnosisData = [];
+    });
+  }
+
+  getHPLCmaster()
+  {
+    this.pathoHPLCService.retriveHPLCResultMaster().subscribe(response => {
+      console.log(response);
+      this.HPLCmasterData = response.hplcResults;
+    },
+    (err: HttpErrorResponse) =>{
+      this.HPLCmasterData = [];
+    });
   }
 
   receivedSamples(event)
@@ -75,6 +82,6 @@ export class DiagosisReportComponent implements OnInit {
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
+    
   }
 }

@@ -338,6 +338,7 @@
                         <thead>
                           <tr>
                             <th>{{'SNo' | translate }}</th>
+                            <th></th>
                             <th>{{'SC' | translate }}</th>
                             <th>{{'SCAddress' | translate }}</th>
                             <th>{{'SCPincode' | translate }}</th>
@@ -347,8 +348,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let person of associatedANMData;index as i" (click)="associatedClick(i);">
+                          <tr *ngFor="let person of associatedANMData;index as i" (click)="associatedClick(i);person.click=true;" (mouseover)="person.hover=true" (mouseout)="person.hover=false">
                             <td style="text-align: center;">{{ i + 1}}</td>
+                            <td style="text-align: center;"><input type="checkbox" [checked]="person.hover" *ngIf="person.click === undefined"/><input type="checkbox" [checked]="true" *ngIf="person.click"/></td>
                             <td>{{ person.scName }}</td>
                             <td>{{ person.scAddress }}</td>
                             <td>{{ person.SCPincode }}</td>

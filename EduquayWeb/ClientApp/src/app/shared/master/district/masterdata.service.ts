@@ -91,4 +91,10 @@ export class masterService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
+  getClinicalDiagnosis()
+  {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVECLINICALDIAGNOSIS);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }

@@ -30,11 +30,11 @@ padding: 9px 6px !important;
 ----------------------------------------------
 */
 /* Base for label styling */
-[type="checkbox"]:not(:checked),
+/*[type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
     position: absolute;
     left: -9999px;
-}
+}*/
 
 [type="checkbox"]:not(:checked)+label,
 [type="checkbox"]:checked+label {
@@ -307,4 +307,11 @@ vertical-align: middle;
 {
     text-align: center;
     margin: 0 20px;
+}
+
+.table-hover:not(.table-dark) tbody tr:hover
+{
+    background-color: #e2a03f !important;
+    -webkit-transform: translateY(0px) scale(1);
+    transform: translateY(0px) scale(1);
 }
