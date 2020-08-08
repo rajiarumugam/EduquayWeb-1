@@ -52,6 +52,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   collectionDate: string;
   collectionTime: string;
   notifySamples: string;
+  notifyStatus: string;
   sampleCollectionDate: string;
   sampleCollectionTime: string;
   popupform: FormGroup;
@@ -170,6 +171,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   
       this.subjectName= sample.subjectName;
       this.uniqueSubjectId = sample.uniqueSubjectId;
+      this.notifyStatus = sample.notifiedStatus;
       this.rchId = sample.rchID;
       this.reason = sample.reason;
       this.sampleCollectionDate = moment().format("DD/MM/YYYY");
@@ -207,6 +209,11 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
         collectedBy: this.user.id,
       };
   
+      var selectedSample = this.timeoutSamples.filter(x => x.uniqueSubjectId === this.uniqueSubjectId);
+      if(selectedSample.length > 0){
+        selectedSample[0].notifiedStatus = 'True';
+        //this.timeoutSamplesUpdateStatus();
+      }
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
        //return false;

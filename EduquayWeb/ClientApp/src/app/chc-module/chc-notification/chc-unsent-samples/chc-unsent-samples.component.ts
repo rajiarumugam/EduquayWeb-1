@@ -383,7 +383,7 @@ getUnsentExpirySamplesConfirmation() {
   var hasLessThan24 = this.chcunsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
   if(hasLessThan24.length > 0){
     Swal.fire({
-      title: 'One or more selected samples that are aging more than 24 hours',
+      title: 'One or more selected samples that are aging less than 24 hours',
       text: "Do you still want to continue?",
       icon: 'warning',
       showCancelButton: true,         
