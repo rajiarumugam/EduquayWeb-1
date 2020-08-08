@@ -34,7 +34,7 @@ export class SiteHeaderComponent implements OnInit {
     private genericService: GenericService,
     public translate: TranslateService) {
     //https://www.positronx.io/angular-internationalization-i18n-with-ngx-translate-tutorial/
-    translate.addLangs(['English', 'ଓଡିଆ', 'தமிழ்', 'हिन्दी']);
+    translate.addLangs(['English', 'ଓଡିଆ']); //, 'தமிழ்', 'हिन्दी'
     translate.setDefaultLang('English');
     this.translate.use('English');
    }

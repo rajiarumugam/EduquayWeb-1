@@ -50,12 +50,13 @@ padding: 4px 11px;
 }
 label.new-control.new-checkbox.checkbox-outline-primary{
     color: #FFFFFF;
-font-weight: 600;
-font-size: 13px;
-border: none;
-text-align: center;
-letter-spacing: 1px;
-text-transform: initial;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: initial;
+    left: 4px;
 }
 .leftspace {
     left: -5px !important;
@@ -68,4 +69,14 @@ text-transform: initial;
 
 .tbl-row-black .tbl-data-black{
     color: #2d2e31;
+}
+
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
 }

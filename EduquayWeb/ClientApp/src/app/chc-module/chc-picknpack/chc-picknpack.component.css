@@ -50,13 +50,25 @@ padding: 4px 11px;
 }
 label.new-control.new-checkbox.checkbox-outline-primary{
     color: #FFFFFF;
-font-weight: 600;
-font-size: 13px;
-border: none;
-text-align: center;
-letter-spacing: 1px;
-text-transform: initial;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: initial;
+    left: 4px;
 }
 .leftspace {
     left: -5px !important;
+}
+.tbl-row-red .tbl-data-red {
+    color: red; 
+   
+}
+
+.tbl-row-black .tbl-data-black{
+    color: #2d2e31;
+}
+.mr-left{
+    margin-bottom: 10px;
 }

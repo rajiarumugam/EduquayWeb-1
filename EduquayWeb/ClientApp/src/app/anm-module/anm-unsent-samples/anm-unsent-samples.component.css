@@ -77,10 +77,20 @@ label.new-control.new-checkbox.checkbox-outline-primary {
     border: none;
     letter-spacing: 1px;
     text-transform: initial;
+    left: 4px;
 }
 
 .swal2-modal .swal2-styled {
 
     padding: 9px 6px !important;
+}
+
+.tbl-row-red .tbl-data-red {
+    color: red; 
+   
+}
+
+.tbl-row-black .tbl-data-black{
+    color: #2d2e31;
 }
 

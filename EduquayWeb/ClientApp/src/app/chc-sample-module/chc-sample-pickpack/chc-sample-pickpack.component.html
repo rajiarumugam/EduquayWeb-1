@@ -118,7 +118,7 @@
                                                     <input type="text" class="w-100 form-control sample-search br-30"
                                                     name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
                                                     [(ngModel)]="searchbarcode" debounce="500" >
-                                                <a (click)="clicksearchBarcode(samplepicknPackdetail, samplepicknpack)"><button class="btn btn-primary" type="submit"><svg
+                                                <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button class="btn btn-primary" type="submit"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -132,7 +132,7 @@
                                     </div>
                                 
                                     <div class="table-responsive mt-2">
-                                        <table id="zero-config-picked" class="table table-bordered table-hover" datatable [dtOptions]="dtOptionsone" [dtTrigger]="dtTriggerone">
+                                        <table id="zero-config-picked" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center"><span>S.No</span></th>
@@ -150,7 +150,24 @@
 
                                             </thead>
                                             <tbody>
-                                                
+                                                <tr *ngFor="let startpicknpack of startPickpackData; index as i">
+                                                    <td class="sno text-center">{{i +1}}</td>
+                                                    <td class="sname text-left">{{startpicknpack.subjectName}}</td>
+                                                    <td class="sid text-center">{{startpicknpack.uniqueSubjectId}}</td>
+                                                    <td class="sid text-center">{{startpicknpack.rchId}}</td>
+                                                    <!-- <td class="text-left"></td> -->
+                                                    <td class="sid text-center">{{startpicknpack.barcodeNo}}</td>
+                                                    <td class="textsample text-center">{{startpicknpack.sampleDateTime}}</td>
+                                                    <td><div class="n-chk">
+                                                        <label class="new-control new-checkbox checkbox-outline-primary">
+                                                          <input type="checkbox" class="new-control-input checkbox" 
+                                                          checked>
+                                                          <span class="new-control-indicator"></span>&nbsp;
+                                                        </label>
+                                                    </div></td>
+                                                    <!-- <td class="text-center">8 days</td>
+                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
+                                                </tr>  
                                             </tbody>
                                         </table>
                                     </div>
@@ -190,13 +207,14 @@
                                     <form class="form-inline my-2 my-lg-0">
                                         <div class="w-100 my-2">
                                             <input type="text" class="w-100 form-control sample-search br-30" 
-                                            type="text" placeholder="Scan / Enter Barcode"
+                                            type="text" placeholder="Scan / Enter Barcode" name="alliquotetubebarcode" [(ngModel)]="alliquotetubebarcode"
                                             >
                                         <a>
                                                 <button class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-search">
+                                                    class="feather feather-search"
+                                                    (click)="validateAlliqutetubeMatch()">
                                                     <circle cx="11" cy="11" r="8"></circle>
                                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                                 </svg></button></a>
@@ -227,13 +245,17 @@
                                             <td class="text-center">{{tempScandata.barcodeNo}}</td>
                                             <td><div class="n-chk">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                  <input type="checkbox" class="new-control-input checkbox" checked>
+                                                  <input type="checkbox" class="new-control-input checkbox" 
+                                                  value="{{tempScandata.primarytubeSelected}}" checked
+                                                  [(ngModel)]="tempScandata.primarytubeSelected">
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>
-                                            <td><div class="n-chk" id="checkbox" [hidden]="!searchAliquoteBarcode">
+                                            <td><div class="n-chk" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
-                                                  <input type="checkbox" class="new-control-input checkbox" checked>
+                                                  <input type="checkbox" class="new-control-input checkbox" 
+                                                  value="{{tempScandata.alliquotedtubeSelected}}"  checked
+                                                    [(ngModel)]="tempScandata.alliquotedtubeSelected">
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>
@@ -242,16 +264,16 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row" id="button" style="display:none;">
+                            <div class="row"  *ngIf="isAliquoteBarcodeMatch">
                                 <div class="col-md-12">
-                                    <a class="btn btn-primary float-right closepop" id="show"
-                                        role="button">Add to Shipment</a>
+                                    <a class="btn btn-primary float-right closepop" type="submit" (click)="onSubmit()"
+                                        role="button">Submit</a>
                                 </div>
                             </div>
                             
                         </div>
                         <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal"><i
+                            <button class="btn" (click)="modal.dismiss()"><i
                                     class="flaticon-cancel-12"></i> Close</button>
 
                         </div>

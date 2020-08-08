@@ -18,15 +18,14 @@
                     <!-- <th class="text-center">Contact</th> -->
                     <th class="text-center">Barcode</th>
                     <th class="text-center us-datetime">Sample Collection Date & Time</th>
-                    <th class="text-center">Aging of Sample </th>
+                    <th class="text-center">Aging of Sample in hours</th>
                     <th class="text-center">GA</th>
                     <!-- <th><input type="checkbox" id="select_all" class="" /></th> -->
                     <th class="text-center">
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
                                 <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()"  >
-                                <span class="new-control-indicator leftspace"></span>Add
-                                to Shipment
+                                <span class="new-control-indicator leftspace ml-3"></span>&nbsp;
                             </label>
                         </div>
                     </th>
@@ -34,19 +33,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let sample of unsentSamples; index as i" >
-                    <td class="sno text-center">{{i +1}}</td>
-                    <td class="sname text-left">{{sample.subjectName}}</td>
-                    <td class="sid text-center">{{sample.uniqueSubjectId}}</td>
-                    <td class="sid text-center">{{sample.rchId}}</td>
-                    <td class="sid text-center">{{sample.barcodeNo}}</td>
-                    <td class="text-center">{{sample.sampleDateTime}}</td>
-                    <td class="text-center">{{sample.sampleAging}}</td>
-                    <td class="sid text-center">{{sample.gestationalAge}}</td>
+                <tr *ngFor="let sample of unsentSamples; index as i" class="tbl-row-red tbl-row-black"
+                [ngClass]="{'tbl-row-black tbl-data-black': +(sample.sampleAging) < 24 , 'tbl-row tbl-data-red': +(sample.sampleAging) >=24 }" >
+                    <td class="sno text-center tbl-data-red tbl-data-black">{{i +1}}</td>
+                    <td class="sname text-left tbl-data-red tbl-data-black">{{sample.subjectName}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.uniqueSubjectId}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.rchId}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.barcodeNo}}</td>
+                    <td class="text-center tbl-data-red tbl-data-black">{{sample.sampleDateTime}}</td>
+                    <td class="text-center tbl-data-red tbl-data-black">{{sample.sampleAging}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.gestationalAge}}</td>
                     <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
                     <td class="text-center">
                         <div class="n-chk">
-                            <label class="new-control new-checkbox checkbox-outline-primary">
+                            <label class="new-control new-checkbox checkbox-outline-primary" style="left: 2px;">
                                 <input type="checkbox" class="new-control-input checkbox" 
                                 value="{{sample.sampleSelected}}" 
                                 (change)="checkIfAllSelected()"
@@ -61,10 +61,13 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-danger float-right ml-2" (click)="getconfirmation()"
-                role="button">Move to Expiry</a>
-            <a class="btn btn-primary float-right"  (click)="openunsentSamples(unsentSamplesDetail)"
+            
+            <a class="btn btn-primary float-right"  (click)="getCreateShipmentConfirmation(unsentSamplesDetail)"
                 role="button">Create Shipment</a>
+                <a class="btn btn-danger float-right mr-2" (click)="getExpirySamplesConfirmation()"
+                role="button">Move to Expiry</a>
+                <a class="btn btn-outline-primary float-right mr-2"
+                role="button">{{length}} Selected</a>
                 
         </div>
     </div>
@@ -138,7 +141,7 @@
                                             <option value="" selected>--Select--</option>
                                             <option *ngFor="let testingChcName of testingCHCNames"
                                                       [(value)]= "testingChcName.id">
-                                                  {{ testingChcName. chcName }}
+                                                  {{ testingChcName.chcName }}
                                               </option>
                                         </select>
                                         <small class=" ml-2 text-danger" [class.d-none]="DDLtestingChc.valid || DDLtestingChc.untouched ">Please choose a Receiving Testing CHC</small>
@@ -151,45 +154,50 @@
                                 <div class="form-row my-2">
                                     <div class="form-group col-md-3">
                                         <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid}" for="inputAvdName">AVD Name<span
-                                            class="manto">*</span></label>
-                                        <select name="inputAvdName"
+                                            class="manto"> *</span></label>
+                                        <input type="text"
                                         name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid"
-                                        class="form-control field" id="inputAvdName" required [(ngModel)]="selectedAvdName">
-                                        <option value="">--Select--</option>
-                                        <option *ngFor="let AvdName of AvdNames"
-                                                  [(value)]= "AvdName.id">
-                                              {{ AvdName. avdName }}
-                                          </option>
-                                        </select>
-                                        <small class=" ml-2 text-danger" [class.d-none]="DDLavdName.valid || DDLavdName.untouched ">Please choose a Receiving Testing CHC</small>
-                                        <div *ngIf="unsentsampleForm.submitted && DDLavdName.invalid">  
-                                            <small *ngIf="DDLavdName.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
+                                        class="form-control field" id="inputAvdName" required [(ngModel)]="selectedAvdName" value="" readonly value="{{selectedAvdName}}"
+                                        placeholder="AVD Name">
+                                        <small class=" ml-2 text-danger" [class.d-none]="((DDLavdName.valid || alternatename.valid ))">Please enter AVD Name</small>
+                                        <div *ngIf="unsentsampleForm.submitted && (DDLavdName.invalid && alternatename.invalid)">  
+                                            <small *ngIf="DDLavdName.untouched && alternatename.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
                                           </div>
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || unsentsampleForm.submitted && contactNo.invalid}">Contact Number<span
-                                            class="manto">*</span></label>
-                                        <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10" 
-                                        oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
-                                        [class.is-invalid]="contactNo.invalid && contactNo.touched || unsentsampleForm.submitted && contactNo.invalid"
-                                            required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo">
-                                            <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
-                                                <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched">The Contact number is required</small>
+                                        <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || unsentsampleForm.submitted && avdcontactNo.invalid}">Contact Number<span
+                                            class="manto"> *</span></label>
+                                        <input class="form-control field" name="avdcontactNo" #avdcontactNo="ngModel" ngModel maxlength="10"
+                                        numbersOnly pattern="^[6-9]\d{9}$"
+                                        [class.is-invalid]="avdcontactNo.invalid && avdcontactNo.touched || unsentsampleForm.submitted && avdcontactNo.invalid"
+                                            required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo" value="{{selectedAvdContact}}" readonly>
+                                            <div *ngIf="avdcontactNo.errors && (avdcontactNo.invalid || avdcontactNo.touched)">
+                                                <small class="ml-2 text-danger" *ngIf="avdcontactNo.errors.required && avdcontactNo.touched ">The Contact number is required</small>
                                                 <!-- <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number must be 10 digits</small> -->
                                             </div>
-                                            <div *ngIf="unsentsampleForm.submitted && contactNo.invalid">  
-                                                <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
+                                            <div *ngIf="unsentsampleForm.submitted && avdcontactNo.invalid">  
+                                                <small *ngIf="avdcontactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
                                             </div>
                                     </div>
-                                    <div class="form-group col-md-3" [formGroup]="popupform">
-                                        <label class="note">Shipment Date & Time <span class="manto">*</span></label>
-                                        <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
-                                          placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
-                                        <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
-                                         [config]="shipmentDateOptions" placeholder="Select Date.." formControlName = "shipmentDate">
-                                        </ng2-flatpickr>
-                                      </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Alternate AVD Name<span
+                                            class="manto"></span></label>
+                                        <input class="form-control field" name="alternatename" #alternatename="ngModel" ngModel  
+                                        type="text" placeholder="Alternate AVD Name" [(ngModel)]="alternateAVD" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">     
+                                        <small class=" ml-2 text-danger" [class.d-none]="hasAlternateAvdName">Please enter altername AVD Name</small>  
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Alternate AVD Contact Number<span
+                                            class="manto"></span></label>
+                                        <input class="form-control field" name="alternatecontactNo" [class.is-invalid]="alternatecontactNo.invalid && alternatecontactNo.touched || unsentsampleForm.submitted && alternatecontactNo.invalid"
+                                        #alternatecontactNo="ngModel" ngModel maxlength="10" numbersOnly
+                                        numbersOnly pattern="^[6-9]\d{9}$" 
+                                        type="tel" placeholder="Alternate Contact Number" [(ngModel)]="alternateAVDContactNo" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">
+                                        <small class=" ml-2 text-danger" [class.d-none]="hasAlternateContactNumber">Please enter altername AVD contact number</small>  
+                                           
+                                    </div>
+                                   
                                     <!-- <div class="form-group col-md-2">
                                         <label>Shipment Date<span
                                             class="manto">*</span></label>
@@ -205,10 +213,21 @@
                                         placeholder="Select Time..."  name="timeOfShipment" formControlName="timeOfShipment" required></ng2-flatpickr>
                                     </div> -->
                                 </div>
+                                <div class="form-row my-2" [formGroup]="popupform">
+                                    <div class="form-group col-md-3">
+                                        <label class="note">Shipment Date & Time <span class="manto">*</span></label>
+                                        <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                          placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                        <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
+                                         [config]="shipmentDateOptions" placeholder="Select Date.." formControlName = "shipmentDate">
+                                        </ng2-flatpickr>
+                                      </div>
+                                </div>
                                 <br>
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"
+                                    <span class="mr-auto"><b>Selected samples barcode: </b>{{_strSelectedBarcode}}</span>
+                                    <button type="submit" class="btn btn-primary" 
                                         id="linktobuttonpickpak">Submit</button>
                                     <button class="btn"  (click)="modal.dismiss()"><i
                                             class="flaticon-cancel-12"></i> Close</button>

@@ -21,5 +21,15 @@ export interface tempCHCData{
     subjectName: string;
     rchId: string;
     barcodeNo: string;
+
+}
+export interface startPickpack{
+    uniqueSubjectId: string;
+    sampleCollectionId: number;
+    subjectName: string;
+    rchId: string;
+    barcodeNo: string;
+    sampleDateTime: string;
+    gestationalAge: string;
 }
 

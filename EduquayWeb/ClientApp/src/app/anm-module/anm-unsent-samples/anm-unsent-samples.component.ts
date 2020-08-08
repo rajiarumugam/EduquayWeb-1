@@ -51,8 +51,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   selectedilrPoint: string = '';
   testingCHCNames: TestingChcModel[] = [];
   selectedtestingCHC: string = '';
-  AvdNames: AvdNameModel[] = [];
+  AvdNames: AvdNameModel;
   selectedAvdName: string = '';
+  selectedAvdContact: string = '';
   barcodeNo: string;
   shipmentFrom: number;
   source: string;
@@ -79,6 +80,19 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   sampleShipmentTime: string;
   popupform: FormGroup;
   DAY = 86400000;
+  selecteddate: any;
+  length = 0;
+  avdName: string;
+  contactNo: string;
+  alternateAVD: string;
+  alternateAVDContactNo: string;
+  
+
+  hasAlternateContactNumber = true;
+  hasAlternateAvdName = true;
+
+  _strSelectedBarcode: string;
+  _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -180,6 +194,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       this.selectedilrPoint = '';
       this.selectedtestingCHC = '';
       this.selectedAvdName = '';
+      this.selectedAvdContact = '';
     }
     else{
       this.getILRPoints(this.selectedriPoint);
@@ -220,36 +235,36 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
   }
 
-  openunsentSamples(unsentSamplesDetail) {
+  // openunsentSamples(unsentSamplesDetail) {
 
-    this.unsentSamplesErrorMessage = '';
-    this.fetchBarcode();
-    this.fetchMaxDate();
+  //   this.unsentSamplesErrorMessage = '';
+  //   this.fetchBarcode();
+  //   this.fetchMaxDate();
 
-    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
-      return false;
-    }
+  //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+  //     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+  //     return false;
+  //   }
 
-    if (unsentSamplesDetail.sampleAging > 24) {
-      this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
-      return false;
-    }
-    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
-    this.sampleShipmentTime =  moment().format("HH:mm"); 
-    this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+  //   if (unsentSamplesDetail.sampleAging > 24) {
+  //     this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
+  //     return false;
+  //   }
+  //   this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+  //   this.sampleShipmentTime =  moment().format("HH:mm"); 
+  //   this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+  //   this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
-    this.name = this.user.name;
-    this.modalService.open(
-      unsentSamplesDetail, {
-      centered: true,
-      size: 'xl',
-      scrollable: true,
-      ariaLabelledBy: 'modal-basic-title'
-    });
+  //   this.name = this.user.name;
+  //   this.modalService.open(
+  //     unsentSamplesDetail, {
+  //     centered: true,
+  //     size: 'xl',
+  //     scrollable: true,
+  //     ariaLabelledBy: 'modal-basic-title'
+  //   });
 
-  }
+  // }
 
   getILRPoints(riPointId) {
     this.ilrPoints = [];
@@ -297,15 +312,16 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   getAVDName(riPointId) {
-    this.AvdNames = [];
+    this.AvdNames = new AvdNameModel();
     this.selectedAvdName = "";
     this.UnsentSamplesServiceService.getAvdName(riPointId)
       .subscribe(response => {
         this.avdNameResponse = response;
         if (this.avdNameResponse !== null && this.avdNameResponse.status === "true") {
           this.AvdNames = this.avdNameResponse.avd;
-          if (this.AvdNames.length > 0) {
-            this.selectedAvdName = this.AvdNames[0].id.toString();
+          if (this.AvdNames !== null) {
+            this.selectedAvdName = this.AvdNames.avdName;
+            this.selectedAvdContact = this.avdContactNo = this.AvdNames.contactNo;
           }
 
         }
@@ -321,31 +337,41 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
   onSubmit(unsentsampleForm: NgForm) {
     this.unsentSamplesErrorMessage = '';
-    this.fetchBarcode();
+    //this.fetchBarcode();
     //var shipmentId = "123";
-    console.log(unsentsampleForm.value);
-    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
-      return false;
-      // this.unsentSamplesErrorMessage = 'Please select at least one sample to create shipment';
-      // return false;
-    }
+    this.hasAlternateContactNumber = this.hasAlternateAvdName = true;
 
-    this.avdContactNo = unsentsampleForm.value.contactNo;
+    var hasAlternateContactNumber = unsentsampleForm.value.alternatecontactNo !== '' && unsentsampleForm.value.alternatecontactNo !== undefined;
+    var hasAlternateAvdName = unsentsampleForm.value.alternatename !== '' && unsentsampleForm.value.alternatename !== undefined;
+    if(hasAlternateContactNumber !== hasAlternateAvdName){
+      if((unsentsampleForm.value.alternatecontactNo !== '' && unsentsampleForm.value.alternatecontactNo !== undefined) && (unsentsampleForm.value.alternatename === '' || unsentsampleForm.value.alternatename === undefined)){
+        this.hasAlternateAvdName = false;
+      }
+      else if((unsentsampleForm.value.alternatecontactNo === '' || unsentsampleForm.value.alternatecontactNo === undefined)  && (unsentsampleForm.value.alternatename !== '' && unsentsampleForm.value.alternatename !== undefined)){
+        this.hasAlternateContactNumber = false;
+      }
+      return false;
+    }
+    console.log(unsentsampleForm.value);
+
+    //this.avdContactNo = unsentsampleForm.value.contactNo;
     this.riId = unsentsampleForm.value.DDriPoint;
     this.ilrId = unsentsampleForm.value.DDilrPoint;
     this.testingCHCId = unsentsampleForm.value.DDLtestingChc;
-    this.avdId = unsentsampleForm.value.DDLavdName;
+    this.alternateAVD = unsentsampleForm.value.alternatename;
+    this.alternateAVDContactNo = unsentsampleForm.value.alternatecontactNo;
 
     this.addUnsentSamplesRequest = {
       anmId: this.user.id,
       riId: +(this.riId),
       ilrId: +(this.ilrId),
-      avdId: +(this.avdId),
+      avdId: +(this.AvdNames.id),
       avdContactNo: this.avdContactNo,
       testingCHCId: +(this.testingCHCId),
       dateOfShipment: this.sampleShipmentDate,
       timeOfShipment: this.sampleShipmentTime,
+      alternateAVD: this.alternateAVD,
+      alternateAVDContactNo: this.alternateAVDContactNo,
       barcodeNo: this.selectedBarcodes,
       shipmentFrom: this.user.shipmentFrom,
       createdBy: this.user.id,
@@ -373,40 +399,47 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       });
   }
 
-  getconfirmation() {
-    this.unsentSamplesErrorMessage = '';
-    this.expirysamplesBarcode();
-    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
-      return false;
-    }
-    if (this.selectedBarcodes !== null) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this back!",
-        icon: 'warning',
-        showCancelButton: true,
-        // confirmButtonColor: '#3085d6',
-        // cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Move it!',
-        cancelButtonText: 'Cancel'
-      }).then((result) => {
-        if (result.value) {
-          this.moveExpirySamples();
-        }
-      })
-    }
+  // getconfirmation() {
+  //   this.unsentSamplesErrorMessage = '';
+  //   this.expirysamplesBarcode();
+  //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+  //     this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+  //     return false;
+  //   }
+  //   if (this.selectedBarcodes !== null) {
+  //     Swal.fire({
+  //       title: 'Are you sure?',
+  //       text: "You won't be able to revert this back!",
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       // confirmButtonColor: '#3085d6',
+  //       // cancelButtonColor: '#d33',
+  //       confirmButtonText: 'Yes, Move it!',
+  //       cancelButtonText: 'Cancel'
+  //     }).then((result) => {
+  //       if (result.value) {
+  //         this.moveExpirySamples();
+  //       }
+  //     })
+  //   }
 
-  }
+  // }
 
   moveExpirySamples() {
 
     this.unsentSamplesErrorMessage = '';
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      return false;
+    }
     
     this.movetimeoutExpiryRequest = {
       anmId: this.user.id,
       barcodeNo: this.selectedBarcodes,
     }
+    // Swal.fire({icon: 'success', title: "successfull",
+    //  confirmButtonText: 'Ok'})
+    // return false;
 
     let expirysamples = this.UnsentSamplesServiceService.MoveExpirySamples(this.movetimeoutExpiryRequest)
       .subscribe(response => {
@@ -427,6 +460,136 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         });
   }
 
+  getSelectedBarcode(agingMode) {
+    //gt24bc
+    //lt24bc
+    //allbc
+        this._arrSelectedDate = [];
+        var _arrSelectedBarcode = [];
+        this.unsentSamples.forEach(element => {
+          if (element.sampleSelected) {
+            if(agingMode === 'gt24bc' && +element.sampleAging >= 24){
+              _arrSelectedBarcode.push(element.barcodeNo);
+              //this._arrSelectedDate.push(element.sampleDateTime);
+            }
+            else if(agingMode === 'lt24bc' && +element.sampleAging < 24){
+              _arrSelectedBarcode.push(element.barcodeNo);
+             // this._arrSelectedDate.push(element.sampleDateTime);
+            }
+            else if(agingMode === 'allbc'){
+              _arrSelectedBarcode.push(element.barcodeNo);
+              //this._arrSelectedDate.push(element.sampleDateTime);
+            }
+          }
+        });
+        return _arrSelectedBarcode.join(',');
+  }
+  getCreateShipmentConfirmation(unsentSamplesDetail) {
+    this.selectedBarcodes = '';
+
+    var hasAnySelected = this.unsentSamples.filter(x => x.sampleSelected === true);
+    if(hasAnySelected.length <= 0){
+      this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+      return false;
+    }
+
+    var hasGreaterThan24 = this.unsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 24);
+    if(hasGreaterThan24.length > 0){
+      Swal.fire({
+        title: 'One or more selected samples that are aging more than 24 hours',
+        text: "Do you still want to continue?",
+        icon: 'warning',
+        showCancelButton: true,         
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          var isFirst = true;
+          this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
+          //var getdates = this._arrSelectedDate;
+          if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            return false;
+          }
+          this.fetchMaxDateAllbc();
+      
+          this.unsentSamplesErrorMessage = '';
+
+          this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+          this.sampleShipmentTime = moment().format("HH:mm");
+          this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+          this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+
+          this.name = this.user.name;
+          this.modalService.open(
+            unsentSamplesDetail, {
+            centered: true,
+            size: 'xl',
+            scrollable: true,
+            ariaLabelledBy: 'modal-basic-title'
+          });
+        }
+        else {
+
+          this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
+          //var getdates = this._arrSelectedDate;
+          if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            return false;
+          }
+          this.fetchMaxDatelt24();
+          
+          this.unsentSamplesErrorMessage = '';
+          
+          this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+          this.sampleShipmentTime = moment().format("HH:mm");
+          this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+          this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+
+          this.name = this.user.name;
+          this.modalService.open(
+            unsentSamplesDetail, {
+            centered: true,
+            size: 'xl',
+            scrollable: true,
+            ariaLabelledBy: 'modal-basic-title'
+          });
+        }
+      })      
+    }
+    else{
+      var _arrSelectedBarcode = []; 
+      this.unsentSamples.forEach(element => {
+        if(element.sampleSelected){
+          _arrSelectedBarcode.push(element.barcodeNo);
+        }
+      });
+      this.selectedBarcodes =  this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
+      if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+        this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+        return false;
+      }
+      this.fetchMaxDatelt24(); 
+      this.unsentSamplesErrorMessage = '';
+
+      this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+      this.sampleShipmentTime = moment().format("HH:mm");
+      this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+
+      this.name = this.user.name;
+
+      this.modalService.open(
+        unsentSamplesDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        ariaLabelledBy: 'modal-basic-title'
+      });      
+    }
+    
+  }
+
   expirySampleResponseMessage(message: string, type: string) {
     var messageType = '';
     if (type === 'e') {
@@ -435,6 +598,88 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     else {
       Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
     }
+  }
+
+  fetchBarcodes() {
+    this.selectedBarcodes = '';
+    var isFirst = true;
+    this.unsentSamples.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected === true && +element.sampleAging < 24) {
+        //if (element.sampleSelected) {
+        if (isFirst) {
+          this.selectedBarcodes += element.barcodeNo;
+          isFirst = false;
+        }
+        else {
+          this.selectedBarcodes += ',' + element.barcodeNo;
+        }
+      }
+    });
+  }
+  getExpirySamplesConfirmation() {
+    this.selectedBarcodes = '';
+
+    var hasAnySelected = this.unsentSamples.filter(x => x.sampleSelected === true);
+    if(hasAnySelected.length <= 0){
+      this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+      return false;
+    }
+
+    var hasLessThan24 = this.unsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
+    if(hasLessThan24.length > 0){
+      Swal.fire({
+        title: 'One or more selected samples that are aging more than 24 hours',
+        text: "Do you still want to continue?",
+        icon: 'warning',
+        showCancelButton: true,         
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          var isFirst = true;
+          this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
+          if(this.selectedBarcodes === '') return;
+          this.moveExpirySamples();
+        }
+        else {
+
+          this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('gt24bc');
+          if(this.selectedBarcodes === '') return;
+          this.moveExpirySamples();
+        }
+      })      
+    }
+    else{
+      var _arrSelectedBarcode = []; 
+      this.unsentSamples.forEach(element => {
+        if(element.sampleSelected){
+          _arrSelectedBarcode.push(element.barcodeNo);
+        }
+      });
+      this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('gt24bc');
+      this.moveExpirySamples();     
+    }  
+    
+  }
+
+  fetchExpirySamplesBarcode() {
+    this.selectedBarcodes = '';
+    var isFirst = true;
+    this.unsentSamples.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected === true && +element.sampleAging >= 24) {
+        //if (element.sampleSelected) {
+        if (isFirst) {
+          this.selectedBarcodes += element.barcodeNo;
+          isFirst = false;
+        }
+        else {
+          this.selectedBarcodes += ',' + element.barcodeNo;
+        }
+      }
+    });
+    
   }
 
   showResponseMessage(shipmentId: string, type: string) {
@@ -466,6 +711,16 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   //     object.sampleSelected = value;
   //     console.log(this.unsentSamples);
   // }
+
+  ngDoCheck() {
+
+    let count = this.unsentSamples.filter(ite => ite.sampleSelected).length
+    if (count != this.length) {
+      this.length = count
+    }
+
+  }
+
   selectAll() {
     for (var i = 0; i < this.unsentSamples.length; i++) {
       this.unsentSamples[i].sampleSelected = this.selectedAll;
@@ -481,76 +736,127 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     })
   }
 
-  fetchMaxDate(){
-    
+  fetchMaxDategt24() {
+
+    this.selecteddate = '';
     var isFirst = true;
     var getdates;
-    
+
     this.unsentSamples.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if(element.sampleSelected === true && +element.sampleAging < 24){
-        if(isFirst){
-          getdates = [{"selecteddate" : element.sampleDateTime}];
+      if (element.sampleSelected === true && +element.sampleAging >= 24) {
+        
+        if (isFirst) {
+          getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
           isFirst = false;
         }
-        else{
-          getdates.push({"selecteddate" : element.sampleDateTime});
+        else {
+          //logdate  += [',' + element.sampleDateTime];
+          getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
         }
-      }    
+      }
     });
 
-    if (getdates === '' || getdates === undefined) {
+    if (getdates <= 0) {
       this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
       return false;
     }
-    
+
     var comparedate;
     comparedate = getdates.reduce(function (r, a) {
-      return r.selecteddate > a.selecteddate ? r : a;   
+      return r.selecteddate > a.selecteddate ? r : a;
     });
-    var maximumdate = Object.values(comparedate);
-    console.log(maximumdate);
+    // var maximumdate = Object.values(comparedate);
+    // console.log(maximumdate);
+    // var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    // var maxDate = new Date(maximumdate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    // console.log(maxDate);
+    this.shipmentDateOptions.minDate = comparedate.selecteddate;
+    
+
+  }
+  fetchMaxDateAllbc() {
+
+    this.selecteddate = '';
+    var isFirst = true;
+    var getdates;
+
+    this.unsentSamples.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected === true) {
+        if (isFirst) {
+          getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
+          isFirst = false;
+        }
+        else {
+          //logdate  += [',' + element.sampleDateTime];
+          getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
+        }
+      }
+    });
+
+    if (getdates <= 0) {
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      return false;
+    }
+
+    var comparedate;
+    comparedate = getdates.reduce(function (r, a) {
+      return r.selecteddate > a.selecteddate ? r : a;
+    });
+    // var maximumdate = Object.values(comparedate);
+    // console.log(maximumdate);
+    // var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    // var maxDate = new Date(maximumdate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    // console.log(maxDate);
+    this.shipmentDateOptions.minDate = comparedate.selecteddate;
+
+  }
+  fetchMaxDatelt24() {
+
+    this.selecteddate = '';
+    var isFirst = true;
+    var getdates;
+
+    this.unsentSamples.forEach(element => {
+      console.log('sampleSelected :' + element.sampleSelected);
+      if (element.sampleSelected === true && +(element.sampleAging) < 24) {
+        if (isFirst) {
+          getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
+          isFirst = false;
+        }
+        else {
+          //logdate  += [',' + element.sampleDateTime];
+          getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
+        }
+      }
+    });
+
+    if (getdates <= 0) {
+      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      return false;
+    }
+
+    var comparedate;
+    comparedate = getdates.reduce(function (r, a) {
+      return r.selecteddate > a.selecteddate ? r : a;
+    });
+    // var maximumdate = Object.values(comparedate);
+    // console.log(maximumdate);
+    // var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    // var maxDate = new Date(maximumdate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    // console.log(maxDate);
+    this.shipmentDateOptions.minDate = comparedate.selecteddate;
+
+  }
+
+  convertToDateFormat(strDate){
+
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-    var maxDate = new Date(maximumdate.toString().replace(pattern,'$3/$2/$1 $4:$5'));
-    console.log(maxDate);
-    this.shipmentDateOptions.minDate = maxDate;
- 
-  }
+    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    console.log(dateFormat);
+    return dateFormat;
 
-  fetchBarcode() {
-    this.selectedBarcodes = '';
-    var isFirst = true;
-    this.unsentSamples.forEach(element => {
-      console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && +element.sampleAging < 24) {
-        //if (element.sampleSelected) {
-        if (isFirst) {
-          this.selectedBarcodes += element.barcodeNo;
-          isFirst = false;
-        }
-        else {
-          this.selectedBarcodes += ',' + element.barcodeNo;
-        }
-      }
-    });
-  }
-
-  expirysamplesBarcode() {
-    this.selectedBarcodes = '';
-    var isFirst = true;
-    this.unsentSamples.forEach(element => {
-      console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && +element.sampleAging > 24) {
-        //if (element.sampleSelected) {
-        if (isFirst) {
-          this.selectedBarcodes += element.barcodeNo;
-          isFirst = false;
-        }
-        else {
-          this.selectedBarcodes += ',' + element.barcodeNo;
-        }
-      }
-    });
   }
 
   rerender(): void {
