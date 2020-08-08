@@ -6,7 +6,7 @@ $('.pthead').click(function(){
     if(tbody.get(0).className === 'd-none')
     {
         //$(this).removeClass().addClass('fa fa-caret-left');
-        $(this).find('i').removeClass().addClass('fa fa-caret-left')
+        $(this).find('i').removeClass().addClass('fa fa-caret-up')
         tbody.removeClass();
     }else{
         //$(this).removeClass().addClass('fa fa-caret-down');

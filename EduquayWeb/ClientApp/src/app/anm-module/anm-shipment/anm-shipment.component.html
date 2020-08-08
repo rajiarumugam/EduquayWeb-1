@@ -169,20 +169,20 @@
                                             <span><b>Receiving Testing CHC : </b></span><span>{{testingCHC}}</span>
                                         </div>
                                     </div>
-                                    <div class="row my-4">
+                                    <div class="row my-4" [hidden]="alternateAVD">
                                         <div class="col-md-3">
                                             <span><b>AVD Name : </b></span><span>{{avdName}}</span>
                                         </div>
                                         <div class="col-md-3">
                                             <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
-                                        </div>
+                                        </div>                                       
+                                       
+                                    </div>
+                                    <div class="row my-4" [hidden]="!alternateAVD">
                                         <div class="col-md-3">
                                             <span [hidden]="!alternateAVD"><b>Alternate AVD Name : </b></span><span>{{alternateAVD}}</span>
                                         </div>
-                                       
-                                    </div>
-                                    <div class="row my-4">
-                                        <div class="col-md-6" [hidden]="!alternateAVDContactNo">
+                                        <div class="col-md-6">
                                             <span><b>Alternate AVD Contact Number : </b></span><span>{{alternateAVDContactNo}}</span>
                                         </div>
                                     </div>

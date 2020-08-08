@@ -49,7 +49,8 @@ import { ChcTimeoutSamplesComponent } from './chc-module/chc-notification/chc-ti
 import { ChcNotificationComponent } from './chc-module/chc-notification/chc-notification/chc-notification.component';
 import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component';
 import { ChcSamplePickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component';
-//import { ChcSampleCollectionComponent } from './chc-module/sample-collection/chc-sample-collection.component';
+import { PageUnderDevelopementComponent} from './page-under-developement/page-under-developement.component';
+import { ChcSampleCollectionComponent } from './chc-module/chc-sample-collection/chc-sample-collection.component';
 
 
 
@@ -80,8 +81,9 @@ const ngWizardConfig: NgWizardConfig = {
     ChcPositiveSubjectComponent,
     SelectDropdownComponent,
     TextSearchPipe,
-    ChcSamplePickpackComponent
-    //ChcSampleCollectionComponent
+    ChcSamplePickpackComponent,
+    PageUnderDevelopementComponent,
+    ChcSampleCollectionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

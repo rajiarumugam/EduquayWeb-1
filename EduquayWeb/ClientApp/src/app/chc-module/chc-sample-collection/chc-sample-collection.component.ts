@@ -75,13 +75,13 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: moment().add(-1, 'day').format('DD/MM/yyyy'),
+    defaultDate: '',
     maxDate: new Date(Date.now())
   };
   endOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now()),
+    defaultDate: '',
     minDate: new Date(moment().add(-1, 'day').format()),
     maxDate: new Date(Date.now())
   };
@@ -189,8 +189,8 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   }
   this.chcscRequest = {
     userId: this.user.id,
-    fromDate: this.chcSCFromDate, // != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
-    toDate: this.chcSCToDate, // != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+    fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
+    toDate: this.chcSCToDate != '' ? moment(new Date(this.chcSCToDate)).format("DD/MM/YYYY") : '',
     subjectType: +(this.selectedSubjectType),
     registeredFrom: this.user.registeredFrom
   };
@@ -327,10 +327,16 @@ showResponseMessage(message: string, type: string){
     this.chcSCToDate = moment().format("DD/MM/YYYY");
 
     this.dateform = this._formBuilder.group({
-      fromDate: [moment().add(-1, 'day')],
-      toDate: [moment()],
+      fromDate: [''],
+      toDate: [''],
       selectedSubjectType: ['0']
     });
+
+    // this.dateform = this._formBuilder.group({
+    //   fromDate: [moment().add(-1, 'day')],
+    //   toDate: [moment()],
+    //   selectedSubjectType: ['0']
+    // });
     this.popupform = this._formBuilder.group({
       collectionDate: [new Date(moment().add(-1, 'day').format())],
     });
