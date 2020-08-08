@@ -243,7 +243,7 @@
                                             <td class="text-center">{{tempScandata.uniqueSubjectId}}</td>
                                             <td class="text-center">{{tempScandata.rchId}}</td>
                                             <td class="text-center">{{tempScandata.barcodeNo}}</td>
-                                            <td><div class="n-chk">
+                                            <td><div class="n-chk text-center">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                   <input type="checkbox" class="new-control-input checkbox" 
                                                   value="{{tempScandata.primarytubeSelected}}" checked
@@ -251,7 +251,7 @@
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>
-                                            <td><div class="n-chk" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
+                                            <td><div class="n-chk text-center" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                   <input type="checkbox" class="new-control-input checkbox" 
                                                   value="{{tempScandata.alliquotedtubeSelected}}"  checked
