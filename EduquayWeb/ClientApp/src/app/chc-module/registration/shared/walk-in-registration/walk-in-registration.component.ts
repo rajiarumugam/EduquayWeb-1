@@ -34,6 +34,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   thirdFormGroup: FormGroup;
   firstFormCheck = false;
   secondFormCheck = false;
+  thirdFormCheck = false;
   selectedDistrict = null;
   selectedgender = "Male";
   selectedchc = null;
@@ -144,10 +145,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       street: ['', Validators.required],
       city : ['', Validators.required],
       state: [''],
-      pincode: ['', Validators.required],
+      pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       govtIDDetail: [''],
       govtIDType: [''],
-      maritalStatus: ['']
+      maritalStatus: ['true']
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -263,8 +264,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
+      /*if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -276,8 +277,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
-      if(this.casteData[0])
-      this.selectedcaste = this.casteData[0].id;
+      /*if(this.casteData[0])
+      this.selectedcaste = this.casteData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -308,8 +309,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -320,8 +321,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+         /* if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -427,6 +428,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
 
       formSubmit()
     {
+        this.thirdFormCheck = true;
+        console.log(this.thirdFormGroup.valid);
+        console.log(this.secondFormGroup.valid);
+        console.log(this.firstFormGroup.valid);
         if(this.secondFormGroup.valid && this.firstFormGroup.valid)
           {
             var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
@@ -470,12 +475,12 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           this.selectedsubjectTitle = "Mr"
           this.selectedgender = "Male"
           this.selectedripoint = "";
-          if(this.religionData[0])
+          /*if(this.religionData[0])
             this.selectedreligion = this.religionData[0].id;
           if(this.casteData[0])
             this.selectedcaste = this.casteData[0].id;
           if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+            this.selectedcommunity = this.communityData[0].id;*/
 
 
           this.selecteddor = new Date(Date.now());
@@ -604,6 +609,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         this.dtTrigger.next();
       });
     }   
+    ageEntered()
+    {
+      this.DOBPicker.flatpickr.setDate("");
+    }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();

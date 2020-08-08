@@ -1,5 +1,4 @@
 import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
-import { DistrictService } from 'src/app/shared/master/district/district.service';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';

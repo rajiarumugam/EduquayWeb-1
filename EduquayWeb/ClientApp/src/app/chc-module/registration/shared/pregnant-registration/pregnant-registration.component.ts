@@ -172,7 +172,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      pincode: ['', Validators.required],
+      pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       subjectitle: ['Ms.'],
       firstname: ['', Validators.required],
@@ -191,7 +191,6 @@ export class ChcpregnantRegistrationComponent implements OnInit {
    });
 
     this.secondFormGroup = this._formBuilder.group({
-      dob: [''],
       ECNumber: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
       govtIDType: [''],
       GovtIDDetail: [''],
@@ -291,8 +290,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
+      /*if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -304,8 +303,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
-      if(this.casteData[0])
-          this.selectedcaste = this.casteData[0].id;
+      /*if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -335,8 +334,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -347,8 +346,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -485,12 +484,12 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
           if(this.selectedripoint === "" && this.RIdata[0])
             this.selectedripoint = this.RIdata[0].id;
-          if(this.religionData[0])
+          /*if(this.religionData[0])
             this.selectedreligion = this.religionData[0].id;
           if(this.casteData[0])
             this.selectedcaste = this.casteData[0].id;
           if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+            this.selectedcommunity = this.communityData[0].id;*/
 
 
           //this.selecteddor = new Date(Date.now());
@@ -500,7 +499,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       
           this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
           this.LMPPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*30.00025)));
-          this.DOBPicker.flatpickr.setDate("");
+          //this.DOBPicker.flatpickr.setDate("");
         }, 100);
     }
     dataBindinginServce()
@@ -520,13 +519,14 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "firstName": this.firstFormGroup.get('firstname').value,
           "middleName": this.firstFormGroup.get('middlename').value != undefined ? this.firstFormGroup.get('middlename').value : '',
           "lastName": this.firstFormGroup.get('lastname').value,
-          "dob": this.secondFormGroup.get('dob').value != undefined ? moment(new Date(this.secondFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
+          //"dob": this.secondFormGroup.get('dob').value != undefined ? moment(new Date(this.secondFormGroup.get('dob').value)).format("DD/MM/YYYY") : '',
+          "dob": '',
           "age": Number(this.firstFormGroup.get('age').value),
           "gender": "Female",
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? Number(this.secondFormGroup.get('govtIDType').value) : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
           "spouseSubjectId": "",
           "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
@@ -609,9 +609,9 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     }
     ponChange()
     {
-      this.selecteda = +this.selectedg - +this.selectedp;
+      /*this.selecteda = +this.selectedg - +this.selectedp;
       if(this.selecteda === 0)
-      this.selecteda = "00";
+      this.selecteda = "00";*/
       this.Ldisabled = false;
     }
     ecNumberChange()

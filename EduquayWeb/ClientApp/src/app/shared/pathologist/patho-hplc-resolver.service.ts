@@ -11,7 +11,7 @@ import { ENDPOINT } from 'src/app/app.constant';
 @Injectable({
   providedIn: 'root'
 })
-export class CentralupdateHPLCService implements Resolve<any> {
+export class PathoHPLCService implements Resolve<any> {
 
   constructor(
     private tokenService: TokenService,
@@ -25,7 +25,8 @@ export class CentralupdateHPLCService implements Resolve<any> {
     ): Observable<any> | Promise<any> | any {
     var user = JSON.parse(this.tokenService.getUser('lu'));
     console.log(user);
-    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEHPLC+user.centralLabId);
+    //var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEHPLC+user.centralLabId);
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEHPLC+1);
     return this.httpClient.get<any>( {url:apiUrl}).pipe(
       catchError(error => {
         console.log(error);

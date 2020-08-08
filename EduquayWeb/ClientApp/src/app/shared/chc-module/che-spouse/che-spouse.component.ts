@@ -67,7 +67,7 @@ export class CheSpouseComponent implements OnInit {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: "",
-    maxDate: ""
+    maxDate: new Date(Date.now())
   };
   startOptionsDOR: FlatpickrOptions = {
     mode: 'single',
@@ -152,7 +152,7 @@ export class CheSpouseComponent implements OnInit {
       state: [''],
       spouseContactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       spouseEmail: [''],
-      pincode:['', Validators.required],
+      pincode:['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       ECNumber:[""]
     });  
     
@@ -269,8 +269,8 @@ export class CheSpouseComponent implements OnInit {
     this.masterService.getReligion()
     .subscribe(response => {
       this.religionData = response['religion'];
-      if(this.religionData[0])
-          this.selectedreligion = this.religionData[0].id;
+      /*if(this.religionData[0])
+          this.selectedreligion = this.religionData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.religionData = [];
@@ -282,8 +282,8 @@ export class CheSpouseComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
-      if(this.casteData[0])
-          this.selectedcaste = this.casteData[0].id;
+      /*if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -297,8 +297,8 @@ export class CheSpouseComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -309,8 +309,8 @@ export class CheSpouseComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+            this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -381,10 +381,7 @@ export class CheSpouseComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
-      console.log(this.secondFormGroup.valid);
-      console.log(this.firstFormGroup.valid);
-      console.log(this.dataBindinginServce());
-
+   
 
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
@@ -429,12 +426,12 @@ export class CheSpouseComponent implements OnInit {
           this.communityData = [];
           this.selectedripoint = "";
        
-          if(this.religionData[0])
+          /*if(this.religionData[0])
             this.selectedreligion = this.religionData[0].id;
           if(this.casteData[0])
             this.selectedcaste = this.casteData[0].id;
           if(this.communityData[0])
-            this.selectedcommunity = this.communityData[0].id;
+            this.selectedcommunity = this.communityData[0].id;*/
 
 
           this.selecteddor = new Date(Date.now());
@@ -558,5 +555,9 @@ export class CheSpouseComponent implements OnInit {
             this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
         }
       }  
+    }
+    ageEntered()
+    {
+      this.DOBPicker.flatpickr.setDate("");
     }
 }

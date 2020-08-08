@@ -108,7 +108,8 @@
     "DistrictName":"District Name",
     "PT_Sample_Collection_Date_Time":"PT Sample Collection Date & Time",
     "DateofTest":"Date of Test",
-    "UpdateDiagnosis":"Update Diagnosis"
+    "UpdateDiagnosis":"Update Diagnosis",
+    "Married":"Married"
 
 
 }

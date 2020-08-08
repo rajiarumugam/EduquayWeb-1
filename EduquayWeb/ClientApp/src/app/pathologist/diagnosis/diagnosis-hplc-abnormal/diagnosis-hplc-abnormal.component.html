@@ -14,12 +14,12 @@
     <tbody>
         <tr *ngFor="let person of centralReceiptsData;index as i">
             <td style="text-align: center;">{{ i + 1}}</td>
-            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.subjectName }}</td>
+            <td style="text-align: center;">{{ person.uniqueSubjectId }}</td>
             <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.ga }}</td>
             <td style="text-align: center;">{{ person.barcodeNo }}</td>
-            <td style="text-align: center;">{{ person.hbA0 }}</td>
-            <td style="text-align: center;">{{ person.hbA2 }}</td>
-            <td style="text-align: center;">{{ person.hbC }}</td>
+            <td style="text-align: center;">{{ person.dateOfTest }}</td>
             <td class="user-plus" (click)="openReportComponent(person);"><i class="fas fa-reply fa-2x arrow" aria-hidden="true" style="font-size: 18px;" ></i></td>
             
         </tr>

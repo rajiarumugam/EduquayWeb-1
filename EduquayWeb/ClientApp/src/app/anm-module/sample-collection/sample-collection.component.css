@@ -62,4 +62,14 @@ table.dataTable td, table.dataTable th {
 }
 
 
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
+
 /*END PAGE LEVEL PLUGINS/CUSTOM STYLES */
