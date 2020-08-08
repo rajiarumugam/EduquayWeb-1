@@ -26,7 +26,7 @@ export class pathoHPLCService {
 
   addHSBCtest(obj)
   {
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDHPLCTEST);
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.ADDHPLCRESULT);
     return this.http.post<any>({url:apiUrl, body: obj });
   }
 

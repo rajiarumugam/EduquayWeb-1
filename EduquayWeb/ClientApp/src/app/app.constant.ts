@@ -39,6 +39,7 @@ export const ENDPOINT = {
     "PATHOLOGIST":
     {
         "RETRIVEHPLC":"api/v1/Pathologist/RetrieveHPLCTestDetail/",
-        "RETRIVEHPLCRESULTMASTER":"api/v1/Pathologist/HPLCResultMaster"
+        "RETRIVEHPLCRESULTMASTER":"api/v1/Pathologist/HPLCResultMaster",
+        "ADDHPLCRESULT":"api/v1/Pathologist/AddHPLCDiagnosisResult"
     }
 }

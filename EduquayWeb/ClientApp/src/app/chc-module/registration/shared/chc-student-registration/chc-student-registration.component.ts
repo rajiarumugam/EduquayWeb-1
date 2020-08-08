@@ -60,7 +60,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   selectedage;
   GENDERDATA = ["Male","Female","Others"];
   sectionArray = ['PRE KG','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'];
-  subjectTitleArray = ["Mr","Miss"];
+  subjectTitleArray = ["Mr","Ms"];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -518,7 +518,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
         {
             this.selectedgender = "Male"
         }
-        else if(this.selectedsubjectTitle === "Miss")
+        else if(this.selectedsubjectTitle === "Ms")
         {
             this.selectedgender = "Female"
         }

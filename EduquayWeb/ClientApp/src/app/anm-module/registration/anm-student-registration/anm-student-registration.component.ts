@@ -60,7 +60,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedage;
   GENDERDATA = ["Male","Female","Others"];
   sectionArray = ['PRE KG','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'];
-  subjectTitleArray = ["Mr","Miss"];
+  subjectTitleArray = ["Mr","Ms"];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -526,7 +526,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
     {
         if(this.selectedsubjectTitle === "Mr")
             this.selectedgender = "Male";
-        if(this.selectedsubjectTitle === "Miss")
+        if(this.selectedsubjectTitle === "Ms")
             this.selectedgender = "Female";
     }
 
