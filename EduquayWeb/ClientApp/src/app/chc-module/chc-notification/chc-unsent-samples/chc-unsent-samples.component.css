@@ -84,3 +84,12 @@ label.new-control.new-checkbox.checkbox-outline-primary {
     padding: 9px 6px !important;
 }
 
+.tbl-row-red .tbl-data-red {
+    color: red; 
+   
+}
+
+.tbl-row-black .tbl-data-black{
+    color: #2d2e31;
+}
+

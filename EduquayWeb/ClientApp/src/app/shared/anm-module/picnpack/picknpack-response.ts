@@ -51,12 +51,13 @@ export interface TestingChcModel {
 export interface AvdNameResponse {
     status: string;
     message: string;
-    avd: AvdNameModel[];
+    avd: AvdNameModel;
 }
 
-export interface AvdNameModel {
+export class AvdNameModel {
     id: number;
     avdName: string;
+    contactNo: string;
 }
 
 export interface AnmAddShipmentResponse {
