@@ -202,14 +202,14 @@ vertical-align: middle;
 {
     border:none;
 }
-.modal-content .modal-footer
+/* .modal-content .modal-footer
 {
     display: none !important;
 }
 ::ng-deep .modal-content .modal-footer
 {
     display: none !important;
-}
+} */
 .fa-check-circle
 {
     font-size: 50px !important;
