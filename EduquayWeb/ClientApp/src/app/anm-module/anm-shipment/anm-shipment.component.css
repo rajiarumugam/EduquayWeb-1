@@ -44,3 +44,13 @@ height: 50px;
 div.dataTables_wrapper div.dataTables_filter svg {
     top: 30px !important;
 }
+
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}

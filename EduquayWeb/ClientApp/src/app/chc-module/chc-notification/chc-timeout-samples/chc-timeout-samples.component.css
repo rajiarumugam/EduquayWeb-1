@@ -81,3 +81,13 @@ label.new-control.new-checkbox.checkbox-outline-primary {
 .small-border-class{
     color: red !important;
 }
+::ng-deep .modal-content .modal-footer
+{
+    display: none;
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
