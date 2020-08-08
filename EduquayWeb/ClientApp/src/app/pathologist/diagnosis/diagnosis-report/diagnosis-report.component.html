@@ -183,148 +183,118 @@
                                   
                               </table>
                           </div>
-                          
-                      <div class="form-row m-1">
-                      
-                      <div class="form-group col-md-3">
-                          <span class="note ml-1"><b> Clinical Diagnosis</b></span>
-                          <select name="occupationoption" class="form-control field" id="occuptnid"
-                                      tabindex="7" required="">
-                                      <option value="">Select Diagnosis</option>
-                                      <option *ngFor="let clinical of clinicalDiagnosisData" [value]="clinical.id">
-                                        {{ clinical.diagnosisName }}</option>
-                                  </select>
-                      </div>
-                      <div class="form-group col-md-8 offset-md-1">
-                          <div class="mb-2"><span class="note ml-1"><b> HPLC Test Results</b></span></div>
-                      
-                          <div class="form-row m-1">
-                            <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData">
-                                <span class="n-chk mb-3">
-                                    <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox" [value]="hplc.id">
-                                        <span class="new-control-indicator"></span><label class="ml-3">{{hplc.hplcResultName}}</label>
-                                    </label>
-                                </span>
+                <form [formGroup]="FormGroup">
+                    <div class="form-row m-1">
+                       
+                            <div class="form-group col-md-3">
+                                <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> Clinical Diagnosis</b><span class="manto"> *</span></span>
+                                <select name="occupationoption" class="form-control field" id="occuptnid"
+                                            tabindex="7" [(ngModel)]="selectedDiagnosis" formControlName = "cd" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.cd.invalid }">
+                                            <option [ngValue]="null">Select Diagnosis</option>
+                                            <option *ngFor="let clinical of clinicalDiagnosisData" [value]="clinical.id">
+                                            {{ clinical.diagnosisName }}</option>
+                                        </select>
                             </div>
-                          <!--<div class="form-group col-md-4">
-                              <span class="n-chk mb-3">
-                                  <label class="new-control new-checkbox checkbox-outline-primary">
-                                      <input type="checkbox" class="new-control-input checkbox" value="1">
-                                      <span class="new-control-indicator"></span><label class="ml-3">Normal</label>
-                                  </label>
-                              </span>
-                          </div>
-                          <div class="form-group col-md-5">
-                              <span class="n-chk mb-3">
-                                  <label class="new-control new-checkbox checkbox-outline-primary">
-                                      <input type="checkbox" class="new-control-input checkbox" value="2">
-                                      <span class="new-control-indicator"></span><label class="ml-3">Major Haemoglobinopathy</label>
-                                  </label>
-                              </span>
-                          </div>
-                          <div class="form-group col-md-3">
-                              <span class="n-chk mb-3">
-                                  <label class="new-control new-checkbox checkbox-outline-primary">
-                                      <input type="checkbox" class="new-control-input checkbox" value="3">
-                                      <span class="new-control-indicator"></span><label class="ml-3">Thalassemia</label>
-                                  </label>
-                              </span>
-                          </div>
-                          <div class="form-group col-md-4">
-                              <span class="n-chk mb-3">
-                                  <label class="new-control new-checkbox checkbox-outline-primary">
-                                      <input type="checkbox" class="new-control-input checkbox" value="4">
-                                      <span class="new-control-indicator"></span><label class="ml-3">Sickle Cell Disease</label>
-                                  </label>
-                              </span>
-                          </div>
-                          <div class="form-group col-md-3">
-                              <span class="n-chk mb-3">
-                                  <label class="new-control new-checkbox checkbox-outline-primary">
-                                      <input type="checkbox" class="new-control-input checkbox" value="5">
-                                      <span class="new-control-indicator"></span><label class="ml-3">HbE</label>
-                                  </label>
-                              </span>
-                          </div>-->
-                          </div>
-                          </div>
-                          </div>
-                  <div class="form-row m-1">
-                      <div class="form-group col-md-4">
-                          <div class="mb-2"><span class="note ml-1"><b> Consult Senior Pathologist</b></span></div>
-                          <div class="row">
-                              <div class="form-group col-md-5"> <span class="ml-1 n-chk">
-                                      <label class="new-control new-radio radio-primary">
-                                          <input type="radio" id="post-format-gallery" class="new-control-input mr-2 post-format-gallery"
-                                              name="post-format" value="Cplus">
-                                          <span class="new-control-indicator"></span><label class="ml-3"> Yes </label>
-                                      </label>
-                                  </span>
-                  
-                                  <span class="n-chk">
-                                      <label class="new-control new-radio radio-primary">
-                                          <input type="radio" class="new-control-input" name="post-format" value="Cplus">
-                                          <span class="new-control-indicator"></span><label class="ml-3"> No </label>
-                                      </label>
-                                  </span> </div>
-                          </div>
-                      </div>
-                      <div class="form-group col-md-8">
-                          <div class="form-row mb-3" id="gallery-box" style="display: none;">
-                              <div class="form-group col-md-5">
-                                  <label for="inputpathname">
-                                      <span class="note ml-1"><b>Sr. Pathologist Name</b></span>
-                                  </label>
-                                  <input class="form-control field" name="name" required="" id="inputpathname" type="text"
-                                      placeholder="Pathologist Name" tabindex="1" autocomplete="off">
-                              </div>
-                              <div class="from-group col-md-5">
-                                  <label for="inputremarks">
-                                      <span class="note ml-1"><b>Remarks</b></span>
-                                  </label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
-                                      placeholder=""></textarea>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="form-row m-1">
-                      <div class="form-group col-md-4">
-                          <div class="mb-2"><span class="note ml-1"><b> Swap Case</b></span></div>
-                          <div class="row">
-                              <div class="col-sm-8">
-                                  <span class="ml-1 n-chk">
-                                      <label class="new-control new-radio radio-primary">
-                                          <input type="radio" id="post-format-gallery" class="new-control-input mr-2 post-format-gallery"
-                                              name="post-format" value="Cplus">
-                                          <span class="new-control-indicator"></span><label class="ml-3"> Abnormal </label>
-                                      </label></span>
-                                  <span class="n-chk">
-                                      <label class="new-control new-radio radio-primary">
-                                          <input type="radio" id="post-format-gallery" class="new-control-input mr-2 post-format-gallery"
-                                              name="post-format" value="Cplus">
-                                          <span class="new-control-indicator"></span><label class="ml-3"> Normal </label>
-                                      </label></span>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="form-group col-md-3">
-                          <span class="note ml-1"><b>Diagnostic Summary</b></span>
-                          <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder=""></textarea>
-                      </div>
-                    
-                  </div>
-                  <div class="form-row m-1">
-                      <div class="form-group col-md-12">
-                          <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
-                          <!--    Close</button>-->
-                      <a class="btn btn-success float-right mr-3" role="button"
-                          id="linktobuttonpathologist">Submit</a>
-                    
-                      <!-- <button type="button" class="btn btn-primary">Save</button> -->
-                  </div>
-                      </div>
+                        
+                            <div class="form-group col-md-8 offset-md-1">
+                                <div class="mb-2"><span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && this.tempHPLCmasterChecked == ''}"><b> HPLC Test Results</b><span class="manto"> *</span></span></div>
+                            
+                                <div class="form-row m-1">
+                                    <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData; let i = index">
+                                        <!--<span class="n-chk mb-3">
+                                            <label class="new-control new-checkbox checkbox-outline-primary">
+                                                <input type="checkbox" class="new-control-input checkbox" [value]="hplc.id" (change)="hplcChange(i)">
+                                                <span class="new-control-indicator"></span><label class="ml-3">{{hplc.hplcResultName}}</label>
+                                            </label>
+                                        </span>-->
+
+                                        <span class="ml-1 n-chk">
+                                            <label class="new-control new-checkbox checkbox-outline-primary">
+                                                <input type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked">
+                                                  <span class="radio-span">{{hplc.hplcResultName}}</span>
+                                              </label>
+                                           </span>
+                                    </div>
+                             
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-row m-1">
+                        <div class="form-group col-md-4">
+                            <div class="mb-2"><span class="note ml-1"><b> Consult Senior Pathologist</b><span class="manto"> *</span></span></div>
+                            <div class="row">
+                                <div class="form-group col-md-5">
+                                    <span class="ml-1 n-chk">
+                                        <label class="maritalstatus-radio-cont">
+                                            <input type="radio" value="true" formControlName="consulSeniorPatho" (change)="pathologistChange($event)">
+                                              <span class="radio-span">Yes</span>
+                                          </label>
+                                       </span>
+                                    <span class="n-chk">
+                                        <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
+                                            <input type="radio" value="false" formControlName="consulSeniorPatho" (change)="pathologistChange($event)">
+                                            <span class="radio-span">No</span>
+                                          </label>
+                                        </span>
+                                     </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <div class="form-row mb-3" id="gallery-box" *ngIf="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false">
+                                <div class="form-group col-md-5">
+                                    <label for="inputpathname">
+                                        <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }"><b>Sr. Pathologist Name</b><span class="manto"> *</span></span>
+                                    </label>
+                                    <input class="form-control field" name="name" required="" id="inputpathname" type="text"
+                                        placeholder="Pathologist Name" tabindex="1" autocomplete="off" formControlName="pathologistName" [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }">
+                                </div>
+                                <div class="from-group col-md-5">
+                                    <label for="inputremarks">
+                                        <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"><b>Remarks</b><span class="manto"> *</span></span>
+                                    </label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                        placeholder="" formControlName="remarks" [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row m-1">
+                        <div class="form-group col-md-4">
+                            <div class="mb-2"><span class="note ml-1"><b> Swap Case</b><span class="manto"> *</span></span></div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <span class="ml-1 n-chk">
+                                        <label class="maritalstatus-radio-cont">
+                                            <input type="radio" value="abnormal" formControlName="swapcase">
+                                              <span class="radio-span">Abnormal</span>
+                                          </label>
+                                       </span>
+                                    <span class="n-chk">
+                                        <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
+                                            <input type="radio" value="normal" formControlName="swapcase">
+                                            <span class="radio-span">Normal</span>
+                                          </label>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>Diagnostic Summary</b><span class="manto"> *</span></span>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
+                        </div>
+                        
+                    </div>
+                    <div class="form-row m-1">
+                        <div class="form-group col-md-12">
+                            <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
+                            <!--    Close</button>-->
+                        <a class="btn btn-success float-right mr-3" role="button"
+                            id="linktobuttonpathologist" (click)="reportSubmit();">Submit</a>
+                        
+                        <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                    </div>
+                    </div>
+                </form>
                   </div>
           </div>
     </div>

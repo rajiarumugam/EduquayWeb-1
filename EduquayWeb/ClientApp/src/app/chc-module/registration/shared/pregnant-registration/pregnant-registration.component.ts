@@ -88,7 +88,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   startOptionsLMP: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now() - (this.DAY*30)),
+    defaultDate: "",
     minDate: "",
     maxDate: new Date(Date.now() - (this.DAY*30)),
   };
@@ -102,7 +102,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedmiddlename;
   selectedlastname;
   selectedrchid;
-  selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+  //selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+  selectedlmpdate;
   selectedECNumber;
   selectedGovtIDDetail;
   selectedhouse;
