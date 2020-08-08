@@ -725,7 +725,11 @@ Width: 4rem !important;
     width: 10rem !important;
 }
 .us-datetime{
-    width: 9rem !important;
+    width: 10rem !important;
+}
+
+.agingsample{
+    width: 8rem !important;
 }
 
 .infant-datetime{
@@ -2026,9 +2030,6 @@ table .badge-info, table .badge-secondary, table .badge-dark  {
 	border: 2px solid #1b55e2 !important;
 	border-radius:50%
 }
-table.dataTable.row-combined thead > tr > th.sorting	 {
-    height: 22px; 
-}
 
 /* Header Navigation Title */
 .headertit {
@@ -2150,3 +2151,12 @@ input.flatpickr-input{
     border: none;
     width: 99%;
 }
+
+/* start of table header */
+table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after {
+    opacity: 0 !important;
+}
+table.dataTable.row-combined thead > tr > th.sorting	 {
+    height: 22px; 
+}
+/* end of table header */

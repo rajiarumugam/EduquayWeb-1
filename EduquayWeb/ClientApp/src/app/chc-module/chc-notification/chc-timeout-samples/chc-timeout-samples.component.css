@@ -60,7 +60,7 @@ table.dataTable th {
 }
 
 .leftspace {
-    left: -5px !important;
+    left: 0px !important;
 }
 
 label.new-control.new-checkbox.checkbox-outline-primary {
