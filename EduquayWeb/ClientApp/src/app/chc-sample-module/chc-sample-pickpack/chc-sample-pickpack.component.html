@@ -161,7 +161,8 @@
                                                     <td><div class="n-chk">
                                                         <label class="new-control new-checkbox checkbox-outline-primary">
                                                           <input type="checkbox" class="new-control-input checkbox" 
-                                                          checked>
+                                                          value="{{primarytubeSelected}}"
+                                                          [(ngModel)]="primarytubeSelected">
                                                           <span class="new-control-indicator"></span>&nbsp;
                                                         </label>
                                                     </div></td>
@@ -246,16 +247,16 @@
                                             <td><div class="n-chk">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                   <input type="checkbox" class="new-control-input checkbox" 
-                                                  value="{{tempScandata.primarytubeSelected}}" checked
-                                                  [(ngModel)]="tempScandata.primarytubeSelected">
+                                                  value="{{primarytubeSelected}}"
+                                                  [(ngModel)]="primarytubeSelected">
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>
                                             <td><div class="n-chk" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                   <input type="checkbox" class="new-control-input checkbox" 
-                                                  value="{{tempScandata.alliquotedtubeSelected}}"  checked
-                                                    [(ngModel)]="tempScandata.alliquotedtubeSelected">
+                                                  value="{{alliquotedtubeSelected}}" 
+                                                    [(ngModel)]="alliquotedtubeSelected">
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>
