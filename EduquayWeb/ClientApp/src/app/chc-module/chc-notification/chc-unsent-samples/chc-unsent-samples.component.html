@@ -16,14 +16,13 @@
                     <th class="text-center"><span>RCH ID</span></th>
                     <th class="text-center">Barcode</th>
                     <th class="text-center us-datetime">Sample Collection Date & Time</th>
-                    <th class="text-center">Aging of Sample </th>
+                    <th class="text-center">Aging of Sample in hours</th>
                     <th class="text-center">GA</th>
                     <th class="text-center">
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
                                 <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()"  >
-                                <span class="new-control-indicator leftspace"></span>Add
-                                to Shipment
+                                <span class="new-control-indicator leftspace ml-3"></span>&nbsp;
                             </label>
                         </div>
                     </th>
@@ -31,15 +30,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let sample of chcunsentSamples; index as i" >
-                    <td class="sno text-center">{{i +1}}</td>
-                    <td class="sname text-left">{{sample.subjectName}}</td>
-                    <td class="sid text-center">{{sample.uniqueSubjectId}}</td>
-                    <td class="sid text-center">{{sample.rchId}}</td>
-                    <td class="sid text-center">{{sample.barcodeNo}}</td>
-                    <td class="text-center">{{sample.sampleDateTime}}</td>
-                    <td class="text-center">{{sample.sampleAging}}</td>
-                    <td class="sid text-center">{{sample.gestationalAge}}</td>
+                <tr *ngFor="let sample of chcunsentSamples; index as i"  class="tbl-row-red tbl-row-black"
+                [ngClass]="{'tbl-row-black tbl-data-black': +sample.sampleAging < 24 , 'tbl-row tbl-data-red': +sample.sampleAging >= 24 }">
+                    <td class="sno text-center tbl-data-red tbl-data-black">{{i +1}}</td>
+                    <td class="sname text-left tbl-data-red tbl-data-black">{{sample.subjectName}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.uniqueSubjectId}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.rchId}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.barcodeNo}}</td>
+                    <td class="text-center tbl-data-red tbl-data-black">{{sample.sampleDateTime}}</td>
+                    <td class="text-center tbl-data-red tbl-data-black">{{sample.sampleAging}}</td>
+                    <td class="sid text-center tbl-data-red tbl-data-black">{{sample.gestationalAge}}</td>
                     <!-- <td><input type="checkbox" class="checkbox" value="1"/></td> -->
                     <td class="text-center">
                         <div class="n-chk">
@@ -58,10 +58,12 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-danger float-right ml-2" (click)="unsentgetconfirmation()"
-                role="button">Move to Expiry</a>
-            <a class="btn btn-primary float-right"  (click)="openchcunsentSamples(chcunsentSamplesDetail)"
+            <a class="btn btn-primary float-right"  (click)="getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail)"
                 role="button">Create Shipment</a>
+            <a class="btn btn-danger float-right mr-2" (click)="getUnsentExpirySamplesConfirmation()"
+                role="button">Move to Expiry</a>
+            <a class="btn btn-outline-primary float-right mr-2"
+                role="button">{{length}} Selected</a>
                 
         </div>
     </div>
@@ -166,7 +168,7 @@
                                 <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid}">Contact Number <span
                                     class="manto">*</span></label>
                                 <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10"
-                                oninput="this.value = this.value.replace(/[^\d{10}$]/g, '').replace(/(\..*)\./g, '$1');" 
+                                numbersOnly pattern="^[6-9]\d{9}$"
                                 [class.is-invalid]="contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid"
                                     required type="tel" placeholder="Contact Number" [(ngModel)]="executiveContactNo">
                                     <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
@@ -186,6 +188,7 @@
                         </div>
                        
                         <div class="modal-footer">
+                            <span class="mr-auto"><b>Selected samples barcode: </b>{{_strSelectedBarcode}}</span>
                             <button type="submit" class="btn btn-primary"
                                 id="linktobuttonpickpak">Submit</button>
                             <button class="btn"  (click)="modal.dismiss()"><i

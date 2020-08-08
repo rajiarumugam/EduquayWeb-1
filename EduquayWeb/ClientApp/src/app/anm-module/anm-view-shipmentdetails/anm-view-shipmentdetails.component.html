@@ -67,21 +67,23 @@
                                 <span><b>Receiving Testing CHC : </b></span><span>{{shipmentItem.testingCHC}}</span>
                             </div>
                         </div>
-                        <div class="row my-4">
+                        <div class="row my-4" [hidden]="shipmentItem.alternateAVD">
                             <div class="col-md-3">
                                 <span><b>AVD Name : </b></span><span>{{shipmentItem.avdName}}</span>
                             </div>
                             <div class="col-md-3">
                                 <span><b>Contact Number : </b></span><span>{{shipmentItem.contactNo}}</span>
                             </div>
-                            <div class="col-md-3">
-                                <span [hidden]="!shipmentItem.alternateAVD"><b>Alternate AVD Name : </b></span><span>{{shipmentItem.alternateAVD}}</span>
-                            </div>
+                            
                             
                         </div>
-                        <div class="row my-4">
+                        <div class="row my-4" [hidden]="!shipmentItem.alternateAVD">
+                            <div class="col-md-3">
+                                <span ><b>Alternate AVD Name : </b></span><span>{{shipmentItem.alternateAVD}}</span>
+                            </div>
                             <div class="col-md-6">
-                                <span [hidden]="!shipmentItem.alternateAVDContactNo"><b>Alternate AVD Contact Number : </b></span><span>{{shipmentItem.alternateAVDContactNo}}</span>
+                                <span><b>Alternate AVD Contact Number : </b></span><span>{{shipmentItem.alternateAVDContactNo}}</span>
+                                <!-- <span [hidden]="!shipmentItem.alternateAVDContactNo"><b>Alternate AVD Contact Number : </b></span><span>{{shipmentItem.alternateAVDContactNo}}</span> -->
                             </div>
                         </div>
 

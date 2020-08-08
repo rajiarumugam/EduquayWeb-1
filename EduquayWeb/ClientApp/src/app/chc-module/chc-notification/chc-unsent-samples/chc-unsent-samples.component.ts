@@ -81,6 +81,12 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   chcId: number;
   chcpicknPackdetail: any;
   dataOfPickPack: string;
+  selecteddate: any;
+  length = 0;
+
+  _strSelectedBarcode: string;
+  _arrSelectedDate: any = [];
+
 
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -176,7 +182,10 @@ ddlProviderName() {
     this.providernameResponse = response;
     if (this.providernameResponse !== null && this.providernameResponse.status === "true") {
       this.providerNames = this.providernameResponse.logisticsProvider;
-      this.selectedproviderName = "";
+      //this.selectedproviderName = "";
+      if (this.providerNames.length > 0) {
+        this.selectedproviderName = this.providerNames[0].id.toString();
+      }
     }
     else {
       this.chcunsentSamplesErrorMessage = response.message;
@@ -219,53 +228,53 @@ chcunsentSampleList() {
 
 }
 
-openchcunsentSamples(chcunsentSamplesDetail) {
+// openchcunsentSamples(chcunsentSamplesDetail) {
     
-  this.chcunsentSamplesErrorMessage = '';
-  this.ddlProviderName();
-  this.ddltestingChc(this.user.chcId); 
-  this.fetchBarcode();
-  this.fetchMaxDate();
+//   this.chcunsentSamplesErrorMessage = '';
+//   this.ddlProviderName();
+//   this.ddltestingChc(this.user.chcId); 
+//   this.fetchBarcode();
+//   this.fetchMaxDate();
 
-  if (this.chcunsentSamples === null || this.chcunsentSamples.length <= 0) {
-    this.showResponseMessage(`Sample collection does not exist to pick and pack`, 'e');
-    return false;
-  }
+//   if (this.chcunsentSamples === null || this.chcunsentSamples.length <= 0) {
+//     this.showResponseMessage(`Sample collection does not exist to pick and pack`, 'e');
+//     return false;
+//   }
 
-  if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
-    return false;
-  }
+//   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+//     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+//     return false;
+//   }
   
-  // if (chcpicknPackdetail.sampleAging > 31 || chcpicknPackdetail.sampleAging === undefined) {
-  //   this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
-  //   return false;
-  // }
+//   // if (chcpicknPackdetail.sampleAging > 31 || chcpicknPackdetail.sampleAging === undefined) {
+//   //   this.showResponseMessage(`Aging of selected sample is more than 24 hrs. Please move it to expiry`, 'e');
+//   //   return false;
+//   // }
  
-  this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
-  this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-  this.sampleShipmentDate = moment().format("DD/MM/YYYY");
-  this.sampleShipmentTime = moment().format("HH:mm");
+//   this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+//   this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+//   this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+//   this.sampleShipmentTime = moment().format("HH:mm");
 
-  //this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
+//   //this.shipmentDateOptions.minDate = new Date(moment().add(-1,'day').format());
 
-  this.chclabtechnician = this.user.name;
-  this.testingchcname = this.user.chcName;
-  this.collectionchcname = this.user.chcName;
+//   this.chclabtechnician = this.user.name;
+//   this.testingchcname = this.user.chcName;
+//   this.collectionchcname = this.user.chcName;
   
-  this.modalService.open(
-    chcunsentSamplesDetail, {
-    centered: true,
-    size: 'xl',
-    scrollable: true,
-    ariaLabelledBy: 'modal-basic-title'
-  });
-}
+//   this.modalService.open(
+//     chcunsentSamplesDetail, {
+//     centered: true,
+//     size: 'xl',
+//     scrollable: true,
+//     ariaLabelledBy: 'modal-basic-title'
+//   });
+// }
 
 
 onSubmit(chcShipmentForm: NgForm) {
   this.chcunsentSamplesErrorMessage = '';
-  this.fetchBarcode();
+  //this.fetchBarcode();
   //var shipmentId = "123";
   console.log(chcShipmentForm.value);
 
@@ -337,42 +346,229 @@ showResponseMessage(shipmentId: string, type: string) {
   }
 }
 
-unsentgetconfirmation() {
-  this.chcunsentSamplesErrorMessage = '';
-  this.expirysamplesBarcode();
-  if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-    this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+getSelectedBarcode(agingMode) {
+  //gt24bc
+  //lt24bc
+  //allbc
+      this._arrSelectedDate = [];
+      var _arrSelectedBarcode = [];
+      this.chcunsentSamples.forEach(element => {
+        if (element.sampleSelected) {
+          if(agingMode === 'gt24bc' && +element.sampleAging >= 24){
+            _arrSelectedBarcode.push(element.barcodeNo);
+            //this._arrSelectedDate.push(element.sampleDateTime);
+          }
+          else if(agingMode === 'lt24bc' && +element.sampleAging < 24){
+            _arrSelectedBarcode.push(element.barcodeNo);
+           // this._arrSelectedDate.push(element.sampleDateTime);
+          }
+          else if(agingMode === 'allbc'){
+            _arrSelectedBarcode.push(element.barcodeNo);
+            //this._arrSelectedDate.push(element.sampleDateTime);
+          }
+        }
+      });
+      return _arrSelectedBarcode.join(',');
+}
+
+getUnsentExpirySamplesConfirmation() {
+  this.selectedBarcodes = '';
+
+  var hasAnySelected = this.chcunsentSamples.filter(x => x.sampleSelected === true);
+  if(hasAnySelected.length <= 0){
+    this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
     return false;
   }
-  if (this.selectedBarcodes !== null) {
+
+  var hasLessThan24 = this.chcunsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
+  if(hasLessThan24.length > 0){
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this back!",
+      title: 'One or more selected samples that are aging more than 24 hours',
+      text: "Do you still want to continue?",
       icon: 'warning',
-      showCancelButton: true,
-      // confirmButtonColor: '#3085d6',
-      // cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Move it!',
-      cancelButtonText: 'Cancel'
+      showCancelButton: true,         
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
+        var isFirst = true;
+        this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
         this.chcpickpackMoveExpirySamples();
       }
-    })
+      else {
+
+        this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('gt24bc');
+        this.chcpickpackMoveExpirySamples();
+      }
+    })      
+  }
+  else{
+    var _arrSelectedBarcode = []; 
+    this.chcunsentSamples.forEach(element => {
+      if(element.sampleSelected){
+        _arrSelectedBarcode.push(element.barcodeNo);
+      }
+    });
+    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('gt24bc');
+    this.chcpickpackMoveExpirySamples();     
+  }  
+  
+}
+
+getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
+  this.selectedBarcodes = '';
+
+  var hasAnySelected = this.chcunsentSamples.filter(x => x.sampleSelected === true);
+  if(hasAnySelected.length <= 0){
+    this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+    return false;
   }
 
+  var hasGreaterThan24 = this.chcunsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 24);
+  if(hasGreaterThan24.length > 0){
+    Swal.fire({
+      title: 'One or more selected samples that are aging more than 24 hours',
+      text: "Do you still want to continue?",
+      icon: 'warning',
+      showCancelButton: true,         
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        var isFirst = true;
+        this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
+        //var getdates = this._arrSelectedDate;
+        if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+          this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+          return false;
+        }
+        this.fetchMaxDateAllbc();
+    
+        this.chcunsentSamplesErrorMessage = '';
+        this.ddlProviderName();
+        this.ddltestingChc(this.user.chcId);
+
+        this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+        this.sampleShipmentTime = moment().format("HH:mm");
+        this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+        this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+
+        this.name = this.user.name;
+        this.modalService.open(
+          chcunsentSamplesDetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          ariaLabelledBy: 'modal-basic-title'
+        });
+      }
+      else {
+
+        this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
+        //var getdates = this._arrSelectedDate;
+        if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+          this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+          return false;
+        }
+        this.fetchMaxDatelt24();
+        
+        this.chcunsentSamplesErrorMessage = '';
+        this.ddlProviderName();
+        this.ddltestingChc(this.user.chcId);
+        
+        this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+        this.sampleShipmentTime = moment().format("HH:mm");
+        this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+        this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+
+        this.name = this.user.name;
+        this.modalService.open(
+          chcunsentSamplesDetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          ariaLabelledBy: 'modal-basic-title'
+        });
+      }
+    })      
+  }
+  else{
+    var _arrSelectedBarcode = []; 
+    this.chcunsentSamples.forEach(element => {
+      if(element.sampleSelected){
+        _arrSelectedBarcode.push(element.barcodeNo);
+      }
+    });
+    this.selectedBarcodes =  this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
+    if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+      this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+      return false;
+    }
+    this.fetchMaxDatelt24(); 
+    this.chcunsentSamplesErrorMessage = '';
+    this.ddlProviderName();
+    this.ddltestingChc(this.user.chcId);
+
+    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+    this.sampleShipmentTime = moment().format("HH:mm");
+    this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+
+    this.name = this.user.name;
+
+    this.modalService.open(
+      chcunsentSamplesDetail, {
+      centered: true,
+      size: 'xl',
+      scrollable: true,
+      ariaLabelledBy: 'modal-basic-title'
+    });      
+  }
+  
 }
+
+// unsentgetconfirmation() {
+//   this.chcunsentSamplesErrorMessage = '';
+//   this.expirysamplesBarcode();
+//   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+//     this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+//     return false;
+//   }
+//   if (this.selectedBarcodes !== null) {
+//     Swal.fire({
+//       title: 'Are you sure?',
+//       text: "You won't be able to revert this back!",
+//       icon: 'warning',
+//       showCancelButton: true,
+//       // confirmButtonColor: '#3085d6',
+//       // cancelButtonColor: '#d33',
+//       confirmButtonText: 'Yes, Move it!',
+//       cancelButtonText: 'Cancel'
+//     }).then((result) => {
+//       if (result.value) {
+//         this.chcpickpackMoveExpirySamples();
+//       }
+//     })
+//   }
+
+// }
 
 
 chcpickpackMoveExpirySamples() {
 
   this.chcunsentSamplesErrorMessage = '';
+  if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+    this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+    return false;
+  }
   
   this.movetimeoutexpiryRequest = {
     userId: this.user.id,
     barcodeNo: this.selectedBarcodes,
   }
- // return false;
+  // Swal.fire({icon: 'success', title: "successfull",
+  // confirmButtonText: 'Ok'})
+  // return false;
   let expirysamples = this.ChcUnsentSamplesService.chcunsentMoveExpirySamples(this.movetimeoutexpiryRequest)
     .subscribe(response => {
       this.movetimeoutexpiryResponse = response;
@@ -402,8 +598,14 @@ expirySampleResponseMessage(message: string, type: string) {
   }
 }
 
+ngDoCheck() {
 
+  let count = this.chcunsentSamples.filter(ite => ite.sampleSelected).length
+  if (count != this.length) {
+    this.length = count
+  }
 
+}
 
 selectAll() {
   for (var i = 0; i < this.chcunsentSamples.length; i++) {
@@ -420,58 +622,120 @@ checkIfAllSelected() {
   })
 }
 
-fetchMaxDate(){
-  
+
+fetchMaxDategt24() {
+
+  this.selecteddate = '';
   var isFirst = true;
   var getdates;
-  
+
   this.chcunsentSamples.forEach(element => {
     console.log('sampleSelected :' + element.sampleSelected);
-    if(element.sampleSelected === true && +element.sampleAging < 24){
-      if(isFirst){
-        getdates = [{"selecteddate" : element.sampleDateTime}];
-        isFirst = false;
-      }
-      else{
-        getdates.push({"selecteddate" : element.sampleDateTime});
-      }
-    }    
-  });
-
-  if (getdates === '' || getdates === undefined) {
-    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
-    return false;
-  }
-  
-  var comparedate;
-  comparedate = getdates.reduce(function (r, a) {
-    return r.selecteddate > a.selecteddate ? r : a;   
-  });
-  var maximumdate = Object.values(comparedate);
-  console.log(maximumdate);
-  var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-  var maxDate = new Date(maximumdate.toString().replace(pattern,'$3/$2/$1 $4:$5'));
-  console.log(maxDate);
-  this.shipmentDateOptions.minDate = maxDate;
-
-}
-
-fetchBarcode() {
-  this.selectedBarcodes = '';
-  var isFirst = true;
-  this.chcunsentSamples.forEach(element => {
-    console.log('sampleSelected :' + element.sampleSelected);
-    if (element.sampleSelected === true && +element.sampleAging < 24) {
-      //if (element.sampleSelected) {
+    if (element.sampleSelected === true && +element.sampleAging >= 24) {
+      
       if (isFirst) {
-        this.selectedBarcodes += element.barcodeNo;
+        getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
         isFirst = false;
       }
       else {
-        this.selectedBarcodes += ',' + element.barcodeNo;
+        //logdate  += [',' + element.sampleDateTime];
+        getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
       }
     }
   });
+
+  if (getdates <= 0) {
+    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    return false;
+  }
+
+  var comparedate;
+  comparedate = getdates.reduce(function (r, a) {
+    return r.selecteddate > a.selecteddate ? r : a;
+  });
+  // var maximumdate = Object.values(comparedate);
+  // console.log(maximumdate);
+  // var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+  // var maxDate = new Date(maximumdate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+  // console.log(maxDate);
+  this.shipmentDateOptions.minDate = comparedate.selecteddate;
+  
+
+}
+fetchMaxDateAllbc() {
+
+  this.selecteddate = '';
+  var isFirst = true;
+  var getdates;
+
+  this.chcunsentSamples.forEach(element => {
+    console.log('sampleSelected :' + element.sampleSelected);
+    if (element.sampleSelected === true) {
+      if (isFirst) {
+        getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
+        isFirst = false;
+      }
+      else {
+        //logdate  += [',' + element.sampleDateTime];
+        getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
+      }
+    }
+  });
+
+  if (getdates <= 0) {
+    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    return false;
+  }
+
+  var comparedate;
+  comparedate = getdates.reduce(function (r, a) {
+    return r.selecteddate > a.selecteddate ? r : a;
+  });
+  
+  this.shipmentDateOptions.minDate = comparedate.selecteddate;
+
+}
+fetchMaxDatelt24() {
+
+  this.selecteddate = '';
+  var isFirst = true;
+  var getdates;
+
+  this.chcunsentSamples.forEach(element => {
+    console.log('sampleSelected :' + element.sampleSelected);
+    if (element.sampleSelected === true && +(element.sampleAging) < 24) {
+      if (isFirst) {
+        getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
+        isFirst = false;
+      }
+      else {
+        //logdate  += [',' + element.sampleDateTime];
+        getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
+      }
+    }
+  });
+
+  if (getdates <= 0) {
+    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    return false;
+  }
+
+  var comparedate;
+  comparedate = getdates.reduce(function (r, a) {
+    return r.selecteddate > a.selecteddate ? r : a;
+  });
+  
+  this.shipmentDateOptions.minDate = comparedate.selecteddate;
+
+}
+
+convertToDateFormat(strDate){
+
+  var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+  var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+  console.log(dateFormat);
+  return dateFormat;
+
 }
 
 expirysamplesBarcode() {
