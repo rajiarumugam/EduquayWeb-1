@@ -800,11 +800,13 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         if (result.value) {
           var isFirst = true;
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
+          if(this.selectedBarcodes === '') return;
           this.pickpackMoveExpirySamples();
         }
         else {
 
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('gt24bc');
+          if(this.selectedBarcodes === '') return;
           this.pickpackMoveExpirySamples();
         }
       })      

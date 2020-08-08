@@ -639,11 +639,13 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         if (result.value) {
           var isFirst = true;
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
+          if(this.selectedBarcodes === '') return;
           this.moveExpirySamples();
         }
         else {
 
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('gt24bc');
+          if(this.selectedBarcodes === '') return;
           this.moveExpirySamples();
         }
       })      
