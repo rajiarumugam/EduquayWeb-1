@@ -80,3 +80,6 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 {
     float: right;
 }
+.swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel{
+    color: #fff;
+}
