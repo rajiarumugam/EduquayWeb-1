@@ -159,9 +159,9 @@
                                         name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid"
                                         class="form-control field" id="inputAvdName" required [(ngModel)]="selectedAvdName" value="" readonly value="{{selectedAvdName}}"
                                         placeholder="AVD Name">
-                                        <small class=" ml-2 text-danger" [class.d-none]="((DDLavdName.valid || alternatename.valid ))">Please enter AVD Name</small>
-                                        <div *ngIf="unsentsampleForm.submitted && (DDLavdName.invalid && alternatename.invalid)">  
-                                            <small *ngIf="DDLavdName.untouched && alternatename.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
+                                        <small class=" ml-2 text-danger" [class.d-none]="DDLavdName.valid || DDLavdName.untouched">Please enter AVD Name</small>
+                                        <div *ngIf="unsentsampleForm.submitted && DDLavdName.invalid">  
+                                            <small *ngIf="DDLavdName.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
                                           </div>
                                     </div>
 

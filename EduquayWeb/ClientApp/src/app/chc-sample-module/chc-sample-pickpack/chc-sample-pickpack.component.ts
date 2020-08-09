@@ -42,6 +42,7 @@ export class ChcSamplePickpackComponent implements OnInit {
   startPickpackData: startPickpack[] = [];
   primarytubeSelected: boolean = false;
   alliquotedtubeSelected: boolean = false;
+  startpickpackSelected: boolean = true;
   //tempCHC=[];
   uniqueSubjectId: string;
   sampleCollectionId: number;
