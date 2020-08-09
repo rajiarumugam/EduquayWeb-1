@@ -432,7 +432,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     this.unsentSamplesErrorMessage = '';
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      this.expirySampleResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
     

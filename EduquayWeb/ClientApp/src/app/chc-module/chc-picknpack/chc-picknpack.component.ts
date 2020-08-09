@@ -393,7 +393,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var hasAnySelected = this.chcSampleList.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
 
@@ -523,7 +523,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var hasAnySelected = this.chcSampleList.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
 
@@ -590,7 +590,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.chcPicknpackErrorMessage = '';
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      this.expirySampleResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
     

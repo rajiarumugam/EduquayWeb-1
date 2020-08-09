@@ -379,7 +379,7 @@ getUnsentExpirySamplesConfirmation() {
 
   var hasAnySelected = this.chcunsentSamples.filter(x => x.sampleSelected === true);
   if(hasAnySelected.length <= 0){
-    this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+    this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
     return false;
   }
 
@@ -423,7 +423,7 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
 
   var hasAnySelected = this.chcunsentSamples.filter(x => x.sampleSelected === true);
   if(hasAnySelected.length <= 0){
-    this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+    this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
     return false;
   }
 
@@ -561,7 +561,7 @@ chcpickpackMoveExpirySamples() {
 
   this.chcunsentSamplesErrorMessage = '';
   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-    this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+    this.expirySampleResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
     return false;
   }
   
