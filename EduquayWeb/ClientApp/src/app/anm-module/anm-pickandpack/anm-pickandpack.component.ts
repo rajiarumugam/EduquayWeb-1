@@ -663,7 +663,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     var hasAnySelected = this.sampleList.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
 
@@ -786,7 +786,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
 
     var hasAnySelected = this.sampleList.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
 
