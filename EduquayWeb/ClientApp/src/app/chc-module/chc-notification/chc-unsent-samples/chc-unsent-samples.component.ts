@@ -442,7 +442,7 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
         this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
         //var getdates = this._arrSelectedDate;
         if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-          this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+          //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
           return false;
         }
         this.fetchMaxDateAllbc();
@@ -470,7 +470,7 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
         this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
         //var getdates = this._arrSelectedDate;
         if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-          this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+          //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
           return false;
         }
         this.fetchMaxDatelt24();
@@ -504,7 +504,7 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
     });
     this.selectedBarcodes =  this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+      //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
       return false;
     }
     this.fetchMaxDatelt24(); 

@@ -682,7 +682,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
           //var getdates = this._arrSelectedDate;
           if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
             return false;
           }
           this.fetchMaxDateAllbc();
@@ -708,7 +708,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
           //var getdates = this._arrSelectedDate;
           if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
             return false;
           }
           this.fetchMaxDatelt24();
@@ -740,7 +740,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       });
       this.selectedBarcodes =  this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
       if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-        this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+       // this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
         return false;
       }
       this.fetchMaxDatelt24(); 
