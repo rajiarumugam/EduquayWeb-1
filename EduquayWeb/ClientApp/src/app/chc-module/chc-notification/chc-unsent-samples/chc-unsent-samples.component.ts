@@ -14,6 +14,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 @Component({
   selector: 'app-chc-unsent-samples',
@@ -105,8 +106,8 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
-
+    private _formBuilder: FormBuilder,
+    private constantService: ConstantService
   ) { }
 
   ngOnInit() {
@@ -242,7 +243,7 @@ chcunsentSampleList() {
 //   }
 
 //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-//     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+//     this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
 //     return false;
 //   }
   
@@ -279,7 +280,7 @@ onSubmit(chcShipmentForm: NgForm) {
   console.log(chcShipmentForm.value);
 
   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    this.showResponseMessage(this.constantService.SelectOneSample, 'e');
     return false;
   }
 
@@ -645,7 +646,7 @@ fetchMaxDategt24() {
   });
 
   if (getdates <= 0) {
-    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    this.showResponseMessage(this.constantService.SelectOneSample, 'e');
     return false;
   }
 
@@ -683,7 +684,7 @@ fetchMaxDateAllbc() {
   });
 
   if (getdates <= 0) {
-    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    this.showResponseMessage(this.constantService.SelectOneSample, 'e');
     return false;
   }
 
@@ -716,7 +717,7 @@ fetchMaxDatelt24() {
   });
 
   if (getdates <= 0) {
-    this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+    this.showResponseMessage(this.constantService.SelectOneSample, 'e');
     return false;
   }
 

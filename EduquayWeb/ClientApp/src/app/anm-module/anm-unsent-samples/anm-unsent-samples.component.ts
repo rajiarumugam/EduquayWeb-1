@@ -14,6 +14,7 @@ import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 @Component({
   selector: 'app-anm-unsent-samples',
@@ -120,7 +121,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private constantService: ConstantService
   ) { }
 
   ngOnInit() {
@@ -242,7 +244,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   //   this.fetchMaxDate();
 
   //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-  //     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+  //     this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
   //     return false;
   //   }
 
@@ -758,7 +760,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     });
 
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -796,7 +798,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     });
 
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -833,7 +835,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     });
 
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 

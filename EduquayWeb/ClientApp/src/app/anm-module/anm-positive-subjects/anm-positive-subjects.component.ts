@@ -21,6 +21,7 @@ import { positiveSubjects, PositiveSubjectsResponse, UpdatePositiveSubjectsRespo
 import { PositiveSubjectsService } from 'src/app/shared/anm-module/positive-subjects/positive-subjects.service';
 import { PositiveSubjectsRequest } from 'src/app/shared/anm-module/positive-subjects/positive-subjects-request';
 import { ENDPOINT } from 'src/app/app.constant';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 @Component({
   selector: 'app-anm-positive-subjects',
@@ -150,6 +151,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     private _formBuilder: FormBuilder,
     private httpClientService:HttpClientService,
     private genericService: GenericService,
+    private constantService: ConstantService
   ) { }
 
   ngOnInit() {
@@ -319,7 +321,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.fetchBarcodes();
 
     if(this.notifySamples === ""){
-      this.showResponseMessage(`Please select at least one sample to update the status`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
    
