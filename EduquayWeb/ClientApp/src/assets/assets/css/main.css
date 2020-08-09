@@ -725,7 +725,11 @@ Width: 4rem !important;
     width: 10rem !important;
 }
 .us-datetime{
-    width: 9rem !important;
+    width: 10rem !important;
+}
+
+.agingsample{
+    width: 8rem !important;
 }
 
 .infant-datetime{
@@ -746,6 +750,19 @@ Width: 4rem !important;
 .dropbtn {
     width: 8rem !important;
 }
+
+.w10{ width: 10rem !important; }
+.w1{ width: 1rem !important; }
+.w2{ width: 2rem !important; }
+.w3{ width: 3rem !important; }
+.w4{ width: 4rem !important; }
+.w5{ width: 5rem !important; }
+.w6{ width: 6rem !important; }
+.w7{ width: 7rem !important; }
+.w8{ width: 8rem !important; }
+.w9{ width: 9rem !important; }
+
+
 /* End */
 
 /* Birth monitoring label font */ 
@@ -2026,9 +2043,6 @@ table .badge-info, table .badge-secondary, table .badge-dark  {
 	border: 2px solid #1b55e2 !important;
 	border-radius:50%
 }
-table.dataTable.row-combined thead > tr > th.sorting	 {
-    height: 22px; 
-}
 
 /* Header Navigation Title */
 .headertit {
@@ -2150,3 +2164,12 @@ input.flatpickr-input{
     border: none;
     width: 99%;
 }
+
+/* start of table header */
+table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after {
+    opacity: 0 !important;
+}
+table.dataTable.row-combined thead > tr > th.sorting	 {
+    height: 22px; 
+}
+/* end of table header */

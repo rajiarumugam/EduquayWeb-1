@@ -62,7 +62,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedEmail;
   GENDERDATA = ["Male","Female","Others"];
   sectionArray = ['PRE KG','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'];
-  subjectTitleArray = ["Mr","Miss"];
+  subjectTitleArray = ["Mr","Ms"];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -130,7 +130,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      age: ['', [Validators.required,Validators.min(18), Validators.max(99)]],
       gender: ['', Validators.required],
       testingchc: ['', Validators.required]
    });
@@ -594,7 +594,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         {
             this.selectedgender = "Male"
         }
-        else if(this.selectedsubjectTitle === "Miss")
+        else if(this.selectedsubjectTitle === "Ms")
         {
             this.selectedgender = "Female"
         }

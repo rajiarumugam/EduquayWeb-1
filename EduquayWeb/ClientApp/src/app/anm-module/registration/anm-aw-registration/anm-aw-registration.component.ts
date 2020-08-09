@@ -83,12 +83,12 @@ export class AnmAwRegistrationComponent implements OnInit {
   startOptionsLMP: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now() - (this.DAY*30)),
+    defaultDate: "",
     minDate: "",
     maxDate: new Date(Date.now() - (this.DAY*30)),
   };
   selecteddor = new Date(Date.now());
-  selectedlmpdate = new Date(Date.now() - (this.DAY*30));
+  selectedlmpdate;
   user;
   createdSubjectId="";
 
