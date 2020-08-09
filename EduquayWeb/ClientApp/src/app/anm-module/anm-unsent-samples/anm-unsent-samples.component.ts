@@ -491,14 +491,15 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     var hasAnySelected = this.unsentSamples.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
+      //this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
       return false;
     }
 
     var hasGreaterThan24 = this.unsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 24);
     if(hasGreaterThan24.length > 0){
       Swal.fire({
-        title: 'One or more selected samples that are aging more than 24 hours',
+        title: `${this.constantService.MoreThan24Hours}`,
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
@@ -624,14 +625,15 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     var hasAnySelected = this.unsentSamples.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
+      //this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
       return false;
     }
 
     var hasLessThan24 = this.unsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
     if(hasLessThan24.length > 0){
       Swal.fire({
-        title: 'One or more selected samples that are aging less than 24 hours',
+        title: `${this.constantService.LessThan24Hours}`,
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         

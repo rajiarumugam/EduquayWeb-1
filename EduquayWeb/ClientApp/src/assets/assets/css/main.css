@@ -2119,9 +2119,7 @@ span.new-control-indicator.disabled {
 .menu1 {
     display: none;
 }
-div.dataTables_wrapper div.dataTables_filter svg {
-  top: 30px !important;
-}
+
 
 .swal2-title .fa, .swal2-title .fas, .swal2-title .far{
     font-size: 2rem !important;
@@ -2172,4 +2170,21 @@ table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:
 table.dataTable.row-combined thead > tr > th.sorting	 {
     height: 22px; 
 }
+
+div.dataTables_wrapper div.dataTables_info {
+    padding-top: 0.85em;
+    white-space: normal;
+    color: #474747 !important;
+    font-weight: 500 !important;
+    border: 0px solid #f1f1f1 !important;
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: block !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter svg {
+    top: 30px !important;
+  }
 /* end of table header */
