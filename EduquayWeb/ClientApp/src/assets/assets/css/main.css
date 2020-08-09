@@ -2120,12 +2120,25 @@ span.new-control-indicator.disabled {
     display: none;
 }
 
+/*sweet alert starts */
 
 .swal2-title .fa, .swal2-title .fas, .swal2-title .far{
     font-size: 2rem !important;
     color: green;
 }
 
+.swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel {
+    display: inline-block;
+    border-left-color: rgb(27, 85, 226);
+    border-right-color: rgb(27, 85, 226);
+    border: 1px solid #1b55e2;
+    border-radius: .25em;
+    background: initial;
+    color: #1b55e2;
+    font-size: 13px;
+}
+
+/*sweet alert ends*/
 
 div.headertit h5.float-center {
     color: #1b55e2;

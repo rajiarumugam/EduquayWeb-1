@@ -242,6 +242,7 @@ vertical-align: middle;
 {
     width: 30em !important;
 }
+/*
 ::ng-deep .swal2-popup .swal2-styled.swal2-cancel
 {
     display: inline-block;
@@ -254,7 +255,7 @@ vertical-align: middle;
     color: #fff;
     font-size: 13px;
 }
-
+*/
 
 /*---------*/
 .form-control-with-search
@@ -268,7 +269,7 @@ vertical-align: middle;
     max-width: 80% !important;
     margin: auto !important;
 }
-
+/*
 ::ng-deep .swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel
 {
     display: inline-block;
@@ -281,7 +282,7 @@ vertical-align: middle;
     color: #1b55e2;
     font-size: 13px;
 }
-
+*/
 .associatedanm button
 {
     margin:0 0 0 5px;

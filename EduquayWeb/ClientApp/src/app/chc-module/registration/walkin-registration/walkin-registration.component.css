@@ -238,6 +238,7 @@ vertical-align: middle;
 {
     width: 30em !important;
 }
+/*
 ::ng-deep .swal2-popup .swal2-styled.swal2-cancel
 {
     display: inline-block;
@@ -250,7 +251,7 @@ vertical-align: middle;
     color: #fff;
     font-size: 14px;
 }
-
+*/
 .new-control.new-radio .new-control-indicator
 {
     left:0 !important;
