@@ -93,6 +93,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   hasAlternateAvdName = true;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
@@ -484,6 +485,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
             }
           }
         });
+        this._intSelectedBarcode = _arrSelectedBarcode.length;
         return _arrSelectedBarcode.join(',');
   }
   getCreateShipmentConfirmation(unsentSamplesDetail) {

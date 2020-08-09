@@ -86,6 +86,7 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   length = 0;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
 
@@ -369,6 +370,7 @@ getSelectedBarcode(agingMode) {
           }
         }
       });
+      this._intSelectedBarcode = _arrSelectedBarcode.length;
       return _arrSelectedBarcode.join(',');
 }
 

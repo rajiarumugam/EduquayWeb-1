@@ -97,6 +97,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   hasAlternateAvdName = true;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
@@ -652,6 +653,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         }
       }
     });
+    this._intSelectedBarcode = _arrSelectedBarcode.length;
     return _arrSelectedBarcode.join(',');
   }
 

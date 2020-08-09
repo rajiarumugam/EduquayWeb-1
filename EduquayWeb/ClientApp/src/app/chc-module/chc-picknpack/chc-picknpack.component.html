@@ -69,7 +69,7 @@
                                             <div class="n-chk text-center">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                     <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()">
-                                                    <span class="new-control-indicator leftspace ml-3"></span>&nbsp;
+                                                    <span class="new-control-indicator leftspace"></span>&nbsp;
                                                 </label>
                                             </div>
                                         </th>
@@ -304,7 +304,7 @@
                                                         </div>
                                                        
                                                         <div class="modal-footer">
-                                                            <span class="mr-auto"><b>Selected samples barcode: </b>{{_strSelectedBarcode}}</span>
+                                                            <span class="mr-auto"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>
                                                             <button type="submit" class="btn btn-primary"
                                                                 id="linktobuttonpickpak">Submit</button>
                                                             <button class="btn"  (click)="modal.dismiss()"><i
