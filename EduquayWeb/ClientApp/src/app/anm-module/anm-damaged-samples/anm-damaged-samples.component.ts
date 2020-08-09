@@ -14,6 +14,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import * as moment from 'moment';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 
 @Component({
@@ -83,8 +84,8 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
-
+    private _formBuilder: FormBuilder,
+    private constantService: ConstantService
   ) { }
 
   ngOnInit() {
@@ -247,7 +248,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.fetchBarcodes();
 
     if(this.notifySamples === ""){
-      this.showResponseMessage(`Please select at least one sample to update the status`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
    

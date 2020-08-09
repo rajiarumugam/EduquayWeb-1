@@ -13,6 +13,7 @@ import { user } from 'src/app/shared/auth-response';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 @Component({
   selector: 'app-chc-picknpack',
@@ -81,6 +82,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   selecteddate: any;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
@@ -99,7 +101,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private constantService: ConstantService
   ) {}
 
   ngOnInit() {
@@ -231,7 +234,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   //   }
 
   //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-  //     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+  //     this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
   //     return false;
   //   }
     
@@ -267,7 +270,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     console.log(chcShipmentForm.value);
 
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -382,6 +385,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
             }
           }
         });
+        this._intSelectedBarcode = _arrSelectedBarcode.length;
         return _arrSelectedBarcode.join(',');
   }
   getChcCreateShipmentConfirmation(chcpicknPackdetail) {
@@ -649,7 +653,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
   
@@ -687,7 +691,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
   
@@ -720,7 +724,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
   

@@ -15,6 +15,7 @@ import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 
 @Component({
@@ -96,6 +97,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   hasAlternateAvdName = true;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
@@ -119,7 +121,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   constructor(
     private PicknpackService: PicknpackService,
     private modalService: NgbModal,
-    //private dateService: DateService,
+    private constantService: ConstantService,
     private router: Router,
     private route: ActivatedRoute,
     private tokenService: TokenService,
@@ -246,7 +248,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   //   return false;
   // }
   // if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-  //   this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+  //   this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
   //   return false;
   // }
   // // if (picknPackdetail.sampleAging > 24 || picknPackdetail.sampleAging === undefined) {
@@ -359,7 +361,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     console.log(shipmentForm.value);
 
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -443,7 +445,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     this.picknpackErrorMessage = '';
     
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      this.expirySampleResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -535,7 +537,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
   
@@ -573,7 +575,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
   
@@ -606,7 +608,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
   
@@ -651,6 +653,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         }
       }
     });
+    this._intSelectedBarcode = _arrSelectedBarcode.length;
     return _arrSelectedBarcode.join(',');
   }
 
