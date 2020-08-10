@@ -463,6 +463,8 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
           centered: true,
           size: 'xl',
           scrollable: true,
+          backdrop:'static',
+          keyboard: false,
           ariaLabelledBy: 'modal-basic-title'
         });
       }
@@ -491,6 +493,8 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
           centered: true,
           size: 'xl',
           scrollable: true,
+          backdrop:'static',
+          keyboard: false,
           ariaLabelledBy: 'modal-basic-title'
         });
       }
@@ -525,6 +529,8 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });      
   }

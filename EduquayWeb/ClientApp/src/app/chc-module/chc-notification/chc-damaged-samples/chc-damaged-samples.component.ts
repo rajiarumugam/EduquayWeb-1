@@ -169,6 +169,8 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 

@@ -433,6 +433,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
             centered: true,
             size: 'xl',
             scrollable: true,
+            backdrop:'static',
+            keyboard: false,
             ariaLabelledBy: 'modal-basic-title'
           });
         }
@@ -461,6 +463,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
             centered: true,
             size: 'xl',
             scrollable: true,
+            backdrop:'static',
+            keyboard: false,
             ariaLabelledBy: 'modal-basic-title'
           });
         }
@@ -495,6 +499,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
         centered: true,
         size: 'xl',
         scrollable: true,
+        backdrop:'static',
+        keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });      
     }

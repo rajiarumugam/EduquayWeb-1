@@ -310,6 +310,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 
