@@ -1,0 +1,24 @@
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th><span>{{'SNo' | translate }}</span></th>
+            <th><span>{{'SubjectName' | translate }}</span></th>
+            <th><span>{{'SubjectID' | translate }}</span></th>
+            <th><span>{{'RCHID' | translate }}</span></th>
+            <th><span>{{'Barcode' | translate }}</span></th>
+            <th><span>{{'Sample_Collection_Date_Time' | translate }}</span></th>
+            <th><span>{{'HPLCTestResults' | translate }}</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of centralPickpackPendingData[0].receiptDetail;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.subjectName }}</td>
+            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.sampleCollectionDateTime }}</td>
+            <td style="text-align: center;">{{ person.HPLCTestResults }}</td>
+        </tr>
+    </tbody>
+</table>

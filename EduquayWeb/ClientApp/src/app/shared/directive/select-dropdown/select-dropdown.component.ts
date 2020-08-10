@@ -44,6 +44,7 @@ export class SelectDropdownComponent implements ControlValueAccessor{
   _list = new BehaviorSubject<any[]>([]);
   @Input() placeholder = 'Select';
   @Input() returnId = true;
+  @Input() selectedItem;
   _value: string;
   _display: string = 'Select';
 

@@ -1,0 +1,46 @@
+<div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+    <form class="form-inline my-2 my-lg-0">
+        <div class="w-100">
+            <input type="text" class="w-100 form-control product-search br-30"
+                name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
+                [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()">
+            <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button></a>
+        </div>
+    </form>
+</div>
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th><span>{{'SNo' | translate }}</span></th>
+            <th><span>{{'SubjectName' | translate }}</span></th>
+            <th><span>{{'SubjectID' | translate }}</span></th>
+            <th><span>{{'RCHID' | translate }}</span></th>
+            <th><span>{{'Barcode' | translate }}</span></th>
+            <th><span>{{'Sample_Collection_Date_Time' | translate }}</span></th>
+            <th><span>{{'HPLCTestResults' | translate }}</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of centralPickpackPendingData[0].receiptDetail;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.subjectName }}</td>
+            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.sampleCollectionDateTime }}</td>
+            <td style="text-align: center;">{{ person.HPLCTestResults }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="col-md-12 upload-btn-cont" *ngIf="showUploadResult">
+    <button class="mr-2 btn btn-primary hplc confirm float-right" (click)="submitNegativeResult();">Submit</button>
+</div>
