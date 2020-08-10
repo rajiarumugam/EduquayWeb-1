@@ -3,7 +3,7 @@ import { masterService } from 'src/app/shared/master/district/masterdata.service
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
@@ -102,6 +102,11 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedguardianLastName;
   selectedguardianGovtIDDetail;
   selectedguardianContactNumber;
+  selectedSpouseFirstName;
+  selectedSpouseMiddleName;
+  selectedSpouseLastName;
+  selectedSpouseContactNo;
+  selectedECNumber;
 
 
   createdSubjectId;
@@ -148,7 +153,12 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       govtIDDetail: [''],
       govtIDType: [''],
-      maritalStatus: ['true']
+      maritalStatus: ['true'],
+      selectedSpouseFirstName: ['', Validators.required],
+      spouseMiddleName: [''],
+      spouseLastName:['', Validators.required],
+      spouseContact:['', Validators.required],
+      ECNumber:['']
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -416,6 +426,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           $('#fadeinModal').modal('hide');
          }
          else{
+          this.associatedANMData[i].click = undefined;
           $('#fadeinModal').modal('show');
          }
         })
@@ -517,10 +528,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "govIdTypeId": 0,
           "govIdDetail": "",
           "spouseSubjectId": "",
-          "spouseFirstName": "",
-          "spouseMiddleName": "",
-          "spouseLastName": "",
-          "spouseContactNo": "",
+          "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value != undefined ? this.secondFormGroup.get('spouseFirstName').value : '',
+          "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
+          "spouseLastName": this.secondFormGroup.get('spouseLastName').value != undefined ? this.secondFormGroup.get('spouseLastName').value : "",
+          "spouseContactNo": this.secondFormGroup.get('spouseContactNumber').value != undefined ? ""+this.secondFormGroup.get('spouseContactNumber').value : "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": Number(this.associatedANMData[this.selectedAssociatedANMID].associatedANMId),
@@ -542,7 +553,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         },
         "subjectPregnancyRequest": {
           "rchId": '0',
-          "ecNumber": "",
+          "ecNumber": this.secondFormGroup.get('ECNumber').value != undefined ? this.secondFormGroup.get('ECNumber').value != undefined : "",
           "lmpDate": "",
           "g": 0,
           "p": 0,
@@ -612,6 +623,17 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     ageEntered()
     {
       this.DOBPicker.flatpickr.setDate("");
+    }
+    ecNumberChange()
+    {
+      if(this.selectedECNumber)
+      {
+        if(this.selectedECNumber.length > 0)
+        {   const validators = [ Validators.required,Validators.min(100000000000), Validators.max(9999999999999999)];
+            this.secondFormGroup.addControl('ECNumber', new FormControl('', validators));
+        }
+      }
+       
     }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event

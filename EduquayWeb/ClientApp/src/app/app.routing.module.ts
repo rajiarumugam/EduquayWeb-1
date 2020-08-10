@@ -109,6 +109,12 @@ import { DiagosisReportmainComponent } from "./pathologist/diagnosis/diagnosis-r
 import { ChcSamplePickpackResolverService } from "./shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-resolver.service";
 
 import { PathoHPLCService } from "./shared/pathologist/patho-hplc-resolver.service";
+
+
+import { CentralPickAndPackComponent } from "./central-lab/pickandpack/central-pick-pack-main/central-pick-pack-main.component";
+import { CentralPickPackPendingComponent } from "./central-lab/pickandpack/central-pick-pack-pending/central-pick-pack-pending.component";
+import { CentralPickPackStartComponent } from "./central-lab/pickandpack/central-pick-pack-start/central-pick-pack-start.component"
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -202,6 +208,13 @@ const routes: Routes = [
           {path: 'normal', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
           {path: 'abnormal', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
           {path: 'report', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
+        ]
+      },
+      {
+        path: 'central-pickpack', component: CentralPickAndPackComponent,
+        children:[
+          {path: '', component: CentralPickPackPendingComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
+          {path: 'start', component: CentralPickPackStartComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
       {
@@ -329,5 +342,8 @@ export const RoutingComponents = [
   DiagosisHPLCmainComponent,
   DiagnosisHPLCAbnormaComponent,
   DiagosisReportComponent,
-  DiagosisReportmainComponent
+  DiagosisReportmainComponent,
+  CentralPickAndPackComponent,
+  CentralPickPackPendingComponent,
+  CentralPickPackStartComponent
 ];

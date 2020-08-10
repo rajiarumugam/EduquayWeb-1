@@ -201,7 +201,11 @@ vertical-align: middle;
 ::ng-deep input.flatpickr-input
 {
     border:none;
+    background: transparent !important;
+    background-color: transparent !important;
+    max-width: 100%;
 }
+
 .fa-check-circle
 {
     font-size: 50px !important;
@@ -229,6 +233,27 @@ vertical-align: middle;
 .form-control.ng-valid {
     border: 1px solid red;
 }*/
+.user-plus
+{
+    text-align: center;
+}
+.float-left
+{
+    float:left;
+}
+
+@media (min-width: 576px)
+{
+    .modal-dialog {
+        max-width: 90% !important;
+        margin: 1.75rem auto;
+    }
+}
+
+.form-group
+{
+    text-align: left !important;
+}
 
 ::ng-deep .swal2-popup
 {
@@ -244,23 +269,41 @@ vertical-align: middle;
     background: initial;
     background-color: #1b55e2;
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
+}
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .user-plus i,.user-plus{
+    cursor: pointer;
+    color: #1b55e2;
+}
+.user-plus:hover i
+{
+  color: blue;
 }
 
-.rchid-disable-value
+::ng-deep .swal2-container.swal2-top-end, ::ng-deep .swal2-container.swal2-top-right {
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+::ng-deep .swal2-container.swal2-top-end .swal2-popup
 {
     position: absolute;
-    margin: 0;
-    margin-top: 9px;
-    font-size: 15px;
-    margin-left: 5px;
-}
-.rchid-input{
-    padding-left: 32px;
 }
 
-/*----dropdown----*/
-app-select-dropdown.form-control
+.upload-btn-cont
 {
-    padding:0 !important;
+    display: block;
+    height: 40px;
+}
+::ng-deep .swal2-popup .swal2-styled.swal2-cancel
+{
+    font-size: 13px !important;
+    color:#3085d6 !important;
+    border:1px solid #3085d6 !important;
 }

@@ -64,10 +64,11 @@ import Swal from 'sweetalert2';
       }).then((result) => {
         if (result.value) {
             this.associatedANMselected.emit(this.associatedANMData[i]);
-          $('#fadeinModal1').modal('hide');
+            $('#fadeinModal1').modal('hide');
          }
          else{
-          $('#fadeinModal1').modal('show');
+          this.associatedANMData[i].click = undefined;
+            $('#fadeinModal1').modal('show');
          }
         })
     
