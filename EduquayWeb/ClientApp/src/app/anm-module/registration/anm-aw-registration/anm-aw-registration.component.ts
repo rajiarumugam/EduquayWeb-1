@@ -104,7 +104,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedhouse;
   selectedstreet;
   selectedcity;
-  selectedstate;
+  selectedstate = "Assam";
   selectedspouseFirstName;
   selectedspouseMiddleName;
   selectedspouseLastName;
@@ -360,7 +360,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       if(this.firstFormGroup.valid)
         this.stepper.next();
 
-        //this.stepper.next();
+        this.stepper.next();
     }
 
     prevStep() {

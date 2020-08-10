@@ -426,6 +426,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           $('#fadeinModal').modal('hide');
          }
          else{
+          this.associatedANMData[i].click = undefined;
           $('#fadeinModal').modal('show');
          }
         })
@@ -636,7 +637,11 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         // Call the dtTrigger to rerender again       
         this.dtTrigger.next();
       });
-    }   
+    }  
+    returnpageNo()
+    {
+        return this.stepper.selectedIndex;
+    } 
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
