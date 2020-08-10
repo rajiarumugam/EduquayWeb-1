@@ -203,9 +203,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           }
           else {
             this.chcSampleList = this.chcpicknpackResponse.sampleList;
-            this.chcSampleList.forEach(element => {
+            /*this.chcSampleList.forEach(element => {
               element.sampleSelected = true;
             });
+            */
             this.rerender();
           }
         }

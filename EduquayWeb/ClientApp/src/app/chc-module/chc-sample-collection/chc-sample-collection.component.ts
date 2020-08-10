@@ -180,20 +180,31 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
       });
   }
 
- chcSampleCollection(){
+ chcSampleCollection(mode){
   this.chcsubjectList = [];
   this.chcsCollectionErrorMessage = '';
   if (!this.validateDateRange()) {
     this.chcsCollectionErrorMessage = "Select valid date range to search for subjects";
     return;
   }
-  this.chcscRequest = {
-    userId: this.user.id,
-    fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
-    toDate: this.chcSCToDate != '' ? moment(new Date(this.chcSCToDate)).format("DD/MM/YYYY") : '',
-    subjectType: +(this.selectedSubjectType),
-    registeredFrom: this.user.registeredFrom
-  };
+   if (mode === 'b') {
+     this.chcscRequest = {
+       userId: this.user.id,
+       fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
+       toDate: this.chcSCToDate != '' ? moment(new Date(this.chcSCToDate)).format("DD/MM/YYYY") : '',
+       subjectType: +(this.selectedSubjectType),
+       registeredFrom: this.user.registeredFrom
+     };
+   }
+   else if (mode === 'r') {
+     this.chcscRequest = {
+       userId: this.user.id,
+       fromDate: '',
+       toDate: '',
+       subjectType: +(this.selectedSubjectType),
+       registeredFrom: this.user.registeredFrom
+     };
+   }
   let sampleCollection = this.sampleCollectionService.getSampleCollection(this.chcscRequest)
     .subscribe(response => {
       this.chcsampleCollectionResponse = response;
@@ -292,7 +303,7 @@ onSubmit(chcCollectionForm: NgForm){
     this.chcsampleCollectionPostResponse = response;
     if(this.chcsampleCollectionPostResponse !== null && this.chcsampleCollectionPostResponse.status === "true"){
       this.showResponseMessage(this.chcsampleCollectionPostResponse.message, 's')
-       this.chcSampleCollection();
+       this.chcSampleCollection('r');
     }else{
       this.showResponseMessage(this.chcsampleCollectionPostResponse.message, 'e');
               this.chcsCollectionErrorMessage = response.message;
