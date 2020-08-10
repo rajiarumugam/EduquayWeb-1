@@ -52,6 +52,7 @@ export class ChcSamplePickpackComponent implements OnInit {
   sampleDateTime: string;
   gestationalAge: string;
   samplepicknPackdetail;
+  selectedAll: any;
 
 
   constructor(
@@ -229,6 +230,25 @@ export class ChcSamplePickpackComponent implements OnInit {
       
     }
 
+  }
+
+  checkIfSelected(){
+    console.log(this.startPickpackData);
+    this.selectedAll = this.startPickpackData.every(function (item: any) {
+      return item.startpickpackSelected == false;
+
+    })
+    // // if(this.startpickpackSelected === false){
+    // //   this.startPickpackData.forEach(element1 => {
+    // //     var movedataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo != element1.barcodeNo)
+    // //     if (movedataindex >= 0) {
+    // //       this.chcsamplepickpack.push(this.startPickpackData[movedataindex]);
+    // //       this.startPickpackData.splice(movedataindex,1);
+         
+    // //       //this.searchbarcode='';
+    // //     }
+    // //   });
+    // }
   }
 
   rerender(): void {

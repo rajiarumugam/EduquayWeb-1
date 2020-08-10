@@ -51,6 +51,7 @@ import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-p
 import { ChcSamplePickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component';
 import { PageUnderDevelopementComponent} from './page-under-developement/page-under-developement.component';
 import { ChcSampleCollectionComponent } from './chc-module/chc-sample-collection/chc-sample-collection.component';
+import { ChcSampleShipmentlogComponent } from './chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component';
 
 
 
@@ -83,7 +84,8 @@ const ngWizardConfig: NgWizardConfig = {
     TextSearchPipe,
     ChcSamplePickpackComponent,
     PageUnderDevelopementComponent,
-    ChcSampleCollectionComponent
+    ChcSampleCollectionComponent,
+    ChcSampleShipmentlogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

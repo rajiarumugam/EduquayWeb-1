@@ -1,0 +1,202 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="chcsam" subMenum="Shipment-Log "></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                    <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
+                                    [routerLink]="['/app/chc-sample-pickpack']" role="button"
+                                    ngbTooltip="Pick & Pack" placement="right"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">Shipment Log for HPLC lab </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right mb-4">
+                                <a class="btn btn-outline-primary bs-tooltip"
+                                    role="button" ngbTooltip="Report - Sample Status" placement="left"><i
+                                        class="fas fa-chevron-right pNav-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="form-row">
+                            <div class="col-md-10">
+                                <div *ngIf="chcSampleShipmentLogErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': chcSampleShipmentLogErrorMessage ==='No samples found', 'alert-danger': chcSampleShipmentLogErrorMessage !== 'No samples found'}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{chcSampleShipmentLogErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mt-4">
+                            <table id="chcshipmentlog-tblconfig1" class="table table-bordered table-hover" datatable
+                                [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                    <tr>
+                                        <th><span>S.No</span></th>
+                                        <th><span>Shipment ID</span></th>
+                                        <th><span>Shipment Date & Time</span></th>
+                                        <th><span>Lab Technician Name</span></th>
+                                        <th><span>Delivery Executive Name</span></th>
+                                        <th><span>Receiving Central Lab</span></th>
+                                        <th><span>View</span></th>
+                                        <th><span>Print</span></th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let shipment of shipmentList; index as i">
+                                        <td style="text-align: center">{{i +1}}</td>
+                                        <td style="text-align: center">{{shipment.shipmentId}}</td>
+                                        <td style="text-align: center">{{shipment.shipmentDateTime}}</td>
+                                        <td style="text-align: left">{{shipment.chcLabTechnicianName}}</td>
+                                        <td style="text-align: left">{{shipment.deliveryExecutiveName}}</td>
+                                        <td style="text-align: left">{{shipment.testingCHC}}</td>
+                                        <td style="text-align: center"><a
+                                                (click)="openchcSampleShipment(shippedChcSampleDetail, shipment)">
+                                                <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                                        </td>
+                                        <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
+                                                    aria-hidden="true"></i> </a></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #shippedChcSampleDetail let-modal>
+                <div class="modal-header">
+                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Shipment
+                        Details</h5>
+
+                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
+                        <div class="row my-4">
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>Shipment ID : </b></span><span>{{shipmentId}}</span></p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>Shipment Date & Time :
+                                        </b></span><span>{{shipmentDateTime}}</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="container-fluid mt-2">
+                            <div class="row">
+                                <div class="col-md-12 border-bottom">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-md-4">
+                                <span><b>Lab Technician Name : </b></span><span>{{labTechnicianName}}</span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <span><b>Testing CHC : </b></span><span>{{testingCHC}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span><b>Receiving Central Lab : </b></span><span>{{receivingCentralLab}}</span>
+                            </div>
+
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-md-4">
+                                <span><b>Logistics Service Provider : </b></span><span>{{logisticsProviderName}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span><b>Delivery Executive Name : </b></span><span>{{deliveryExecutiveName}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive mt-4" style="overflow-x: hidden;">
+                            <table id="zero-config" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><span>S.No</span></th>
+                                        <th><span>Subject Name</span></th>
+                                        <th><span>Subject ID</span></th>
+                                        <th class="text-center"><span>RCH ID</span></th>
+                                        <th><span>Barcode</span></th>
+                                        <th><span>Sample Collection Date & Time</span></th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let sampleDetail of sampleDetails; index as i">
+                                        <td class="sno text-center">{{i +1}}</td>
+                                        <td class="sname">{{sampleDetail.subjectName}}</td>
+                                        <td class="sid text-center">{{sampleDetail.uniqueSubjectId}}</td>
+                                        <td class="sid text-center">{{sampleDetail.rchId}}</td>
+                                        <td class="mobile text-center">{{sampleDetail.barcodeNo}}</td>
+                                        <td class="dartetimenew text-center">{{sampleDetail.sampleCollectionDateTime}}
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                            Close</button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+       
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+
+
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
