@@ -40,8 +40,9 @@ export class ChcSamplePickpackComponent implements OnInit {
   isAliquoteBarcodeMatch: boolean = false;
   tempCHCDatas: tempCHCData[] = [];
   startPickpackData: startPickpack[] = [];
-  primarytubeSelected: boolean = true;
-  alliquotedtubeSelected: boolean = true;
+  primarytubeSelected: boolean = false;
+  alliquotedtubeSelected: boolean = false;
+  startpickpackSelected: boolean = true;
   //tempCHC=[];
   uniqueSubjectId: string;
   sampleCollectionId: number;
@@ -51,6 +52,7 @@ export class ChcSamplePickpackComponent implements OnInit {
   sampleDateTime: string;
   gestationalAge: string;
   samplepicknPackdetail;
+  selectedAll: any;
 
 
   constructor(
@@ -221,12 +223,32 @@ export class ChcSamplePickpackComponent implements OnInit {
         var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element1.barcodeNo)
         if (getdataindex >= 0) {
           this.startPickpackData.push(this.chcsamplepickpack[getdataindex]);
+          this.chcsamplepickpack.splice(getdataindex,1);
           //this.searchbarcode='';
         }
       });
       
     }
 
+  }
+
+  checkIfSelected(){
+    console.log(this.startPickpackData);
+    this.selectedAll = this.startPickpackData.every(function (item: any) {
+      return item.startpickpackSelected == false;
+
+    })
+    // // if(this.startpickpackSelected === false){
+    // //   this.startPickpackData.forEach(element1 => {
+    // //     var movedataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo != element1.barcodeNo)
+    // //     if (movedataindex >= 0) {
+    // //       this.chcsamplepickpack.push(this.startPickpackData[movedataindex]);
+    // //       this.startPickpackData.splice(movedataindex,1);
+         
+    // //       //this.searchbarcode='';
+    // //     }
+    // //   });
+    // }
   }
 
   rerender(): void {

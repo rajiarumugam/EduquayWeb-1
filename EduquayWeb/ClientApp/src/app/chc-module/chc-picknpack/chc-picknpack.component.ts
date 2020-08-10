@@ -13,6 +13,7 @@ import { user } from 'src/app/shared/auth-response';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 @Component({
   selector: 'app-chc-picknpack',
@@ -81,6 +82,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   selecteddate: any;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
@@ -99,7 +101,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private constantService: ConstantService
   ) {}
 
   ngOnInit() {
@@ -200,9 +203,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           }
           else {
             this.chcSampleList = this.chcpicknpackResponse.sampleList;
-            this.chcSampleList.forEach(element => {
+            /*this.chcSampleList.forEach(element => {
               element.sampleSelected = true;
             });
+            */
             this.rerender();
           }
         }
@@ -231,7 +235,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   //   }
 
   //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-  //     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+  //     this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
   //     return false;
   //   }
     
@@ -267,7 +271,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     console.log(chcShipmentForm.value);
 
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -382,6 +386,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
             }
           }
         });
+        this._intSelectedBarcode = _arrSelectedBarcode.length;
         return _arrSelectedBarcode.join(',');
   }
   getChcCreateShipmentConfirmation(chcpicknPackdetail) {
@@ -389,7 +394,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var hasAnySelected = this.chcSampleList.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
 
@@ -408,7 +413,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
           //var getdates = this._arrSelectedDate;
           if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
             return false;
           }
           this.fetchMaxDateAllbc();
@@ -436,7 +441,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
           //var getdates = this._arrSelectedDate;
           if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
             return false;
           }
           this.fetchMaxDatelt24();
@@ -470,7 +475,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       this.selectedBarcodes =  this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
       if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-        this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+        //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
         return false;
       }
       this.fetchMaxDatelt24(); 
@@ -519,14 +524,14 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var hasAnySelected = this.chcSampleList.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
 
     var hasLessThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
     if(hasLessThan24.length > 0){
       Swal.fire({
-        title: 'One or more selected samples that are aging more than 24 hours',
+        title: 'One or more selected samples that are aging less than 24 hours',
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
@@ -586,7 +591,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.chcPicknpackErrorMessage = '';
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      this.expirySampleResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
     
@@ -649,7 +654,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
   
@@ -687,7 +692,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
   
@@ -720,7 +725,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
   

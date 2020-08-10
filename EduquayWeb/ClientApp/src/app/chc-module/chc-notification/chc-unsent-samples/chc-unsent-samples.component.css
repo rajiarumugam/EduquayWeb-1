@@ -67,7 +67,7 @@ table.dataTable th {
 }
 
 .leftspace {
-    left: -5px !important;
+    left: 0px !important;
 }
 
 label.new-control.new-checkbox.checkbox-outline-primary {
@@ -77,6 +77,7 @@ label.new-control.new-checkbox.checkbox-outline-primary {
     border: none;
     letter-spacing: 1px;
     text-transform: initial;
+    left: 4px;
 }
 
 .swal2-modal .swal2-styled {

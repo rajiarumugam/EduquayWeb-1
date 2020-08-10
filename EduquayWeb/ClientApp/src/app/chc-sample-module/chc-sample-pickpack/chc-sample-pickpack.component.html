@@ -19,8 +19,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
-                                    ngbTooltip="Sample Collection" placement="right"
-                                    [routerLink]="['/app/chc-sample-collection']" role="button"><i
+                                    ngbTooltip="Update SST Results" placement="right"
+                                    [routerLink]="['/app/chc-update-sst']" role="button"><i
                                         class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
@@ -30,8 +30,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="float-right mb-4">
-                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-shipmentlog']"
-                                    role="button" ngbTooltip="Screening Center Shipment Log" placement="left"><i
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-sample-shipmentlog']"
+                                    role="button" ngbTooltip="Shipment Log" placement="left"><i
                                         class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
                         </div>
@@ -161,7 +161,8 @@
                                                     <td><div class="n-chk">
                                                         <label class="new-control new-checkbox checkbox-outline-primary">
                                                           <input type="checkbox" class="new-control-input checkbox" 
-                                                          checked>
+                                                          value="{{startpicknpack.startpickpackSelected}}" [checked]="startpicknpack.startpickpackSelected === true"
+                                                          [(ngModel)]="startpicknpack.startpickpackSelected"  (change)="checkIfSelected()">
                                                           <span class="new-control-indicator"></span>&nbsp;
                                                         </label>
                                                     </div></td>
@@ -243,19 +244,19 @@
                                             <td class="text-center">{{tempScandata.uniqueSubjectId}}</td>
                                             <td class="text-center">{{tempScandata.rchId}}</td>
                                             <td class="text-center">{{tempScandata.barcodeNo}}</td>
-                                            <td><div class="n-chk">
+                                            <td><div class="n-chk text-center">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                   <input type="checkbox" class="new-control-input checkbox" 
-                                                  value="{{tempScandata.primarytubeSelected}}" checked
-                                                  [(ngModel)]="tempScandata.primarytubeSelected">
+                                                  value="{{primarytubeSelected}}"
+                                                  [(ngModel)]="primarytubeSelected">
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>
-                                            <td><div class="n-chk" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
+                                            <td><div class="n-chk text-center" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
                                                 <label class="new-control new-checkbox checkbox-outline-primary">
                                                   <input type="checkbox" class="new-control-input checkbox" 
-                                                  value="{{tempScandata.alliquotedtubeSelected}}"  checked
-                                                    [(ngModel)]="tempScandata.alliquotedtubeSelected">
+                                                  value="{{alliquotedtubeSelected}}" 
+                                                    [(ngModel)]="alliquotedtubeSelected">
                                                   <span class="new-control-indicator"></span>&nbsp;
                                                 </label>
                                             </div></td>

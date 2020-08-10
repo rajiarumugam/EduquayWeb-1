@@ -4,7 +4,7 @@
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-        <app-site-sidebar module="chc" subMenum="Shipment-Log "></app-site-sidebar>
+        <app-site-sidebar module="chcsam" subMenum="Shipment-Log "></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
 
@@ -20,19 +20,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
-                                    [routerLink]="['/app/chc-pickandpack']" role="button"
-                                    ngbTooltip="Pick & Pack to Screening Center" placement="right"><i
+                                    [routerLink]="['/app/chc-sample-pickpack']" role="button"
+                                    ngbTooltip="Pick & Pack" placement="right"><i
                                         class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center">Screening Center Shipment Log </h5>
+                                <h5 class="float-center">Shipment Log for HPLC lab </h5>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="float-right mb-4">
-                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-subjectprofile']"
-                                    role="button" ngbTooltip="Subject Profile" placement="left"><i
+                                <a class="btn btn-outline-primary bs-tooltip"
+                                    role="button" ngbTooltip="Report - Sample Status" placement="left"><i
                                         class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
                         </div>
@@ -42,11 +42,11 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="form-row">
                             <div class="col-md-10">
-                                <div *ngIf="chcShipmentLogErrorMessage" class="alert mt-3 mb-2"
-                                    [ngClass]="{'alert-warning': chcShipmentLogErrorMessage ==='No samples found', 'alert-danger': chcShipmentLogErrorMessage !== 'No samples found'}">
+                                <div *ngIf="chcSampleShipmentLogErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': chcSampleShipmentLogErrorMessage ==='No samples found', 'alert-danger': chcSampleShipmentLogErrorMessage !== 'No samples found'}">
                                     <span class="fa fa-info-circle mr-2"
                                         style="font-size: 16px;"></span><strong>Oops!</strong>
-                                    {{chcShipmentLogErrorMessage}}
+                                    {{chcSampleShipmentLogErrorMessage}}
                                 </div>
                             </div>
                         </div>
@@ -58,9 +58,9 @@
                                         <th><span>S.No</span></th>
                                         <th><span>Shipment ID</span></th>
                                         <th><span>Shipment Date & Time</span></th>
-                                        <th><span>CHC Lab Technician Name</span></th>
+                                        <th><span>Lab Technician Name</span></th>
                                         <th><span>Delivery Executive Name</span></th>
-                                        <th><span>Receiving Testing CHC</span></th>
+                                        <th><span>Receiving Central Lab</span></th>
                                         <th><span>View</span></th>
                                         <th><span>Print</span></th>
                                     </tr>
@@ -75,10 +75,10 @@
                                         <td style="text-align: left">{{shipment.deliveryExecutiveName}}</td>
                                         <td style="text-align: left">{{shipment.testingCHC}}</td>
                                         <td style="text-align: center"><a
-                                                (click)="openchcShipment(shippedChcSampleDetail, shipment)">
+                                                (click)="openchcSampleShipment(shippedChcSampleDetail, shipment)">
                                                 <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
-                                        <td style="text-align: center"><a (click)="openchcShipmentPrint(shippedChcSampleDetail, shipment)"><i class="fa fa-print text-primary"
+                                        <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
                                                     aria-hidden="true"></i> </a></td>
                                     </tr>
 
@@ -102,37 +102,38 @@
                         </svg>
                     </button>
                 </div>
-                <div class="modal-body" id='print-area' style="height: 35rem;padding:26px 5px 26px 5px">
+                <div class="modal-body">
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing" style="width: 98%;height: 27rem;border: 0px solid #ccc;">
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
 
-                        <div class="row" style="margin-top: 1rem;">
-                            <div class="col-md-4" style="width: 100%;" nowrap='nowrap'>
-                                <b>Shipment ID: {{shipmentId}} </b>
+                        <div class="row my-4">
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>Shipment ID : </b></span><span>{{shipmentId}}</span></p>
                             </div>
-                            <div class="col-md-4"  style="width: 100%;" nowrap='nowrap'>
-                                <b>Shipment Date & Time: {{shipmentDateTime}}
-                                        </b>
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>Shipment Date & Time :
+                                        </b></span><span>{{shipmentDateTime}}</span>
                             </div>
+
+
                         </div>
 
-                        <!-- <div class="container-fluid" style="margin-top: 3rem;">
+                        <div class="container-fluid mt-2">
                             <div class="row">
                                 <div class="col-md-12 border-bottom">
                                 </div>
                             </div>
-                        </div> -->
-
-                        <div class="row my-4" style="top: 100px">
+                        </div>
+                        <div class="row my-4">
                             <div class="col-md-4">
-                                <span><b>CHC Lab Technician Name : </b></span><span>{{chcLabTechnicianName}}</span>
+                                <span><b>Lab Technician Name : </b></span><span>{{labTechnicianName}}</span>
                             </div>
 
                             <div class="col-md-4">
-                                <span><b>Collection CHC : </b></span><span>{{collectionCHCName}}</span>
+                                <span><b>Testing CHC : </b></span><span>{{testingCHC}}</span>
                             </div>
                             <div class="col-md-4">
-                                <span><b>Receiving Testing CHC : </b></span><span>{{testingCHC}}</span>
+                                <span><b>Receiving Central Lab : </b></span><span>{{receivingCentralLab}}</span>
                             </div>
 
                         </div>
@@ -149,7 +150,7 @@
 
                         </div>
 
-                        <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
+                        <div class="table-responsive mt-4" style="overflow-x: hidden;">
                             <table id="zero-config" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -157,7 +158,6 @@
                                         <th><span>Subject Name</span></th>
                                         <th><span>Subject ID</span></th>
                                         <th class="text-center"><span>RCH ID</span></th>
-                                        <th><span>Associated ANM</span></th>
                                         <th><span>Barcode</span></th>
                                         <th><span>Sample Collection Date & Time</span></th>
 
@@ -170,7 +170,6 @@
                                         <td class="sname">{{sampleDetail.subjectName}}</td>
                                         <td class="sid text-center">{{sampleDetail.uniqueSubjectId}}</td>
                                         <td class="sid text-center">{{sampleDetail.rchId}}</td>
-                                        <td class="text-left">{{sampleDetail.associatedANM}}</td>
                                         <td class="mobile text-center">{{sampleDetail.barcodeNo}}</td>
                                         <td class="dartetimenew text-center">{{sampleDetail.sampleCollectionDateTime}}
                                         </td>
@@ -182,32 +181,14 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-outline-primary" (click)="printShipment(shippedChcSampleDetail, shipment)">
-                        <i class="fa fa-print" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-outline-primary" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
-                        Close</button>
+                    <div class="modal-footer">
+                        <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                            Close</button>
+                    </div>
                 </div>
             </ng-template>
         </div>
-        <!-- <div class="row mt-4">
-                        <div class="col-md-12">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item"><a class="page-link" href="notification.html">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="live-screener-entry.html">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="collection.html">3</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="Completed.html">4</a></li>
-                                    <li class="page-item active"><a class="page-link" href="shipmentlog.html">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="profile.html">6</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> -->
+       
     </div>
 </div>
 <!--  END CONTENT AREA  -->
@@ -218,7 +199,4 @@
 <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
 <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
 <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
-<i appLoadScript [script]="'assets/assets/js/apps/printjs.js'"></i>
-<!-- <i appLoadScript [script]="'assets/assets/js/print.js'"></i> -->
 <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

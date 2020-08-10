@@ -1,23 +1,20 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
-import { ChcShipmentlogResponse, ChcShipmentList, ChcSamplesDetail } from 'src/app/shared/chc-module/chc-shipmentlog/chc-shipmentlog-response';
-import { ChcShipmentlogRequest } from 'src/app/shared/chc-module/chc-shipmentlog/chc-shipmentlog-request';
-import { ChcShipmentlogService } from 'src/app/shared/chc-module/chc-shipmentlog/chc-shipmentlog.service';
+import { ChcSampleShipmentlogResponse, ChcSampleShipmentList, ChcSamplesDetail } from 'src/app/shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog-response';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
+import { ChcSampleShipmentlogService } from 'src/app/shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog.service'
 import { HttpErrorResponse } from '@angular/common/http';
-import * as printJS from "print-js";
-
 
 @Component({
-  selector: 'app-chc-shipmentlog',
-  templateUrl: './chc-shipmentlog.component.html',
-  styleUrls: ['./chc-shipmentlog.component.css']
+  selector: 'app-chc-sample-shipmentlog',
+  templateUrl: './chc-sample-shipmentlog.component.html',
+  styleUrls: ['./chc-sample-shipmentlog.component.css']
 })
-export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnInit {
+export class ChcSampleShipmentlogComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
@@ -26,16 +23,15 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   dtTrigger: Subject<any> = new Subject();
 
   user: user;
-  chcShipmentLogErrorMessage: string;
-  chcshipmentlogRequest: ChcShipmentlogRequest;
-  chcshipmentlogResponse: ChcShipmentlogResponse;
-  chcshipmentLogInitResponse: any; 
+  chcSampleShipmentLogErrorMessage: string;
+  chcshipmentlogResponse: ChcSampleShipmentlogResponse;
+  chcsampleshipmentLogInitResponse: any; 
 
-  shipmentList: ChcShipmentList[]=[];
+  shipmentList: ChcSampleShipmentList[]=[];
   id: number;
   shipmentId: string;
-  collectionCHCName: string;
-  chcLabTechnicianName: string;
+  labTechnicianName: string;
+  receivingCentralLab: string;
   testingCHC: string;
   logisticsProviderName: string;
   deliveryExecutiveName: string;
@@ -49,10 +45,10 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   barcodeNo: string;
   associatedANM: string;
   sampleCollectionDateTime: string;
-  isPrintable: boolean = false;
+
 
   constructor(
-    private ChcShipmentlogService: ChcShipmentlogService,
+    private ChcSampleShipmentlogService: ChcSampleShipmentlogService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private tokenService: TokenService
@@ -79,59 +75,58 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
         }, 
       }  
   }
-  console.log(this.ChcShipmentlogService.chcshipmentLogApi);
+  console.log(this.ChcSampleShipmentlogService.chcsampleShipmentLogApi);
   //this.anmshipmentLog();
 
-  this.chcshipmentLogInitResponse = this.route.snapshot.data.chcshipmentLogData;
-  if (this.chcshipmentLogInitResponse.status === 'false') {
+  this.chcsampleshipmentLogInitResponse = this.route.snapshot.data.chcsampleshipmentLogData;
+  if (this.chcsampleshipmentLogInitResponse.status === 'false') {
     this.shipmentList = [];
-    if (this.chcshipmentLogInitResponse.message !== null && this.chcshipmentLogInitResponse.message.code === "ENOTFOUND") {
-      this.chcShipmentLogErrorMessage = "Unable to connect to api source";
+    if (this.chcsampleshipmentLogInitResponse.message !== null && this.chcsampleshipmentLogInitResponse.message.code === "ENOTFOUND") {
+      this.chcSampleShipmentLogErrorMessage = "Unable to connect to api source";
     }
-    else if (this.chcshipmentLogInitResponse.message !== null || this.chcshipmentLogInitResponse.message == undefined) {
-      this.chcShipmentLogErrorMessage = this.chcshipmentLogInitResponse.message;
+    else if (this.chcsampleshipmentLogInitResponse.message !== null || this.chcsampleshipmentLogInitResponse.message == undefined) {
+      this.chcSampleShipmentLogErrorMessage = this.chcsampleshipmentLogInitResponse.message;
     }
   }
   else {
     
-    if (this.chcshipmentLogInitResponse.shipmentLogs != null && this.chcshipmentLogInitResponse.shipmentLogs.length > 0) {
-      this.shipmentList = this.chcshipmentLogInitResponse.shipmentLogs;
+    if (this.chcsampleshipmentLogInitResponse.shipmentLogs != null && this.chcsampleshipmentLogInitResponse.shipmentLogs.length > 0) {
+      this.shipmentList = this.chcsampleshipmentLogInitResponse.shipmentLogs;
     }
   }
-
 }
-chcshipmentLog(){
+chcsampleshipmentLogList(chcId){
   this.shipmentList = [];
   this.sampleDetails = [];
-  this.chcshipmentlogRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
-  let shipmentLog = this.ChcShipmentlogService.getchcshipmentLog(this.chcshipmentlogRequest)
+ // this.chcshipmentlogRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
+  let shipmentLog = this.ChcSampleShipmentlogService.getshipmentLog(this.user.chcId)
   .subscribe(response => {
     this.chcshipmentlogResponse = response;
     if(this.chcshipmentlogResponse !== null && this.chcshipmentlogResponse.status === "true"){
       if(this.chcshipmentlogResponse.shipmentLogs.length <= 0){
-        this.chcShipmentLogErrorMessage = response.message;
+        this.chcSampleShipmentLogErrorMessage = response.message;
       }
       else{
         this.shipmentList = this.chcshipmentlogResponse.shipmentLogs;
       }
     }
     else{
-      this.chcShipmentLogErrorMessage = response.message;
+      this.chcSampleShipmentLogErrorMessage = response.message;
     }
     this.rerender();
   },
   (err: HttpErrorResponse) => {
-    this.chcShipmentLogErrorMessage = err.toString();
+    this.chcSampleShipmentLogErrorMessage = err.toString();
   });
   
 }
 
-openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
-  this.isPrintable = false;
+openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
+ 
   this.shipmentId = shipment.shipmentId;
   this.shipmentDateTime = shipment.shipmentDateTime;
-  this.collectionCHCName = shipment.collectionCHCName;
-  this.chcLabTechnicianName = shipment.chcLabTechnicianName;
+  this.receivingCentralLab = shipment.receivingCentralLab;
+  this.labTechnicianName = shipment.labTechnicianName;
   this.deliveryExecutiveName = shipment.deliveryExecutiveName;
   this.logisticsProviderName = shipment.logisticsProviderName;
   this.testingCHC = shipment.testingCHC;
@@ -147,35 +142,6 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
     });
 }
 
-openchcShipmentPrint(shippedChcSampleDetail: any, shipment: ChcShipmentList){
-  this.openchcShipment(shippedChcSampleDetail, shipment);
-  this.isPrintable = true;
-  this.printShipment(shippedChcSampleDetail, shipment);
- 
-}
-
-printShipment(shippedChcSampleDetail: any, shipment: ChcShipmentList){
-  return new Promise(resolve =>
-    setTimeout(() => resolve(
-      //printJS("print-area", "html" )
-      printJS({printable: 'print-area',
-      type: 'html',
-      targetStyles: ['*'], 
-      header:'<h3>Shipment Details</h3><hr>',
-      documentTitle: 'Shipment Details',
-      maxWidth: 1200  })
-      ), 200)
-  );
-  
-}
-
-printDocument(){
-  let printContents = document.getElementById('print-area').innerHTML;
-  let originalContents = document.body.innerHTML;
-  document.body.innerHTML = printContents;
-  window.print();
-  document.body.innerHTML = originalContents;
-}
 rerender(): void {
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
     // Destroy the table first   
@@ -197,5 +163,6 @@ ngOnDestroy(): void {
   // Do not forget to unsubscribe the event
   this.dtTrigger.unsubscribe();
 }
+
 
 }

@@ -14,6 +14,7 @@ import { user } from 'src/app/shared/auth-response';
 import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
+import { ConstantService } from 'src/app/shared/constant.service';
 
 @Component({
   selector: 'app-anm-unsent-samples',
@@ -92,6 +93,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   hasAlternateAvdName = true;
 
   _strSelectedBarcode: string;
+  _intSelectedBarcode: number;
   _arrSelectedDate: any = [];
 
   shipmentDateOptions: FlatpickrOptions = {
@@ -120,7 +122,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private constantService: ConstantService
   ) { }
 
   ngOnInit() {
@@ -216,9 +219,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
           }
           else {
             this.unsentSamples = this.unsentSamplesResponse.unsentSamplesDetail;
-            this.unsentSamples.forEach(element => {
-              element.sampleSelected = true;
-            });
+            // this.unsentSamples.forEach(element => {
+            //   element.sampleSelected = true;
+            // });
             this.recordCount = this.unsentSamples.length;
 
           }
@@ -242,7 +245,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   //   this.fetchMaxDate();
 
   //   if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-  //     this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+  //     this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
   //     return false;
   //   }
 
@@ -429,7 +432,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     this.unsentSamplesErrorMessage = '';
     if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-      this.expirySampleResponseMessage(`Please select the aging of sample is more than 24 hrs to move to expiry`, 'e');
+      this.expirySampleResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
       return false;
     }
     
@@ -482,6 +485,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
             }
           }
         });
+        this._intSelectedBarcode = _arrSelectedBarcode.length;
         return _arrSelectedBarcode.join(',');
   }
   getCreateShipmentConfirmation(unsentSamplesDetail) {
@@ -489,14 +493,15 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     var hasAnySelected = this.unsentSamples.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
+      //this.showResponseMessage(`Please select the aging of sample is less than 24 hrs to create shipment`, 'e');
       return false;
     }
 
     var hasGreaterThan24 = this.unsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 24);
     if(hasGreaterThan24.length > 0){
       Swal.fire({
-        title: 'One or more selected samples that are aging more than 24 hours',
+        title: `${this.constantService.MoreThan24Hours}`,
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
@@ -508,7 +513,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('allbc');
           //var getdates = this._arrSelectedDate;
           if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
             return false;
           }
           this.fetchMaxDateAllbc();
@@ -534,7 +539,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
           this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
           //var getdates = this._arrSelectedDate;
           if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-            this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+            //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
             return false;
           }
           this.fetchMaxDatelt24();
@@ -566,7 +571,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       });
       this.selectedBarcodes =  this._strSelectedBarcode = this.getSelectedBarcode('lt24bc');
       if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
-        this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
+        //this.showResponseMessage(`Oops! No barcode have been selected aging less then 24 hours for create shipment`, 'e');
         return false;
       }
       this.fetchMaxDatelt24(); 
@@ -622,14 +627,15 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
     var hasAnySelected = this.unsentSamples.filter(x => x.sampleSelected === true);
     if(hasAnySelected.length <= 0){
-      this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
+      this.showResponseMessage(`${this.constantService.SelectOneSample}`, 'e');
+      //this.showResponseMessage(`Please select the aging of sample is greater than 24 hrs for move to expiry`, 'e');
       return false;
     }
 
     var hasLessThan24 = this.unsentSamples.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
     if(hasLessThan24.length > 0){
       Swal.fire({
-        title: 'One or more selected samples that are aging more than 24 hours',
+        title: `${this.constantService.LessThan24Hours}`,
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
@@ -758,7 +764,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     });
 
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -796,7 +802,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     });
 
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 
@@ -833,7 +839,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     });
 
     if (getdates <= 0) {
-      this.showResponseMessage(`Please select at least one sample to create shipment`, 'e');
+      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
 

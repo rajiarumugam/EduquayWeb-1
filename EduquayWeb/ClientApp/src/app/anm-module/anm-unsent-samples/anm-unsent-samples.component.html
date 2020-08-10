@@ -18,14 +18,14 @@
                     <!-- <th class="text-center">Contact</th> -->
                     <th class="text-center">Barcode</th>
                     <th class="text-center us-datetime">Sample Collection Date & Time</th>
-                    <th class="text-center">Aging of Sample in hours</th>
+                    <th class="text-center agingsample">Aging of Sample in hours</th>
                     <th class="text-center">GA</th>
                     <!-- <th><input type="checkbox" id="select_all" class="" /></th> -->
-                    <th class="text-center">
+                    <th class="text-center" style="width:4rem">
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
                                 <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()"  >
-                                <span class="new-control-indicator leftspace ml-3"></span>&nbsp;
+                                <span class="new-control-indicator leftspace"></span>&nbsp;
                             </label>
                         </div>
                     </th>
@@ -159,9 +159,9 @@
                                         name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid"
                                         class="form-control field" id="inputAvdName" required [(ngModel)]="selectedAvdName" value="" readonly value="{{selectedAvdName}}"
                                         placeholder="AVD Name">
-                                        <small class=" ml-2 text-danger" [class.d-none]="((DDLavdName.valid || alternatename.valid ))">Please enter AVD Name</small>
-                                        <div *ngIf="unsentsampleForm.submitted && (DDLavdName.invalid && alternatename.invalid)">  
-                                            <small *ngIf="DDLavdName.untouched && alternatename.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
+                                        <small class=" ml-2 text-danger" [class.d-none]="DDLavdName.valid || DDLavdName.untouched">Please enter AVD Name</small>
+                                        <div *ngIf="unsentsampleForm.submitted && DDLavdName.invalid">  
+                                            <small *ngIf="DDLavdName.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
                                           </div>
                                     </div>
 
@@ -226,7 +226,7 @@
                                 <br>
 
                                 <div class="modal-footer">
-                                    <span class="mr-auto"><b>Selected samples barcode: </b>{{_strSelectedBarcode}}</span>
+                                    <span class="mr-auto"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>
                                     <button type="submit" class="btn btn-primary" 
                                         id="linktobuttonpickpak">Submit</button>
                                     <button class="btn"  (click)="modal.dismiss()"><i

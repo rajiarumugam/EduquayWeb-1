@@ -44,9 +44,3 @@ height: 50px;
 div.dataTables_wrapper div.dataTables_filter svg {
     top: 30px !important;
 }
-
-@media print {
-    :host {
-      display: none;
-    }
-  }

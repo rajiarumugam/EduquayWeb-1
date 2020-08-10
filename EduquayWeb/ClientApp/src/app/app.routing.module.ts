@@ -115,6 +115,8 @@ import { CentralPickAndPackComponent } from "./central-lab/pickandpack/central-p
 import { CentralPickPackPendingComponent } from "./central-lab/pickandpack/central-pick-pack-pending/central-pick-pack-pending.component";
 import { CentralPickPackStartComponent } from "./central-lab/pickandpack/central-pick-pack-start/central-pick-pack-start.component"
 
+import { ChcSampleShipmentlogComponent } from "./chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component";
+import { ChcSampleShipmentlogResolverService } from "./shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog-resolver.service";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -180,6 +182,7 @@ const routes: Routes = [
         ]
       },
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent, resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
+      { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent, resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}},
       {
         path: 'chc-update-sst', component: CHCUpdateSSTComponent,
         children:[
@@ -345,5 +348,6 @@ export const RoutingComponents = [
   DiagosisReportmainComponent,
   CentralPickAndPackComponent,
   CentralPickPackPendingComponent,
-  CentralPickPackStartComponent
+  CentralPickPackStartComponent,
+  ChcSampleShipmentlogComponent
 ];

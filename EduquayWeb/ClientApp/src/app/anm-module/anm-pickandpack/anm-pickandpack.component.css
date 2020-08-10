@@ -56,10 +56,10 @@ label.new-control.new-checkbox.checkbox-outline-primary{
     text-align: center;
     letter-spacing: 1px;
     text-transform: initial;
-    left: 4px;
+    left: 0px;
 }
 .leftspace {
-    left: -5px !important;
+    left: 0px !important;
 }
 
 .tbl-row-red .tbl-data-red {
@@ -79,4 +79,7 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 ::ng-deep .modal-content .modal-footer button
 {
     float: right;
+}
+.swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel{
+    color: #fff;
 }
