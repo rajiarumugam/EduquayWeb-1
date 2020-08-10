@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as printJS from "print-js";
+
 
 @Component({
   selector: 'app-chc-shipmentlog',
@@ -47,7 +49,7 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   barcodeNo: string;
   associatedANM: string;
   sampleCollectionDateTime: string;
-
+  isPrintable: boolean = false;
 
   constructor(
     private ChcShipmentlogService: ChcShipmentlogService,
@@ -125,7 +127,7 @@ chcshipmentLog(){
 }
 
 openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
- 
+  this.isPrintable = false;
   this.shipmentId = shipment.shipmentId;
   this.shipmentDateTime = shipment.shipmentDateTime;
   this.collectionCHCName = shipment.collectionCHCName;
@@ -145,6 +147,35 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
     });
 }
 
+openchcShipmentPrint(shippedChcSampleDetail: any, shipment: ChcShipmentList){
+  this.openchcShipment(shippedChcSampleDetail, shipment);
+  this.isPrintable = true;
+  this.printShipment(shippedChcSampleDetail, shipment);
+ 
+}
+
+printShipment(shippedChcSampleDetail: any, shipment: ChcShipmentList){
+  return new Promise(resolve =>
+    setTimeout(() => resolve(
+      //printJS("print-area", "html" )
+      printJS({printable: 'print-area',
+      type: 'html',
+      targetStyles: ['*'], 
+      header:'<h3>Shipment Details</h3><hr>',
+      documentTitle: 'Shipment Details',
+      maxWidth: 1200  })
+      ), 200)
+  );
+  
+}
+
+printDocument(){
+  let printContents = document.getElementById('print-area').innerHTML;
+  let originalContents = document.body.innerHTML;
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+}
 rerender(): void {
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
     // Destroy the table first   

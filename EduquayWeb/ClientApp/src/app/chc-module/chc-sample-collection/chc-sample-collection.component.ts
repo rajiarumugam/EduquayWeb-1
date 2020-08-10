@@ -187,13 +187,13 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
     this.chcsCollectionErrorMessage = "Select valid date range to search for subjects";
     return;
   }
-  this.chcscRequest = {
-    userId: this.user.id,
-    fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
-    toDate: this.chcSCToDate != '' ? moment(new Date(this.chcSCToDate)).format("DD/MM/YYYY") : '',
-    subjectType: +(this.selectedSubjectType),
-    registeredFrom: this.user.registeredFrom
-  };
+     this.chcscRequest = {
+       userId: this.user.id,
+       fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
+       toDate: this.chcSCToDate != '' ? moment(new Date(this.chcSCToDate)).format("DD/MM/YYYY") : '',
+       subjectType: +(this.selectedSubjectType),
+       registeredFrom: this.user.registeredFrom
+     };
   let sampleCollection = this.sampleCollectionService.getSampleCollection(this.chcscRequest)
     .subscribe(response => {
       this.chcsampleCollectionResponse = response;
@@ -323,8 +323,8 @@ showResponseMessage(message: string, type: string){
 
 
   ChcInitializeDateRange() {
-    this.chcSCFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
-    this.chcSCToDate = moment().format("DD/MM/YYYY");
+    //this.chcSCFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
+    //this.chcSCToDate = moment().format("DD/MM/YYYY");
 
     this.dateform = this._formBuilder.group({
       fromDate: [''],

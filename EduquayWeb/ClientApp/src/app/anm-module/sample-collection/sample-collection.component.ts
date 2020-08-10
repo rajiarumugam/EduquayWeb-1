@@ -203,13 +203,14 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       this.sCollectionErrorMessage = "Select valid date range to search for subjects";
       return;
     }
-    this.scRequest = {
-      userId: this.user.id,
-      fromDate: this.scFromDate != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
-      toDate: this.scToDate != '' ? moment(new Date(this.scToDate)).format("DD/MM/YYYY") : '',
-      subjectType: +(this.selectedSubjectType),
-      registeredFrom: this.user.registeredFrom
-    };
+      this.scRequest = {
+        userId: this.user.id,
+        fromDate: this.scFromDate != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
+        toDate: this.scToDate != '' ? moment(new Date(this.scToDate)).format("DD/MM/YYYY") : '',
+        subjectType: +(this.selectedSubjectType),
+        registeredFrom: this.user.registeredFrom
+      };
+
     let sampleCollection = this.sampleCollectionService.getSampleCollection(this.scRequest)
       .subscribe(response => {
         this.sampleCollectionResponse = response;
@@ -298,10 +299,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       sampleCollectionTime: this.sampleCollectionTime,
       collectedBy: this.user.id,
     };
-
+    
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
-    //return false;
+    
 
     let sampleCollection = this.sampleCollectionService.postSampleCollection(this.sampleCollectionDateTimeRequest)
     .subscribe(response => {
@@ -309,6 +310,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       if(this.sampleCollectionPostResponse !== null && this.sampleCollectionPostResponse.status === "true"){
         this.showResponseMessage(this.sampleCollectionPostResponse.message, 's')
          this.anmSampleCollection();
+         //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
       }else{
         this.showResponseMessage(this.sampleCollectionPostResponse.message, 'e');
                 this.sCollectionErrorMessage = response.message;
@@ -338,8 +340,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   InitializeDateRange() {
-    this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
-    this.scToDate = moment().format("DD/MM/YYYY");
+    //this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
+    //this.scToDate = moment().format("DD/MM/YYYY");
     
     this.dateform = this._formBuilder.group({
       fromDate: [''],

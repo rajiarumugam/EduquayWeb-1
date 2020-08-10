@@ -219,9 +219,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
           }
           else {
             this.unsentSamples = this.unsentSamplesResponse.unsentSamplesDetail;
-            this.unsentSamples.forEach(element => {
-              element.sampleSelected = true;
-            });
+            // this.unsentSamples.forEach(element => {
+            //   element.sampleSelected = true;
+            // });
             this.recordCount = this.unsentSamples.length;
 
           }

@@ -78,7 +78,7 @@
                                                 (click)="openchcShipment(shippedChcSampleDetail, shipment)">
                                                 <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
-                                        <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
+                                        <td style="text-align: center"><a (click)="openchcShipmentPrint(shippedChcSampleDetail, shipment)"><i class="fa fa-print text-primary"
                                                     aria-hidden="true"></i> </a></td>
                                     </tr>
 
@@ -102,29 +102,28 @@
                         </svg>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id='print-area' style="height: 35rem;padding:26px 5px 26px 5px">
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing" style="width: 98%;height: 27rem;border: 0px solid #ccc;">
 
-                        <div class="row my-4">
-                            <div class="col-md-4">
-                                <p class="float-left"><span><b>Shipment ID : </b></span><span>{{shipmentId}}</span></p>
+                        <div class="row" style="margin-top: 1rem;">
+                            <div class="col-md-4" style="width: 100%;" nowrap='nowrap'>
+                                <b>Shipment ID: {{shipmentId}} </b>
                             </div>
-                            <div class="col-md-4">
-                                <p class="float-left"><span><b>Shipment Date & Time :
-                                        </b></span><span>{{shipmentDateTime}}</span>
+                            <div class="col-md-4"  style="width: 100%;" nowrap='nowrap'>
+                                <b>Shipment Date & Time: {{shipmentDateTime}}
+                                        </b>
                             </div>
-
-
                         </div>
 
-                        <div class="container-fluid mt-2">
+                        <!-- <div class="container-fluid" style="margin-top: 3rem;">
                             <div class="row">
                                 <div class="col-md-12 border-bottom">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row my-4">
+                        </div> -->
+
+                        <div class="row my-4" style="top: 100px">
                             <div class="col-md-4">
                                 <span><b>CHC Lab Technician Name : </b></span><span>{{chcLabTechnicianName}}</span>
                             </div>
@@ -150,7 +149,7 @@
 
                         </div>
 
-                        <div class="table-responsive mt-4" style="overflow-x: hidden;">
+                        <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
                             <table id="zero-config" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -183,10 +182,13 @@
                         </div>
 
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
-                            Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" (click)="printShipment(shippedChcSampleDetail, shipment)">
+                        <i class="fa fa-print" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-outline-primary" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                        Close</button>
                 </div>
             </ng-template>
         </div>
@@ -216,4 +218,7 @@
 <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
 <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
 <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/apps/printjs.js'"></i>
+<!-- <i appLoadScript [script]="'assets/assets/js/print.js'"></i> -->
 <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
