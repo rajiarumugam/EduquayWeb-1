@@ -52,6 +52,7 @@ import { ChcSamplePickpackComponent } from './chc-sample-module/chc-sample-pickp
 import { PageUnderDevelopementComponent} from './page-under-developement/page-under-developement.component';
 import { ChcSampleCollectionComponent } from './chc-module/chc-sample-collection/chc-sample-collection.component';
 import { ChcSampleShipmentlogComponent } from './chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component';
+import { ChcSampleViewShipmentComponent } from './chc-sample-module/chc-sample-view-shipment/chc-sample-view-shipment.component';
 
 
 
@@ -85,7 +86,8 @@ const ngWizardConfig: NgWizardConfig = {
     ChcSamplePickpackComponent,
     PageUnderDevelopementComponent,
     ChcSampleCollectionComponent,
-    ChcSampleShipmentlogComponent
+    ChcSampleShipmentlogComponent,
+    ChcSampleViewShipmentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

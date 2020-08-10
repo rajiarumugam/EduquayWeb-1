@@ -285,7 +285,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       chcUserId: this.user.id,
       collectionCHCId: this.user.chcId,
       logisticsProviderId: +(this.logisticsProviderId),
-      deliveryExecutiveName: this.deliveryexecutive,
+      deliveryExecutiveName: this.deliveryExecutiveName,
       executiveContactNo: this.executiveContactNo,
       testingCHCId: this.user.chcId,
       dateOfShipment: this.sampleShipmentDate,
@@ -433,6 +433,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
             centered: true,
             size: 'xl',
             scrollable: true,
+            backdrop:'static',
+            keyboard: false,
             ariaLabelledBy: 'modal-basic-title'
           });
         }
@@ -461,6 +463,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
             centered: true,
             size: 'xl',
             scrollable: true,
+            backdrop:'static',
+            keyboard: false,
             ariaLabelledBy: 'modal-basic-title'
           });
         }
@@ -495,6 +499,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
         centered: true,
         size: 'xl',
         scrollable: true,
+        backdrop:'static',
+        keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });      
     }

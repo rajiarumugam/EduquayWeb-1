@@ -3,7 +3,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateService } from 'src/app/shared/utility/date.service';
-import { ChcSamplePickpackResponse, SamplePickpack, tempCHCData, startPickpack } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-response';
+import { ChcSamplePickpackResponse, SamplePickpack, tempCHCData, startPickpack, chcsampleCentrallabResponse, logisticsProviderModel, centalLabModel, chcsampleProviderNameResponse, ChcSampleAddShipmentResponse } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-response';
 import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
@@ -11,6 +11,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChcSampleList } from 'src/app/shared/chc-module/chc-pickandpack/chc-picknpack-response';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import * as moment from 'moment';
+import { ChcSampleAddShipmentRequest } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-request';
 
 @Component({
   selector: 'app-chc-sample-pickpack',
@@ -33,16 +37,28 @@ export class ChcSamplePickpackComponent implements OnInit {
   chcsamplepickpack: SamplePickpack[];
   chcsamplepicknpickResponse: ChcSamplePickpackResponse;
   chcsamplepickpackinitResponse: any;
+  chcsamplecentralLab: chcsampleCentrallabResponse;
+  chcsampleprovidername: chcsampleProviderNameResponse;
+  chcsampleAddShipmentRequest: ChcSampleAddShipmentRequest;
+  chcsampleAddShipmentResponse: ChcSampleAddShipmentResponse;
+  providerNames: logisticsProviderModel[] = [];
+  centralLab: centalLabModel[]=[]; 
   user: user;
 
+  shipmentId: string;
+  errorMessage: string;
+  selectedBarcodes: string;
   searchbarcode: string = '';
+  selectedcentralLab: string = '';
+  selectedproviderName:string = '';
   alliquotetubebarcode: string = '';
+  isAddShipmentTrue: boolean = false;
   isAliquoteBarcodeMatch: boolean = false;
   tempCHCDatas: tempCHCData[] = [];
   startPickpackData: startPickpack[] = [];
   primarytubeSelected: boolean = false;
   alliquotedtubeSelected: boolean = false;
-  startpickpackSelected: boolean = true;
+  startpickpackSelected: boolean;
   //tempCHC=[];
   uniqueSubjectId: string;
   sampleCollectionId: number;
@@ -52,7 +68,32 @@ export class ChcSamplePickpackComponent implements OnInit {
   sampleDateTime: string;
   gestationalAge: string;
   samplepicknPackdetail;
+  sampleShipmentDate: string;
+  sampleShipmentTime: string;
+  popupform: FormGroup;
+  DAY = 86400000;
   selectedAll: any;
+  chclabtechnician:string;
+  testingChcname:string;
+  labTechnicianName: string;
+  chcUserId: number;
+  testingCHCId: number;
+  receivingCentralLabId: number;
+  logisticsProviderId: number;
+  deliveryExecutiveName: string;
+  executiveContactNo: string;
+  dateOfShipment: string;
+  timeOfShipment: string;
+  createdBy: number;
+
+  shipmentDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y H:i',
+    defaultDate: new Date(Date.now()),
+    //minDate: this.dyCollectionDate,
+    maxDate: new Date(Date.now()),
+    enableTime: true,
+  };
 
 
   constructor(
@@ -62,13 +103,14 @@ export class ChcSamplePickpackComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router,
     private route: ActivatedRoute,
+    private _formBuilder: FormBuilder
 
   ) { }
 
   ngOnInit() {
 
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-
+    this.InitializeDateRange();
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -177,6 +219,45 @@ export class ChcSamplePickpackComponent implements OnInit {
 
   }
 
+  ddlcentrallab(chcId) {
+    let riPoint = this.chcsamplePickpackService.getCentrallab(this.user.chcId).subscribe(response => {
+      this.chcsamplecentralLab = response;
+      if (this.chcsamplecentralLab !== null && this.chcsamplecentralLab.status === "true") {
+        this.centralLab = this.chcsamplecentralLab.centalLab;
+        //this.selectedtestingCHC = "";
+        if (this.centralLab.length > 0) {
+          this.selectedcentralLab = this.centralLab[0].id.toString();
+        }
+      }
+      else {
+        this.samplepicknpackErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.samplepicknpackErrorMessage = err.toString();
+
+      });
+  }
+
+  ddlProviderName() {
+    let riPoint = this.chcsamplePickpackService.getProviderName().subscribe(response => {
+      this.chcsampleprovidername = response;
+      if (this.chcsampleprovidername !== null && this.chcsampleprovidername.status === "true") {
+        this.providerNames = this.chcsampleprovidername.logisticsProvider;
+        if (this.providerNames.length > 0) {
+          this.selectedproviderName = this.providerNames[0].id.toString();
+        }
+        //this.selectedproviderName = "";
+      }
+      else {
+        this.samplepicknpackErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.samplepicknpackErrorMessage = err.toString();
+      });
+  }
+
   clicksearchBarcode(samplepicknPackdetail) {
 
     this.fetchmatchingBarcodeData();
@@ -187,37 +268,131 @@ export class ChcSamplePickpackComponent implements OnInit {
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 
   }
-  
 
+  openshipmentform(sampleShipmentDetails, startpicknpack: startPickpack){
+
+    this.ddlcentrallab(this.user.chcId);
+    this.ddlProviderName();
+    this.fetchBarcodes();
+
+    this.chclabtechnician = this.user.name;
+    this.testingChcname = this.user.chcName;
+
+    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+    this.sampleShipmentTime = moment().format("HH:mm");
+    this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+
+    this.modalService.open(
+      sampleShipmentDetails, {
+      centered: true,
+      size: 'xl',
+      scrollable: true,
+      backdrop:'static',
+      keyboard: false,
+      ariaLabelledBy: 'modal-basic-title'
+    });
+  }
+
+  onSubmit(chcShipmentForm: NgForm){
+    this.samplepicknpackErrorMessage = '';
+    this.fetchBarcodes();
+    //var shipmentId = "123";
+    console.log(chcShipmentForm.value);
+
+    // if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+    //   this.showResponseMessage(this.constantService.SelectOneSample, 'e');
+    //   return false;
+    // }
+    this.receivingCentralLabId = chcShipmentForm.value.DDLcentrallab;
+    this.logisticsProviderId =  chcShipmentForm.value.DDLserviceproviderName;
+    this.executiveContactNo = chcShipmentForm.value.contactNo;
+    this.deliveryExecutiveName = chcShipmentForm.value.deliveryexecutivename;
+
+    this.chcsampleAddShipmentRequest = {
+
+      labTechnicianName: this.user.name,
+      barcodeNo: this.selectedBarcodes,
+      chcUserId: this.user.id,
+      receivingCentralLabId: +(this.receivingCentralLabId),
+      logisticsProviderId: +(this.logisticsProviderId),
+      deliveryExecutiveName: this.deliveryExecutiveName,
+      executiveContactNo: this.executiveContactNo,
+      testingCHCId: this.user.chcId,
+      dateOfShipment: this.sampleShipmentDate,
+      timeOfShipment: this.sampleShipmentTime,
+      createdBy: this.user.id,
+      source: 'N'
+    }
+    //return false;
+    let addshipment = this.chcsamplePickpackService.chcSampleAddShipment(this.chcsampleAddShipmentRequest)
+      .subscribe(response => {
+        this.chcsampleAddShipmentResponse = response;
+        if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
+          this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
+          this.chcsamplepicknpackList(this.user.chcId);
+        } else {
+          this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
+          this.samplepicknpackErrorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          this.showResponseMessage(err.toString(), 'e');
+          this.samplepicknpackErrorMessage = err.toString();
+        });
+  }
+
+  showResponseMessage(shipmentId: string, type: string) {
+    var messageType = '';
+    var title = `Shipment Id is ${shipmentId}`;
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+    }
+    else {
+      Swal.fire({
+        icon: 'success', title: title,
+        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
+      })
+        .then((result) => {
+          if (result.value) {
+            this.modalService.dismissAll();
+            //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
+            this.router.navigateByUrl(`/app/chc-sample-viewshipment?q=${shipmentId}`);
+
+          }
+          else {
+            this.modalService.dismissAll();
+          }
+        });
+    }
+  }
+  
   validateAlliqutetubeMatch() {
     
     //this.tempCHCDatas = [];
-  
     let alliquotetube = this.alliquotetubebarcode;
     this.tempCHCDatas.forEach(element => {
       if (element.barcodeNo === alliquotetube) {
         this.isAliquoteBarcodeMatch = true;
       }
       else {
-        Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' })
+        Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
+        this.alliquotetubebarcode='';
       }
     });
   }
 
-  onSubmit(){
+  submittoshipment(){
 
     if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true){
-      // this.tempCHCDatas.forEach(element1 => {
-      //   this.chcsamplepickpack.forEach(element2 =>{
-      //     if (element1.barcodeNo === element2.barcodeNo) {
-      //       Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' })
-      //     }
-      //   })
-      // });
+     
       this.modalService.dismissAll();
       this.tempCHCDatas.forEach(element1 => {
         var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element1.barcodeNo)
@@ -226,29 +401,80 @@ export class ChcSamplePickpackComponent implements OnInit {
           this.chcsamplepickpack.splice(getdataindex,1);
           //this.searchbarcode='';
         }
-      });
-      
+      });     
     }
 
   }
 
-  checkIfSelected(){
+  checkIfSelected(index){
+    this.startpickpackSelected;
     console.log(this.startPickpackData);
     this.selectedAll = this.startPickpackData.every(function (item: any) {
-      return item.startpickpackSelected == false;
+      return item.startpickpackSelected == true;
 
     })
-    // // if(this.startpickpackSelected === false){
-    // //   this.startPickpackData.forEach(element1 => {
-    // //     var movedataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo != element1.barcodeNo)
-    // //     if (movedataindex >= 0) {
-    // //       this.chcsamplepickpack.push(this.startPickpackData[movedataindex]);
-    // //       this.startPickpackData.splice(movedataindex,1);
-         
-    // //       //this.searchbarcode='';
-    // //     }
-    // //   });
-    // }
+    if(this.startpickpackSelected === false){
+      this.chcsamplepickpack.push(this.startPickpackData[index]);
+      this.startPickpackData.splice(index,1);
+      this.isAddShipmentTrue = false;
+      //this.rerender();
+    }
+    else{
+      this.isAddShipmentTrue = true;
+    }
+  }
+
+  InitializeDateRange() {
+
+    this.popupform = this._formBuilder.group({
+      shipmentDate: [new Date(moment().add(-1, 'day').format())],
+    });
+
+    //Change of sample shipment date
+    this.popupform.controls.shipmentDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate2 = changes[0].getTime();
+      this.sampleShipmentDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
+      this.sampleShipmentTime = moment(new Date(selectedDate2)).format("HH:mm");
+    });
+
+  }
+
+  fetchBarcodes() {
+    this.selectedBarcodes = '';
+    var isFirst = true;
+    var getdates;
+    this.startPickpackData.forEach(element => {
+      console.log('sampleSelected :' + element.startpickpackSelected);
+      if (this.startpickpackSelected === true) {
+        //if (element.sampleSelected) {
+        if (isFirst) {
+          this.selectedBarcodes += element.barcodeNo;
+          getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
+          isFirst = false;
+        }
+        else {
+          this.selectedBarcodes += ',' + element.barcodeNo;
+          getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
+        }
+      }
+    });
+    var comparedate;
+    comparedate = getdates.reduce(function (r, a) {
+      return r.selecteddate > a.selecteddate ? r : a;
+    });
+   
+    this.shipmentDateOptions.minDate = comparedate.selecteddate;
+  }
+
+  convertToDateFormat(strDate){
+  
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    console.log(dateFormat);
+    return dateFormat;
+  
   }
 
   rerender(): void {

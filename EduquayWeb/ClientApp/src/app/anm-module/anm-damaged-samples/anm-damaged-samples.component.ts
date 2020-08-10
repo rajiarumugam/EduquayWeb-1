@@ -183,6 +183,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       centered: true,
       size: 'xl',
       scrollable: true,
+      
       ariaLabelledBy: 'modal-basic-title'
     });
 
