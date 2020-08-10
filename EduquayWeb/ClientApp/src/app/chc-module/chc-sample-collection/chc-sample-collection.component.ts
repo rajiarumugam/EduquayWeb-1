@@ -180,14 +180,13 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
       });
   }
 
- chcSampleCollection(mode){
+ chcSampleCollection(){
   this.chcsubjectList = [];
   this.chcsCollectionErrorMessage = '';
   if (!this.validateDateRange()) {
     this.chcsCollectionErrorMessage = "Select valid date range to search for subjects";
     return;
   }
-   if (mode === 'b') {
      this.chcscRequest = {
        userId: this.user.id,
        fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
@@ -195,16 +194,6 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
        subjectType: +(this.selectedSubjectType),
        registeredFrom: this.user.registeredFrom
      };
-   }
-   else if (mode === 'r') {
-     this.chcscRequest = {
-       userId: this.user.id,
-       fromDate: '',
-       toDate: '',
-       subjectType: +(this.selectedSubjectType),
-       registeredFrom: this.user.registeredFrom
-     };
-   }
   let sampleCollection = this.sampleCollectionService.getSampleCollection(this.chcscRequest)
     .subscribe(response => {
       this.chcsampleCollectionResponse = response;
@@ -303,7 +292,7 @@ onSubmit(chcCollectionForm: NgForm){
     this.chcsampleCollectionPostResponse = response;
     if(this.chcsampleCollectionPostResponse !== null && this.chcsampleCollectionPostResponse.status === "true"){
       this.showResponseMessage(this.chcsampleCollectionPostResponse.message, 's')
-       this.chcSampleCollection('r');
+       this.chcSampleCollection();
     }else{
       this.showResponseMessage(this.chcsampleCollectionPostResponse.message, 'e');
               this.chcsCollectionErrorMessage = response.message;
@@ -334,8 +323,8 @@ showResponseMessage(message: string, type: string){
 
 
   ChcInitializeDateRange() {
-    this.chcSCFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
-    this.chcSCToDate = moment().format("DD/MM/YYYY");
+    //this.chcSCFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
+    //this.chcSCToDate = moment().format("DD/MM/YYYY");
 
     this.dateform = this._formBuilder.group({
       fromDate: [''],
