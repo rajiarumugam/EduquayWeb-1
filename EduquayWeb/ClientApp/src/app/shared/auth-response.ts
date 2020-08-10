@@ -28,6 +28,8 @@ export interface user {
   blockId: number,
   chcId: number,
   chcName: string;
+  centralLabId: number;
+  centralLabName: string;
   phcId: number,
   scId: number,
   riId: string,
@@ -38,7 +40,7 @@ export interface user {
   email: string,
   registeredFrom: number,
   sampleCollectionFrom: number,
-  shipmentFrom: number
+  shipmentFrom: number,
 }
 
 

@@ -43,7 +43,6 @@ export class ChcSampleShipmentlogComponent implements OnInit {
   subjectName: string;
   rchId: string;
   barcodeNo: string;
-  associatedANM: string;
   sampleCollectionDateTime: string;
 
 

@@ -42,3 +42,16 @@ table.dataTable td, table.dataTable th {
     box-sizing: content-box;
     padding: 4px 11px;
 }
+label.new-control.new-checkbox.checkbox-outline-primary{
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: initial;
+    left: 0px;
+}
+.leftspace {
+    left: 0px !important;
+}
