@@ -211,9 +211,9 @@ chcunsentSampleList() {
         }
         else {
           this.chcunsentSamples = this.chcunsentSamplesResponse.unsentSamplesDetail;
-          this.chcunsentSamples.forEach(element => {
-            element.sampleSelected = true;
-          });
+          // this.chcunsentSamples.forEach(element => {
+          //   element.sampleSelected = true;
+          // });
           this.recordCount = this.chcunsentSamples.length;
 
         }

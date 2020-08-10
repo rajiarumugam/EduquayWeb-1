@@ -51,11 +51,6 @@
     border-top: none;
   }
 
-::ng-deep .modal-content .modal-footer
-{
-    display: block !important;
-}
-
 ::ng-deep .modal-content .modal-footer button
 {
     float: right;

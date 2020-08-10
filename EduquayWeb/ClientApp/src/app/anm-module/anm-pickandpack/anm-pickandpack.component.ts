@@ -222,9 +222,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           }
           else {
             this.sampleList = this.picknpackResponse.sampleList;
-            this.sampleList.forEach(element => {
-              element.sampleSelected = true;
-            });
+            // this.sampleList.forEach(element => {
+            //   element.sampleSelected = true;
+            // });
             this.rerender();
           }
         }

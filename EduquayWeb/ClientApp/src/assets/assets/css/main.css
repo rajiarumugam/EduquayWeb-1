@@ -2138,6 +2138,12 @@ span.new-control-indicator.disabled {
     font-size: 13px;
 }
 
+.swal2-popup .swal2-styled.swal2-confirm,
+.swal2-popup .swal2-styled.swal2-cancel {
+    font-size: 14px !important;
+    font-weight: 700;
+}
+
 /*sweet alert ends*/
 
 div.headertit h5.float-center {
