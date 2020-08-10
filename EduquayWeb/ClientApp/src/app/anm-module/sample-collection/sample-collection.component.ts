@@ -196,14 +196,13 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       });
   }
 
-  anmSampleCollection(mode) {
+  anmSampleCollection() {
     this.subjectList = [];
     this.sCollectionErrorMessage = '';
     if (!this.validateDateRange()) {
       this.sCollectionErrorMessage = "Select valid date range to search for subjects";
       return;
     }
-    if (mode === 'b') {
       this.scRequest = {
         userId: this.user.id,
         fromDate: this.scFromDate != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
@@ -211,16 +210,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
         subjectType: +(this.selectedSubjectType),
         registeredFrom: this.user.registeredFrom
       };
-    }
-    else if (mode === 'r') {
-      this.scRequest = {
-        userId: this.user.id,
-        fromDate: '',
-        toDate: '',
-        subjectType: +(this.selectedSubjectType),
-        registeredFrom: this.user.registeredFrom
-      };
-    }
+
     let sampleCollection = this.sampleCollectionService.getSampleCollection(this.scRequest)
       .subscribe(response => {
         this.sampleCollectionResponse = response;
@@ -319,7 +309,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       this.sampleCollectionPostResponse = response;
       if(this.sampleCollectionPostResponse !== null && this.sampleCollectionPostResponse.status === "true"){
         this.showResponseMessage(this.sampleCollectionPostResponse.message, 's')
-         this.anmSampleCollection('r');
+         this.anmSampleCollection();
          //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
       }else{
         this.showResponseMessage(this.sampleCollectionPostResponse.message, 'e');
@@ -350,8 +340,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   InitializeDateRange() {
-    this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
-    this.scToDate = moment().format("DD/MM/YYYY");
+    //this.scFromDate = moment().add(-1, 'day').format("DD/MM/YYYY");
+    //this.scToDate = moment().format("DD/MM/YYYY");
     
     this.dateform = this._formBuilder.group({
       fromDate: [''],
