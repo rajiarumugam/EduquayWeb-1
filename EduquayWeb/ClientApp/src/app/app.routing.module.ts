@@ -109,6 +109,8 @@ import { DiagosisReportmainComponent } from "./pathologist/diagnosis/diagnosis-r
 import { ChcSamplePickpackResolverService } from "./shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-resolver.service";
 
 import { PathoHPLCService } from "./shared/pathologist/patho-hplc-resolver.service";
+import { ChcSampleShipmentlogComponent } from "./chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component";
+import { ChcSampleShipmentlogResolverService } from "./shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog-resolver.service";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -174,6 +176,7 @@ const routes: Routes = [
         ]
       },
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent, resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
+      { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent, resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}},
       {
         path: 'chc-update-sst', component: CHCUpdateSSTComponent,
         children:[
@@ -329,5 +332,6 @@ export const RoutingComponents = [
   DiagosisHPLCmainComponent,
   DiagnosisHPLCAbnormaComponent,
   DiagosisReportComponent,
-  DiagosisReportmainComponent
+  DiagosisReportmainComponent,
+  ChcSampleShipmentlogComponent
 ];
