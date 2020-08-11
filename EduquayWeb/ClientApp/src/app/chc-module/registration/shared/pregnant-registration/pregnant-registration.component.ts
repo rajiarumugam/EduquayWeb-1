@@ -124,7 +124,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   statelist = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router,) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -456,8 +456,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
                if (result.value) {
          
                 $('#fadeinModal').modal('hide');
-                this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
-               
+                this.router.navigateByUrl(`app/chc-sample-collection?sid=${this.createdSubjectId}`);
                }
                else{
                 this.firstFormGroup.reset();
