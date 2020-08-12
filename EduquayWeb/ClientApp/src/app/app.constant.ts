@@ -12,7 +12,8 @@ export const ENDPOINT = {
         "RETRIEVE_GOV_ID_TYPE":"api/v1/WebMaster/RetrieveGovIdType",
         "RETRIEVE_ASSOCIATED_ANM":"api/v1/WebMaster/RetrieveAssociatedANM/",
         "RETRIVESTATE":"api/v1/State/Retrieve",
-        "RETRIVECLINICALDIAGNOSIS":"api/v1/ClinicalDiagnosis/Retrieve"
+        "RETRIVECLINICALDIAGNOSIS":"api/v1/ClinicalDiagnosis/Retrieve",
+        "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/"
     },
     "SUBJECT":
     {
@@ -35,6 +36,9 @@ export const ENDPOINT = {
         "ADDRECEIVEDSHIPMENTS":"api/v1/CentralLab/AddReceivedShipments",
         "RETRIVEHPLC":"api/v1/CentralLab/RetrieveHPLC/",
         "ADDHPLCTEST":"api/v1/CentralLab/AddHPLCTest",
+        "RETRIVESHIPMENTLOG":"api/v1/CentralLab/RetrieveShipmentLog/",
+        "RETRIVEPICKANDPACK":"api/v1/CentralLab/RetrievePickandPack/",
+        "ADDSHIPMENT":"api/v1/CentralLab/AddShipment"
     },
     "PATHOLOGIST":
     {

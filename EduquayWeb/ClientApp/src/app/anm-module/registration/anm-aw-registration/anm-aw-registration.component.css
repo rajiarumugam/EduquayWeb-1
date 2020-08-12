@@ -258,3 +258,9 @@ vertical-align: middle;
 .rchid-input{
     padding-left: 32px;
 }
+
+/*----dropdown----*/
+app-select-dropdown.form-control
+{
+    padding:0 !important;
+}

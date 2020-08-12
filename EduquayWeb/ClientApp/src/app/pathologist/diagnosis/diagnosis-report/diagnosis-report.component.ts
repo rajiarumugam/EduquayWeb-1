@@ -163,7 +163,7 @@ export class DiagosisReportComponent implements OnInit {
 
         console.log(_obj);
 
-        /*this.pathoHPLCService.addHSBCtest(_obj)
+        this.pathoHPLCService.addHSBCtest(_obj)
         .subscribe(response => {
           this.diagnosisReportResponse = response;
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
@@ -171,9 +171,9 @@ export class DiagosisReportComponent implements OnInit {
                 text: 'HPLC Results Updated Successfully.',
                 icon: 'success'
               }).then((result) => {
-                /*this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":0,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
-                */
-               /*this.FormGroup.reset();
+             
+              this._location.back();
+               this.FormGroup.reset();
               });
           } else {
             
@@ -183,32 +183,16 @@ export class DiagosisReportComponent implements OnInit {
         },
           (err: HttpErrorResponse) => {
             //this.showResponseMessage(err.toString(), 'e');
-          });*/
+          });
           
-          this.FormGroup.reset();
+          /*this.FormGroup.reset();
           this.HPLCmasterData.forEach(function(val,index){
             val.checked = false;
-          });
-          this._location.back();
+          });*/
+          
+          //this._location.back();
 
     }
-    /*
-    {
-  "uniqueSubjectId": "string",
-  "barcodeNo": "string",
-  "centralLabId": 0,
-  "hplcTestResultId": 0,
-  "clinicalDiagnosisId": 0,
-  "hplcResultMasterId": "string",
-  "isNormal": true,
-  "diagnosisSummary": "string",
-  "isConsultSeniorPathologist": true,
-  "seniorPathologistName": "string",
-  "seniorPathologistRemarks": "string",
-  "userId": 0
-}
-    
-    */
 
   }
   ngOnDestroy() {

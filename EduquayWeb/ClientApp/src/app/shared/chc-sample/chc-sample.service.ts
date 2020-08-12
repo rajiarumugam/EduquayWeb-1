@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../generic.service';
 import { HttpClientService } from '../http-client.service';
 import { ENDPOINT } from 'src/app/app.constant';
-import { catchError } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
 import { TokenService } from 'src/app/shared/token.service';
 
 

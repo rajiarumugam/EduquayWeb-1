@@ -11,6 +11,7 @@ import { SiteSidebarComponent } from "./../../../_layout/site-sidebar/site-sideb
 export class WalkinRegistrationComponent implements OnInit {
 
   selectedRegScreen = "other";
+  @ViewChild('preg', {static:false}) preg;
 
   constructor() {
     
@@ -23,6 +24,8 @@ export class WalkinRegistrationComponent implements OnInit {
   {
     var target = evt.target;
     console.log(target.value);
+    //console.log(this.preg.returnpageNo());
+    //this.selectedRegScreen = "pregnant";
     this.selectedRegScreen = target.value;
     //if(target.value === 'pregnant')
   }

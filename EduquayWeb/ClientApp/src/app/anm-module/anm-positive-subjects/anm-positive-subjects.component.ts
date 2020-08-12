@@ -107,7 +107,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   startOptions2: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: '',
+    defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
   //user;
@@ -310,6 +310,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 
@@ -598,7 +600,11 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
        .then((result) => {
          if (result.value) {
           $('#fadeinModal').modal('hide');
-          this.router.navigateByUrl("app/anm-sample-collection");
+          if(this.modalService.hasOpenModals){
+            this.modalService.dismissAll();
+          }
+         // this.router.navigateByUrl("app/anm-sample-collection");
+         this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
          
          }
          else{

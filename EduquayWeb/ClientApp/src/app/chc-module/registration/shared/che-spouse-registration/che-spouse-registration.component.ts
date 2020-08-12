@@ -130,6 +130,10 @@ export class CheSpouseRegistrationComponent implements OnInit {
           console.log(err);
         });
   }
+  refreshData()
+  {
+    this.getSpouseDetails();
+  }
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first      

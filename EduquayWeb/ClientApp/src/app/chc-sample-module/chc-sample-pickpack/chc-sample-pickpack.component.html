@@ -19,8 +19,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
-                                    ngbTooltip="Sample Collection" placement="right"
-                                    [routerLink]="['/app/chc-sample-collection']" role="button"><i
+                                    ngbTooltip="Update SST Results" placement="right"
+                                    [routerLink]="['/app/chc-update-sst']" role="button"><i
                                         class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
@@ -30,8 +30,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="float-right mb-4">
-                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-shipmentlog']"
-                                    role="button" ngbTooltip="Screening Center Shipment Log" placement="left"><i
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-sample-shipmentlog']"
+                                    role="button" ngbTooltip="Shipment Log" placement="left"><i
                                         class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
                         </div>
@@ -45,240 +45,27 @@
 
                             <ul class="nav nav-tabs ml-4" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
-                                        aria-controls="home" aria-selected="true">Pending for Pickup<span id="fbadge"
-                                            class="badge badge-pill badge-warning shadow mx-1"></span></a>
+                                    <a class="nav-link active" id="pending-tab" 
+                                     data-toggle="tab" [routerLink]="['/app/chc-sample-pickpack']"
+                                    role="tab"
+                                        aria-controls="home" aria-selected="true">Pending for Pickup
+                                        <span id="fbadge" class="badge badge-pill badge-warning shadow mx-1">{{pendingBadgeSampleCount}}</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="pick-tab" data-toggle="tab" href="#pick" role="tab"
+                                    <a class="nav-link" id="pick-tab" 
+                                     data-toggle="tab" [routerLink]="['/app/chc-sample-pickpack/startpickpack']"
+                                    role="tab"
                                         aria-controls="profile" aria-selected="false">Start Pick and Pack<span id="sbadge"
-                                            class="badge badge-pill badge-warning shadow mx-1"></span></a>
+                                            class="badge badge-pill badge-warning shadow mx-1">{{startBadgePickpackCount}}</span></a>
                                 </li>
                             </ul>
 
                         </div>
                     </div>
-                    <div class="tab-content mt-4" id="myTabContent">
-                        <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="completed-tab">
-                            <div class="main-box no-header clearfix">
-                                <div class="main-box-body clearfix">
-                                    <div class="form-row">
-                                        <div class="col-md-12">
-                                            <div *ngIf="samplepicknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': samplepicknpackErrorMessage ==='No sample found', 'alert-danger': samplepicknpackErrorMessage !== 'No sample found'}">
-                                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{samplepicknpackErrorMessage}}
-                                            </div>  
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive mt-2">
-                                        <table id="zero-config" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center"><span>S.No</span></th>
-                                                    <th class="text-center"><span>Subject Name</span></th>
-                                                    <th class="text-center"><span>Subject ID</span></th>
-                                                    <th class="text-center"><span>RCH ID</span></th>
-                                                    <!-- <th class="text-center"><span>Lab Technician Name</span></th> -->
-                                                    <th class="text-center"><span>Barcode</span></th>
-
-                                                    <th class="text-center"><span class="wordwrap">Sample Collection Date &
-                                                            Time</span></th>
-                                                    <!-- <th><span>Aging Sample</span></th>
-                                                    <th><span>Damaged</span></th> -->
-                                                
-                                                </tr>
-
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let samplepicknpack of chcsamplepickpack; index as i">
-                                                    <td class="sno text-center">{{i +1}}</td>
-                                                    <td class="sname text-left">{{samplepicknpack.subjectName}}</td>
-                                                    <td class="sid text-center">{{samplepicknpack.uniqueSubjectId}}</td>
-                                                    <td class="sid text-center">{{samplepicknpack.rchId}}</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="sid text-center">{{samplepicknpack.barcodeNo}}</td>
-                                                    <td class="textsample text-center">{{samplepicknpack.sampleDateTime}}</td>
-                                                    <!-- <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
-                                                </tr>    
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade show" id="pick" role="tabpanel" aria-labelledby="pending-tab">
-                            <div class="main-box no-header clearfix">
-                                <div class="main-box-body clearfix">
-                                    <div class="form-row my-4 ml-3">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
-                                            <form class="form-inline my-2 my-lg-0">
-                                                <div class="w-100 my-2">
-                                                    <input type="text" class="w-100 form-control sample-search br-30"
-                                                    name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
-                                                    [(ngModel)]="searchbarcode" debounce="500" >
-                                                <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button class="btn btn-primary" type="submit"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-search">
-                                                            <circle cx="11" cy="11" r="8"></circle>
-                                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                        </svg></button></a>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="table-responsive mt-2">
-                                        <table id="zero-config-picked" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center"><span>S.No</span></th>
-                                                    <th class="text-center"><span>Subject Name</span></th>
-                                                    <th class="text-center"><span>Subject ID</span></th>
-                                                    <th class="text-center"><span>RCH ID</span></th>
-                                                    <!-- <th class="text-center"><span>Lab Technician Name</span></th> -->
-                                                    <th class="text-center"><span>Barcode</span></th>
-
-                                                    <th class="text-center"><span class="wordwrap">Sample Collection<br>
-                                                            Date & Time</span></th>
-                                                    <th class="text-center"><span>Add to<br> Shipment</span></th>
-                                                
-                                                </tr>
-
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let startpicknpack of startPickpackData; index as i">
-                                                    <td class="sno text-center">{{i +1}}</td>
-                                                    <td class="sname text-left">{{startpicknpack.subjectName}}</td>
-                                                    <td class="sid text-center">{{startpicknpack.uniqueSubjectId}}</td>
-                                                    <td class="sid text-center">{{startpicknpack.rchId}}</td>
-                                                    <!-- <td class="text-left"></td> -->
-                                                    <td class="sid text-center">{{startpicknpack.barcodeNo}}</td>
-                                                    <td class="textsample text-center">{{startpicknpack.sampleDateTime}}</td>
-                                                    <td><div class="n-chk">
-                                                        <label class="new-control new-checkbox checkbox-outline-primary">
-                                                          <input type="checkbox" class="new-control-input checkbox" 
-                                                          value="{{startpickpackSelected}}"
-                                                          [(ngModel)]="startpickpackSelected">
-                                                          <span class="new-control-indicator"></span>&nbsp;
-                                                        </label>
-                                                    </div></td>
-                                                    <!-- <td class="text-center">8 days</td>
-                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
-                                                </tr>  
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a class="btn btn-primary float-right" data-toggle="modal"
-                                                data-target=".bd-example-modal-xl" role="button">Create Shipment</a>
-                                        </div>
-                                    </div>
-                                    <div class="container p-4">
-                                        <div class="row">
-                                            <div class="col-md-12 border-bottom">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="tab-content mt-4" id="myTabContent">   
+                        <router-outlet (activate)="receiveBadgeCount($event)"></router-outlet>
                     </div>
-                    <ng-template #samplepicknPackdetail let-modal>
-                        <div class="modal-header">
-                            <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
-                            </h5>
-                            <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
-                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-x">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <div class="form-row my-4 ml-3">
-                                <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
-                                    <form class="form-inline my-2 my-lg-0">
-                                        <div class="w-100 my-2">
-                                            <input type="text" class="w-100 form-control sample-search br-30" 
-                                            type="text" placeholder="Scan / Enter Barcode" name="alliquotetubebarcode" [(ngModel)]="alliquotetubebarcode"
-                                            >
-                                        <a>
-                                                <button class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-search"
-                                                    (click)="validateAlliqutetubeMatch()">
-                                                    <circle cx="11" cy="11" r="8"></circle>
-                                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                </svg></button></a>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table
-                                    class="table table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Subject Name</th>
-                                            <th>Subject ID</th>
-                                            <th>RCH ID</th>
-                                            <th>Barcode</th>
-                                            <th>Primary Tube</th>
-                                            <th>Aliquoted HPLC Tube </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let tempScandata of tempCHCDatas; index as i">
-                                            <td>{{i +1}}</td>
-                                            <td class="text-left">{{tempScandata.subjectName}}</td>
-                                            <td class="text-center">{{tempScandata.uniqueSubjectId}}</td>
-                                            <td class="text-center">{{tempScandata.rchId}}</td>
-                                            <td class="text-center">{{tempScandata.barcodeNo}}</td>
-                                            <td><div class="n-chk text-center">
-                                                <label class="new-control new-checkbox checkbox-outline-primary">
-                                                  <input type="checkbox" class="new-control-input checkbox" 
-                                                  value="{{primarytubeSelected}}"
-                                                  [(ngModel)]="primarytubeSelected">
-                                                  <span class="new-control-indicator"></span>&nbsp;
-                                                </label>
-                                            </div></td>
-                                            <td><div class="n-chk text-center" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
-                                                <label class="new-control new-checkbox checkbox-outline-primary">
-                                                  <input type="checkbox" class="new-control-input checkbox" 
-                                                  value="{{alliquotedtubeSelected}}" 
-                                                    [(ngModel)]="alliquotedtubeSelected">
-                                                  <span class="new-control-indicator"></span>&nbsp;
-                                                </label>
-                                            </div></td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row"  *ngIf="isAliquoteBarcodeMatch">
-                                <div class="col-md-12">
-                                    <a class="btn btn-primary float-right closepop" type="submit" (click)="onSubmit()"
-                                        role="button">Submit</a>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" (click)="modal.dismiss()"><i
-                                    class="flaticon-cancel-12"></i> Close</button>
-
-                        </div>
-                    </ng-template>
+                   
 
                 </div>
             </div>

@@ -85,7 +85,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedhouse;
   selectedstreet;
   selectedcity;
-  selectedstate;
+  selectedstate = 1;
   selectedPincode;
   selectedmotherFirstName;
   selectedmotherMiddleName;
@@ -127,7 +127,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      age: ['', [Validators.required,Validators.min(1), Validators.max(17)]],
       gender: ['', Validators.required]
    });
     this.secondFormGroup = this._formBuilder.group({
@@ -305,7 +305,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       this.statelist.forEach(function(val,index){
         val.display = val.stateName;
       });
-      
+      this.selectedstate = 1;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];

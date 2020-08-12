@@ -1,7 +1,7 @@
 {
     "Language": "English",
     "Sitetitle":    "Angular Multi Language Site",
-    "THALASSEMIATITLE": "THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA",
+"THALASSEMIATITLE": "THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA",
 "WelcomeUser": "Welcome User",
 "Dashboard": "Dashboard",
 "ANM": "ANM",
@@ -263,7 +263,12 @@
 "PT_Sample_Collection_Date_Time": "PT Sample Collection Date & Time",
 "DateofTest": "Date of Test",
 "UpdateDiagnosis": "Update Diagnosis",
-"Married": "Married"          
+"Married": "Married",
+"DateOfReg": "Date of Reg",
+"ReceivedDateAndTime":"Received Date & Time",
+"Sample_Collection_Date_Time":"Sample Collection Date & Time",
+"DeliveryExecutiveName":"Delivery Executive Name",
+"ReceivingCentralLab":"Receiving Central Lab"
 
 
 }

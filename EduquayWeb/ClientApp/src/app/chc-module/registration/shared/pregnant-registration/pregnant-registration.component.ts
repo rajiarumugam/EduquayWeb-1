@@ -124,7 +124,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   statelist = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router,) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -179,7 +179,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       firstname: ['', Validators.required],
       middlename: [''],
       lastname: ['', Validators.required],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      age: ['', [Validators.required,Validators.min(18), Validators.max(99)]],
       rchid: ['', Validators.required],
       lmpdate: ['', Validators.required],
       g: ['', Validators.required],
@@ -426,6 +426,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           $('#fadeinModal').modal('hide');
          }
          else{
+          this.associatedANMData[i].click = undefined;
           $('#fadeinModal').modal('show');
          }
         })
@@ -455,8 +456,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
                if (result.value) {
          
                 $('#fadeinModal').modal('hide');
-                this.router.navigateByUrl(`app/anm-sample-collection?sid=${this.createdSubjectId}`);
-               
+                this.router.navigateByUrl(`app/chc-sample-collection?sid=${this.createdSubjectId}`);
                }
                else{
                 this.firstFormGroup.reset();
@@ -636,7 +636,11 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         // Call the dtTrigger to rerender again       
         this.dtTrigger.next();
       });
-    }   
+    }  
+    returnpageNo()
+    {
+        return this.stepper.selectedIndex;
+    } 
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();

@@ -104,7 +104,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedhouse;
   selectedstreet;
   selectedcity;
-  selectedstate;
+  selectedstate = "Assam";
   selectedspouseFirstName;
   selectedspouseMiddleName;
   selectedspouseLastName;
@@ -114,6 +114,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   Pdisabled = true;
   Adisabled = true;
   statelist = [];
+  ageValidate = false;
   constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
     window['angularComponentReference'] = {
       zone: zone,
@@ -138,7 +139,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      age: ['', [Validators.required,Validators.min(18), Validators.max(99)]],
       rchid: ['', [Validators.required,Validators.min(100000000), Validators.max(999999999)]],
       lmpdate: ['', Validators.required],
       g: ['', Validators.required],
@@ -150,7 +151,7 @@ export class AnmAwRegistrationComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       ECNumber: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
       govtIDType: [''],
-      GovtIDDetail: ['',[Validators.min(100000000000), Validators.max(9999999999999999)]],
+      GovtIDDetail: [''],
       religion: ['', Validators.required],
       caste: ['', Validators.required],
       community: ['', Validators.required],
@@ -347,6 +348,7 @@ export class AnmAwRegistrationComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
+     this.ageValidate = true;
      this.selectedage = age;
      //return age;
   }
@@ -360,7 +362,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       if(this.firstFormGroup.valid)
         this.stepper.next();
 
-        //this.stepper.next();
+       // this.stepper.next();
     }
 
     prevStep() {
@@ -571,6 +573,9 @@ export class AnmAwRegistrationComponent implements OnInit {
     }
     ageEntered()
     {
-      this.DOBPicker.flatpickr.setDate("");
+        if(!this.ageValidate)
+            this.DOBPicker.flatpickr.setDate("");
+        
+        this.ageValidate = false;
     }
 }

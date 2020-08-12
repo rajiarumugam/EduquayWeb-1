@@ -262,6 +262,8 @@ export class ChcSubjectProfileComponent implements OnInit {
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
   }
