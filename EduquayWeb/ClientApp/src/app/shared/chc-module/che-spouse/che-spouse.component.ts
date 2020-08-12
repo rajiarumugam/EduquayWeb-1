@@ -12,6 +12,7 @@ import { GenericService } from '../../generic.service';
 declare var $: any 
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'che-spouse',
@@ -109,7 +110,7 @@ export class CheSpouseComponent implements OnInit {
 
   openAssociatedANM = false;
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,  private router: Router,) { }
 
   ngOnInit() {
     
@@ -391,6 +392,7 @@ export class CheSpouseComponent implements OnInit {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
+          
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
     showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
@@ -398,6 +400,10 @@ export class CheSpouseComponent implements OnInit {
          if (result.value) {
    
           $('#fadeinModal').modal('hide');
+          // if(this.modalService.hasOpenModals){
+          //   this.modalService.dismissAll();
+          // }
+          this.router.navigateByUrl(`app/chc-sample-collection?sid=${this.createdSubjectId}`);
          
          }
          else{
