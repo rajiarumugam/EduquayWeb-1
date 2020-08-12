@@ -110,8 +110,8 @@ export class CHCSampleRcptComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      processingDate: ['', Validators.required],
-      receivedDate: ["", Validators.required]
+      processingDate: ['', Validators.required]/*,
+      receivedDate: ["", Validators.required]*/
     });
     this.ILRform= this._formBuilder.group({
       ilrInDateTime: [''],
@@ -170,20 +170,40 @@ export class CHCSampleRcptComponent implements OnInit {
         val.barcodeDamaged = false;
         
     });
+    this.currentshipmentDateTime = data.shipmentDateTime;
     console.log(data.shipmentDateTime);
-    this.receivedPicker.flatpickr.set({
+    /*this.receivedPicker.flatpickr.set({
+      defaultDate: "",
+      minDate: data.shipmentDateTime
+    });*/
+    this.processingPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
     });
-    this.processingPicker.flatpickr.set({
-      defaultDate: ""
-    });
     if(this.ilrInDatePicker)
     {
-        this.ilrInDatePicker.flatpickr.set({
+        /*this.ilrInDatePicker.flatpickr.set({
           defaultDate: ""
         });
+        */
+        
+        this.ilrInDatePicker.flatpickr.set({
+          maxDate: new Date(Date.now()),
+          minDate: this.currentshipmentDateTime,
+          enable: [],
+          enableTime: true,
+          dateFormat: 'd/m/Y H:i',
+        });
         this.ilrInDatePicker.flatpickr.setDate("");
+    }
+    else{
+      this.processingPicker.flatpickr.set({
+        maxDate: new Date(Date.now()),
+        minDate: this.currentshipmentDateTime,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
     }
     if(this.ilrOutDatePicker)
     {
@@ -198,10 +218,16 @@ export class CHCSampleRcptComponent implements OnInit {
     this.ILRInDate = "";
     this.ILROutDate = ""; 
     this.processingPicker.flatpickr.setDate("");
-    this.receivedPicker.flatpickr.setDate("");
+    //this.receivedPicker.flatpickr.setDate("");
     
+    /*this.processingPicker.flatpickr.set({
+      maxDate: new Date(Date.now()),
+      minDate: this.currentshipmentDateTime,
+      enable: [],
+      enableTime: true,
+      dateFormat: 'd/m/Y H:i',
+    });*/
     
-    this.currentshipmentDateTime = data.shipmentDateTime;
     $('#fadeinModal').modal('show');
   }
   receivedDateChange()
@@ -223,13 +249,30 @@ export class CHCSampleRcptComponent implements OnInit {
   }
   inDateChange()
   {
+    this.ilrOutDatePicker.flatpickr.setDate("");
+    this.processingPicker.flatpickr.setDate("");
     this.ilrOutDatePicker.flatpickr.set({
       minDate: new Date(this.ILRInDate),
-      maxDate: new Date(this.selectedreceivedDate),
+      maxDate: new Date(Date.now()),
       enable: [],
       enableTime: true,
       dateFormat: 'd/m/Y H:i',
     });
+    this.processingPicker.flatpickr.set({
+    enable: ["22/10/2036"]
+    });
+  }
+  outDateChange()
+  {
+      console.log('hitting here');
+      this.processingPicker.flatpickr.setDate("");
+      this.processingPicker.flatpickr.set({
+        maxDate: new Date(Date.now()),
+        minDate:  new Date(this.ILROutDate),
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
   }
   processingDateChange()
   {
@@ -254,11 +297,19 @@ export class CHCSampleRcptComponent implements OnInit {
       this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
     else{
       if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
+      {
         this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
+      }  
+      
       else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
-        this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
+      {
+          this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
+      }  
       else
-        this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
+      {
+        this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
+      }
+       
     }
   }
 
@@ -310,7 +361,7 @@ export class CHCSampleRcptComponent implements OnInit {
               {
                   var _obj = {};
                   _obj['shipmentId'] = this.popupData.shipmentId;
-                  _obj['receivedDate'] = this.form.get('receivedDate').value != undefined ? moment(new Date(this.form.get('receivedDate').value)).format("DD/MM/YYYY") : '';
+                  _obj['receivedDate'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY") : '';
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
                   if(this.popupData.shipmentFrom === 'ANM - CHC')
                   {
@@ -330,7 +381,7 @@ export class CHCSampleRcptComponent implements OnInit {
 
                   _sampleResult.push(_obj);
               }
-
+              console.log(_sampleResult);
               var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDRECEIVEDSHIPMENT);
               this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
@@ -348,15 +399,12 @@ export class CHCSampleRcptComponent implements OnInit {
                             {
                               this.chcReceiptsData = response.chcReceipts;
                               this.rerender();
-                            }
-                                      
+                            }        
                           },
                           (err: HttpErrorResponse) =>{
                             console.log(err);
                           });
-                          
                         }
-                        
                       });
                 }else{
                     this.errorMessage = response.message;

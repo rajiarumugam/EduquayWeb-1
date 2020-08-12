@@ -9,7 +9,7 @@ import { TokenService } from 'src/app/shared/token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class chcsampleService {
+export class chcshipmentService {
 
   constructor(
     private httpClient: HttpClient,
@@ -17,24 +17,10 @@ export class chcsampleService {
     private http: HttpClientService,
     private tokenService: TokenService) { }
 
-  retriveCHCReceipt()
-  {
-    var user = JSON.parse(this.tokenService.getUser('lu'));
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECHCRECEIPT+user.chcId);
-    return this.http.get<any>( {url:apiUrl});
-  }
-  
 
-  addCBCtest(obj){
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDCBCTEST);
+  addShipment(obj){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDSHIPMENT);
     return this.http.post<any>({url:apiUrl, body: obj });
 
   }
-
-  addSSTtest(obj){
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDSSTTEST);
-    return this.http.post<any>({url:apiUrl, body: obj });
-
-  }
-
 }

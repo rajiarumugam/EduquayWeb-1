@@ -179,7 +179,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       firstname: ['', Validators.required],
       middlename: [''],
       lastname: ['', Validators.required],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      age: ['', [Validators.required,Validators.min(18), Validators.max(99)]],
       rchid: ['', Validators.required],
       lmpdate: ['', Validators.required],
       g: ['', Validators.required],

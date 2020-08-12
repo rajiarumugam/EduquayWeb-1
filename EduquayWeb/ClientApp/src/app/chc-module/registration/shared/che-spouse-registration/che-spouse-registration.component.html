@@ -1,4 +1,4 @@
-<che-spouse #chespouse></che-spouse>
+<che-spouse #chespouse (spouseReg)="refreshData();"></che-spouse>
 
 <div class="form-row mt-4" [formGroup]="dateform">
     <div class="form-group col-md-2">
@@ -36,12 +36,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let person of spouseData;index as i">
-        <td>{{ i + 1}}</td>
+        <td style="text-align: center;">{{ i + 1}}</td>
         <td>{{ person.firstName }}</td>
-        <td>{{ person.rchId }}</td>
+        <td style="text-align: center;">{{ person.rchId }}</td>
         <td>{{ person.spouseFirstName }}</td>
         <td>{{ person.address2 }},{{person.pincode}}</td>
-        <td>{{ person.contactNo }}</td>
+        <td style="text-align: center;">{{ person.contactNo }}</td>
         <td class="user-plus" (click)=chespouse.initSpousereg(person)><i class="fas fa-user-plus fa-2x" aria-hidden="true" style="font-size: 18px;" ></i></td>
       </tr>
     </tbody>

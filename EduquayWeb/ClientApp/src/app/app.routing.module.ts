@@ -53,6 +53,7 @@ import { AssociatedANMComponent } from "./chc-module/registration/shared/associa
 import { from } from "rxjs";
 import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
 import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
+import { CHCPickAndPackResolverService } from "./shared/centrallab/central-pickandpack-resolver.service";
 import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
 import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
 import { ChcSampleCollectionComponent } from "./chc-module/chc-sample-collection/chc-sample-collection.component";
@@ -89,6 +90,7 @@ import { ChcPositiveSubjectComponent } from "./chc-module/chc-notification/chc-p
 import { ChcPositiveSubjectResolverService } from "./shared/chc-module/chc-positive-subject/chc-positive-subject-resolver.service";
 
 import { CentrallabSampleResolverService } from "./shared/centrallab/central-sample-resolver.service";
+import { CentrallabShipmentResolverService } from "./shared/centrallab/central-shipment-resolver.service";
 import { CentralupdateHPLCService } from "./shared/centrallab/central-update-hplc-resolver.service";
 import { CentralSampleRcptMainComponent } from "./central-lab/sample-rcpt/central-sample-rcpt-main/central-sample-rcpt-main.component";
 import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sample-rec/central-sample-rec.component";
@@ -117,6 +119,9 @@ import { CentralPickPackStartComponent } from "./central-lab/pickandpack/central
 
 import { ChcSampleShipmentlogComponent } from "./chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component";
 import { ChcSampleShipmentlogResolverService } from "./shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog-resolver.service";
+
+import { CentralShipmentMainComponent } from "./central-lab/shipment-log/central-shipment-log-main/central-shipment-log-main.component";
+import { CentralCentralShipmentComponent } from "./central-lab/shipment-log/central-shipment-log/central-shipment-log.component";
 import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-view-shipment/chc-sample-view-shipment.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
@@ -228,8 +233,8 @@ const routes: Routes = [
       {
         path: 'central-pickpack', component: CentralPickAndPackComponent,
         children:[
-          {path: '', component: CentralPickPackPendingComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
-          {path: 'start', component: CentralPickPackStartComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+          {path: '', component: CentralPickPackPendingComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCPickAndPackResolverService}},
+          {path: 'start', component: CentralPickPackStartComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCPickAndPackResolverService}}
         ]
       },
       {
@@ -254,6 +259,12 @@ const routes: Routes = [
         path: 'centrallab', component: CentralSampleRcptMainComponent,
         children:[
           {path: '', component: CentralSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleResolverService}}
+        ]
+      },
+      {
+        path: 'central-shipment', component: CentralShipmentMainComponent,
+        children:[
+          {path: '', component: CentralCentralShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabShipmentResolverService}}
         ]
       },
       {
@@ -363,7 +374,9 @@ export const RoutingComponents = [
   CentralPickAndPackComponent,
   CentralPickPackPendingComponent,
   CentralPickPackStartComponent,
-  ChcSampleShipmentlogComponent
+  ChcSampleShipmentlogComponent,
+  CentralShipmentMainComponent,
+  CentralCentralShipmentComponent
 ];
 
 
