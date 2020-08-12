@@ -35,7 +35,7 @@
                 <div *ngIf="isLoginError" class="alert alert-danger" role="alert">
                   <div class="row">
                     <div class="col-1 alert-icon-col">
-                      <span class="fa fa-info-circle fa-fw"></span>
+                      <span class="fa fa-info-circle fa-1x"></span>
                     </div>
                     <div class="col">
                       {{loginErrorMessage}}
@@ -65,7 +65,7 @@
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                       </svg>
-                      <input id="password" name="password" type="password" class="form-control" placeholder="Password"
+                      <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control" placeholder="Password"
                         ngModel #passwordVal="ngModel" required password minlength="5">
                       <span class="input-error"
                         *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
@@ -78,7 +78,7 @@
                       <div class="field-wrapper toggle-pass">
                         <p class="d-inline-block">Show Password</p>
                         <label class="switch s-primary">
-                          <input type="checkbox" id="toggle-password" class="d-none">
+                          <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none" [(ngModel)]="textPassword" (change)="showPassword()">
                           <span class="slider round"></span>
                         </label>
                       </div>
@@ -102,7 +102,7 @@
                   </div>
 
                   <div class="field-wrapper">
-                      <a href="auth_pass_recovery.html"
+                      <a class="pointer" (click)="forgotPassword()"
                           class="forgot-pass-link d-flex justify-content-left ml-2">Forgot Password?</a>
                   </div>
   
