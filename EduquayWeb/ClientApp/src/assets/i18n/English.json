@@ -78,6 +78,7 @@
     "ILRInDateTime":"ILR In Date & Time",
     "ProcessingDateAndTime":"Processing Date & Time",
     "ReceivedDate":"Received Date",
+    "ReceivedDateAndTime":"Received Date & Time",
     "ILRPoint":"ILR Point",
     "CollectionCHC":"Collection CHC",
     "CBCTestReadings":"CBC Test Readings",
@@ -111,7 +112,12 @@
     "DateofTest":"Date of Test",
     "UpdateDiagnosis":"Update Diagnosis",
     "Married":"Married",
-    "HPLCTestResults":"HPLC Test Results"
+    "HPLCTestResults":"HPLC Test Results",
+    "DeliveryExecutiveName":"Delivery Executive Name",
+    "ReceivingCentralLab":"Receiving Central Lab",
+    "View":"View",
+    "Print":"Print",
+    "AddtoShipment":"Add to Shipment"
 
 
 }
