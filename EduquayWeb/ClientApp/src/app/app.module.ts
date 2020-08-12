@@ -55,6 +55,7 @@ import { ChcSampleShipmentlogComponent } from './chc-sample-module/chc-sample-sh
 import { ChcSampleViewShipmentComponent } from './chc-sample-module/chc-sample-view-shipment/chc-sample-view-shipment.component';
 import { ChcPendingPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component';
 import { ChcStartPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component';
+import { AppPasswordDirective } from './shared/directive/app-password.directive';
 
 
 
@@ -91,7 +92,8 @@ const ngWizardConfig: NgWizardConfig = {
     ChcSampleShipmentlogComponent,
     ChcSampleViewShipmentComponent,
     ChcPendingPickpackComponent,
-    ChcStartPickpackComponent
+    ChcStartPickpackComponent,
+    AppPasswordDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
