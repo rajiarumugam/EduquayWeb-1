@@ -5,6 +5,7 @@ import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-p
 import { TokenService } from 'src/app/shared/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { sample } from 'rxjs/operators';
 
 
 @Component({
@@ -14,8 +15,8 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ChcSamplePickpackComponent implements OnInit {
 
- 
-
+  pendingBadgeSampleCount: number = 0;
+  startBadgePickpackCount: number = 0;
 
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
@@ -32,4 +33,16 @@ export class ChcSamplePickpackComponent implements OnInit {
 
   }  
 
+
+  receiveBadgeCount(componentReference){
+    //onLoadSamples
+    componentReference.onLoadSamples.subscribe((data: number) => {
+      if(this.router.url.indexOf('sample-pickpack') >= 0){
+        this.pendingBadgeSampleCount = data;
+      }
+      else if(this.router.url.indexOf('startpickpack') >= 0){
+        this.startBadgePickpackCount = data;
+      }
+    });
+  }
 }

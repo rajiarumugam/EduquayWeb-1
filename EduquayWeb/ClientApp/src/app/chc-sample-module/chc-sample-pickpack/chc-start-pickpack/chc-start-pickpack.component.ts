@@ -26,7 +26,7 @@ export class ChcStartPickpackComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   //@ViewChild(DataTableDirective, { static: false }) dtElement1: DataTableDirective;
 
-  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public onLoadSamples = new EventEmitter();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -128,7 +128,6 @@ export class ChcStartPickpackComponent implements OnInit {
     };
     console.log(this.chcsamplePickpackService.chcSamplePickPackApi);
     //this.chcsamplepicknpackList(this.user.chcId);
-
     this.chcsamplepickpackinitResponse = this.route.snapshot.data.chcpickpackSamplesData;
     if (this.chcsamplepickpackinitResponse.status === 'false') {
       this.chcsamplepickpack = [];
@@ -143,6 +142,9 @@ export class ChcStartPickpackComponent implements OnInit {
 
       if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
         this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
+        
+        this.onLoadSamples.emit(this.chcsamplepickpack.length);
+        //this.onLoadSamples.emit(this.startPickpackData.length);
       }
     }
   }
@@ -180,11 +182,13 @@ export class ChcStartPickpackComponent implements OnInit {
     this.tempCHCDatas = [];
     let term = this.searchbarcode;
     var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === term)
+    //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
       this.searchbarcode='';
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
+
       this.modalService.open(
         samplepicknPackdetail, {
         centered: true,
@@ -195,7 +199,10 @@ export class ChcStartPickpackComponent implements OnInit {
         ariaLabelledBy: 'modal-basic-title'
       });
     }
-    
+    // else if (this.tempCHCDatas.filter(({ barcodeNo }) => this.barcodeNo == barcodeNo).length) {
+    //   console.log('User already exists');
+    //  }
+
     else {
       Swal.fire({
         icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
@@ -322,7 +329,7 @@ export class ChcStartPickpackComponent implements OnInit {
         this.chcsampleAddShipmentResponse = response;
         if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
-          this.chcsamplepicknpackList(this.user.chcId);
+          this.submittoshipment();
         } else {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
           this.samplepicknpackErrorMessage = response.message;
@@ -386,6 +393,9 @@ export class ChcStartPickpackComponent implements OnInit {
         if (getdataindex >= 0) {
           this.startPickpackData.push(this.chcsamplepickpack[getdataindex]);
           this.chcsamplepickpack.splice(getdataindex,1);
+          this.onLoadSamples.emit(this.chcsamplepickpack.length);
+          this.onLoadSamples.emit(this.startPickpackData.length);
+          
         }
       });     
     }

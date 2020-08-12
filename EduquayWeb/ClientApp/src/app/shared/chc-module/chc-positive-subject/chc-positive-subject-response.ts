@@ -9,6 +9,9 @@ export interface chcpositiveSubject{
     childSubjectTypeId: number;
     uniqueSubjectId: string;
     subjectName: string;
+    firstName:string;
+    middleName:string;
+    lastName:string;
     districtId: number;
     chcId: number;
     phcId: number;
