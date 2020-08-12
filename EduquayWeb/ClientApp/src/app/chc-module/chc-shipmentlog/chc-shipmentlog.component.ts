@@ -143,6 +143,8 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 }

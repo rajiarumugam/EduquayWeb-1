@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'chc-walkin-registration',
@@ -119,7 +120,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedassociatedANM;
   selectedTestingchc = null;
   statelist = [];
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router) { }
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
@@ -453,7 +454,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
-               
+                $('#fadeinModal').modal('hide');
+                this.router.navigateByUrl(`app/chc-sample-collection?sid=${this.createdSubjectId}`);
                }
                else{
                 this.firstFormGroup.reset();

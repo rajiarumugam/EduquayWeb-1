@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
@@ -28,6 +28,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   @ViewChild('startPicker', { static: false }) startPicker;
   @ViewChild('endPicker', { static: false }) endPicker;
   @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
+  @ViewChild('chcSampleCollectiondetail',{static: false}) private chcsampleCollectiondetailTpl: TemplateRef<any>;
 
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
@@ -65,6 +66,9 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   resultFromPostResponse: string;
   selectedSubjectType: string = '0';
   selected: null;
+  sub: any;
+  subjectIdParam: string = '';
+  subjectTypeParam: string = '0';
   
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -156,6 +160,9 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
         this.chcsubjectList = this.chcsampleCollectionInitResponse.subjectList;
       }
     }
+    this.sub = this.route.queryParams.subscribe(params => {
+    this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
+    });
   }
 
   chcSubjectTypesList() {
@@ -253,6 +260,8 @@ openchcSampleColllection(chcSampleCollectiondetail, subject: SubjuctList){
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 }
@@ -412,6 +421,11 @@ showResponseMessage(message: string, type: string){
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+    if(this.subjectIdParam !== ''){
+      var subDetail = this.chcsubjectList.find(x => x.uniqueSubjectId === this.subjectIdParam)
+      if(subDetail===undefined) return;
+      this.openchcSampleColllection(this.chcsampleCollectiondetailTpl , subDetail);
+    } 
   }   
 
 

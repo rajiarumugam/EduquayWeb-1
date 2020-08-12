@@ -43,7 +43,6 @@ export class ChcSampleShipmentlogComponent implements OnInit {
   subjectName: string;
   rchId: string;
   barcodeNo: string;
-  associatedANM: string;
   sampleCollectionDateTime: string;
 
 
@@ -138,6 +137,8 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 }

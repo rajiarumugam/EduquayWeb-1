@@ -16,7 +16,7 @@ export class ChcPicknpackService {
   providernameApi: string = "api/v1/WebMaster/RetrieveLogisticsProvider";
   AddChcShipmentApi: string = "api/v1/ANMCHCShipment/AddCHCShipment";
   testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHCByCollectionCHC"
-  timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimeoutExpiry";
+  timeoutExpirySampleApi: string = "api/CHCNotifications/MoveTimeoutExpiry";
 
   chcId: number;
 

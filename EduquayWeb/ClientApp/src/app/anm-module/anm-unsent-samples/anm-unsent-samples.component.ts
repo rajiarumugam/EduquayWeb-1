@@ -531,6 +531,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
             centered: true,
             size: 'xl',
             scrollable: true,
+            backdrop:'static',
+            keyboard: false,
             ariaLabelledBy: 'modal-basic-title'
           });
         }
@@ -557,6 +559,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
             centered: true,
             size: 'xl',
             scrollable: true,
+            backdrop:'static',
+            keyboard: false,
             ariaLabelledBy: 'modal-basic-title'
           });
         }
@@ -589,6 +593,8 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         centered: true,
         size: 'xl',
         scrollable: true,
+        backdrop:'static',
+        keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });      
     }

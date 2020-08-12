@@ -174,6 +174,8 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       centered: true,
       size: 'xl',
       scrollable: true,
+      backdrop:'static',
+      keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 
