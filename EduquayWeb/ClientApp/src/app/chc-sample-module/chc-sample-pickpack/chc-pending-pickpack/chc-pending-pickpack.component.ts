@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { SamplePickpack, ChcSamplePickpackResponse } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-response';
+import { SamplePickpack, ChcSamplePickpackResponse, tempCHCData, startPickpack } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-response';
 import { user } from 'src/app/shared/auth-response';
 import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,17 +12,18 @@ import { TokenService } from 'src/app/shared/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-chc-pending-pickpack',
   templateUrl: './chc-pending-pickpack.component.html',
   styleUrls: ['./chc-pending-pickpack.component.css']
 })
 export class ChcPendingPickpackComponent implements OnInit {
-
+  @Output() public onLoadSamples = new EventEmitter();
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   //@ViewChild(DataTableDirective, { static: false }) dtElement1: DataTableDirective;
 
-  //@Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -50,8 +51,8 @@ export class ChcPendingPickpackComponent implements OnInit {
   alliquotetubebarcode: string = '';
   isAddShipmentTrue: boolean = false;
   isAliquoteBarcodeMatch: boolean = false;
-  // tempCHCDatas: tempCHCData[] = [];
-  // startPickpackData: startPickpack[] = [];
+  tempCHCDatas: tempCHCData[] = [];
+  startPickpackData: startPickpack[] = [];
   primarytubeSelected: boolean = false;
   alliquotedtubeSelected: boolean = false;
   startpickpackSelected: boolean;
@@ -138,11 +139,13 @@ export class ChcPendingPickpackComponent implements OnInit {
 
       if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
         this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
+        
+        this.onLoadSamples.emit(this.chcsamplepickpack.length);
+        //this.onLoadSamples.emit(this.startPickpackData.length);
       }
     }
   }
-
-  
+ 
   chcsamplepicknpackList(chcId) {
     this.chcsamplepickpack = [];
     let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
@@ -154,6 +157,7 @@ export class ChcPendingPickpackComponent implements OnInit {
           }
           else {
             this.chcsamplepickpack = this.chcsamplepicknpickResponse.pickandPack;
+            
             // this.sampleList.forEach(element => {
             //   element.sampleSelected = true;
             // });
