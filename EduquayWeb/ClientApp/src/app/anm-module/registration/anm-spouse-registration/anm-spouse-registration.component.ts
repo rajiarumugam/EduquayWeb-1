@@ -168,6 +168,11 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }   
+
+    refreshData()
+    {
+      this.getSpouseDetails();
+    }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();

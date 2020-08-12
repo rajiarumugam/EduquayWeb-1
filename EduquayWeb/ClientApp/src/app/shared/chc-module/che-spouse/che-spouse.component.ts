@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, Pipe, NgZone, ViewChild, Output, EventEmitter } from '@angular/core';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -23,6 +23,7 @@ export class CheSpouseComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChild('dorPicker', { static: false }) DORPicker;
   @ViewChild('dobPicker', { static: false }) DOBPicker;
+  @Output() spouseReg: EventEmitter<any> = new EventEmitter<any>();
   DAY = 86400000;
   districts: District[] = [];
   erroMessage: string;
@@ -104,6 +105,7 @@ export class CheSpouseComponent implements OnInit {
   selectedassociatedANM;
   selectedTestingchc = null;
   statelist = [];
+  selectedSpouseData;
 
   openAssociatedANM = false;
 
@@ -137,7 +139,7 @@ export class CheSpouseComponent implements OnInit {
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]]
+      age: ['', [Validators.required,Validators.min(18), Validators.max(99)]]
    });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -170,6 +172,7 @@ export class CheSpouseComponent implements OnInit {
 
   initSpousereg(data)
   {
+      this.selectedSpouseData = data;
       console.log(data);
       this.selectedanwname = data.firstName;
       //this.selectedanwname = 'pooja';
@@ -257,7 +260,7 @@ export class CheSpouseComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
-      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+      //this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -405,6 +408,7 @@ export class CheSpouseComponent implements OnInit {
           this.stepper.selectedIndex = 0;
           this.prePopulateFormDetails();
           $('#fadeinModal').modal('hide');
+          this.spouseReg.emit();
          }
        });
           //$('#fadeinModal').modal('show');
@@ -465,11 +469,11 @@ export class CheSpouseComponent implements OnInit {
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
           "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? Number(this.secondFormGroup.get('govtIDType').value) : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
-          "spouseSubjectId": "",
-          "spouseFirstName": "",
-          "spouseMiddleName": "",
-          "spouseLastName": "",
-          "spouseContactNo": "",
+          "spouseSubjectId": this.selectedSpouseData.uniqueSubjectId,
+          "spouseFirstName": this.selectedSpouseData.firstName,
+          "spouseMiddleName": this.selectedSpouseData.middleName,
+          "spouseLastName": this.selectedSpouseData.lastName,
+          "spouseContactNo": this.selectedSpouseData.contactNo,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": Number(this.selectedAssociatedANM.associatedANMId),

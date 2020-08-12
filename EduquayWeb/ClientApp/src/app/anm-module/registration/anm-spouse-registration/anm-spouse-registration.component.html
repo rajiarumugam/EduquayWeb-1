@@ -1,5 +1,5 @@
 
-<app-anm-spouse #anmspouse></app-anm-spouse>
+<app-anm-spouse #anmspouse (spouseReg)="refreshData();"></app-anm-spouse>
 <div class="form-row mt-4" [formGroup]="dateform">
     <div class="form-group col-md-2">
       <label for="inputFromdate">{{'FromDate' | translate }}
