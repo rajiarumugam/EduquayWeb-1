@@ -196,8 +196,8 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   }
      this.chcscRequest = {
        userId: this.user.id,
-       fromDate: this.chcSCFromDate != '' ? moment(new Date(this.chcSCFromDate)).format("DD/MM/YYYY") : '',
-       toDate: this.chcSCToDate != '' ? moment(new Date(this.chcSCToDate)).format("DD/MM/YYYY") : '',
+       fromDate: this.chcSCFromDate !== '' ? this.chcSCFromDate : '',
+       toDate: this.chcSCToDate !== '' ? this.chcSCToDate : '',
        subjectType: +(this.selectedSubjectType),
        registeredFrom: this.user.registeredFrom
      };
@@ -242,6 +242,7 @@ openchcSampleColllection(chcSampleCollectiondetail, subject: SubjuctList){
   this.chcSampleCollectionTime = moment().format("HH:mm");
   this.collectionDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
   this.collectionDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+  this.barcodeNo = '';
 
   if(subject.sampleType === "F"){
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;

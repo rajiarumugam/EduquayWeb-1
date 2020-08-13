@@ -205,8 +205,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     }
       this.scRequest = {
         userId: this.user.id,
-        fromDate: this.scFromDate != '' ? moment(new Date(this.scFromDate)).format("DD/MM/YYYY") : '',
-        toDate: this.scToDate != '' ? moment(new Date(this.scToDate)).format("DD/MM/YYYY") : '',
+        fromDate: this.scFromDate != '' ? this.scFromDate : '',
+        toDate: this.scToDate != '' ? this.scToDate : '',
         subjectType: +(this.selectedSubjectType),
         registeredFrom: this.user.registeredFrom
       };
@@ -252,6 +252,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.sampleCollectionTime = moment().format("HH:mm");
     this.collectionDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.collectionDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.barcodeNo = '';
   
     if(subject.sampleType === "F"){
       var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
