@@ -256,3 +256,9 @@ vertical-align: middle;
     color: #fff;
     font-size: 13px;
 }
+
+  /*----dropdown----*/
+  app-select-dropdown.form-control
+  {
+      padding:0 !important;
+  }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, Pipe, NgZone, ViewChild,Output, EventEmitter } from '@angular/core';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DistrictResponse, District } from 'src/app/shared/master/district/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,6 +29,7 @@ export class AnmSpouseComponent implements OnInit {
   @ViewChild('dorPicker', { static: false }) DORPicker;
   @ViewChild('dobPicker', { static: false }) DOBPicker;
 
+  @Output() spouseReg: EventEmitter<any> = new EventEmitter<any>();
   positiveSpouseResponse: PositiveSpouseResponse;
   districts: District[] = [];
   errorMessage: string;
@@ -88,6 +89,7 @@ export class AnmSpouseComponent implements OnInit {
   user;
   createdSubjectId="";
   
+  selectedSpouseData;
 
   spouseData: positiveSubject[] = [];
   selectedanwname;
@@ -104,11 +106,12 @@ export class AnmSpouseComponent implements OnInit {
   selectedGovtIDDetail;
   selectedhouse;
   selectedstreet;
-  selectedstate;
+  selectedstate= 1;
   selectedPincode;
   selectedECNumber;
   selectedcity;
   statelist = [];
+  DOBSelected = false;
 
   constructor(
     private masterService: masterService, 
@@ -123,6 +126,7 @@ export class AnmSpouseComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    
     
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     
@@ -149,7 +153,7 @@ export class AnmSpouseComponent implements OnInit {
       middlename: [''],
       lastname: ['', Validators.required],
       dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
+      age: ['', [Validators.required,Validators.min(18), Validators.max(99)]],
    });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -179,6 +183,8 @@ export class AnmSpouseComponent implements OnInit {
   }
 
   initSpousereg(data) {
+    this.selectedSpouseData = data;
+    console.log(this.selectedSpouseData);
     this.getDistrictData();
     this.getCHC();
     this.getPHC();
@@ -212,7 +218,7 @@ export class AnmSpouseComponent implements OnInit {
     this.selectedhouse = data.address1;
     this.selectedstreet = data.address2;
     this.selectedcity = data.address3;
-    this.selectedstate = data.stateName;
+    //this.selectedstate = this.statelist.filter(t=>t.data.stateName ===this.selectedstate);
     this.selectedPincode = data.pincode;
     this.selectedECNumber = data.ecNumber;
     //this.selectedspouseEmail = data.ecNumber;
@@ -382,6 +388,7 @@ export class AnmSpouseComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
+     this.DOBSelected = true;
      this.selectedage = age;
      //return age;
   }
@@ -404,8 +411,8 @@ export class AnmSpouseComponent implements OnInit {
     formSubmit()
     {
       this.secondFormCheck = true;
-    
-      if(this.secondFormGroup.valid && this.firstFormGroup.valid)
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
+      if(this.secondFormGroup.valid && this.firstFormGroup.valid && _tempStateSelected.length > 0)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
@@ -426,6 +433,8 @@ export class AnmSpouseComponent implements OnInit {
           this.firstFormCheck = false;
           this.stepper.selectedIndex = 0;
           $('#fadeinModal').modal('hide');
+          this.spouseReg.emit();
+
          }
        });
           //$('#fadeinModal').modal('show');
@@ -441,6 +450,7 @@ export class AnmSpouseComponent implements OnInit {
     dataBindinginServce()
     {
       var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
+      console.log(_tempStateSelected);
       var _obj = {
         "subjectPrimaryRequest": {
           "subjectTypeId": 2,
@@ -461,13 +471,13 @@ export class AnmSpouseComponent implements OnInit {
           "maritalStatus": true,
           "mobileNo": ""+this.firstFormGroup.get('contactNumber').value,
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
-          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
+          "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? Number(this.secondFormGroup.get('govtIDType').value) : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
-          "spouseSubjectId": "",
-          "spouseFirstName": "",
-          "spouseMiddleName": "",
-          "spouseLastName": "",
-          "spouseContactNo": "",
+          "spouseSubjectId": this.selectedSpouseData.uniqueSubjectId,
+          "spouseFirstName": this.selectedSpouseData.firstName,
+          "spouseMiddleName": this.selectedSpouseData.middleName,
+          "spouseLastName": this.selectedSpouseData.lastName,
+          "spouseContactNo": this.selectedSpouseData.contactNo,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": this.user.id,
@@ -550,7 +560,9 @@ export class AnmSpouseComponent implements OnInit {
   
     ageEntered()
     {
-      this.DOBPicker.flatpickr.setDate("");
+      if(!this.DOBSelected)
+          this.DOBPicker.flatpickr.setDate("");
+      this.DOBSelected = false;
     }
   
     ngOnDestroy(): void {

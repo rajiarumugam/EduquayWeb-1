@@ -1,13 +1,18 @@
 import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { DataService } from '../../../shared/data.service';
 import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
-import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
+import { chcshipmentService } from 'src/app/shared/centrallab/central-shipment.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+declare var $: any
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-central-pick-pack-start',
@@ -22,6 +27,13 @@ export class CentralPickPackStartComponent implements OnInit {
   pickpackStartList = [];
   negativeList = [];
   showUploadResult = false;
+  firstFormGroup: FormGroup;
+
+  firstFormCheck = false;
+  selectedlabTechnicianName;
+  selectedcentralLab;
+  selectedreceivingMolecularLab = null;
+  selecteddeliveryExecutiveName;
 
   centralReceiptsData: any[] = [];
   tempCHCData = [];
@@ -30,7 +42,29 @@ export class CentralPickPackStartComponent implements OnInit {
   searchbarcode;
   user;
   chcUploadResponse;
+ 
+  //missing models
+  selectedlogisticsServiceProvider: any;
+  selectedMobile: any;
 
+  startOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+
+  selectedshipmentDate = new Date(Date.now());
+  selectedshipmentTime = new Date(Date.now());
+  molecularLabData = [];
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -39,12 +73,26 @@ export class CentralPickPackStartComponent implements OnInit {
     private route: ActivatedRoute,
     private DataService:DataService,
     private tokenService: TokenService,
-    private chcsampleService: chcsampleService
+    private chcshipmentService: chcshipmentService,
+    private _formBuilder: FormBuilder,
+    private masterService: masterService,
+    private router: Router
     ) { }
 
   ngOnInit() {
-  
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+
+    this.firstFormGroup = this._formBuilder.group({
+      labTechnicianName : ['', Validators.required],
+      centralLab: ['', Validators.required],
+      receivingMolecularLab: ['', Validators.required],
+      logisticsServiceProvider : ['', Validators.required],
+      deliveryExecutiveName: ['', Validators.required],
+      contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+      shipmentDate: ['', Validators.required],
+      shipmentTime: ['', Validators.required]
+   });
+
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -67,8 +115,8 @@ export class CentralPickPackStartComponent implements OnInit {
     this.centralReceiptsData = [];
     var centralReceiptsArr = this.route.snapshot.data.positiveSubjects;
     if(centralReceiptsArr !== undefined && centralReceiptsArr.status.toString() === "true"){
-      var _tempData = centralReceiptsArr.sstDetail;
-      var _tempReceivedData = JSON.parse(JSON.stringify(centralReceiptsArr.sstDetail));
+      var _tempData = centralReceiptsArr.pickandPack;
+      var _tempReceivedData = JSON.parse(JSON.stringify(centralReceiptsArr.pickandPack));
       if(this.DataService.getdata().centralpickpackstart != undefined)
       {
         this.pickpackStartList = this.DataService.getdata().centralpickpackstart;
@@ -87,14 +135,26 @@ export class CentralPickPackStartComponent implements OnInit {
     else{
       this.errorMessage = centralReceiptsArr.message;
     }
-
+    this.getMolecularLab();
   }
 
+  getMolecularLab()
+  {
+    this.masterService.retriveMocularLab()
+    .subscribe(response => {
+      console.log(response);
+      this.molecularLabData = response.molecularLab;
+    },
+    (err: HttpErrorResponse) =>{
+    });
+  }
   searchBarCodetype()
   {
 
     let term = this.searchbarcode;
-    var _index = this.tempCHCData.findIndex(com => com.barcodeNo === term)
+    console.log(term);
+    var _index = this.tempCHCData.findIndex(com => com.barcodeNo === term);
+    console.log(_index);
     if(_index >= 0)
     {
       this.pickpackStartList.push(this.tempCHCData[_index]);
@@ -102,7 +162,7 @@ export class CentralPickPackStartComponent implements OnInit {
       this.searchbarcode = ""; 
       this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
       this.showUploadResult = true;
-      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.pickpackStartList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length}));
+      this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length}));
       this.rerender();
     } 
 
@@ -117,12 +177,12 @@ export class CentralPickPackStartComponent implements OnInit {
     this.tempCHCData.push(this.pickpackStartList[index]);
     this.pickpackStartList.splice(index,1);
     this.rerender();
-    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.pickpackStartList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length-this.pickpackStartList.length-this.negativeList.length}));
+    this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length}));
     this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Sample moved to Received Sample.',
+      title: 'Back to Ship',
       showConfirmButton: false,
       timer: 2000
     })
@@ -130,6 +190,72 @@ export class CentralPickPackStartComponent implements OnInit {
         this.showUploadResult = false;
   }
 
+  createShipment()
+  {
+    $('#fadeinModal').modal('show');
+  }
+  submitShipment()
+  {
+      this.firstFormCheck = true;
+      console.log(this.firstFormGroup.valid);
+
+  console.log(this.pickpackStartList);
+  if(this.firstFormGroup.valid)
+  {
+      var _tempBarcode;
+      this.pickpackStartList.forEach(function(val,index){
+          if(index===0)
+              _tempBarcode = val.barcodeNo;
+          else
+              _tempBarcode += ","+val.barcodeNo;
+      });
+      var _obj = {};
+      _obj['barcodeNo'] = _tempBarcode;
+      _obj['labTechnicianName'] = this.firstFormGroup.get('labTechnicianName').value;
+      _obj['centralLabUserId'] = this.user.id;
+      _obj['centralLabId'] = this.user.centralLabId;
+      _obj['centralLabLocation'] = this.firstFormGroup.get('centralLab').value;;
+      _obj['receivingMolecularLabId'] = Number(this.firstFormGroup.get('receivingMolecularLab').value);
+      _obj['logisticsProviderName'] = this.firstFormGroup.get('logisticsServiceProvider').value;
+      _obj['deliveryExecutiveName'] = this.firstFormGroup.get('deliveryExecutiveName').value;
+      _obj['executiveContactNo'] = ''+this.firstFormGroup.get('contactNumber').value;
+      _obj['dateOfShipment'] = moment(new Date(this.firstFormGroup.get('shipmentDate').value)).format("DD/MM/YYYY"),
+      _obj['timeOfShipment'] = moment(new Date(this.firstFormGroup.get('shipmentTime').value)).format("hh:mm"),
+      _obj['source'] = "N";
+
+      console.log(_obj);
+
+      this.chcshipmentService.addShipment(_obj)
+      .subscribe(response => {
+        this.chcUploadResponse = response;
+        if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
+          Swal.fire({icon:'success', title: 'Shipment ID is '+this.chcUploadResponse.shipment.shipmentId,
+          showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
+             .then((result) => {
+                $('#fadeinModal').modal('hide');
+               if (result.value) {
+                this.router.navigateByUrl(`app/central-shipment`);
+               }
+               else{
+                this.firstFormGroup.reset();
+                //this.router.navigateByUrl(`app/central-pickpack`);
+                this.DataService.deleteProp('centralpickpackstart');
+                this.pickpackStartList = [];
+                this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length}));
+               }
+     
+            });
+        } else {
+          this.errorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
+    }
+  
+  }
   submitNegativeResult()
   {
     Swal.fire({
@@ -152,7 +278,7 @@ export class CentralPickPackStartComponent implements OnInit {
           _obj['barcodeNo'] = val.barcodeNo;
           _tempArr.push(_obj);
         }.bind(this));
-        this.chcsampleService.addSSTtest({"ssTestRequest":_tempArr})
+        this.chcshipmentService.addShipment({"ssTestRequest":_tempArr})
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
