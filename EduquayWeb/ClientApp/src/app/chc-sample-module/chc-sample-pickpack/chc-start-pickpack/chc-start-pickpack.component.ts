@@ -56,9 +56,9 @@ export class ChcStartPickpackComponent implements OnInit {
   isAliquoteBarcodeMatch: boolean = false;
   tempCHCDatas: tempCHCData[] = [];
   startPickpackData: startPickpack[] = [];
-  primarytubeSelected: boolean = false;
-  alliquotedtubeSelected: boolean = false;
-  startpickpackSelected: boolean;
+  primarytubeSelected: boolean = true;
+  alliquotedtubeSelected: boolean = true;
+  startpickpackSelected: boolean = true;
   //tempCHC=[];
   uniqueSubjectId: string;
   sampleCollectionId: number;
@@ -393,8 +393,10 @@ export class ChcStartPickpackComponent implements OnInit {
         if (getdataindex >= 0) {
           this.startPickpackData.push(this.chcsamplepickpack[getdataindex]);
           this.chcsamplepickpack.splice(getdataindex,1);
-          this.onLoadSamples.emit(this.chcsamplepickpack.length);
+          this.isAddShipmentTrue = true;
           this.onLoadSamples.emit(this.startPickpackData.length);
+          this.onLoadSamples.emit(this.chcsamplepickpack.length);
+         
           
         }
       });     

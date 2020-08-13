@@ -421,6 +421,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.chcPicknpackErrorMessage = '';
           this.ddlProviderName();
           this.ddltestingChc(this.user.chcId);
+          this.executiveContactNo ='';
+          this.deliveryExecutiveName = '';
 
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");
@@ -451,6 +453,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.chcPicknpackErrorMessage = '';
           this.ddlProviderName();
           this.ddltestingChc(this.user.chcId);
+          this.executiveContactNo ='';
+          this.deliveryExecutiveName = '';
           
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");
@@ -486,6 +490,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcPicknpackErrorMessage = '';
           this.ddlProviderName();
           this.ddltestingChc(this.user.chcId);
+          
+          this.logisticsProviderId;
+          this.executiveContactNo ='';
+          this.deliveryExecutiveName = '';
           
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");

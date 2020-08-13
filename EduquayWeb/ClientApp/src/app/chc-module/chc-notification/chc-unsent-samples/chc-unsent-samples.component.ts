@@ -451,6 +451,8 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
         this.chcunsentSamplesErrorMessage = '';
         this.ddlProviderName();
         this.ddltestingChc(this.user.chcId);
+        this.executiveContactNo = '';
+        this.deliveryExecutiveName= '';
 
         this.sampleShipmentDate = moment().format("DD/MM/YYYY");
         this.sampleShipmentTime = moment().format("HH:mm");
@@ -481,6 +483,8 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
         this.chcunsentSamplesErrorMessage = '';
         this.ddlProviderName();
         this.ddltestingChc(this.user.chcId);
+        this.executiveContactNo = '';
+        this.deliveryExecutiveName= '';
         
         this.sampleShipmentDate = moment().format("DD/MM/YYYY");
         this.sampleShipmentTime = moment().format("HH:mm");
@@ -516,6 +520,8 @@ getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail) {
     this.chcunsentSamplesErrorMessage = '';
     this.ddlProviderName();
     this.ddltestingChc(this.user.chcId);
+    this.executiveContactNo = '';
+    this.deliveryExecutiveName= '';
 
     this.sampleShipmentDate = moment().format("DD/MM/YYYY");
     this.sampleShipmentTime = moment().format("HH:mm");
