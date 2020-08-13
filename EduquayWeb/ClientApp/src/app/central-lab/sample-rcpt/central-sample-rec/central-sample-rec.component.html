@@ -37,18 +37,18 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <h6 class="ml-2"><b>{{'CHC_Shipment_Date_Time' | translate }} : </b> <span class="ml-2">
                                         {{popupData?.shipmentDateTime}} </span></h6>
                                 </div>
-                               
-                            </div>
-                            <div class="form-row my-2">
                                 <div class="col-md-3" [formGroup]="form">
-                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.receivedDate.invalid }"><b>{{'ReceivedDate' | translate }}</b>
-                                        <ng2-flatpickr id="scFromDate" name="receivedDate" formControlName="receivedDate" class="form-control flatpickr flatpickr-input active" #receivedPicker [config]="receiveddateOptions" placeholder="Select Date.." [(ngModel)]="selectedreceivedDate" (change)="receivedDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.receivedDate.invalid }"></ng2-flatpickr></h6>
-                                </div>
-                                <div class="col-md-3" [formGroup]="form">
-                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ProcessingDateAndTime' | translate }}</b>
+                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ReceivedDateAndTime' | translate }}</b>
                                         <ng2-flatpickr [disabled]="true" id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker [config]="processingOption" placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr>
                                         </h6>
                                 </div>
+                            </div>
+                            <div class="form-row my-2">
+                                <!--<div class="col-md-3" [formGroup]="form">
+                                    <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.receivedDate.invalid }"><b>{{'ReceivedDate' | translate }}</b>
+                                        <ng2-flatpickr id="scFromDate" name="receivedDate" formControlName="receivedDate" class="form-control flatpickr flatpickr-input active" #receivedPicker [config]="receiveddateOptions" placeholder="Select Date.." [(ngModel)]="selectedreceivedDate" (change)="receivedDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.receivedDate.invalid }"></ng2-flatpickr></h6>
+                                </div>-->
+                               
                             </div>
                        
                     </div>
@@ -80,29 +80,29 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <td>{{receipt.barcodeNo}}</td>
                                 <td>{{receipt.sampleCollectionDateTime}}</td>
                                 <td class="n-chk text-center"><label
-                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
                                             class="new-control-input" disabled [checked]="receipt.sampleTimeout">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td>
                                 <td class="n-chk text-center"><label
-                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
-                                            class="new-control-input" [checked]="receipt.sampleDamaged" (change)="sampleDamageChange(i)">
+                                            class="new-control-input" [disabled]="!processingDateselected" [checked]="receipt.sampleDamaged" (change)="sampleDamageChange(i)">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td>
                                 <td class="n-chk text-center"><label
-                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
-                                            class="new-control-input" [checked]="receipt.barcodeDamaged" (change)="barcodeDamageChange(i)">
+                                            class="new-control-input" [disabled]="!processingDateselected" [checked]="receipt.barcodeDamaged" (change)="barcodeDamageChange(i)">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td>
                                 <td class="n-chk text-center">
                                     <label
-                                        class="new-control new-radio radio-primary">
+                                        class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
                                             name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.accept" disabled>
                                         <span
@@ -111,7 +111,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 </td>
                                 <td class="n-chk text-center">
                                     <label
-                                        class="new-control new-radio radio-primary">
+                                        class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
                                             name="colorRadio-{{i}}-2" value="Cplus" [checked]="receipt.reject" disabled>
                                         <span
