@@ -155,7 +155,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     // this.dateOfShipment =  this.dateService.getDate();
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
-    this.ddlRiPoint(this.user.id);
+   // this.ddlRiPoint(this.user.id);
     //this.anmpicknpackList();
 
     this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
@@ -688,6 +688,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.fetchMaxDateAllbc();
       
           this.picknpackErrorMessage = '';
+          this.ddlRiPoint(this.user.id);
+          this.alternateAVD = '';
+          this.alternateAVDContactNo = '';
 
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");
@@ -716,6 +719,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.fetchMaxDatelt24();
           
           this.picknpackErrorMessage = '';
+           this.ddlRiPoint(this.user.id);
+          this.alternateAVD = '';
+          this.alternateAVDContactNo = '';
           
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");
@@ -750,6 +756,9 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       this.fetchMaxDatelt24(); 
 
       this.picknpackErrorMessage = '';
+      this.ddlRiPoint(this.user.id);
+      this.alternateAVD = '';
+      this.alternateAVDContactNo = '';
       
       this.sampleShipmentDate = moment().format("DD/MM/YYYY");
       this.sampleShipmentTime = moment().format("HH:mm");

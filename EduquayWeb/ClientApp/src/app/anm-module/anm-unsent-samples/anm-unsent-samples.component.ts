@@ -519,6 +519,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
           this.fetchMaxDateAllbc();
       
           this.unsentSamplesErrorMessage = '';
+          this.ddlRiPoint(this.user.id);
+          this.alternateAVD = '';
+          this.alternateAVDContactNo = '';
 
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");
@@ -547,6 +550,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
           this.fetchMaxDatelt24();
           
           this.unsentSamplesErrorMessage = '';
+          this.ddlRiPoint(this.user.id);
+          this.alternateAVD = '';
+          this.alternateAVDContactNo = '';
           
           this.sampleShipmentDate = moment().format("DD/MM/YYYY");
           this.sampleShipmentTime = moment().format("HH:mm");
@@ -580,6 +586,9 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       }
       this.fetchMaxDatelt24(); 
       this.unsentSamplesErrorMessage = '';
+      this.ddlRiPoint(this.user.id);
+      this.alternateAVD = '';
+      this.alternateAVDContactNo = '';
 
       this.sampleShipmentDate = moment().format("DD/MM/YYYY");
       this.sampleShipmentTime = moment().format("HH:mm");

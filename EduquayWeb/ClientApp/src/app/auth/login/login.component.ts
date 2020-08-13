@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { authResponse } from '../../shared/auth-response';
 import { TokenService } from '../../shared/token.service';
 import { AuthService } from '../../shared/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('f', { static: false }) loginForm: NgForm;
+  
   loginCaption: string = "Submit";
   loginProcess: string = "Processing..";
   loginStatus: string = this.loginCaption;
@@ -21,8 +23,16 @@ export class LoginComponent implements OnInit {
   loginErrorMessage: string;
   ngDisabled: string;
   isProcessing: boolean = false;
+  textPassword: string;
+  isPassword: boolean = true;
 
-  constructor(private tokenService: TokenService, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+      private tokenService: TokenService, 
+      private authService: AuthService, 
+      private router: Router, 
+      private route: ActivatedRoute,
+      private el: ElementRef
+    ) { }
 
   ngOnInit() {
     let patientResponse = {};
@@ -71,4 +81,28 @@ export class LoginComponent implements OnInit {
     this.ngDisabled = "";
     this.isProcessing = status;
   }
+
+  showPassword(){
+    this.isPassword = true;
+    if(this.textPassword) this.isPassword = false;
+
+  }
+
+  forgotPassword(){
+    this.showResponseMessage('Please contact administrator to reset your password', 'i');
+  }
+
+  showResponseMessage(message: string, type: string){
+    var messageType = '';
+    if(type === 'e'){
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'});
+    }
+    else if(type === 'i'){
+      Swal.fire({icon:'info', title: message, confirmButtonText: 'Close'});
+    }
+    else if(type === 's'){
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'});
+    }
+  }
+  
 }
