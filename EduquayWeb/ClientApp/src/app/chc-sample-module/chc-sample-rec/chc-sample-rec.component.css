@@ -291,3 +291,7 @@ vertical-align: middle;
   color: #1b55e2;
   display: inline-block;
 }
+.margin-0
+{
+    margin:0 !important;
+}

@@ -97,29 +97,29 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <!-- <td class="text-center"></td>
                                 <td class="text-center"></td> -->
                                 <td class="n-chk text-center"><label
-                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
-                                            class="new-control-input" disabled [checked]="receipt.sampleTimeout">
+                                            class="new-control-input margin-0" disabled [checked]="receipt.sampleTimeout">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td>
                                 <td class="n-chk text-center"><label
-                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
-                                            class="new-control-input" [checked]="receipt.sampleDamaged" (change)="sampleDamageChange(i)">
+                                            class="new-control-input margin-0" [checked]="receipt.sampleDamaged" [disabled]="!processingDateEnter" (change)="sampleDamageChange(i);">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td>
                                 <td class="n-chk text-center"><label
-                                        class="new-control new-checkbox checkbox-outline-primary">
+                                        class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
-                                            class="new-control-input" [checked]="receipt.barcodeDamaged" (change)="barcodeDamageChange(i)">
+                                            class="new-control-input" [checked]="receipt.barcodeDamaged" [disabled]="!processingDateEnter" (change)="barcodeDamageChange(i)">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td>
                                 <td class="n-chk text-center">
                                     <label
-                                        class="new-control new-radio radio-primary">
+                                        class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
                                             name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.accept" disabled>
                                         <span
@@ -128,7 +128,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 </td>
                                 <td class="n-chk text-center">
                                     <label
-                                        class="new-control new-radio radio-primary">
+                                        class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
                                             name="colorRadio-{{i}}-2" value="Cplus" [checked]="receipt.reject" disabled>
                                         <span

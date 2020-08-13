@@ -34,6 +34,7 @@ export class CHCSampleRcptComponent implements OnInit {
   receivedDateSelected = false;
   ILRInDate;
   ILROutDate;
+  processingDateEnter = false;
   
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -149,7 +150,6 @@ export class CHCSampleRcptComponent implements OnInit {
   }
   
   openPopup(data) {
-    console.log(data);
     var _data:any = data;
     this.popupData = _data;
     this.formCheck = false;
@@ -171,7 +171,6 @@ export class CHCSampleRcptComponent implements OnInit {
         
     });
     this.currentshipmentDateTime = data.shipmentDateTime;
-    console.log(data.shipmentDateTime);
     /*this.receivedPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
@@ -264,7 +263,6 @@ export class CHCSampleRcptComponent implements OnInit {
   }
   outDateChange()
   {
-      console.log('hitting here');
       this.processingPicker.flatpickr.setDate("");
       this.processingPicker.flatpickr.set({
         maxDate: new Date(Date.now()),
@@ -286,6 +284,7 @@ export class CHCSampleRcptComponent implements OnInit {
         else
           this.resettingTableEvents(val,true,false,true,false,false);
       },this);
+      this.processingDateEnter= true;
     }
     
   }
@@ -350,8 +349,6 @@ export class CHCSampleRcptComponent implements OnInit {
     sampleSubmit()
     {
           this.formCheck = true;
-          console.log(this.ILRform.valid);
-          console.log(this.form.valid);
           if(this.ILRform.valid && this.form.valid)
           {
               var user = JSON.parse(this.tokenService.getUser('lu'));
@@ -381,7 +378,6 @@ export class CHCSampleRcptComponent implements OnInit {
 
                   _sampleResult.push(_obj);
               }
-              console.log(_sampleResult);
               var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDRECEIVEDSHIPMENT);
               this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
@@ -393,8 +389,6 @@ export class CHCSampleRcptComponent implements OnInit {
                         if (result.value) {
                           $('#fadeinModal').modal('hide');
                           this.chcsampleService.retriveCHCReceipt().subscribe(response => {
-                            console.log(response);
-                            console.log('Get Data');
                             if(response.status === "true")
                             {
                               this.chcReceiptsData = response.chcReceipts;

@@ -104,7 +104,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   selectedhouse;
   selectedstreet;
   selectedcity;
-  selectedstate = "Assam";
+  selectedstate;
   selectedspouseFirstName;
   selectedspouseMiddleName;
   selectedspouseLastName;
@@ -362,7 +362,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       if(this.firstFormGroup.valid)
         this.stepper.next();
 
-       // this.stepper.next();
+       //this.stepper.next();
     }
 
     prevStep() {
@@ -559,16 +559,13 @@ export class AnmAwRegistrationComponent implements OnInit {
     }
     govtIdTypeChange()
     {
-      console.log(this.selectedgovtIDType);
       if(this.selectedgovtIDType != null)
       {
         const validators = [ Validators.required];
         this.secondFormGroup.addControl('GovtIDDetail', new FormControl('', validators));
       }
       else
-      {
         this.secondFormGroup.addControl('GovtIDDetail', new FormControl(''));
-      }
             
     }
     ageEntered()
