@@ -43,6 +43,9 @@ export class CentralPickPackStartComponent implements OnInit {
   user;
   chcUploadResponse;
  
+  //missing models
+  selectedlogisticsServiceProvider: any;
+  selectedMobile: any;
 
   startOptions: FlatpickrOptions = {
     mode: 'single',
