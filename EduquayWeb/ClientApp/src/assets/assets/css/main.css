@@ -1633,7 +1633,7 @@ input[readonly], select[readonly], textarea[readonly] {
 .table > tbody > tr > td svg.t-icon.t-hover-icon:hover { background-color: #e7515a; color: #fff; }
 .table-bordered td { border: 1px solid #c9c9c9!important; }
 .table-bordered th { border: 1px solid #c9c9c9!important; }
-.table thead th { vertical-align: bottom; border-bottom: none; }
+.table thead th { vertical-align: middle; border-bottom: none; }
 .table-hover:not(.table-dark) tbody tr:hover { background-color: #f1f2f3!important; }
 .table-controls>li>a svg { color: #25d5e4; }
 .table tr td .custom-dropdown.t-custom-dropdown a.dropdown-toggle,

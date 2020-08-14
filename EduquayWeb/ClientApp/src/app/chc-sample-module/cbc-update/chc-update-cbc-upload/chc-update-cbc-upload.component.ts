@@ -161,7 +161,7 @@ type AOA = any[][];
   {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Confirm Upload HPLC results",
+      text: "Confirm Upload CBC results",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',

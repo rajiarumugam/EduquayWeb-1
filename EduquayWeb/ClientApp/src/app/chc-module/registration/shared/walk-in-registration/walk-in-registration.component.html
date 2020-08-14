@@ -148,7 +148,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputPincode1">{{'Email' | translate }}</label>
-                        <input type="email" class="form-control" id="inputPincode1" placeholder="Email" [(ngModel)]="selectedEmail" formControlName = "Email" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.Email.invalid }">
+                        <input type="email" class="form-control" id="inputPincode1" placeholder="abc@domain.com" [(ngModel)]="selectedEmail" formControlName = "Email" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.Email.invalid }">
                     </div>
 
                     <div class="form-group col-md-3">
@@ -194,37 +194,38 @@
                     <div class="form-group col-md-6">
                         <label class="birthreg maritalStatus-label" for="inputPincode" >{{'Married' | translate }}</label>
                         <label class="maritalstatus-radio-cont">
-                            <input type="radio" value="true" formControlName="maritalStatus">
+                            <input type="radio" value="true" formControlName="maritalStatus" (change)="marriedChange();">
                               <br><span>Yes</span>
                           </label>
                           <label class="maritalstatus-radio-cont">
-                            <input type="radio" value="false" formControlName="maritalStatus">
+                            <input type="radio" value="false" formControlName="maritalStatus" (change)="marriedChange();">
                             <br><span>No</span>
                           </label>
                     </div>   
                 </div>
 
-                <div id="spouse-box-yes" class="form-row my-2" *ngIf="secondFormGroup.get('maritalStatus').value === 'true'  ? true : false">
+                <div id="spouse-box-yes" class="form-row my-2" [hidden]="secondFormGroup.get('maritalStatus').value === 'true'  ?  false : true">
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputspousename" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">{{'SpouseFirstName' | translate }}</label><span
                             class="manto">
                             *</span>
-                        <input type="Text" class="form-control" id="inputspousename" placeholder="First Name" [(ngModel)]="selectedSpouseFirstName" formControlName = "spouseFirstName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }" [required]="secondFormGroup.get('maritalStatus').value === 'true'  ? true : false">
+                        <input type="Text" class="form-control" id="inputspousename" placeholder="First Name"  [required]="secondFormGroup.get('maritalStatus').value == 'true'" [(ngModel)]="selectedSpouseFirstName" formControlName = "spouseFirstName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }" >
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputspousename">{{'MiddleName' | translate }}</label>
                         <input type="text" class="form-control" id="inputspousename" placeholder="Last Name" [(ngModel)]="selectedSpouseMiddleName" formControlName = "spouseMiddleName">
                     </div>
                     <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputspousename" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">{{'LastName' | translate }}</label><span class="manto">*</span>
-                        <input type="text" class="form-control" id="inputspousename" placeholder="Last Name" [(ngModel)]="selectedSpouseLastName" formControlName = "spouseLastName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }" [required]="secondFormGroup.get('maritalStatus').value === 'true'  ? true : false">
+                        <label class="birthreg" for="inputspousename" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">{{'LastName' | translate }}</label><span class="manto">*</span>
+                        <input type="text" class="form-control" id="inputspousename" placeholder="Last Name" [required]="secondFormGroup.get('maritalStatus').value == 'true'" [(ngModel)]="selectedSpouseLastName" formControlName = "spouseLastName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">
                     </div>
                     <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputspousemblno" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseConta.invalid }">{{'ContactNumber' | translate }}</label><span class="manto">*</span>
-                        <input type="number" class="form-control" id="inputspousemblno" placeholder="Mobile No" [(ngModel)]="selectedSpouseContactNo" formControlName = "spouseContact" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }" [required]="secondFormGroup.get('maritalStatus').value === 'true'  ? true : false">
+                        <label class="birthreg" for="inputspousemblno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContact.invalid }">{{'ContactNumber' | translate }}</label><span class="manto">*</span>
+                        <input type="number" class="form-control" id="inputspousemblno" placeholder="Mobile No" [required]="secondFormGroup.get('maritalStatus').value == 'true'" [(ngModel)]="selectedSpouseContactNo" formControlName = "spouseContact" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }"  oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        maxlength = "10" numbersOnly>
                     </div>
                     <div class="form-group col-md-2">
-                        <label class="birthreg" for="inputspousemblno">{{'ECNumber' | translate }}</label>
+                        <label class="birthreg" for="inputspousemblno">{{'ECNumber' | translate }}</label><span class="manto" *ngIf="selectedECNumber?.length > 0"> *</span>
                         <input type="number" class="form-control" id="inputspousemblno"     placeholder="Enter number" [(ngModel)]="selectedECNumber" formControlName = "ECNumber" (ngModelChange)="ecNumberChange();" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                         maxlength = "16" numbersOnly [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.ECNumber.invalid }">
                     </div>
