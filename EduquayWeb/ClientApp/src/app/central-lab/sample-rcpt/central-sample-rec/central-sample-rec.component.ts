@@ -74,6 +74,7 @@ export class CentralSampleRcptComponent implements OnInit {
   formCheck = false;
   selectedreceivedDate;
   currentshipmentDateTime;
+  processingDateselected = false;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -140,18 +141,22 @@ export class CentralSampleRcptComponent implements OnInit {
         
     });
     console.log(data.shipmentDateTime);
-    this.receivedPicker.flatpickr.set({
+    /*this.receivedPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
-    });
+    });*/
+   
     this.processingPicker.flatpickr.set({
-      defaultDate: ""
+      minDate: data.shipmentDateTime,
+      enable: [],
+      enableTime: true,
+      dateFormat: 'd/m/Y H:i',
     });
     
     this.processingDate = "";
     this.selectedreceivedDate = ""; 
     this.processingPicker.flatpickr.setDate("");
-    this.receivedPicker.flatpickr.setDate("");
+    //this.receivedPicker.flatpickr.setDate("");
     
     
     this.currentshipmentDateTime = data.shipmentDateTime;
@@ -173,13 +178,14 @@ export class CentralSampleRcptComponent implements OnInit {
     if(this.form.get('processingDate').value.length > 0)
     {
       this.popupData['receiptDetail'].forEach(function(val,index){
-        if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) > 24*this.maxmDays)
+        if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) > 24*this.maxmDays)
             this.resettingTableEvents(val,true,false,true,false,false);
-        else if(this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) < 24*this.maxmDays && this.compareDate(this.form.get('processingDate').value,val.sampleCollectionDateTime) >= 0)
+        else if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) < 24*this.maxmDays && this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) >= 0)
             this.resettingTableEvents(val,false,true,false,false,false);
         else
           this.resettingTableEvents(val,true,false,true,false,false);
       },this);
+      this.processingDateselected = true;
     }
     
   }
@@ -190,12 +196,12 @@ export class CentralSampleRcptComponent implements OnInit {
     if(this.popupData['receiptDetail'][index].sampleDamaged)
       this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
     else{
-      if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > (24*this.maxmDays))
+      if(this.compareDate(this.form.get('processingDate').value,moment(this.currentshipmentDateTime).format('DD/MM/YYYY HH:MM')) > (24*this.maxmDays))
         this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
-      else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < (24*this.maxmDays) && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+      else if(this.compareDate(this.form.get('processingDate').value,moment(this.currentshipmentDateTime).format('DD/MM/YYYY HH:MM')) < (24*this.maxmDays) && this.compareDate(this.form.get('processingDate').value,moment(this.currentshipmentDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
         this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
       else
-        this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
+        this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
     }
   }
 

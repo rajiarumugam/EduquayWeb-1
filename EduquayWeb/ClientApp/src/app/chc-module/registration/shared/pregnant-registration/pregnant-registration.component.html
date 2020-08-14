@@ -212,7 +212,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputGovtIdDetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }">{{'GovtIDDetail' | translate }}</label><span class="manto" *ngIf="selectedgovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "GovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }" [required]="selectedgovtIDType != null">
+                        <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "GovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }" [required]="selectedgovtIDType != null" [attr.disabled]="selectedgovtIDType != null ? null : true">
                     </div>
                 </div>
                 <div class="form-row my-2">

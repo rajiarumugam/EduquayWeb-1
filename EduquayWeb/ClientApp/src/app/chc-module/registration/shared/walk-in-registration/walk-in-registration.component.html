@@ -160,7 +160,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputmotherGovtIdDetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govtIDDetail.invalid }">{{'GovtIDDetail' | translate }}</label><span class="manto" *ngIf="selectedgovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputmotherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "govtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govtIDDetail.invalid }" [required]="selectedgovtIDType != null">
+                        <input type="text" class="form-control" id="inputmotherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "govtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govtIDDetail.invalid }" [required]="selectedgovtIDType != null" [attr.disabled]="selectedgovtIDType != null ? null : true">
                     </div>
                 </div>
 
@@ -263,7 +263,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmotherGovtIdDetail" [ngClass]="{'label-border-class': thirdFormCheck && thirdFormGroup.controls.motherGovtIDDetail.invalid }">{{'GovtIDDetail' | translate }}</label><span class="manto" *ngIf="selectedmothergovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputmotherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedmotherGovtIDDetail" formControlName = "motherGovtIDDetail" [ngClass]="{'red-border-class': thirdFormCheck && thirdFormGroup.controls.motherGovtIDDetail.invalid }" [required]="selectedmothergovtIDType != null">
+                        <input type="text" class="form-control" id="inputmotherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedmotherGovtIDDetail" formControlName = "motherGovtIDDetail" [ngClass]="{'red-border-class': thirdFormCheck && thirdFormGroup.controls.motherGovtIDDetail.invalid }" [required]="selectedmothergovtIDType != null" [attr.disabled]="selectedmothergovtIDType != null ? null : true">
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienomother">{{'ContactNumber' | translate }}</label>
@@ -295,7 +295,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputfatherGovtIdDetail" [ngClass]="{'label-border-class': thirdFormCheck && thirdFormGroup.controls.fatherGovtIDDetail.invalid }">{{'GovtIDDetail' | translate }}</label><span class="manto" *ngIf="selectedfathergovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputfatherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedfatherGovtIDDetail" formControlName = "fatherGovtIDDetail" [ngClass]="{'red-border-class': thirdFormCheck && thirdFormGroup.controls.fatherGovtIDDetail.invalid }" [required]="selectedfathergovtIDType != null">
+                        <input type="text" class="form-control" id="inputfatherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedfatherGovtIDDetail" formControlName = "fatherGovtIDDetail" [ngClass]="{'red-border-class': thirdFormCheck && thirdFormGroup.controls.fatherGovtIDDetail.invalid }" [required]="selectedfathergovtIDType != null" [attr.disabled]="selectedfathergovtIDType != null ? null : true">
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienofather">{{'ContactNumber' | translate }}</label>
@@ -327,7 +327,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputguardianGovtIdDetail" [ngClass]="{'label-border-class': thirdFormCheck && thirdFormGroup.controls.guardianGovtIDDetail.invalid }">{{'GovtIDDetail' | translate }}</label><span class="manto" *ngIf="selectedguardiangovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputguardianGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedguardianGovtIDDetail" formControlName = "guardianGovtIDDetail" [ngClass]="{'red-border-class': thirdFormCheck && thirdFormGroup.controls.guardianGovtIDDetail.invalid }" [required]="selectedguardiangovtIDType != null">
+                        <input type="text" class="form-control" id="inputguardianGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedguardianGovtIDDetail" formControlName = "guardianGovtIDDetail" [ngClass]="{'red-border-class': thirdFormCheck && thirdFormGroup.controls.guardianGovtIDDetail.invalid }" [required]="selectedguardiangovtIDType != null" [attr.disabled]="selectedguardiangovtIDType != null ? null : true">
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienoguardian">{{'ContactNumber' | translate }}</label>
