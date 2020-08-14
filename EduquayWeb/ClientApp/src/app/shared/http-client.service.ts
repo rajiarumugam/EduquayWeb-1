@@ -24,7 +24,7 @@ export class HttpClientService {
   }
 
   getCached<T>(options: HttpOptions): Observable<T> {
-    return this.httpCachedCall(Verbs.GET, options)
+    return this.httpCall(Verbs.GET, options); //httpCachedCall
   }
 
   delete<T>(options: HttpOptions): Observable<T> {
@@ -58,6 +58,7 @@ export class HttpClientService {
     options.body = options.body || null
     options.cacheMins = options.cacheMins || 0
 
+    /*
     if (options.cacheMins > 0) {
       // Get data from cache
       const data = this._cacheService.load(options.url)
@@ -66,7 +67,7 @@ export class HttpClientService {
         return of<T>(data)
       }
     }
-
+*/
     return this.http.request<T>(verb, options.url, {
       body: options.body
     })

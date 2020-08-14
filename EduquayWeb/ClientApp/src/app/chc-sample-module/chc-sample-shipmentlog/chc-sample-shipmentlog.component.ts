@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { ChcSampleShipmentlogService } from 'src/app/shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog.service'
 import { HttpErrorResponse } from '@angular/common/http';
+import * as printJS from "print-js";
 
 @Component({
   selector: 'app-chc-sample-shipmentlog',
@@ -44,6 +45,7 @@ export class ChcSampleShipmentlogComponent implements OnInit {
   rchId: string;
   barcodeNo: string;
   sampleCollectionDateTime: string;
+  isPrintable: boolean = false;
 
 
   constructor(
@@ -121,7 +123,8 @@ chcsampleshipmentLogList(chcId){
 }
 
 openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
- 
+
+  this.isPrintable = false;
   this.shipmentId = shipment.shipmentId;
   this.shipmentDateTime = shipment.shipmentDateTime;
   this.receivingCentralLab = shipment.receivingCentralLab;
@@ -141,6 +144,36 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
       keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
+}
+
+openchcShipmentPrint(shippedChcSampleDetail: any, shipment: ChcSampleShipmentList){
+  this.openchcSampleShipment(shippedChcSampleDetail, shipment);
+  this.isPrintable = true;
+  this.printShipment(shippedChcSampleDetail, shipment);
+ 
+}
+
+printShipment(shippedChcSampleDetail: any, shipment: ChcSampleShipmentList){
+  return new Promise(resolve =>
+    setTimeout(() => resolve(
+      //printJS("print-area", "html" )
+      printJS({printable: 'print-area',
+      type: 'html',
+      targetStyles: ['*'], 
+      header:'<h3>Shipment Details</h3><hr>',
+      documentTitle: 'Shipment Details',
+      maxWidth: 1200  })
+      ), 200)
+  );
+  
+}
+
+printDocument(){
+  let printContents = document.getElementById('print-area').innerHTML;
+  let originalContents = document.body.innerHTML;
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
 }
 
 rerender(): void {

@@ -138,7 +138,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   selectedcity;
 
   notifySamples: string;
- 
+  selectedPositiveSubject: positiveSubjects;
+
   constructor(
     private PositiveSubjectsService: PositiveSubjectsService,
     private modalService: NgbModal,
@@ -271,6 +272,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.getCaste();
     //this.getCommunity(0);
     this.getGovernmentIDType();
+
+    this.selectedPositiveSubject = positiveSub;
 
     this.selecteddor = new Date(Date.now());
     this.selectedanwname = positiveSub.subjectName;
@@ -593,13 +596,14 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
-          this.getpositiveSubjectList(this.user.id);
+         
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
     showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
        .then((result) => {
          if (result.value) {
           $('#fadeinModal').modal('hide');
+          this.getpositiveSubjectList(this.user.id);
           if(this.modalService.hasOpenModals){
             this.modalService.dismissAll();
           }
@@ -630,9 +634,9 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     {
       var _obj = {
         "subjectPrimaryRequest": {
-          "subjectTypeId": 1,
-          "childSubjectTypeId": 1,
-          "uniqueSubjectId": "",
+          "subjectTypeId": 2,
+          "childSubjectTypeId": 2,
+          "uniqueSubjectId": "", //unique subject id of ANW
           "districtId": this.firstFormGroup.get('district').value != undefined ? Number(this.firstFormGroup.get('district').value) : 0,
           "chcId": Number(this.firstFormGroup.get('chc').value),
           "phcId": Number(this.firstFormGroup.get('phc').value),
@@ -650,11 +654,11 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
           "emailId": this.secondFormGroup.get('spouseEmail').value != undefined ? this.secondFormGroup.get('spouseEmail').value : '',
           "govIdTypeId": this.secondFormGroup.get('govtIDType').value != undefined ? this.secondFormGroup.get('govtIDType').value : 0,
           "govIdDetail": this.secondFormGroup.get('GovtIDDetail').value != undefined ? this.secondFormGroup.get('GovtIDDetail').value : '',
-          "spouseSubjectId": "",
-          "spouseFirstName": "",
+          "spouseSubjectId": this.selectedPositiveSubject.uniqueSubjectId, // unique subject id of ANW
+          "spouseFirstName": this.selectedPositiveSubject.subjectName,
           "spouseMiddleName": "",
-          "spouseLastName": "",
-          "spouseContactNo": "",
+          "spouseLastName": this.selectedPositiveSubject.subjectName,
+          "spouseContactNo": this.selectedPositiveSubject.contactNo,
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": this.user.id,

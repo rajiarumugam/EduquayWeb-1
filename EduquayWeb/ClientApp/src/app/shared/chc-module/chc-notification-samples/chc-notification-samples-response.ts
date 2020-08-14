@@ -8,7 +8,7 @@ export interface ChcNotifiedSampleList {
     sampleCollectionId: number;
     uniqueSubjectId: string;
     subjectName: string;
-    rchID: string;
+    rchId: string;
     barcodeNo: string;
     contactNo: string;
     gestationalAge: string;

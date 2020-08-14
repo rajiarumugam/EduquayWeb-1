@@ -8,6 +8,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { GenericService } from 'src/app/shared/generic.service';
 import { ENDPOINT } from '../../app.constant';
 import { HttpClientService } from 'src/app/shared/http-client.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-site-header',
@@ -22,6 +23,7 @@ export class SiteHeaderComponent implements OnInit {
   userName: string;
   userId: string;
   authResult: authResponse;
+  private cookieValue: string;
 
 
   constructor(
@@ -32,11 +34,13 @@ export class SiteHeaderComponent implements OnInit {
     private httpClient: HttpClient, 
     private httpClientService:HttpClientService,
     private genericService: GenericService,
+    private cookieService: CookieService,
     public translate: TranslateService) {
     //https://www.positronx.io/angular-internationalization-i18n-with-ngx-translate-tutorial/
     translate.addLangs(['English', 'ଓଡିଆ']); //, 'தமிழ்', 'हिन्दी'
     translate.setDefaultLang('English');
     this.translate.use('English');
+   
    }
 
   ngOnInit() {
@@ -44,6 +48,9 @@ export class SiteHeaderComponent implements OnInit {
     setInterval(() => { this.today = Date.now() }, 1);
     this.isPageLoaded = true;
     this.getLoggedUser();
+    // this.cookieService.set('cookieApp', 'Welcome you, Anil!' );
+    // //Get Cookies
+    // this.cookieValue = this.cookieService.get('cookieApp');
   }
 
   getLoggedUser(){
@@ -79,7 +86,10 @@ export class SiteHeaderComponent implements OnInit {
     var apiUrl = this.genericService.buildApiUrl(`${logoutApi}/${user.id}`);
         this.httpClientService.post<any>({url:apiUrl, body: _userLogoutObj }).subscribe(response => {
           console.log(response);
-          this.tokenService.deleteToken('currentUser');
+         this.tokenService.clearToken();
+         localStorage.clear();
+         this.tokenService.deleteToken('currentUser');
+          // this.cookieService.delete('cookieApp');
           this.router.navigate(['/login']);
         },
         (err: HttpErrorResponse) =>{
