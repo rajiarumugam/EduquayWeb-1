@@ -534,7 +534,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value != undefined ? this.secondFormGroup.get('spouseFirstName').value : '',
           "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
           "spouseLastName": this.secondFormGroup.get('spouseLastName').value != undefined ? this.secondFormGroup.get('spouseLastName').value : "",
-          "spouseContactNo": this.secondFormGroup.get('spouseContactNumber').value != undefined ? ""+this.secondFormGroup.get('spouseContactNumber').value : "",
+          "spouseContactNo": this.secondFormGroup.get('spouseContact').value != undefined ? ""+this.secondFormGroup.get('spouseContact').value : "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": Number(this.associatedANMData[this.selectedAssociatedANMID].associatedANMId),
@@ -556,7 +556,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         },
         "subjectPregnancyRequest": {
           "rchId": '0',
-          "ecNumber": this.secondFormGroup.get('ECNumber').value != undefined ? this.secondFormGroup.get('ECNumber').value != undefined : "",
+          "ecNumber": this.secondFormGroup.get('ECNumber').value != undefined ? this.secondFormGroup.get('ECNumber').value : "",
           "lmpDate": "",
           "g": 0,
           "p": 0,
