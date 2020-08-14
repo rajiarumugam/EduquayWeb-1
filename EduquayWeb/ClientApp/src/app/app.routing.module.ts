@@ -123,8 +123,9 @@ import { ChcSampleShipmentlogResolverService } from "./shared/chc-sample/chc-sam
 import { CentralShipmentMainComponent } from "./central-lab/shipment-log/central-shipment-log-main/central-shipment-log-main.component";
 import { CentralCentralShipmentComponent } from "./central-lab/shipment-log/central-shipment-log/central-shipment-log.component";
 import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-view-shipment/chc-sample-view-shipment.component";
-import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
+// import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
+import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -189,17 +190,24 @@ const routes: Routes = [
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
-      //{ path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent, resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
+      { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent, resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
       { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent, resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}},
       { path: 'chc-sample-viewshipment', component: ChcSampleViewShipmentComponent, pathMatch: 'full'},
-      {
-        path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
-        children:[
-          {path: '', component: ChcPendingPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
-          {path: 'startpickpack', component: ChcStartPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
+      // {
+      //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
+      //   children:[
+      //     {path: '', component: ChcPendingPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
+      //     {path: 'start', component: ChcStartPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}}
+      //   ]
+      // },
+      // {
+      //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
+      //   children:[
+      //     {path: '', component: ChcPendingPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
+      //     {path: 'startpickpack', component: ChcStartPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
 
-        ]
-      },
+      //   ]
+      // },
       {
         path: 'chc-update-sst', component: CHCUpdateSSTComponent,
         children:[
@@ -376,7 +384,9 @@ export const RoutingComponents = [
   CentralPickPackStartComponent,
   ChcSampleShipmentlogComponent,
   CentralShipmentMainComponent,
-  CentralCentralShipmentComponent
+  CentralCentralShipmentComponent,
+  ChcPendingPickpackComponent,
+  ChcStartPickpackComponent
 ];
 
 

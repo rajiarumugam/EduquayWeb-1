@@ -78,8 +78,8 @@
                                                 (click)="openchcSampleShipment(shippedChcSampleDetail, shipment)">
                                                 <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
-                                        <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
-                                                    aria-hidden="true"></i> </a></td>
+                                        <td style="text-align: center"><a (click)="openchcShipmentPrint(shippedChcSampleDetail, shipment)"><i class="fa fa-print text-primary"
+                                            aria-hidden="true"></i> </a></td>
                                     </tr>
 
                                 </tbody>
@@ -182,6 +182,9 @@
 
                     </div>
                     <div class="modal-footer">
+                        <button class="btn btn-outline-primary" (click)="printShipment(shippedChcSampleDetail, shipment)">
+                            <i class="fa fa-print" aria-hidden="true"></i>
+                        </button>
                         <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
                             Close</button>
                     </div>

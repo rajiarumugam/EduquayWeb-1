@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
 import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateService } from 'src/app/shared/utility/date.service';
@@ -15,6 +15,7 @@ import { logisticsProviderModel } from 'src/app/shared/chc-module/chc-pickandpac
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-start-pickpack',
@@ -44,6 +45,7 @@ export class ChcStartPickpackComponent implements OnInit {
   providerNames: logisticsProviderModel[] = [];
   centralLab: centalLabModel[]=[]; 
   user: user;
+  showUploadResult = false;
 
   shipmentId: string;
   errorMessage: string;
@@ -56,6 +58,9 @@ export class ChcStartPickpackComponent implements OnInit {
   isAliquoteBarcodeMatch: boolean = false;
   tempCHCDatas: tempCHCData[] = [];
   startPickpackData: startPickpack[] = [];
+  tempCHCData = [];
+  centralReceiptsData: any[] = [];
+  pickpackStartList = [];
   primarytubeSelected: boolean = true;
   alliquotedtubeSelected: boolean = true;
   startpickpackSelected: boolean = true;
@@ -102,7 +107,10 @@ export class ChcStartPickpackComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router,
     private route: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    zone: NgZone,
+    private DataService:DataService,
+
   ) { }
 
   ngOnInit() {
@@ -126,26 +134,28 @@ export class ChcStartPickpackComponent implements OnInit {
         },
       }
     };
-    console.log(this.chcsamplePickpackService.chcSamplePickPackApi);
-    //this.chcsamplepicknpackList(this.user.chcId);
-    this.chcsamplepickpackinitResponse = this.route.snapshot.data.chcpickpackSamplesData;
-    if (this.chcsamplepickpackinitResponse.status === 'false') {
-      this.chcsamplepickpack = [];
-      if (this.chcsamplepickpackinitResponse.message !== null && this.chcsamplepickpackinitResponse.message.code === "ENOTFOUND") {
-        this.samplepicknpackErrorMessage = "Unable to connect to api source";
+    this.centralReceiptsData = [];
+    var centralReceiptsArr = this.route.snapshot.data.chcpickpackSamplesData;
+    if(centralReceiptsArr !== undefined && centralReceiptsArr.status.toString() === "true"){
+      var _tempData = centralReceiptsArr.pickandPack;
+      var _tempReceivedData = JSON.parse(JSON.stringify(centralReceiptsArr.pickandPack));
+      if(this.DataService.getdata().centralpickpackstart != undefined)
+      {
+        this.pickpackStartList = this.DataService.getdata().centralpickpackstart;
+        this.pickpackStartList.forEach((obj)=>{
+          var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
+          _tempData.splice(existNotification,1);
+        });
+        this.showUploadResult = true;
       }
-      else if (this.chcsamplepickpackinitResponse.message !== null || this.chcsamplepickpackinitResponse.message == undefined) {
-        this.samplepicknpackErrorMessage = this.chcsamplepickpackinitResponse.message;
-      }
+      
+        this.centralReceiptsData = _tempData;
+        this.tempCHCData = JSON.parse(JSON.stringify(_tempData));
+        this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.centralReceiptsData.length,"startpickCount":this.pickpackStartList.length}));
+      
     }
-    else {
-
-      if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
-        this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
-        
-        this.onLoadSamples.emit(this.chcsamplepickpack.length);
-        //this.onLoadSamples.emit(this.startPickpackData.length);
-      }
+    else{
+      this.errorMessage = centralReceiptsArr.message;
     }
   }
 

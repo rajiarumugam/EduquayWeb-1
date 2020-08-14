@@ -39,6 +39,7 @@
     "moment": "^2.27.0",
     "ng-wizard": "^1.0.0",
     "ng2-flatpickr": "^9.0.0",
+    "ngx-cookie-service": "^10.0.1",
     "oidc-client": "^1.10.1",
     "popper.js": "^1.16.1",
     "print-js": "^1.0.63",

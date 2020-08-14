@@ -157,7 +157,7 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
     this.subjectName = chcsample.subjectName;
     this.uniqueSubjectId = chcsample.uniqueSubjectId;
-    this.rchId = chcsample.rchID;
+    this.rchId = chcsample.rchId;
     this.reason = chcsample.reason;
     this.sampleCollectionDate = moment().format("DD/MM/YYYY");
     this.sampleCollectionTime = moment().format("HH:mm");

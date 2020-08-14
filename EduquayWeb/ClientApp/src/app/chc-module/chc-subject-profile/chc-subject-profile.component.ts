@@ -152,9 +152,9 @@ export class ChcSubjectProfileComponent implements OnInit {
       lastname: ['null', Validators.required],
       dob: [''],
       age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
-      DDLreligion: ['null', Validators.required],
-      DDLcaste: ['null', Validators.required],
-      DDLcommunity: ['null', Validators.required],
+      DDLreligion: ['', Validators.required],
+      DDLcaste: ['', Validators.required],
+      DDLcommunity: ['', Validators.required],
    });
    this.secondFormGroup = this._formBuilder.group({
     ecNumber: [''],
@@ -169,12 +169,16 @@ export class ChcSubjectProfileComponent implements OnInit {
     spouseMiddleName: [''],
     spouseLastName: ['null', Validators.required],
     spouseContactNo: ['null', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-    emailId: ['null',Validators.email],
+    emailId: [''],
     rchId: ['null', Validators.required],
-    g: ['', Validators.required],
-    p: ['', Validators.required],
-    l: ['', Validators.required],
-    a: ['', Validators.required]
+    g: [''],
+    p: [''],
+    l: [''],
+    a: ['']
+    // g: ['', Validators.required],
+    // p: ['', Validators.required],
+    // l: ['', Validators.required],
+    // a: ['', Validators.required]
   });
   }
 
@@ -250,10 +254,10 @@ export class ChcSubjectProfileComponent implements OnInit {
       spouseLastName: new FormControl(this.chcbasicInfo.spouseLastName),
       spouseContactNo: new FormControl(this.chcbasicInfo.spouseContactNo),
       DDLGovtIDType: new FormControl(this.chcbasicInfo.govIdType),
-      g: new FormControl(this.chcpersonalInfo.g),
-      p: new FormControl(this.chcpersonalInfo.p),
-      l: new FormControl(this.chcpersonalInfo.l),
-      a: new FormControl(this.chcpersonalInfo.a)
+      // g: new FormControl(this.chcpersonalInfo.g),
+      // p: new FormControl(this.chcpersonalInfo.p),
+      // l: new FormControl(this.chcpersonalInfo.l),
+      // a: new FormControl(this.chcpersonalInfo.a)
 
     });
     //this.chcsocioDemographicInfo.address1 = this.secondFormGroup.value.mobileNo
@@ -496,7 +500,7 @@ export class ChcSubjectProfileComponent implements OnInit {
         "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value,
         "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
         "spouseLastName": this.secondFormGroup.get('spouseLastName').value,
-        "spouseContactNo": "",
+        "spouseContactNo":this.secondFormGroup.get('spouseContactNo').value,
         "spouseGovIdTypeId": 0,
         "spouseGovIdDetail": "",
         "assignANMId": 0,
@@ -512,7 +516,7 @@ export class ChcSubjectProfileComponent implements OnInit {
         "address1": this.secondFormGroup.get('house').value,
         "address2": this.secondFormGroup.get('street').value,
         "address3": this.secondFormGroup.get('city').value,
-        "pincode": ""+this.secondFormGroup.get('pincode').value,
+        "pincode": this.secondFormGroup.get('pincode').value,
         "stateName": this.secondFormGroup.get('stateName').value,
         "updatedBy": Number(this.user.id)
       },
@@ -521,10 +525,14 @@ export class ChcSubjectProfileComponent implements OnInit {
         "ecNumber": this.secondFormGroup.get('ecNumber').value != undefined ? this.secondFormGroup.get('ecNumber').value : '',
         "lmpDate": "",
         //"lmpDate": moment(new Date(this.firstFormGroup.get('lmpdate').value)).format("DD/MM/YYYY"),
-        "g": Number(this.secondFormGroup.get('g').value),
-        "p": Number(this.secondFormGroup.get('p').value),
-        "l": Number(this.secondFormGroup.get('l').value),
-        "a": Number(this.secondFormGroup.get('a').value),
+        // "g": Number(this.secondFormGroup.get('g').value),
+        // "p": Number(this.secondFormGroup.get('p').value),
+        // "l": Number(this.secondFormGroup.get('l').value),
+        // "a": Number(this.secondFormGroup.get('a').value),
+        "g": 0,
+        "p": 0,
+        "l":0,
+        "a": 0,
         "updatedBy": Number(this.user.id)
       },
       "subjectParentRequest": {

@@ -173,7 +173,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       this.subjectName= sample.subjectName;
       this.uniqueSubjectId = sample.uniqueSubjectId;
       this.notifyStatus = sample.notifiedStatus;
-      this.rchId = sample.rchID;
+      this.rchId = sample.rchId;
       this.reason = sample.reason;
       this.sampleCollectionDate = moment().format("DD/MM/YYYY");
       this.sampleCollectionTime = moment().format("HH:mm");

@@ -56,6 +56,7 @@ import { ChcSampleViewShipmentComponent } from './chc-sample-module/chc-sample-v
 import { ChcPendingPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component';
 import { ChcStartPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component';
 import { AppPasswordDirective } from './shared/directive/app-password.directive';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -119,6 +120,7 @@ const ngWizardConfig: NgWizardConfig = {
     MatSliderModule,
     ReactiveFormsModule,
     Ng2FlatpickrModule,
+    
    
   ],
   providers: [
@@ -137,7 +139,8 @@ const ngWizardConfig: NgWizardConfig = {
     CommonService,
     ConstantService,
     GenericService,
-    DataService
+    DataService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

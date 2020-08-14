@@ -230,8 +230,9 @@ export class AnmAwRegistrationComponent implements OnInit {
     .subscribe(response => {
       this.SCdata = response['sc'];
       this.selectedsc = this.user.scId;
-      if(this.selectedsc === "" && this.SCdata[0])
+      if(this.selectedsc === "" && this.SCdata[0]){
         this.selectedsc = this.SCdata[0].id;
+      }
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
