@@ -110,6 +110,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedrbskid;
   selectedschoolsection;
   selectedrollnumber;
+  selectedgovtIDType;
 
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) { }
 
@@ -355,7 +356,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       if(this.secondFormGroup.valid)
         this.stepper.next();
     }
-        //this.stepper.next();
+        this.stepper.next();
   }
 
     prevStep() {

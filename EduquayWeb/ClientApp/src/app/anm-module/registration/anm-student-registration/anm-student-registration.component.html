@@ -184,7 +184,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmotherGovtIdDetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherGovtIDDetail.invalid }">{{'GovtIDDetail' | translate }}</label><span class="manto" *ngIf="selectedmothergovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputmotherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedmotherGovtIDDetail" formControlName = "motherGovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherGovtIDDetail.invalid }" [required]="selectedmothergovtIDType != null" [attr.disabled]="selectedgovtIDType != null ? null : true">
+                        <input type="text" class="form-control" id="inputmotherGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedmotherGovtIDDetail" formControlName = "motherGovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherGovtIDDetail.invalid }" [required]="selectedmothergovtIDType != null" [attr.disabled]="selectedmothergovtIDType != null ? null : true">
                     </div>
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienomother" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherContactNumber.invalid }">{{'ContactNumber' | translate }}<span

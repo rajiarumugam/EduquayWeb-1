@@ -115,6 +115,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   selectedspouseLastName;
   selectedspouseContactNumber;
   selectedspouseEmail;
+  ageValidate = false;
 
   selectedAssociatedANMID;
   associatedCount = 0;
@@ -173,12 +174,12 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       dor: ['', Validators.required],
       district: ['', Validators.required],
       chc: ['', Validators.required],
-      pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
       contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
       subjectitle: ['Ms.'],
       firstname: ['', Validators.required],
       middlename: [''],
       lastname: ['', Validators.required],
+      dob: [''],
       age: ['', [Validators.required,Validators.min(18), Validators.max(99)]],
       rchid: ['', Validators.required],
       lmpdate: ['', Validators.required],
@@ -202,7 +203,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       street: ['', Validators.required],
       city : ['', Validators.required],
       state: [''],
-      subjectTitle : ['Mr.'],
+      pincode: ['', [Validators.required,Validators.min(100000), Validators.max(999999)]],
+      /*subjectTitle : ['Mr.'],*/
       spouseFirstName: ['', Validators.required],
       spouseMiddleName: [''],
       spouseLastName: ['', Validators.required],
@@ -268,7 +270,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.masterService.getuserBasedSC()
     .subscribe(response => {
       this.SCdata = response['sc'];
-      this.selectedsc = this.user.scId;
+      //this.selectedsc = this.user.scId;
     },
     (err: HttpErrorResponse) =>{
       this.SCdata = [];
@@ -380,6 +382,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
          age--;
      }
      console.log(age);
+     this.ageValidate = true;
      this.selectedage = age;
      //return age;
   }
@@ -435,6 +438,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   nextStep() {
     this.firstFormCheck = true;
       if(this.firstFormGroup.valid)
+        this.stepper.next();
+
         this.stepper.next();
     }
 
@@ -549,7 +554,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
           "address1": this.secondFormGroup.get('house').value,
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
-          "pincode": ""+this.firstFormGroup.get('pincode').value,
+          "pincode": ""+this.secondFormGroup.get('pincode').value,
           "stateName": _tempStateSelected[0]['stateName'],
           "updatedBy": Number(this.user.id)
         },
@@ -641,6 +646,13 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     {
         return this.stepper.selectedIndex;
     } 
+    ageEntered()
+    {
+      if(!this.ageValidate)
+      this.DOBPicker.flatpickr.setDate("");
+  
+      this.ageValidate = false;
+    }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();

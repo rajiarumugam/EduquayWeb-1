@@ -32,7 +32,7 @@ export class ChcPendingPickpackComponent implements OnInit {
   pickpackStartList = [];
  
 
-
+  samplepicknpackErrorMessage;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   constructor(
