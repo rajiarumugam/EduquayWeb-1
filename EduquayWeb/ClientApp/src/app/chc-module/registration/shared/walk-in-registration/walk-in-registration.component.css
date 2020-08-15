@@ -316,3 +316,9 @@ vertical-align: middle;
     -webkit-transform: translateY(0px) scale(1);
     transform: translateY(0px) scale(1);
 }
+
+  /*----dropdown----*/
+  app-select-dropdown.form-control
+  {
+      padding:0 !important;
+  }

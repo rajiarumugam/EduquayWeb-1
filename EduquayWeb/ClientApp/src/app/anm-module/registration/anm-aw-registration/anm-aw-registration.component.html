@@ -52,12 +52,12 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
-                            <input type="text" class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            <input type="text" autocomplete="off"class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "6" numbersOnly>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'ContactNumber' | translate }}</label><span class="manto"> *</span>
-                            <input type="text" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly>
+                            <input type="text" autocomplete="off"class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly>
                             
                         </div>
                     </div>
@@ -65,19 +65,19 @@
                     <div class="form-row my-2">
                         <div class="form-group col-md-2">
                             <label class="birthreg" for="inputSubtitle">{{'SubjectTitle' | translate }}</label><span class="manto"> *</span>
-                            <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Ms." readonly [(ngModel)]="selectedsubjectTitle" formControlName = "subjectitle" >
+                            <input type="text" autocomplete="off"class="form-control" id="inputSubtitle" placeholder=" Ms." readonly [(ngModel)]="selectedsubjectTitle" formControlName = "subjectitle" >
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">{{'FirstName' | translate }}</label><span class="manto"> *</span>
-                            <input type="Text" class="form-control" id="inputFirstname" placeholder="First Name" [(ngModel)]="selectedfirstname" required formControlName = "firstname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">
+                            <input type="text" autocomplete="off"class="form-control" id="inputFirstname" placeholder="First Name" [(ngModel)]="selectedfirstname" required formControlName = "firstname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputMiddlename">{{'MiddleName' | translate }}</label>
-                            <input type="Text" class="form-control" id="inputMiddlename" placeholder="Middle Name" [(ngModel)]="selectedmiddlename" formControlName = "middlename">
+                            <input type="text" autocomplete="off"class="form-control" id="inputMiddlename" placeholder="Middle Name" [(ngModel)]="selectedmiddlename" formControlName = "middlename">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">{{'LastName' | translate }}</label><span class="manto"> *</span>
-                            <input type="Text" class="form-control" id="inputLastname" placeholder="Last Name" [(ngModel)]="selectedlastname" formControlName = "lastname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">
+                            <input type="text" autocomplete="off"class="form-control" id="inputLastname" placeholder="Last Name" [(ngModel)]="selectedlastname" formControlName = "lastname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">
                         </div>
                     </div>
                     <div class="form-row my-2">
@@ -89,13 +89,13 @@
                             </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>
-                            <input type="text" class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            <input type="text" autocomplete="off"class="form-control" id="inputAge" placeholder="Age" required="true" [(ngModel)]="selectedage" formControlName = "age" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "2" numbersOnly (ngModelChange)="ageEntered();">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputRCHID" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }">{{'RCHID' | translate }}</label><span class="manto"> *</span>
                             <p class="rchid-disable-value">121</p>
-                            <input type="text" class="form-control rchid-input" id="inputRCHID" placeholder="{{'RCHID' | translate }}" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            <input type="text" autocomplete="off"class="form-control rchid-input" id="inputRCHID" placeholder="{{'RCHID' | translate }}" required [(ngModel)]="selectedrchid" formControlName = "rchid" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchid.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "9" numbersOnly>
                         </div>
                         <div class="form-group col-md-3">
@@ -159,7 +159,7 @@
                 <div class="form-row my-2">
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputECnumber" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.ECNumber.invalid }">{{'ECNumber' | translate }}</label><span class="manto" *ngIf="selectedECNumber?.length > 0"> *</span>
-                        <input type="text" class="form-control" id="inputECnumber" placeholder="EC Number" [(ngModel)]="selectedECNumber" formControlName = "ECNumber" (ngModelChange)="ecNumberChange();" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        <input type="text" autocomplete="off"class="form-control" id="inputECnumber" placeholder="EC Number" [(ngModel)]="selectedECNumber" formControlName = "ECNumber" (ngModelChange)="ecNumberChange();" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                         maxlength = "16" numbersOnly [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.ECNumber.invalid }">
                     </div>
                     <div class="form-group col-md-3">
@@ -171,7 +171,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputGovtIdDetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }">{{'GovtIDDetail' | translate }} </label><span class="manto" *ngIf="selectedgovtIDType != null"> *</span>
-                        <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "GovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }" [required]="selectedgovtIDType != null" [attr.disabled]="selectedgovtIDType != null ? null : true">
+                        <input type="text" autocomplete="off"class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedGovtIDDetail" formControlName = "GovtIDDetail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.GovtIDDetail.invalid }" [required]="selectedgovtIDType != null" [attr.disabled]="selectedgovtIDType != null ? null : true">
                     </div>
                 </div>
                 <div class="form-row my-2">
@@ -202,19 +202,19 @@
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputPlotNo" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">{{'HousePlotNumber' | translate }}<span class="manto">
                             *</span></label>
-                        <input type="text" class="form-control" id="inputPlotNo" placeholder="House Number" required [(ngModel)]="selectedhouse" formControlName = "house" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
+                        <input type="text" autocomplete="off"class="form-control" id="inputPlotNo" placeholder="House Number" required [(ngModel)]="selectedhouse" formControlName = "house" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputCaste" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">{{'StreetAndLocality' | translate }}</label><span class="manto"> *</span>
-                        <input type="text" class="form-control" id="inputCaste" placeholder="Street" required [(ngModel)]="selectedstreet" formControlName = "street" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
+                        <input type="text" autocomplete="off"class="form-control" id="inputCaste" placeholder="Street" required [(ngModel)]="selectedstreet" formControlName = "street" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">{{'CityOrVillage' | translate }}</label><span class="manto"> *</span>
-                        <input type="text" class="form-control" id="inputCity" placeholder="City" required [(ngModel)]="selectedcity" formControlName = "city" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">
+                        <input type="text" autocomplete="off"class="form-control" id="inputCity" placeholder="City" required [(ngModel)]="selectedcity" formControlName = "city" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="inputMoblie" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">{{'State' | translate }}</label><span class="manto"> *</span>
-                        <!--<input type="text" class="form-control" id="inputMoblie" placeholder="Odisha" [(ngModel)]="selectedstate" formControlName = "state" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">-->
+                        <!--<input type="text" autocomplete="off"class="form-control" id="inputMoblie" placeholder="Odisha" [(ngModel)]="selectedstate" formControlName = "state" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }">-->
                         <app-select-dropdown  [(ngModel)]="selectedstate" class="form-control" formControlName="state" [list]="statelist" returnId="false" placeholder="Select State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }"></app-select-dropdown>
                     </div>
                 </div>
@@ -222,27 +222,27 @@
                <div class="form-row my-2">
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputSubtitle">Subject Title</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="inputSubtitle" placeholder=" Mr." readonly="" [(ngModel)]="selectedsubjectTitle1" formControlName = "subjectTitle">
+                        <input type="text" autocomplete="off"class="form-control" id="inputSubtitle" placeholder=" Mr." readonly="" [(ngModel)]="selectedsubjectTitle1" formControlName = "subjectTitle">
                     </div>                    
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="spouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">{{'SpouseFirstName' | translate }}</label><span class="manto">
                             *</span>
-                        <input type="Text" class="form-control" id="spouseFirstname" placeholder="First Name" required [(ngModel)]="selectedspouseFirstName" formControlName = "spouseFirstName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">
+                        <input type="text" autocomplete="off"class="form-control" id="spouseFirstname" placeholder="First Name" required [(ngModel)]="selectedspouseFirstName" formControlName = "spouseFirstName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="spouseMiddlename">{{'MiddleName' | translate }}</label>
-                        <input type="Text" class="form-control" id="spouseMiddlename" placeholder="Middle Name" [(ngModel)]="selectedspouseMiddleName" formControlName = "spouseMiddleName">
+                        <input type="text" autocomplete="off"class="form-control" id="spouseMiddlename" placeholder="Middle Name" [(ngModel)]="selectedspouseMiddleName" formControlName = "spouseMiddleName">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="birthreg" for="spouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">{{'LastName' | translate }}</label><span class="manto"> *</span>
-                        <input type="Text" class="form-control" id="spouseLastname" placeholder="Last Name" [(ngModel)]="selectedspouseLastName" formControlName = "spouseLastName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">
+                        <input type="text" autocomplete="off"class="form-control" id="spouseLastname" placeholder="Last Name" [(ngModel)]="selectedspouseLastName" formControlName = "spouseLastName" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">
                     </div>
                 </div>
                 <div class="form-row my-2">
                     <div class="form-group col-md-2">
                         <label class="birthreg" for="inputmoblienospouse" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }">{{'SpouseContactNumber' | translate }}<span
                             class="manto"> *</span></label>
-                        <input type="text" class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
+                        <input type="text" autocomplete="off"class="form-control" id="inputmoblienospouse" placeholder="Mobile No"
                             required [(ngModel)]="selectedspouseContactNumber" formControlName = "spouseContactNumber" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNumber.invalid }" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "10" numbersOnly>
                     </div>

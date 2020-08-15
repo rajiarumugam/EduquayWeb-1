@@ -108,7 +108,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedSpouseLastName;
   selectedSpouseContactNo;
   selectedECNumber;
-
+  ageValidate = false;
 
   createdSubjectId;
   user;
@@ -155,10 +155,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       govtIDDetail: [''],
       govtIDType: [''],
       maritalStatus: ['true'],
-      selectedSpouseFirstName: ['', Validators.required],
+      spouseFirstName: ['',],
       spouseMiddleName: [''],
-      spouseLastName:['', Validators.required],
-      spouseContact:['', Validators.required],
+      spouseLastName:[''],
+      spouseContact:[''],
       ECNumber:['']
     });
 
@@ -365,6 +365,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
          age--;
      }
      console.log(age);
+     this.ageValidate = true;
      this.selectedage = age;
      //return age;
   }
@@ -533,7 +534,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
           "spouseFirstName": this.secondFormGroup.get('spouseFirstName').value != undefined ? this.secondFormGroup.get('spouseFirstName').value : '',
           "spouseMiddleName": this.secondFormGroup.get('spouseMiddleName').value != undefined ? this.secondFormGroup.get('spouseMiddleName').value : '',
           "spouseLastName": this.secondFormGroup.get('spouseLastName').value != undefined ? this.secondFormGroup.get('spouseLastName').value : "",
-          "spouseContactNo": this.secondFormGroup.get('spouseContactNumber').value != undefined ? ""+this.secondFormGroup.get('spouseContactNumber').value : "",
+          "spouseContactNo": this.secondFormGroup.get('spouseContact').value != undefined ? ""+this.secondFormGroup.get('spouseContact').value : "",
           "spouseGovIdTypeId": 0,
           "spouseGovIdDetail": "",
           "assignANMId": Number(this.associatedANMData[this.selectedAssociatedANMID].associatedANMId),
@@ -555,7 +556,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         },
         "subjectPregnancyRequest": {
           "rchId": '0',
-          "ecNumber": this.secondFormGroup.get('ECNumber').value != undefined ? this.secondFormGroup.get('ECNumber').value != undefined : "",
+          "ecNumber": this.secondFormGroup.get('ECNumber').value != undefined ? this.secondFormGroup.get('ECNumber').value : "",
           "lmpDate": "",
           "g": 0,
           "p": 0,
@@ -624,7 +625,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     }   
     ageEntered()
     {
+      if(!this.ageValidate)
       this.DOBPicker.flatpickr.setDate("");
+  
+      this.ageValidate = false;
     }
     ecNumberChange()
     {
@@ -636,6 +640,14 @@ export class ChcwalkinRegistrationComponent implements OnInit {
         }
       }
        
+    }
+    marriedChange()
+    {
+        this.selectedSpouseFirstName = '';
+        this.selectedSpouseMiddleName = '';
+        this.selectedSpouseLastName = "";
+        this.selectedSpouseContactNo = "";
+        this.selectedECNumber = "";
     }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event

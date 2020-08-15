@@ -90,8 +90,7 @@ export class CentralSampleRcptComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      processingDate: ['', Validators.required],
-      receivedDate: ["", Validators.required]
+      processingDate: ['', Validators.required]
     });
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -252,7 +251,7 @@ export class CentralSampleRcptComponent implements OnInit {
               {
                   var _obj = {};
                   _obj['shipmentId'] = this.popupData.shipmentId;
-                  _obj['receivedDate'] = this.form.get('receivedDate').value != undefined ? moment(new Date(this.form.get('receivedDate').value)).format("DD/MM/YYYY") : '';
+                  _obj['receivedDate'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY") : '';
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
                     _obj['sampleDamaged'] = this.popupData['receiptDetail'][i].sampleDamaged;
                   _obj['sampleTimeout'] = this.popupData['receiptDetail'][i].sampleTimeout;
