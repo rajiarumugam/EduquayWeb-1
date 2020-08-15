@@ -159,6 +159,13 @@ export class CHCSampleRcptComponent implements OnInit {
         ilrInDateTime: ["", Validators.required],
         ilrOutDateTime: ["", Validators.required]
       });*/
+      this.processingPicker.flatpickr.set({
+        maxDate: new Date(Date.now()),
+        minDate: this.currentshipmentDateTime,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
       
     }
     
@@ -196,13 +203,7 @@ export class CHCSampleRcptComponent implements OnInit {
         this.ilrInDatePicker.flatpickr.setDate("");
     }
     else{
-      this.processingPicker.flatpickr.set({
-        maxDate: new Date(Date.now()),
-        minDate: this.currentshipmentDateTime,
-        enable: [],
-        enableTime: true,
-        dateFormat: 'd/m/Y H:i',
-      });
+     
     }
     if(this.ilrOutDatePicker)
     {
@@ -295,12 +296,12 @@ export class CHCSampleRcptComponent implements OnInit {
     if(this.popupData['receiptDetail'][index].sampleDamaged)
       this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
     else{
-      if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
+      if(this.compareDate(this.form.get('processingDate').value,this.popupData['receiptDetail'][index].sampleCollectionDateTime) > 24)
       {
         this.resettingTableEvents(this.popupData['receiptDetail'][index],true,false,true,false,false);
       }  
       
-      else if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) < 24 && this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) >= 0)
+      else if(this.compareDate(this.form.get('processingDate').value,this.popupData['receiptDetail'][index].sampleCollectionDateTime) < 24 && this.compareDate(this.form.get('processingDate').value,this.popupData['receiptDetail'][index].sampleCollectionDateTime) >= 0)
       {
           this.resettingTableEvents(this.popupData['receiptDetail'][index],false,true,false,false,false);
       }  
