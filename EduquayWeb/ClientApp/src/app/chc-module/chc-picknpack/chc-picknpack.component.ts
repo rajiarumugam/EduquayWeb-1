@@ -430,6 +430,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
           this.name = this.user.name;
+          this.collectionchcname = this.user.chcName;
           this.modalService.open(
             chcpicknPackdetail, {
             centered: true,
@@ -462,6 +463,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
           this.name = this.user.name;
+          this.collectionchcname = this.user.chcName;
           this.modalService.open(
             chcpicknPackdetail, {
             centered: true,
@@ -501,16 +503,16 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
           this.name = this.user.name;
-      
-      this.modalService.open(
-        chcpicknPackdetail, {
-        centered: true,
-        size: 'xl',
-        scrollable: true,
-        backdrop:'static',
-        keyboard: false,
-        ariaLabelledBy: 'modal-basic-title'
-      });      
+          this.collectionchcname = this.user.chcName;
+        this.modalService.open(
+          chcpicknPackdetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          backdrop:'static',
+          keyboard: false,
+          ariaLabelledBy: 'modal-basic-title'
+        });      
     }
     
   }

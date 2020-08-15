@@ -810,7 +810,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="basicInfo.subjectTypeId === 1">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -851,6 +851,47 @@
                                                     <!-- <td><b>3423422</b>|3423434|3423442</td> -->
                                                     <td>{{personalInfo.barcodes}}</td>
                                                 </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="basicInfo.subjectTypeId === 2">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Personal Info</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                    <td class="sp-xs-td-15">{{personalInfo.ecNumber}}</td>
+                                                    <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                    <td class="sp-xs-td-15">{{personalInfo.rchId}}</td>
+                                                    <td><b>Barcodes</b></td>
+                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                    <td>{{personalInfo.barcodes}}</td>
+                                                </tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>

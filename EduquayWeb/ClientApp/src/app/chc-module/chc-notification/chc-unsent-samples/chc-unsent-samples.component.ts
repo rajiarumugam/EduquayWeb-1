@@ -215,6 +215,7 @@ chcunsentSampleList() {
           //   element.sampleSelected = true;
           // });
           this.recordCount = this.chcunsentSamples.length;
+         
 
         }
       }
@@ -309,7 +310,7 @@ onSubmit(chcShipmentForm: NgForm) {
       this.AddchcunsentSamplesResponse = response;
       if (this.AddchcunsentSamplesResponse !== null && this.AddchcunsentSamplesResponse.status === "true") {
         this.showResponseMessage(this.AddchcunsentSamplesResponse.shipment.shipmentId, 's');
-        //this.chcunsentSampleList();
+        this.chcunsentSampleList();
       } else {
         this.showResponseMessage(this.AddchcunsentSamplesResponse.shipment.errorMessage, 'e');
         this.chcunsentSamplesErrorMessage = response.message;
