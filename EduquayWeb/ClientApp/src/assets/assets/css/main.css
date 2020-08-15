@@ -2135,6 +2135,8 @@ span.new-control-indicator.disabled {
     border-radius: .25em;
     background: initial;
     color: #1b55e2;
+    /* background-color: #1b55e2;
+    color: #fff; */
     font-size: 13px;
 }
 

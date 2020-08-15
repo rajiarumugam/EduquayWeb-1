@@ -114,4 +114,9 @@
 {
     color: red !important;
 }
-  
+
+  /*----dropdown----*/
+  app-select-dropdown.form-control
+  {
+      padding:0 !important;
+  }

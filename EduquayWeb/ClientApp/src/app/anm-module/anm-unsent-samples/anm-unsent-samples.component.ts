@@ -389,7 +389,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         this.addUnsentSamplesResponse = response;
         if (this.addUnsentSamplesResponse !== null && this.addUnsentSamplesResponse.status === "true") {
           this.showResponseMessage(this.addUnsentSamplesResponse.shipment.shipmentId, 's');
-          // this.anmunsentSampleList();
+          this.anmunsentSampleList(this.user.id);
         } else {
           this.showResponseMessage(this.addUnsentSamplesResponse.shipment.errorMessage, 'e');
           this.unsentSamplesErrorMessage = response.message;

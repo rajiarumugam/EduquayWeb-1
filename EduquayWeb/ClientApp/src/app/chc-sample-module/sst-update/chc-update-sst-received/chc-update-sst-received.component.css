@@ -259,7 +259,7 @@ vertical-align: middle;
 {
     width: 30em !important;
 }
-::ng-deep .swal2-popup .swal2-styled.swal2-cancel
+/* ::ng-deep .swal2-popup .swal2-styled.swal2-cancel
 {
     display: inline-block;
    
@@ -269,7 +269,7 @@ vertical-align: middle;
     color: #fff;
     border: 1px solid #1b55e2;
     font-size: 13px;
-}
+} */
 .modal-dialog {
     display: flex;
     justify-content: center;

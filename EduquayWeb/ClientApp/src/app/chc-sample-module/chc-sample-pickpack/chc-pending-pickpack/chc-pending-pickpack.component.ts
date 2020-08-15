@@ -30,6 +30,8 @@ export class ChcPendingPickpackComponent implements OnInit {
   processingDate;
   chcsamplepickpack = [];
   pickpackStartList = [];
+
+  samplepicknpackErrorMessage: string;
  
 
 
