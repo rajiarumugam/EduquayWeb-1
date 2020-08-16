@@ -99,13 +99,14 @@ export class AnmSpouseRegistrationComponent implements OnInit {
 
     this.spouseData = [];
     var positiveSpouseResponse = this.route.snapshot.data.positiveSubjects;
-    if(this.positiveSpouseResponse !== undefined && this.positiveSpouseResponse.status.toString() === "true"){
+    if(positiveSpouseResponse !== undefined && positiveSpouseResponse.status.toString() === "true"){
       this.spouseData = positiveSpouseResponse.anwSubjects;
     }
     else{
       this.errorMessage = positiveSpouseResponse.message;
     }
 
+    console.log(this.spouseData);
     // End Date Changes
     this.dateform.controls.toDate.valueChanges.subscribe(changes => {
       if (!changes[0]) return;
