@@ -153,20 +153,26 @@ export class CHCSampleRcptComponent implements OnInit {
     var _data:any = data;
     this.popupData = _data;
     this.formCheck = false;
+    console.log(this.popupData.shipmentFrom);
     if(this.popupData.shipmentFrom === 'ANM - CHC')
     {
       /*this.ILRform= this._formBuilder.group({
         ilrInDateTime: ["", Validators.required],
         ilrOutDateTime: ["", Validators.required]
       });*/
+      
+      
+    }
+    if(this.popupData.shipmentFrom === 'CHC - CHC')
+    {
+      alert(this.popupData.shipmentFrom);
       this.processingPicker.flatpickr.set({
         maxDate: new Date(Date.now()),
         minDate: this.currentshipmentDateTime,
         enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
-      });
-      
+      }); 
     }
     
     this.popupData['receiptDetail'].forEach(function(val,index){
@@ -182,10 +188,10 @@ export class CHCSampleRcptComponent implements OnInit {
       defaultDate: "",
       minDate: data.shipmentDateTime
     });*/
-    this.processingPicker.flatpickr.set({
+    /*this.processingPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
-    });
+    });*/
     if(this.ilrInDatePicker)
     {
         /*this.ilrInDatePicker.flatpickr.set({
