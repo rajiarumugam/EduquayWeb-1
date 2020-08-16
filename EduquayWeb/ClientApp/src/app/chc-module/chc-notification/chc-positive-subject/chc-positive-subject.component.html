@@ -37,7 +37,7 @@
                     <!-- <td class="text-center"><a *ngIf="positiveSub.registerSpouse === 1" (click)="openpositiveSubjects(positiveSubjectsDetail, positiveSub)"><i
                         class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
                     </td> -->
-                    <td class="text-center"><a (click)="chespouse.initSpousereg(person)"><i
+                    <td class="text-center"><a *ngIf="person.registerSpouse === 1" (click)="chespouse.initSpousereg(person)"><i
                         class="fas fa-user-plus fa-2x" aria-hidden="true"></i></a>
                     </td>
                 </tr>

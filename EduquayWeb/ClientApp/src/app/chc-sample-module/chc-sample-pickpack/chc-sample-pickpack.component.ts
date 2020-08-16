@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, QueryList, OnDestroy, AfterViewInit, ViewChildren } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
@@ -22,10 +22,10 @@ import * as moment from 'moment';
   templateUrl: './chc-sample-pickpack.component.html',
   styleUrls: ['./chc-sample-pickpack.component.css']
 })
-export class ChcSamplePickpackComponent implements OnInit {
+export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnInit  {
   
-  @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
-  @ViewChild(DataTableDirective, { static: false }) dtElement1: DataTableDirective;
+  //@ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
 
   @Output() public onLoadSamples = new EventEmitter();
   loadDataTable: boolean = false;
@@ -49,10 +49,10 @@ export class ChcSamplePickpackComponent implements OnInit {
   shipmentId: string;
   errorMessage: string;
   selectedBarcodes: string;
-  searchbarcode: string;
+  searchbarcode: string = '';
   selectedcentralLab: string = '';
   selectedproviderName:string = '';
-  alliquotetubebarcode: string;
+  alliquotetubebarcode: string = '';
   isAddShipmentTrue: boolean = false;
   isAliquoteBarcodeMatch: boolean = false;
   tempCHCDatas: tempCHCData[] = [];
@@ -74,6 +74,7 @@ export class ChcSamplePickpackComponent implements OnInit {
   popupform: FormGroup;
   DAY = 86400000;
   selectedAll: any;
+  selectedall: boolean = true;
   chclabtechnician:string;
   testingChcname:string;
   labTechnicianName: string;
@@ -98,6 +99,9 @@ export class ChcSamplePickpackComponent implements OnInit {
 
   pendingBadgeSampleCount: number = 0;
   startBadgePickpackCount: number = 0;
+  _intSelectedBarcode :number;
+  _strSelectedBarcode: string;
+  _intSelectedBarcoderemove: number;
 
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
@@ -112,6 +116,8 @@ export class ChcSamplePickpackComponent implements OnInit {
 
   ngOnInit() {
 
+   // this.dtOptions[0] = this.chcsamplepickpack;
+    //this.dtOptions1[1] = this.startPickpackData;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.dtOptions = {
@@ -120,6 +126,7 @@ export class ChcSamplePickpackComponent implements OnInit {
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
+      
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
@@ -130,6 +137,7 @@ export class ChcSamplePickpackComponent implements OnInit {
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         },
+        
       }
     };
     this.dtOptions1 = {
@@ -138,15 +146,12 @@ export class ChcSamplePickpackComponent implements OnInit {
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
+      
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
         lengthMenu: "Records / Page :  _MENU_",
-        //zeroRecords: " ",
-        //emptyTable: "No data available in table",
-        // emptyTable: "No data available in table", 
-        // loadingRecords: "Loading...",
-        // zeroRecords: "A different no matching records message",
+       
         paginate: {
           first: '',
           last: '', // or '←' 
@@ -172,7 +177,7 @@ export class ChcSamplePickpackComponent implements OnInit {
 
       if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
         this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
-        
+        this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
         //this.onLoadSamples.emit(this.chcsamplepickpack.length);
         //this.onLoadSamples.emit(this.startPickpackData.length);
       }
@@ -190,7 +195,7 @@ export class ChcSamplePickpackComponent implements OnInit {
           }
           else {
             this.chcsamplepickpack = this.chcsamplepicknpickResponse.pickandPack;
-            
+            this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
             // this.sampleList.forEach(element => {
             //   element.sampleSelected = true;
             // });
@@ -206,17 +211,19 @@ export class ChcSamplePickpackComponent implements OnInit {
         });
 
   }
-  searchBarCodetype(samplepicknPackdetail) {
+  searchBarCodetype(samplepicknPackdetail, primarytube) {
 
     this.tempCHCDatas = [];
-    let term = this.searchbarcode;
-    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === term)
+    //let term = this.searchbarcode;
+    this.searchbarcode = primarytube;
+    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
       this.searchbarcode='';
-     this.alliquotetubebarcode = '';
+      this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
+      
 
       this.modalService.open(
         samplepicknPackdetail, {
@@ -305,6 +312,7 @@ export class ChcSamplePickpackComponent implements OnInit {
     this.ddlcentrallab(this.user.chcId);
     this.ddlProviderName();
     this.fetchBarcodes();
+    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
 
     this.chclabtechnician = this.user.name;
     this.testingChcname = this.user.chcName;
@@ -327,7 +335,9 @@ export class ChcSamplePickpackComponent implements OnInit {
 
   onSubmit(chcShipmentForm: NgForm){
     this.samplepicknpackErrorMessage = '';
+    var _arrsubmitSelectedBarcode = [];
     this.fetchBarcodes();
+    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
     //var shipmentId = "123";
     console.log(chcShipmentForm.value);
 
@@ -355,13 +365,16 @@ export class ChcSamplePickpackComponent implements OnInit {
       createdBy: this.user.id,
       source: 'N'
     }
-    //return false;
+   // return false;
     let addshipment = this.chcsamplePickpackService.chcSampleAddShipment(this.chcsampleAddShipmentRequest)
       .subscribe(response => {
         this.chcsampleAddShipmentResponse = response;
         if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
-          this.submittoshipment();
+          this.chcsamplepicknpackList(this.user.chcId);
+          this.removegetSelectedBarcode();
+         
+          
         } else {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
           this.samplepicknpackErrorMessage = response.message;
@@ -402,79 +415,120 @@ export class ChcSamplePickpackComponent implements OnInit {
     console.log(this.alliquotetubebarcode);
   }
   
-  validateAlliqutetubeMatch() {
+  validateAlliqutetubeMatch(alliquotetube) {
     
     //this.tempCHCDatas = [];
-    let alliquotetube = this.alliquotetubebarcode;
+    //let alliquotetube = this.alliquotetubebarcode;
+    this.alliquotetubebarcode = alliquotetube;
+
+    var alliquotetubeExist = this.tempCHCDatas.filter(alli => alli.barcodeNo === alliquotetube);
+    if(alliquotetubeExist !== undefined && alliquotetubeExist.length > 0){
+      this.isAliquoteBarcodeMatch = true;
+      this.searchbarcode='';
+    }
+    
+    /*
     this.tempCHCDatas.forEach(element => {
       if (element.barcodeNo === alliquotetube) {
         this.isAliquoteBarcodeMatch = true;
+        this.searchbarcode='';
+        break;
       }
       // else {
       //   Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
       //   this.alliquotetubebarcode='';
       // }
-    });
+    });*/
+
   }
 
   submittoshipment(){
 
+   
+
     if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true){
      
       this.modalService.dismissAll();
-      
+     
       this.tempCHCDatas.forEach(element1 => {
         var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element1.barcodeNo)
         if (getdataindex >= 0) {
           this.startPickpackData.push(this.chcsamplepickpack[getdataindex]);
           this.chcsamplepickpack.splice(getdataindex,1);
+         // this.searchbarcode = '';
           this.isAddShipmentTrue = true;
-          this.onLoadSamples.emit(this.startPickpackData.length);
-          this.onLoadSamples.emit(this.chcsamplepickpack.length);
-         
-          
+          this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+          this.startBadgePickpackCount = this.startPickpackData.length;
+          this.rerender();
+
         }
-      });     
-    }
-
-  }
-
-  checkIfSelected(index){
-
-    this.startpickpackSelected;
-    this.isAddShipmentTrue = false;
-    console.log(this.startPickpackData);
-    this.selectedAll = this.startPickpackData.every(function (item: any) {
-      return item.startpickpackSelected == true;
-
-    })
-    if(this.startpickpackSelected === false){
-      Swal.fire({
-        title: 'One or more selected samples that are aging more than 24 hours',
-        text: "Do you still want to continue?",
-        icon: 'warning',
-        showCancelButton: true,         
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
-      }).then((result) => {
-        if (result.value) {
-          this.chcsamplepickpack.push(this.startPickpackData[index]);
-          this.startPickpackData.splice(index,1);
-          this.isAddShipmentTrue = false;
-          Swal.fire({icon: 'success',  title: "Moved successfully", confirmButtonText: 'Ok'})
-      //this.rerender();
-          //this.searchbarcode='';
-        }
-        else {
-            return false;             
-        }
-      })  
-      
+      }); 
+      this.searchbarcode = '';    
     }
     else{
-      this.isAddShipmentTrue = true;
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please select the Primary and Alliquoted HPLC tube',
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
+      })
     }
+
   }
+
+  // selectAll(index) {
+  //   for (var i = 0; i < this.startPickpackData.length; i++) {
+  //     this.startPickpackData[i].startpickpackSelected = this.selectedAll;
+  //     console.log(this.startPickpackData);
+  //   }
+  // }
+  checkIfSelected(index)
+  {
+    this.chcsamplepickpack.push(this.startPickpackData[index]);
+    this.startPickpackData.splice(index,1);
+    this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+    this.startBadgePickpackCount = this.startPickpackData.length;
+    this.rerender();
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Back to Ship',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    if(this.startPickpackData.length == 0)
+        this.isAddShipmentTrue = false;
+  }
+
+  // checkIfSelected(index){
+
+  //   this.startpickpackSelected;
+  //   this.isAddShipmentTrue = false;
+  //   console.log(this.startPickpackData);
+  //   this.selectedAll = this.startPickpackData.every(function (item: any) {
+  //     return item.startpickpackSelected == true;
+  //   })
+  //   if(this.startpickpackSelected === false){
+      
+  //     this.chcsamplepickpack.push(this.startPickpackData[index]);
+  //     this.startPickpackData.splice(index,1);
+  //     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+  //     this.startBadgePickpackCount = this.startPickpackData.length;
+  //     this.rerender();
+  //     this.isAddShipmentTrue = false;
+     
+  //     Swal.fire({
+  //       position: 'top-end',
+  //       icon: 'success',
+  //       title: 'Back to Ship',
+  //       showConfirmButton: false,
+  //       timer: 2000
+  //     })
+  //   }
+  //   else{
+  //     this.isAddShipmentTrue = true;
+  //   }
+  // }
 
   InitializeDateRange() {
 
@@ -492,7 +546,32 @@ export class ChcSamplePickpackComponent implements OnInit {
     });
 
   }
-
+  removegetSelectedBarcode() {
+  
+    var _arrsubmitSelectedBarcode = [];
+    this.startPickpackData.forEach(element => {
+      console.log('sampleSelected :' + element.startpickpackSelected);
+      if (this.startpickpackSelected === true) {
+        _arrsubmitSelectedBarcode.push(element.barcodeNo);
+      }
+    });
+      this._intSelectedBarcoderemove = _arrsubmitSelectedBarcode.length;
+      this.startPickpackData = [];
+      this.startPickpackData.splice(this._intSelectedBarcode, 1)
+      this.startBadgePickpackCount = this.startPickpackData.length;
+  }
+  getSelectedBarcode() {
+  
+        var _arrSelectedBarcode = [];
+        this.startPickpackData.forEach(element => {
+          console.log('sampleSelected :' + element.startpickpackSelected);
+          if (this.startpickpackSelected === true) {
+            _arrSelectedBarcode.push(element.barcodeNo);
+          }
+        });
+        this._intSelectedBarcode = _arrSelectedBarcode.length;
+        return _arrSelectedBarcode.join(',');
+      }
   fetchBarcodes() {
     this.selectedBarcodes = '';
     var isFirst = true;
@@ -502,12 +581,13 @@ export class ChcSamplePickpackComponent implements OnInit {
       if (this.startpickpackSelected === true) {
         //if (element.sampleSelected) {
         if (isFirst) {
-          this.selectedBarcodes += element.barcodeNo;
+          //this.selectedBarcodes += element.barcodeNo;
           getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
           isFirst = false;
         }
         else {
-          this.selectedBarcodes += ',' + element.barcodeNo;
+           //this.selectedBarcodes += ',' + element.barcodeNo;
+          
           getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
         }
       }
@@ -529,22 +609,41 @@ export class ChcSamplePickpackComponent implements OnInit {
   
   }
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       
-      // Destroy the table first   
-      dtInstance.clear();
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again       
-      this.dtTrigger.next();
-    });
-    this.dtElement1.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   // Destroy the table first   
+    //   dtInstance.clear();
+    //   dtInstance.destroy();
+    //   // Call the dtTrigger to rerender again       
+    //   this.dtTrigger.next();
+    // });
+    // this.dtElement1.dtInstance.then((dtInstance: DataTables.Api) => {
       
-      // Destroy the table first   
-      dtInstance.clear();
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again       
-      this.dtTrigger1.next();
+    //   // Destroy the table first   
+    //   dtInstance.clear();
+    //   dtInstance.destroy();
+    //   // Call the dtTrigger to rerender again       
+    //   this.dtTrigger1.next();
+    // });
+    // this.dtElements.forEach((dtElement: DataTableDirective) => {
+    //   if(dtElement.dtInstance)
+    //     dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //       dtInstance.clear();
+    //       dtInstance.destroy(); 
+    //       dtInstance.draw();         
+    //   });
+    // });
+
+    this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
+      dtElement.dtInstance.then((dtInstance: any) => {
+        console.log(`The DataTable ${index} instance ID is: ${dtInstance.table().node().id}`);
+        //dtInstance.clear();
+        dtInstance.destroy();
+        //dtInstance.draw();
+      });    
     });
+    this.dtTrigger.next();
+    this.dtTrigger1.next();   
     
   }
 
@@ -553,14 +652,12 @@ export class ChcSamplePickpackComponent implements OnInit {
     this.dtTrigger1.next();
   }
 
-
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     this.dtTrigger1.unsubscribe();
   }
 
- 
   // receiveBadgeCount(componentReference){
   //   //onLoadSamples
   //   componentReference.onLoadSamples.subscribe((data: number) => {

@@ -132,13 +132,14 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   selectedGovtIDDetail;
   selectedhouse;
   selectedstreet;
-  selectedstate;
+  selectedstate= 1;
   selectedPincode;
   selectedECNumber;
   selectedcity;
 
   notifySamples: string;
   selectedPositiveSubject: positiveSubjects;
+  statelist = [];
 
   constructor(
     private PositiveSubjectsService: PositiveSubjectsService,
@@ -272,6 +273,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.getCaste();
     //this.getCommunity(0);
     this.getGovernmentIDType();
+    this.getState();
 
     this.selectedPositiveSubject = positiveSub;
 
@@ -298,7 +300,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     this.selectedhouse = positiveSub.address1;
     this.selectedstreet = positiveSub.address2;
     this.selectedcity = positiveSub.address3;
-    this.selectedstate = positiveSub.stateName;
+    //this.selectedstate = positiveSub.stateName;
     this.selectedPincode = positiveSub.pincode;
     this.selectedECNumber = positiveSub.ecNumber;
     //this.selectedspouseEmail = data.ecNumber;
@@ -553,6 +555,22 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       this.errorMessage = err.toString();
     });
   }
+  getState()
+  {
+    this.masterService.getState()
+    .subscribe(response => {
+      console.log(response);
+      this.statelist = response['states'];
+      this.statelist.forEach(function(val,index){
+        val.display = val.stateName;
+      });
+      
+    },
+    (err: HttpErrorResponse) =>{
+      this.casteData = [];
+      this.errorMessage = err.toString();
+    });
+  }
 
    
   calculateAge()
@@ -590,20 +608,20 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     formSubmit()
     {
       this.secondFormCheck = true;
-    
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
       if(this.secondFormGroup.valid && this.firstFormGroup.valid)
       {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
-         
+          this.getpositiveSubjectList(this.user.id);
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-    showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
        .then((result) => {
          if (result.value) {
-          $('#fadeinModal').modal('hide');
-          this.getpositiveSubjectList(this.user.id);
+          //$('#fadeinModal').modal('hide');
+          //this.getpositiveSubjectList(this.user.id);
           if(this.modalService.hasOpenModals){
             this.modalService.dismissAll();
           }
@@ -612,12 +630,16 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
          
          }
          else{
-          this.firstFormGroup.reset();
-          this.secondFormGroup.reset();
-          this.secondFormCheck = false;
-          this.firstFormCheck = false;
-          this.stepper.selectedIndex = 0;
-          $('#fadeinModal').modal('hide');
+          // this.firstFormGroup.reset();
+          // this.secondFormGroup.reset();
+          // this.secondFormCheck = false;
+          // this.firstFormCheck = false;
+          // this.stepper.selectedIndex = 0;
+          if(this.modalService.hasOpenModals){
+            this.modalService.dismissAll();
+          }
+          
+         // $('#fadeinModal').modal('hide');
          }
        });
           //$('#fadeinModal').modal('show');
@@ -632,6 +654,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
 
     dataBindinginServce()
     {
+      var _tempStateSelected = this.statelist.filter(t=>t.id ===this.selectedstate);
+      console.log(_tempStateSelected);
       var _obj = {
         "subjectPrimaryRequest": {
           "subjectTypeId": 2,
@@ -675,7 +699,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
           "address2": this.secondFormGroup.get('street').value,
           "address3": this.secondFormGroup.get('city').value,
           "pincode": ""+this.secondFormGroup.get('pincode').value,
-          "stateName": this.secondFormGroup.get('state').value,
+          "stateName": _tempStateSelected[0]['stateName'],
           "updatedBy": Number(this.user.id)
         },
         "subjectPregnancyRequest": {
