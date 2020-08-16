@@ -10,6 +10,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenService } from 'src/app/shared/token.service';
+import * as moment from 'moment';
 
 type AOA = any[][];
 
@@ -109,14 +110,17 @@ type AOA = any[][];
         var _tempData = this.data;
         this.chcReceiptsData.forEach(function(val1,ind1){
           this.data.forEach(function(val,index){
-            if(val1.barcodeNo == val[3])
+            console.log(val);
+            if(val1.barcodeNo == val[1])
             {
               var _obj = {};
-              _obj['barcodeNo'] = ""+val[3];
-              _obj['subjectId'] = ""+val[1];
-              _obj['rchId'] = ""+val[2];
-              _obj['mcv'] = ""+val[4];
-              _obj['rdw'] = ""+val[5];
+              _obj['barcodeNo'] = ""+val[1];
+              _obj['subjectId'] = val1.subjectId;
+              _obj['rchId'] = val1.rchId;
+              _obj['sampleDateTime'] = val1.sampleDateTime;
+              _obj['mcv'] = ""+val[2];
+              _obj['rdw'] = ""+val[3];
+              _obj['testCompleteOn'] = val[4];
               _obj['testingCHCId']= this.user.chcId;
               _obj["createdBy"] = this.user.id;
     
@@ -175,7 +179,7 @@ type AOA = any[][];
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
             Swal.fire({
-              text: 'HPLC results uploaded successfully.',
+              text: 'CBC results uploaded successfully.',
               icon: 'success'
             }).then((result) => {
               this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":0,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
@@ -195,6 +199,7 @@ type AOA = any[][];
         
       }
     })
+    console.log(this.chcUploadResultData);
   }
   showResponseMessage(shipmentId: string, type: string){
     var messageType = '';

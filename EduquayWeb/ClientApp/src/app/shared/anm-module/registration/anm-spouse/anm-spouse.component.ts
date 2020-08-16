@@ -66,7 +66,7 @@ export class AnmSpouseComponent implements OnInit {
   selectedage;
   selecteddor = new Date(Date.now());
   DAY = 86400000;
-  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
+  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -183,6 +183,13 @@ export class AnmSpouseComponent implements OnInit {
   }
 
   initSpousereg(data) {
+    console.log(data);
+    /*this.firstFormGroup.reset();
+    this.secondFormGroup.reset();*/
+    this.stepper.selectedIndex = 0;
+    this.selectedage = "";
+    this.selectedspouseEmail = "";
+    this.selectedECNumber = "";
     this.selectedSpouseData = data;
     console.log(this.selectedSpouseData);
     this.getDistrictData();
@@ -313,8 +320,8 @@ export class AnmSpouseComponent implements OnInit {
     this.masterService.getCaste()
     .subscribe(response => {
       this.casteData = response['caste'];
-      if(this.casteData[0])
-          this.selectedcaste = this.casteData[0].id;
+      /*if(this.casteData[0])
+          this.selectedcaste = this.casteData[0].id;*/
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -328,8 +335,8 @@ export class AnmSpouseComponent implements OnInit {
         this.masterService.getCommunity()
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-              this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];
@@ -340,8 +347,8 @@ export class AnmSpouseComponent implements OnInit {
       this.masterService.getCommunityPerCaste(id)
         .subscribe(response => {
           this.communityData = response['community'];
-          if(this.communityData[0])
-              this.selectedcommunity = this.communityData[0].id;
+          /*if(this.communityData[0])
+              this.selectedcommunity = this.communityData[0].id;*/
         },
         (err: HttpErrorResponse) =>{
           this.communityData = [];

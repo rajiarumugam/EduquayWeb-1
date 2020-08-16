@@ -111,7 +111,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedschoolsection;
   selectedrollnumber;
   selectedgovtIDType;
-
+  ageValidate = false;
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) { }
 
   ngOnInit() {
@@ -334,7 +334,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
-     console.log(age);
+     this.ageValidate = true;
      this.selectedage = age;
      //return age;
   }
@@ -356,7 +356,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
       if(this.secondFormGroup.valid)
         this.stepper.next();
     }
-        this.stepper.next();
+        //this.stepper.next();
   }
 
     prevStep() {
@@ -547,7 +547,11 @@ export class AnmStudentRegistrationComponent implements OnInit {
     }*/
     ageEntered()
     {
+      if(!this.ageValidate)
       this.DOBPicker.flatpickr.setDate("");
+
+      this.ageValidate = false;
+    
     }
 
 }

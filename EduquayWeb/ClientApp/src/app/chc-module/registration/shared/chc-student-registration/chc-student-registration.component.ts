@@ -82,7 +82,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   selectedhouse;
   selectedstreet;
   selectedcity;
-  selectedstate;
+  selectedstate = 1;
   selectedPincode;
   selectedmotherFirstName;
   selectedmotherMiddleName;
@@ -107,6 +107,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
   selectedrbskid;
   selectedschoolsection;
   selectedrollnumber;
+  ageValidate = false;
 
   createdSubjectId;
   user;
@@ -308,7 +309,8 @@ export class ChcStudentRegistrationComponent implements OnInit {
       this.statelist.forEach(function(val,index){
         val.display = val.stateName;
       });
-      
+      this.selectedstate = 1;
+      this.selectedschoolstate = 1;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -325,7 +327,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
-     console.log(age);
+     this.ageValidate = true;
      this.selectedage = age;
      //return age;
   }
@@ -527,8 +529,11 @@ export class ChcStudentRegistrationComponent implements OnInit {
     }
 
     ageEntered()
-    {
-      this.DOBPicker.flatpickr.setDate("");
+    {        
+      if(!this.ageValidate)
+          this.DOBPicker.flatpickr.setDate("");
+  
+        this.ageValidate = false;
     }
 
 }
