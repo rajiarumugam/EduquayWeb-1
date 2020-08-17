@@ -58,6 +58,8 @@ import { ChcStartPickpackComponent } from './chc-sample-module/chc-sample-pickpa
 import { AppPasswordDirective } from './shared/directive/app-password.directive';
 import { CookieService } from 'ngx-cookie-service';
 
+import { LoaderService } from './shared/loader/loader.service';
+
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -82,7 +84,7 @@ const ngWizardConfig: NgWizardConfig = {
     ChcSubjectProfileComponent,
     ChcDamagedSamplesComponent,
     ChcUnsentSamplesComponent,
-    ChcTimeoutSamplesComponent,
+    ChcTimeoutSamplesComponent,               
     ChcNotificationComponent,
     ChcPositiveSubjectComponent,
     SelectDropdownComponent,
@@ -140,7 +142,8 @@ const ngWizardConfig: NgWizardConfig = {
     ConstantService,
     GenericService,
     DataService,
-    CookieService
+    CookieService,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

@@ -18,6 +18,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import {LoaderService} from '../../../../shared/loader/loader.service';
 
 declare var exposedFunction;
 
@@ -72,7 +73,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   Ldisabled = true;
   Pdisabled = true;
   Adisabled = true;
-  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
+  GPLADATA = [{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -125,7 +126,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   statelist = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router,) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router,private loaderService: LoaderService) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -134,7 +135,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -393,10 +394,12 @@ export class ChcpregnantRegistrationComponent implements OnInit {
 
   getANMDetails()
   {
+    this.loaderService.display(true);
       this.masterService.getAssociatedANM(this.selectedchc)
     .subscribe(response => {
     console.log(response);
     this.associatedANMData = response.associatedANMDetail;
+    this.loaderService.display(false);
     if(this.associatedCount === 0)
         this.dtTrigger.next();
     else
@@ -426,6 +429,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         cancelButtonColor: '#ffffff'
       }).then((result) => {
         if (result.value) {
+          
           $('#fadeinModal').modal('hide');
          }
          else{
