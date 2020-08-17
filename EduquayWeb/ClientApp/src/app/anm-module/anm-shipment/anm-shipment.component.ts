@@ -9,6 +9,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 @Component({
@@ -54,10 +55,14 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     private ShipmentlogService: ShipmentlogService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private loaderService: LoaderService
     ) { }
 
   ngOnInit() {
+
+    this.loaderService.display(true);
+
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -82,6 +87,8 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     //this.anmshipmentLog();
 
     this.shipmentLogInitResponse = this.route.snapshot.data.shipmentLogData;
+    this.loaderService.display(false);
+
     if (this.shipmentLogInitResponse.status === 'false') {
       this.shipmentList = [];
       if (this.shipmentLogInitResponse.message !== null && this.shipmentLogInitResponse.message.code === "ENOTFOUND") {
@@ -100,12 +107,16 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
   }
 
   anmshipmentLog(){
+    this.loaderService.display(true);
+
     this.shipmentList = [];
     this.sampleDetails = [];
     this.shipmentRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
     let shipmentLog = this.ShipmentlogService.getshipmentLog(this.shipmentRequest)
     .subscribe(response => {
       this.shipmentResponse = response;
+      this.loaderService.display(false);
+
       if(this.shipmentResponse !== null && this.shipmentResponse.status === "true"){
         if(this.shipmentResponse.shipmentLogs.length <= 0){
           this.shipmentLogErrorMessage = response.message;
