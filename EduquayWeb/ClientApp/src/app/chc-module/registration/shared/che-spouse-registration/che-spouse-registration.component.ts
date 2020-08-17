@@ -123,8 +123,12 @@ export class CheSpouseRegistrationComponent implements OnInit {
     //var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.RETRIVE);
         this.httpClientService.post<any>({url:apiUrl, body: _subjectObj }).subscribe(response => {
           console.log(response);
-          this.spouseData = response.anwPositiveSubjects;
-          this.rerender();
+          setTimeout(function(){
+            this.spouseData = response.anwPositiveSubjects;
+            console.log(this.spouseData);
+            this.rerender();
+          }.bind(this),1);
+          
         },
         (err: HttpErrorResponse) =>{
           console.log(err);

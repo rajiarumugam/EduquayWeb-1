@@ -61,7 +61,7 @@
 
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">RI Point</label><span class="manto"> *</span>
-                            <input type="text" autocomplete="off"class="form-control" id="inputSubtitle" placeholder="Subcentre" [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }" readonly>
+                            <input type="text" autocomplete="off"class="form-control" id="inputSubtitle" placeholder="RI Point" [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }" readonly>
                         </div>
 
                         <div class="form-group col-md-3">
@@ -125,7 +125,7 @@
                     <div class="form-row my-2">
                         <div class="form-group col-md-2">
                             <label class="birthreg" for="inputdob">Date of Birth</label>
-                            <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
+                            <ng2-flatpickr id="dateOfRegistration" #dobPicker name="dob" class="form-control flatpickr flatpickr-input active" [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label><span class="manto"> *</span>

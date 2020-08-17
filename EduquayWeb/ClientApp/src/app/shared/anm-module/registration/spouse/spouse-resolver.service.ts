@@ -27,8 +27,8 @@ export class SpouseResolverService implements Resolve<any> {
     var user = JSON.parse(this.tokenService.getUser('lu'));
     var _subjectObj = {
       "anmId":user.id,
-      "fromDate":this.fromDate,
-      "toDate":this.toDate
+      "fromDate":"",
+      "toDate":""
     }
 
     return this.spouseRegService.spouseDetails(_subjectObj).pipe(

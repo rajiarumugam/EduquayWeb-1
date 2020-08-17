@@ -150,23 +150,24 @@ export class CHCSampleRcptComponent implements OnInit {
   }
   
   openPopup(data) {
+    console.log(data);
     var _data:any = data;
     this.popupData = _data;
     this.formCheck = false;
-    if(this.popupData.shipmentFrom === 'ANM - CHC')
+    this.currentshipmentDateTime = data.shipmentDateTime;
+    this.processingPicker.flatpickr.setDate("");
+    this.processingPicker.flatpickr.set({
+      enable: ["22/10/2036"]
+    });
+    if(this.popupData.shipmentFrom === 'CHC - CHC')
     {
-      /*this.ILRform= this._formBuilder.group({
-        ilrInDateTime: ["", Validators.required],
-        ilrOutDateTime: ["", Validators.required]
-      });*/
       this.processingPicker.flatpickr.set({
         maxDate: new Date(Date.now()),
-        minDate: this.currentshipmentDateTime,
+        minDate: data.shipmentDateTime,
         enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
-      });
-      
+      }); 
     }
     
     this.popupData['receiptDetail'].forEach(function(val,index){
@@ -177,15 +178,15 @@ export class CHCSampleRcptComponent implements OnInit {
         val.barcodeDamaged = false;
         
     });
-    this.currentshipmentDateTime = data.shipmentDateTime;
+    
     /*this.receivedPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
     });*/
-    this.processingPicker.flatpickr.set({
+    /*this.processingPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
-    });
+    });*/
     if(this.ilrInDatePicker)
     {
         /*this.ilrInDatePicker.flatpickr.set({
@@ -217,7 +218,7 @@ export class CHCSampleRcptComponent implements OnInit {
     this.selectedreceivedDate = ""; 
     this.ILRInDate = "";
     this.ILROutDate = ""; 
-    this.processingPicker.flatpickr.setDate("");
+    //this.processingPicker.flatpickr.setDate("");
     //this.receivedPicker.flatpickr.setDate("");
     
     /*this.processingPicker.flatpickr.set({

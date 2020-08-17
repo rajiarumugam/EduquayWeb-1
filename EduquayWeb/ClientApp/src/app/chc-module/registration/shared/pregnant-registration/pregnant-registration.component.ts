@@ -72,7 +72,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   Ldisabled = true;
   Pdisabled = true;
   Adisabled = true;
-  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
+  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -83,7 +83,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: "",
-    maxDate: ""
+    maxDate: new Date(Date.now())
   };
   startOptionsLMP: FlatpickrOptions = {
     mode: 'single',
@@ -281,7 +281,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     this.masterService.getuserBasedRI()
     .subscribe(response => {
       this.RIdata = response['ri'];
-      this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
+      //this.selectedripoint = this.user.riId != "" ? this.user.riId.split(',')[0] : "";
     },
     (err: HttpErrorResponse) =>{
       this.RIdata = [];
@@ -323,7 +323,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       this.statelist.forEach(function(val,index){
         val.display = val.stateName;
       });
-      
+      this.selectedstate = 1;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
@@ -649,7 +649,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
     ageEntered()
     {
       if(!this.ageValidate)
-      this.DOBPicker.flatpickr.setDate("");
+          this.DOBPicker.flatpickr.setDate("");
   
       this.ageValidate = false;
     }

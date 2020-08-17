@@ -58,7 +58,7 @@ export class CheSpouseComponent implements OnInit {
   selecteddob;
   selectedage;
   selecteddor = new Date(Date.now());
-  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
+  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -79,6 +79,7 @@ export class CheSpouseComponent implements OnInit {
   };
   user;
   createdSubjectId="";
+  DOBSelected = false;
 
   spouseData = [];
   selectedanwname;
@@ -186,7 +187,8 @@ export class CheSpouseComponent implements OnInit {
       this.selectedmiddlename = data.spouseMiddleName;
       this.selectedlastname = data.spouseLastName;
       this.selectedPincode = data.pincode;
-      this.selectedstate = data.stateName;
+      //this.selectedstate = data.stateName;
+      this.selectedstate = 1;
       this.selectedcity = data.address3;
       this.selectedstreet = data.address2;
       this.selectedhouse = data.address1;
@@ -205,7 +207,8 @@ export class CheSpouseComponent implements OnInit {
       this.selectedmiddlename = data.spouseMiddleName;
       this.selectedlastname = data.spouseLastName;
       this.selectedPincode = data.pincode;
-      this.selectedstate = data.stateName;
+      //this.selectedstate = data.stateName;
+      this.selectedstate = 1;
       this.selectedcity = data.address3;
       this.selectedstreet = data.address2;
       this.selectedhouse = data.address1;
@@ -345,7 +348,7 @@ export class CheSpouseComponent implements OnInit {
      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
      }
-     console.log(age);
+     this.DOBSelected = true;
      this.selectedage = age;
      //return age;
   }
@@ -568,6 +571,9 @@ export class CheSpouseComponent implements OnInit {
     }
     ageEntered()
     {
+      if(!this.DOBSelected)
       this.DOBPicker.flatpickr.setDate("");
+
+      this.DOBSelected = false;
     }
 }

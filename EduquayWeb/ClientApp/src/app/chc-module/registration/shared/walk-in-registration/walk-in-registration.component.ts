@@ -306,7 +306,7 @@ export class ChcwalkinRegistrationComponent implements OnInit {
       this.statelist.forEach(function(val,index){
         val.display = val.stateName;
       });
-      
+      this.selectedstate = 1;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];
