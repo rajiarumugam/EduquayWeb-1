@@ -211,11 +211,11 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
-  searchBarCodetype(samplepicknPackdetail, primarytube) {
+  searchBarCodetype(samplepicknPackdetail) {
 
     this.tempCHCDatas = [];
-    //let term = this.searchbarcode;
-    this.searchbarcode = primarytube;
+    let primarytube = this.searchbarcode;
+    //this.searchbarcode = primarytube;
     var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
@@ -372,8 +372,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
           this.chcsamplepicknpackList(this.user.chcId);
-          this.removegetSelectedBarcode();
-         
+          this.removeSelectedBarcode(); 
           
         } else {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
@@ -464,6 +463,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         }
       }); 
       this.searchbarcode = '';    
+      this.searchbarcode = '';    
     }
     else{
       Swal.fire({
@@ -546,7 +546,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     });
 
   }
-  removegetSelectedBarcode() {
+  removeSelectedBarcode() {
   
     var _arrsubmitSelectedBarcode = [];
     this.startPickpackData.forEach(element => {

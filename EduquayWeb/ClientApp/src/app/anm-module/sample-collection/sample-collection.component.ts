@@ -15,6 +15,7 @@ import { formatDate } from '@angular/common';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 //import { FormGroup, FormBuilder } from '@angular/forms';
 
 
@@ -70,6 +71,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   sub: any;
   subjectIdParam: string = '';
   subjectTypeParam: string = '0';
+  date: Date;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -163,15 +165,29 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     }
     else {
       //this.fromDate = formatDate(this.sampleCollectionInitResponse.fromDate, "dd/MM/yyyy", "en-US");
+      var getdate;
       this.fromDate = this.sampleCollectionInitResponse.fromDate.replace('-', '/').replace('-', '/');
       if (this.sampleCollectionInitResponse.subjectList != null && this.sampleCollectionInitResponse.subjectList.length > 0) {
         this.subjectList = this.sampleCollectionInitResponse.subjectList;
+        this.subjectList.forEach(element => {
+          element.date = this.convertToDateFormat(element.dateOfRegister);
+          console.log(this.subjectList);
+        });
       }
     }
     this.sub = this.route.queryParams.subscribe(params => {
       this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
     });
 
+  }
+
+  convertToDateFormat(strDate){
+  
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1'));
+    console.log(dateFormat);
+    return dateFormat;
+  
   }
 
   anmSubjectTypes() {
