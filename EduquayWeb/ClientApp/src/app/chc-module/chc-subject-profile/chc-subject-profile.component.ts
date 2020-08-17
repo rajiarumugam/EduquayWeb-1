@@ -109,7 +109,7 @@ export class ChcSubjectProfileComponent implements OnInit {
   selecteddob;
   selectedage;
   createdSubjectId="";
-  GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
+  GPLADATA = [{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
 
   startOptions1: FlatpickrOptions = {
     mode: 'single',
@@ -225,7 +225,7 @@ export class ChcSubjectProfileComponent implements OnInit {
     this.ddlReligion();
     this.ddlGovtIdType();
     this.ddlCaste();
-    this.GPLADATA = [{id:'00',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
+    this.GPLADATA = [{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
     //this.ddlGvalue();
     this.firstFormGroup = new FormGroup({
       firstName: new FormControl(this.chcbasicInfo.firstName),
