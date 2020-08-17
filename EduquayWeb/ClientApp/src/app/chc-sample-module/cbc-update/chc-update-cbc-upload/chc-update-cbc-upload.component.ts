@@ -105,22 +105,25 @@ type AOA = any[][];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
         /* save data */
-        this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+        this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { raw: false }));
+        
+        console.log(this.data);
         this.chcUploadResultData = [];
         var _tempData = this.data;
         this.chcReceiptsData.forEach(function(val1,ind1){
           this.data.forEach(function(val,index){
-            console.log(val);
-            if(val1.barcodeNo == val[1])
+            //console.log(val);
+            if(val1.barcodeNo == val.Barcode)
             {
+            
               var _obj = {};
-              _obj['barcodeNo'] = ""+val[1];
+              _obj['barcodeNo'] = ""+val.Barcode;
               _obj['subjectId'] = val1.subjectId;
               _obj['rchId'] = val1.rchId;
               _obj['sampleDateTime'] = val1.sampleDateTime;
-              _obj['mcv'] = ""+val[2];
-              _obj['rdw'] = ""+val[3];
-              _obj['testCompleteOn'] = val[4];
+              _obj['mcv'] = ""+val.MCV;
+              _obj['rdw'] = ""+val.RDW;
+              _obj['testCompleteOn'] = moment(val.TestedDate).format("DD/MM/YYYY HH:MM") == "Invalid date" ? val.TestedDate : moment(val.TestedDate).format("DD/MM/YYYY HH:MM");
               _obj['testingCHCId']= this.user.chcId;
               _obj["createdBy"] = this.user.id;
     
@@ -163,6 +166,7 @@ type AOA = any[][];
 
   uploadHPLCResult()
   {
+    console.log(this.chcUploadResultData);
     Swal.fire({
       title: 'Are you sure?',
       text: "Confirm Upload CBC results",
