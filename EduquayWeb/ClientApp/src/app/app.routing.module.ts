@@ -126,6 +126,7 @@ import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-v
 // import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
+import { PageUnderDevelopementComponent } from "./page-under-developement/page-under-developement.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -293,7 +294,8 @@ const routes: Routes = [
   },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'notfound', component: NotfoundComponent },
+  // { path: 'notfound', component: NotfoundComponent },
+  { path: 'underdevelopement', component: PageUnderDevelopementComponent },
   { path: '**', redirectTo: '/notfound' },
 ];
 
@@ -307,6 +309,7 @@ export class AppRoutingModule { }
 export const RoutingComponents = [
   LoadScriptDirective,
   NotfoundComponent,
+  PageUnderDevelopementComponent,
   HomeComponent,
   CounterComponent,
   FetchDataComponent,

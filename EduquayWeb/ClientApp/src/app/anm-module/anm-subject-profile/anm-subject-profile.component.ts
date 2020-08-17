@@ -6,6 +6,7 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 
@@ -92,10 +93,14 @@ export class AnmSubjectProfileComponent implements OnInit {
     private SubjectProfileService: SubjectProfileService,
     private modalService: NgbModal,
     private httpService: HttpClient,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+
+    this.loaderService.display(false);
+
     console.log(this.SubjectProfileService.subjectProfileApi);
 
     this.firstFormGroup = this._formBuilder.group({
@@ -141,6 +146,7 @@ export class AnmSubjectProfileComponent implements OnInit {
   anmSubjectProfile() {
     //this.basicInfo = {};  
     //this.basicInfo['firstName']='';  
+    this.loaderService.display(true);
 
     this.subjectProfileErrorMessage = '';
     if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
@@ -153,6 +159,8 @@ export class AnmSubjectProfileComponent implements OnInit {
     let subProfile = this.SubjectProfileService.getsubjectProfile(this.subjectProfileRequest)
       .subscribe(response => {
         this.subjectProfileResponse = response;
+        this.loaderService.display(false);
+
         if (this.subjectProfileResponse !== null && this.subjectProfileResponse.status === "true") {
           if (this.subjectProfileResponse.primaryDetail.length <= 0 && this.subjectProfileResponse.pregnancyDetail.length <= 0
             && this.subjectProfileResponse.addressDetail.length <= 0 && this.subjectProfileResponse.parentDetail.length <= 0) {

@@ -47,6 +47,10 @@ export interface PrimaryDetail{
     govIdDetail: string;
     assignANMId: number;
     anmName: string;
+    isActive: true;
+    cbcTestResult: string;
+    ssTestResult: string;
+    hplcTestResult: string;
 }
 
 export interface AddressDetail{

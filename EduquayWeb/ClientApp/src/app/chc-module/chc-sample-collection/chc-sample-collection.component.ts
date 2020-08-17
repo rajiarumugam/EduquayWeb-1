@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-chc-sample-collection',
@@ -115,10 +116,12 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
 
+    this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.ChcInitializeDateRange();    
     this.dtOptions = {
@@ -144,6 +147,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
     this.chcSubjectTypesList();
 
     this.chcsampleCollectionInitResponse = this.route.snapshot.data.chcSampleCollectionData;
+    this.loaderService.display(false);
     if (this.chcsampleCollectionInitResponse.status === 'false') {
       this.chcsubjectList = [];
       if (this.chcsampleCollectionInitResponse.message !== null && this.chcsampleCollectionInitResponse.message.code === "ENOTFOUND") {
@@ -188,6 +192,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   }
 
  chcSampleCollection(){
+  this.loaderService.display(true);
   this.chcsubjectList = [];
   this.chcsCollectionErrorMessage = '';
   if (!this.validateDateRange()) {
@@ -204,6 +209,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
   let sampleCollection = this.sampleCollectionService.getSampleCollection(this.chcscRequest)
     .subscribe(response => {
       this.chcsampleCollectionResponse = response;
+      this.loaderService.display(false);
       if (this.chcsampleCollectionResponse !== null && this.chcsampleCollectionResponse.status === "true") {
         if (this.chcsampleCollectionResponse.subjectList.length <= 0) {
           this.chcsCollectionErrorMessage = response.message;

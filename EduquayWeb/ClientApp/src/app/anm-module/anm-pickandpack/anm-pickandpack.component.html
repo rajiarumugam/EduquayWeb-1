@@ -227,7 +227,7 @@
                                                                 <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || shipmentForm.submitted && avdcontactNo.invalid}">Contact Number<span
                                                                     class="manto"> *</span></label>
                                                                 <input class="form-control field" name="avdcontactNo" #avdcontactNo="ngModel" ngModel maxlength="10"
-                                                                numbersOnly pattern="^[6-9]\d{9}$"
+                                                                numbersOnly pattern="^[6-9]\d{9}$" 
                                                                 [class.is-invalid]="avdcontactNo.invalid && avdcontactNo.touched || shipmentForm.submitted && avdcontactNo.invalid"
                                                                     required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo" value="{{selectedAvdContact}}" readonly>
                                                                     <div *ngIf="avdcontactNo.errors && (avdcontactNo.invalid || avdcontactNo.touched)">
@@ -253,6 +253,7 @@
                                                                 numbersOnly pattern="^[6-9]\d{9}$" 
                                                                 type="tel" placeholder="Alternate Contact Number" [(ngModel)]="alternateAVDContactNo" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">
                                                                 <small class=" ml-2 text-danger" [class.d-none]="hasAlternateContactNumber">Please enter altername AVD contact number</small>  
+                                                                <!-- <small class="ml-2 text-danger" *ngIf="alternatecontactNo.errors.pattern">Contact number is invalid. </small>       -->
                                                                    
                                                             </div>
                                                             

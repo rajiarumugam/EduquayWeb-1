@@ -20,9 +20,7 @@ import Swal from 'sweetalert2';
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
     constructor(private masterService: masterService) { }
-    ngOnInit() {
-    
-        
+    ngOnInit() { 
         //this.user = JSON.parse(this.tokenService.getUser('lu'));
     }
 

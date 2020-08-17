@@ -15,6 +15,8 @@ import { formatDate } from '@angular/common';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 //import { FormGroup, FormBuilder } from '@angular/forms';
 
 
@@ -70,6 +72,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   sub: any;
   subjectIdParam: string = '';
   subjectTypeParam: string = '0';
+  date: Date;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -118,9 +121,12 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
+    private loaderService: LoaderService
     ) {  }
 
   ngOnInit() {
+
+    this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     
     this.InitializeDateRange();    
@@ -152,6 +158,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     this.anmSubjectTypes();
 
     this.sampleCollectionInitResponse = this.route.snapshot.data.sampleCollectionData;
+    this.loaderService.display(false);
     if (this.sampleCollectionInitResponse.status === 'false') {
       this.subjectList = [];
       if (this.sampleCollectionInitResponse.message !== null && this.sampleCollectionInitResponse.message.code === "ENOTFOUND") {
@@ -163,15 +170,30 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     }
     else {
       //this.fromDate = formatDate(this.sampleCollectionInitResponse.fromDate, "dd/MM/yyyy", "en-US");
+      var getdate;
       this.fromDate = this.sampleCollectionInitResponse.fromDate.replace('-', '/').replace('-', '/');
       if (this.sampleCollectionInitResponse.subjectList != null && this.sampleCollectionInitResponse.subjectList.length > 0) {
         this.subjectList = this.sampleCollectionInitResponse.subjectList;
+        this.subjectList.forEach(element => {
+          element.date = this.convertToDateFormat(element.dateOfRegister);
+          console.log(this.subjectList);
+        });
       }
+     
     }
     this.sub = this.route.queryParams.subscribe(params => {
       this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
     });
 
+  }
+
+  convertToDateFormat(strDate){
+  
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1'));
+    console.log(dateFormat);
+    return dateFormat;
+  
   }
 
   anmSubjectTypes() {
@@ -197,6 +219,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   anmSampleCollection() {
+    this.loaderService.display(true);
     this.subjectList = [];
     this.sCollectionErrorMessage = '';
     if (!this.validateDateRange()) {
@@ -214,12 +237,17 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     let sampleCollection = this.sampleCollectionService.getSampleCollection(this.scRequest)
       .subscribe(response => {
         this.sampleCollectionResponse = response;
+        this.loaderService.display(false);
         if (this.sampleCollectionResponse !== null && this.sampleCollectionResponse.status === "true") {
           if (this.sampleCollectionResponse.subjectList.length <= 0) {
             this.sCollectionErrorMessage = response.message;
           }
           else {
             this.subjectList = this.sampleCollectionResponse.subjectList;
+            this.subjectList.forEach(element => {
+              element.date = this.convertToDateFormat(element.dateOfRegister);
+              console.log(this.subjectList);
+            });
           }
         }
         else {
