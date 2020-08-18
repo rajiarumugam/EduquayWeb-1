@@ -15,6 +15,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-unsent-samples',
@@ -123,11 +124,13 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private constantService: ConstantService
+    private constantService: ConstantService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification", "page": "Unsent Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();

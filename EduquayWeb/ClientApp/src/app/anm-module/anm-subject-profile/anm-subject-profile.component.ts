@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
 
@@ -94,11 +95,13 @@ export class AnmSubjectProfileComponent implements OnInit {
     private modalService: NgbModal,
     private httpService: HttpClient,
     private _formBuilder: FormBuilder,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Subject Profile"}));
     this.loaderService.display(false);
 
     console.log(this.SubjectProfileService.subjectProfileApi);

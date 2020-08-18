@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../shared/token.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, PRIMARY_OUTLET } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { user, authResponse } from 'src/app/shared/auth-response';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -9,6 +9,10 @@ import { GenericService } from 'src/app/shared/generic.service';
 import { ENDPOINT } from '../../app.constant';
 import { HttpClientService } from 'src/app/shared/http-client.service';
 import { CookieService } from 'ngx-cookie-service';
+import { filter } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/internal/operators';
+import { DataService } from 'src/app/shared/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-site-header',
@@ -16,6 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./site-header.component.css']
 })
 export class SiteHeaderComponent implements OnInit {
+  subscription: Subscription;
   isPageLoaded: boolean;
   today: number = Date.now();
   langualgeSelected: string;
@@ -23,19 +28,24 @@ export class SiteHeaderComponent implements OnInit {
   userName: string;
   userId: string;
   authResult: authResponse;
+  module: string;
+  submodule: string;
+  componentpage: string;
   private cookieValue: string;
 
+  breadcrumbs;
 
   constructor(
     private tokenService: TokenService, 
     authService: AuthService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router, 
     private httpClient: HttpClient, 
     private httpClientService:HttpClientService,
     private genericService: GenericService,
     private cookieService: CookieService,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    private dataService: DataService) {
     //https://www.positronx.io/angular-internationalization-i18n-with-ngx-translate-tutorial/
     translate.addLangs(['English', 'ଓଡିଆ']); //, 'தமிழ்', 'हिन्दी'
     translate.setDefaultLang('English');
@@ -48,9 +58,37 @@ export class SiteHeaderComponent implements OnInit {
     setInterval(() => { this.today = Date.now() }, 1);
     this.isPageLoaded = true;
     this.getLoggedUser();
-    // this.cookieService.set('cookieApp', 'Welcome you, Anil!' );
-    // //Get Cookies
-    // this.cookieValue = this.cookieService.get('cookieApp');
+   
+    // this.router.events
+    // .pipe(filter(event => event instanceof NavigationEnd))
+    // .pipe(map(() => this.activatedRoute))
+    // .pipe(map((route) => {
+    //   while (route.firstChild) { route = route.firstChild; }
+    //   return route;
+    // }))
+    // .pipe(filter(route => route.outlet === PRIMARY_OUTLET))
+    // .subscribe(route => {
+
+    //   let snapshot = this.router.routerState.snapshot;
+    //   this.breadcrumbs = [];
+    //   let url = snapshot.url;
+    //   let routeData = route.snapshot.data;
+
+    //   console.log(routeData);
+    //   let label = routeData['breadcrumb'];
+    //   let params = snapshot.root.params;
+
+    //   this.breadcrumbs.push({
+    //     url: url,
+    //     label: label,
+    //     params: params
+    //   });
+
+    // });
+    
+    this.receiveBreadcrum();
+
+
   }
 
   getLoggedUser(){
@@ -101,4 +139,26 @@ export class SiteHeaderComponent implements OnInit {
     this.translate.use(lang);
   }
   
+  receiveBreadcrum(){
+    this.subscription = this.dataService.receiveData().subscribe(message => {
+      if(JSON.parse(message).module !== undefined && JSON.parse(message).module !== ''){
+        this.module = JSON.parse(message).module;
+      }
+      else{
+        this.module = '';
+      } 
+      if(JSON.parse(message).submodule !== undefined && JSON.parse(message).submodule !== ''){
+        this.submodule = JSON.parse(message).submodule;
+      }
+      else{
+        this.submodule = '';
+      }
+      if(JSON.parse(message).page !== undefined && JSON.parse(message).page !== ''){
+        this.componentpage = JSON.parse(message).page;
+      }
+      else{
+        this.componentpage = '';
+      }
+    });
+  }
 }

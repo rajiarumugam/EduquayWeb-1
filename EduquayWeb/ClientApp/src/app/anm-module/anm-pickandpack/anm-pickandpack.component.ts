@@ -16,6 +16,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -125,10 +126,13 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     private router: Router,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Pick & Pack to CHC"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.dtOptions = {
