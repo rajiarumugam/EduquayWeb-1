@@ -244,7 +244,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //  }
 
     // else {
-    //   Swal.fire({
+    //   Swal.fire({ allowOutsideClick: false,
     //     icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
     //   });
     //   this.searchbarcode=''; 
@@ -394,10 +394,10 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'success', title: title,
         showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
       })
@@ -438,7 +438,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         break;
       }
       // else {
-      //   Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
+      //   Swal.fire({ allowOutsideClick: false, icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
       //   this.alliquotetubebarcode='';
       // }
     });*/
@@ -468,7 +468,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.searchbarcode = '';    
     }
     else{
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
         title: 'Please select the Primary and Alliquoted HPLC tube',
         showConfirmButton: true,
@@ -491,7 +491,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
     this.startBadgePickpackCount = this.startPickpackData.length;
     this.rerender();
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
       icon: 'success',
       title: 'Back to Ship',
@@ -519,7 +519,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   //     this.rerender();
   //     this.isAddShipmentTrue = false;
      
-  //     Swal.fire({
+  //     Swal.fire({ allowOutsideClick: false,
   //       position: 'top-end',
   //       icon: 'success',
   //       title: 'Back to Ship',

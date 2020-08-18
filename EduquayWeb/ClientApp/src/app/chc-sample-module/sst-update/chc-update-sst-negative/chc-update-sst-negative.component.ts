@@ -125,7 +125,7 @@ export class SSTUpdateNegativeComponent implements OnInit {
     this.rerender();
     this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length, "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update SST Results"}));
     this.DataService.setdata({'sstNegative':this.negativeList});
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
       icon: 'success',
       title: 'Sample moved to Received Sample.',
@@ -138,7 +138,7 @@ export class SSTUpdateNegativeComponent implements OnInit {
 
   submitNegativeResult()
   {
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       title: 'Are you sure?',
       text: "Submit the negative results",
       icon: 'warning',
@@ -162,7 +162,7 @@ export class SSTUpdateNegativeComponent implements OnInit {
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
-            Swal.fire({
+            Swal.fire({ allowOutsideClick: false,
               text: 'Negative results submitted successfully.',
               icon: 'success'
             }).then((result) => {

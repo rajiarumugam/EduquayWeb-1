@@ -452,7 +452,7 @@ export class ChcSubjectProfileComponent implements OnInit {
         this.createdSubjectId = response.uniqueSubjectId;
         //this.getpositiveSubjectList();
 
-        Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+        Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Subject ID is '+this.createdSubjectId,
   showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
      .then((result) => {
        if (result.value) {

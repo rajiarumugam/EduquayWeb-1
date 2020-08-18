@@ -85,7 +85,7 @@ type AOA = any[][];
     const target: DataTransfer = <DataTransfer>(evt.target);
     if(target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     {
-        Swal.fire({
+        Swal.fire({ allowOutsideClick: false,
           icon: 'error',
           title: 'Oops...',
           text: 'Please upload only Excel file!'
@@ -142,7 +142,7 @@ type AOA = any[][];
         }
         else{
           this.showUploadResult = false;
-            Swal.fire({
+            Swal.fire({ allowOutsideClick: false,
               icon: 'error',
               title: 'Oops...',
               text: 'Data in your excel is already uploaded or not uploading correct data!'
@@ -167,7 +167,7 @@ type AOA = any[][];
   uploadHPLCResult()
   {
     console.log(this.chcUploadResultData);
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       title: 'Are you sure?',
       text: "Confirm Upload CBC results",
       icon: 'warning',
@@ -182,7 +182,7 @@ type AOA = any[][];
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
-            Swal.fire({
+            Swal.fire({ allowOutsideClick: false,
               text: 'CBC results uploaded successfully.',
               icon: 'success'
             }).then((result) => {
@@ -209,10 +209,10 @@ type AOA = any[][];
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if(type === 'e'){
-      Swal.fire({icon:'error', title: shipmentId, confirmButtonText: 'Close'})
+      Swal.fire({ allowOutsideClick: false,icon:'error', title: shipmentId, confirmButtonText: 'Close'})
     }
     else{
-      Swal.fire({icon:'success', title: title,
+      Swal.fire({ allowOutsideClick: false,icon:'success', title: title,
       showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
          .then((result) => {
            if (result.value) {

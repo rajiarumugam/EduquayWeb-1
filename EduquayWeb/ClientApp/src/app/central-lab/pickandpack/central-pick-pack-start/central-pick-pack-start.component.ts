@@ -182,7 +182,7 @@ export class CentralPickPackStartComponent implements OnInit {
     this.rerender();
     this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
     this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
       icon: 'success',
       title: 'Back to Ship',
@@ -232,7 +232,7 @@ export class CentralPickPackStartComponent implements OnInit {
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
-          Swal.fire({icon:'success', title: 'Shipment ID is '+this.chcUploadResponse.shipment.shipmentId,
+          Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment ID is '+this.chcUploadResponse.shipment.shipmentId,
           showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
              .then((result) => {
                 $('#fadeinModal').modal('hide');
@@ -261,7 +261,7 @@ export class CentralPickPackStartComponent implements OnInit {
   }
   submitNegativeResult()
   {
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       title: 'Are you sure?',
       text: "Submit the positive results",
       icon: 'warning',
@@ -285,7 +285,7 @@ export class CentralPickPackStartComponent implements OnInit {
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
-            Swal.fire({
+            Swal.fire({ allowOutsideClick: false,
               text: 'Positive results submitted successfully.',
               icon: 'success'
             }).then((result) => {

@@ -214,7 +214,7 @@ export class ChcStartPickpackComponent implements OnInit {
     //  }
 
     else {
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
       });
       this.searchbarcode=''; 
@@ -356,10 +356,10 @@ export class ChcStartPickpackComponent implements OnInit {
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'success', title: title,
         showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
       })
@@ -386,7 +386,7 @@ export class ChcStartPickpackComponent implements OnInit {
         this.isAliquoteBarcodeMatch = true;
       }
       else {
-        Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
+        Swal.fire({ allowOutsideClick: false, icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
         this.alliquotetubebarcode='';
       }
     });
@@ -424,7 +424,7 @@ export class ChcStartPickpackComponent implements OnInit {
 
     })
     if(this.startpickpackSelected === false){
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         title: 'One or more selected samples that are aging more than 24 hours',
         text: "Do you still want to continue?",
         icon: 'warning',

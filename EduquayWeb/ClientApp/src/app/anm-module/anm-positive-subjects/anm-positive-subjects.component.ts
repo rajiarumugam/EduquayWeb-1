@@ -364,10 +364,10 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           if(this.modalService.hasOpenModals){
@@ -620,7 +620,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
           this.getpositiveSubjectList(this.user.id);
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later', allowOutsideClick: false })
        .then((result) => {
          if (result.value) {
           //$('#fadeinModal').modal('hide');

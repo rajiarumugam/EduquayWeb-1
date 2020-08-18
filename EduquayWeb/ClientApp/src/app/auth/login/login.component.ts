@@ -95,13 +95,13 @@ export class LoginComponent implements OnInit {
   showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'});
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false});
     }
     else if(type === 'i'){
-      Swal.fire({icon:'info', title: message, confirmButtonText: 'Close'});
+      Swal.fire({icon:'info', title: message, confirmButtonText: 'Close', allowOutsideClick: false});
     }
     else if(type === 's'){
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'});
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false});
     }
   }
   

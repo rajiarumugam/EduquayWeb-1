@@ -56,7 +56,7 @@ import Swal from 'sweetalert2';
       this.selectedripoint = this.associatedANMData[i].riPoint;
       this.selectedTestingchc = this.associatedANMData[i].testingCHCId;*/
 
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         title: 'Are you sure?',
         text: "Confirm Associated ANM is "+this.associatedANMData[i].anmName,
         icon: 'warning',

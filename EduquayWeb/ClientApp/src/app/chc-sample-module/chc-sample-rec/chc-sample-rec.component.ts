@@ -389,7 +389,7 @@ export class CHCSampleRcptComponent implements OnInit {
                 this.createdSubjectId = response.uniqueSubjectId;
                 if(response.status === "true")
                 {
-                  Swal.fire({icon:'success', title: 'Shipment Received Successfully',
+                  Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {

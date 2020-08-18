@@ -362,10 +362,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.modalService.dismissAll();
