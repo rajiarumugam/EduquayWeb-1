@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-picknpack',
@@ -102,10 +103,13 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private constantService: ConstantService
+    private constantService: ConstantService,
+    private dataservice: DataService
   ) {}
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Pick & Pack to Screening Center"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.dtOptions = {
@@ -406,7 +410,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No',
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.value) {
           var isFirst = true;

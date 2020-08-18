@@ -13,6 +13,7 @@ import { GenericService } from './../../../shared/generic.service';
 import { HttpClientService } from './../../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-central-sample-rec',
@@ -85,10 +86,13 @@ export class CentralSampleRcptComponent implements OnInit {
     private tokenService: TokenService,
     private genericService: GenericService,
     private httpClientService:HttpClientService,
-    private centralsampleService: centralsampleService
+    private centralsampleService: centralsampleService,
+    private dataservice: DataService
     ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Sample Receipt"}));
     this.form = this._formBuilder.group({
       processingDate: ['', Validators.required]
     });

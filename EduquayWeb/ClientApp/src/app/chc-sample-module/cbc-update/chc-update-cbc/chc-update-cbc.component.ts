@@ -48,6 +48,7 @@ export class CHCUpdateCBCComponent implements OnInit {
     });
 
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
+    this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Update CBC Results"}));
   }
 
   receivedSamples(event)

@@ -19,7 +19,7 @@ export class AnmUpdateChcComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notification", "page": "Update CHC Reg"}));
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notifications", "page": "Update CHC Reg"}));
     // Add all icons to the library so you can use it in your page
     //library.add(fas, far, fab)
   }

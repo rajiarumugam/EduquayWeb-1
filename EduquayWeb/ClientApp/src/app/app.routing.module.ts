@@ -302,8 +302,8 @@ const routes: Routes = [
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
-  { path: 'underdevelopement', component: PageUnderDevelopementComponent },
-  { path: '**', redirectTo: '/notfound' },
+  { path: 'underconstruction', component: PageUnderDevelopementComponent },
+  { path: '**', redirectTo: '/underconstruction' },
 ];
 
 

@@ -14,7 +14,7 @@ export class AnmPndReferralComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notification", "page": "PND Referal"}));
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notifications", "page": "PND Referal"}));
   }
 
 }

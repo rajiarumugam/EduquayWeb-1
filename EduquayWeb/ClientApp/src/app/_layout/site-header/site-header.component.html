@@ -124,11 +124,12 @@
             <nav class="breadcrumb-one" aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page"><span>{{module}}</span></li>
+                <li *ngIf='module !== ""' class="breadcrumb-item" aria-current="page"><span>{{module}}</span></li>
                 <li *ngIf='submodule !== ""' class="breadcrumb-item" aria-current="page"><span>{{submodule}}</span></li>
                 <li *ngIf='componentpage !== ""' class="breadcrumb-item active" aria-current="page">
                   <span>{{componentpage}}</span>
                 </li>
+                
                 <!-- <li *ngFor='let breadcrumb of breadcrumbs' class="breadcrumb-item">
                   <a [routerLink]='[breadcrumb.url, breadcrumb.params]' routerLinkActive='active'>{{ breadcrumb.label }}</a>
                 </li> -->

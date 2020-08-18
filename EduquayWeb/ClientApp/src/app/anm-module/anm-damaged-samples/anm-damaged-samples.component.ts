@@ -202,10 +202,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       uniqueSubjectId: this.uniqueSubjectId,
       reason: this.reason,
       barcodeNo: this.barcodeNo,
-      collectionFrom: 10,
+      collectionFrom: this.user.sampleCollectionFrom,
       sampleCollectionDate: this.sampleCollectionDate,
       sampleCollectionTime: this.sampleCollectionTime,
-      collectedBy: 1,
+      collectedBy: this.user.id,
     };
 
     //Remove below 2 lines after successfully tested

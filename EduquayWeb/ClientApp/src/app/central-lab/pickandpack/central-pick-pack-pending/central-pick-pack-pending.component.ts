@@ -68,7 +68,7 @@ export class CentralPickPackPendingComponent implements OnInit {
       }
         this.centralPickpackPendingData = _tempData;
         console.log(this.centralPickpackPendingData);
-       this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.centralPickpackPendingData.length,"startpickCount":this.pickpackStartList.length}));
+       this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.centralPickpackPendingData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
     }
     else{
       this.errorMessage = centralReceiptsArr.message;

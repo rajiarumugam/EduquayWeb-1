@@ -18,6 +18,8 @@ export class CentralPickAndPackComponent implements OnInit {
 
   ngOnInit() {
 
+    //this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Pick & Pack"}));
+
     this.router.events
     .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
     .subscribe((events: RoutesRecognized[]) => {
