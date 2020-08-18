@@ -14,6 +14,7 @@ declare var $: any
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
 import { Router } from '@angular/router';
+import {LoaderService} from '../../../../shared/loader/loader.service';
 
 @Component({
   selector: 'chc-student-registration',
@@ -111,11 +112,11 @@ export class ChcStudentRegistrationComponent implements OnInit {
 
   createdSubjectId;
   user;
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router,private loaderService: LoaderService) { }
 
 
   ngOnInit() {
-
+    this.loaderService.display(false);
     /*phc: ['', Validators.required],
       sc: ['', Validators.required],
       ripoint: ['', Validators.required],

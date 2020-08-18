@@ -125,7 +125,7 @@
                             <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"> *</span>
                             <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }" [attr.disabled]="Ldisabled ? Ldisabled : null">
                                 <option [ngValue]="null">Select</option>
-                                <option [value]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedp != null ? +selectedp+1 : null; let ind=index;">{{data.value}}</option>
+                                <option [value]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedp != null ? +selectedp : null; let ind=index;">{{data.value}}</option>
                             </select>
                         </div>
                         <!--<div class="form-group col-md-3">

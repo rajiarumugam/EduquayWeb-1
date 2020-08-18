@@ -3,6 +3,7 @@ import { masterService } from 'src/app/shared/master/district/masterdata.service
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpErrorResponse } from '@angular/common/http';
+import {LoaderService} from '../../../../shared/loader/loader.service';
 declare var $: any 
 import Swal from 'sweetalert2';
 
@@ -19,17 +20,21 @@ import Swal from 'sweetalert2';
 
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-    constructor(private masterService: masterService) { }
-    ngOnInit() { 
+    constructor(private masterService: masterService,private loaderService: LoaderService) { }
+    ngOnInit() {
+    
+      this.loaderService.display(false);
         //this.user = JSON.parse(this.tokenService.getUser('lu'));
     }
 
     dataRefreash(chcid)
     {
+      this.loaderService.display(true);
       console.log(chcid);
        this.masterService.getAssociatedANM(chcid)
         .subscribe(response => {
         console.log(response);
+        this.loaderService.display(false);
         this.associatedANMData = response.associatedANMDetail;
         if(this.associatedCount === 0)
             this.dtTrigger.next();
