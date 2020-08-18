@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChcNotification } from 'src/app/shared/chc-module/chc-notification';
 import { Router } from '@angular/router';
 import { ChcNotificationService } from 'src/app/shared/chc-module/chc-notification.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-notification',
@@ -19,10 +20,13 @@ export class ChcNotificationComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private notificationService: ChcNotificationService
+    private notificationService: ChcNotificationService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notification"}));
     this.notificationCount();
   }
 

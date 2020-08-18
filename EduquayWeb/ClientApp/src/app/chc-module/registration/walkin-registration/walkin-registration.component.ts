@@ -1,5 +1,6 @@
 import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import { SiteSidebarComponent } from "./../../../_layout/site-sidebar/site-sidebar.component";
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -13,11 +14,15 @@ export class WalkinRegistrationComponent implements OnInit {
   selectedRegScreen = "other";
   @ViewChild('preg', {static:false}) preg;
 
-  constructor() {
+  constructor(
+    private dataservice: DataService
+  ) {
     
   }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Subject Registration", "page": "Walk-in Registration"}));
     
   }
   inputChange(evt)

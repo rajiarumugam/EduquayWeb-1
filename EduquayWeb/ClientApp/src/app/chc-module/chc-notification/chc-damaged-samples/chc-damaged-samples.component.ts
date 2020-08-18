@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { ChcNotificationSamplesService } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples.service';
 import { ChcNotificationSamplesRequest, AddChcSampleRecollectionRequest } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-request';
 import { ChcNotificationSamplesResponse, AddChcSampleRecollectionResponse, ChcNotifiedSampleList } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-response';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-damaged-samples',
@@ -71,11 +72,13 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notification", "page": "Damaged Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();

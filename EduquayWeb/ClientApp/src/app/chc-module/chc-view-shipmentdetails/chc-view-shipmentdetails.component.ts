@@ -6,6 +6,7 @@ import { ChcShipmentlogService } from 'src/app/shared/chc-module/chc-shipmentlog
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-view-shipmentdetails',
@@ -45,11 +46,13 @@ export class ChcViewShipmentdetailsComponent implements OnInit {
   constructor(
     private ChcShipmentlogService: ChcShipmentlogService,
     private activatedRoute: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Shipment Details"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.activatedRoute.queryParams.subscribe(params => {
       this.shipmentId = params['q'];

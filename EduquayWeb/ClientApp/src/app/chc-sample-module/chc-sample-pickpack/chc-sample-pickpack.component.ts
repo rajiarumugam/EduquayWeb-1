@@ -559,7 +559,9 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.startPickpackData = [];
       this.startPickpackData.splice(this._intSelectedBarcode, 1)
       this.startBadgePickpackCount = this.startPickpackData.length;
+      this.rerender();
   }
+  
   getSelectedBarcode() {
   
         var _arrSelectedBarcode = [];

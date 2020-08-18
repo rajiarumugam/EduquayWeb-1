@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -55,11 +56,13 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
     private ChcShipmentlogService: ChcShipmentlogService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Screening Center Shipment Log"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',

@@ -18,6 +18,7 @@ import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-subject-profile',
@@ -130,14 +131,15 @@ export class ChcSubjectProfileComponent implements OnInit {
     private masterService: masterService,
     private router: Router,
     private route: ActivatedRoute,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private dataservice: DataService
 
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Subject Profile"}));
     this.loaderService.display(false);
-
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     console.log(this.SubjectProfileService.subjectProfileApi);
 

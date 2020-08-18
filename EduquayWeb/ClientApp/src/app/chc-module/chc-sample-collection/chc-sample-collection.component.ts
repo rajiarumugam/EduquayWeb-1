@@ -17,6 +17,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-sample-collection',
@@ -116,11 +117,13 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Sample Collection"}));
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.ChcInitializeDateRange();    
