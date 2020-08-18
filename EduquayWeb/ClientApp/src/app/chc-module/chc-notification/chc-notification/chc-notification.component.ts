@@ -26,7 +26,7 @@ export class ChcNotificationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notification"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications"}));
     this.notificationCount();
   }
 

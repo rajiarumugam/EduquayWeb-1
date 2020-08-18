@@ -78,7 +78,7 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notification", "page": "Damaged Samples"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Damaged Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
@@ -188,10 +188,10 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       uniqueSubjectId: this.uniqueSubjectId,
       reason: this.reason,
       barcodeNo: this.barcodeNo,
-      collectionFrom: 10,
+      collectionFrom: this.user.sampleCollectionFrom,
       sampleCollectionDate: this.sampleCollectionDate,
       sampleCollectionTime: this.sampleCollectionTime,
-      collectedBy: 1,
+      collectedBy: this.user.id,
     };
 
     //Remove below 2 lines after successfully tested

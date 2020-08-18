@@ -14,7 +14,7 @@ export class AnmMtpReferralComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notification", "page": "MTP Referal"}));
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notifications", "page": "MTP Referal"}));
   }
 
 }

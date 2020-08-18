@@ -14,7 +14,7 @@ export class AnmPostMtpFollowupComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notification", "page": "Post MTP Follow-up"}));
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notifications", "page": "Post MTP Follow-up"}));
   }
 
 }

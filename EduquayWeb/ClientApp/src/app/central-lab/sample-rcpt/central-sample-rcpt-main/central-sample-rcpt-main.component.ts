@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-central-sample-rcpt',
@@ -8,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class CentralSampleRcptMainComponent implements OnInit {
 
   
-  constructor() { }
+  constructor(
+    private dataservice: DataService
+  ) { }
 
   ngOnInit() {
-
+    this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Sample Receipt"}));
   }
 
  

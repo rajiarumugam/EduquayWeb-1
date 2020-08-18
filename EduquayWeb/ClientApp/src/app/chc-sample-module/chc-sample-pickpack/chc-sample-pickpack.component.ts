@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -110,11 +111,14 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     private tokenService: TokenService,
     private router: Router,
     private route: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dataservice: DataService
 
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Pick & Pack for HPLC lab"}));
 
    // this.dtOptions[0] = this.chcsamplepickpack;
     //this.dtOptions1[1] = this.startPickpackData;
@@ -441,9 +445,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
   }
 
-  submittoshipment(){
-
-   
+  submittoshipment(){ 
 
     if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true){
      
@@ -561,7 +563,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.startBadgePickpackCount = this.startPickpackData.length;
       this.rerender();
   }
-  
+
   getSelectedBarcode() {
   
         var _arrSelectedBarcode = [];

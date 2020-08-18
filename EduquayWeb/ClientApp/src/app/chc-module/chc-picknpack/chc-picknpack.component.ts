@@ -410,7 +410,8 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No',
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.value) {
           var isFirst = true;

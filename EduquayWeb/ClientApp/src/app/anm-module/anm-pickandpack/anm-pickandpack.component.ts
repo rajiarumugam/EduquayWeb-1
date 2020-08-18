@@ -190,7 +190,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
         //   this.selectedriPoint = this.riPoints[0].id.toString();
         // }
       }
-      else {
+    else {
         this.picknpackErrorMessage = response.message;
       }
     },

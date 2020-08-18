@@ -31,6 +31,7 @@ export class SiteHeaderComponent implements OnInit {
   module: string;
   submodule: string;
   componentpage: string;
+  componentpagealter: string;
   private cookieValue: string;
 
   breadcrumbs;
@@ -158,6 +159,16 @@ export class SiteHeaderComponent implements OnInit {
       }
       else{
         this.componentpage = '';
+      }
+
+      if(JSON.parse(message).pagealter !== undefined && JSON.parse(message).pagealter !== ''){
+        this.componentpagealter = JSON.parse(message).pagealter;
+      }
+      else{
+        this.componentpagealter = '';
+      }
+      if(this.componentpagealter !== ''){
+        this.componentpage = this.componentpagealter;
       }
     });
   }

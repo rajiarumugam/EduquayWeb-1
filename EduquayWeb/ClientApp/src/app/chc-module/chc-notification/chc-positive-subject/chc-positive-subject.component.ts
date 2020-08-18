@@ -148,7 +148,7 @@ export class ChcPositiveSubjectComponent implements AfterViewInit, OnDestroy, On
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notification", "page": "Positive Subjects"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Positive Subjects"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
