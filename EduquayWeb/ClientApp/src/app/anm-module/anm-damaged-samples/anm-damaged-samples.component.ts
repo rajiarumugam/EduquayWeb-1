@@ -15,6 +15,7 @@ import { user } from 'src/app/shared/auth-response';
 import * as moment from 'moment';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -85,10 +86,13 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private constantService: ConstantService
+    private constantService: ConstantService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification", "page": "Damaged Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange(); 

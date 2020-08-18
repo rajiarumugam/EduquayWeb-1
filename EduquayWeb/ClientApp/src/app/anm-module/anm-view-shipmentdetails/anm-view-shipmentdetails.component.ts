@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-view-shipmentdetails',
@@ -43,11 +44,14 @@ export class AnmViewShipmentdetailsComponent implements OnInit {
   constructor(
     private ShipmentlogService: ShipmentlogService,
     private activatedRoute: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dataservice: DataService
   ) { }
 
   
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Shipment Details"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.activatedRoute.queryParams.subscribe(params => {
       this.shipmentId = params['q'];

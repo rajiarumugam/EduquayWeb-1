@@ -17,6 +17,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { DataService } from 'src/app/shared/data.service';
 //import { FormGroup, FormBuilder } from '@angular/forms';
 
 
@@ -121,10 +122,12 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private dataservice: DataService
     ) {  }
 
   ngOnInit() {
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Sample Collection"}));
 
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
@@ -178,6 +181,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
           element.date = this.convertToDateFormat(element.dateOfRegister);
           console.log(this.subjectList);
         });
+        console.log('something');
       }
      
     }

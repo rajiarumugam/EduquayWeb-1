@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-pnd-referral',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnmPndReferralComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dataservice: DataService
+  ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notification", "page": "PND Referal"}));
   }
 
 }

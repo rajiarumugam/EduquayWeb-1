@@ -489,7 +489,7 @@
                                                     <td><b>Father Contact</b></td>
                                                     <td>{{chcparentInfo.fatherContactNo}}</td>    
                                                 </tr>
-                                                <tr>
+                                                <tr [hidden]="!chcparentInfo.gaurdianFirstName">
                                                     <td><b>Guardian’s Name </b></td>
                                                     <td>{{chcparentInfo.gaurdianFirstName}} {{chcparentInfo.gaurdianMiddleName}} {{chcparentInfo.gaurdianLastName}}</td>
                                                     <td><b>Guardian’s Contact</b></td>

@@ -3,6 +3,7 @@ import { DamagedSamplesService } from 'src/app/shared/anm-module/notifications/d
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/shared/anm-module/notifications/notification.service';
 import { NotificationModel } from 'src/app/shared/anm-module/notifications/notification.model';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-notification',
@@ -26,10 +27,12 @@ export class AnmNotificationComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification"}));
     this.notificationCount();
   }
 
