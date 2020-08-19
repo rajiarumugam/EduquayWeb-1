@@ -51,7 +51,7 @@ type AOA = any[][];
           this.centralUploadResultData = this.DataService.getdata().centraluploaddata;
           this.showUploadResult = true;
       }
-      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
+      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "submodule": "Update HPLC Results", "pagealter": " Upload HPLC Results"}));
     }
     else{
       this.errorMessage = centralReceiptsArr.message;
@@ -136,7 +136,7 @@ type AOA = any[][];
         if(this.centralUploadResultData.length > 0)
         {
           this.showUploadResult = true;
-          this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
+          this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "submodule": "Update HPLC Results", "pagealter": " Upload HPLC Results"}));
           this.DataService.setdata({'centraluploaddata':this.centralUploadResultData});
         }
         else{
@@ -184,7 +184,7 @@ type AOA = any[][];
               text: 'HPLC results uploaded successfully.',
               icon: 'success', allowOutsideClick: false
             }).then((result) => {
-              this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":0,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
+              this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":0,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "submodule": "Update HPLC Results", "pagealter": " Upload HPLC Results"}));
               this.DataService.deleteProp('centraluploaddata');
               this.centralUploadResultData = [];
               this.showUploadResult = false;

@@ -52,7 +52,7 @@ type AOA = any[][];
           this.chcUploadResultData = this.DataService.getdata().cbcuploaddata;
           this.showUploadResult = true;
       }
-      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length,  "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update CBC Results"}));
+      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Upload CBC Results"}));
     }
     else{
       this.errorMessage = chcReceiptsArr.message;
@@ -137,7 +137,7 @@ type AOA = any[][];
         if(this.chcUploadResultData.length > 0)
         {
           this.showUploadResult = true;
-          this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length}));
+          this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Upload CBC Results"}));
           this.DataService.setdata({'cbcuploaddata':this.chcUploadResultData});
         }
         else{

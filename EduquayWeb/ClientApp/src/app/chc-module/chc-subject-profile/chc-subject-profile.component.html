@@ -414,6 +414,7 @@
                                 </div>
                             </div>
 
+                             <!-- ANW && Spouse Basic Info-->
                             <div class="row" *ngIf="chcbasicInfo.childSubjectTypeId === 1 || chcbasicInfo.childSubjectTypeId === 2">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -452,13 +453,15 @@
                                     </div>
                                 </div>
                             </div>
+
+                             <!-- Age > 18  Basic Info-->
                             <div class="row" *ngIf="chcbasicInfo.childSubjectTypeId === 3">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblBasicInfo">
                                             <thead class="tablecss">
                                                 <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
+                                                    <th colspan="8" class="text-left"
                                                         style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
                                                     </th>
                                                 </tr>
@@ -472,29 +475,90 @@
                                                     <td class="sp-xs-td-15">{{chcbasicInfo.gender}}</td>
                                                     <td class="sp-xs-td-9"><b>Date of Birth</b></td>
                                                     <td class="sp-xs-td-15">{{chcbasicInfo.dob}}</td>
+                                                    <td class="sp-xs-td-9"><b>Age</b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.age}}</td>
                                                 </tr>
+                                                <tr>    
+                                                    <td><b>Contact No</b></td>
+                                                    <td>{{chcbasicInfo.mobileNo}}</td>
+                                                    <td [hidden]="!chcparentInfo.motherFirstName"><b>Mother’s Name </b></td>
+                                                    <td colspan="3" [hidden]="!chcparentInfo.motherFirstName">{{chcparentInfo.motherFirstName}} {{chcparentInfo.motherMiddleName}} {{chcparentInfo.motherLastName}}</td>
+                                                    <td [hidden]="!chcparentInfo.motherContactNo"><b>Mother Contact</b></td>
+                                                    <td [hidden]="!chcparentInfo.motherContactNo">{{chcparentInfo.motherContactNo}}</td>
+                                                </tr>
+                                               
+                                                <tr>    
+                                                    <td [hidden]="!chcparentInfo.fatherFirstName"><b>Father’s Name </b></td>
+                                                    <td [hidden]="!chcparentInfo.fatherFirstName">{{chcparentInfo.fatherFirstName}} {{chcparentInfo.fatherMiddleName}} {{chcparentInfo.fatherLastName}}</td>
+                                                    <td [hidden]="!chcparentInfo.fatherContactNo"><b>Father Contact</b></td>
+                                                    <td [hidden]="!chcparentInfo.fatherContactNo">{{chcparentInfo.fatherContactNo}}</td> 
+                                                    <td [hidden]="!chcparentInfo.gaurdianFirstName"><b>Guardian’s Name </b></td>
+                                                    <td [hidden]="!chcparentInfo.gaurdianFirstName">{{chcparentInfo.gaurdianFirstName}} {{chcparentInfo.gaurdianMiddleName}} {{chcparentInfo.gaurdianLastName}}</td>
+                                                    <td [hidden]="!chcparentInfo.gaurdianContactNo"><b>Guardian’s Contact</b></td>
+                                                    <td [hidden]="!chcparentInfo.gaurdianContactNo">{{chcparentInfo.gaurdianContactNo}}</td>     
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Walk-in Basic Info-->
+                             <div class="row" *ngIf="chcbasicInfo.childSubjectTypeId === 4">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 <tr>
+                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.firstName}}  {{chcbasicInfo.middleName}}
+                                                        {{chcbasicInfo.lastName}}</td>
+                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.gender}}</td>
+                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-15">{{chcbasicInfo.dob}}</td>
+                                                    
+                                                </tr>
+                                               
+                                                <tr>    
                                                     <td><b>Age</b></td>
                                                     <td>{{chcbasicInfo.age}}</td>
                                                     <td><b>Contact No</b></td>
                                                     <td>{{chcbasicInfo.mobileNo}}</td>
-                                                    <td><b>Mother’s Name </b></td>
-                                                    <td>{{chcparentInfo.motherFirstName}} {{chcparentInfo.motherMiddleName}} {{chcparentInfo.motherLastName}}</td>
+                                                    <td><b>Spouse Name</b></td>
+                                                    <td>{{chcbasicInfo.spouseFirstName}} {{chcbasicInfo.spouseMiddleName}} {{chcbasicInfo.spouseLastName}}</td>
+                                                    
                                                 </tr>
                                                 <tr>
+                                                    <td><b>Spouse Contact</b></td>
+                                                    <td>{{chcbasicInfo.spouseContactNo}}</td>
+                                                    <td><b>Mother’s Name </b></td>
+                                                    <td>{{chcparentInfo.motherFirstName}} {{chcparentInfo.motherMiddleName}} {{chcparentInfo.motherLastName}}</td>
                                                     <td><b>Mother Contact</b></td>
-                                                    <td>{{chcparentInfo.motherContactNo}}</td>
+                                                    <td >{{chcparentInfo.motherContactNo}}</td>
+                                                </tr>
+                                                <tr>    
                                                     <td><b>Father’s Name </b></td>
                                                     <td>{{chcparentInfo.fatherFirstName}} {{chcparentInfo.fatherMiddleName}} {{chcparentInfo.fatherLastName}}</td>
                                                     <td><b>Father Contact</b></td>
-                                                    <td>{{chcparentInfo.fatherContactNo}}</td>    
-                                                </tr>
-                                                <tr [hidden]="!chcparentInfo.gaurdianFirstName">
+                                                    <td>{{chcparentInfo.fatherContactNo}}</td> 
                                                     <td><b>Guardian’s Name </b></td>
                                                     <td>{{chcparentInfo.gaurdianFirstName}} {{chcparentInfo.gaurdianMiddleName}} {{chcparentInfo.gaurdianLastName}}</td>
+                                                       
+                                                </tr>
+                                                <tr>
                                                     <td><b>Guardian’s Contact</b></td>
-                                                    <td>{{chcparentInfo.gaurdianContactNo}}</td>                                                  
-                                                </tr>    
+                                                    <td>{{chcparentInfo.gaurdianContactNo}}</td> 
+                                                </tr>
+                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -503,6 +567,7 @@
                         </div>
                     </div>
 
+                    <!-- ANW && Spouse Socio-Demographic Info-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.childSubjectTypeId === 1 || chcbasicInfo.childSubjectTypeId === 2">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
@@ -566,7 +631,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.childSubjectTypeId === 3">
+
+                    <!-- Age < 18 && Walk-in Socio-Demographic Info-->
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.childSubjectTypeId === 3 || chcbasicInfo.childSubjectTypeId === 4">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -620,6 +687,7 @@
                         </div>
                     </div>
 
+                     <!-- ANW personal Info-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcbasicInfo.childSubjectTypeId === 1">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
@@ -669,6 +737,8 @@
                             </div>
                         </div>
                     </div>
+
+                     <!-- Spouse personal Info-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcbasicInfo.childSubjectTypeId === 2">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
@@ -710,6 +780,49 @@
                             </div>
                         </div>
                     </div>
+
+                     <!-- Walk-in personal Info-->
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcbasicInfo.childSubjectTypeId === 4">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="3" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">Personal Info</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td [hidden]="!chcpersonalInfo.ecNumber" class="sp-xs-td-9"><b>EC Number</b></td>
+                                                    <td [hidden]="!chcpersonalInfo.ecNumber" class="sp-xs-td-15">{{chcpersonalInfo.ecNumber}}</td>
+                                                    <td class="sp-xs-td-9"><b>Barcodes</b></td>
+                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                    <td class="sp-xs-td-15">{{chcpersonalInfo.barcodes}}</td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Age < 18 personal Info-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcbasicInfo.childSubjectTypeId === 3">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
@@ -740,8 +853,8 @@
                                                     <td class="sp-xs-td-15">{{chcparentInfo.schoolName}}</td>
                                                     <td class="sp-xs-td-9"><b>School Address</b></td>
                                                     <!-- <td><b>3423422</b>|3423434|3423442</td> -->
-                                                    <td class="sp-xs-td-15">{{chcparentInfo.schoolAddress1}},
-                                                        {{chcparentInfo.schoolCity}}, {{chcparentInfo.schoolState}}, {{chcparentInfo.schoolPincode}} </td>
+                                                    <td class="sp-xs-td-15">{{chcparentInfo.schoolAddress1}}
+                                                        {{chcparentInfo.schoolCity}} {{chcparentInfo.schoolState}} {{chcparentInfo.schoolPincode}} </td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>Standard</b></td>
@@ -766,6 +879,8 @@
                             </div>
                         </div>
                     </div>
+
+                     <!-- ANW & Spouse & Age < 18 & Walk-in Test results-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
@@ -805,6 +920,8 @@
                             </div>
                         </div>
                     </div>
+
+                     <!-- ANW counselling Info-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.childSubjectTypeId === 1">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
@@ -855,7 +972,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcbasicInfo.childSubjectTypeId === 1">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">

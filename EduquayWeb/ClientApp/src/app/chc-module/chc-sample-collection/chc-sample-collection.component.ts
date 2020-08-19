@@ -123,7 +123,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Sample Collection"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Sample Collection"}));
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.ChcInitializeDateRange();    

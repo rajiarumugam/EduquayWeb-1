@@ -22,7 +22,7 @@ export class WalkinRegistrationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Subject Registration", "page": "Walk-in Registration"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Subject Registration", "page": "Walk-in Registration"}));
     
   }
   inputChange(evt)

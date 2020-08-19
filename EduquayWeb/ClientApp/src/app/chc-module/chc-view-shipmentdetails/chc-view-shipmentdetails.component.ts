@@ -52,7 +52,7 @@ export class ChcViewShipmentdetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Shipment Details"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Shipment Details"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.activatedRoute.queryParams.subscribe(params => {
       this.shipmentId = params['q'];

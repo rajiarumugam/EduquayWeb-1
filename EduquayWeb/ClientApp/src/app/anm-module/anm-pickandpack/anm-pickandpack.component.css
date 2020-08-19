@@ -83,3 +83,8 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 .swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel{
     color: #fff;
 }
+
+/* in the css file or in a style block */
+.angular-with-newlines {
+    white-space: pre-line;;
+  }

@@ -128,8 +128,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     ) {  }
 
   ngOnInit() {
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Sample Collection"}));
 
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Sample Collection"}));
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     
