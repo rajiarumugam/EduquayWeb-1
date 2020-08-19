@@ -61,6 +61,15 @@ table.dataTable td, table.dataTable th {
   padding: 4px 11px;
 }
 
+.tbl-row-red .tbl-data-red {
+  color: red; 
+ 
+}
+
+.tbl-row-black .tbl-data-black{
+  color: #2d2e31;
+}
+
 
 ::ng-deep .modal-content .modal-footer
 {

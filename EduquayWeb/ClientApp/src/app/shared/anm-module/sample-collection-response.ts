@@ -26,6 +26,7 @@ export interface SubjuctList {
     reason: string;
     oldSampleCollectionDate: string;
     date: Date;
+    diffDays: number;
 }
 
 export interface subjectTypesResponse{

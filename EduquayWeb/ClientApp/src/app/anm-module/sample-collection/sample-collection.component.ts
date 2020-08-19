@@ -74,6 +74,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   subjectIdParam: string = '';
   subjectTypeParam: string = '0';
   date: Date;
+  diffDays: number;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -178,8 +179,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       if (this.sampleCollectionInitResponse.subjectList != null && this.sampleCollectionInitResponse.subjectList.length > 0) {
         this.subjectList = this.sampleCollectionInitResponse.subjectList;
         this.subjectList.forEach(element => {
-          element.date = this.convertToDateFormat(element.dateOfRegister);
-          console.log(this.subjectList);
+          var date1:any = element.date = this.convertToDateFormat(element.dateOfRegister);
+          var date2:any = new Date();
+          element.diffDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+          console.log(element.diffDays);
         });
         console.log('something');
       }
@@ -249,8 +252,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
           else {
             this.subjectList = this.sampleCollectionResponse.subjectList;
             this.subjectList.forEach(element => {
-              element.date = this.convertToDateFormat(element.dateOfRegister);
-              console.log(this.subjectList);
+              var date1:any = element.date = this.convertToDateFormat(element.dateOfRegister);
+              var date2:any = new Date();
+              element.diffDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+              console.log(element.diffDays);
             });
           }
         }
