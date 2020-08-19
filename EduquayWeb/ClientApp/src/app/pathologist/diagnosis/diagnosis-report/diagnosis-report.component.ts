@@ -167,7 +167,7 @@ export class DiagosisReportComponent implements OnInit {
         .subscribe(response => {
           this.diagnosisReportResponse = response;
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
-              Swal.fire({
+              Swal.fire({ allowOutsideClick: false,
                 text: 'HPLC Results Updated Successfully.',
                 icon: 'success'
               }).then((result) => {

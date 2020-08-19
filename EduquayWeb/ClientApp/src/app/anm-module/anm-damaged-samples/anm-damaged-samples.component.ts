@@ -234,10 +234,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           if(this.modalService.hasOpenModals){
@@ -286,10 +286,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   updatestatusResponseMessage(result: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: result, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: result, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: result, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: result, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.modalService.dismissAll();

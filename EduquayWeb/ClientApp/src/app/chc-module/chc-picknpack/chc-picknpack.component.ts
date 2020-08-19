@@ -321,10 +321,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'success', title: title,
         showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
       })
@@ -350,7 +350,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   //     return false;
   //   }
   //   if (this.selectedBarcodes !== null) {
-  //     Swal.fire({
+  //     Swal.fire({ allowOutsideClick: false,
   //       title: 'Are you sure?',
   //       text: "You won't be able to revert this back!",
   //       icon: 'warning',
@@ -404,14 +404,14 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var hasGreaterThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 24);
     if(hasGreaterThan24.length > 0){
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         title: 'One or more selected samples that are aging more than 24 hours',
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
-        allowOutsideClick: false,
+       
       }).then((result) => {
         if (result.value) {
           var isFirst = true;
@@ -551,7 +551,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     var hasLessThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
     if(hasLessThan24.length > 0){
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         title: 'One or more selected samples that are aging less than 24 hours',
         text: "Do you still want to continue?",
         icon: 'warning',
@@ -620,7 +620,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       userId: this.user.id,
       barcodeNo: this.selectedBarcodes,
     }
-    // Swal.fire({icon: 'success', title: "successfull",
+    // Swal.fire({ allowOutsideClick: false,icon: 'success', title: "successfull",
     //  confirmButtonText: 'Ok'})
     // return false;
    // return false;
@@ -646,10 +646,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   expirySampleResponseMessage(message: string, type: string) {
     var messageType = '';
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: message, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'success', title: message, confirmButtonText: 'Close' })
     }
   }
 

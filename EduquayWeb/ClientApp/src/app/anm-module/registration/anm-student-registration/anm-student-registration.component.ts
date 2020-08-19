@@ -375,7 +375,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
               console.log(response);
               this.createdSubjectId = response.uniqueSubjectId;
               Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later', allowOutsideClick: false })
              .then((result) => {
                if (result.value) {
                 $('#fadeinModal').modal('hide');

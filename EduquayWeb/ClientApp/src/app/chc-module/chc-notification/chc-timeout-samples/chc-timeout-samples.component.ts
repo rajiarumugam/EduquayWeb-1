@@ -224,10 +224,10 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   showResponseMessage(message: string, type: string) {
     var messageType = '';
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: message, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'success', title: message, confirmButtonText: 'Close' })
         .then((result) => {
           if (result.value) {
             if (this.modalService.hasOpenModals) {

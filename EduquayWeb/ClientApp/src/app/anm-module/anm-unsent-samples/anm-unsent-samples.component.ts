@@ -509,7 +509,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No', allowOutsideClick: false
       }).then((result) => {
         if (result.value) {
           var isFirst = true;
@@ -616,10 +616,10 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   expirySampleResponseMessage(message: string, type: string) {
     var messageType = '';
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
     }
     else {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
     }
   }
 
@@ -658,7 +658,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No', allowOutsideClick: false
       }).then((result) => {
         if (result.value) {
           var isFirst = true;
@@ -710,12 +710,12 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close', allowOutsideClick: false })
     }
     else {
       Swal.fire({
         icon: 'success', title: title,
-        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
+        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close', allowOutsideClick: false
       })
         .then((result) => {
           if (result.value) {

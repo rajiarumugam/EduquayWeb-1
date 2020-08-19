@@ -365,7 +365,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
             this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
               console.log(response);
               this.createdSubjectId = response.uniqueSubjectId;
-              Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+              Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Subject ID is '+this.createdSubjectId,
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {
