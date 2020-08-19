@@ -109,7 +109,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Pick & Pack to Screening Center"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Pick & Pack to Screening Center"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.dtOptions = {

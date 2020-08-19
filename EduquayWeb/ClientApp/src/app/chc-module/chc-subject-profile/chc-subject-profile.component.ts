@@ -138,7 +138,7 @@ export class ChcSubjectProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Subject Profile"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Subject Profile"}));
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     console.log(this.SubjectProfileService.subjectProfileApi);

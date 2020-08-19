@@ -59,7 +59,7 @@ export class CentralReceivedSampleComponent implements OnInit {
           });
       }
         this.centralReceiptsData = _tempData;
-      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"received","uploadcount":0,"receivedcount":this.centralReceiptsData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
+      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"received","uploadcount":0,"receivedcount":this.centralReceiptsData.length, "module": "Central Lab", "submodule": "Update HPLC Results", "pagealter": "Received Samples"}));
     }
     else{
       this.errorMessage = centralReceiptsArr.message;

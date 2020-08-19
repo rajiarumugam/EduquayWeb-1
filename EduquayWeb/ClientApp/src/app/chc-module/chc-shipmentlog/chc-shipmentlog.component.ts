@@ -62,7 +62,7 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Screening Center Shipment Log"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Screening Center Shipment Log"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',

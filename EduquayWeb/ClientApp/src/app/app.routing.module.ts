@@ -143,21 +143,17 @@ const routes: Routes = [
   {
     path: 'app',
     component: SiteLayoutComponent,
-    data: {
-      breadcrumb: 'Home'
-    },
+    
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full',
-      data: {
-        breadcrumb: 'Home'
-      },  },
+       },
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full'},
       {
-        path: 'anm-notification', component: AnmNotificationComponent, data:{breadcrumb: 'ANM-Notification'},
+        path: 'anm-notification', component: AnmNotificationComponent,
         children: [
-          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full', data:{breadcrumb: 'Damaged Samples'}, resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full', data:{breadcrumb: 'Unsent Samples'}, resolve:{unsentSamplesData: UnsentSamplesResolverService}},
+          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full',  resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full', resolve:{unsentSamplesData: UnsentSamplesResolverService}},
           { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full', resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full', resolve:{positiveSubjectData: PositiveSubjectsResolverService} },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
@@ -302,8 +298,8 @@ const routes: Routes = [
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
-  { path: 'underconstruction', component: PageUnderDevelopementComponent },
-  { path: '**', redirectTo: '/underconstruction' },
+  { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
+  { path: '**', redirectTo: '/pageunderconstruction' },
 ];
 
 

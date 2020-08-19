@@ -115,7 +115,7 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Unsent Samples"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Notifications", "page": "Unsent Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();

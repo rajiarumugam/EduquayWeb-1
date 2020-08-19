@@ -113,17 +113,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let subject of subjectList; index as i">
-                        <td class="sno text-center">{{i +1}}</td>
-                        <td class="text-left sname">{{subject.subjectName}}</td>
-                        <td class="sid">{{subject.uniqueSubjectId}}</td>
-                        <td class="sid">{{subject.rchId}}</td>
-                        <td class="text-left sname">{{subject.spouseName}}</td>
-                        <td class="text-left sname">{{subject.subjectType}}</td>
-                        <td class="sid">{{subject.sampleType}}</td>
-                        <td class="mobile">{{subject.contactNo}}</td>
-                        <td class="">{{subject.date | date : 'dd/MM/yyyy'}}</td>
-                        <td> {{subject.gestationalAge}} </td>
+                      <tr *ngFor="let subject of subjectList; index as i" class="tbl-row-red tbl-row-black"
+                      [ngClass]="{'tbl-row-black tbl-data-black': subject.diffDays <= 5 , 'tbl-row tbl-data-red': subject.diffDays > 5 }">
+                        <td class="sno text-center tbl-data-red tbl-data-black">{{i +1}}</td>
+                        <td class="text-left sname tbl-data-red tbl-data-black">{{subject.subjectName}}</td>
+                        <td class="sid tbl-data-red tbl-data-black">{{subject.uniqueSubjectId}}</td>
+                        <td class="sid tbl-data-red tbl-data-black">{{subject.rchId}}</td>
+                        <td class="text-left sname tbl-data-red tbl-data-black">{{subject.spouseName}}</td>
+                        <td class="text-left sname tbl-data-red tbl-data-black">{{subject.subjectType}}</td>
+                        <td class="sid tbl-data-red tbl-data-black">{{subject.sampleType}}</td>
+                        <td class="mobile tbl-data-red tbl-data-black">{{subject.contactNo}}</td>
+                        <td class="tbl-data-red tbl-data-black">{{subject.date | date : 'dd/MM/yyyy'}}</td>
+                        <td class="tbl-data-red tbl-data-black"> {{subject.gestationalAge}} </td>
                         <td class="text-center"><a (click)="openSampleColllection(sampleCollectiondetail, subject)" role="button"><i
                               class="fas fa-vial fa-2x"></i></a>
                       </tr>
@@ -182,7 +183,7 @@
                           <!-- <img src="assets/img/barcode-1.4.png" style="width:100%;"> -->
                           <!-- <div class="centered"><p>Scan / Enter barcode no</p></div> -->
                           <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                          #sampleBarcode="ngModel" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
+                          #sampleBarcode="ngModel" autocomplete="off" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || collectionForm.submitted && sampleBarcode.invalid" required>
                           <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched">The barcode must be alphabets or digits</small>
                           <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
                           <div *ngIf="collectionForm.submitted && sampleBarcode.invalid">     

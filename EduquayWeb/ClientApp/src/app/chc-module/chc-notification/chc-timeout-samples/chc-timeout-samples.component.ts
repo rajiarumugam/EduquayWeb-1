@@ -80,7 +80,7 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Sample Timeout"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Notifications", "page": "Sample Timeout"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();

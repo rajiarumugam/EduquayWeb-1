@@ -88,7 +88,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
       }
         this.chcReceiptsData = _tempData;
         this.tempCHCData = JSON.parse(JSON.stringify(_tempData));
-        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.positiveList.length-this.negativeList.length, "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update SST Results"}));
+        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.positiveList.length-this.negativeList.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update SST Results", "pagealter": "Update Positive"}));
       
     }
     else{
@@ -109,7 +109,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
       this.searchbarcode = ""; 
       this.DataService.setdata({'sstPositive':this.positiveList});
       this.showUploadResult = true;
-      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length, "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update SST Results"}));
+      this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update SST Results", "pagealter": "Update Positive"}));
       this.rerender();
     } 
 
@@ -124,7 +124,7 @@ export class SSTUpdatePositiveComponent implements OnInit {
     this.tempCHCData.push(this.positiveList[index]);
     this.positiveList.splice(index,1);
     this.rerender();
-    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length-this.positiveList.length-this.negativeList.length, "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update SST Results"}));
+    this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":this.tempCHCData.length-this.positiveList.length-this.negativeList.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update SST Results", "pagealter": "Update Positive"}));
     this.DataService.setdata({'sstPositive':this.positiveList});
     Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
