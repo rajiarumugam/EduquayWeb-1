@@ -18,7 +18,8 @@ import { TokenService } from 'src/app/shared/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import {LoaderService} from '../../../../shared/loader/loader.service';
+import { LoaderService } from '../../../../shared/loader/loader.service';
+import { DataService } from '../../../../shared/data.service';
 
 declare var exposedFunction;
 
@@ -74,6 +75,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   Pdisabled = true;
   Adisabled = true;
   GPLADATA = [{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
+  GPLAADATA = [{id:'0',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
@@ -126,7 +128,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   statelist = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router,private loaderService: LoaderService) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router,private loaderService: LoaderService,private DataService:DataService) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -442,7 +444,13 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   nextStep() {
     this.firstFormCheck = true;
       if(this.firstFormGroup.valid)
-        this.stepper.next();
+      {
+       
+          this.stepper.next();
+          var _obj = {'page':'pregnent','pagenumbr':this.stepper.selectedIndex}
+          this.DataService.setdata({'chcCurrentPageCount':_obj});
+      }
+        
 
         //this.stepper.next();
     }
