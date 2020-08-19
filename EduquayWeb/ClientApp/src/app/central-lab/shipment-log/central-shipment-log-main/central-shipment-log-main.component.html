@@ -17,8 +17,9 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-4">
-                       
-                    </div>
+                        <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Pick & Pack" placement="right" [routerLink]="['/app/central-pickpack']"
+                          role="button" ><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                      </div>
                     <div class="col-md-4">
                         <div class="headertit">
                             <h5 class="float-center">Shipment Log</h5>
@@ -26,8 +27,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="float-right mb-4">
-                            <a class="btn btn-outline-primary bs-tooltip" href="collection.html" role="button"
-                                title="Sample Rcpt - Manual"><i class="fas fa-chevron-right pNav-right"></i></a>
+                            <a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Report - Sample Staus" placement="left" [routerLink]="['/app/central-report-status']"
+                            role="button" ><i class="fas fa-chevron-right pNav-right"></i></a>
                         </div>
                     </div>
                 </div>
