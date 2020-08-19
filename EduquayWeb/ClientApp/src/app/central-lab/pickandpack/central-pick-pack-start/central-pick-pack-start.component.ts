@@ -76,10 +76,13 @@ export class CentralPickPackStartComponent implements OnInit {
     private chcshipmentService: chcshipmentService,
     private _formBuilder: FormBuilder,
     private masterService: masterService,
-    private router: Router
+    private router: Router,
+    private dataservice: DataService
     ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Pick & Pack"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     this.firstFormGroup = this._formBuilder.group({
@@ -129,7 +132,7 @@ export class CentralPickPackStartComponent implements OnInit {
       
         this.centralReceiptsData = _tempData;
         this.tempCHCData = JSON.parse(JSON.stringify(_tempData));
-        this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.centralReceiptsData.length,"startpickCount":this.pickpackStartList.length}));
+        this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.centralReceiptsData.length,"startpickCount":this.pickpackStartList.length,"module": "Central Lab", "pagealter": "Pick & Pack"}));
       
     }
     else{
@@ -162,7 +165,7 @@ export class CentralPickPackStartComponent implements OnInit {
       this.searchbarcode = ""; 
       this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
       this.showUploadResult = true;
-      this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length}));
+      this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
       this.rerender();
     } 
 
@@ -177,9 +180,9 @@ export class CentralPickPackStartComponent implements OnInit {
     this.tempCHCData.push(this.pickpackStartList[index]);
     this.pickpackStartList.splice(index,1);
     this.rerender();
-    this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length}));
+    this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
     this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
       icon: 'success',
       title: 'Back to Ship',
@@ -229,7 +232,7 @@ export class CentralPickPackStartComponent implements OnInit {
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
-          Swal.fire({icon:'success', title: 'Shipment ID is '+this.chcUploadResponse.shipment.shipmentId,
+          Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment ID is '+this.chcUploadResponse.shipment.shipmentId,
           showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
              .then((result) => {
                 $('#fadeinModal').modal('hide');
@@ -241,7 +244,7 @@ export class CentralPickPackStartComponent implements OnInit {
                 //this.router.navigateByUrl(`app/central-pickpack`);
                 this.DataService.deleteProp('centralpickpackstart');
                 this.pickpackStartList = [];
-                this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length}));
+                this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
                }
      
             });
@@ -258,7 +261,7 @@ export class CentralPickPackStartComponent implements OnInit {
   }
   submitNegativeResult()
   {
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       title: 'Are you sure?',
       text: "Submit the positive results",
       icon: 'warning',
@@ -282,13 +285,13 @@ export class CentralPickPackStartComponent implements OnInit {
       .subscribe(response => {
         this.chcUploadResponse = response;
         if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
-            Swal.fire({
+            Swal.fire({ allowOutsideClick: false,
               text: 'Positive results submitted successfully.',
               icon: 'success'
             }).then((result) => {
               var _tempPositiveLength = this.pickpackStartList.length;
               this.pickpackStartList = [];
-              this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.pickpackStartList.length,"negativecount":this.negativeList.length,"receivedcount":this.centralReceiptsData.length-_tempPositiveLength-this.negativeList.length}));
+              this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.pickpackStartList.length,"negativecount":this.negativeList.length,"receivedcount":this.centralReceiptsData.length-_tempPositiveLength-this.negativeList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
               this.DataService.deleteProp('centralpickpackstart');
               this.showUploadResult = false;
             });

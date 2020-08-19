@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { CommonService } from '../shared/common.service';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,11 @@ import { CommonService } from '../shared/common.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService, private dataservice: DataService) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({}));
     //this.commonService.addJsToElement('assets/assets/js/anm/sample-collection.js').onload = () => {
     //  console.log('sample-collection file loaded');
     //};

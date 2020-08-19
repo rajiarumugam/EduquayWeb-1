@@ -213,7 +213,7 @@
                                                             <div class="form-group col-md-3">
                                                                 <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid}" for="inputAvdName">AVD Name<span
                                                                     class="manto"> *</span></label>
-                                                                <input type="text"
+                                                                <input type="text" 
                                                                 name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid"
                                                                 class="form-control field" id="inputAvdName" required [(ngModel)]="selectedAvdName" value="" readonly value="{{selectedAvdName}}"
                                                                 placeholder="AVD Name">
@@ -226,8 +226,8 @@
                                                             <div class="form-group col-md-3">
                                                                 <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || shipmentForm.submitted && avdcontactNo.invalid}">Contact Number<span
                                                                     class="manto"> *</span></label>
-                                                                <input class="form-control field" name="avdcontactNo" #avdcontactNo="ngModel" ngModel maxlength="10"
-                                                                numbersOnly pattern="^[6-9]\d{9}$" 
+                                                                <input class="form-control field" name="avdcontactNo" #avdcontactNo="ngModel" ngModel maxlength="10" autocomplete="off"
+                                                                numbersOnly oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
                                                                 [class.is-invalid]="avdcontactNo.invalid && avdcontactNo.touched || shipmentForm.submitted && avdcontactNo.invalid"
                                                                     required type="tel" placeholder="Contact Number" [(ngModel)]="avdContactNo" value="{{selectedAvdContact}}" readonly>
                                                                     <div *ngIf="avdcontactNo.errors && (avdcontactNo.invalid || avdcontactNo.touched)">
@@ -241,7 +241,7 @@
                                                             <div class="form-group col-md-3">
                                                                 <label>Alternate AVD Name<span
                                                                     class="manto"></span></label>
-                                                                <input class="form-control field" name="alternatename" #alternatename="ngModel" ngModel  
+                                                                <input class="form-control field" name="alternatename" #alternatename="ngModel" ngModel autocomplete="off"  
                                                                 type="text" placeholder="Alternate AVD Name" [(ngModel)]="alternateAVD" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">     
                                                                 <small class=" ml-2 text-danger" [class.d-none]="hasAlternateAvdName">Please enter altername AVD Name</small>  
                                                             </div>
@@ -249,8 +249,8 @@
                                                                 <label>Alternate AVD Contact Number<span
                                                                     class="manto"></span></label>
                                                                 <input class="form-control field" name="alternatecontactNo" [class.is-invalid]="alternatecontactNo.invalid && alternatecontactNo.touched || shipmentForm.submitted && alternatecontactNo.invalid"
-                                                                #alternatecontactNo="ngModel" ngModel maxlength="10" numbersOnly
-                                                                numbersOnly pattern="^[6-9]\d{9}$" 
+                                                                #alternatecontactNo="ngModel" ngModel maxlength="10" numbersOnly autocomplete="off"
+                                                                oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
                                                                 type="tel" placeholder="Alternate Contact Number" [(ngModel)]="alternateAVDContactNo" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">
                                                                 <small class=" ml-2 text-danger" [class.d-none]="hasAlternateContactNumber">Please enter altername AVD contact number</small>  
                                                                 <!-- <small class="ml-2 text-danger" *ngIf="alternatecontactNo.errors.pattern">Contact number is invalid. </small>       -->

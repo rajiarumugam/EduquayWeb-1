@@ -15,6 +15,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { TokenService } from 'src/app/shared/token.service';
 declare var $: any 
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from 'src/app/shared/data.service';
 declare var exposedFunction;
 
 
@@ -116,7 +117,7 @@ export class AnmAwRegistrationComponent implements OnInit {
   Adisabled = true;
   statelist = [];
   ageValidate = false;
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) {
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router, private dataservice: DataService) {
     window['angularComponentReference'] = {
       zone: zone,
       componentFn: (id, value) => this.callFromOutside(id, value),
@@ -124,7 +125,9 @@ export class AnmAwRegistrationComponent implements OnInit {
     };
   }
 
-  ngOnInit() {    
+  ngOnInit() {   
+    
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Registration", "page": "Antenatal Woman Registration"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
@@ -381,7 +384,7 @@ export class AnmAwRegistrationComponent implements OnInit {
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later', allowOutsideClick: false })
              .then((result) => {
                if (result.value) {
                 $('#fadeinModal').modal('hide');

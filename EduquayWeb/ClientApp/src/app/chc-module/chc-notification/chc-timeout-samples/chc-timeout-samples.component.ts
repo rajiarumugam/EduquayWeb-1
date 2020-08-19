@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { ChcNotificationSamplesRequest, AddChcSampleRecollectionRequest } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-request';
 import { ChcNotificationSamplesResponse, AddChcSampleRecollectionResponse, ChcNotifiedSampleList } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-response';
 import { ChcNotificationSamplesService } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-timeout-samples',
@@ -72,12 +73,14 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private route: ActivatedRoute,
     private dateService: DateService,
     private tokenService: TokenService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dataservice: DataService
 
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Sample Timeout"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
@@ -221,10 +224,10 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
   showResponseMessage(message: string, type: string) {
     var messageType = '';
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: message, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'success', title: message, confirmButtonText: 'Close' })
         .then((result) => {
           if (result.value) {
             if (this.modalService.hasOpenModals) {

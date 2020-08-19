@@ -62,7 +62,7 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
         tempNormalArray = _tempData.filter(function(item) {
           return item.isNormal;
         });
-        this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length}));
+        this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
         console.log(tempNormalArray);
 
       if(this.currentPage === "abnormal")

@@ -32,7 +32,7 @@
                             <div class="float-right mb-4">
                                 <a class="btn btn-outline-primary bs-tooltip"
                                     [routerLink]="['/app/chc-sample-shipmentlog']" role="button"
-                                    ngbTooltip="Shipment Log" placement="left"><i
+                                    ngbTooltip="Shipment Log for HPLC lab" placement="left"><i
                                         class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
                         </div>
@@ -329,9 +329,9 @@
                                                             type="text" placeholder="Lab Technician" [(ngModel)] = "chclabtechnician">   
                                                             <small class="text-danger ml-2" *ngIf="!chctechnicianname.valid && chctechnicianname.touched">Enter the Lab Technician Name</small>
                                                             <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
-                                                            <!-- <div *ngIf="chcShipmentForm.submitted && chctechnicianname.invalid">     
+                                                            <div *ngIf="chcShipmentForm.submitted && chctechnicianname.invalid">     
                                                                 <small *ngIf="chctechnicianname.untouched" class=" ml-2 text-danger">Lab Technician Name is required</small>  
-                                                            </div>  -->
+                                                            </div> 
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label [ngClass]="{'label-border-class':!testingChc.valid && testingChc.touched || chcShipmentForm.submitted && testingChc.invalid}"> Testing CHC  <span
@@ -341,9 +341,9 @@
                                                         type="text" placeholder="Testing CHC"  [(ngModel)] = "testingChcname"> 
                                                         <small class="text-danger ml-2" *ngIf="!testingChc.valid && testingChc.touched">Enter the Testing CHC</small>
                                                         <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
-                                                        <!-- <div *ngIf="chcShipmentForm.submitted && testingChc.invalid">     
+                                                        <div *ngIf="chcShipmentForm.submitted && testingChc.invalid">     
                                                             <small *ngIf="testingChc.untouched" class=" ml-2 text-danger">Testing CHC is required</small>  
-                                                        </div> -->
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label [ngClass]="{'label-border-class':DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid}" for="inputTestingCHC">
@@ -357,9 +357,9 @@
                                                               </option>
                                                         </select>
                                                         <small class=" ml-2 text-danger" *ngIf="!DDLcentrallab.valid && DDLcentrallab.untouched ">Please choose a Receiving Molecular Lab </small>
-                                                        <!-- <div *ngIf="chcShipmentForm.submitted && DDLcentrallab.invalid">  
+                                                        <div *ngIf="chcShipmentForm.submitted && DDLcentrallab.invalid">  
                                                             <small *ngIf="DDLcentrallab.untouched" class=" ml-2 text-danger">Receiving Molecular Lab is required</small>  
-                                                          </div> -->
+                                                          </div>
                                                     </div>
                                                      <div class="form-group col-md-3">
                                                         <label [ngClass]="{'label-border-class':DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid}" for="inputAvdName">Logistics Service Provider<span
@@ -374,9 +374,9 @@
                                                           </option>
                                                         </select>
                                                         <small class=" ml-2 text-danger" *ngIf="!DDLserviceproviderName.valid && DDLserviceproviderName.untouched ">Enter the Logistics Service Provider</small>
-                                                        <!-- <div *ngIf="chcShipmentForm.submitted && DDLserviceproviderName.invalid">  
+                                                        <div *ngIf="chcShipmentForm.submitted && DDLserviceproviderName.invalid">  
                                                             <small *ngIf="DDLserviceproviderName.untouched" class=" ml-2 text-danger">Logistics Service Provider is required</small>  
-                                                          </div> -->
+                                                          </div>
                                                     </div>
                                                    
                                                 </div>
@@ -390,25 +390,25 @@
                                                         type="text" placeholder="Delivery Executive Name"  [(ngModel)] = "deliveryexecutive"> 
                                                         <small class="text-danger ml-2" *ngIf="!deliveryexecutivename.valid && deliveryexecutivename.touched">Enter the Delivery Executive Name</small>
                                                         <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
-                                                        <!-- <div *ngIf="chcShipmentForm.submitted && deliveryexecutivename.invalid">     
+                                                        <div *ngIf="chcShipmentForm.submitted && deliveryexecutivename.invalid">     
                                                             <small *ngIf="deliveryexecutivename.untouched" class=" ml-2 text-danger">Delivery Executive Name is required</small>  
-                                                        </div>        -->
+                                                        </div>       
                                                     </div>
                             
                                                     <div class="form-group col-md-3">
                                                         <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid}">Contact Number <span
                                                             class="manto">*</span></label>
                                                         <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10" numbersOnly
-                                                        pattern="^[6-9]\d{9}$" autocomplete="off"
+                                                        oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" autocomplete="off"
                                                         [class.is-invalid]="contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid"
                                                             required type="tel" placeholder="Contact Number" [(ngModel)]="executiveContactNo">
                                                             <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
                                                                 <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched ">The Contact number is required</small>
-                                                                <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number is invalid</small>
+                                                                <!-- <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number is invalid</small> -->
                                                             </div>
-                                                            <!-- <div *ngIf="chcShipmentForm.submitted && contactNo.invalid">  
+                                                            <div *ngIf="chcShipmentForm.submitted && contactNo.invalid">  
                                                                 <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
-                                                            </div> -->
+                                                            </div>
                                                     </div>
                                                     <div class="form-group col-md-3" [formGroup]="popupform">
                                                         <label class="note">Shipment Date & Time <span class="manto">*</span></label>

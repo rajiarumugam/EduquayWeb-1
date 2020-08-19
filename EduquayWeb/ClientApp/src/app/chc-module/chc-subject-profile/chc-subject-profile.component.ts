@@ -17,6 +17,8 @@ declare var $: any;
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-subject-profile',
@@ -129,11 +131,15 @@ export class ChcSubjectProfileComponent implements OnInit {
     private masterService: masterService,
     private router: Router,
     private route: ActivatedRoute,
+    private loaderService: LoaderService,
+    private dataservice: DataService
 
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Subject Profile"}));
+    this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     console.log(this.SubjectProfileService.subjectProfileApi);
 
@@ -185,7 +191,7 @@ export class ChcSubjectProfileComponent implements OnInit {
   chcSubjectProfile() {
     //this.basicInfo = {};  
     //this.basicInfo['firstName']='';  
-
+    this.loaderService.display(true);
     this.chcsubjectProfileErrorMessage = '';
     if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
       this.chcsubjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
@@ -197,6 +203,7 @@ export class ChcSubjectProfileComponent implements OnInit {
     let subProfile = this.SubjectProfileService.getsubjectProfile(this.chcsubjectProfileRequest)
       .subscribe(response => {
         this.chcsubjectProfileResponse = response;
+        this.loaderService.display(false);
         if (this.chcsubjectProfileResponse !== null && this.chcsubjectProfileResponse.status === "true") {
           if (this.chcsubjectProfileResponse.primaryDetail.length <= 0 && this.chcsubjectProfileResponse.pregnancyDetail.length <= 0
             && this.chcsubjectProfileResponse.addressDetail.length <= 0 && this.chcsubjectProfileResponse.parentDetail.length <= 0) {
@@ -445,7 +452,7 @@ export class ChcSubjectProfileComponent implements OnInit {
         this.createdSubjectId = response.uniqueSubjectId;
         //this.getpositiveSubjectList();
 
-        Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+        Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Subject ID is '+this.createdSubjectId,
   showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
      .then((result) => {
        if (result.value) {

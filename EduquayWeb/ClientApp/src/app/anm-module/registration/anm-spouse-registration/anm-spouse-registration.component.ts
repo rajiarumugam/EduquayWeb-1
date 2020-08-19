@@ -16,6 +16,7 @@ import { SpouseregistrationService } from 'src/app/shared/anm-module/registratio
 import { PositiveSpouseResponse, positiveSubject } from 'src/app/shared/anm-module/registration/spouse/spouseregistration.models';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -66,11 +67,13 @@ export class AnmSpouseRegistrationComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private spouseregistrationService: SpouseregistrationService,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dataservice: DataService
     ) { }
 
   ngOnInit() {
     
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Registration", "page": "Spouse Registration"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',

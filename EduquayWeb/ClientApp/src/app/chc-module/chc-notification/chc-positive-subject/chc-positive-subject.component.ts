@@ -21,6 +21,7 @@ import Swal from 'sweetalert2';
 import { ENDPOINT } from 'src/app/app.constant';
 declare var $: any;
 import * as moment from 'moment';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-positive-subject',
@@ -142,10 +143,12 @@ export class ChcPositiveSubjectComponent implements AfterViewInit, OnDestroy, On
     private _formBuilder: FormBuilder,
     private httpClientService:HttpClientService,
     private genericService: GenericService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Positive Subjects"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -464,7 +467,7 @@ export class ChcPositiveSubjectComponent implements AfterViewInit, OnDestroy, On
   //       this.createdSubjectId = response.uniqueSubjectId;
   //       this.getpositiveSubjectList();
 
-  //       Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+  //       Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Subject ID is '+this.createdSubjectId,
   // showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
   //    .then((result) => {
   //      if (result.value) {

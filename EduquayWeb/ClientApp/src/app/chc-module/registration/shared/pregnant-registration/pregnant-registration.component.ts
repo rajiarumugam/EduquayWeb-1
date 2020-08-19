@@ -421,7 +421,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
       this.selectedripoint = this.associatedANMData[i].riPoint;
       this.selectedTestingchc = this.associatedANMData[i].testingCHCId;
 
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         title: 'Are you sure?',
         text: "Confirm Associated ANM is "+this.associatedANMData[i].anmName,
         icon: 'warning',
@@ -467,7 +467,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.ADD);
         this.httpClientService.post<any>({url:apiUrl, body: this.dataBindinginServce() }).subscribe(response => {
           this.createdSubjectId = response.uniqueSubjectId;
-          Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
+          Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Subject ID is '+this.createdSubjectId,
           showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
              .then((result) => {
                if (result.value) {

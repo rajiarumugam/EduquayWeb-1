@@ -15,6 +15,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-unsent-samples',
@@ -123,11 +124,13 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private constantService: ConstantService
+    private constantService: ConstantService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification", "page": "Unsent Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
@@ -506,7 +509,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No', allowOutsideClick: false
       }).then((result) => {
         if (result.value) {
           var isFirst = true;
@@ -613,10 +616,10 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   expirySampleResponseMessage(message: string, type: string) {
     var messageType = '';
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
     }
     else {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close' })
+      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
     }
   }
 
@@ -655,7 +658,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
         icon: 'warning',
         showCancelButton: true,         
         confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
+        cancelButtonText: 'No', allowOutsideClick: false
       }).then((result) => {
         if (result.value) {
           var isFirst = true;
@@ -707,12 +710,12 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close', allowOutsideClick: false })
     }
     else {
       Swal.fire({
         icon: 'success', title: title,
-        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
+        showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close', allowOutsideClick: false
       })
         .then((result) => {
           if (result.value) {

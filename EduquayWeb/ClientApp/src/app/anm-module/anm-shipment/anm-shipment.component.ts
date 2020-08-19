@@ -10,6 +10,8 @@ import { Subject } from 'rxjs';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { DateService } from 'src/app/shared/utility/date.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -56,11 +58,12 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private dataservice: DataService
     ) { }
 
   ngOnInit() {
-
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Shipment Log"}));
     this.loaderService.display(true);
 
     this.user = JSON.parse(this.tokenService.getUser('lu'));

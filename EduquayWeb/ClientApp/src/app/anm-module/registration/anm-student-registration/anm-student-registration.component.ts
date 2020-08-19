@@ -14,6 +14,7 @@ declare var $: any
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-student-registration',
@@ -112,9 +113,11 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedrollnumber;
   selectedgovtIDType;
   ageValidate = false;
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private router: Router, private dataservice: DataService) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Registration", "page": "Age < 18"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.firstFormGroup = this._formBuilder.group({
       dor: ['', Validators.required],
@@ -372,7 +375,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
               console.log(response);
               this.createdSubjectId = response.uniqueSubjectId;
               Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later', allowOutsideClick: false })
              .then((result) => {
                if (result.value) {
                 $('#fadeinModal').modal('hide');

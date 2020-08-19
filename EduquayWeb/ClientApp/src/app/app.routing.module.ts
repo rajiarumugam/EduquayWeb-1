@@ -127,6 +127,7 @@ import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-v
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { PageUnderDevelopementComponent } from "./page-under-developement/page-under-developement.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -142,15 +143,21 @@ const routes: Routes = [
   {
     path: 'app',
     component: SiteLayoutComponent,
+    data: {
+      breadcrumb: 'Home'
+    },
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent, pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
+      { path: '', component: DashboardComponent, pathMatch: 'full',
+      data: {
+        breadcrumb: 'Home'
+      },  },
+      { path: 'dashboard', component: DashboardComponent, pathMatch: 'full'},
       {
-        path: 'anm-notification', component: AnmNotificationComponent,
+        path: 'anm-notification', component: AnmNotificationComponent, data:{breadcrumb: 'ANM-Notification'},
         children: [
-          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full', resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full', resolve:{unsentSamplesData: UnsentSamplesResolverService}},
+          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full', data:{breadcrumb: 'Damaged Samples'}, resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full', data:{breadcrumb: 'Unsent Samples'}, resolve:{unsentSamplesData: UnsentSamplesResolverService}},
           { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full', resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full', resolve:{positiveSubjectData: PositiveSubjectsResolverService} },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
@@ -295,8 +302,8 @@ const routes: Routes = [
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
-  { path: 'underdevelopement', component: PageUnderDevelopementComponent },
-  { path: '**', redirectTo: '/notfound' },
+  { path: 'underconstruction', component: PageUnderDevelopementComponent },
+  { path: '**', redirectTo: '/underconstruction' },
 ];
 
 

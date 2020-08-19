@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -110,11 +111,14 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     private tokenService: TokenService,
     private router: Router,
     private route: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dataservice: DataService
 
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Pick & Pack for HPLC lab"}));
 
    // this.dtOptions[0] = this.chcsamplepickpack;
     //this.dtOptions1[1] = this.startPickpackData;
@@ -240,7 +244,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //  }
 
     // else {
-    //   Swal.fire({
+    //   Swal.fire({ allowOutsideClick: false,
     //     icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
     //   });
     //   this.searchbarcode=''; 
@@ -390,10 +394,10 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if (type === 'e') {
-      Swal.fire({ icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
     }
     else {
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'success', title: title,
         showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close'
       })
@@ -434,16 +438,14 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         break;
       }
       // else {
-      //   Swal.fire({ icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
+      //   Swal.fire({ allowOutsideClick: false, icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
       //   this.alliquotetubebarcode='';
       // }
     });*/
 
   }
 
-  submittoshipment(){
-
-   
+  submittoshipment(){ 
 
     if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true){
      
@@ -466,7 +468,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.searchbarcode = '';    
     }
     else{
-      Swal.fire({
+      Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
         title: 'Please select the Primary and Alliquoted HPLC tube',
         showConfirmButton: true,
@@ -489,7 +491,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
     this.startBadgePickpackCount = this.startPickpackData.length;
     this.rerender();
-    Swal.fire({
+    Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
       icon: 'success',
       title: 'Back to Ship',
@@ -517,7 +519,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   //     this.rerender();
   //     this.isAddShipmentTrue = false;
      
-  //     Swal.fire({
+  //     Swal.fire({ allowOutsideClick: false,
   //       position: 'top-end',
   //       icon: 'success',
   //       title: 'Back to Ship',
@@ -559,7 +561,9 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.startPickpackData = [];
       this.startPickpackData.splice(this._intSelectedBarcode, 1)
       this.startBadgePickpackCount = this.startPickpackData.length;
+      this.rerender();
   }
+
   getSelectedBarcode() {
   
         var _arrSelectedBarcode = [];

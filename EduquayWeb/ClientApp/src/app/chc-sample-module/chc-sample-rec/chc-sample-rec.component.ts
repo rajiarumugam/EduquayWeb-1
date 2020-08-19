@@ -13,6 +13,7 @@ import { GenericService } from './../../shared/generic.service';
 import { HttpClientService } from './../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { chcsampleService } from 'src/app/shared/chc-sample/chc-sample.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-sample-rec',
@@ -106,10 +107,13 @@ export class CHCSampleRcptComponent implements OnInit {
     private tokenService: TokenService,
     private genericService: GenericService,
     private httpClientService:HttpClientService,
-    private chcsampleService: chcsampleService
+    private chcsampleService: chcsampleService,
+    private dataservice: DataService
     ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Sample Receipt"}));
     this.form = this._formBuilder.group({
       processingDate: ['', Validators.required]/*,
       receivedDate: ["", Validators.required]*/
@@ -385,7 +389,7 @@ export class CHCSampleRcptComponent implements OnInit {
                 this.createdSubjectId = response.uniqueSubjectId;
                 if(response.status === "true")
                 {
-                  Swal.fire({icon:'success', title: 'Shipment Received Successfully',
+                  Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
                     showCancelButton: false, confirmButtonText: 'OK'})
                       .then((result) => {
                         if (result.value) {

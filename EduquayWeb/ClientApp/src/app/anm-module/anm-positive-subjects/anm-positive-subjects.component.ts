@@ -22,6 +22,7 @@ import { PositiveSubjectsService } from 'src/app/shared/anm-module/positive-subj
 import { PositiveSubjectsRequest } from 'src/app/shared/anm-module/positive-subjects/positive-subjects-request';
 import { ENDPOINT } from 'src/app/app.constant';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-anm-positive-subjects',
@@ -153,11 +154,13 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     private _formBuilder: FormBuilder,
     private httpClientService:HttpClientService,
     private genericService: GenericService,
-    private constantService: ConstantService
+    private constantService: ConstantService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification", "page": "Positive Subjects"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -361,10 +364,10 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
   showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           if(this.modalService.hasOpenModals){
@@ -617,7 +620,7 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
           this.getpositiveSubjectList(this.user.id);
 
           Swal.fire({icon:'success', title: 'Subject ID is '+this.createdSubjectId,
-          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later' })
+          showCancelButton: true, confirmButtonText: 'Collect sample now', cancelButtonText: 'Collect sample later', allowOutsideClick: false })
        .then((result) => {
          if (result.value) {
           //$('#fadeinModal').modal('hide');

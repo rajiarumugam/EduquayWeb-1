@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-sample-view-shipment',
@@ -45,10 +46,12 @@ export class ChcSampleViewShipmentComponent implements OnInit {
     private ChcSampleShipmentviewService: ChcSampleShipmentlogService,
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Shipment Details"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.activatedRoute.queryParams.subscribe(params => {
       this.shipmentId = params['q'];

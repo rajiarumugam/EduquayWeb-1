@@ -51,7 +51,7 @@ type AOA = any[][];
           this.centralUploadResultData = this.DataService.getdata().centraluploaddata;
           this.showUploadResult = true;
       }
-      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
+      this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
     }
     else{
       this.errorMessage = centralReceiptsArr.message;
@@ -87,7 +87,7 @@ type AOA = any[][];
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Please upload only Excel file!'
+          text: 'Please upload only Excel file!', allowOutsideClick: false
         })
     }
     else
@@ -136,7 +136,7 @@ type AOA = any[][];
         if(this.centralUploadResultData.length > 0)
         {
           this.showUploadResult = true;
-          this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
+          this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
           this.DataService.setdata({'centraluploaddata':this.centralUploadResultData});
         }
         else{
@@ -144,7 +144,7 @@ type AOA = any[][];
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Data in your excel is already uploaded or not uploading correct data!'
+              text: 'Data in your excel is already uploaded or not uploading correct data!', allowOutsideClick: false
             })
         }
           
@@ -172,7 +172,7 @@ type AOA = any[][];
       showCancelButton: true,
       confirmButtonText: 'Yes',
       confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#ffffff'
+      cancelButtonColor: '#ffffff', allowOutsideClick: false
     }).then((result) => {
       if (result.value) {
 
@@ -182,9 +182,9 @@ type AOA = any[][];
         if (this.centralUploadResponse !== null && this.centralUploadResponse.status === "true") {
             Swal.fire({
               text: 'HPLC results uploaded successfully.',
-              icon: 'success'
+              icon: 'success', allowOutsideClick: false
             }).then((result) => {
-              this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":0,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length}));
+              this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":0,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "pagealter": "Update HPLC Results"}));
               this.DataService.deleteProp('centraluploaddata');
               this.centralUploadResultData = [];
               this.showUploadResult = false;
@@ -206,11 +206,11 @@ type AOA = any[][];
     var messageType = '';
     var title = `Shipment Id is ${shipmentId}`;
     if(type === 'e'){
-      Swal.fire({icon:'error', title: shipmentId, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: shipmentId, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
       Swal.fire({icon:'success', title: title,
-      showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
+      showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close', allowOutsideClick: false })
          .then((result) => {
            if (result.value) {
            

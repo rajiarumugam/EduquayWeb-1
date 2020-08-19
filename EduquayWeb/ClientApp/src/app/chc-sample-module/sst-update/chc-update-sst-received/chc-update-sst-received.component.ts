@@ -75,7 +75,7 @@ export class SSTReceivedSampleComponent implements OnInit {
       }
       
         this.chcReceiptsData = _tempData;
-        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.negativeList.length-this.positiveList.length}));
+        this.DataService.sendData(JSON.stringify({'screen':'SST','page':"received","positivecount":this.positiveList.length,"negativecount":this.negativeList.length,"receivedcount":_tempReceivedData.length-this.negativeList.length-this.positiveList.length, "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update SST Results"}));
     }
     else{
       this.errorMessage = chcReceiptsArr.message;

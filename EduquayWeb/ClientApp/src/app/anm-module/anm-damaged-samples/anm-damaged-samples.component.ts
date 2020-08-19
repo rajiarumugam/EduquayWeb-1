@@ -15,6 +15,7 @@ import { user } from 'src/app/shared/auth-response';
 import * as moment from 'moment';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -85,10 +86,13 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private constantService: ConstantService
+    private constantService: ConstantService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification", "page": "Damaged Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange(); 
@@ -198,10 +202,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       uniqueSubjectId: this.uniqueSubjectId,
       reason: this.reason,
       barcodeNo: this.barcodeNo,
-      collectionFrom: 10,
+      collectionFrom: this.user.sampleCollectionFrom,
       sampleCollectionDate: this.sampleCollectionDate,
       sampleCollectionTime: this.sampleCollectionTime,
-      collectedBy: 1,
+      collectedBy: this.user.id,
     };
 
     //Remove below 2 lines after successfully tested
@@ -230,10 +234,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           if(this.modalService.hasOpenModals){
@@ -282,10 +286,10 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
   updatestatusResponseMessage(result: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: result, confirmButtonText: 'Close'})
+      Swal.fire({icon:'error', title: result, confirmButtonText: 'Close', allowOutsideClick: false})
     }
     else{
-      Swal.fire({icon:'success', title: result, confirmButtonText: 'Close'})
+      Swal.fire({icon:'success', title: result, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.modalService.dismissAll();

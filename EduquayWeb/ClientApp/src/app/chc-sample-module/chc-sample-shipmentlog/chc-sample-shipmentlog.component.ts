@@ -9,6 +9,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { ChcSampleShipmentlogService } from 'src/app/shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog.service'
 import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-chc-sample-shipmentlog',
@@ -52,10 +53,13 @@ export class ChcSampleShipmentlogComponent implements OnInit {
     private ChcSampleShipmentlogService: ChcSampleShipmentlogService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Shipment Log for HPLC lab"}));
 
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {

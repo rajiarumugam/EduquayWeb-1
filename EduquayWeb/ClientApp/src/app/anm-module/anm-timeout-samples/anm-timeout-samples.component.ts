@@ -15,6 +15,7 @@ import { user } from 'src/app/shared/auth-response';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
+import { DataService } from 'src/app/shared/data.service';
 //import { EventEmitter } from 'protractor';
 
 @Component({
@@ -86,11 +87,13 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       private dateService: DateService,
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
-      private constantService: ConstantService
+      private constantService: ConstantService,
+      private dataservice: DataService
     ) { }
   
     ngOnInit() {
 
+      this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notifications", "page": "Sample Timeout"}));
       this.recordCount = 0;
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.InitializeDateRange(); 
@@ -243,10 +246,10 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
-        Swal.fire({icon:'error', title: message, confirmButtonText: 'Close'})
+        Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
       }
       else{
-        Swal.fire({icon:'success', title: message, confirmButtonText: 'Close'})
+        Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
         .then((result) => {
           if (result.value) {
             if(this.modalService.hasOpenModals){
