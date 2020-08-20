@@ -296,11 +296,12 @@
                                                                         class="flaticon-cancel-12"></i> Close</button> 
                                                                 </div>
                                                             </div> -->
-                                                            <div ><b>Selected samples barcode: </b><span class="angular-with-newlines">({{_intSelectedBarcode}}) {{ _strSelectedBarcode}}</span></div>
+                                                            <span ><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{ _strSelectedBarcode}}</span>
+                                                            <button class="btn"  (click)="modal.dismiss()"><i
+                                                                class="flaticon-cancel-12"></i> Close</button>
                                                             <button type="submit" class="btn btn-primary"
                                                                 id="linktobuttonpickpak">Submit</button>
-                                                            <button class="btn"  (click)="modal.dismiss()"><i
-                                                                    class="flaticon-cancel-12"></i> Close</button>
+                                                            
                                                         </div>
 
 

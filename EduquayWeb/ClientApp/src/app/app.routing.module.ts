@@ -183,6 +183,7 @@ const routes: Routes = [
         ]
       },
       { path: 'chc-sample-collection', component: ChcSampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
+      { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
       { path: 'chc-pickandpack', component: ChcPicknpackComponent, resolve: {chcpicknpackData: ChcPicknpackResolverService}},
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent, resolve: {chcshipmentLogData: ChcShipmentlogResolverService}},
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
@@ -285,11 +286,11 @@ const routes: Routes = [
           {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
-      { path: 'anm-sample-collection', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
-      { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
+      { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
+      { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
-      { path: 'anm-pickpack', component: AnmPickandPackComponent, resolve: {picknpackData: PicknpackResolverService} },
-      { path: 'anm-shipment', component: AnmShipmentComponent, resolve: {shipmentLogData: ShipmentlogResolverService } },
+      { path: 'anm-pickpack', component: AnmPickandPackComponent },  // resolve: {picknpackData: PicknpackResolverService}
+      { path: 'anm-shipment', component: AnmShipmentComponent }, // resolve: {shipmentLogData: ShipmentlogResolverService }
       { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
      

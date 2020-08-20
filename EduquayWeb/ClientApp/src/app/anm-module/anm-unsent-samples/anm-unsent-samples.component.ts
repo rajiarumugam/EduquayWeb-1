@@ -16,6 +16,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-anm-unsent-samples',
@@ -125,6 +126,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
+    private loaderService: LoaderService,
     private dataservice: DataService
   ) { }
 
@@ -157,25 +159,25 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     // this.dateOfShipment = this.dateService.getDate();
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.UnsentSamplesServiceService.unsentSampleApi);
-    //this.anmunsentSampleList();
+    this.anmunsentSampleList(this.user.id);
     this.ddlRiPoint(this.user.id);
 
-    this.unsentSampleInitResponse = this.route.snapshot.data.unsentSamplesData;
-    if (this.unsentSampleInitResponse.status === 'false') {
-      this.unsentSamples = [];
-      if (this.unsentSampleInitResponse.message !== null && this.unsentSampleInitResponse.message.code === "ENOTFOUND") {
-        this.unsentSamplesErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.unsentSampleInitResponse.message !== null || this.unsentSampleInitResponse.message == undefined) {
-        this.unsentSamplesErrorMessage = this.unsentSampleInitResponse.message;
-      }
-    }
-    else {
+    // this.unsentSampleInitResponse = this.route.snapshot.data.unsentSamplesData;
+    // if (this.unsentSampleInitResponse.status === 'false') {
+    //   this.unsentSamples = [];
+    //   if (this.unsentSampleInitResponse.message !== null && this.unsentSampleInitResponse.message.code === "ENOTFOUND") {
+    //     this.unsentSamplesErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.unsentSampleInitResponse.message !== null || this.unsentSampleInitResponse.message == undefined) {
+    //     this.unsentSamplesErrorMessage = this.unsentSampleInitResponse.message;
+    //   }
+    // }
+    // else {
 
-      if (this.unsentSampleInitResponse.unsentSamplesDetail != null && this.unsentSampleInitResponse.unsentSamplesDetail.length > 0) {
-        this.unsentSamples = this.unsentSampleInitResponse.unsentSamplesDetail;
-      }
-    }
+    //   if (this.unsentSampleInitResponse.unsentSamplesDetail != null && this.unsentSampleInitResponse.unsentSamplesDetail.length > 0) {
+    //     this.unsentSamples = this.unsentSampleInitResponse.unsentSamplesDetail;
+    //   }
+    // }
 
   }
 
@@ -211,14 +213,16 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   anmunsentSampleList(userId) {
+    this.loaderService.display(true);
     this.recordCount = 0;
     this.unsentSamples = [];
     this.UnsentSamplesServiceService.getunsentSampleList(userId)
       .subscribe(response => {
         this.unsentSamplesResponse = response;
+        this.loaderService.display(false);
         if (this.unsentSamplesResponse !== null && this.unsentSamplesResponse.status === "true") {
           if (this.unsentSamplesResponse.unsentSamplesDetail.length <= 0) {
-            this.unsentSamplesErrorMessage = response.message;
+            this.unsentSamplesErrorMessage = response.message;  
           }
           else {
             this.unsentSamples = this.unsentSamplesResponse.unsentSamplesDetail;
