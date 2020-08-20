@@ -16,6 +16,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
+import { LoaderService }  from '../../../../shared/loader/loader.service';
 
 @Component({
   selector: 'chc-walkin-registration',
@@ -120,9 +121,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedassociatedANM;
   selectedTestingchc = null;
   statelist = [];
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router, private loaderService: LoaderService) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     /*phc: ['', Validators.required], */
     this.firstFormGroup = this._formBuilder.group({
@@ -392,9 +394,11 @@ export class ChcwalkinRegistrationComponent implements OnInit {
 
   getANMDetails()
   {
+    this.loaderService.display(true);
       this.masterService.getAssociatedANM(this.selectedchc)
     .subscribe(response => {
     console.log(response);
+    this.loaderService.display(false);
     this.associatedANMData = response.associatedANMDetail;
     if(this.associatedCount === 0)
         this.dtTrigger.next();

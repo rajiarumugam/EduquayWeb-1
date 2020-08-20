@@ -280,7 +280,7 @@ export class CentralSampleRcptComponent implements OnInit {
                           this.centralsampleService.retriveCentralReceipt().subscribe(response => {
                             if(response.status === "true")
                             {
-                              this.centralReceiptsData = response.chcReceipts;
+                              this.centralReceiptsData = response.centralLabReceipts;
                               this.rerender();
                             }       
                           },
