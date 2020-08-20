@@ -59,13 +59,13 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private loaderService: LoaderService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    
     ) { }
 
   ngOnInit() {
     this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Shipment Log"}));
-    this.loaderService.display(true);
-
+    
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -87,31 +87,30 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     };
 
     console.log(this.ShipmentlogService.shipmentLogApi);
-    //this.anmshipmentLog();
+    this.anmshipmentLog();
 
-    this.shipmentLogInitResponse = this.route.snapshot.data.shipmentLogData;
-    this.loaderService.display(false);
+    // this.shipmentLogInitResponse = this.route.snapshot.data.shipmentLogData
 
-    if (this.shipmentLogInitResponse.status === 'false') {
-      this.shipmentList = [];
-      if (this.shipmentLogInitResponse.message !== null && this.shipmentLogInitResponse.message.code === "ENOTFOUND") {
-        this.shipmentLogErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.shipmentLogInitResponse.message !== null || this.shipmentLogInitResponse.message == undefined) {
-        this.shipmentLogErrorMessage = this.shipmentLogInitResponse.message;
-      }
-    }
-    else {
+    // if (this.shipmentLogInitResponse.status === 'false') {
+    //   this.shipmentList = [];
+    //   if (this.shipmentLogInitResponse.message !== null && this.shipmentLogInitResponse.message.code === "ENOTFOUND") {
+    //     this.shipmentLogErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.shipmentLogInitResponse.message !== null || this.shipmentLogInitResponse.message == undefined) {
+    //     this.shipmentLogErrorMessage = this.shipmentLogInitResponse.message;
+    //   }
+    // }
+    // else {
       
-      if (this.shipmentLogInitResponse.shipmentLogs != null && this.shipmentLogInitResponse.shipmentLogs.length > 0) {
-        this.shipmentList = this.shipmentLogInitResponse.shipmentLogs;
-      }
-    }
+    //   if (this.shipmentLogInitResponse.shipmentLogs != null && this.shipmentLogInitResponse.shipmentLogs.length > 0) {
+    //     this.shipmentList = this.shipmentLogInitResponse.shipmentLogs;
+    //   }
+    // }
   }
 
   anmshipmentLog(){
+    
     this.loaderService.display(true);
-
     this.shipmentList = [];
     this.sampleDetails = [];
     this.shipmentRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
