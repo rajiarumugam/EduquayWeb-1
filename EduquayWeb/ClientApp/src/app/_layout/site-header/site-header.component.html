@@ -107,10 +107,10 @@
 <!--  END NAVBAR  -->
 <!--  BEGIN NAVBAR  -->
 <div class="sub-header-container">
-  <header class="header navbar navbar-expand-sm d-flex">
-    <div class="flex-grow-1">
+  <header class="header navbar navbar-expand-sm">
+    <!-- <div class="flex-grow-1">
       <div class="d-flex flex-row">
-          <div>
+          <div> -->
             <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -120,9 +120,9 @@
                 <line x1="3" y1="18" x2="21" y2="18"></line>
               </svg>
             </a>
-          </div>
-          <div class="d-none d-lg-block d-xl-block">
-            <ul class="navbar-nav flex-row">
+          <!-- </div>
+          <div class="d-none d-sm-none d-md-none d-lg-block"> -->
+            <ul class="navbar-nav flex-row d-none d-sm-none d-md-none d-lg-block">
               <li>
                 <div class="page-header">
                   <nav class="breadcrumb-one" aria-label="breadcrumb">
@@ -142,11 +142,11 @@
                 </div>
               </li>
             </ul>
-          </div>
+          <!-- </div>
         </div>
     </div>
-    <div>
-      <form>
+    <div class="d-none d-sm-none d-md-none d-lg-block"> -->
+      <form class="ml-auto">
         <div class="d-flex flex-row">
           <div class="mt-1 mr-5 text-center">
             <label for="language" style="font-size: 0.875rem;font-weight: 600;">Language: </label>
@@ -165,7 +165,7 @@
           </div>
         </div>
       </form>
-    </div>
+    <!-- </div> -->
   </header>
 </div>
 <!--  END NAVBAR  -->

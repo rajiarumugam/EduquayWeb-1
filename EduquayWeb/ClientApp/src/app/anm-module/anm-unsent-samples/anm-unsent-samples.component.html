@@ -59,17 +59,19 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            
-            <a class="btn btn-primary float-right"  (click)="getCreateShipmentConfirmation(unsentSamplesDetail)"
-                role="button">Create Shipment</a>
-                <a class="btn btn-danger float-right mr-2" (click)="getExpirySamplesConfirmation()"
-                role="button">Move to Expiry</a>
-                <a class="btn btn-outline-primary float-right mr-2"
+    <div class="d-flex flex-row-reverse">
+        <div class="px-1">
+            <a class="btn btn-primary"  (click)="getCreateShipmentConfirmation(unsentSamplesDetail)"
+            role="button">Create Shipment</a>
+        </div> 
+        <div class="px-1">
+            <a class="btn btn-danger float-right mr-2" (click)="getExpirySamplesConfirmation()"
+            role="button">Move to Expiry</a>
+        </div> 
+        <div class="px-1">
+            <a class="btn btn-outline-primary float-right mr-2"
                 role="button">{{length}} Selected</a>
-                
-        </div>
+        </div>             
     </div>
 </div>
 <!-- The Modal -->
@@ -226,7 +228,7 @@
                                 <br>
 
                                 <div class="modal-footer">
-                                    <span class="mr-auto"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>
+                                    <span class="mr-auto d-none d-sm-none d-md-none d-lg-block"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>
                                     <button type="submit" class="btn btn-primary" 
                                         id="linktobuttonpickpak">Submit</button>
                                     <button class="btn"  (click)="modal.dismiss()"><i

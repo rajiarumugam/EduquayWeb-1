@@ -576,6 +576,8 @@ code {
   position: fixed;
   top: 53px;
   width: 100%;
+  /* z-index: -1; */
+  /* position: relative; */
   z-index: 1029;
   display: flex; }
   .sub-header-container .navbar {
