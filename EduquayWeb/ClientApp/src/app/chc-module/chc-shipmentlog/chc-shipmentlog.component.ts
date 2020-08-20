@@ -11,6 +11,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -89,33 +91,37 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
       }  
   }
   console.log(this.ChcShipmentlogService.chcshipmentLogApi);
-  //this.anmshipmentLog();
+  this.chcshipmentLog();
 
-  this.chcshipmentLogInitResponse = this.route.snapshot.data.chcshipmentLogData;
-  if (this.chcshipmentLogInitResponse.status === 'false') {
-    this.shipmentList = [];
-    if (this.chcshipmentLogInitResponse.message !== null && this.chcshipmentLogInitResponse.message.code === "ENOTFOUND") {
-      this.chcShipmentLogErrorMessage = "Unable to connect to api source";
-    }
-    else if (this.chcshipmentLogInitResponse.message !== null || this.chcshipmentLogInitResponse.message == undefined) {
-      this.chcShipmentLogErrorMessage = this.chcshipmentLogInitResponse.message;
-    }
-  }
-  else {
+  // Resolver //
+  // this.chcshipmentLogInitResponse = this.route.snapshot.data.chcshipmentLogData;
+  // if (this.chcshipmentLogInitResponse.status === 'false') {
+  //   this.shipmentList = [];
+  //   if (this.chcshipmentLogInitResponse.message !== null && this.chcshipmentLogInitResponse.message.code === "ENOTFOUND") {
+  //     this.chcShipmentLogErrorMessage = "Unable to connect to api source";
+  //   }
+  //   else if (this.chcshipmentLogInitResponse.message !== null || this.chcshipmentLogInitResponse.message == undefined) {
+  //     this.chcShipmentLogErrorMessage = this.chcshipmentLogInitResponse.message;
+  //   }
+  // }
+  // else {
     
-    if (this.chcshipmentLogInitResponse.shipmentLogs != null && this.chcshipmentLogInitResponse.shipmentLogs.length > 0) {
-      this.shipmentList = this.chcshipmentLogInitResponse.shipmentLogs;
-    }
-  }
+  //   if (this.chcshipmentLogInitResponse.shipmentLogs != null && this.chcshipmentLogInitResponse.shipmentLogs.length > 0) {
+  //     this.shipmentList = this.chcshipmentLogInitResponse.shipmentLogs;
+  //   }
+  // }
 
 }
 chcshipmentLog(){
+
+  this.loaderService.display(true);
   this.shipmentList = [];
   this.sampleDetails = [];
   this.chcshipmentlogRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
   let shipmentLog = this.ChcShipmentlogService.getchcshipmentLog(this.chcshipmentlogRequest)
   .subscribe(response => {
     this.chcshipmentlogResponse = response;
+    this.loaderService.display(false);
     if(this.chcshipmentlogResponse !== null && this.chcshipmentlogResponse.status === "true"){
       if(this.chcshipmentlogResponse.shipmentLogs.length <= 0){
         this.chcShipmentLogErrorMessage = response.message;
