@@ -215,7 +215,7 @@ code {
 =====================
 */
 .header-container {
-  z-index: 1030;
+  z-index: 1000;
   border-bottom: 1px solid #0e1726; }
   .header-container .navbar {
     padding: 4px 0; }
@@ -576,6 +576,8 @@ code {
   position: fixed;
   top: 53px;
   width: 100%;
+  /* z-index: -1; */
+  /* position: relative; */
   z-index: 1029;
   display: flex; }
   .sub-header-container .navbar {

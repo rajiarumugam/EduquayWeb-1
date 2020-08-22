@@ -16,7 +16,7 @@
                 <h5 class="">ANM Name - PHC Name</h5>
             </div> -->
                 <div class="col-md-12">
-                    <div class="row">
+                    <div class="justify-between">
                         <div class="col-md-4">
                             <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Sample Collection" placement="right" [routerLink]="['/app/anm-sample-collection']"
                                     role="button"><i class="fas fa-chevron-left pNav-left"></i></a></div>
@@ -112,12 +112,16 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class="d-flex flex-row-reverse mt-2">
+                            <div class="px-1">
                                 <a class="btn btn-primary float-right" (click)="getCreateShipmentConfirmation(picknPackdetail)"
                                  role="button">{{'CreateShipment' | translate }}</a>
+                            </div>
+                            <div class="px-1">
                                  <a class="btn btn-danger float-right mr-2" (click)="getExpirySamplesConfirmation()"
                                 role="button">{{'MovetoExpiry' | translate }}</a>
+                            </div>
+                            <div class="px-1">
                                  <a class="btn btn-outline-primary float-right mr-2"
                                 role="button">{{length}} Selected</a>
                             </div>

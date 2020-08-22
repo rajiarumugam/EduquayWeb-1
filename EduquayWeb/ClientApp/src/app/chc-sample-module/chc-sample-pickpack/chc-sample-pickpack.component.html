@@ -123,7 +123,7 @@
                                                 <div class="w-100 my-2">
                                                     <input type="text" class="w-100 form-control sample-search br-30"
                                                     name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
-                                                    [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype(samplepicknPackdetail)" 
+                                                    [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="onChange(samplepicknPackdetail, $event)" 
                                                     autocomplete="off">
                                                 <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button class="btn btn-primary" type="submit"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"

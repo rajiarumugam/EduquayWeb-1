@@ -16,6 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 @Component({
@@ -112,7 +113,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     private router: Router,
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
 
   ) { }
 
@@ -165,34 +167,36 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       }
     };
     console.log(this.chcsamplePickpackService.chcSamplePickPackApi);
-    //this.chcsamplepicknpackList(this.user.chcId);
+    this.chcsamplepicknpackList(this.user.chcId);
+    // Resolver //
+    // this.chcsamplepickpackinitResponse = this.route.snapshot.data.chcpickpackSamplesData;
+    // if (this.chcsamplepickpackinitResponse.status === 'false') {
+    //   this.chcsamplepickpack = [];
+    //   if (this.chcsamplepickpackinitResponse.message !== null && this.chcsamplepickpackinitResponse.message.code === "ENOTFOUND") {
+    //     this.samplepicknpackErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.chcsamplepickpackinitResponse.message !== null || this.chcsamplepickpackinitResponse.message == undefined) {
+    //     this.samplepicknpackErrorMessage = this.chcsamplepickpackinitResponse.message;
+    //   }
+    // }
+    // else {
 
-    this.chcsamplepickpackinitResponse = this.route.snapshot.data.chcpickpackSamplesData;
-    if (this.chcsamplepickpackinitResponse.status === 'false') {
-      this.chcsamplepickpack = [];
-      if (this.chcsamplepickpackinitResponse.message !== null && this.chcsamplepickpackinitResponse.message.code === "ENOTFOUND") {
-        this.samplepicknpackErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.chcsamplepickpackinitResponse.message !== null || this.chcsamplepickpackinitResponse.message == undefined) {
-        this.samplepicknpackErrorMessage = this.chcsamplepickpackinitResponse.message;
-      }
-    }
-    else {
-
-      if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
-        this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
-        this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
-        //this.onLoadSamples.emit(this.chcsamplepickpack.length);
-        //this.onLoadSamples.emit(this.startPickpackData.length);
-      }
-    }
+    //   if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
+    //     this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
+    //     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+       
+    //   }
+    // }
   }
  
   chcsamplepicknpackList(chcId) {
+
+    this.loaderService.display(true);
     this.chcsamplepickpack = [];
     let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
       .subscribe(response => {
         this.chcsamplepicknpickResponse = response;
+        this.loaderService.display(false);
         if (this.chcsamplepicknpickResponse !== null && this.chcsamplepicknpickResponse.status === "true") {
           if (this.chcsamplepicknpickResponse.pickandPack.length <= 0) {
             this.samplepicknpackErrorMessage = response.message;
@@ -215,16 +219,17 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
-  searchBarCodetype(samplepicknPackdetail) {
+  onChange(samplepicknPackdetail, primarytube) {
 
     this.tempCHCDatas = [];
-    let primarytube = this.searchbarcode;
+    console.log('changed', this.searchbarcode, primarytube);
+    primarytube = this.searchbarcode;
     //this.searchbarcode = primarytube;
     var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
-      this.searchbarcode='';
+      primarytube = '';
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
       
@@ -464,8 +469,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
         }
       }); 
-      this.searchbarcode = '';    
-      this.searchbarcode = '';    
+      // this.searchbarcode = '';    
+      // this.searchbarcode = '';    
     }
     else{
       Swal.fire({ allowOutsideClick: false,
@@ -491,10 +496,10 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
     this.startBadgePickpackCount = this.startPickpackData.length;
     this.rerender();
-    Swal.fire({ allowOutsideClick: false,
+    Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Back to Ship',
+      title: 'Back to ship',
       showConfirmButton: false,
       timer: 2000
     })

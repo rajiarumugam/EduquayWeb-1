@@ -40,7 +40,7 @@
     </ul>
     <div class="mx-auto order-0">
       <!-- <a class="navbar-brand mx-auto" href="#">Navbar 2</a> -->
-      <h4 class="header-title mt-2">
+      <h4 class="header-title mt-2 d-none d-lg-block d-xl-block">
         Thalassemia and Sickle Cell Disease Control
       </h4>
     </div>
@@ -108,58 +108,64 @@
 <!--  BEGIN NAVBAR  -->
 <div class="sub-header-container">
   <header class="header navbar navbar-expand-sm">
-    <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           class="feather feather-menu">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </a>
-    <div class="col-md-7">
-      <ul class="navbar-nav flex-row">
-        <li>
-          <div class="page-header">
-            <nav class="breadcrumb-one" aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a [routerLink]="['/app']">Home</a></li>
-                <li *ngIf='module !== ""' class="breadcrumb-item" aria-current="page"><span>{{module}}</span></li>
-                <li *ngIf='submodule !== ""' class="breadcrumb-item" aria-current="page"><span>{{submodule}}</span></li>
-                <li *ngIf='componentpage !== ""' class="breadcrumb-item active" aria-current="page">
-                  <span>{{componentpage}}</span>
-                </li>
-                
-                <!-- <li *ngFor='let breadcrumb of breadcrumbs' class="breadcrumb-item">
-                  <a [routerLink]='[breadcrumb.url, breadcrumb.params]' routerLinkActive='active'>{{ breadcrumb.label }}</a>
-                </li> -->
-              </ol>
-            </nav>
+    <!-- <div class="flex-grow-1">
+      <div class="d-flex flex-row">
+          <div> -->
+            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-menu">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </a>
+          <!-- </div>
+          <div class="d-none d-sm-none d-md-none d-lg-block"> -->
+            <ul class="navbar-nav flex-row d-none d-sm-none d-md-none d-lg-block">
+              <li>
+                <div class="page-header">
+                  <nav class="breadcrumb-one" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a [routerLink]="['/app']">Home</a></li>
+                      <li *ngIf='module !== ""' class="breadcrumb-item" aria-current="page"><span>{{module}}</span></li>
+                      <li *ngIf='submodule !== ""' class="breadcrumb-item" aria-current="page"><span>{{submodule}}</span></li>
+                      <li *ngIf='componentpage !== ""' class="breadcrumb-item active" aria-current="page">
+                        <span>{{componentpage}}</span>
+                      </li>
+                      
+                      <!-- <li *ngFor='let breadcrumb of breadcrumbs' class="breadcrumb-item">
+                        <a [routerLink]='[breadcrumb.url, breadcrumb.params]' routerLinkActive='active'>{{ breadcrumb.label }}</a>
+                      </li> -->
+                    </ol>
+                  </nav>
+                </div>
+              </li>
+            </ul>
+          <!-- </div>
+        </div>
+    </div>
+    <div class="d-none d-sm-none d-md-none d-lg-block"> -->
+      <form class="ml-auto">
+        <div class="d-flex flex-row">
+          <div class="mt-1 mr-5 text-center">
+            <label for="language" style="font-size: 0.875rem;font-weight: 600;">Language: </label>
+            <select class="selectpicker form-control-sm ml-2" #selectedLang (change)="switchLang(selectedLang.value)">
+              <option *ngFor="let language of translate.getLangs()" 
+                [value]="language"
+                [selected]="language === translate.currentLang">
+                {{ language }}
+              </option>
+            </select>
           </div>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-4 ml-4">
-      <form>
-      <div class="form-row">
-        <div class="col-6 mt-1 text-center">
-          <label for="language">Language: </label>
-          <select class="selectpicker form-control-sm ml-2" #selectedLang (change)="switchLang(selectedLang.value)">
-            <option *ngFor="let language of translate.getLangs()" 
-              [value]="language"
-              [selected]="language === translate.currentLang">
-              {{ language }}
-            </option>
-          </select>
+          <div class="mr-3" style="margin-top: auto;">
+            <h6 class="float-right" style="font-size: 0.875rem;font-weight: 600;">
+              <span>{{today | date:'dd/MM/yyyy, EEEE, HH:mm':'+0530'}}</span>
+            </h6>
+          </div>
         </div>
-        <div class="col-6" style="margin-top: auto;">
-          <h6 class="float-right" style="font-size: 15px;font-weight: 600;">
-            <span>{{today | date:'dd/MM/yyyy, EEEE, HH:mm':'+0530'}}</span>
-          </h6>
-        </div>
-      </div>
-    </form>
-    </div>
+      </form>
+    <!-- </div> -->
   </header>
 </div>
 <!--  END NAVBAR  -->

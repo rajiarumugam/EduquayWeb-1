@@ -16,6 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-chc-unsent-samples',
@@ -110,7 +111,8 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -139,25 +141,26 @@ export class ChcUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       }
   }
   console.log(this.ChcUnsentSamplesService.chcunsentSampleApi);
-  // this.anmunsentSampleList();
+  this.chcunsentSampleList();
   // this.ddlRiPoint(this.user.id);
 
-  this.chcunsentSampleInitResponse = this.route.snapshot.data.chcunsentSamplesData;
-  if (this.chcunsentSampleInitResponse.status === 'false') {
-    this.chcunsentSamples = [];
-    if (this.chcunsentSampleInitResponse.message !== null && this.chcunsentSampleInitResponse.message.code === "ENOTFOUND") {
-      this.chcunsentSamplesErrorMessage = "Unable to connect to api source";
-    }
-    else if (this.chcunsentSampleInitResponse.message !== null || this.chcunsentSampleInitResponse.message == undefined) {
-      this.chcunsentSamplesErrorMessage = this.chcunsentSampleInitResponse.message;
-    }
-  }
-  else {
+  // Resolver //
+  // this.chcunsentSampleInitResponse = this.route.snapshot.data.chcunsentSamplesData;
+  // if (this.chcunsentSampleInitResponse.status === 'false') {
+  //   this.chcunsentSamples = [];
+  //   if (this.chcunsentSampleInitResponse.message !== null && this.chcunsentSampleInitResponse.message.code === "ENOTFOUND") {
+  //     this.chcunsentSamplesErrorMessage = "Unable to connect to api source";
+  //   }
+  //   else if (this.chcunsentSampleInitResponse.message !== null || this.chcunsentSampleInitResponse.message == undefined) {
+  //     this.chcunsentSamplesErrorMessage = this.chcunsentSampleInitResponse.message;
+  //   }
+  // }
+  // else {
 
-    if (this.chcunsentSampleInitResponse.unsentSamplesDetail != null && this.chcunsentSampleInitResponse.unsentSamplesDetail.length > 0) {
-      this.chcunsentSamples = this.chcunsentSampleInitResponse.unsentSamplesDetail;
-    }
-  }
+  //   if (this.chcunsentSampleInitResponse.unsentSamplesDetail != null && this.chcunsentSampleInitResponse.unsentSamplesDetail.length > 0) {
+  //     this.chcunsentSamples = this.chcunsentSampleInitResponse.unsentSamplesDetail;
+  //   }
+  // }
 
 }
 
@@ -202,12 +205,15 @@ ddlProviderName() {
 }
 
 chcunsentSampleList() {
+
+  this.loaderService.display(true);
   this.recordCount = 0;
   this.chcunsentSamples = [];
   this.chcunsentSamplesRequest = {userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom, notification: 2 }
   let getchcunsent = this.ChcUnsentSamplesService.getchcUnsentSamples(this.chcunsentSamplesRequest)
     .subscribe(response => {
       this.chcunsentSamplesResponse = response;
+      this.loaderService.display(false);
       if (this.chcunsentSamplesResponse !== null && this.chcunsentSamplesResponse.status === "true") {
         if (this.chcunsentSamplesResponse.unsentSamplesDetail.length <= 0) {
           this.chcunsentSamplesErrorMessage = response.message;
@@ -218,8 +224,6 @@ chcunsentSampleList() {
           //   element.sampleSelected = true;
           // });
           this.recordCount = this.chcunsentSamples.length;
-         
-
         }
       }
       else {
