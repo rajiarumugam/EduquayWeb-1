@@ -129,7 +129,7 @@ export class SiteHeaderComponent implements OnInit {
          localStorage.clear();
          this.tokenService.deleteToken('currentUser');
           // this.cookieService.delete('cookieApp');
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home/login']);
         },
         (err: HttpErrorResponse) =>{
           console.log(err);

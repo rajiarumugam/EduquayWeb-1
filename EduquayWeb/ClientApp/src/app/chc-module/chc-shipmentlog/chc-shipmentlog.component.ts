@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import * as XLSX from 'xlsx'; 
 
 
 @Component({
@@ -26,6 +27,7 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  
 
   user: user;
   chcShipmentLogErrorMessage: string;
@@ -52,6 +54,8 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   associatedANM: string;
   sampleCollectionDateTime: string;
   isPrintable: boolean = false;
+  fileName: any;
+  
 
   constructor(
     private ChcShipmentlogService: ChcShipmentlogService,
@@ -112,6 +116,8 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   // }
 
 }
+
+
 chcshipmentLog(){
 
   this.loaderService.display(true);
@@ -152,6 +158,7 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
   this.testingCHC = shipment.testingCHC;
   this.contactNo = shipment.contactNo;
   this.sampleDetails = shipment.samplesDetail;
+  this.fileName= shipment.shipmentId +'.xlsx';
 
   this.modalService.open(
     shippedChcSampleDetail,{
@@ -163,6 +170,21 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
       ariaLabelledBy: 'modal-basic-title'
     });
 }
+
+exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('excel-table'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
+    }
 
 openchcShipmentPrint(shippedChcSampleDetail: any, shipment: ChcShipmentList){
   this.openchcShipment(shippedChcSampleDetail, shipment);

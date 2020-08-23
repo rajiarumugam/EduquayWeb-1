@@ -1,88 +1,49 @@
 <header>
   
-    <div class="container-fluid header-band">
-      <div class="row">
-        <div class="col-md-2 float-left">
-          <a class="navbar-brand" [routerLink]="['/']">
-            <img src="assets/assets/img/cmc-four-logo.png" class="mt-2">
+    <div class="container-fluid header-bg-color">
+      <div class="row py-3">
+        <div class="col-md-2 text-right">
+          <a class="" [routerLink]="['/']">
+            <img src="assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1 img-fluid" style="width:65%;">
           </a>
         </div>
         <div class="col-md-8">
-          <h3 class="mt-2 text-center header-title">THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA
-          </h3>
-          <p class="text-center textcolor">
-            << Program tag line>>
-          </p>
+          <h4 class="text-center text-white pt-2">THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN
+              ODISHA</h4>
+          <h5 class="text-center text-white">Sickle cell and Thalassemia Free Odisha</h5>
         </div>
         <div class="col-md-2">
-          <a href="#" class="float-right">
-            <!-- <img src="assets/img/help-icon-small.png"> -->
-            <!-- <p></p>Help</span></p> -->
-            <a href="#" class="float-right">
-              <i class="fa fa-question-circle fa-3x text-white bx-shadow ml-2 mt-2" aria-hidden="true"></i>
-              <p class="ml-2 textcolor"><b>Help</b></p>
-            </a>
-          </a>
+          <img src="assets/assets/img/Insteam_CMC_logo.png" class="mt-1 img-fluid" style="width:65%;">
+          <button type="submit" class="btn btn-primary" value="" style="padding: 3px;"><a [routerLink]="['/home/login']" style="color: #fff;">Login</a> </button>
         </div>
       </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-      <a class="navbar-brand" href="#">&nbsp;</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-md bg-white navbar-dark">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
       </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav  mx-auto">
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Home
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                <a class="dropdown-item" href="#">To be provided by CMC</a></div>
-               
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  About Us
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <a class="dropdown-item" href="#">To be provided by CMC</a></div>
-               
-            </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              About the program
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-              <a class="dropdown-item" href="#">To be provided by CMC</a></div>
-             
-          </li>
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Partners / Team
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-                <a class="dropdown-item" href="#">To be provided by CMC</a></div>
-               
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Important links
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown5">
-                <a class="dropdown-item" href="#">To be provided by CMC</a></div>
-               
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Gallery
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown6">
-                <a class="dropdown-item" href="#">To be provided by CMC</a>
-              </div>
-            </li>
-        </ul>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: center;">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" href="home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size"  [routerLink]="['/home/about']">About Us</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" [routerLink]="['/home/aboutprogram']">About The Program</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" href="partnersteams.html">Partners/Teams</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" [routerLink]="['/home/importantlinks']">Important links</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" href="gallery.html">Gallery</a>
+              </li>
+          </ul>
       </div>
-    </nav>
+  </nav>
 </header>

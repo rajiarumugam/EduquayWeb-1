@@ -127,18 +127,27 @@ import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-v
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { PageUnderDevelopementComponent } from "./page-under-developement/page-under-developement.component";
+import { AboutUsComponent } from "./landing-page/about-us/about-us.component";
+import { AboutProgramComponent } from "./landing-page/about-program/about-program.component";
+import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
+import { ChcSubjectProfileListComponent } from "./chc-module/chc-subject-profile-list/chc-subject-profile-list.component";
+import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile-list/anm-subject-profile-list.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   {
-    path: 'login',
+    path: 'home',
     component: HomeLayoutComponent,
     children: [
-      { path: '', component: LoginComponent, pathMatch: 'full'}
+      { path: 'login', component: LoginComponent, pathMatch: 'full'},
+      { path: 'about', component: AboutUsComponent, pathMatch: 'full'},      
+      { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
+      { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
     ]
   },
+
   //Site routes goes here 
   {
     path: 'app',
@@ -187,7 +196,8 @@ const routes: Routes = [
       { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent }, // resolve: {chcshipmentLogData: ChcShipmentlogResolverService}
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
-      { path: 'chc-subjectprofile', component: ChcSubjectProfileComponent},
+      { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
+      { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -291,13 +301,15 @@ const routes: Routes = [
       //{ path: 'test/:id', component: AboutComponent }
       { path: 'anm-pickpack', component: AnmPickandPackComponent },  // resolve: {picknpackData: PicknpackResolverService}
       { path: 'anm-shipment', component: AnmShipmentComponent }, // resolve: {shipmentLogData: ShipmentlogResolverService }
-      { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
+      { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
+      { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
+      
      
     ]
   },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
   { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
   { path: '**', redirectTo: '/pageunderconstruction' },
@@ -315,6 +327,9 @@ export const RoutingComponents = [
   NotfoundComponent,
   PageUnderDevelopementComponent,
   HomeComponent,
+  AboutUsComponent,
+  AboutProgramComponent,
+  ImportantLinksComponent,
   CounterComponent,
   FetchDataComponent,
   LoginComponent,
@@ -337,6 +352,7 @@ export const RoutingComponents = [
   AnmPickandPackComponent,
   AnmShipmentComponent,
   AnmSubjectProfileComponent,
+  AnmSubjectProfileListComponent,
   AnmSubjectRegistrationComponent,
   AnmAwRegistrationComponent,
   AnmSpouseRegistrationComponent,
@@ -393,7 +409,8 @@ export const RoutingComponents = [
   CentralShipmentMainComponent,
   CentralCentralShipmentComponent,
   ChcPendingPickpackComponent,
-  ChcStartPickpackComponent
+  ChcStartPickpackComponent,
+  ChcSubjectProfileListComponent
 ];
 
 

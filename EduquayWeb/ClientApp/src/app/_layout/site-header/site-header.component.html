@@ -46,11 +46,12 @@
     </div>
 
     <ul class="navbar-item flex-row ml-auto mt-1">
-
-      <li class="nav-item dropdown user-profile-dropdown">
+      <li class="nav-item dropdown user-profile-dropdown mt-2">
+        <span class="header-title mr-2">Welcome {{userName}}</span>
+      </li>
+      <li class="nav-item dropdown user-profile-dropdown mt-1">
         <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          <span class="header-title mr-2">Welcome {{userName}}</span>
           <i class="fa fa-user text-white fa-2x" aria-hidden="true"></i>
         </a>
         <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
@@ -146,10 +147,28 @@
         </div>
     </div>
     <div class="d-none d-sm-none d-md-none d-lg-block"> -->
-      <form class="ml-auto">
+      <ul class="navbar-item flex-row ml-md-auto">
+        <li class="nav-item dropdown language-dropdown">
+          <label for="language" style="font-size: 0.875rem;">Language: </label>
+            <select class="selectpicker form-control-sm mt-2 mr-3" #selectedLang (change)="switchLang(selectedLang.value)">
+              <option *ngFor="let language of translate.getLangs()" 
+                [value]="language"
+                [selected]="language === translate.currentLang">
+                {{ language }}
+              </option>
+            </select>
+        </li>
+        <li class="nav-item dropdown language-dropdown mr-2 d-none d-sm-none d-md-none d-lg-block">
+          <h6 class="float-right" style="font-size: 0.875rem;font-weight: 600;padding-top: 17px;">
+            <span>{{today | date:'dd/MM/yyyy, EEEE, HH:mm':'+0530'}}</span>
+          </h6>
+        </li>
+
+      </ul>
+      <!-- <form class="ml-auto">
         <div class="d-flex flex-row">
           <div class="mt-1 mr-5 text-center">
-            <label for="language" style="font-size: 0.875rem;font-weight: 600;">Language: </label>
+            <label for="language" style="font-size: 0.875rem;">Language: </label>
             <select class="selectpicker form-control-sm ml-2" #selectedLang (change)="switchLang(selectedLang.value)">
               <option *ngFor="let language of translate.getLangs()" 
                 [value]="language"
@@ -164,7 +183,7 @@
             </h6>
           </div>
         </div>
-      </form>
+      </form> -->
     <!-- </div> -->
   </header>
 </div>

@@ -8,13 +8,14 @@ export interface SubjectProfileResponse {
  parentDetail: ParentDetail[];
 }
 
-export interface PrimaryDetail{
+export class PrimaryDetail{
     id: number;
     subjectTypeId: number;
     subjectType: string;
     childSubjectTypeId: number;
     childSubjectType: string;
     uniqueSubjectId: string;
+    registeredFrom: string;
     districtId: number;
     districtName: string;
     chcId: number;
@@ -53,7 +54,7 @@ export interface PrimaryDetail{
     hplcTestResult: string;
 }
 
-export interface AddressDetail{
+export class AddressDetail{
     id: number;
     subjectId: number;
     uniqueSubjectId: string;
@@ -71,7 +72,7 @@ export interface AddressDetail{
     selectedreligion: string;
 }
 
-export interface PregnancyDetail{
+export class PregnancyDetail{
     id: number;
     subjectId: number;
     uniqueSubjectId: string;
@@ -86,7 +87,7 @@ export interface PregnancyDetail{
     barcodes: string;
 }
 
-export interface ParentDetail{
+export class ParentDetail{
     id: number;
     subjectId: number;
     uniqueSubjectId: string;
@@ -113,6 +114,19 @@ export interface ParentDetail{
     standard: string;
     section: string;
     rollNo: string   
+}
+
+export interface RetrieveSubjectProfileList{
+    status: string;
+    message:string;
+    subjectsDetail: SubjectProfileList[];
+}
+
+export interface SubjectProfileList{
+    primaryDetail: PrimaryDetail;
+    addressDetail: AddressDetail;
+    pregnancyDetail: PregnancyDetail;
+    parentDetail: ParentDetail;
 }
 
 export interface ReligionResponse{

@@ -114,6 +114,16 @@
                                 <b>Shipment Date & Time: {{shipmentDateTime}}
                                         </b>
                             </div>
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group">
+                                        <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
+                                            <img src="assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button></a>
+                                        <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                                            <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- <div class="container-fluid" style="margin-top: 3rem;">
@@ -122,8 +132,8 @@
                                 </div>
                             </div>
                         </div> -->
-
-                        <div class="row my-4" style="top: 100px">
+                    <div id="excel-table">
+                        <!-- <div class="row my-4" style="top: 100px">
                             <div class="col-md-4">
                                 <span><b>CHC Lab Technician Name : </b></span><span>{{chcLabTechnicianName}}</span>
                             </div>
@@ -147,8 +157,31 @@
                                 <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
                             </div>
 
+                        </div> -->
+                        <div class="table-responsive my-4">
+                            <table class="table">                                
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>CHC Lab Technician Name : </b></td>
+                                        <td class="sp-xs-td-15">{{chcLabTechnicianName}}</td>
+                                        <td class="sp-xs-td-9"><b>Collection CHC : </b></td>
+                                        <td class="sp-xs-td-15">{{collectionCHCName}}</td>
+                                        <td class="sp-xs-td-9"><b>Receiving Testing CHC : </b></td>
+                                        <td class="sp-xs-td-15">{{testingCHC}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Logistics Service Provider : </b> </td>
+                                        <td>{{logisticsProviderName}}</td>
+                                        <td><b>Delivery Executive Name : </b></td>
+                                        <td>{{deliveryExecutiveName}}
+                                        </td>
+                                        <td><b>Contact Number : </b></td>
+                                        <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                        <td>{{contactNo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-
                         <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
                             <table id="zero-config" class="table table-bordered table-hover">
                                 <thead>
@@ -181,6 +214,7 @@
                             </table>
                         </div>
 
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer">
