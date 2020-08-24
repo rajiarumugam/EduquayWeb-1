@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
-import { SubjectProfileResponse, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CasteList, CommunityeResponse, CommunityList, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
+import { SubjectProfileResponse, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CasteList, CommunityeResponse, CommunityList, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -31,8 +31,12 @@ export class ChcSubjectProfileComponent implements OnInit {
   @ViewChild('dobPicker', { static: false }) DOBPicker;
     
   chcsubjectProfileErrorMessage: string;
-  chcsubjectProfileRequest: SubjectProfileRequest;
-  chcsubjectProfileResponse: SubjectProfileResponse;
+  // chcsubjectProfileRequest: SubjectProfileRequest;
+  // chcsubjectProfileResponse: SubjectProfileResponse;
+  chcsubjectProfileResponse: RetrieveSubjectProfileList;
+
+  subjectprofileLists: SubjectProfileList[]=[];
+  chcsubjectprofileItem: SubjectProfileList;
   chcreligionResponse: ReligionResponse;
   user: user;
   
@@ -132,16 +136,22 @@ export class ChcSubjectProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private activatedRoute: ActivatedRoute
 
   ) { }
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Subject Profile"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Subject Profile", "page": "View Subject Profile"}));
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    console.log(this.SubjectProfileService.subjectProfileApi);
+    console.log(this.SubjectProfileService.chcsubjectprofileListApi);
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.uniqueSubjectId = params['q'];
+      this.chcSubjectProfile(this.user.id);
+    });
 
     this.firstFormGroup = this._formBuilder.group({
       // dor: ['', Validators.required],
@@ -188,38 +198,72 @@ export class ChcSubjectProfileComponent implements OnInit {
   });
   }
 
-  chcSubjectProfile() {
+  // chcSubjectProfile() {
+  //   //this.basicInfo = {};  
+  //   //this.basicInfo['firstName']='';  
+  //   this.loaderService.display(true);
+  //   this.chcsubjectProfileErrorMessage = '';
+  //   if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
+  //     this.chcsubjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
+  //     this.chcbasicInfo = undefined ;
+  //     return false;
+  //   }
+
+  //   this.chcsubjectProfileRequest = { subjectId: this.searchsubjectid };
+  //   let subProfile = this.SubjectProfileService.getsubjectProfile(this.chcsubjectProfileRequest)
+  //     .subscribe(response => {
+  //       this.chcsubjectProfileResponse = response;
+  //       this.loaderService.display(false);
+  //       if (this.chcsubjectProfileResponse !== null && this.chcsubjectProfileResponse.status === "true") {
+  //         if (this.chcsubjectProfileResponse.primaryDetail.length <= 0 && this.chcsubjectProfileResponse.pregnancyDetail.length <= 0
+  //           && this.chcsubjectProfileResponse.addressDetail.length <= 0 && this.chcsubjectProfileResponse.parentDetail.length <= 0) {
+  //           this.chcsubjectProfileErrorMessage = response.message;
+  //         }
+  //         else {
+  //           this.chcbasicInfo = this.chcsubjectProfileResponse.primaryDetail[0];
+  //           this.chcsocioDemographicInfo = this.chcsubjectProfileResponse.addressDetail[0];
+  //           this.chcparentInfo = this.chcsubjectProfileResponse.parentDetail[0];
+  //           this.chcpersonalInfo = this.chcsubjectProfileResponse.pregnancyDetail[0];
+  //           //this.basicInfo
+  //         }
+  //       }
+  //       else {
+  //         this.chcsubjectProfileErrorMessage = response.message;
+  //         this.chcbasicInfo = undefined ;
+  //       }
+  //     },
+  //       (err: HttpErrorResponse) => {
+  //         this.chcsubjectProfileErrorMessage = err.toString();
+  //       });
+
+  // }
+
+  chcSubjectProfile(userId) {
     //this.basicInfo = {};  
     //this.basicInfo['firstName']='';  
     this.loaderService.display(true);
-    this.chcsubjectProfileErrorMessage = '';
-    if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
-      this.chcsubjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
-      this.chcbasicInfo = undefined ;
-      return false;
-    }
 
-    this.chcsubjectProfileRequest = { subjectId: this.searchsubjectid };
-    let subProfile = this.SubjectProfileService.getsubjectProfile(this.chcsubjectProfileRequest)
+    this.chcsubjectProfileErrorMessage = '';
+    //this.subjectprofileItem = new SubjectProfileList();
+    let subProfile = this.SubjectProfileService.getchcSubjectProfileList(this.user.id)
       .subscribe(response => {
         this.chcsubjectProfileResponse = response;
         this.loaderService.display(false);
         if (this.chcsubjectProfileResponse !== null && this.chcsubjectProfileResponse.status === "true") {
-          if (this.chcsubjectProfileResponse.primaryDetail.length <= 0 && this.chcsubjectProfileResponse.pregnancyDetail.length <= 0
-            && this.chcsubjectProfileResponse.addressDetail.length <= 0 && this.chcsubjectProfileResponse.parentDetail.length <= 0) {
+          if (this.chcsubjectProfileResponse.subjectsDetail.length <= 0 ) {
             this.chcsubjectProfileErrorMessage = response.message;
           }
           else {
-            this.chcbasicInfo = this.chcsubjectProfileResponse.primaryDetail[0];
-            this.chcsocioDemographicInfo = this.chcsubjectProfileResponse.addressDetail[0];
-            this.chcparentInfo = this.chcsubjectProfileResponse.parentDetail[0];
-            this.chcpersonalInfo = this.chcsubjectProfileResponse.pregnancyDetail[0];
+            //this.subjectprofileLists = this.subjectProfileResponse.subjectsDetail;
+            this.chcsubjectprofileItem = this.chcsubjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
+            //this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail[0];          
             //this.basicInfo
+           
           }
         }
+        
         else {
           this.chcsubjectProfileErrorMessage = response.message;
-          this.chcbasicInfo = undefined ;
         }
       },
         (err: HttpErrorResponse) => {

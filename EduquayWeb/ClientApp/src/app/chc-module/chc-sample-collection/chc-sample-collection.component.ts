@@ -123,7 +123,7 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Sample Collection"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Sample Collection"}));
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.ChcInitializeDateRange();    
@@ -149,24 +149,44 @@ export class ChcSampleCollectionComponent implements AfterViewInit, OnDestroy, O
     console.log(this.sampleCollectionService.sampleCollectionApi);
     this.chcSubjectTypesList();
 
-    this.chcsampleCollectionInitResponse = this.route.snapshot.data.chcSampleCollectionData;
-    this.loaderService.display(false);
-    if (this.chcsampleCollectionInitResponse.status === 'false') {
-      this.chcsubjectList = [];
-      if (this.chcsampleCollectionInitResponse.message !== null && this.chcsampleCollectionInitResponse.message.code === "ENOTFOUND") {
-        this.chcsCollectionErrorMessage = "Unable to connect to api source";
+    //this.chcsampleCollectionInitResponse = this.route.snapshot.data.chcSampleCollectionData;
+
+    this.chcscRequest = {
+      userId: this.user.id, 
+      fromDate:  '',
+      toDate: '',
+      subjectType: +(this.selectedSubjectType),
+      registeredFrom: this.user.registeredFrom
+    };
+    //this.sampleCollectionInitResponse = this.route.snapshot.data.sampleCollectionData;
+
+    var some = this.sampleCollectionService.getSampleCollection(this.chcscRequest).subscribe(response => {
+      this.chcsampleCollectionResponse = response;
+      this.loaderService.display(false);
+      if (this.chcsampleCollectionResponse.status === 'false') {
+        this.chcsubjectList = [];
+        if (this.chcsampleCollectionResponse.message !== null && this.chcsampleCollectionResponse.message.length > 0) {
+          this.chcsCollectionErrorMessage = "Unable to connect to api source";
+        }
+        else if (this.chcsampleCollectionResponse.message !== null || this.chcsampleCollectionResponse.message == undefined) {
+          this.chcsCollectionErrorMessage = this.chcsampleCollectionResponse.message;
+        }
       }
-      else if (this.chcsampleCollectionInitResponse.message !== null || this.chcsampleCollectionInitResponse.message == undefined) {
-        this.chcsCollectionErrorMessage = this.chcsampleCollectionInitResponse.message;
+      else {
+        //this.fromDate = formatDate(this.sampleCollectionInitResponse.fromDate, "dd/MM/yyyy", "en-US");
+        // this.fromDate = this.chcsampleCollectionInitResponse.fromDate.replace('-', '/').replace('-', '/');
+        if (this.chcsampleCollectionResponse.subjectList != null && this.chcsampleCollectionResponse.subjectList.length > 0) {
+          this.chcsubjectList = this.chcsampleCollectionResponse.subjectList;
+        }
       }
-    }
-    else {
-      //this.fromDate = formatDate(this.sampleCollectionInitResponse.fromDate, "dd/MM/yyyy", "en-US");
-      this.fromDate = this.chcsampleCollectionInitResponse.fromDate.replace('-', '/').replace('-', '/');
-      if (this.chcsampleCollectionInitResponse.subjectList != null && this.chcsampleCollectionInitResponse.subjectList.length > 0) {
-        this.chcsubjectList = this.chcsampleCollectionInitResponse.subjectList;
-      }
-    }
+      this.rerender();
+      this.loadDataTable = true;
+    },
+    (err: HttpErrorResponse) => {
+      this.chcsCollectionErrorMessage = err.toString();
+    });
+    
+    
     this.sub = this.route.queryParams.subscribe(params => {
     this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
     });

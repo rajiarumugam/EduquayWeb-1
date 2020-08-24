@@ -15,6 +15,7 @@ import { ChcNotificationSamplesService } from 'src/app/shared/chc-module/chc-not
 import { ChcNotificationSamplesRequest, AddChcSampleRecollectionRequest } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-request';
 import { ChcNotificationSamplesResponse, AddChcSampleRecollectionResponse, ChcNotifiedSampleList } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-response';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-chc-damaged-samples',
@@ -73,12 +74,13 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Damaged Samples"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Notifications", "page": "Damaged Samples"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
@@ -102,27 +104,29 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       }
     };
     console.log(this.ChcDamagedSamplesService.notificationSamplesApi);
-    //this.anmdamagedSamples();
+    this.chcdamagedSampleslist();
 
-    this.chcdamagedSamplesInitResponse = this.route.snapshot.data.chcdamagedSamplesData;
-    if (this.chcdamagedSamplesInitResponse.status === 'false') {
-      this.chcdamagedSamples = [];
-      if (this.chcdamagedSamplesInitResponse.message !== null && this.chcdamagedSamplesInitResponse.message.code === "ENOTFOUND") {
-        this.chcdamagedSamplesErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.chcdamagedSamplesInitResponse.message !== null || this.chcdamagedSamplesInitResponse.message == undefined) {
-        this.chcdamagedSamplesErrorMessage = this.chcdamagedSamplesInitResponse.message;
-      }
-    }
-    else {
-
-      if (this.chcdamagedSamplesInitResponse.sampleList != null && this.chcdamagedSamplesInitResponse.sampleList.length > 0) {
-        this.chcdamagedSamples = this.chcdamagedSamplesInitResponse.sampleList;
-      }
-    }
+    // Resolver //
+    // this.chcdamagedSamplesInitResponse = this.route.snapshot.data.chcdamagedSamplesData;
+    // if (this.chcdamagedSamplesInitResponse.status === 'false') {
+    //   this.chcdamagedSamples = [];
+    //   if (this.chcdamagedSamplesInitResponse.message !== null && this.chcdamagedSamplesInitResponse.message.code === "ENOTFOUND") {
+    //     this.chcdamagedSamplesErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.chcdamagedSamplesInitResponse.message !== null || this.chcdamagedSamplesInitResponse.message == undefined) {
+    //     this.chcdamagedSamplesErrorMessage = this.chcdamagedSamplesInitResponse.message;
+    //   }
+    // }
+    // else {
+    //   if (this.chcdamagedSamplesInitResponse.sampleList != null && this.chcdamagedSamplesInitResponse.sampleList.length > 0) {
+    //     this.chcdamagedSamples = this.chcdamagedSamplesInitResponse.sampleList;
+    //   }
+    // }
   }
 
   chcdamagedSampleslist() {
+
+    this.loaderService.display(true);
     this.recordCount = 0; //step 3
     this.chcdamagedSamples = [];
     this.chcdamagedSamplesErrorMessage = '';
@@ -130,6 +134,7 @@ export class ChcDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     let samplesList = this.ChcDamagedSamplesService.getnotificationChcSamples(this.chcdamagedsamplesRequest)
       .subscribe(response => {
         this.chcdamagedsamplesResponse = response;
+        this.loaderService.display(false);
         if (this.chcdamagedsamplesResponse !== null && this.chcdamagedsamplesResponse.status === "true") {
           if (this.chcdamagedsamplesResponse.sampleList.length <= 0) {
             this.chcdamagedSamplesErrorMessage = response.message;

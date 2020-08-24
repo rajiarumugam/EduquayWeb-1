@@ -10,6 +10,7 @@ import { ChcSampleShipmentlogService } from 'src/app/shared/chc-sample/chc-sampl
 import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-chc-sample-shipmentlog',
@@ -54,7 +55,8 @@ export class ChcSampleShipmentlogComponent implements OnInit {
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -81,32 +83,36 @@ export class ChcSampleShipmentlogComponent implements OnInit {
       }  
   }
   console.log(this.ChcSampleShipmentlogService.chcsampleShipmentLogApi);
+  this.chcsampleshipmentLogList(this.user.chcId);
   //this.anmshipmentLog();
-
-  this.chcsampleshipmentLogInitResponse = this.route.snapshot.data.chcsampleshipmentLogData;
-  if (this.chcsampleshipmentLogInitResponse.status === 'false') {
-    this.shipmentList = [];
-    if (this.chcsampleshipmentLogInitResponse.message !== null && this.chcsampleshipmentLogInitResponse.message.code === "ENOTFOUND") {
-      this.chcSampleShipmentLogErrorMessage = "Unable to connect to api source";
-    }
-    else if (this.chcsampleshipmentLogInitResponse.message !== null || this.chcsampleshipmentLogInitResponse.message == undefined) {
-      this.chcSampleShipmentLogErrorMessage = this.chcsampleshipmentLogInitResponse.message;
-    }
-  }
-  else {
+  // Resolver //
+  // this.chcsampleshipmentLogInitResponse = this.route.snapshot.data.chcsampleshipmentLogData;
+  // if (this.chcsampleshipmentLogInitResponse.status === 'false') {
+  //   this.shipmentList = [];
+  //   if (this.chcsampleshipmentLogInitResponse.message !== null && this.chcsampleshipmentLogInitResponse.message.code === "ENOTFOUND") {
+  //     this.chcSampleShipmentLogErrorMessage = "Unable to connect to api source";
+  //   }
+  //   else if (this.chcsampleshipmentLogInitResponse.message !== null || this.chcsampleshipmentLogInitResponse.message == undefined) {
+  //     this.chcSampleShipmentLogErrorMessage = this.chcsampleshipmentLogInitResponse.message;
+  //   }
+  // }
+  // else {
     
-    if (this.chcsampleshipmentLogInitResponse.shipmentLogs != null && this.chcsampleshipmentLogInitResponse.shipmentLogs.length > 0) {
-      this.shipmentList = this.chcsampleshipmentLogInitResponse.shipmentLogs;
-    }
-  }
+  //   if (this.chcsampleshipmentLogInitResponse.shipmentLogs != null && this.chcsampleshipmentLogInitResponse.shipmentLogs.length > 0) {
+  //     this.shipmentList = this.chcsampleshipmentLogInitResponse.shipmentLogs;
+  //   }
+  // }
 }
 chcsampleshipmentLogList(chcId){
+
+  this.loaderService.display(true);
   this.shipmentList = [];
   this.sampleDetails = [];
  // this.chcshipmentlogRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
   let shipmentLog = this.ChcSampleShipmentlogService.getshipmentLog(this.user.chcId)
   .subscribe(response => {
     this.chcshipmentlogResponse = response;
+    this.loaderService.display(false);
     if(this.chcshipmentlogResponse !== null && this.chcshipmentlogResponse.status === "true"){
       if(this.chcshipmentlogResponse.shipmentLogs.length <= 0){
         this.chcSampleShipmentLogErrorMessage = response.message;

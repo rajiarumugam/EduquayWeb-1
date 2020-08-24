@@ -15,6 +15,7 @@ import { ChcNotificationSamplesRequest, AddChcSampleRecollectionRequest } from '
 import { ChcNotificationSamplesResponse, AddChcSampleRecollectionResponse, ChcNotifiedSampleList } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples-response';
 import { ChcNotificationSamplesService } from 'src/app/shared/chc-module/chc-notification-samples/chc-notification-samples.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-chc-timeout-samples',
@@ -74,13 +75,14 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private dateService: DateService,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
 
   ) { }
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "submodule": "Notifications", "page": "Sample Timeout"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Notifications", "page": "Sample Timeout"}));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
@@ -104,29 +106,31 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       }
     };
     console.log(this.ChctimeoutSamplesService.notificationSamplesApi);
-    //this.chctimeoutSampleslist();
+    this.chctimeoutSampleslist();
 
-    this.chctimeoutSamplesInitResponse = this.route.snapshot.data.chctimeoutSamplesData;
-    if (this.chctimeoutSamplesInitResponse.status === 'false') {
-      this.chctimeoutSamples = [];
-      if (this.chctimeoutSamplesInitResponse.message !== null && this.chctimeoutSamplesInitResponse.message.code === "ENOTFOUND") {
-        this.chctimeoutSamplesErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.chctimeoutSamplesInitResponse.message !== null || this.chctimeoutSamplesInitResponse.message == undefined) {
-        this.chctimeoutSamplesErrorMessage = this.chctimeoutSamplesInitResponse.message;
-      }
-    }
-    else {
+    // Resolver //
+    // this.chctimeoutSamplesInitResponse = this.route.snapshot.data.chctimeoutSamplesData;
+    // if (this.chctimeoutSamplesInitResponse.status === 'false') {
+    //   this.chctimeoutSamples = [];
+    //   if (this.chctimeoutSamplesInitResponse.message !== null && this.chctimeoutSamplesInitResponse.message.code === "ENOTFOUND") {
+    //     this.chctimeoutSamplesErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.chctimeoutSamplesInitResponse.message !== null || this.chctimeoutSamplesInitResponse.message == undefined) {
+    //     this.chctimeoutSamplesErrorMessage = this.chctimeoutSamplesInitResponse.message;
+    //   }
+    // }
+    // else {
 
-      if (this.chctimeoutSamplesInitResponse.sampleList!= null && this.chctimeoutSamplesInitResponse.sampleList.length > 0) {
-        this.chctimeoutSamples = this.chctimeoutSamplesInitResponse.sampleList;
-      }
-    }
+    //   if (this.chctimeoutSamplesInitResponse.sampleList!= null && this.chctimeoutSamplesInitResponse.sampleList.length > 0) {
+    //     this.chctimeoutSamples = this.chctimeoutSamplesInitResponse.sampleList;
+    //   }
+    // }
 
   }
 
   chctimeoutSampleslist() {
 
+    this.loaderService.display(true);
     this.recordCount = 0;
     this.chctimeoutSamples = [];
     this.chctimeoutSamplesErrorMessage = '';
@@ -134,6 +138,7 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
     let samplesList = this.ChctimeoutSamplesService.getnotificationChcSamples(this.chctimeoutsamplesRequest)
       .subscribe(response => {
         this.chctimeoutsamplesResponse = response;
+        this.loaderService.display(false);
         if (this.chctimeoutsamplesResponse !== null && this.chctimeoutsamplesResponse.status === "true") {
           if (this.chctimeoutsamplesResponse.sampleList.length <= 0) {
             this.chctimeoutSamplesErrorMessage = response.message;

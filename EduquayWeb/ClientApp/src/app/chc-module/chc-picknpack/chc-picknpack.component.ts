@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-chc-picknpack',
@@ -104,12 +105,14 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Pick & Pack to Screening Center"}));
+    
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Pick & Pack to Screening Center"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.dtOptions = {
@@ -135,24 +138,25 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     console.log(this.ChcpicknpackService.chcpickandpackListApi);
     // this.ddlChc(this.user.id);
     // this.ddlProviderName();
-    //this.anmpicknpackList();
+    this.chcpicknpackList();
 
-    this.chcpicknpackInitResponse = this.route.snapshot.data.chcpicknpackData;
-    if (this.chcpicknpackInitResponse.status === 'false') {
-      this.chcSampleList = [];
-      if (this.chcpicknpackInitResponse.message !== null && this.chcpicknpackInitResponse.message.code === "ENOTFOUND") {
-        this.chcPicknpackErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.chcpicknpackInitResponse.message !== null || this.chcpicknpackInitResponse.message == undefined) {
-        this.chcPicknpackErrorMessage = this.chcpicknpackInitResponse.message;
-      }
-    }
-    else {
+    // Resolver //
+    // this.chcpicknpackInitResponse = this.route.snapshot.data.chcpicknpackData;
+    // if (this.chcpicknpackInitResponse.status === 'false') {
+    //   this.chcSampleList = [];
+    //   if (this.chcpicknpackInitResponse.message !== null && this.chcpicknpackInitResponse.message.code === "ENOTFOUND") {
+    //     this.chcPicknpackErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.chcpicknpackInitResponse.message !== null || this.chcpicknpackInitResponse.message == undefined) {
+    //     this.chcPicknpackErrorMessage = this.chcpicknpackInitResponse.message;
+    //   }
+    // }
+    // else {
 
-      if (this.chcpicknpackInitResponse.sampleList != null && this.chcpicknpackInitResponse.sampleList.length > 0) {
-        this.chcSampleList = this.chcpicknpackInitResponse.sampleList;
-      }
-    }
+    //   if (this.chcpicknpackInitResponse.sampleList != null && this.chcpicknpackInitResponse.sampleList.length > 0) {
+    //     this.chcSampleList = this.chcpicknpackInitResponse.sampleList;
+    //   }
+    // }
   }
 
   ddltestingChc(chcId) {
@@ -196,11 +200,14 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   chcpicknpackList() {
+
+    this.loaderService.display(true);
     this.chcSampleList = [];
     this.chcpicknpackRequest = { userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
     let picknpack = this.ChcpicknpackService.getchcpickandpackList(this.chcpicknpackRequest)
       .subscribe(response => {
         this.chcpicknpackResponse = response;
+        this.loaderService.display(false);
         if (this.chcpicknpackResponse !== null && this.chcpicknpackResponse.status === "true") {
           if (this.chcpicknpackResponse.sampleList.length <= 0) {
             this.chcPicknpackErrorMessage = response.message;
@@ -223,7 +230,6 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
         });
 
   }
-
 
   // openchcPicknpack(chcpicknPackdetail) {
     
@@ -266,7 +272,6 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   //     ariaLabelledBy: 'modal-basic-title'
   //   });
   // }
-
 
   onSubmit(chcShipmentForm: NgForm) {
     this.chcPicknpackErrorMessage = '';
@@ -604,9 +609,6 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     });
     
   }
-
- 
-
 
   chcpickpackMoveExpirySamples() {
 

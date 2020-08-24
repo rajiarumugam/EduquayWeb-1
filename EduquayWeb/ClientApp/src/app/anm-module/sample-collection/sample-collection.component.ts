@@ -74,6 +74,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
   subjectIdParam: string = '';
   subjectTypeParam: string = '0';
   date: Date;
+  diffDays: number;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -127,8 +128,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     ) {  }
 
   ngOnInit() {
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Sample Collection"}));
 
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Sample Collection"}));
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     
@@ -160,31 +161,47 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     console.log(this.sampleCollectionService.sampleCollectionApi);
     this.anmSubjectTypes();
 
-    this.sampleCollectionInitResponse = this.route.snapshot.data.sampleCollectionData;
-    this.loaderService.display(false);
-    if (this.sampleCollectionInitResponse.status === 'false') {
-      this.subjectList = [];
-      if (this.sampleCollectionInitResponse.message !== null && this.sampleCollectionInitResponse.message.code === "ENOTFOUND") {
-        this.sCollectionErrorMessage = "Unable to connect to api source";
+    this.scRequest = {
+      userId: this.user.id, 
+      fromDate:  '',
+      toDate: '',
+      subjectType: +(this.selectedSubjectType),
+      registeredFrom: this.user.registeredFrom
+    };
+    //this.sampleCollectionInitResponse = this.route.snapshot.data.sampleCollectionData;
+
+    var some = this.sampleCollectionService.getSampleCollection(this.scRequest).subscribe(response => {
+      this.sampleCollectionResponse = response;
+      this.loaderService.display(false);
+      if (this.sampleCollectionResponse.status === 'false') {
+        this.subjectList = [];
+        if (this.sampleCollectionResponse.message !== null && this.sampleCollectionResponse.message.length > 0) {
+          this.sCollectionErrorMessage = "Unable to connect to api source";
+        }
+        else if (this.sampleCollectionResponse.message !== null || this.sampleCollectionResponse.message == undefined) {
+          this.sCollectionErrorMessage = this.sampleCollectionResponse.message;
+        }
       }
-      else if (this.sampleCollectionInitResponse.message !== null || this.sampleCollectionInitResponse.message == undefined) {
-        this.sCollectionErrorMessage = this.sampleCollectionInitResponse.message;
+      else {
+        //this.fromDate = formatDate(this.sampleCollectionInitResponse.fromDate, "dd/MM/yyyy", "en-US");
+        //this.fromDate = this.sampleCollectionInitResponse.fromDate.replace('-', '/').replace('-', '/');
+        if (this.sampleCollectionResponse.subjectList != null && this.sampleCollectionResponse.subjectList.length > 0) {
+          this.subjectList = this.sampleCollectionResponse.subjectList;
+          this.subjectList.forEach(element => {
+            var date1: any = element.date = this.convertToDateFormat(element.dateOfRegister);
+            var date2: any = new Date();
+            element.diffDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+            console.log(element.diffDays);
+          });
+        }
       }
-    }
-    else {
-      //this.fromDate = formatDate(this.sampleCollectionInitResponse.fromDate, "dd/MM/yyyy", "en-US");
-      var getdate;
-      this.fromDate = this.sampleCollectionInitResponse.fromDate.replace('-', '/').replace('-', '/');
-      if (this.sampleCollectionInitResponse.subjectList != null && this.sampleCollectionInitResponse.subjectList.length > 0) {
-        this.subjectList = this.sampleCollectionInitResponse.subjectList;
-        this.subjectList.forEach(element => {
-          element.date = this.convertToDateFormat(element.dateOfRegister);
-          console.log(this.subjectList);
-        });
-        console.log('something');
-      }
-     
-    }
+      this.rerender();
+      this.loadDataTable = true;
+    },
+    (err: HttpErrorResponse) => {
+      this.sCollectionErrorMessage = err.toString();
+    });
+
     this.sub = this.route.queryParams.subscribe(params => {
       this.subjectIdParam = params['sid'] == undefined ? '': params['sid'];
     });
@@ -249,8 +266,10 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
           else {
             this.subjectList = this.sampleCollectionResponse.subjectList;
             this.subjectList.forEach(element => {
-              element.date = this.convertToDateFormat(element.dateOfRegister);
-              console.log(this.subjectList);
+              var date1:any = element.date = this.convertToDateFormat(element.dateOfRegister);
+              var date2:any = new Date();
+              element.diffDays = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+              console.log(element.diffDays);
             });
           }
         }

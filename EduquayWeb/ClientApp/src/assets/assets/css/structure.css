@@ -18,7 +18,7 @@ body {
   font-size: 0.875rem;
   background: #f1f2f3;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   letter-spacing: 0.0312rem;
   font-family: 'Roboto', sans-serif; }
 
@@ -215,7 +215,7 @@ code {
 =====================
 */
 .header-container {
-  z-index: 1030;
+  z-index: 1000;
   border-bottom: 1px solid #0e1726; }
   .header-container .navbar {
     padding: 4px 0; }
@@ -576,7 +576,9 @@ code {
   position: fixed;
   top: 53px;
   width: 100%;
-  z-index: 1029;
+  /* z-index: -1; */
+  /* position: relative; */
+  z-index: 999;
   display: flex; }
   .sub-header-container .navbar {
     -webkit-box-shadow: 0px 0px 15px 1px rgba(138, 132, 206, 0.03);
@@ -1180,7 +1182,9 @@ code {
   .sidebar-closed > .sidebar-wrapper {
     left: 0; }
   .sidebar-noneoverflow {
-    overflow: hidden; }
+    overflow: hidden; 
+    overflow-y: scroll;
+  }
   #sidebar {
     height: 100vh !important;
     padding: 10px 0 10px 10px;

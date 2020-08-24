@@ -127,37 +127,42 @@ import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-v
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { PageUnderDevelopementComponent } from "./page-under-developement/page-under-developement.component";
+import { AboutUsComponent } from "./landing-page/about-us/about-us.component";
+import { AboutProgramComponent } from "./landing-page/about-program/about-program.component";
+import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
+import { ChcSubjectProfileListComponent } from "./chc-module/chc-subject-profile-list/chc-subject-profile-list.component";
+import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile-list/anm-subject-profile-list.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   {
-    path: 'login',
+    path: 'home',
     component: HomeLayoutComponent,
     children: [
-      { path: '', component: LoginComponent, pathMatch: 'full'}
+      { path: 'login', component: LoginComponent, pathMatch: 'full'},
+      { path: 'about', component: AboutUsComponent, pathMatch: 'full'},      
+      { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
+      { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
     ]
   },
+
   //Site routes goes here 
   {
     path: 'app',
     component: SiteLayoutComponent,
-    data: {
-      breadcrumb: 'Home'
-    },
+    
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full',
-      data: {
-        breadcrumb: 'Home'
-      },  },
+       },
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full'},
       {
-        path: 'anm-notification', component: AnmNotificationComponent, data:{breadcrumb: 'ANM-Notification'},
+        path: 'anm-notification', component: AnmNotificationComponent,
         children: [
-          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full', data:{breadcrumb: 'Damaged Samples'}, resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full', data:{breadcrumb: 'Unsent Samples'}, resolve:{unsentSamplesData: UnsentSamplesResolverService}},
+          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full',  resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
           { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full', resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full', resolve:{positiveSubjectData: PositiveSubjectsResolverService} },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
@@ -169,9 +174,9 @@ const routes: Routes = [
       {
         path: 'chc-notification', component: ChcNotificationComponent,
         children: [
-          { path: '', component: ChcDamagedSamplesComponent, pathMatch: 'full', resolve:{chcdamagedSamplesData: ChcDamagedsamplesResolverService}},
-          { path: 'chc-unsent', component: ChcUnsentSamplesComponent, pathMatch: 'full', resolve:{chcunsentSamplesData: ChcUnsentSamplesResolverService}},
-          { path: 'chc-timeout', component: ChcTimeoutSamplesComponent, pathMatch: 'full', resolve:{chctimeoutSamplesData: ChcTimeoutsamplesResolverService}},
+          { path: '', component: ChcDamagedSamplesComponent, pathMatch: 'full'}, // resolve:{chcdamagedSamplesData: ChcDamagedsamplesResolverService}
+          { path: 'chc-unsent', component: ChcUnsentSamplesComponent, pathMatch: 'full' }, // resolve:{chcunsentSamplesData: ChcUnsentSamplesResolverService}
+          { path: 'chc-timeout', component: ChcTimeoutSamplesComponent, pathMatch: 'full'}, // resolve:{chctimeoutSamplesData: ChcTimeoutsamplesResolverService}
           { path: 'chc-positive', component: ChcPositiveSubjectComponent, pathMatch: 'full', resolve:{chcpositiveSubjectData: ChcPositiveSubjectResolverService} },
         ]
       },
@@ -185,11 +190,13 @@ const routes: Routes = [
           {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
       },
-      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },
-      { path: 'chc-pickandpack', component: ChcPicknpackComponent, resolve: {chcpicknpackData: ChcPicknpackResolverService}},
-      { path: 'chc-shipmentlog', component: ChcShipmentlogComponent, resolve: {chcshipmentLogData: ChcShipmentlogResolverService}},
+      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} 
+      { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
+      { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
+      { path: 'chc-shipmentlog', component: ChcShipmentlogComponent }, // resolve: {chcshipmentLogData: ChcShipmentlogResolverService}
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
-      { path: 'chc-subjectprofile', component: ChcSubjectProfileComponent},
+      { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
+      { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -197,8 +204,8 @@ const routes: Routes = [
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
-      { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent, resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
-      { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent, resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}},
+      { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
+      { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent}, // resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}
       { path: 'chc-sample-viewshipment', component: ChcSampleViewShipmentComponent, pathMatch: 'full'},
       // {
       //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
@@ -288,21 +295,23 @@ const routes: Routes = [
           {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
         ]
       },
-      { path: 'anm-sample-collection', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
-      { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent, resolve: {sampleCollectionData: SampleCollectionResolverService} },
+      { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
+      { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
-      { path: 'anm-pickpack', component: AnmPickandPackComponent, resolve: {picknpackData: PicknpackResolverService} },
-      { path: 'anm-shipment', component: AnmShipmentComponent, resolve: {shipmentLogData: ShipmentlogResolverService } },
-      { path: 'anm-subprofile', component: AnmSubjectProfileComponent },
+      { path: 'anm-pickpack', component: AnmPickandPackComponent },  // resolve: {picknpackData: PicknpackResolverService}
+      { path: 'anm-shipment', component: AnmShipmentComponent }, // resolve: {shipmentLogData: ShipmentlogResolverService }
+      { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
+      { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
+      
      
     ]
   },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
-  { path: 'underconstruction', component: PageUnderDevelopementComponent },
-  { path: '**', redirectTo: '/underconstruction' },
+  { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
+  { path: '**', redirectTo: '/pageunderconstruction' },
 ];
 
 
@@ -317,6 +326,9 @@ export const RoutingComponents = [
   NotfoundComponent,
   PageUnderDevelopementComponent,
   HomeComponent,
+  AboutUsComponent,
+  AboutProgramComponent,
+  ImportantLinksComponent,
   CounterComponent,
   FetchDataComponent,
   LoginComponent,
@@ -339,6 +351,7 @@ export const RoutingComponents = [
   AnmPickandPackComponent,
   AnmShipmentComponent,
   AnmSubjectProfileComponent,
+  AnmSubjectProfileListComponent,
   AnmSubjectRegistrationComponent,
   AnmAwRegistrationComponent,
   AnmSpouseRegistrationComponent,
@@ -395,7 +408,8 @@ export const RoutingComponents = [
   CentralShipmentMainComponent,
   CentralCentralShipmentComponent,
   ChcPendingPickpackComponent,
-  ChcStartPickpackComponent
+  ChcStartPickpackComponent,
+  ChcSubjectProfileListComponent
 ];
 
 

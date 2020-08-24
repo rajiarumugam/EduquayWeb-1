@@ -59,6 +59,7 @@ export class DiagosisReportComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.user = JSON.parse(this.tokenService.getUser('lu'));
    
    this.testResultGroup = this._formBuilder.group({

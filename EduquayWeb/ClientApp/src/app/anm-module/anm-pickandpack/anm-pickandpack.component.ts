@@ -17,6 +17,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 @Component({
@@ -127,7 +128,8 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -160,24 +162,24 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.PicknpackService.pickandpackListApi);
    // this.ddlRiPoint(this.user.id);
-    //this.anmpicknpackList();
+    this.anmpicknpackList();
+     //--Resolver--//
+    // this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
+    // if (this.picknpackInitResponse.status === 'false') {
+    //   this.sampleList = [];
+    //   if (this.picknpackInitResponse.message !== null && this.picknpackInitResponse.message.code === "ENOTFOUND") {
+    //     this.picknpackErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.picknpackInitResponse.message !== null || this.picknpackInitResponse.message == undefined) {
+    //     this.picknpackErrorMessage = this.picknpackInitResponse.message;
+    //   }
+    // }
+    // else {
 
-    this.picknpackInitResponse = this.route.snapshot.data.picknpackData;
-    if (this.picknpackInitResponse.status === 'false') {
-      this.sampleList = [];
-      if (this.picknpackInitResponse.message !== null && this.picknpackInitResponse.message.code === "ENOTFOUND") {
-        this.picknpackErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.picknpackInitResponse.message !== null || this.picknpackInitResponse.message == undefined) {
-        this.picknpackErrorMessage = this.picknpackInitResponse.message;
-      }
-    }
-    else {
-
-      if (this.picknpackInitResponse.sampleList != null && this.picknpackInitResponse.sampleList.length > 0) {
-        this.sampleList = this.picknpackInitResponse.sampleList;
-      }
-    }
+    //   if (this.picknpackInitResponse.sampleList != null && this.picknpackInitResponse.sampleList.length > 0) {
+    //     this.sampleList = this.picknpackInitResponse.sampleList;
+    //   }
+    // }
   }
 
   ddlRiPoint(userId) {
@@ -215,11 +217,13 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   anmpicknpackList() {
+    this.loaderService.display(true);
     this.sampleList = [];
     this.picknpackRequest = { userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
     let picknpack = this.PicknpackService.getpickandpackList(this.picknpackRequest)
       .subscribe(response => {
         this.picknpackResponse = response;
+        this.loaderService.display(false);
         if (this.picknpackResponse !== null && this.picknpackResponse.status === "true") {
           if (this.picknpackResponse.sampleList.length <= 0) {
             this.picknpackErrorMessage = response.message;

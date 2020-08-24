@@ -11,6 +11,8 @@ import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
+import * as XLSX from 'xlsx'; 
 
 
 @Component({
@@ -25,6 +27,7 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  
 
   user: user;
   chcShipmentLogErrorMessage: string;
@@ -51,18 +54,21 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
   associatedANM: string;
   sampleCollectionDateTime: string;
   isPrintable: boolean = false;
+  fileName: any;
+  
 
   constructor(
     private ChcShipmentlogService: ChcShipmentlogService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private tokenService: TokenService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC", "page": "Screening Center Shipment Log"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Screening Center Shipment Log"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -89,33 +95,39 @@ export class ChcShipmentlogComponent implements  AfterViewInit, OnDestroy, OnIni
       }  
   }
   console.log(this.ChcShipmentlogService.chcshipmentLogApi);
-  //this.anmshipmentLog();
+  this.chcshipmentLog();
 
-  this.chcshipmentLogInitResponse = this.route.snapshot.data.chcshipmentLogData;
-  if (this.chcshipmentLogInitResponse.status === 'false') {
-    this.shipmentList = [];
-    if (this.chcshipmentLogInitResponse.message !== null && this.chcshipmentLogInitResponse.message.code === "ENOTFOUND") {
-      this.chcShipmentLogErrorMessage = "Unable to connect to api source";
-    }
-    else if (this.chcshipmentLogInitResponse.message !== null || this.chcshipmentLogInitResponse.message == undefined) {
-      this.chcShipmentLogErrorMessage = this.chcshipmentLogInitResponse.message;
-    }
-  }
-  else {
+  // Resolver //
+  // this.chcshipmentLogInitResponse = this.route.snapshot.data.chcshipmentLogData;
+  // if (this.chcshipmentLogInitResponse.status === 'false') {
+  //   this.shipmentList = [];
+  //   if (this.chcshipmentLogInitResponse.message !== null && this.chcshipmentLogInitResponse.message.code === "ENOTFOUND") {
+  //     this.chcShipmentLogErrorMessage = "Unable to connect to api source";
+  //   }
+  //   else if (this.chcshipmentLogInitResponse.message !== null || this.chcshipmentLogInitResponse.message == undefined) {
+  //     this.chcShipmentLogErrorMessage = this.chcshipmentLogInitResponse.message;
+  //   }
+  // }
+  // else {
     
-    if (this.chcshipmentLogInitResponse.shipmentLogs != null && this.chcshipmentLogInitResponse.shipmentLogs.length > 0) {
-      this.shipmentList = this.chcshipmentLogInitResponse.shipmentLogs;
-    }
-  }
+  //   if (this.chcshipmentLogInitResponse.shipmentLogs != null && this.chcshipmentLogInitResponse.shipmentLogs.length > 0) {
+  //     this.shipmentList = this.chcshipmentLogInitResponse.shipmentLogs;
+  //   }
+  // }
 
 }
+
+
 chcshipmentLog(){
+
+  this.loaderService.display(true);
   this.shipmentList = [];
   this.sampleDetails = [];
   this.chcshipmentlogRequest = {userId: this.user.id, shipmentFrom: this.user.shipmentFrom };
   let shipmentLog = this.ChcShipmentlogService.getchcshipmentLog(this.chcshipmentlogRequest)
   .subscribe(response => {
     this.chcshipmentlogResponse = response;
+    this.loaderService.display(false);
     if(this.chcshipmentlogResponse !== null && this.chcshipmentlogResponse.status === "true"){
       if(this.chcshipmentlogResponse.shipmentLogs.length <= 0){
         this.chcShipmentLogErrorMessage = response.message;
@@ -146,6 +158,7 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
   this.testingCHC = shipment.testingCHC;
   this.contactNo = shipment.contactNo;
   this.sampleDetails = shipment.samplesDetail;
+  this.fileName= shipment.shipmentId +'.xlsx';
 
   this.modalService.open(
     shippedChcSampleDetail,{
@@ -157,6 +170,21 @@ openchcShipment(shippedChcSampleDetail, shipment: ChcShipmentList){
       ariaLabelledBy: 'modal-basic-title'
     });
 }
+
+exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('excel-table'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
+    }
 
 openchcShipmentPrint(shippedChcSampleDetail: any, shipment: ChcShipmentList){
   this.openchcShipment(shippedChcSampleDetail, shipment);

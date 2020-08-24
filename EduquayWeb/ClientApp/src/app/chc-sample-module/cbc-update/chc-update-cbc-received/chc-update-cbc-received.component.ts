@@ -28,7 +28,7 @@ export class CBCReceivedSampleComponent implements OnInit {
 
   ngOnInit() {
 
-    this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Update CBC Results"}));
+    //this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Update CBC Results"}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -61,7 +61,7 @@ export class CBCReceivedSampleComponent implements OnInit {
           });
       }
         this.chcReceiptsData = _tempData;
-      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "pagealter": "Update CBC Results"}));
+      this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
     }
     else{
       this.errorMessage = chcReceiptsArr.message;
