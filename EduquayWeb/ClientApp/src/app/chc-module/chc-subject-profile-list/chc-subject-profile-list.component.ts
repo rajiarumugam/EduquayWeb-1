@@ -44,7 +44,7 @@ export class ChcSubjectProfileListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Subject Profile"}));
+    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Subject Profile"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
 
