@@ -178,12 +178,11 @@ const routes: Routes = [
       {
         path: 'chc-subregn', component: CheSubjectRegistrationComponent,
         children:[
-          {path: '', component: WalkinRegistrationComponent, pathMatch: 'full'},
-          {path: 'awreg', component: WalkinRegistrationComponent, pathMatch: 'full'},
-          {path: 'spouse', component: AnmSpouseRegistrationComponent, pathMatch: 'full'},
-          {path: 'student', component: AnmStudentRegistrationComponent, pathMatch: 'full'},
-          {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
-          {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
+          {path: '', component: ChcwalkinRegistrationComponent, pathMatch: 'full'},
+          {path: 'awreg', component: ChcpregnantRegistrationComponent, pathMatch: 'full'},
+          {path: 'spouse', component: CheSpouseRegistrationComponent, pathMatch: 'full'},
+          {path: 'student', component: ChcStudentRegistrationComponent, pathMatch: 'full'},
+          {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
       },
       { path: 'chc-sample-collection', component: ChcSampleCollectionComponent, resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} },

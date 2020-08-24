@@ -137,6 +137,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.DataService.deleteProp('chcCurrentPageCount');
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     const swalWithBootstrapButtons = Swal.mixin({
@@ -457,6 +458,8 @@ export class ChcpregnantRegistrationComponent implements OnInit {
 
     prevStep() {
       this.stepper.previous();
+        var _obj = {'page':'pregnent','pagenumbr':this.stepper.selectedIndex}
+        this.DataService.setdata({'chcCurrentPageCount':_obj});
       }
 
     formSubmit()

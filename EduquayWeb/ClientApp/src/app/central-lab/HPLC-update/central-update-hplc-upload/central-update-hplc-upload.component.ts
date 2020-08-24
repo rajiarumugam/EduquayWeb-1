@@ -10,6 +10,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenService } from 'src/app/shared/token.service';
+import * as moment from 'moment';
 
 type AOA = any[][];
 
@@ -104,27 +105,28 @@ type AOA = any[][];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
         /* save data */
-        this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+        this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { raw: false }));
         this.centralUploadResultData = [];
         var _tempData = this.data;
         this.centralReceiptsData.forEach(function(val1,ind1){
           this.data.forEach(function(val,index){
             console.log(val);
             console.log(val1);
-            if(val1.barcodeNo == val[3])
+            if(val1.barcodeNo == val.Barcode)
             {
               var _obj = {};
-              _obj['barcodeNo'] = ""+val[3];
-              _obj['subjectId'] = ""+val[1];
-              _obj['rchId'] = ""+val[2];
-              _obj['hbF'] = ""+val[8];
-              _obj['hbA0'] = ""+val[4];
-              _obj['hbA2']= ""+val[5];
-              _obj['hbS'] = ""+val[9];
-              _obj['hbC'] = ""+val[6];
-              _obj['hbD']= ""+val[7];
+              _obj['barcodeNo'] = ""+val.Barcode;
+              _obj['subjectId'] = ""+val1.subjectId;
+              _obj['rchId'] = ""+val1.rchId;
+              _obj['hbF'] = ""+val.HbF;
+              _obj['hbA0'] = ""+val.HbA0;
+              _obj['hbA2']= ""+val.HbA2;
+              _obj['hbS'] = ""+val.HbS;
+              _obj['hbC'] = ""+val.HbC;
+              _obj['hbD']= ""+val.HbD;
               _obj["createdBy"] = this.user.id;
               _obj["centralLabId"]=this.user.centralLabId;
+              _obj["testCompleteOn"]=moment(val.TestedDate).format("DD/MM/YYYY HH:MM") == "Invalid date" ? val.TestedDate : moment(val.TestedDate).format("DD/MM/YYYY HH:MM");;
     
               this.centralUploadResultData.push(_obj);
             }

@@ -13,6 +13,7 @@ declare var $: any
 import Swal from 'sweetalert2';
 import { TokenService } from 'src/app/shared/token.service';
 import { Router } from '@angular/router';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'che-spouse',
@@ -111,10 +112,10 @@ export class CheSpouseComponent implements OnInit {
 
   openAssociatedANM = false;
 
-  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,  private router: Router,) { }
+  constructor(private masterService: masterService, zone: NgZone,private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,  private router: Router,private DataService:DataService) { }
 
   ngOnInit() {
-    
+    this.DataService.deleteProp('chcCurrentPageCount');
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     /*
@@ -377,12 +378,19 @@ export class CheSpouseComponent implements OnInit {
     this.firstFormCheck = true;
     console.log(this.firstFormGroup.valid);
       if(this.firstFormGroup.valid)
+      {
         this.stepper.next();
+        var _obj = {'page':'age18','pagenumbr':this.stepper.selectedIndex}
+        this.DataService.setdata({'chcCurrentPageCount':_obj});
+      }
+        
         //this.stepper.next();
     }
 
     prevStep() {
       this.stepper.previous();
+      var _obj = {'page':'age18','pagenumbr':this.stepper.selectedIndex}
+        this.DataService.setdata({'chcCurrentPageCount':_obj});
       }
 
     formSubmit()
