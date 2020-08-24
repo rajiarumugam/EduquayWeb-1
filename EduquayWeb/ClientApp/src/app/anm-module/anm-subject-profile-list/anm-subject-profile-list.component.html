@@ -1,0 +1,102 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="view-sub-profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                            [routerLink]="['/app/anm-shipment']" role="button" ngbTooltip="Shipment log" placement="right"><i
+                                    class="fas fa-chevron-left pNav-left"></i></a></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">Subject Profile</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                            
+                        <div class="form-row">
+                            <div class="col-md-10">
+                                <div *ngIf="subjectprofilelistErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': subjectprofilelistErrorMessage ==='', 'alert-danger': subjectprofilelistErrorMessage !== ''}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{subjectprofilelistErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mt-4">
+                            <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
+                                [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                    <tr>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'SubjectName' | translate }}</span></th>
+                                        <th><span>{{'SubjectID' | translate }}</span></th>
+                                        <th><span>{{'RCHID' | translate }}</span></th>
+                                        <th><span>{{'Contact' | translate }}</span></th>
+                                        <th><span>{{'SubjectRegDate' | translate }}</span></th>
+                                        <th><span>{{'RegisterBy' | translate }}</span></th>
+                                        <th><span >{{'View' | translate }}</span></th>
+                                      </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
+                                        <td style="text-align: center">{{i +1}}</td>
+                                        <td style="text-align: left">{{subjectinfo.primaryDetail.firstName}} {{subjectinfo.primaryDetail.middleName}}
+                                        {{subjectinfo.primaryDetail.lastName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.primaryDetail.uniqueSubjectId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.pregnancyDetail.rchId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.primaryDetail.mobileNo}}</td>
+                                        <td style="text-align: center">{{subjectinfo.primaryDetail.dateOfRegister}}</td>
+                                        <td style="text-align: left">{{subjectinfo.primaryDetail.registeredFrom}}</td>
+                                        <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                            <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                                        </td>
+                                        <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
+                                                                    aria-hidden="true"></i> </a></td> -->
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+
+        </div>
+
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+
+
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

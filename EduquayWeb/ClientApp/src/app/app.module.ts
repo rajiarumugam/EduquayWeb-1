@@ -59,6 +59,14 @@ import { AppPasswordDirective } from './shared/directive/app-password.directive'
 import { CookieService } from 'ngx-cookie-service';
 
 import { LoaderService } from './shared/loader/loader.service';
+import { AboutUsComponent } from './landing-page/about-us/about-us.component';
+import { AboutProgramComponent } from './landing-page/about-program/about-program.component';
+import { ImportantLinksComponent } from './landing-page/important-links/important-links.component';
+import { ChcSubjectProfileListComponent } from './chc-module/chc-subject-profile-list/chc-subject-profile-list.component';
+import { AnmSubjectProfileListComponent } from './anm-module/anm-subject-profile-list/anm-subject-profile-list.component';
+import { PrePndtcMainComponent } from './pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component';
+import { PrePndtcToBeScheduledComponent } from './pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component';
+import { PrePndtcScheduledComponent } from './pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component';
 
 
 
@@ -96,7 +104,15 @@ const ngWizardConfig: NgWizardConfig = {
     ChcSampleViewShipmentComponent,
     ChcPendingPickpackComponent,
     ChcStartPickpackComponent,
-    AppPasswordDirective
+    AppPasswordDirective,
+    AboutUsComponent,
+    AboutProgramComponent,
+    ImportantLinksComponent,
+    ChcSubjectProfileListComponent,
+    AnmSubjectProfileListComponent,
+    PrePndtcMainComponent,
+    PrePndtcToBeScheduledComponent,
+    PrePndtcScheduledComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

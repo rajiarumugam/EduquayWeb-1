@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
-import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
+import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList, RetrieveSubjectProfileList, SubjectProfileList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
+import { ActivatedRoute } from '@angular/router';
+import { TokenService } from 'src/app/shared/token.service';
+import { user } from 'src/app/shared/auth-response';
 
 
 
@@ -22,8 +25,9 @@ export class AnmSubjectProfileComponent implements OnInit {
     
   subjectProfileErrorMessage: string;
   subjectProfileRequest: SubjectProfileRequest;
-  subjectProfileResponse: SubjectProfileResponse;
+  subjectProfileResponse: RetrieveSubjectProfileList;
   religionResponse: ReligionResponse;
+  user: user;
   religions: Religion[] = [];
   selectedreligion = '';
   govtIdTypeResponse: GovtIDTypeResponse;
@@ -89,6 +93,8 @@ export class AnmSubjectProfileComponent implements OnInit {
   secondFormGroup: FormGroup;
   firstFormCheck = false;
   secondFormCheck = false;
+  subjectprofileLists: SubjectProfileList[]=[];
+  subjectprofileItem: SubjectProfileList;
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -96,15 +102,22 @@ export class AnmSubjectProfileComponent implements OnInit {
     private httpService: HttpClient,
     private _formBuilder: FormBuilder,
     private loaderService: LoaderService,
+    private activatedRoute: ActivatedRoute,
+    private tokenService: TokenService,
     private dataservice: DataService
   ) { }
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Subject Profile"}));
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Profile", "page": "View Subject Profile"}));
     this.loaderService.display(false);
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     console.log(this.SubjectProfileService.subjectProfileApi);
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.uniqueSubjectId = params['q'];
+      this.anmSubjectProfile(this.user.id);
+    });
 
     this.firstFormGroup = this._formBuilder.group({
       // dor: ['', Validators.required],
@@ -146,40 +159,74 @@ export class AnmSubjectProfileComponent implements OnInit {
     
   }
 
-  anmSubjectProfile() {
+  // anmSubjectProfile() {
+  //   //this.basicInfo = {};  
+  //   //this.basicInfo['firstName']='';  
+  //   this.loaderService.display(true);
+
+  //   this.subjectProfileErrorMessage = '';
+  //   if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
+  //     this.subjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
+  //     this.basicInfo = undefined ;
+  //     return false;
+  //   }
+
+  //   this.subjectProfileRequest = { subjectId: this.searchsubjectid };
+  //   let subProfile = this.SubjectProfileService.getsubjectProfile(this.subjectProfileRequest)
+  //     .subscribe(response => {
+  //       this.subjectProfileResponse = response;
+  //       this.loaderService.display(false);
+
+  //       if (this.subjectProfileResponse !== null && this.subjectProfileResponse.status === "true") {
+  //         if (this.subjectProfileResponse.primaryDetail.length <= 0 && this.subjectProfileResponse.pregnancyDetail.length <= 0
+  //           && this.subjectProfileResponse.addressDetail.length <= 0 && this.subjectProfileResponse.parentDetail.length <= 0) {
+  //           this.subjectProfileErrorMessage = response.message;
+  //         }
+  //         else {
+  //           this.basicInfo = this.subjectProfileResponse.primaryDetail[0];
+  //           this.socioDemographicInfo = this.subjectProfileResponse.addressDetail[0];
+  //           this.parentInfo = this.subjectProfileResponse.parentDetail[0];
+  //           this.personalInfo = this.subjectProfileResponse.pregnancyDetail[0];
+  //           //this.basicInfo
+  //         }
+  //       }
+  //       else {
+  //         this.subjectProfileErrorMessage = response.message;
+  //         this.basicInfo = undefined ;
+  //       }
+  //     },
+  //       (err: HttpErrorResponse) => {
+  //         this.subjectProfileErrorMessage = err.toString();
+  //       });
+
+  // }
+
+  anmSubjectProfile(userId) {
     //this.basicInfo = {};  
     //this.basicInfo['firstName']='';  
     this.loaderService.display(true);
 
     this.subjectProfileErrorMessage = '';
-    if (this.searchsubjectid === '' || this.searchsubjectid === undefined) {
-      this.subjectProfileErrorMessage = 'Please provide subject Id to search for a profile';
-      this.basicInfo = undefined ;
-      return false;
-    }
-
-    this.subjectProfileRequest = { subjectId: this.searchsubjectid };
-    let subProfile = this.SubjectProfileService.getsubjectProfile(this.subjectProfileRequest)
+    //this.subjectprofileItem = new SubjectProfileList();
+    let subProfile = this.SubjectProfileService.getSubjectProfileList(this.user.id)
       .subscribe(response => {
         this.subjectProfileResponse = response;
         this.loaderService.display(false);
-
         if (this.subjectProfileResponse !== null && this.subjectProfileResponse.status === "true") {
-          if (this.subjectProfileResponse.primaryDetail.length <= 0 && this.subjectProfileResponse.pregnancyDetail.length <= 0
-            && this.subjectProfileResponse.addressDetail.length <= 0 && this.subjectProfileResponse.parentDetail.length <= 0) {
+          if (this.subjectProfileResponse.subjectsDetail.length <= 0 ) {
             this.subjectProfileErrorMessage = response.message;
           }
           else {
-            this.basicInfo = this.subjectProfileResponse.primaryDetail[0];
-            this.socioDemographicInfo = this.subjectProfileResponse.addressDetail[0];
-            this.parentInfo = this.subjectProfileResponse.parentDetail[0];
-            this.personalInfo = this.subjectProfileResponse.pregnancyDetail[0];
+            //this.subjectprofileLists = this.subjectProfileResponse.subjectsDetail;
+            this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
+            //this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail[0];          
             //this.basicInfo
+           
           }
         }
+        
         else {
           this.subjectProfileErrorMessage = response.message;
-          this.basicInfo = undefined ;
         }
       },
         (err: HttpErrorResponse) => {
