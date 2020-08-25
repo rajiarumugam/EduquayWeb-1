@@ -10,6 +10,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
+import { valHooks } from 'jquery';
 
 @Component({
   selector: 'app-diagnosis-report',
@@ -21,6 +22,7 @@ export class DiagosisReportComponent implements OnInit {
   uploadCBCCount = 0;
   currentPage = "";
   diagnosisReportData;
+  clinicalDiagnosisMasterData = [];
   clinicalDiagnosisData = [];
   HPLCmasterData= [];
   FormGroup: FormGroup;
@@ -32,6 +34,7 @@ export class DiagosisReportComponent implements OnInit {
   selectedDiagnosis = null;
   firstFormCheck = false;
   tempHPLCmasterChecked = "";
+  showOthersTextbox = false;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -77,7 +80,8 @@ export class DiagosisReportComponent implements OnInit {
       consulSeniorPatho:["false"],
       diagnosticSummary:['',Validators.required],
       pathologistName:[''],
-      remarks:['']
+      remarks:[''],
+      others: ['']
    });
     this.getClinicalDiagnosis();
     this.getHPLCmaster();
@@ -88,21 +92,56 @@ export class DiagosisReportComponent implements OnInit {
     this.masterService.getClinicalDiagnosis()
     .subscribe(response => {
       console.log(response);
-      this.clinicalDiagnosisData = response['diagnosis'];
+      this.clinicalDiagnosisMasterData = response['diagnosis'];
+
+      if(this.diagnosisReportData.isNormal)
+        this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName === "Normal");
+      else
+        this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName != "Normal");
+
     },
     (err: HttpErrorResponse) =>{
       this.clinicalDiagnosisData = [];
     });
   }
 
+  radioChange(event)
+  {
+    if(event.currentTarget.value === "normal")
+        this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName === "Normal");
+    else
+      this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName != "Normal");
+
+      this.HPLCmasterData.forEach(function(val,index){
+        console.log(event.currentTarget.value);
+        console.log(val);
+        if(event.currentTarget.value === "normal" && val.hplcResultName === "Normal")
+            val.disable = false;
+       else if(event.currentTarget.value === "abnormal" && val.hplcResultName != "Normal")
+            val.disable = false;
+        else
+            val.disable = true;
+
+        val.checked = false;
+      },this);
+    console.log(event.currentTarget.value);
+  }
   getHPLCmaster()
   {
     this.pathoHPLCService.retriveHPLCResultMaster().subscribe(response => {
       console.log(response);
       this.HPLCmasterData = response.hplcResults;
       this.HPLCmasterData.forEach(function(val,index){
+        if(this.diagnosisReportData.isNormal && val.hplcResultName === 'Normal')
+            val.disable = false;
+        else if(!this.diagnosisReportData.isNormal && val.hplcResultName === 'Normal')
+            val.disable = true;
+        else
+            val.disable = false;
+
         val.checked = false;
-      })
+      },this);
+      console.log(this.HPLCmasterData);
     },
     (err: HttpErrorResponse) =>{
       this.HPLCmasterData = [];
@@ -112,19 +151,52 @@ export class DiagosisReportComponent implements OnInit {
   {
       console.log(event.target.value);
       console.log(this.FormGroup.get('consulSeniorPatho').value)
-
   }
 
   hplcChange(i)
   {
     this.HPLCmasterData[i].checked = !this.HPLCmasterData[i].checked;
+    console.log(this.HPLCmasterData);
+    this.HPLCmasterData.forEach(function(val,index){
+      if(this.HPLCmasterData[i].hplcResultName === "Others" && this.HPLCmasterData[i].checked)
+      {
+        this.showOthersTextbox = true;
+        if(val.hplcResultName != "Others")
+            val.disable = true;
+      }
+      if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
+      {
+        this.showOthersTextbox = false;
+        if(val.hplcResultName === "Normal")
+            val.disable = true;
+        else
+            val.disable = false;
+      }
+
+      if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
+      {
+        if(val.hplcResultName === "Normal" || val.hplcResultName === "Others")
+            val.disable = true;
+        else
+            val.disable = false;
+      }
+
+      if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && !this.HPLCmasterData[i].checked)
+      {
+        if(val.hplcResultName === "Normal")
+            val.disable = true;
+        else
+            val.disable = false;
+      }
+    },this);
+    console.log(this.HPLCmasterData);
   }
  
   receivedSamples(event)
   {
     console.log(event);
   }
-  reportSubmit()
+  reportSubmit(type)
   {
     this.tempHPLCmasterChecked = '';
     this.firstFormCheck = true;
@@ -140,7 +212,6 @@ export class DiagosisReportComponent implements OnInit {
     },this);
      
     console.log(this.tempHPLCmasterChecked);
-    console.log(this.tempHPLCmasterChecked.split(',').length);
     console.log(this.HPLCmasterData);
 
     console.log(this.FormGroup.valid)
@@ -154,17 +225,20 @@ export class DiagosisReportComponent implements OnInit {
         _obj['centralLabId'] = this.user.centralLabId ;
         _obj['hplcTestResultId'] = this.diagnosisReportData.hplcTestResultId;
         _obj['clinicalDiagnosisId'] = Number(this.FormGroup.get('cd').value);
-        _obj['hplcResultMasterId'] = this.tempHPLCmasterChecked;
+        _obj['hplcResultMasterId'] = ""+this.tempHPLCmasterChecked;
         _obj['isNormal'] = this.FormGroup.get('swapcase').value === "normal" ? true : false;
         _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value; 
         _obj['isConsultSeniorPathologist'] = this.FormGroup.get('consulSeniorPatho').value === 'true' ? true : false;
         _obj['seniorPathologistName'] = this.FormGroup.get('pathologistName').value != undefined ? this.FormGroup.get('pathologistName').value : "";
         _obj['seniorPathologistRemarks'] = this.FormGroup.get('remarks').value != undefined ? this.FormGroup.get('remarks').value : ""; 
         _obj['userId'] = this.user.id;
+       
+        _obj['othersResult'] = this.FormGroup.get('others').value != undefined ? this.FormGroup.get('others').value : "";
+        _obj['isDiagnosisComplete'] = (type === "save") ? false : true;
 
         console.log(_obj);
 
-        this.pathoHPLCService.addHSBCtest(_obj)
+      this.pathoHPLCService.addHSBCtest(_obj)
         .subscribe(response => {
           this.diagnosisReportResponse = response;
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
@@ -186,12 +260,6 @@ export class DiagosisReportComponent implements OnInit {
             //this.showResponseMessage(err.toString(), 'e');
           });
           
-          /*this.FormGroup.reset();
-          this.HPLCmasterData.forEach(function(val,index){
-            val.checked = false;
-          });*/
-          
-          //this._location.back();
 
     }
 

@@ -37,13 +37,28 @@
                 <div class="widget-content widget-content-area br-6">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="antenatal-tab" data-toggle="tab"
-                                [routerLink]="['/app/chc-subregn']" role="tab" aria-controls="home"
-                                aria-selected="true">Walk-in Registration</a>
+                            <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'awreg') ? true : false}"
+                                 (click)="tabClick('awreg');" role="tab" aria-controls="home"
+                                aria-selected="true">Pregnant</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'spouse') ? true : false}"
+                                (click)="tabClick('spouse');" role="tab" aria-controls="home"
+                                aria-selected="true">Married & Spouse Registered</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'student') ? true : false}"
+                                (click)="tabClick('student');" role="tab" aria-controls="home"
+                                aria-selected="true">Age < 18</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'chc-subregn') ? true : false}"
+                                (click)="tabClick('');" role="tab" aria-controls="home"
+                                aria-selected="true">Other Walk-ins</a>
                         </li>
                     </ul>
                     <div class="tab-content mt-5" id="myTabContent">
-                        <router-outlet></router-outlet>
+                        <router-outlet (deactivate)="ondeActivate($event)" (activate)="onActivate($event)"></router-outlet>
                     </div>
                 </div>
             </div>
