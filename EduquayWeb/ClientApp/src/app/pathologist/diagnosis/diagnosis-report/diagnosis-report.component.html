@@ -186,7 +186,27 @@
                 <form [formGroup]="FormGroup">
                     <div class="form-row m-1">
                        
-                            <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
+                            <div class="mb-2"><span class="note ml-1"><b> Swap Case</b><span class="manto"> *</span></span></div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <span class="ml-1 n-chk">
+                                        <label class="maritalstatus-radio-cont">
+                                            <input type="radio" value="abnormal" formControlName="swapcase" (change)="radioChange($event)">
+                                              <span class="radio-span">Abnormal</span>
+                                          </label>
+                                       </span>
+                                    <span class="n-chk">
+                                        <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
+                                            <input type="radio" value="normal" formControlName="swapcase" (change)="radioChange($event)">
+                                            <span class="radio-span">Normal</span>
+                                          </label>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="form-group col-md-4">
                                 <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> Clinical Diagnosis</b><span class="manto"> *</span></span>
                                 <select name="occupationoption" class="form-control field" id="occuptnid"
                                             tabindex="7" [(ngModel)]="selectedDiagnosis" formControlName = "cd" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.cd.invalid }">
@@ -196,27 +216,27 @@
                                         </select>
                             </div>
                         
-                            <div class="form-group col-md-8 offset-md-1">
+                            <div class="form-group col-md-8">
                                 <div class="mb-2"><span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && this.tempHPLCmasterChecked == ''}"><b> HPLC Test Results</b><span class="manto"> *</span></span></div>
                             
                                 <div class="form-row m-1">
                                     <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData; let i = index">
-                                        <!--<span class="n-chk mb-3">
-                                            <label class="new-control new-checkbox checkbox-outline-primary">
-                                                <input type="checkbox" class="new-control-input checkbox" [value]="hplc.id" (change)="hplcChange(i)">
-                                                <span class="new-control-indicator"></span><label class="ml-3">{{hplc.hplcResultName}}</label>
-                                            </label>
-                                        </span>-->
-
                                         <span class="ml-1 n-chk">
                                             <label class="new-control new-checkbox checkbox-outline-primary">
-                                                <input type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked">
+                                                <input type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked" [disabled]="hplc.disable">
                                                   <span class="radio-span">{{hplc.hplcResultName}}</span>
                                               </label>
                                            </span>
                                     </div>
-                             
                                 </div>
+                            </div>
+
+                            <div class="form-group col-md-4" *ngIf="showOthersTextbox">
+                                <label for="inputpathname">
+                                    <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.others.invalid }"><b>Others</b><span class="manto"> *</span></span>
+                                </label>
+                                <input class="form-control field" name="name" required="" id="inputpathname" type="text"
+                                    placeholder="Others" tabindex="1" autocomplete="off" formControlName="others" [required]="showOthersTextbox ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.others.invalid }">
                             </div>
                     </div>
                     <div class="form-row m-1">
@@ -259,25 +279,7 @@
                         </div>
                     </div>
                     <div class="form-row m-1">
-                        <div class="form-group col-md-4">
-                            <div class="mb-2"><span class="note ml-1"><b> Swap Case</b><span class="manto"> *</span></span></div>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <span class="ml-1 n-chk">
-                                        <label class="maritalstatus-radio-cont">
-                                            <input type="radio" value="abnormal" formControlName="swapcase">
-                                              <span class="radio-span">Abnormal</span>
-                                          </label>
-                                       </span>
-                                    <span class="n-chk">
-                                        <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
-                                            <input type="radio" value="normal" formControlName="swapcase">
-                                            <span class="radio-span">Normal</span>
-                                          </label>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
+                     
                         <div class="form-group col-md-3">
                             <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>Diagnostic Summary</b><span class="manto"> *</span></span>
                             <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
@@ -288,9 +290,11 @@
                         <div class="form-group col-md-12">
                             <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
                             <!--    Close</button>-->
-                        <a class="btn btn-success float-right mr-3" role="button"
-                            id="linktobuttonpathologist" (click)="reportSubmit();">Submit</a>
                         
+                        <a class="btn btn-success float-right mr-3" role="button"
+                            id="linktobuttonpathologist" (click)="reportSubmit('save');">Confirm & Close</a>
+                            <a class="btn btn-success float-right mr-3" role="button"
+                            id="linktobuttonpathologist" (click)="reportSubmit('submit');"      *ngIf="showConfirmEditLater">Confim-Edit Later</a>
                         <!-- <button type="button" class="btn btn-primary">Save</button> -->
                     </div>
                     </div>

@@ -17,6 +17,8 @@ import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
 import { LoaderService }  from '../../../../shared/loader/loader.service';
+import { DataService } from '../../../../shared/data.service';
+
 
 @Component({
   selector: 'chc-walkin-registration',
@@ -121,9 +123,10 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedassociatedANM;
   selectedTestingchc = null;
   statelist = [];
-  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router, private loaderService: LoaderService) { }
+  constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router, private loaderService: LoaderService,private DataService:DataService) { }
 
   ngOnInit() {
+    this.DataService.deleteProp('chcCurrentPageCount');
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     /*phc: ['', Validators.required], */
@@ -381,13 +384,22 @@ export class ChcwalkinRegistrationComponent implements OnInit {
     {
       this.firstFormCheck = true;
       if(this.firstFormGroup.valid)
+      {
         this.stepper.next();
+        var _obj = {'page':'age18','pagenumbr':this.stepper.selectedIndex}
+        this.DataService.setdata({'chcCurrentPageCount':_obj});
+      }
+        
     }
     else 
     {
       this.secondFormCheck = true;
       if(this.secondFormGroup.valid)
+      {
         this.stepper.next();
+        var _obj = {'page':'age18','pagenumbr':this.stepper.selectedIndex}
+        this.DataService.setdata({'chcCurrentPageCount':_obj});
+      }
     }
         //this.stepper.next();
   }
@@ -441,6 +453,8 @@ export class ChcwalkinRegistrationComponent implements OnInit {
 
     prevStep() {
       this.stepper.previous();
+      var _obj = {'page':'age18','pagenumbr':this.stepper.selectedIndex}
+      this.DataService.setdata({'chcCurrentPageCount':_obj});
       }
 
       formSubmit()
