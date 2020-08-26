@@ -1,37 +1,65 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { RetrieveSubjectProfileList, SubjectProfileList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { DataService } from 'src/app/shared/data.service';
 import { Router } from '@angular/router';
 import { user } from 'src/app/shared/auth-response';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
+import { SubjectProfileRequest, ParticularSubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
 
 @Component({
   selector: 'app-chc-subject-profile-list',
   templateUrl: './chc-subject-profile-list.component.html',
   styleUrls: ['./chc-subject-profile-list.component.css']
 })
-export class ChcSubjectProfileListComponent implements OnInit {
+export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  @ViewChild('startPicker', { static: false }) startPicker;
+  @ViewChild('endPicker', { static: false }) endPicker;
 
   chcsubjectprofilelistErrorMessage: string;
   user: user;
 
-  //chcsubjectProfileRequest: SubjectProfileRequest;
+  chcsubjectProfileRequest: SubjectProfileRequest;
+  particularchcSubProfile: ParticularSubjectProfileRequest;
   chcsubjectProfileResponse: RetrieveSubjectProfileList;
 
   subjectprofileLists: SubjectProfileList[]=[];
   subjectid: string;
+  searchsubjectid: string;
+
+/*Date Range configuration starts*/
+  dateform: FormGroup;
+  DAY = 86400000;
+  dyCollectionDate: Date = new Date(Date.now());
+  chcSPFromDate: string ="";
+  chcSPToDate: string = "";
+
+  startOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: '',
+    maxDate: new Date(Date.now())
+  };
+  endOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: '',
+    minDate: new Date(moment().add(-1, 'day').format()),
+    maxDate: new Date(Date.now())
+  };
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -46,7 +74,8 @@ export class ChcSubjectProfileListComponent implements OnInit {
   ngOnInit() {
     this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Subject Profile"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.loaderService.display(false);
+    this.loaderService.display(true);
+    this.SubprofileInitializeDateRange();  
 
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -67,17 +96,14 @@ export class ChcSubjectProfileListComponent implements OnInit {
       }   
     };
     console.log(this.SubjectProfileService.chcsubjectprofileListApi);
-    this.chcSubjectProfileList(this.user.id);
-  }
-
-  chcSubjectProfileList(userId) {
-    //this.basicInfo = {};  
-    //this.basicInfo['firstName']='';  
-    this.loaderService.display(true);
-
-    this.chcsubjectprofilelistErrorMessage = '';
+    //this.chcSubjectProfileList();
+    this.chcsubjectProfileRequest = {
+      userId: this.user.id, 
+      fromDate: '',
+      toDate: '',
+    }
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getchcSubjectProfileList(this.user.id)
+    let subProfile = this.SubjectProfileService.getchcSubjectProfileList(this.chcsubjectProfileRequest)
       .subscribe(response => {
         this.chcsubjectProfileResponse = response;
         this.loaderService.display(false);
@@ -87,10 +113,40 @@ export class ChcSubjectProfileListComponent implements OnInit {
           }
           else {
             this.subjectprofileLists = this.chcsubjectProfileResponse.subjectsDetail;
-            //this.getKeys(Object);
-            //this.subjectprofileLists = this.basicInfo;
-                        
-            //this.basicInfo
+            this.rerender();
+          }
+        }
+        else {
+          this.chcsubjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.chcsubjectprofilelistErrorMessage = err.toString();
+        });
+    
+  }
+
+  chcSubjectProfileList() {
+     
+    this.loaderService.display(true);
+    this.subjectprofileLists = [];
+    this.chcsubjectprofilelistErrorMessage = '';
+    this.chcsubjectProfileRequest = {
+      userId: this.user.id, 
+      fromDate: this.chcSPFromDate !== '' ? this.chcSPFromDate : '',
+      toDate: this.chcSPToDate !== '' ? this.chcSPToDate : '',
+    }
+
+    let subProfile = this.SubjectProfileService.getchcSubjectProfileList(this.chcsubjectProfileRequest)
+      .subscribe(response => {
+        this.chcsubjectProfileResponse = response;
+        this.loaderService.display(false);
+        if (this.chcsubjectProfileResponse !== null && this.chcsubjectProfileResponse.status === "true") {
+          if (this.chcsubjectProfileResponse.subjectsDetail.length <= 0 ) {
+            this.chcsubjectprofilelistErrorMessage = response.message;
+          }
+          else {
+            this.subjectprofileLists = this.chcsubjectProfileResponse.subjectsDetail;
             this.rerender();
           }
         }
@@ -104,18 +160,81 @@ export class ChcSubjectProfileListComponent implements OnInit {
 
   }
 
+   chcSubjectProfile() {
+
+    this.loaderService.display(true);
+    this.subjectprofileLists = [];
+    this.chcsubjectprofilelistErrorMessage = '';
+    this.particularchcSubProfile = {
+      userId: this.user.id, 
+      userInput: this.searchsubjectid
+    }
+
+    let subProfile = this.SubjectProfileService.getparticularchcSubjectProfileList(this.particularchcSubProfile)
+      .subscribe(response => {
+        this.chcsubjectProfileResponse = response;
+        this.loaderService.display(false);
+        if (this.chcsubjectProfileResponse !== null && this.chcsubjectProfileResponse.status === "true") {
+          if (this.chcsubjectProfileResponse.subjectsDetail.length <= 0 ) {
+            this.chcsubjectprofilelistErrorMessage = response.message;
+          }
+          else {
+            this.subjectprofileLists = this.chcsubjectProfileResponse.subjectsDetail;
+            this.rerender();
+          }
+        }
+        else {
+          this.chcsubjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.chcsubjectprofilelistErrorMessage = err.toString();
+        });
+   }
+
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
     this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
     this.router.navigateByUrl(`/app/chc-viewsubjectprofile?q=${this.subjectid}`);
     
-    //   if(index.length > 0){
-    //     this.subjectprofileLists.find(element => {
-    //     // var subjectid = element.primaryDetail.uniqueSubjectId;
-    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);    
-    // });
-  //}
+  }
+
+  SubprofileInitializeDateRange() {
     
+    this.dateform = this._formBuilder.group({
+      fromDate: [''],
+      toDate: [''],
+    });
+
+    // Start Date Changes
+    this.dateform.controls.fromDate.valueChanges.subscribe(changes => {
+      if (!changes[0]) return;
+      const selectedDate = changes[0].getTime();
+      this.chcSPFromDate = moment(new Date(selectedDate)).format("DD/MM/YYYY");
+      const monthLaterDate = selectedDate + (this.DAY * 30);
+      // console.log(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
+      if (changes > this.dateform.controls.toDate.value) {
+        this.endPicker.flatpickr.set({
+          defaultDate: new Date(Date.now()),
+          minDate: new Date(selectedDate),
+        });
+      }
+      else {
+        this.endPicker.flatpickr.set({
+          minDate: new Date(selectedDate),
+        });
+      }
+    });
+
+    // // End Date Changes
+    this.dateform.controls.toDate.valueChanges.subscribe(changes => {
+      console.log('end: ', changes);
+      if (!changes[0]) return;
+      const selectedDate1 = changes[0].getTime();
+      this.chcSPToDate = moment(new Date(selectedDate1)).format("DD/MM/YYYY");
+
+    });
+
   }
 
   rerender(): void {

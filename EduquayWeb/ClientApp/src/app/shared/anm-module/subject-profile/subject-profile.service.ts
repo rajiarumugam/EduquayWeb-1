@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { SubjectProfileResponse, ReligionResponse, GovtIDTypeResponse, CasteResponse, CommunityeResponse, RetrieveSubjectProfileList } from './subject-profile-response';
-import { SubjectProfileRequest } from './subject-profile-request';
+import { SubjectProfileRequest, ParticularSubjectProfileRequest } from './subject-profile-request';
 import { TokenService } from '../../token.service';
 
 
@@ -19,6 +19,8 @@ export class SubjectProfileService {
   communityApi: string = "api/v1/WebMaster/RetrieveCommunity";
   subjectprofileListApi: string = "api/v1/Subject/RetrieveSubjectList";
   chcsubjectprofileListApi: string = "api/v1/Subject/RetrieveCHCSubjectList";
+  chcparticularSubProfile: string = "api/v1/Subject/RetrieveParticularCHCSubjectList";
+  anmparticularSubProfile: string = "api/v1/Subject/RetrieveParticularSubjectList";
 
   userId: number;
 
@@ -29,23 +31,24 @@ export class SubjectProfileService {
     private tokenService: TokenService
   ) { }
 
-  getsubjectProfile(subProfile: SubjectProfileRequest){
-    let apiUrl=this.genericService.buildApiUrl(this.subjectProfileApi);
-    return this.http.post<SubjectProfileResponse>({url: apiUrl, body: subProfile});
+  getparticularanmSubjectProfileList(anmparticularsubProfile: ParticularSubjectProfileRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.anmparticularSubProfile);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: anmparticularsubProfile});
   }
 
-  getSubjectProfileList(userId){
-    var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.id;
-    let apiUrl = this.genericService.buildApiUrl(`${this.subjectprofileListApi}/${userId}`);
-    return this.http.get<RetrieveSubjectProfileList>({url: apiUrl });
+  getSubjectProfileList(chcsubProfileList: SubjectProfileRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.subjectprofileListApi);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: chcsubProfileList});
   }
 
-  getchcSubjectProfileList(userId){
-    var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.id;
-    let apiUrl = this.genericService.buildApiUrl(`${this.chcsubjectprofileListApi}/${userId}`);
-    return this.http.get<RetrieveSubjectProfileList>({url: apiUrl });
+  getchcSubjectProfileList(chcsubProfileList: SubjectProfileRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.chcsubjectprofileListApi);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: chcsubProfileList});
+  }
+
+  getparticularchcSubjectProfileList(chcparticularsubProfile: ParticularSubjectProfileRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.chcparticularSubProfile);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: chcparticularsubProfile});
   }
 
   getReligion(){
