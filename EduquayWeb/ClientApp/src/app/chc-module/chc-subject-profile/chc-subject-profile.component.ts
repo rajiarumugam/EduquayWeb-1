@@ -33,12 +33,21 @@ export class ChcSubjectProfileComponent implements OnInit {
   chcsubjectProfileErrorMessage: string;
   // chcsubjectProfileRequest: SubjectProfileRequest;
   // chcsubjectProfileResponse: SubjectProfileResponse;
+  chcsubjectProfileRequest: SubjectProfileRequest;
   chcsubjectProfileResponse: RetrieveSubjectProfileList;
 
   subjectprofileLists: SubjectProfileList[]=[];
   chcsubjectprofileItem: SubjectProfileList;
   chcreligionResponse: ReligionResponse;
   user: user;
+
+  /*Date Range configuration starts*/
+  dateform: FormGroup;
+  DAY = 86400000;
+  dyCollectionDate: Date = new Date(Date.now());
+  userId: number;
+  chcSPFromDate: string ="";
+  chcSPToDate: string = "";
   
   chcreligions: Religion[] = [];
   selectedreligion = '';
@@ -150,7 +159,7 @@ export class ChcSubjectProfileComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.uniqueSubjectId = params['q'];
-      this.chcSubjectProfile(this.user.id);
+      this.chcSubjectProfile();
     });
 
     this.firstFormGroup = this._formBuilder.group({
@@ -238,30 +247,32 @@ export class ChcSubjectProfileComponent implements OnInit {
 
   // }
 
-  chcSubjectProfile(userId) {
-    //this.basicInfo = {};  
-    //this.basicInfo['firstName']='';  
+  chcSubjectProfile() {
     this.loaderService.display(true);
-
-    this.chcsubjectProfileErrorMessage = '';
-    //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getchcSubjectProfileList(this.user.id)
-      .subscribe(response => {
-        this.chcsubjectProfileResponse = response;
+    // this.subjectprofileLists = [];
+    // this.chcsubjectProfileErrorMessage = '';
+    // if (!this.validateDateRange()) {
+    //   this.chcsubjectProfileErrorMessage = "Select valid date range to search for subjects";
+    //   return;
+    // }
+    this.chcsubjectProfileRequest = {
+      userId: this.user.id, 
+      fromDate: this.chcSPFromDate !== '' ? this.chcSPFromDate : '',
+      toDate: this.chcSPToDate !== '' ? this.chcSPToDate : '',
+    }
+    
+    var some = this.SubjectProfileService.getchcSubjectProfileList(this.chcsubjectProfileRequest).subscribe(response => {
+      this.chcsubjectProfileResponse = response;
+      console.log(this.chcsubjectProfileResponse);
         this.loaderService.display(false);
         if (this.chcsubjectProfileResponse !== null && this.chcsubjectProfileResponse.status === "true") {
           if (this.chcsubjectProfileResponse.subjectsDetail.length <= 0 ) {
             this.chcsubjectProfileErrorMessage = response.message;
           }
           else {
-            //this.subjectprofileLists = this.subjectProfileResponse.subjectsDetail;
             this.chcsubjectprofileItem = this.chcsubjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
-            //this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail[0];          
-            //this.basicInfo
-           
           }
         }
-        
         else {
           this.chcsubjectProfileErrorMessage = response.message;
         }
@@ -269,8 +280,15 @@ export class ChcSubjectProfileComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.chcsubjectProfileErrorMessage = err.toString();
         });
-
   }
+
+  validateDateRange(): boolean{
+    if(new Date(this.dateform.controls.fromDate.value) > new Date(this.dateform.controls.toDate.value)){
+      return false;
+    }
+    return true;
+  }
+
   editchcSubjectProfile(chcsubjectProfiledetail, chcbasicInfo: PrimaryDetail, chcsocioDemographicInfo: AddressDetail, chcpersonalInfo: PregnancyDetail) {
     
     this.ddlReligion();

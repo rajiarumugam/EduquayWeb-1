@@ -24,10 +24,20 @@ export class AnmSubjectProfileComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
     
   subjectProfileErrorMessage: string;
+  
   subjectProfileRequest: SubjectProfileRequest;
-  subjectProfileResponse: RetrieveSubjectProfileList;
+  anmsubjectProfileResponse: RetrieveSubjectProfileList;
   religionResponse: ReligionResponse;
   user: user;
+
+  /*Date Range configuration starts*/
+  dateform: FormGroup;
+  DAY = 86400000;
+  dyCollectionDate: Date = new Date(Date.now());
+  userId: number;
+  anmSPFromDate: string ="";
+  anmSPToDate: string = "";
+  
   religions: Religion[] = [];
   selectedreligion = '';
   govtIdTypeResponse: GovtIDTypeResponse;
@@ -110,13 +120,13 @@ export class AnmSubjectProfileComponent implements OnInit {
   ngOnInit() {
 
     this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Profile", "page": "View Subject Profile"}));
-    this.loaderService.display(false);
+    this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     console.log(this.SubjectProfileService.subjectProfileApi);
     this.activatedRoute.queryParams.subscribe(params => {
       this.uniqueSubjectId = params['q'];
-      this.anmSubjectProfile(this.user.id);
+      this.anmSubjectProfile();
     });
 
     this.firstFormGroup = this._formBuilder.group({
@@ -201,24 +211,25 @@ export class AnmSubjectProfileComponent implements OnInit {
 
   // }
 
-  anmSubjectProfile(userId) {
-    //this.basicInfo = {};  
-    //this.basicInfo['firstName']='';  
-    this.loaderService.display(true);
+  anmSubjectProfile() {
 
-    this.subjectProfileErrorMessage = '';
+    this.subjectProfileRequest = {
+      userId: this.user.id, 
+      fromDate: '',
+      toDate: '',
+    }
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getSubjectProfileList(this.user.id)
+    let subProfile = this.SubjectProfileService.getSubjectProfileList(this.subjectProfileRequest)
       .subscribe(response => {
-        this.subjectProfileResponse = response;
+        this.anmsubjectProfileResponse = response;
         this.loaderService.display(false);
-        if (this.subjectProfileResponse !== null && this.subjectProfileResponse.status === "true") {
-          if (this.subjectProfileResponse.subjectsDetail.length <= 0 ) {
+        if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
+          if (this.anmsubjectProfileResponse.subjectsDetail.length <= 0 ) {
             this.subjectProfileErrorMessage = response.message;
           }
           else {
             //this.subjectprofileLists = this.subjectProfileResponse.subjectsDetail;
-            this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
+            this.subjectprofileItem = this.anmsubjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
             //this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail[0];          
             //this.basicInfo
            
@@ -235,7 +246,7 @@ export class AnmSubjectProfileComponent implements OnInit {
 
   }
 
-  editSubjectProfile(subjectProfiledetail, basicInfo: PrimaryDetail, socioDemographicInfo: AddressDetail, personalInfo: PregnancyDetail) {
+  editSubjectProfile(subjectProfiledetail) {
     
     this.ddlReligion();
     this.ddlGovtIdType();
