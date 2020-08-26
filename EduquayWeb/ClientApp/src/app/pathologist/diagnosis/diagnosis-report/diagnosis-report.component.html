@@ -223,7 +223,7 @@
                                     <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData; let i = index">
                                         <span class="ml-1 n-chk">
                                             <label class="new-control new-checkbox checkbox-outline-primary">
-                                                <input type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked" [disabled]="hplc.disable">
+                                                <input #checkboxes type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked" [disabled]="hplc.disable">
                                                   <span class="radio-span">{{hplc.hplcResultName}}</span>
                                               </label>
                                            </span>
@@ -265,15 +265,15 @@
                                     <label for="inputpathname">
                                         <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }"><b>Sr. Pathologist Name</b><span class="manto"> *</span></span>
                                     </label>
-                                    <input class="form-control field" name="name" required="" id="inputpathname" type="text"
-                                        placeholder="Pathologist Name" tabindex="1" autocomplete="off" formControlName="pathologistName" [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }">
+                                    <input class="form-control field" name="pathologistName" required="" id="inputpathname" type="text"
+                                        placeholder="Pathologist Name" tabindex="1" autocomplete="off" formControlName="pathologistName" [(ngModel)]="selectedpathologistName"
+                                        [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }">
                                 </div>
                                 <div class="from-group col-md-5">
                                     <label for="inputremarks">
                                         <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"><b>Remarks</b><span class="manto"> *</span></span>
                                     </label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
-                                        placeholder="" formControlName="remarks" [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"></textarea>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" name="remarks" formControlName="remarks" [(ngModel)]="selectedRemarks"  [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false"  [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -282,7 +282,7 @@
                      
                         <div class="form-group col-md-3">
                             <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>Diagnostic Summary</b><span class="manto"> *</span></span>
-                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" name="diagnosticSummary" [(ngModel)]="SelecteddiagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
                         </div>
                         
                     </div>
@@ -292,9 +292,9 @@
                             <!--    Close</button>-->
                         
                         <a class="btn btn-success float-right mr-3" role="button"
-                            id="linktobuttonpathologist" (click)="reportSubmit('save');">Confirm & Close</a>
+                            id="linktobuttonpathologist" (click)="reportSubmit('submit');">Confirm & Close</a>
                             <a class="btn btn-success float-right mr-3" role="button"
-                            id="linktobuttonpathologist" (click)="reportSubmit('submit');"      *ngIf="showConfirmEditLater">Confim-Edit Later</a>
+                            id="linktobuttonpathologist" (click)="reportSubmit('save');"      *ngIf="showConfirmEditLater">Confim-Edit Later</a>
                         <!-- <button type="button" class="btn btn-primary">Save</button> -->
                     </div>
                     </div>

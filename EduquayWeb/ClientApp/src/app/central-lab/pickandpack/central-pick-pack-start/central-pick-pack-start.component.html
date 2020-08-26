@@ -84,11 +84,11 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.labTechnicianName.invalid }"><b>Lab Technician Name </b></span><span class="manto">*</span>
-                                        <input class="form-control field" name="name" required="" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="labTechnicianName" [(ngModel)]="selectedlabTechnicianName" formControlName = "labTechnicianName" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.labTechnicianName.invalid }">
+                                        <input class="form-control field" name="name" required="" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="labTechnicianName" [(ngModel)]="selectedlabTechnicianName" formControlName = "labTechnicianName" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.labTechnicianName.invalid }" [attr.disabled]="true">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.centralLab.invalid }"><b>Central Lab & Location </b></span><span class="manto">*</span>
-                                        <input class="form-control field" name="name" required="" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="inputcentralLab" [(ngModel)]="selectedcentralLab" formControlName = "centralLab" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.centralLab.invalid }">
+                                        <input class="form-control field" name="name" required="" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="inputcentralLab" [(ngModel)]="selectedcentralLab" formControlName = "centralLab" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.centralLab.invalid }" [attr.disabled]="true">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }"><b>Receiving Molecular Lab </b></span><span class="manto">*</span>
