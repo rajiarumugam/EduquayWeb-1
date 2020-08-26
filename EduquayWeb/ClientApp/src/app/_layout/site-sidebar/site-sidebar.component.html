@@ -231,7 +231,7 @@
                 
             </ul>
         </li>
-        <li class="menu" style="display:none;">
+        <li class="menu" *ngIf="user.userRole === 'ANM'" style="display: none;">
                 <a href="#pndtc" data-toggle="collapse" attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -246,8 +246,8 @@
                 </a>
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc'}"  id="pndtc"
                 data-parent="#accordionExample">
-                <li>
-                    <a href="counsellorschedulepnd.html"> Schedule - Pre PNDT </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/schedule-pre-pndtc']"> Schedule - Pre PNDT </a>
                 </li>
                 <li>
                     <a href="counsellorsubjectlist.html">Counsel - PNDT </a>

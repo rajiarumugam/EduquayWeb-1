@@ -150,7 +150,7 @@
       <ul class="navbar-item flex-row ml-md-auto">
         <li class="nav-item dropdown language-dropdown">
           <label for="language" style="font-size: 0.875rem;">Language: </label>
-            <select class="selectpicker form-control-sm mt-2 mr-3" #selectedLang (change)="switchLang(selectedLang.value)">
+            <select class="selectpicker form-control-sm mt-2 mr-3 ml-2" #selectedLang (change)="switchLang(selectedLang.value)">
               <option *ngFor="let language of translate.getLangs()" 
                 [value]="language"
                 [selected]="language === translate.currentLang">

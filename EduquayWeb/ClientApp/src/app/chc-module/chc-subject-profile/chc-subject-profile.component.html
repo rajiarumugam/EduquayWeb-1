@@ -405,7 +405,8 @@
                                         {{chcsubjectProfileErrorMessage}}
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 2
+                                || chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 3 || chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 4">
                                     <span class="float-left mt-0">
                                         <h5><b>Subject ID : </b>{{chcsubjectprofileItem.primaryDetail.uniqueSubjectId}}</h5>
                                     </span>

@@ -1,4 +1,11 @@
 export class SubjectProfileRequest {
-    subjectId: string;
-    
+    userId: number;
+    fromDate: string;
+    toDate: string;     
 }
+
+export class ParticularSubjectProfileRequest {
+    userId: number;
+    userInput: string;    
+}
+

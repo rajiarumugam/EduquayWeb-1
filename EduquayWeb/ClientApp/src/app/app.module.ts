@@ -67,6 +67,11 @@ import { AnmSubjectProfileListComponent } from './anm-module/anm-subject-profile
 import { PrePndtcMainComponent } from './pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component';
 import { PrePndtcToBeScheduledComponent } from './pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component';
 import { PrePndtcScheduledComponent } from './pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component';
+import { CounsellingPrePndtMainComponent } from './pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component';
+import { ToBeCounselledComponent } from './pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component';
+import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component';
+import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
+import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
 
 
 
@@ -112,7 +117,12 @@ const ngWizardConfig: NgWizardConfig = {
     AnmSubjectProfileListComponent,
     PrePndtcMainComponent,
     PrePndtcToBeScheduledComponent,
-    PrePndtcScheduledComponent
+    PrePndtcScheduledComponent,
+    CounsellingPrePndtMainComponent,
+    ToBeCounselledComponent,
+    CounselledDecisionYesComponent,
+    CounselledDecisionNoComponent,
+    CounselledDecisionAwaitedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

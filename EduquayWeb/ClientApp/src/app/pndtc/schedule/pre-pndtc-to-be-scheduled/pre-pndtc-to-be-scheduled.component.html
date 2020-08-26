@@ -57,7 +57,7 @@
                 </div>   
             </div> 
                  <div class="table-responsive my-2">
-                <table id="zero-config" class="table table-bordered table-hover mb-4">
+                <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
                             <th><span>S.No</span></th>
@@ -78,51 +78,18 @@
                         <tr>
                             <td class="sno">1</td>
                             <td class="sname text-left">Alkha</td>
-                            <td class="sid">OD001202032110</td>
-                            <td class="sid">123456</td>
+                            <td class="sid text-center">OD001202032110</td>
+                            <td class="sid text-center">123456</td>
                             <td class="text-left">Ajith</td>
-                            <td class="mobile">9876545670</td>
-                            <td>14.5</td>
-                            <td class="sname">G2-P1-L1-A1</td>
+                            <td class="mobile text-center">9876545670</td>
+                            <td class="text-center">14.5</td>
+                            <td class="sname text-center">G2-P1-L1-A1</td>
                             <td class="counsellor text-left">Dr.Avinash</td>
-                            <td><input id="dateOfCounsel" class="form-control flatpickr flatpickr-input active datetimen" type="text"
+                            <td class="text-center"><input id="dateOfCounsel" class="form-control flatpickr flatpickr-input active datetimen" type="text"
                                 placeholder="Select Date.."></td>
-                           
-                            <td><a href="#"><i class="fas fa-calendar-alt fa-2x" aria-hidden="true" id="linktobuttoncounsellor"
+                            <td class="text-center"><a href="#"><i class="fas fa-calendar-alt fa-2x" aria-hidden="true" id="linktobuttoncounsellor"
                                 ></i></a></td>
 
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="text-left">Pooja</td>
-                            <td>OD001202032110</td>
-                            <td class="sid">345612</td>
-                            <td class="text-left">Karthick</td>
-                            <td>9876545670</td>
-                            <td>14.5</td>
-                            <td class="sname">G2-P1-L1-A1</td>
-                            <td class="text-left">Dr.Avinash</td>
-                            <td><input id="dateOfCounsel1" class="form-control flatpickr flatpickr-input active datetimen" type="text"
-                                placeholder="Select Date.."></td>
-                           
-                                <td><a href="#"><i class="fas fa-calendar-alt fa-2x" aria-hidden="true" id="linktobuttoncounsellor"
-                                    ></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="text-left">Priya</td>
-                            <td>OD001202032110</td>
-                            <td class="sid">512346</td>
-                            <td class="text-left">Rajesh</td>
-                            <td>9876545670</td>
-                            <td>14.5</td>
-                            <td class="sname">G2-P1-L1-A1</td>
-                            <td class="text-left">Dr.Avinash</td>
-                            <td><input id="dateOfCounsel2" class="form-control flatpickr flatpickr-input active datetimen" type="text"
-                                placeholder="Select Date.."></td>
-                                <td><a href="#"><i class="fas fa-calendar-alt fa-2x" aria-hidden="true" id="linktobuttoncounsellor"
-                                    ></i></a></td>
-                            <!-- <td><a href="#"><button class="btn btn-success">Schedule</button></a></td> -->
                         </tr>
                         </tbody>
                 </table>
