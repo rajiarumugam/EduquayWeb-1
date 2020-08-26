@@ -10,7 +10,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
-import { valHooks } from 'jquery';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-diagnosis-report',
@@ -35,6 +35,7 @@ export class DiagosisReportComponent implements OnInit {
   firstFormCheck = false;
   tempHPLCmasterChecked = "";
   showOthersTextbox = false;
+  showConfirmEditLater = false;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -65,14 +66,12 @@ export class DiagosisReportComponent implements OnInit {
    this.testResultGroup = this._formBuilder.group({
     orders: new FormArray([])
    })
-  
-  
     if(this.DataService.getdata().diagnosisHPLC === undefined)
     {
       this.router.navigate(['/app/pathologist-hplc/abnormal']);
     }
     this.diagnosisReportData = this.DataService.getdata().diagnosisHPLC;
-    console.log(this.diagnosisReportData);
+    this.showConfirmEditLater = this.compareDate(this.diagnosisReportData.dateOfTest,moment().format('DD-MM-YYYY')) <= 7;
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.FormGroup = this._formBuilder.group({
       cd: ['', Validators.required],
@@ -91,7 +90,6 @@ export class DiagosisReportComponent implements OnInit {
   {
     this.masterService.getClinicalDiagnosis()
     .subscribe(response => {
-      console.log(response);
       this.clinicalDiagnosisMasterData = response['diagnosis'];
 
       if(this.diagnosisReportData.isNormal)
@@ -129,15 +127,27 @@ export class DiagosisReportComponent implements OnInit {
   getHPLCmaster()
   {
     this.pathoHPLCService.retriveHPLCResultMaster().subscribe(response => {
-      console.log(response);
       this.HPLCmasterData = response.hplcResults;
       this.HPLCmasterData.forEach(function(val,index){
-        if(this.diagnosisReportData.isNormal && val.hplcResultName === 'Normal')
-            val.disable = false;
-        else if(!this.diagnosisReportData.isNormal && val.hplcResultName === 'Normal')
-            val.disable = true;
+        console.log(this.diagnosisReportData.isNormal);
+        console.log(val.hplcResultName);
+       /* if(this.diagnosisReportData.isNormal && val.hplcResultName === 'Normal')
+            val.disable = true;*/
+        if(this.diagnosisReportData.isNormal)
+        {
+            if(val.hplcResultName != 'Normal')
+              val.disable = true;
+            else
+                val.disable = false;
+        }
         else
-            val.disable = false;
+        {
+          if(val.hplcResultName === 'Normal')
+            val.disable = true;
+          else
+              val.disable = false;
+        }
+        
 
         val.checked = false;
       },this);
@@ -149,14 +159,13 @@ export class DiagosisReportComponent implements OnInit {
   }
   pathologistChange(event)
   {
-      console.log(event.target.value);
-      console.log(this.FormGroup.get('consulSeniorPatho').value)
+      /*console.log(event.target.value);
+      console.log(this.FormGroup.get('consulSeniorPatho').value)*/
   }
 
   hplcChange(i)
   {
     this.HPLCmasterData[i].checked = !this.HPLCmasterData[i].checked;
-    console.log(this.HPLCmasterData);
     this.HPLCmasterData.forEach(function(val,index){
       if(this.HPLCmasterData[i].hplcResultName === "Others" && this.HPLCmasterData[i].checked)
       {
@@ -189,7 +198,6 @@ export class DiagosisReportComponent implements OnInit {
             val.disable = false;
       }
     },this);
-    console.log(this.HPLCmasterData);
   }
  
   receivedSamples(event)
@@ -203,20 +211,13 @@ export class DiagosisReportComponent implements OnInit {
     this.HPLCmasterData.forEach(function(val,index){
         if(val.checked)
         {
-          console.log(this.tempHPLCmasterChecked);
           if(this.tempHPLCmasterChecked != undefined && this.tempHPLCmasterChecked != "")
               this.tempHPLCmasterChecked += ","+val.id;
           else
               this.tempHPLCmasterChecked = val.id;
         }
     },this);
-     
-    console.log(this.tempHPLCmasterChecked);
-    console.log(this.HPLCmasterData);
-
-    console.log(this.FormGroup.valid)
-
-    
+   
     if(this.tempHPLCmasterChecked != "" && this.FormGroup.valid)
     {
         var _obj = {};
@@ -238,7 +239,40 @@ export class DiagosisReportComponent implements OnInit {
 
         console.log(_obj);
 
-      this.pathoHPLCService.addHSBCtest(_obj)
+        if(type === "save")
+        {
+            Swal.fire({icon:'success', title: 'You will be able to edit the diagnosis within 7 days of aging, after which the current Diagnosis will be auto confirmed.  Please confirm ',
+            showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+              .then((result) => {
+                if (result.value) {
+                    this.sendDataToService(_obj);
+                }
+                else{
+                
+                }
+              });
+        }
+        else
+        {
+          Swal.fire({icon:'success', title: 'Your Diagnosis is FINAL  and you will not be able to edit later.  If sample is positive Notification will be sent.  Please confirm',
+          showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+            .then((result) => {
+              if (result.value) {
+                  this.sendDataToService(_obj);
+              }
+              else{
+              
+              }
+            });
+        }
+        
+
+    }
+
+  }
+  sendDataToService(_obj)
+  {
+    this.pathoHPLCService.addHSBCtest(_obj)
         .subscribe(response => {
           this.diagnosisReportResponse = response;
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
@@ -259,11 +293,14 @@ export class DiagosisReportComponent implements OnInit {
           (err: HttpErrorResponse) => {
             //this.showResponseMessage(err.toString(), 'e');
           });
-          
-
-    }
-
   }
+  compareDate(date1,date2)
+  {
+        var startDate = moment(date1, "DD/MM/YYYY");
+        var endDate = moment(date2, "DD-MM-YYYY");
+        var result = endDate.diff(startDate, 'days');
+        return result;
+    }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     

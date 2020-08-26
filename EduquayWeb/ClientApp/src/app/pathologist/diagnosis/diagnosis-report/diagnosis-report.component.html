@@ -294,7 +294,7 @@
                         <a class="btn btn-success float-right mr-3" role="button"
                             id="linktobuttonpathologist" (click)="reportSubmit('save');">Confirm & Close</a>
                             <a class="btn btn-success float-right mr-3" role="button"
-                            id="linktobuttonpathologist" (click)="reportSubmit('submit');">Confirm-Edit Later</a>
+                            id="linktobuttonpathologist" (click)="reportSubmit('submit');"      *ngIf="showConfirmEditLater">Confim-Edit Later</a>
                         <!-- <button type="button" class="btn btn-primary">Save</button> -->
                     </div>
                     </div>
