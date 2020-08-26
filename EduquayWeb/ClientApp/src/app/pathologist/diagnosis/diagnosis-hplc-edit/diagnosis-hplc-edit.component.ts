@@ -4,13 +4,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 
 import { DataService } from '../../../shared/data.service';
+import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-diagnosis-hplc-abnormal',
-  templateUrl: './diagnosis-hplc-abnormal.component.html',
-  styleUrls: ['./diagnosis-hplc-abnormal.component.css']
+  selector: 'app-diagnosis-hplc-edit',
+  templateUrl: './diagnosis-hplc-edit.component.html',
+  styleUrls: ['./diagnosis-hplc-edit.component.css']
 })
-export class DiagnosisHPLCAbnormaComponent implements OnInit {
+export class DiagnosisHPLCAbEditComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
@@ -25,7 +27,8 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
     zone: NgZone,
     private route: ActivatedRoute,
     private DataService:DataService,
-    private router: Router
+    private router: Router,
+    private pathoHPLCService:pathoHPLCService
     ) { }
 
   ngOnInit() {
@@ -62,22 +65,42 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
         tempNormalArray = _tempData.filter(function(item) {
           return item.isNormal;
         });
-        this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
-        console.log(tempNormalArray);
-
-      if(this.currentPage === "abnormal")
+        
+     /* if(this.currentPage === "abnormal")
         this.centralReceiptsData = tempAbnormalArray;
       else
-        this.centralReceiptsData = tempNormalArray;
+        this.centralReceiptsData = tempNormalArray;*/
+
+        this.pathoHPLCService.retriveEditHPLCDiagnosis()
+        .subscribe(response => {
+          console.log(response);
+          this.centralReceiptsData = response.subjectDetails;
+          this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":this.centralReceiptsData.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
+        console.log(tempNormalArray);
+
+          this.rerender();
+        },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
     }
     else{
       this.errorMessage = centralReceiptsArr.message;
     }
 
   }
-
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first      
+      dtInstance.clear();
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again       
+      this.dtTrigger.next();
+    });
+  }
   openReportComponent(data)
   {
+    console.log(data);
     this.DataService.setdata({'diagnosisHPLC':data});
     this.router.navigate(['/app/pathologist-hplc-report']);
   }

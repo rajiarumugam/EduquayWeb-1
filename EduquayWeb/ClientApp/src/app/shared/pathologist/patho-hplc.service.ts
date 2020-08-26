@@ -29,5 +29,11 @@ export class pathoHPLCService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.ADDHPLCRESULT);
     return this.http.post<any>({url:apiUrl, body: obj });
   }
-
+  retriveEditHPLCDiagnosis()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    console.log(user);
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEEDITHPLCDIAGOSIS+user.centralLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
 }

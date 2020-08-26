@@ -138,7 +138,7 @@ export class CentralPickPackStartComponent implements OnInit {
     else{
       this.errorMessage = centralReceiptsArr.message;
     }
-    this.getMolecularLab();
+    
   }
 
   getMolecularLab()
@@ -195,6 +195,9 @@ export class CentralPickPackStartComponent implements OnInit {
 
   createShipment()
   {
+    this.getMolecularLab();
+    this.selectedlabTechnicianName = this.user.name;
+    this.selectedcentralLab = this.user.centralLabName;
     $('#fadeinModal').modal('show');
   }
   submitShipment()
