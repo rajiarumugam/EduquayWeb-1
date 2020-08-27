@@ -277,3 +277,8 @@ vertical-align: middle;
     align-items: center;
     height: 100%;
   }
+
+  .dateBarded td
+  {
+      color:red !important;
+  }

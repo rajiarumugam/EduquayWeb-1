@@ -177,9 +177,30 @@ export class DiagosisReportComponent implements OnInit {
                 {
                   val.checked = true;
                 }
+                
               });
         }
       },this);
+      if(this.HPLCmasterData[0].checked)
+      {
+        this.HPLCmasterData[1].disable = true;
+        this.HPLCmasterData[2].disable = true;
+        this.HPLCmasterData[3].disable = true;
+      }
+
+      if(this.HPLCmasterData[3].checked)
+      {
+        this.HPLCmasterData[1].disable = true;
+        this.HPLCmasterData[2].disable = true;
+        this.HPLCmasterData[0].disable = true;
+      }
+
+      if(this.HPLCmasterData[1].checked || this.HPLCmasterData[2].checked)
+      {
+        this.HPLCmasterData[0].disable = true;
+        this.HPLCmasterData[3].disable = true;
+      }
+
       console.log(this.HPLCmasterData);
     },
     (err: HttpErrorResponse) =>{
@@ -215,7 +236,6 @@ export class DiagosisReportComponent implements OnInit {
       }
       if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
       {
-        console.log('hitting 2');
         this.showOthersTextbox = false;
        
         if(val.hplcResultName === "Normal")
@@ -230,28 +250,29 @@ export class DiagosisReportComponent implements OnInit {
 
       if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
       {
-        console.log('hitting 3');
         if(val.hplcResultName === "Normal" || val.hplcResultName === "Others")
             val.disable = true;
         else
-        {
           val.disable = false;
-        }
             
       }
 
       if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && !this.HPLCmasterData[i].checked)
       {
-        console.log('hitting 4');
         if(val.hplcResultName === "Normal")
             val.disable = true;
         else
-        {
           val.disable = false;
+        if(this.HPLCmasterData[1].checked || this.HPLCmasterData[2].checked)
+        {
+            if(this.HPLCmasterData[i].hplcResultName != "Others")
+                this.HPLCmasterData[3].disable = true;
         }
+        
             
       }
     },this);
+    
   }
  
   receivedSamples(event)
@@ -355,6 +376,7 @@ export class DiagosisReportComponent implements OnInit {
         var result = endDate.diff(startDate, 'days');
         return result;
     }
+   
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     
