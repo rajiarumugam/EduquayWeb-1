@@ -7,6 +7,7 @@ import { DataService } from '../../../shared/data.service';
 
 import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-diagnosis-hplc-abnormal',
@@ -74,6 +75,7 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
       else
         this.centralReceiptsData = tempNormalArray;
 
+        console.log(this.centralReceiptsData);
         this.pathoHPLCService.retriveEditHPLCDiagnosis()
         .subscribe(response => {
           console.log(response);
@@ -99,7 +101,17 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
     this.DataService.setdata({'diagnosisHPLC':data});
     this.router.navigate(['/app/pathologist-hplc-report']);
   }
-  
+  //returncompareDate(date1,date2)
+  returncompareDate(date1)
+  {
+        var startDate = moment(date1, "DD/MM/YYYY");
+        var endDate = moment(moment(), "DD-MM-YYYY");
+        var result = endDate.diff(startDate, 'days');
+        //console.log(result > 7);
+        /*return result > 7;*/
+        return result > 7;
+    }
+    
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }   
