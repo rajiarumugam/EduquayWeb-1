@@ -1,61 +1,58 @@
 <div class="tab-pane fade show" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
     <div class="main-box no-header clearfix">
         <div class="main-box-body clearfix">
-            <div class="form-row ml-3 my-2">
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">District</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option>Balasore</option>
-                        <option>Bargah</option>
-                        <option>Cuttack</option>
-                        <option>Koraput</option>
-                        <option>Sambalpur</option>
-                        <option>Jharsugud</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">CHC</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">PHC</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">ANM</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                    </select>
-                </div>
-                <div class="px-2 bd-highlight search-margin">
-                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
-                    <a href=""><button type="submit" class="btn search-bu">
-                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                </div>
+          <div class="form-row mt-4">
+            <div class="col-sm-12">
+              <div *ngIf="prepndtscheduledErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': prepndtscheduledErrorMessage ==='No subjects found', 'alert-danger': prepndtscheduledErrorMessage !== 'No subjects found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{prepndtscheduledErrorMessage}}
+              </div>
             </div>
+          </div>
+        <div class="form-row ml-3 mt-2 mb-3">
+            <div class="form-group col-md-2">
+                <label for="inputDistrict">District</label>
+                <select id="inputDistrict" class="form-control" (change)="onChangeDistrict($event.target.value)"
+                name=DDLdistrict #DDLdistrict required [(ngModel)]="selectedDistrict">
+                    <option value="">Select</option>
+                    <option *ngFor="let district of districts" [(value)]=" district.id ">
+                        {{district.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputCHC">CHC</label>
+                <select id="inputCHC" class="form-control"
+                name=DDLchc #DDLchc required [(ngModel)]="selectedchc">
+                    <option value="">Select</option>
+                    <option *ngFor="let chc of chclists" [(value)]=" chc.id ">
+                        {{chc.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputPHC">PHC</label>
+                <select id="inputPHC" class="form-control" name=DDLphc #DDLphc required [(ngModel)]="selectedphc">
+                    <option value="">Select</option>
+                    <option *ngFor="let phc of phclists" [(value)]=" phc.id ">
+                        {{phc.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputANM">ANM</label>
+                <select id="inputANM" class="form-control" name=DDLanm #DDLanm required [(ngModel)]="selectedanm">
+                    <option value="">Select</option>
+                    <option *ngFor="let anm of anmlists" [(value)]="anm.id">
+                        {{anm.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="px-2 bd-highlight search-margin" >
+                <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                <a (click)="getscheduledlists()"><button type="submit" class="btn search-bu">
+                        <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+            </div>   
+        </div> 
             <div class="table-responsive my-2">
                 <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
@@ -70,26 +67,24 @@
                             <th><span>Obstetric Score</span></th>
                             <th><span>Counsellor</span></th>
                             <th class="scheduledate"><span>Date & Time</span></th>
-                            <th><span>Notified</span></th>
                             <th><span>Edit Appointment</span></th>
                         </tr>
 
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td style="text-align: left">Alkha</td>
-                            <td class="text-center">OD001202032110</td>
-                            <td class="sid text-center">123456</td>
-                            <td style="text-align: left">Rajesh</td>
-                            <td class="text-center">9876545670</td>
-                            <td class="text-center">14.5</td>
-                            <td class="sname text-center">G2-P1-L1-A1</td>
-                            <td class="text-left">Dr.Avinash</td>
-                            <td class="text-center">29/04/2020 17:30</td>
-                            <td></td>
-                            <td class="text-center"><a href="#"><i class="fas fa-calendar-alt fa-2x" aria-hidden="true" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl"></i></a></td>
+                        <tr *ngFor="let scheduleddata of scheduledlists; index as i">
+                            <td>{{i +1}}</td>
+                            <td style="text-align: left">{{scheduleddata.subjectName}}</td>
+                            <td class="text-center">{{scheduleddata.anwSubjectId}}</td>
+                            <td class="sid text-center">{{scheduleddata.rchId}}</td>
+                            <td style="text-align: left">{{scheduleddata.spouseName}}</td>
+                            <td class="text-center">{{scheduleddata.contactNo}}</td>
+                            <td class="text-center">{{scheduleddata.ga}}</td>
+                            <td class="sname text-center">{{scheduleddata.obstetricScore}}</td>
+                            <td class="text-left">{{scheduleddata.counsellorName}}</td>
+                            <td class="text-center">{{scheduleddata.counsellingDateTime}}</td>
+                            <td class="text-center"><a (click)="editAppiontment(editAppointmentFormDetail, scheduleddata)">
+                              <i class="fas fa-calendar-alt fa-2x"></i></a></td>
 
                         </tr>
                     </tbody>
@@ -97,11 +92,10 @@
             </div>
              <!-- The Modal -->
   
-            <!--  <ng-template #chcSampleCollectiondetail let-modal>
+             <ng-template #editAppointmentFormDetail let-modal>
   
                 <div class="modal-header">
-                  <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Sample
-                    Collection</h5>
+                  <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Edit Appointment</h5>
                   <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -111,7 +105,7 @@
                   </button>
                 </div>
               <div class="modal-body">
-                <form class="text-left" (ngSubmit)="chcCollectionForm.form.valid && onSubmit(chcCollectionForm)" #chcCollectionForm="ngForm" novalidate>
+                <form class="text-left" (ngSubmit)="editAppointmentForm.form.valid && onSubmit(editAppointmentForm)" #editAppointmentForm="ngForm" novalidate>
                   <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                     <div class="form-row">
                       <div class="form-group col-md-3">
@@ -122,50 +116,58 @@
 
                       <div class="form-group col-md-3">
                         <label class="note">Subject ID <span class="manto"></span></label>
-                        <input class="form-control field" name="uniqueSubjectId" type="text" placeholder="Subject ID" tabindex="6"
-                          autocomplete="off" readonly="" [(ngModel)]="uniqueSubjectId">
+                        <input class="form-control field" name="anwSubjectId" type="text" placeholder="Subject ID" tabindex="6"
+                          autocomplete="off" readonly="" [(ngModel)]="anwSubjectId">
                       </div>
                       <div class="form-group col-md-3">
-                        <label class="note">RCH ID <span class="manto"></span></label>
-                        <input class="form-control field" name="ancnumber" type="text" placeholder="RCH ID " tabindex="6"
-                          autocomplete="off" readonly="" [(ngModel)]="rchId">
+                        <label class="note">Contact Number <span class="manto"></span></label>
+                        <input class="form-control field" name="contactno" type="text" placeholder="RCH ID " tabindex="6"
+                          autocomplete="off" readonly="" [(ngModel)]="contactNo">
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label class="note">Reason <span class="manto"></span></label>
-                        <input class="form-control field" name="collection" required="" type="text"
-                          placeholder="Reason" readonly="" [(ngModel)]="reason">
+                        <label class="note">Gestational Age <span class="manto"></span></label>
+                        <input class="form-control field" name="samplega" required="" type="text"
+                          placeholder="Gestational Age" readonly="" [(ngModel)]="samplega">
                       </div>
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-3">
-                        <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || chcCollectionForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
-                        <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                        #sampleBarcode="ngModel" autocomplete="off" [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || chcCollectionForm.submitted && sampleBarcode.invalid" required>
-                        <small class="text-danger ml-2" *ngIf="!sampleBarcode.valid && sampleBarcode.touched ">The barcode must be alphabets or digits</small>
-                        <div *ngIf="chcCollectionForm.submitted && sampleBarcode.invalid">     
-                          <small *ngIf="sampleBarcode.untouched" class=" ml-2 text-danger">Barcode is required</small>  
-                        </div> 
-                      </div>
+                        <label [ngClass]="{'label-border-class':DDcounsellorname.invalid && DDcounsellorname.touched || editAppointmentForm.submitted && DDcounsellorname.invalid}" for="inputriPoint">Counsellor Name<span
+                            class="manto"> *</span></label>
+                            <select class="form-control" name=DDcounsellorname #DDcounsellorname="ngModel"  
+                            [class.is-invalid]="DDcounsellorname.invalid && DDcounsellorname.touched || editAppointmentForm.submitted && DDcounsellorname.invalid"
+                            required [(ngModel)]="selectedname">
+                              <option value="">Select</option>
+                              <option *ngFor="let counsellordata of counsellornamelist"
+                                      [(value)]= "counsellordata.id ">
+                                  {{ counsellordata.name }}
+                              </option>
+                              </select>
+                              <small class=" ml-2 text-danger" *ngIf="DDcounsellorname.invalid && DDcounsellorname.touched">Please choose a Counsellor Name</small>
+                              <div *ngIf="editAppointmentForm.submitted && DDcounsellorname.invalid">     
+                                <small *ngIf="DDcounsellorname.untouched" class=" ml-2 text-danger">Counsellor Name is required</small>  
+                              </div>  
+                        </div>
                       <div class="form-group col-md-3" [formGroup]="popupform">
                         <label class="note">Date & Time <span class="manto">*</span></label>
-                        <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
-                         [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
+                        <ng2-flatpickr id="popupDate" name="editScheduleDate" class="form-control flatpickr flatpickr-input active" #editDatePicker
+                         [config]="editDateOptions" placeholder="Select Date.." formControlName = "editScheduleDate">
                         </ng2-flatpickr>
                       </div>
                     </div>
                   </div>
 
-                  <div class="modal-footer">
-                    <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+                  <div class="modal-footer"> 
                     <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                    <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Update</button>
                   </div>
                 </form>
               </div>
               <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
-            </ng-template> -->
+            </ng-template>
          <!--  END CONTENT AREA  -->
         </div>
     </div>

@@ -1,0 +1,336 @@
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="pndtc" subMenum="Update-Detail-TestResults"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+          <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+          <div class="col-md-12">
+            <div class="justify-between">
+              <div class="col-md-4">
+                <!-- <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/chc-subregn']"
+                    role="button" ngbTooltip="Subject Registration"><i class="fas fa-chevron-left pNav-left"></i></a></div> -->
+              </div>
+              <div class="col-md-4">
+                <div class="headertit">
+                  <h5 class="float-center"> Counselling – Pre PNDT </h5>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <!-- <div class="float-right mb-4">
+                  <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-pickandpack']" role="button" placement="left" ngbTooltip="Pick & Pack to Screening Center"><i
+                      class="fas fa-chevron-right pNav-right"></i></a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+         
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+            <div class="widget-content widget-content-area br-6">
+                <div class="form-row mt-4">
+                    <div class="col-sm-12">
+                      <!-- <div *ngIf="chcsCollectionErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': chcsCollectionErrorMessage ==='No subjects found', 'alert-danger': chcsCollectionErrorMessage !== 'No subjects found'}">
+                        <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{chcsCollectionErrorMessage}}
+                      </div> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <tbody class="">
+                                    <tr>
+                                        <td>
+                                            <span class="float-left mt-0 mr-4">
+                                                <h5><b>Subject ID :</b> OD001202032110
+                                                    <strong class="ml-5">Subject Name :</strong> Alkha
+                                                    Ramapuri, F, 28 yrs
+                                                    <strong class="ml-5">RCH ID :</strong> 123456
+                                                </h5>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+            <div class="widget-content widget-content-area br-6">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="8" class="text-left"
+                                            style="color:#3a3b3e;font-size: 15px;"><b>Subject Details</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                        <td class="sp-xs-td-15">Mrs.Alkha</td>
+                                        <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                        <td class="sp-xs-td-15">OD001202032110</td>
+                                        <td class="sp-xs-td-9"><b>Age</b></td>
+                                        <td class="sp-xs-td-15">28 yrs</td>
+                                        <td class="sp-xs-td-9"><b>Contact No</b></td>
+                                        <td class="sp-xs-td-15">7898765342</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>LMP Date</b></td>
+                                        <td>18/05/2020</td>
+                                        <td><b>Gestational Age</b></td>
+                                        <td>12.3</td>
+                                        <td><b>Obstetrics Score</b></td>
+                                        <td>G2-P1-L1-A1</td>
+                                        <td><b>RCH ID </b></td>
+                                        <td>123456</td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td><b>EC Number</b></td>
+                                        <td>12345678</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+
+                <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="mt-2"><b>Test Results Summary</b></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"><span>Subject Info</span></th>
+                                        <!-- <th class="text-center"><span>Barcodes</span></th> -->
+                                        <th class="text-center"><span>CBC</span></th>
+                                        <th class="text-center"><span>SST</span></th>
+                                        <th class="text-center"><span>HPLC</span></th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">Alkha, F, 24 yrs </td>
+                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                        <td class="text-left">Screening Test Positive</td>
+                                        <td class="text-left">SST Positive</td>
+                                        <td class="text-left">Thalassemia</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Ajith, M, 27 yrs </td>
+                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                        <td class="text-left">Screening Test Positive</td>
+                                        <td class="text-left">SST Positive</td>
+                                        <td class="text-left">Thalassemia</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+
+            <div class="widget-content widget-content-area br-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="tablecss">
+                            <tr class="" style="background-color: #e3e8ef;">
+                                <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
+                                    <b>Update Pre-natal Diagnosis Counselling</b>
+                                </th>
+                            </tr>
+
+                        </thead>
+
+                    </table>
+                </div>
+               
+
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+
+                        <tbody>
+                            <tr>
+                                <td>Counsellor Name</td>
+                                <td></td>
+                                <td>
+                                    Kumar
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Obstetrician</td>
+                                <td></td>
+                                <td>
+                                    <select class="form-control">
+                                        <option selected="selected">Select</option>
+                                        <option>Akash</option>
+                                        <option>Karthik</option>
+                                        <option>Kumar</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Counselling Notes/Remarks</td>
+                                <td></td>
+                                <td><textarea id="textarea" class="form-control textarea" maxlength="225"
+                                        rows="2" placeholder=""></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>The couple has agreed for Pre-natal diagnosis test</td>
+                                <td></td>
+                                <td>
+                                    <div class="col-sm-12">
+                                        <span class="n-chk">
+                                            <label class="new-control new-radio radio-primary">
+                                                <input type="radio" id="post-format-gallery"
+                                                    class="new-control-input mr-2" name="post-format"
+                                                    value="Cplus">
+                                                <span class="new-control-indicator"></span>Yes
+                                            </label>
+                                        </span>
+                                        <span class="n-chk">
+                                            <label class="new-control new-radio radio-primary">
+                                                <input type="radio" class="new-control-input"
+                                                    name="post-format" value="Cplus">
+                                                <span class="new-control-indicator"></span>No
+                                            </label>
+                                        </span>
+                                        <span class="n-chk">
+                                            <label class="new-control new-radio radio-primary">
+                                                <input type="radio" class="new-control-input"
+                                                    name="post-format" value="Cplus">
+                                                <span class="new-control-indicator"></span>Decision
+                                                Pending
+                                            </label>
+                                        </span>
+                                       
+                                        <div id="gallery-box" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-md-12" style="padding-left: 5px;">
+                                                    <form action="" class="mt-2">
+                                                        <span>Upload consent form : </span>
+                                                        <input type="file" id="myFile" name="filename">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-sm-th"> Schedule PNDT Date</td>
+                                        <!-- <td></td> -->
+                                        <td><input id="pndtDate"
+                                                class="form-control flatpickr flatpickr-input active"
+                                                type="text" placeholder="dd/mm/yy">
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>Schedule PNDT Time</td>
+                                        <!-- <td></td> -->
+                                        <td><input id="pndtTime"
+                                                class="form-control flatpickr flatpickr-input active"
+                                                type="text" placeholder="dd/mm/yy">
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-row" id="gallery-box1" style="display:none;">
+                        <div class="col-md-12">
+                            <div class="n-chk">
+                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                    <input type="checkbox" class="new-control-input" id="select_all"
+                                        checked>
+                                    <span class="new-control-indicator"></span>Received signed consent form
+                                    from Subject and filed
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row m-1">
+                    <div class="form-group col-md-12">
+                        <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
+                                class="flaticon-cancel-12"></i>
+                            Close</button>
+                        <a class="btn btn-success float-right mr-3" role="button"
+                            id="linktobuttontestresult">Submit</a>
+                        <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+  
+      </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+  </div>
+  <!--  END MAIN CONTAINER  -->
+  
+  <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+  <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+  <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+  <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+  <!--<i appLoadScript [script]="''"></i>-->
+  
+  <!--  END MAIN CONTAINER  -->
+  

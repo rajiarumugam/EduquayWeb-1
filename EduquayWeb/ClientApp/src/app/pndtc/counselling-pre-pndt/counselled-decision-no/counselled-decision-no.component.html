@@ -1,1 +1,105 @@
-<p>counselled-decision-no works!</p>
+<div class="tab-pane fade show active" id="counselledNo" role="tabpanel" aria-labelledby="counselledNo-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row ml-3 my-2">
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">District</label>
+                    <select id="inputDistrict" class="form-control" required>
+                        <option selected>Select</option>
+                        <option>Balasore</option>
+                        <option>Bargah</option>
+                        <option>Cuttack</option>
+                        <option>Koraput</option>
+                        <option>Sambalpur</option>
+                        <option>Jharsugud</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">CHC</label>
+                    <select id="inputDistrict" class="form-control" required>
+                        <option selected>Select</option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">PHC</label>
+                    <select id="inputDistrict" class="form-control" required>
+                        <option selected>Select</option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">ANM</label>
+                    <select id="inputDistrict" class="form-control" required>
+                        <option selected>Select</option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="px-2 bd-highlight search-margin" >
+                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                    <a href=""><button type="submit" class="btn search-bu">
+                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                </div>     
+            </div>
+                 <div class="table-responsive my-2">
+                <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span>S.No</span></th>
+                            <th class="text-left"><span>Subject Name</span></th>
+                            <th class="text-center"><span>Subject ID</span></th>
+                            <th class="text-center"><span>RCH ID</span></th>
+                            <th class="text-center"><span>Spouse Name</span></th>
+                            <th class="text-center"><span>Contact</span></th>
+                            <!-- <th class="text-center"><span>LMP Date</span></th> -->
+                            <th class="text-center"><span>GA</span></th>
+                            <th class="text-center"><span>Obstetric Score</span></th>
+                            <th class="text-center"><span>Counsellor Name</span></th>
+                            <th class="text-center pnddate"><span>Counselling Date & Time</span></th>
+                            <th class="text-center"><span>Details</span></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sno text-center">1</td>
+                            <td class="text-left">Alkha</td>
+                            <td class="text-center">OD001202032110</td>
+                            <td class="sid">123456</td>
+                            <td class="text-left">Rajesh</td>
+                            <td class="text-center">9876545670</td>
+                            <!-- <td class="text-center">18/05/2020</td> -->
+                            <td class="text-center">14.5</td>
+                            <td class="text-center">G2-P1-L1-A1</td>
+                            <td></td>
+                            <td>18/05/2020 14:30</td>
+                            <td class="text-center"><a href="detailedtestresult.html"><i
+                                        class="fas fa-edit fa-2x"
+                                        aria-hidden="true"></i></a></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
+                <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+            </div>
+           
+        </div>
+    </div>
+</div>

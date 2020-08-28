@@ -231,7 +231,7 @@
                 
             </ul>
         </li>
-        <li class="menu" *ngIf="user.userRole === 'ANM'" style="display: none;">
+        <li class="menu" *ngIf="user.userRole === 'COUNSELLOR'">
                 <a href="#pndtc" data-toggle="collapse" attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -247,16 +247,16 @@
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc'}"  id="pndtc"
                 data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/schedule-pre-pndtc']"> Schedule - Pre PNDT </a>
+                    <a [routerLink]="['/app/schedule-pre-pndtc']"> Schedule – Pre PNDT counselling </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/counselling-pre-pndt']">Counselling – Pre PNDT </a>
                 </li>
                 <li>
-                    <a href="counsellorsubjectlist.html">Counsel - PNDT </a>
+                    <a href="postcounselling.html"> Schedule – Post PNDT counselling</a>
                 </li>
                 <li>
-                    <a href="postcounselling.html"> Schedule - Post PNDT</a>
-                </li>
-                <li>
-                    <a href="mtpcounselling.html"> Counsel – MTP</a>
+                    <a href="mtpcounselling.html"> Counselling– Post PNDT</a>
                 </li>
                 
             </ul>

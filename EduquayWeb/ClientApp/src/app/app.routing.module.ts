@@ -135,6 +135,11 @@ import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile
 import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
 import { PrePndtcToBeScheduledComponent } from "./pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component";
 import { PrePndtcScheduledComponent } from "./pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component";
+import { CounsellingPrePndtMainComponent } from "./pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component";
+import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component";
+import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
+import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
+import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -303,6 +308,15 @@ const routes: Routes = [
         children:[
           {path: '', component: PrePndtcToBeScheduledComponent, pathMatch: 'full'},
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'counselling-pre-pndt', component: CounsellingPrePndtMainComponent,
+        children:[
+          {path: '', component: ToBeCounselledComponent, pathMatch: 'full'},
+          {path: 'counselledyes', component: CounselledDecisionYesComponent, pathMatch: 'full'},
+          {path: 'counselledno', component: CounselledDecisionNoComponent, pathMatch: 'full'},
+          {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
         ]
       },
       { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}

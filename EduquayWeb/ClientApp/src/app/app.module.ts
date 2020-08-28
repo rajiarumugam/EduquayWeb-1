@@ -72,6 +72,7 @@ import { ToBeCounselledComponent } from './pndtc/counselling-pre-pndt/to-be-coun
 import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component';
 import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
 import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
+import { UpdateDetailTestresultsComponent } from './pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component';
 
 
 
@@ -122,7 +123,8 @@ const ngWizardConfig: NgWizardConfig = {
     ToBeCounselledComponent,
     CounselledDecisionYesComponent,
     CounselledDecisionNoComponent,
-    CounselledDecisionAwaitedComponent
+    CounselledDecisionAwaitedComponent,
+    UpdateDetailTestresultsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
