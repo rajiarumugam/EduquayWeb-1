@@ -50,6 +50,12 @@
                    Normal<span class="badge badge-pill badge-warning shadow ml-1">{{normalCount}}</span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': currentPage == 'edit' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/pathologist-hplc/edit']"
+                   role="tab" aria-controls="profile" aria-selected="false">
+                   Edit Diagnosis Results<span class="badge badge-pill badge-warning shadow ml-1">{{editCount}}</span>
+                </a>
+              </li>
               
             </ul>
             <div class="tab-content mt-5" id="myTabContent">

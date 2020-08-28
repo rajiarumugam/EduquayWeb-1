@@ -5,6 +5,10 @@ import { DataTableDirective } from 'angular-datatables';
 
 import { DataService } from '../../../shared/data.service';
 
+import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
+import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-diagnosis-hplc-abnormal',
   templateUrl: './diagnosis-hplc-abnormal.component.html',
@@ -25,7 +29,8 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
     zone: NgZone,
     private route: ActivatedRoute,
     private DataService:DataService,
-    private router: Router
+    private router: Router,
+    private pathoHPLCService:pathoHPLCService
     ) { }
 
   ngOnInit() {
@@ -62,13 +67,27 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
         tempNormalArray = _tempData.filter(function(item) {
           return item.isNormal;
         });
-        this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
+        /*this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));*/
         console.log(tempNormalArray);
 
       if(this.currentPage === "abnormal")
         this.centralReceiptsData = tempAbnormalArray;
       else
         this.centralReceiptsData = tempNormalArray;
+
+        console.log(this.centralReceiptsData);
+        this.pathoHPLCService.retriveEditHPLCDiagnosis()
+        .subscribe(response => {
+          console.log(response);
+          var _editArray  = response.subjectDetails;
+          this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":_editArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
+        console.log(tempNormalArray);
+
+         
+        },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
     }
     else{
       this.errorMessage = centralReceiptsArr.message;
@@ -78,10 +97,21 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
 
   openReportComponent(data)
   {
+    console.log(data);
     this.DataService.setdata({'diagnosisHPLC':data});
     this.router.navigate(['/app/pathologist-hplc-report']);
   }
-  
+  //returncompareDate(date1,date2)
+  returncompareDate(date1)
+  {
+        var startDate = moment(date1, "DD/MM/YYYY");
+        var endDate = moment(moment(), "DD-MM-YYYY");
+        var result = endDate.diff(startDate, 'days');
+        //console.log(result > 7);
+        /*return result > 7;*/
+        return result > 7;
+    }
+    
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }   

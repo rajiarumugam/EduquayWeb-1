@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit,HostListener,QueryList,ElementRef,ViewChildren } from '@angular/core';
 import { DataService } from '../../../shared/data.service';
 import { Router } from '@angular/router';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
@@ -18,6 +18,7 @@ import * as moment from 'moment';
   styleUrls: ['./diagnosis-report.component.css']
 })
 export class DiagosisReportComponent implements OnInit {
+  @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   receivedSampleCount;
   uploadCBCCount = 0;
   currentPage = "";
@@ -36,6 +37,9 @@ export class DiagosisReportComponent implements OnInit {
   tempHPLCmasterChecked = "";
   showOthersTextbox = false;
   showConfirmEditLater = false;
+  selectedRemarks = "";
+  SelecteddiagnosticSummary = "";
+  selectedpathologistName = "";
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -76,12 +80,24 @@ export class DiagosisReportComponent implements OnInit {
     this.FormGroup = this._formBuilder.group({
       cd: ['', Validators.required],
       swapcase:[this.diagnosisReportData.isNormal ? 'normal' : 'abnormal'],
-      consulSeniorPatho:["false"],
+      consulSeniorPatho:[this.diagnosisReportData.isConsultSeniorPathologist != undefined ? ''+this.diagnosisReportData.isConsultSeniorPathologist : 'false'],
       diagnosticSummary:['',Validators.required],
       pathologistName:[''],
       remarks:[''],
       others: ['']
    });
+
+   if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
+        this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;
+    if(this.diagnosisReportData.diagnosisSummary)
+        this.SelecteddiagnosticSummary = this.diagnosisReportData.diagnosisSummary;
+   if(this.diagnosisReportData.seniorPathologistName)
+      this.selectedpathologistName = this.diagnosisReportData.seniorPathologistName;
+  if(this.diagnosisReportData.seniorPathologistRemarks)
+      this.selectedRemarks = this.diagnosisReportData.seniorPathologistRemarks;
+   
+   
+   
     this.getClinicalDiagnosis();
     this.getHPLCmaster();
   }
@@ -150,7 +166,41 @@ export class DiagosisReportComponent implements OnInit {
         
 
         val.checked = false;
+
+        if(this.diagnosisReportData.hplcResultMasterId != undefined)
+        {
+              var _tempHplcResultMaster = this.diagnosisReportData.hplcResultMasterId.split(',');
+              _tempHplcResultMaster.forEach(element => {
+                console.log(element);
+                console.log(val);
+                if(element == val.id)
+                {
+                  val.checked = true;
+                }
+                
+              });
+        }
       },this);
+      if(this.HPLCmasterData[0].checked)
+      {
+        this.HPLCmasterData[1].disable = true;
+        this.HPLCmasterData[2].disable = true;
+        this.HPLCmasterData[3].disable = true;
+      }
+
+      if(this.HPLCmasterData[3].checked)
+      {
+        this.HPLCmasterData[1].disable = true;
+        this.HPLCmasterData[2].disable = true;
+        this.HPLCmasterData[0].disable = true;
+      }
+
+      if(this.HPLCmasterData[1].checked || this.HPLCmasterData[2].checked)
+      {
+        this.HPLCmasterData[0].disable = true;
+        this.HPLCmasterData[3].disable = true;
+      }
+
       console.log(this.HPLCmasterData);
     },
     (err: HttpErrorResponse) =>{
@@ -165,21 +215,37 @@ export class DiagosisReportComponent implements OnInit {
 
   hplcChange(i)
   {
+   
     this.HPLCmasterData[i].checked = !this.HPLCmasterData[i].checked;
     this.HPLCmasterData.forEach(function(val,index){
       if(this.HPLCmasterData[i].hplcResultName === "Others" && this.HPLCmasterData[i].checked)
       {
+        console.log('hitting 1');
         this.showOthersTextbox = true;
+        this.checkboxes.forEach((element) => {
+          element.nativeElement.checked = false;
+        });
         if(val.hplcResultName != "Others")
-            val.disable = true;
+        {
+          val.checked = false;
+          val.disable = true;
+        }else
+        val.checked = true;
+
+            
       }
       if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
       {
         this.showOthersTextbox = false;
+       
         if(val.hplcResultName === "Normal")
             val.disable = true;
         else
-            val.disable = false;
+        {
+          val.checked = false;
+          val.disable = false;
+        }
+            
       }
 
       if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
@@ -187,7 +253,8 @@ export class DiagosisReportComponent implements OnInit {
         if(val.hplcResultName === "Normal" || val.hplcResultName === "Others")
             val.disable = true;
         else
-            val.disable = false;
+          val.disable = false;
+            
       }
 
       if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && !this.HPLCmasterData[i].checked)
@@ -195,9 +262,17 @@ export class DiagosisReportComponent implements OnInit {
         if(val.hplcResultName === "Normal")
             val.disable = true;
         else
-            val.disable = false;
+          val.disable = false;
+        if(this.HPLCmasterData[1].checked || this.HPLCmasterData[2].checked)
+        {
+            if(this.HPLCmasterData[i].hplcResultName != "Others")
+                this.HPLCmasterData[3].disable = true;
+        }
+        
+            
       }
     },this);
+    
   }
  
   receivedSamples(event)
@@ -301,6 +376,7 @@ export class DiagosisReportComponent implements OnInit {
         var result = endDate.diff(startDate, 'days');
         return result;
     }
+   
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     

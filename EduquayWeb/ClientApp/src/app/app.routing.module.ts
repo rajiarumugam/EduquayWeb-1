@@ -106,6 +106,7 @@ import { AnmSpouseComponent } from "./shared/anm-module/registration/anm-spouse/
 
 import { DiagosisHPLCmainComponent } from "./pathologist/diagnosis/diagnosis-hplc-main/diagnosis-hplc-main.component";
 import { DiagnosisHPLCAbnormaComponent } from "./pathologist/diagnosis/diagnosis-hplc-abnormal/diagnosis-hplc-abnormal.component";
+import {DiagnosisHPLCAbEditComponent } from "./pathologist/diagnosis/diagnosis-hplc-edit/diagnosis-hplc-edit.component";
 import { DiagosisReportComponent } from "./pathologist/diagnosis/diagnosis-report/diagnosis-report.component";
 import { DiagosisReportmainComponent } from "./pathologist/diagnosis/diagnosis-report-main/diagnosis-report-main.component";
 import { ChcSamplePickpackResolverService } from "./shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-resolver.service";
@@ -257,6 +258,7 @@ const routes: Routes = [
         children:[
           {path: 'normal', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
           {path: 'abnormal', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
+          {path: 'edit', component: DiagnosisHPLCAbEditComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
           {path: 'report', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
       },
@@ -434,6 +436,7 @@ export const RoutingComponents = [
   ChcPendingPickpackComponent,
   ChcStartPickpackComponent,
   ChcSubjectProfileListComponent,
+  DiagnosisHPLCAbEditComponent,
   PrePndtcMainComponent,
   PrePndtcToBeScheduledComponent,
   PrePndtcScheduledComponent

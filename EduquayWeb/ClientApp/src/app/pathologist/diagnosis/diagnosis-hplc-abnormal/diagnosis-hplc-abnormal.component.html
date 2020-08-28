@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let person of centralReceiptsData;index as i">
+        <tr *ngFor="let person of centralReceiptsData;index as i;" [ngClass]="{'dateBarded': returncompareDate(person.dateOfTest)}">
             <td style="text-align: center;">{{ i + 1}}</td>
             <td style="text-align: center;">{{ person.subjectName }}</td>
             <td style="text-align: center;">{{ person.uniqueSubjectId }}</td>

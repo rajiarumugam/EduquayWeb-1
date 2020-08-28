@@ -14,6 +14,7 @@ export class DiagosisHPLCmainComponent implements OnInit {
   normalCount = 0;
   subscription: Subscription;
   currentPage = "";
+  editCount = 0;
   constructor(private DataService:DataService,private router: Router) {
 
    
@@ -37,6 +38,7 @@ export class DiagosisHPLCmainComponent implements OnInit {
       {
         this.abnormalCount = JSON.parse(x).abnormalcount;
         this.normalCount = JSON.parse(x).normalcount;
+        this.editCount = JSON.parse(x).editcount;
       }
       
     });
