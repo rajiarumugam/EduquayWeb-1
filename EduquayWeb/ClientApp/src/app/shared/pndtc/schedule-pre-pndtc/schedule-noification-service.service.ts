@@ -68,10 +68,10 @@ export class ScheduleNoificationServiceService {
       anmId: 0 };
     return new Promise(resolve => {
       this.pndtmtpScheduleService.getscheduledLists(scheduledListRequest).subscribe( response => {
-        this.pndtmtpSchedulingResponse = response;
-        if(this.pndtmtpSchedulingResponse.status === "true"){
-          if(this.pndtmtpSchedulingResponse.data != undefined && this.pndtmtpSchedulingResponse.data.length > 0){
-            this.schedulingSampleCount = this.pndtmtpSchedulingResponse.data.length;
+        this.pndtmtpScheduledResponse = response;
+        if(this.pndtmtpScheduledResponse.status === "true"){
+          if(this.pndtmtpScheduledResponse.data != undefined && this.pndtmtpScheduledResponse.data.length > 0){
+            this.scheduledSampleCount = this.pndtmtpScheduledResponse.data.length;
           }
         }
           resolve(this.scheduledSampleCount);
