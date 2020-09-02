@@ -12,7 +12,7 @@
             <div class="form-group col-md-2">
                 <label for="inputDistrict">District</label>
                 <select id="inputDistrict" class="form-control" (change)="onChangeDistrict($event.target.value)"
-                name=DDLdistrict #DDLdistrict required [(ngModel)]="selectedDistrict">
+                name=DDLdistrict #DDLdistrict="ngModel" ngModel required [(ngModel)]="selectedDistrict">
                     <option value="">Select</option>
                     <option *ngFor="let district of districts" [(value)]=" district.id ">
                         {{district.name}}
@@ -22,7 +22,7 @@
             <div class="form-group col-md-2">
                 <label for="inputCHC">CHC</label>
                 <select id="inputCHC" class="form-control"
-                name=DDLchc #DDLchc required [(ngModel)]="selectedchc">
+                name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
                     <option value="">Select</option>
                     <option *ngFor="let chc of chclists" [(value)]=" chc.id ">
                         {{chc.name}}
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputPHC">PHC</label>
-                <select id="inputPHC" class="form-control" name=DDLphc #DDLphc required [(ngModel)]="selectedphc">
+                <select id="inputPHC" class="form-control" name=DDLphc #DDLphc="ngModel" ngModel required [(ngModel)]="selectedphc">
                     <option value="">Select</option>
                     <option *ngFor="let phc of phclists" [(value)]=" phc.id ">
                         {{phc.name}}
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputANM">ANM</label>
-                <select id="inputANM" class="form-control" name=DDLanm #DDLanm required [(ngModel)]="selectedanm">
+                <select id="inputANM" class="form-control" name=DDLanm #DDLanm="ngModel" ngModel required [(ngModel)]="selectedanm">
                     <option value="">Select</option>
                     <option *ngFor="let anm of anmlists" [(value)]="anm.id">
                         {{anm.name}}
@@ -49,11 +49,11 @@
             </div>
             <div class="px-2 bd-highlight search-margin" >
                 <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
-                <a (click)="getscheduledlists()"><button type="submit" class="btn search-bu">
+                <a (click)="retrivescheduledlists()"><button type="submit" class="btn search-bu">
                         <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
             </div>   
         </div> 
-            <div class="table-responsive my-2">
+            <div class="table-responsive mt-5">
                 <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>

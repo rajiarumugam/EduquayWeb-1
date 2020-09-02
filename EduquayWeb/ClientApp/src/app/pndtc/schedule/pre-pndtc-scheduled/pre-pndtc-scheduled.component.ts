@@ -280,6 +280,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   }
 
   retrivescheduledlists() {
+    
     this.recordCount = 0;
     this.loaderService.display(true);
     this.scheduledlists = [];
@@ -313,7 +314,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         this.rerender();
         this.loadDataTable = true;
       },
-        (err: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
           if (this.loadDataTable) this.rerender();
           this.prepndtscheduledErrorMessage = err.toString();
         });

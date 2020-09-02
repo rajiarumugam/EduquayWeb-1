@@ -1,62 +1,59 @@
 <div class="tab-pane fade show active" id="counselledAwaited" role="tabpanel" aria-labelledby="counselledAwaited-tab">
     <div class="main-box no-header clearfix">
         <div class="main-box-body clearfix">
-            <div class="form-row ml-3 my-2">
+            <div class="form-row mt-4">
+                <div class="col-sm-12">
+                  <div *ngIf="prepndtcounselledPendingErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': prepndtcounselledPendingErrorMessage ==='No subjects found', 'alert-danger': prepndtcounselledPendingErrorMessage !== 'No subjects found'}">
+                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{prepndtcounselledPendingErrorMessage}}
+                  </div>
+                </div>
+              </div>
+            <div class="form-row ml-3 mt-2 mb-3">
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">District</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option>Balasore</option>
-                        <option>Bargah</option>
-                        <option>Cuttack</option>
-                        <option>Koraput</option>
-                        <option>Sambalpur</option>
-                        <option>Jharsugud</option>
+                    <label for="inputDistrict">District</label>
+                    <select id="inputDistrict" class="form-control" (change)="onChangeDistrict($event.target.value)"
+                    name=DDLdistrict #DDLdistrict="ngModel" ngModel required [(ngModel)]="selectedDistrict">
+                        <option value="">Select</option>
+                        <option *ngFor="let district of districts" [(value)]=" district.id ">
+                            {{district.name}}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">CHC</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                    <label for="inputCHC">CHC</label>
+                    <select id="inputCHC" class="form-control"
+                    name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
+                        <option value="">Select</option>
+                        <option *ngFor="let chc of chclists" [(value)]=" chc.id ">
+                            {{chc.name}}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">PHC</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                    <label for="inputPHC">PHC</label>
+                    <select id="inputPHC" class="form-control" name=DDLphc #DDLphc="ngModel" ngModel required [(ngModel)]="selectedphc">
+                        <option value="">Select</option>
+                        <option *ngFor="let phc of phclists" [(value)]=" phc.id ">
+                            {{phc.name}}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">ANM</label>
-                    <select id="inputDistrict" class="form-control" required>
-                        <option selected>Select</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                    <label for="inputANM">ANM</label>
+                    <select id="inputANM" class="form-control" name=DDLanm #DDLanm="ngModel" ngModel required [(ngModel)]="selectedanm">
+                        <option value="">Select</option>
+                        <option *ngFor="let anm of anmlists" [(value)]="anm.id">
+                            {{anm.name}}
+                        </option>
                     </select>
                 </div>
                 <div class="px-2 bd-highlight search-margin" >
                     <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
-                    <a href=""><button type="submit" class="btn search-bu">
+                    <a (click)="retrivecounselledpendinglists()"><button type="submit" class="btn search-bu">
                             <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                </div>     
+                </div>   
             </div>
-                 <div class="table-responsive my-2">
+            <div class="table-responsive mt-5 mb-2">
                 <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
@@ -76,19 +73,19 @@
 
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="sno text-center">1</td>
-                            <td class="text-left">Alkha</td>
-                            <td class="text-center">OD001202032110</td>
-                            <td class="sid">123456</td>
-                            <td class="text-left">Rajesh</td>
-                            <td class="text-center">9876545670</td>
+                        <tr *ngFor="let counselledpendingdata of counselledpendinglists; index as i">
+                            <td class="sno text-center">{{i +1}}</td>
+                            <td class="text-left">{{counselledpendingdata.subjectName}}</td>
+                            <td class="text-center">{{counselledpendingdata.anwSubjectId}}</td>
+                            <td class="sid">{{counselledpendingdata.rchId}}</td>
+                            <td class="text-left">{{counselledpendingdata.spouseName}}</td>
+                            <td class="text-center">{{counselledpendingdata.contactNo}}</td>
                             <!-- <td class="text-center">18/05/2020</td> -->
-                            <td class="text-center">14.5</td>
-                            <td class="text-center">G2-P1-L1-A1</td>
-                            <td></td>
-                            <td>18/05/2020 14:30</td>
-                            <td class="text-center"><a href="detailedtestresult.html"><i
+                            <td class="text-center">{{counselledpendingdata.ga}}</td>
+                            <td class="text-center">{{counselledpendingdata.obstetricScore}}</td>
+                            <td>{{counselledpendingdata.counsellorName}}</td>
+                            <td>{{counselledpendingdata.counsellingDateTime}}</td>
+                            <td class="text-center"><a (click)="openpndtdetail(counselledpendingdata)"><i
                                         class="fas fa-edit fa-2x"
                                         aria-hidden="true"></i></a></td>
 

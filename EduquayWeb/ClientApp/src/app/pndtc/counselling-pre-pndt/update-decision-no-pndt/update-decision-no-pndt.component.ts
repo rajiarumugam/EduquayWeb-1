@@ -1,40 +1,40 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CounsellPrePndtResquest, AddPrePndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
-import { CounsellPrePndtResponse, CounsellingList, AddPrePndtcCounsellingResponse } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
-import { user } from 'src/app/shared/auth-response';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/shared/data.service';
+import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
 import { CounsellPrePndtService } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
-import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
+import { user } from 'src/app/shared/auth-response';
+import { AddPrePndtCounsellingRequest, CounsellPrePndtResquest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
+import { AddPrePndtcCounsellingResponse, CounselledList, CounselledprepndtResponse } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-update-detail-testresults',
-  templateUrl: './update-detail-testresults.component.html',
-  styleUrls: ['./update-detail-testresults.component.css']
+  selector: 'app-update-decision-no-pndt',
+  templateUrl: './update-decision-no-pndt.component.html',
+  styleUrls: ['./update-decision-no-pndt.component.css']
 })
-export class UpdateDetailTestresultsComponent implements OnInit {
+export class UpdateDecisionNoPndtComponent implements OnInit {
 
   @ViewChild('pndtschedulePicker', { static: false }) pndtschedulePicker;
 
-  updatepndtcErrorMessage: string;
+  updateDecisionNopndtErrorMessage: string;
   //masterdataErrorMessage: string;
 
   pndtmtpMasterResponse: PndtMtpMasterResponse;
-  counsellingprepndtRequest: CounsellPrePndtResquest;
-  counsellingprepndtResponse: CounsellPrePndtResponse;
-  addCounsellingRequest: AddPrePndtCounsellingRequest;
-  addCounsellingResponse: AddPrePndtcCounsellingResponse;
-  counsellinglists: CounsellingList[] = [];
+  counsellednoprepndtRequest: CounsellPrePndtResquest;
+  counsellednoprepndtResponse: CounselledprepndtResponse;
+  counsellednolists: CounselledList[] = [];
+  addCounselledNoRequest: AddPrePndtCounsellingRequest;
+  addCounselledNoResponse: AddPrePndtcCounsellingResponse;
   anwSubjectId: string;
-  counsellingdataItem: CounsellingList;
+  counselledNodataItem: CounselledList;
   selectedobstetrician: string = '';
   obstetricianlists: dataModel[] = [];
   user: user;
@@ -69,6 +69,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
   isSelectedPending: boolean;
   item: any;
   isDecisionYes: boolean = false;
+  Remarks: string;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -85,7 +86,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
     //minDate: this.dyCollectionDate,
-    maxDate: new Date(Date.now()),
+    minDate: new Date(Date.now()),
     enableTime: true,
   };
 
@@ -110,11 +111,12 @@ export class UpdateDetailTestresultsComponent implements OnInit {
   constructor(
     private dataservice: DataService,
     private pndtmtpMasterService: PndtMtpMasterService,
-    private counsellingprepndtService: CounsellPrePndtService,
+    private counsellednoprepndtService: CounsellPrePndtService,
     private tokenService: TokenService,
     private loaderService: LoaderService,
     private activatedRoute: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -125,56 +127,57 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     this.InitializeDateRange();
     this.activatedRoute.queryParams.subscribe(params => {
       this.anwSubjectId = params['q'];
-      this.retrivecounselledlists();
+      this.retrivecounsellednolists();
     });
     this.pndtscheduleDate = moment().format("DD/MM/YYYY");
     this.pndtscheduleTime = moment().format("HH:mm");
     this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.dateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.ddlobstetricianName();
   }
 
-  retrivecounselledlists() {
+  retrivecounsellednolists() {
 
     this.loaderService.display(true);
-    this.counsellinglists = [];
-    this.updatepndtcErrorMessage = '';
-    this.counsellingprepndtRequest = {
+    this.counsellednolists = [];
+    this.updateDecisionNopndtErrorMessage = '';
+    this.counsellednoprepndtRequest = {
       userId: this.user.id, districtId: 0,
       chcId: 0,
       phcId: 0,
       anmId: 0
     };
-    let counsellingdata = this.counsellingprepndtService.getcounsellingLists(this.counsellingprepndtRequest)
+    let counselleddata = this.counsellednoprepndtService.getcounselledNoLists(this.counsellednoprepndtRequest)
       .subscribe(response => {
-        this.counsellingprepndtResponse = response;
+        this.counsellednoprepndtResponse = response;
         this.loaderService.display(false);
-        if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
-          if (this.counsellingprepndtResponse.data.length <= 0) {
-            this.updatepndtcErrorMessage = response.message;
+        if (this.counsellednoprepndtResponse !== null && this.counsellednoprepndtResponse.status === "true") {
+          if (this.counsellednoprepndtResponse.data.length <= 0) {
+            this.updateDecisionNopndtErrorMessage = response.message;
           }
           else {
-            this.counsellingdataItem = this.counsellingprepndtResponse.data.
+            this.counselledNodataItem = this.counsellednoprepndtResponse.data.
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-            //this.counsellinglists = this.counsellingprepndtResponse.data;
+              this.Remarks = this.counselledNodataItem.counsellingRemarks;
+            //this.counsellinglists = this.counsellednoprepndtResponse.data;
 
           }
         }
         else {
-          this.updatepndtcErrorMessage = response.message;
+          this.updateDecisionNopndtErrorMessage = response.message;
         }
 
       },
         (err: HttpErrorResponse) => {
-          this.updatepndtcErrorMessage = err.toString();
+          this.updateDecisionNopndtErrorMessage = err.toString();
         });
   }
   ddlobstetricianName() {
 
     this.obstetricianlists = [];
     this.selectedobstetrician = '';
-    this.updatepndtcErrorMessage = '';
+    this.updateDecisionNopndtErrorMessage = '';
     this.pndtmtpMasterService.getobstetricianName()
       .subscribe(response => {
         this.pndtmtpMasterResponse = response;
@@ -185,11 +188,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
           // }
         }
         else {
-          this.updatepndtcErrorMessage = response.message;
+          this.updateDecisionNopndtErrorMessage = response.message;
         }
       },
         (err: HttpErrorResponse) => {
-          this.updatepndtcErrorMessage = err.toString();
+          this.updateDecisionNopndtErrorMessage = err.toString();
 
         });
   }
@@ -215,20 +218,19 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       this.isDecisionYes = false;
     }
   }
-
-  onSubmit(updatePndtForm: NgForm) {
+  onSubmit(updatePndtnoForm: NgForm) {
 
     if (this.isSelectedYes === true) {
-      console.log(updatePndtForm.value);
+      console.log(updatePndtnoForm.value);
 
-      this.counsellingRemarks = updatePndtForm.value.Remarks;
-      this.assignedObstetricianId = updatePndtForm.value.DDLobstetrician;
+      this.counsellingRemarks = updatePndtnoForm.value.Remarks;
+      this.assignedObstetricianId = updatePndtnoForm.value.DDLobstetrician;
 
-      this.addCounsellingRequest = {
-        prePNDTSchedulingId: this.counsellingdataItem.schedulingId,
-        anwsubjectId: this.counsellingdataItem.anwSubjectId,
-        spouseSubjectId: this.counsellingdataItem.spouseSubjectId,
-        counsellorId: this.counsellingdataItem.counsellorId,
+      this.addCounselledNoRequest = {
+        prePNDTSchedulingId: this.counselledNodataItem.schedulingId,
+        anwsubjectId: this.counselledNodataItem.anwSubjectId,
+        spouseSubjectId: this.counselledNodataItem.spouseSubjectId,
+        counsellorId: this.counselledNodataItem.counsellorId,
         counsellingRemarks: this.counsellingRemarks,
         assignedObstetricianId: +(this.assignedObstetricianId),
         isPNDTAgreeYes: this.isSelectedYes,
@@ -240,38 +242,38 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       };
 
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      // this.decisionYesResponseMessage('Successfully registered', 's');
       // return false;
 
-      let addScheduleData = this.counsellingprepndtService.AddprepndtCounselling(this.addCounsellingRequest)
+      let addCounselledNoData = this.counsellednoprepndtService.AddprepndtCounselling(this.addCounselledNoRequest)
         .subscribe(response => {
-          this.addCounsellingResponse = response;
-          if (this.addCounsellingResponse !== null && this.addCounsellingResponse.status === "true") {
-            this.decisionYesResponseMessage(this.addCounsellingResponse.message, 's')
+          this.addCounselledNoResponse = response;
+          if (this.addCounselledNoResponse !== null && this.addCounselledNoResponse.status === "true") {
+            this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 's')
             //this.retrivescheduledlists();
             //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
           } else {
-            this.decisionYesResponseMessage(this.addCounsellingResponse.message, 'e');
-            this.updatepndtcErrorMessage = response.message;
+            this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 'e');
+            this.updateDecisionNopndtErrorMessage = response.message;
           }
 
         },
           (err: HttpErrorResponse) => {
             this.decisionYesResponseMessage(err.toString(), 'e');
-            this.updatepndtcErrorMessage = err.toString();
+            this.updateDecisionNopndtErrorMessage = err.toString();
           });
     }
     else if (this.isSelectedNo === true) {
-      console.log(updatePndtForm.value);
+      console.log(updatePndtnoForm.value);
 
-      this.counsellingRemarks = updatePndtForm.value.Remarks;
-      this.assignedObstetricianId = updatePndtForm.value.DDLobstetrician;
+      this.counsellingRemarks = updatePndtnoForm.value.Remarks;
+      this.assignedObstetricianId = updatePndtnoForm.value.DDLobstetrician;
 
-      this.addCounsellingRequest = {
-        prePNDTSchedulingId: this.counsellingdataItem.schedulingId,
-        anwsubjectId: this.counsellingdataItem.anwSubjectId,
-        spouseSubjectId: this.counsellingdataItem.spouseSubjectId,
-        counsellorId: this.counsellingdataItem.counsellorId,
+      this.addCounselledNoRequest = {
+        prePNDTSchedulingId: this.counselledNodataItem.schedulingId,
+        anwsubjectId: this.counselledNodataItem.anwSubjectId,
+        spouseSubjectId: this.counselledNodataItem.spouseSubjectId,
+        counsellorId: this.counselledNodataItem.counsellorId,
         counsellingRemarks: this.counsellingRemarks,
         assignedObstetricianId: 0,
         isPNDTAgreeYes: this.isSelectedYes,
@@ -283,38 +285,38 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       };
 
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      // this.decisionNoResponseMessage('Successfully registered', 's');
       // return false;
 
-      let addScheduleData = this.counsellingprepndtService.AddprepndtCounselling(this.addCounsellingRequest)
+      let addCounselledNoData = this.counsellednoprepndtService.AddprepndtCounselling(this.addCounselledNoRequest)
         .subscribe(response => {
-          this.addCounsellingResponse = response;
-          if (this.addCounsellingResponse !== null && this.addCounsellingResponse.status === "true") {
-            this.decisionNoResponseMessage(this.addCounsellingResponse.message, 's')
+          this.addCounselledNoResponse = response;
+          if (this.addCounselledNoResponse !== null && this.addCounselledNoResponse.status === "true") {
+            this.decisionNoResponseMessage(this.addCounselledNoResponse.message, 's')
             //this.retrivescheduledlists();
             //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
           } else {
-            this.decisionNoResponseMessage(this.addCounsellingResponse.message, 'e');
-            this.updatepndtcErrorMessage = response.message;
+            this.decisionNoResponseMessage(this.addCounselledNoResponse.message, 'e');
+            this.updateDecisionNopndtErrorMessage = response.message;
           }
 
         },
           (err: HttpErrorResponse) => {
             this.decisionNoResponseMessage(err.toString(), 'e');
-            this.updatepndtcErrorMessage = err.toString();
+            this.updateDecisionNopndtErrorMessage = err.toString();
           });
     }
     else if (this.isSelectedPending === true) {
-      console.log(updatePndtForm.value);
+      console.log(updatePndtnoForm.value);
 
-      this.counsellingRemarks = updatePndtForm.value.Remarks;
-      this.assignedObstetricianId = updatePndtForm.value.DDLobstetrician;
+      this.counsellingRemarks = updatePndtnoForm.value.Remarks;
+      this.assignedObstetricianId = updatePndtnoForm.value.DDLobstetrician;
 
-      this.addCounsellingRequest = {
-        prePNDTSchedulingId: this.counsellingdataItem.schedulingId,
-        anwsubjectId: this.counsellingdataItem.anwSubjectId,
-        spouseSubjectId: this.counsellingdataItem.spouseSubjectId,
-        counsellorId: this.counsellingdataItem.counsellorId,
+      this.addCounselledNoRequest = {
+        prePNDTSchedulingId: this.counselledNodataItem.schedulingId,
+        anwsubjectId: this.counselledNodataItem.anwSubjectId,
+        spouseSubjectId: this.counselledNodataItem.spouseSubjectId,
+        counsellorId: this.counselledNodataItem.counsellorId,
         counsellingRemarks: this.counsellingRemarks,
         assignedObstetricianId: 0,
         isPNDTAgreeYes: this.isSelectedYes,
@@ -326,25 +328,25 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       };
 
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      // this.decisionAwaitedResponseMessage('Successfully registered', 's');
       // return false;
 
-      let addScheduleData = this.counsellingprepndtService.AddprepndtCounselling(this.addCounsellingRequest)
+      let addCounselledNoData = this.counsellednoprepndtService.AddprepndtCounselling(this.addCounselledNoRequest)
         .subscribe(response => {
-          this.addCounsellingResponse = response;
-          if (this.addCounsellingResponse !== null && this.addCounsellingResponse.status === "true") {
-            this.decisionAwaitedResponseMessage(this.addCounsellingResponse.message, 's')
+          this.addCounselledNoResponse = response;
+          if (this.addCounselledNoResponse !== null && this.addCounselledNoResponse.status === "true") {
+            this.decisionAwaitedResponseMessage(this.addCounselledNoResponse.message, 's')
             //this.retrivescheduledlists();
             //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
           } else {
-            this.decisionAwaitedResponseMessage(this.addCounsellingResponse.message, 'e');
-            this.updatepndtcErrorMessage = response.message;
+            this.decisionAwaitedResponseMessage(this.addCounselledNoResponse.message, 'e');
+            this.updateDecisionNopndtErrorMessage = response.message;
           }
 
         },
           (err: HttpErrorResponse) => {
             this.decisionAwaitedResponseMessage(err.toString(), 'e');
-            this.updatepndtcErrorMessage = err.toString();
+            this.updateDecisionNopndtErrorMessage = err.toString();
           });
     }
     else {
@@ -360,6 +362,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
+        }
+      });
     }
   }
   decisionNoResponseMessage(message: string, type: string) {
@@ -370,6 +377,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
+        }
+      });
     }
   }
   decisionAwaitedResponseMessage(message: string, type: string) {
@@ -380,8 +392,14 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
+        }
+      });
     }
   }
+
   InitializeDateRange() {
 
     this.dateform = this._formBuilder.group({
@@ -398,6 +416,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     });
 
   }
+
 
 
 }

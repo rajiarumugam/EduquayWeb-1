@@ -141,6 +141,10 @@ import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-coun
 import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
 import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
 import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
+import { UpdateDetailTestresultsComponent } from "./pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component";
+import { UpdateDecisionNoPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component";
+import { UpdateDecisionYesPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component";
+import { UpdateDecisionPendingPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -321,6 +325,10 @@ const routes: Routes = [
           {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
         ]
       },
+      { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
+      { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
+      { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
+      { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
       { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
@@ -439,7 +447,11 @@ export const RoutingComponents = [
   DiagnosisHPLCAbEditComponent,
   PrePndtcMainComponent,
   PrePndtcToBeScheduledComponent,
-  PrePndtcScheduledComponent
+  PrePndtcScheduledComponent,
+  UpdateDetailTestresultsComponent,
+  UpdateDecisionNoPndtComponent,
+  UpdateDecisionYesPndtComponent,
+  UpdateDecisionPendingPndtComponent
 ];
 
 

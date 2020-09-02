@@ -73,6 +73,9 @@ import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/cou
 import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
 import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
 import { UpdateDetailTestresultsComponent } from './pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component';
+import { UpdateDecisionNoPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component';
+import { UpdateDecisionYesPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component';
+import { UpdateDecisionPendingPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component';
 
 
 
@@ -124,7 +127,10 @@ const ngWizardConfig: NgWizardConfig = {
     CounselledDecisionYesComponent,
     CounselledDecisionNoComponent,
     CounselledDecisionAwaitedComponent,
-    UpdateDetailTestresultsComponent
+    UpdateDetailTestresultsComponent,
+    UpdateDecisionNoPndtComponent,
+    UpdateDecisionYesPndtComponent,
+    UpdateDecisionPendingPndtComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

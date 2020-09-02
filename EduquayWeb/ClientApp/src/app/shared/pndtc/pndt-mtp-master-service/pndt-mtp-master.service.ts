@@ -15,6 +15,7 @@ export class PndtMtpMasterService {
   phcApi: string = "api/v1/PNDTMTPMaster/RetrievePHC";
   anmApi: string = "api/v1/PNDTMTPMaster/RetrieveANM";
   counsellornameApi: string = "api/v1/PNDTMTPMaster/RetrieveCounsellor";
+  obstetriciannameApi: string = "api/v1/PNDTMTPMaster/RetrievePNDTObstetrician";
 
   userId: number;
 
@@ -49,6 +50,11 @@ export class PndtMtpMasterService {
 
   getCounsellorName(){
     let apiUrl = this.genericServices.buildApiUrl(this.counsellornameApi);
+    return this.http.get<PndtMtpMasterResponse>({url: apiUrl });
+  }
+
+  getobstetricianName(){
+    let apiUrl = this.genericServices.buildApiUrl(this.obstetriciannameApi);
     return this.http.get<PndtMtpMasterResponse>({url: apiUrl });
   }
 

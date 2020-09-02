@@ -4,7 +4,7 @@
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-        <app-site-sidebar module="pndtc" subMenum="Update-Detail-TestResults"></app-site-sidebar>
+        <app-site-sidebar module="pndtc" subMenum="Update-Decision-Yes"></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
     <!--  BEGIN CONTENT AREA  -->
@@ -17,8 +17,8 @@
                 <div class="col-md-12">
                     <div class="justify-between">
                         <div class="col-md-4">
-                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-pre-pndt']"
-                                role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-pre-pndt/counselledyes']"
+                            role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
@@ -38,7 +38,7 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="form-row mt-4">
                             <div class="col-sm-12">
-                               
+                              
                             </div>
                         </div>
                         <div class="row">
@@ -49,9 +49,9 @@
                                             <tr>
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
-                                                        <h5><b>Subject ID :</b> {{counsellingdataItem?.anwSubjectId}}
-                                                            <strong class="ml-5">Subject Name :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
-                                                            <strong class="ml-5">RCH ID :</strong> {{counsellingdataItem?.rchId}} 
+                                                        <h5><b>Subject ID :</b> {{counselledYesdataItem?.anwSubjectId}}
+                                                            <strong class="ml-5">Subject Name :</strong> {{counselledYesdataItem?.subjectName}}, F, {{counselledYesdataItem?.age}} yrs
+                                                            <strong class="ml-5">RCH ID :</strong> {{counselledYesdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
                                                 </td>
@@ -68,11 +68,11 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="form-row mt-4">
                             <div class="col-sm-12">
-                                <div *ngIf="updatepndtcErrorMessage" class="alert mt-3 mb-2"
-                                    [ngClass]="{'alert-warning': updatepndtcErrorMessage ==='No subjects found', 'alert-danger': updatepndtcErrorMessage !== 'No subjects found'}">
+                                <div *ngIf="updateDecisionYespndtErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': updateDecisionYespndtErrorMessage ==='No subjects found', 'alert-danger': updateDecisionYespndtErrorMessage !== 'No subjects found'}">
                                     <span class="fa fa-info-circle mr-2"
                                         style="font-size: 16px;"></span><strong>Oops!</strong>
-                                    {{updatepndtcErrorMessage}}
+                                    {{updateDecisionYespndtErrorMessage}}
                                 </div>
                             </div>
                         </div>
@@ -90,29 +90,29 @@
                                         <tbody>
                                             <tr>
                                                 <td class="sp-xs-td-9"><b>Subject Name</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.subjectName}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.subjectName}}</td>
                                                 <td class="sp-xs-td-9"><b>Subject ID</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.anwSubjectId}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.anwSubjectId}}</td>
                                                 <td class="sp-xs-td-9"><b>Age</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.age}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.age}}</td>
                                                 <td class="sp-xs-td-9"><b>Contact No</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.contactNo}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.contactNo}}</td>
                                             </tr>
                                             <tr>
                                                 <td><b>LMP Date</b></td>
-                                                <td>{{counsellingdataItem?.lmpDate}}</td>
+                                                <td>{{counselledYesdataItem?.lmpDate}}</td>
                                                 <td><b>Gestational Age</b></td>
-                                                <td>{{counsellingdataItem?.ga}}</td>
+                                                <td>{{counselledYesdataItem?.ga}}</td>
                                                 <td><b>Obstetrics Score</b></td>
-                                                <td>{{counsellingdataItem?.obstetricScore}}</td>
+                                                <td>{{counselledYesdataItem?.obstetricScore}}</td>
                                                 <td><b>RCH ID </b></td>
-                                                <td>{{counsellingdataItem?.rchId}}</td>
+                                                <td>{{counselledYesdataItem?.rchId}}</td>
 
                                             </tr>
                                             <tr>
 
                                                 <td><b>EC Number</b></td>
-                                                <td>{{counsellingdataItem?.ecNumber}}</td>
+                                                <td>{{counselledYesdataItem?.ecNumber}}</td>
 
                                             </tr>
 
@@ -151,19 +151,19 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.subjectName}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.subjectName}}</td>
                                                 <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                <td class="text-left">{{counsellingdataItem?.anwCBCTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.anwSSTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.anwHPLCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwCBCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwSSTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwHPLCTestResult}}</td>
 
                                             </tr>
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.spouseName}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseName}}</td>
                                                 <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                <td class="text-left">{{counsellingdataItem?.spouseCBCTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.spouseSSTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.spouseHPLCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseCBCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseSSTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseHPLCTestResult}}</td>
 
                                             </tr>
                                         </tbody>
@@ -191,8 +191,8 @@
                             </table>
                         </div>
 
-                        <form class="text-left" (ngSubmit)="updatePndtForm.form.valid && onSubmit(updatePndtForm)"
-                            #updatePndtForm="ngForm" novalidate>
+                        <form class="text-left" (ngSubmit)="updatePndtyesForm.form.valid && onSubmit(updatePndtyesForm)"
+                            #updatePndtyesForm="ngForm" novalidate>
                             <div class="table-responsive">
                                 <table class="table table-borderless">
 
@@ -201,7 +201,7 @@
                                             <td>Counsellor Name</td>
                                             <td></td>
                                             <td>
-                                                {{counsellingdataItem?.counsellorName}}
+                                                {{counselledYesdataItem?.counsellorName}}
                                             </td>
                                         </tr>
                                         
@@ -209,8 +209,8 @@
                                             <td>Counselling Notes/Remarks</td>
                                             <td></td>
                                             <td><textarea id="textarea" class="form-control textarea" maxlength="225"
-                                                    rows="2" placeholder="" name=Remarks #Remarks="ngModel"
-                                                    ngModel></textarea></td>
+                                                    rows="2" placeholder="" name=Remarks [(ngModel)]="Remarks"
+                                                   ></textarea></td>
                                         </tr>
                                         <tr>
                                             <td>The couple has agreed for Pre-natal diagnosis test</td>
@@ -220,15 +220,15 @@
                                                     <span class="ml-1 n-chk">
                                                         <label class="maritalstatus-radio-cont">
                                                             <input type="radio" id="options1" [(ngModel)]="myRadio"
-                                                                value="yes" (click)="onClick('decisionyes')"
-                                                                name=decisionyes #decisionyes>
+                                                                value="yes" (change)="onClick('decisionyes')"
+                                                                name=decisionyes #decisionyes [checked]="counselledYesdataItem?.isPNDTAgreeYes === true">
                                                             <span class="radio-span">Yes</span>
                                                         </label>
                                                     </span>
                                                     <span class="ml-1 n-chk">
                                                         <label class="maritalstatus-radio-cont">
                                                             <input type="radio" id="options2" [(ngModel)]="myRadio"
-                                                                value="no" (click)="onClick('decisionno')"
+                                                                value="no" (change)="onClick('decisionno')"
                                                                 name=decisionno #decisionno>
                                                             <span class="radio-span">No</span>
                                                         </label>
@@ -237,7 +237,7 @@
                                                         <label class="maritalstatus-radio-cont">
                                                             <input type="radio" id="options3" [(ngModel)]="myRadio"
                                                                 value="decisionpending"
-                                                                (click)="onClick('decisionpending')"
+                                                                (change)="onClick('decisionpending')"
                                                                 name=decisionpending #decisionpending>
                                                             <span class="radio-span">Decision
                                                                 Pending</span>
@@ -265,8 +265,8 @@
 
                                                 <select class="form-control" name=DDLobstetrician
                                                     #DDLobstetrician="ngModel"
-                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePndtForm.submitted && DDLobstetrician.invalid"
-                                                    required [(ngModel)]="selectedobstetrician" [disabled]="!isSelectedYes">
+                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePndtyesForm.submitted && DDLobstetrician.invalid"
+                                                    required [(ngModel)]="selectedobstetrician">
                                                     <option value="">Select</option>
                                                     <option *ngFor="let obstetriciandata of obstetricianlists"
                                                         [(value)]=" obstetriciandata.id ">
@@ -276,10 +276,17 @@
                                                 <small class=" ml-2 text-danger"
                                                     *ngIf="DDLobstetrician.invalid && DDLobstetrician.touched">Please
                                                     choose a Obstetrician Name</small>
-                                                <div *ngIf="updatePndtForm.submitted && DDLobstetrician.invalid">
+                                                <div *ngIf="updatePndtyesForm.submitted && DDLobstetrician.invalid">
                                                     <small *ngIf="DDLobstetrician.untouched"
                                                         class=" ml-2 text-danger">Obstetrician Name is required</small>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="isDecisionYes">
+                                            <td>Current Schedule PNDT Date & Time</td>
+                                            <td></td>
+                                            <td>
+                                                {{counselledYesdataItem?.schedulePNDTDate}}  {{counselledYesdataItem?.schedulePNDTTime}}
                                             </td>
                                         </tr>
 
@@ -308,9 +315,9 @@
                                                         <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
                                                             class="form-control flatpickr flatpickr-input active"
                                                             #pndtschedulePicker [config]="dateOptions" 
-                                                            placeholder="Select Date.." [disabled]="isSelectedYes"
-                                                            formControlName="fixPndtSchedule"></ng2-flatpickr>
-                                                    </td>
+                                                            placeholder="Select Date.."
+                                                            formControlName="fixPndtSchedule" [(ngModel)]="selectedscheduledate"></ng2-flatpickr>
+                                                        </td>
 
                                                 </tr>
                                             </tbody>
@@ -336,14 +343,13 @@
                                     class="flaticon-cancel-12"></i>
                                 Close</button> -->
                                     <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
-                                        name="linkto">Submit</button>
+                                        name="linkto">Update</button>
                                     <!-- <button type="button" class="btn btn-primary">Save</button> -->
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-               
             </div>
 
         </div>
