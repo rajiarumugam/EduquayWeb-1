@@ -69,6 +69,7 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
     isSelectedPending: boolean;
     item: any;
     isDecisionYes: boolean = false;
+    isDecisionNo: boolean = false;
     Remarks: string;
   
     /*Date Range configuration starts*/
@@ -204,18 +205,21 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
         this.isSelectedNo = false;
         this.isSelectedPending = false;
         this.isDecisionYes = true;
+        this.isDecisionNo = false;
       }
       else if (item == 'decisionno') {
         this.isSelectedNo = true;
         this.isSelectedYes = false;
         this.isSelectedPending = false;
         this.isDecisionYes = false;
+        this.isDecisionNo = true;
       }
       else if (item == 'decisionpending') {
         this.isSelectedPending = true;
         this.isSelectedYes = false;
         this.isSelectedNo = false;
         this.isDecisionYes = false;
+        this.isDecisionNo = false;
       }
     }
     onSubmit(updatePndtpendingForm: NgForm) {

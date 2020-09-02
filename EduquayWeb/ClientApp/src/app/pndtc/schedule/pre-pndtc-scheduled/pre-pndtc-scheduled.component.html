@@ -24,7 +24,7 @@
                 <select id="inputCHC" class="form-control"
                 name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
                     <option value="">Select</option>
-                    <option *ngFor="let chc of chclists" [(value)]=" chc.id ">
+                    <option *ngFor="let chc of chclists" [(value)]="chc.id ">
                         {{chc.name}}
                     </option>
                 </select>
