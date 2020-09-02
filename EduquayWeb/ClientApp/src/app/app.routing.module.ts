@@ -136,6 +136,18 @@ import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile
 import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
 import { PrePndtcToBeScheduledComponent } from "./pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component";
 import { PrePndtcScheduledComponent } from "./pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component";
+import { CounsellingPrePndtMainComponent } from "./pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component";
+import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component";
+import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
+import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
+import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
+import { UpdateDetailTestresultsComponent } from "./pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component";
+import { UpdateDecisionNoPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component";
+import { UpdateDecisionYesPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component";
+import { UpdateDecisionPendingPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component";
+import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component";
+import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
+import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -307,6 +319,26 @@ const routes: Routes = [
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full'}
         ]
       },
+      {
+        path: 'counselling-pre-pndt', component: CounsellingPrePndtMainComponent,
+        children:[
+          {path: '', component: ToBeCounselledComponent, pathMatch: 'full'},
+          {path: 'counselledyes', component: CounselledDecisionYesComponent, pathMatch: 'full'},
+          {path: 'counselledno', component: CounselledDecisionNoComponent, pathMatch: 'full'},
+          {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
+        ]
+      },
+      { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
+      { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
+      { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
+      { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
+      {
+        path: 'schedule-post-pndtc', component: SchedulePostPndtcMainComponent,
+        children:[
+          {path: '', component: SchedulePostPndtcToBeScheduledComponent, pathMatch: 'full'},
+          {path: 'scheduled', component: SchedulePostPndtcScheduledComponent, pathMatch: 'full'}
+        ]
+      },
       { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
@@ -425,7 +457,14 @@ export const RoutingComponents = [
   DiagnosisHPLCAbEditComponent,
   PrePndtcMainComponent,
   PrePndtcToBeScheduledComponent,
-  PrePndtcScheduledComponent
+  PrePndtcScheduledComponent,
+  UpdateDetailTestresultsComponent,
+  UpdateDecisionNoPndtComponent,
+  UpdateDecisionYesPndtComponent,
+  UpdateDecisionPendingPndtComponent,
+  SchedulePostPndtcMainComponent,
+  SchedulePostPndtcScheduledComponent,
+  SchedulePostPndtcToBeScheduledComponent
 ];
 
 

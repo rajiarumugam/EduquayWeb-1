@@ -72,6 +72,13 @@ import { ToBeCounselledComponent } from './pndtc/counselling-pre-pndt/to-be-coun
 import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component';
 import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
 import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
+import { UpdateDetailTestresultsComponent } from './pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component';
+import { UpdateDecisionNoPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component';
+import { UpdateDecisionYesPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component';
+import { UpdateDecisionPendingPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component';
+import { SchedulePostPndtcMainComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component';
+import { SchedulePostPndtcScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component';
+import { SchedulePostPndtcToBeScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component';
 
 
 
@@ -122,7 +129,14 @@ const ngWizardConfig: NgWizardConfig = {
     ToBeCounselledComponent,
     CounselledDecisionYesComponent,
     CounselledDecisionNoComponent,
-    CounselledDecisionAwaitedComponent
+    CounselledDecisionAwaitedComponent,
+    UpdateDetailTestresultsComponent,
+    UpdateDecisionNoPndtComponent,
+    UpdateDecisionYesPndtComponent,
+    UpdateDecisionPendingPndtComponent,
+    SchedulePostPndtcMainComponent,
+    SchedulePostPndtcScheduledComponent,
+    SchedulePostPndtcToBeScheduledComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

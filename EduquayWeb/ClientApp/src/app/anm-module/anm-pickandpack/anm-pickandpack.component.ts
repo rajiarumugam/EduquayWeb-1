@@ -639,6 +639,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
 
+
     getSelectedBarcode(agingMode) {
 //gt24bc
 //lt24bc

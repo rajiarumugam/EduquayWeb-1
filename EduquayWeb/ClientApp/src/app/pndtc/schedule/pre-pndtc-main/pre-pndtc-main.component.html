@@ -28,7 +28,7 @@
               </div>
               <div class="col-md-4">
                 <div class="float-right mb-4">
-                  <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/counselling-prepndt']" role="button"
+                  <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/counselling-pre-pndt']" role="button"
                   ngbTooltip="Counselling – Pre PNDT" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
                 </div>
               </div>
@@ -41,19 +41,19 @@
                   <a class="nav-link active" id="tobeScheduled-tab" data-toggle="tab"
                      [routerLink]="['/app/schedule-pre-pndtc']" role="tab" aria-controls="home"
                      aria-selected="true">
-                     To be Scheduled<span class="badge badge-pill badge-warning shadow mx-1">0</span>
+                     To be Scheduled<span class="badge badge-pill badge-warning shadow mx-1">{{schedulingCount}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="scheduled-tab" data-toggle="tab" [routerLink]="['/app/schedule-pre-pndtc/scheduled']"
                      role="tab" aria-controls="profile" aria-selected="false">
-                     Scheduled<span class="badge badge-pill badge-warning shadow ml-1">0</span>
+                     Scheduled<span class="badge badge-pill badge-warning shadow ml-1">{{scheduledCount}}</span>
                   </a>
                 </li>
               </ul>
               <div class="tab-content mt-5" id="myTabContent">
-                <!-- <router-outlet (activate)="showNumberOnBadge($event)"></router-outlet> -->
-                <router-outlet></router-outlet>
+                <router-outlet (activate)="showNumberOnBadge($event)"></router-outlet>
+                <!-- <router-outlet></router-outlet> -->
               </div>
             </div>
           </div>

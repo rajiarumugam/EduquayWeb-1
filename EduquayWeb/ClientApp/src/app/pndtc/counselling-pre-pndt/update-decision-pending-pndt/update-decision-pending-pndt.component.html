@@ -1,0 +1,360 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="pndtc" subMenum="Update-Decision-Pending"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-pre-pndt/counselledawaited']"
+                            role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center"> Counselling – Pre PNDT </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- <div class="float-right mb-4">
+                  <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-pickandpack']" role="button" placement="left" ngbTooltip="Pick & Pack to Screening Center"><i
+                      class="fas fa-chevron-right pNav-right"></i></a>
+                </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="form-row mt-4">
+                            <div class="col-sm-12">
+                              
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <tbody class="">
+                                            <tr>
+                                                <td>
+                                                    <span class="float-left mt-0 mr-4">
+                                                        <h5><b>Subject ID :</b> {{counselledPendingdataItem?.anwSubjectId}}
+                                                            <strong class="ml-5">Subject Name :</strong> {{counselledPendingdataItem?.subjectName}}, F, {{counselledPendingdataItem?.age}} yrs
+                                                            <strong class="ml-5">RCH ID :</strong> {{counselledPendingdataItem?.rchId}} 
+                                                      </h5>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="form-row mt-4">
+                            <div class="col-sm-12">
+                                <div *ngIf="updateDecisionPendingpndtErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': updateDecisionPendingpndtErrorMessage ==='No subjects found', 'alert-danger': updateDecisionPendingpndtErrorMessage !== 'No subjects found'}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{updateDecisionPendingpndtErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="8" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;"><b>Subject Details</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                <td class="sp-xs-td-15">{{counselledPendingdataItem?.subjectName}}</td>
+                                                <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                                <td class="sp-xs-td-15">{{counselledPendingdataItem?.anwSubjectId}}</td>
+                                                <td class="sp-xs-td-9"><b>Age</b></td>
+                                                <td class="sp-xs-td-15">{{counselledPendingdataItem?.age}}</td>
+                                                <td class="sp-xs-td-9"><b>Contact No</b></td>
+                                                <td class="sp-xs-td-15">{{counselledPendingdataItem?.contactNo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>LMP Date</b></td>
+                                                <td>{{counselledPendingdataItem?.lmpDate}}</td>
+                                                <td><b>Gestational Age</b></td>
+                                                <td>{{counselledPendingdataItem?.ga}}</td>
+                                                <td><b>Obstetrics Score</b></td>
+                                                <td>{{counselledPendingdataItem?.obstetricScore}}</td>
+                                                <td><b>RCH ID </b></td>
+                                                <td>{{counselledPendingdataItem?.rchId}}</td>
+
+                                            </tr>
+                                            <tr>
+
+                                                <td><b>EC Number</b></td>
+                                                <td>{{counselledPendingdataItem?.ecNumber}}</td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                    <div class="widget-content widget-content-area br-6">
+
+                        <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6 class="mt-2"><b>Test Results Summary</b></h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center"><span>Subject Name</span></th>
+                                                <!-- <th class="text-center"><span>Barcodes</span></th> -->
+                                                <th class="text-center"><span>CBC</span></th>
+                                                <th class="text-center"><span>SST</span></th>
+                                                <th class="text-center"><span>HPLC</span></th>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">{{counselledPendingdataItem?.subjectName}}</td>
+                                                <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                                <td class="text-left">{{counselledPendingdataItem?.anwCBCTestResult}}</td>
+                                                <td class="text-left">{{counselledPendingdataItem?.anwSSTestResult}}</td>
+                                                <td class="text-left">{{counselledPendingdataItem?.anwHPLCTestResult}}</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">{{counselledPendingdataItem?.spouseName}}</td>
+                                                <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                                <td class="text-left">{{counselledPendingdataItem?.spouseCBCTestResult}}</td>
+                                                <td class="text-left">{{counselledPendingdataItem?.spouseSSTestResult}}</td>
+                                                <td class="text-left">{{counselledPendingdataItem?.spouseHPLCTestResult}}</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
+                                            <b>Update Pre-natal Diagnosis Counselling</b>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                            </table>
+                        </div>
+
+                        <form class="text-left" (ngSubmit)="updatePndtpendingForm.form.valid && onSubmit(updatePndtpendingForm)"
+                            #updatePndtpendingForm="ngForm" novalidate>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Counsellor Name</td>
+                                            <td></td>
+                                            <td>
+                                                {{counselledPendingdataItem?.counsellorName}}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Counselling Notes/Remarks</td>
+                                            <td></td>
+                                            <td><textarea id="textarea" class="form-control textarea" maxlength="225"
+                                                    rows="2" placeholder="" name=Remarks  [(ngModel)]="Remarks"
+                                                    ></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td>The couple has agreed for Pre-natal diagnosis test</td>
+                                            <td></td>
+                                            <td>
+                                                <div class="col-sm-12">
+                                                    <span class="ml-1 n-chk">
+                                                        <label class="maritalstatus-radio-cont">
+                                                            <input type="radio" id="options1" [(ngModel)]="myRadio"
+                                                                value="yes" (change)="onClick('decisionyes')"
+                                                                name=decisionyes #decisionyes>
+                                                            <span class="radio-span">Yes</span>
+                                                        </label>
+                                                    </span>
+                                                    <span class="ml-1 n-chk">
+                                                        <label class="maritalstatus-radio-cont">
+                                                            <input type="radio" id="options2" [(ngModel)]="myRadio"
+                                                                value="no" (change)="onClick('decisionno')"
+                                                                name=decisionno #decisionno>
+                                                            <span class="radio-span">No</span>
+                                                        </label>
+                                                    </span>
+                                                    <span class="ml-1 n-chk">
+                                                        <label class="maritalstatus-radio-cont">
+                                                            <input type="radio" id="options3" [(ngModel)]="myRadio"
+                                                                value="decisionpending"
+                                                                (change)="onClick('decisionpending')"
+                                                                name=decisionpending #decisionpending [checked]="counselledPendingdataItem?.isPNDTAgreePending === true">
+                                                            <span class="radio-span">Decision
+                                                                Pending</span>
+                                                        </label>
+                                                    </span>
+
+                                                    <div id="gallery-box" style="display: none;">
+                                                        <div class="row">
+                                                            <div class="col-md-12" style="padding-left: 5px;">
+                                                                <form action="" class="mt-2">
+                                                                    <span>Upload consent form : </span>
+                                                                    <input type="file" id="myFile" name="filename">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        <tr *ngIf="isDecisionYes">
+                                            <td>Obstetrician</td>
+                                            <td></td>
+                                            <td>
+
+                                                <select class="form-control" name=DDLobstetrician
+                                                    #DDLobstetrician="ngModel"
+                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePndtpendingForm.submitted && DDLobstetrician.invalid"
+                                                    required [(ngModel)]="selectedobstetrician">
+                                                    <option value="">Select</option>
+                                                    <option *ngFor="let obstetriciandata of obstetricianlists"
+                                                        [(value)]=" obstetriciandata.id ">
+                                                        {{obstetriciandata.name}}
+                                                    </option>
+                                                </select>
+                                                <small class=" ml-2 text-danger"
+                                                    *ngIf="DDLobstetrician.invalid && DDLobstetrician.touched">Please
+                                                    choose a Obstetrician Name</small>
+                                                <div *ngIf="updatePndtpendingForm.submitted && DDLobstetrician.invalid">
+                                                    <small *ngIf="DDLobstetrician.untouched"
+                                                        class=" ml-2 text-danger">Obstetrician Name is required</small>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-row" *ngIf="isDecisionYes">
+                                <div class="col-md-6">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sp-sm-th"> Schedule PNDT Date & Time</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>                                               
+                                                    <td class="text-center" [formGroup]="dateform">
+                                                        <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
+                                                            class="form-control flatpickr flatpickr-input active"
+                                                            #pndtschedulePicker [config]="dateOptions" 
+                                                            placeholder="Select Date.."
+                                                            formControlName="fixPndtSchedule"></ng2-flatpickr>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-row" id="gallery-box1" style="display:none;">
+                                    <div class="col-md-12">
+                                        <div class="n-chk">
+                                            <label class="new-control new-checkbox checkbox-outline-primary">
+                                                <input type="checkbox" class="new-control-input" id="select_all"
+                                                    checked>
+                                                <span class="new-control-indicator"></span>Received signed consent form
+                                                from Subject and filed
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="form-row m-1" *ngIf="isDecisionNo || isDecisionYes">
+                                <div class="form-group col-md-12">
+                                    <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
+                                    class="flaticon-cancel-12"></i>
+                                Close</button> -->
+                                    <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+                                        name="linkto">Update</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<!--<i appLoadScript [script]="''"></i>-->
+
+<!--  END MAIN CONTAINER  -->

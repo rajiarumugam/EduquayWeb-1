@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList, RetrieveSubjectProfileList, SubjectProfileList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
@@ -105,6 +105,25 @@ export class AnmSubjectProfileComponent implements OnInit {
   secondFormCheck = false;
   subjectprofileLists: SubjectProfileList[]=[];
   subjectprofileItem: SubjectProfileList;
+
+  @HostListener('window:scroll')
+  checkScroll() {
+      
+    // window의 scroll top
+    // Both window.pageYOffset and document.documentElement.scrollTop returns the same result in all the cases. window.pageYOffset is not supported below IE 9.
+
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    //console.log('[scroll]', scrollPosition);
+
+    if(scrollPosition > 180)
+    {
+        $('#showhidediv').show();
+    }
+    else
+      $('#showhidediv').hide();
+    
+  }
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
