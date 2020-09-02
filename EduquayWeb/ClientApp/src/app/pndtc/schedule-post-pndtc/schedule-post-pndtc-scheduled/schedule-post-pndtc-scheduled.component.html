@@ -1,0 +1,174 @@
+<div class="tab-pane fade show" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+          <div class="form-row mt-4">
+            <div class="col-sm-12">
+              <div *ngIf="postpndtscheduledErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': postpndtscheduledErrorMessage ==='No subjects found', 'alert-danger': postpndtscheduledErrorMessage !== 'No subjects found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{postpndtscheduledErrorMessage}}
+              </div>
+            </div>
+          </div>
+        <div class="form-row ml-3 mt-2 mb-3">
+            <div class="form-group col-md-2">
+                <label for="inputDistrict">District</label>
+                <select id="inputDistrict" class="form-control" (change)="onChangeDistrict($event.target.value)"
+                name=DDLdistrict #DDLdistrict="ngModel" ngModel required [(ngModel)]="selectedDistrict">
+                    <option value="">Select</option>
+                    <option *ngFor="let district of districts" [(value)]=" district.id ">
+                        {{district.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputCHC">CHC</label>
+                <select id="inputCHC" class="form-control"
+                name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
+                    <option value="">Select</option>
+                    <option *ngFor="let chc of chclists" [(value)]="chc.id ">
+                        {{chc.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputPHC">PHC</label>
+                <select id="inputPHC" class="form-control" name=DDLphc #DDLphc="ngModel" ngModel required [(ngModel)]="selectedphc">
+                    <option value="">Select</option>
+                    <option *ngFor="let phc of phclists" [(value)]=" phc.id ">
+                        {{phc.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputANM">ANM</label>
+                <select id="inputANM" class="form-control" name=DDLanm #DDLanm="ngModel" ngModel required [(ngModel)]="selectedanm">
+                    <option value="">Select</option>
+                    <option *ngFor="let anm of anmlists" [(value)]="anm.id">
+                        {{anm.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="px-2 bd-highlight search-margin" >
+                <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                <a (click)="retrivescheduledlists()"><button type="submit" class="btn search-bu">
+                        <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+            </div>   
+        </div> 
+            <div class="table-responsive mt-5">
+                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th><span>S.No</span></th>
+                            <th><span>Subject Name</span></th>
+                            <th><span>Subject ID</span></th>
+                            <th><span>RCH ID</span></th>
+                            <th><span>Spouse Name</span></th>
+                            <th><span>Contact</span></th>
+                            <th><span>GA</span></th>
+                            <th><span>Obstetric Score</span></th>
+                            <th><span>Counsellor</span></th>
+                            <th class="scheduledate"><span>Date & Time</span></th>
+                            <th><span>Edit Appointment</span></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let scheduleddata of scheduledlists; index as i">
+                            <td>{{i +1}}</td>
+                            <td style="text-align: left">{{scheduleddata.subjectName}}</td>
+                            <td class="text-center">{{scheduleddata.anwSubjectId}}</td>
+                            <td class="sid text-center">{{scheduleddata.rchId}}</td>
+                            <td style="text-align: left">{{scheduleddata.spouseName}}</td>
+                            <td class="text-center">{{scheduleddata.contactNo}}</td>
+                            <td class="text-center">{{scheduleddata.ga}}</td>
+                            <td class="sname text-center">{{scheduleddata.obstetricScore}}</td>
+                            <td class="text-left">{{scheduleddata.counsellorName}}</td>
+                            <td class="text-center">{{scheduleddata.counsellingDateTime}}</td>
+                            <td class="text-center"><a (click)="editAppiontment(editAppointmentFormDetail, scheduleddata)">
+                              <i class="fas fa-calendar-alt fa-2x"></i></a></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+             <!-- The Modal -->
+  
+             <ng-template #editAppointmentFormDetail let-modal>
+  
+                <div class="modal-header">
+                  <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Edit Appointment</h5>
+                  <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              <div class="modal-body">
+                <form class="text-left" (ngSubmit)="editAppointmentForm.form.valid && onSubmit(editAppointmentForm)" #editAppointmentForm="ngForm" novalidate>
+                  <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                    <div class="form-row">
+                      <div class="form-group col-md-3">
+                        <label class="note">Subject Name </label>
+                        <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
+                          [(ngModel)]="subjectName" name="sampleSubjectName" >
+                      </div>
+
+                      <div class="form-group col-md-3">
+                        <label class="note">Subject ID <span class="manto"></span></label>
+                        <input class="form-control field" name="anwSubjectId" type="text" placeholder="Subject ID" tabindex="6"
+                          autocomplete="off" readonly="" [(ngModel)]="anwSubjectId">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label class="note">Contact Number <span class="manto"></span></label>
+                        <input class="form-control field" name="contactno" type="text" placeholder="RCH ID " tabindex="6"
+                          autocomplete="off" readonly="" [(ngModel)]="contactNo">
+                      </div>
+
+                      <div class="form-group col-md-3">
+                        <label class="note">Gestational Age <span class="manto"></span></label>
+                        <input class="form-control field" name="samplega" required="" type="text"
+                          placeholder="Gestational Age" readonly="" [(ngModel)]="samplega">
+                      </div>
+
+                    </div>
+
+                    <div class="form-row mt-4">
+                      <div class="form-group col-md-3">
+                        <label [ngClass]="{'label-border-class':DDcounsellorname.invalid && DDcounsellorname.touched || editAppointmentForm.submitted && DDcounsellorname.invalid}" for="inputriPoint">Counsellor Name<span
+                            class="manto"> *</span></label>
+                            <select class="form-control" name=DDcounsellorname #DDcounsellorname="ngModel"  
+                            [class.is-invalid]="DDcounsellorname.invalid && DDcounsellorname.touched || editAppointmentForm.submitted && DDcounsellorname.invalid"
+                            required [(ngModel)]="selectedname">
+                              <option value="">Select</option>
+                              <option *ngFor="let counsellordata of counsellornamelist"
+                                      [(value)]= "counsellordata.id ">
+                                  {{ counsellordata.name }}
+                              </option>
+                              </select>
+                              <small class=" ml-2 text-danger" *ngIf="DDcounsellorname.invalid && DDcounsellorname.touched">Please choose a Counsellor Name</small>
+                              <div *ngIf="editAppointmentForm.submitted && DDcounsellorname.invalid">     
+                                <small *ngIf="DDcounsellorname.untouched" class=" ml-2 text-danger">Counsellor Name is required</small>  
+                              </div>  
+                        </div>
+                      <div class="form-group col-md-3" [formGroup]="popupform">
+                        <label class="note">Date & Time <span class="manto">*</span></label>
+                        <ng2-flatpickr id="popupDate" name="editScheduleDate" class="form-control flatpickr flatpickr-input active" #editDatePicker
+                         [config]="editDateOptions" placeholder="Select Date.." formControlName = "editScheduleDate">
+                        </ng2-flatpickr>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer"> 
+                    <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                    <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Update</button>
+                  </div>
+                </form>
+              </div>
+              <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
+            </ng-template>
+         <!--  END CONTENT AREA  -->
+        </div>
+    </div>
+</div>

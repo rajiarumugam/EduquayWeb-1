@@ -76,6 +76,9 @@ import { UpdateDetailTestresultsComponent } from './pndtc/counselling-pre-pndt/u
 import { UpdateDecisionNoPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component';
 import { UpdateDecisionYesPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component';
 import { UpdateDecisionPendingPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component';
+import { SchedulePostPndtcMainComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component';
+import { SchedulePostPndtcScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component';
+import { SchedulePostPndtcToBeScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component';
 
 
 
@@ -130,7 +133,10 @@ const ngWizardConfig: NgWizardConfig = {
     UpdateDetailTestresultsComponent,
     UpdateDecisionNoPndtComponent,
     UpdateDecisionYesPndtComponent,
-    UpdateDecisionPendingPndtComponent
+    UpdateDecisionPendingPndtComponent,
+    SchedulePostPndtcMainComponent,
+    SchedulePostPndtcScheduledComponent,
+    SchedulePostPndtcToBeScheduledComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

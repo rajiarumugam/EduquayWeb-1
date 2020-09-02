@@ -145,6 +145,9 @@ import { UpdateDetailTestresultsComponent } from "./pndtc/counselling-pre-pndt/u
 import { UpdateDecisionNoPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component";
 import { UpdateDecisionYesPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component";
 import { UpdateDecisionPendingPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component";
+import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component";
+import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
+import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -329,6 +332,13 @@ const routes: Routes = [
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
       { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
+      {
+        path: 'schedule-post-pndtc', component: SchedulePostPndtcMainComponent,
+        children:[
+          {path: '', component: SchedulePostPndtcToBeScheduledComponent, pathMatch: 'full'},
+          {path: 'scheduled', component: SchedulePostPndtcScheduledComponent, pathMatch: 'full'}
+        ]
+      },
       { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
@@ -451,7 +461,10 @@ export const RoutingComponents = [
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
   UpdateDecisionYesPndtComponent,
-  UpdateDecisionPendingPndtComponent
+  UpdateDecisionPendingPndtComponent,
+  SchedulePostPndtcMainComponent,
+  SchedulePostPndtcScheduledComponent,
+  SchedulePostPndtcToBeScheduledComponent
 ];
 
 
