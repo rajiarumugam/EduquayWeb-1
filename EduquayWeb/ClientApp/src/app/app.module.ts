@@ -73,7 +73,7 @@ import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/cou
 import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
 import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
 
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -148,7 +148,7 @@ const ngWizardConfig: NgWizardConfig = {
     MatSliderModule,
     ReactiveFormsModule,
     Ng2FlatpickrModule,
-    
+    NgMultiSelectDropDownModule.forRoot()
    
   ],
   providers: [

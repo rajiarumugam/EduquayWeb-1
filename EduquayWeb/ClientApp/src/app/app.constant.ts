@@ -13,7 +13,8 @@ export const ENDPOINT = {
         "RETRIEVE_ASSOCIATED_ANM":"api/v1/WebMaster/RetrieveAssociatedANM/",
         "RETRIVESTATE":"api/v1/State/Retrieve",
         "RETRIVECLINICALDIAGNOSIS":"api/v1/ClinicalDiagnosis/Retrieve",
-        "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/"
+        "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/",
+        "RETRIVEANM":"api/v1/WebMaster/RetrieveANM/"
     },
     "SUBJECT":
     {
@@ -46,5 +47,23 @@ export const ENDPOINT = {
         "RETRIVEHPLCRESULTMASTER":"api/v1/Pathologist/HPLCResultMaster",
         "RETRIVEEDITHPLCDIAGOSIS":"api/v1/Pathologist/RetrieveEditHPLCDiagnosisDetail/",
         "ADDHPLCRESULT":"api/v1/Pathologist/AddHPLCDiagnosisResult"
+    }
+    ,
+    "PNDT":
+    {
+        "RETRIVEPNDTPENDING":"api/v1/PNDTObstetrician/RetrievePNDTPending",
+        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDTest",
+        "RETRIVEPNDTCOMPLETEDSUMMARY":"api/v1/PNDTObstetrician/RetrievePNDTCompletedSummary"
+    },
+    "PNDTMASTER":
+    {
+        "RETRIVEALLDISTRICT":"api/v1/PNDTMTPMaster/RetrieveAllDistrict",
+        "RETRIVECHCBASEDDISTRICT":"api/v1/PNDTMTPMaster/RetrieveCHC/",
+        "RETRIVEPHCBASEDPHC":"api/v1/PNDTMTPMaster/RetrievePHC/",
+        "RETRIVEPHCBASEDANM":"api/v1/PNDTMTPMaster/RetrieveANM/",
+        "RETRIVEPROCEDUREOFTESTING":"api/v1/PNDTMTPMaster/RetrieveProcedureOfTesting",
+        "RETRIVEPNDTCCOMPLECATIONS":"api/v1/PNDTMTPMaster/RetrievePNDTComplecations",
+        "RETRIVEPNDTCDIAGNOSIS":"api/v1/PNDTMTPMaster/RetrievePNDTDiagnosis",
+        "RETRIVEPNDTRESULT":"api/v1/PNDTMTPMaster/RetrievePNDTResult"
     }
 }
