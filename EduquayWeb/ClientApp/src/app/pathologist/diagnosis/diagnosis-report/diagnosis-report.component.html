@@ -235,8 +235,8 @@
                                 <label for="inputpathname">
                                     <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.others.invalid }"><b>Others</b><span class="manto"> *</span></span>
                                 </label>
-                                <input class="form-control field" name="name" required="" id="inputpathname" type="text"
-                                    placeholder="Others" tabindex="1" autocomplete="off" formControlName="others" [required]="showOthersTextbox ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.others.invalid }">
+                                <input class="form-control field" name="others" required="" id="inputpathname" type="text"
+                                    placeholder="Others" tabindex="1" autocomplete="off" formControlName="others"  [(ngModel)]="selectedOthers" [required]="showOthersTextbox ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.others.invalid }">
                             </div>
                     </div>
                     <div class="form-row m-1">

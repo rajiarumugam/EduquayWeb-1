@@ -80,7 +80,7 @@ import { SchedulePostPndtcMainComponent } from './pndtc/schedule-post-pndtc/sche
 import { SchedulePostPndtcScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component';
 import { SchedulePostPndtcToBeScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component';
 
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -162,7 +162,7 @@ const ngWizardConfig: NgWizardConfig = {
     MatSliderModule,
     ReactiveFormsModule,
     Ng2FlatpickrModule,
-    
+    NgMultiSelectDropDownModule.forRoot()
    
   ],
   providers: [

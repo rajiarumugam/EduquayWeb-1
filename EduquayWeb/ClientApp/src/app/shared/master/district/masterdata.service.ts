@@ -110,4 +110,12 @@ export class masterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
+  retriveANM(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var _userRi = this.user.riId.split(',')[0];
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVEANM+_userRi);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }

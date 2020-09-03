@@ -149,6 +149,15 @@ import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/sche
 import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
 import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
 
+import { PndTestingMainComponent } from "./pndtc/pnd-testing/pnd-testing-main/pnd-testing-main.component";
+import { pndTestingComponent } from './pndtc/pnd-testing/pnd-testing/pnd-testing.component';
+import { PNDTCPendingResolverService } from "./shared/pndtc/pndtc-pending-resolver.service";
+import { PNDTCCompletedResolverService } from "./shared/pndtc/pndtc-completed-resolver.service";
+
+import { PndTestingResultsMainComponent } from "./pndtc/pnd-testing/pnd-testing-results-main/pnd-testing-results-main.component";
+import { PNDTestingResultsComponent } from "./pndtc/pnd-testing/pnd-testing-results/pnd-testing-results.component";
+import { pndNotCompleteComponent } from "./pndtc/pnd-testing/pnd-not-complete/pnd-not-complete.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -320,6 +329,19 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'pndtc-testing', component: PndTestingMainComponent,
+        children:[
+          {path: '', component: pndTestingComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}},
+          {path: 'notcompleted', component: pndNotCompleteComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCCompletedResolverService}}
+        ]
+      },
+      {
+        path: 'pndtc-testing-result', component: PndTestingResultsMainComponent,
+        children:[
+          {path: '', component: PNDTestingResultsComponent, pathMatch: 'full'}
+        ]
+      },
+      {
         path: 'counselling-pre-pndt', component: CounsellingPrePndtMainComponent,
         children:[
           {path: '', component: ToBeCounselledComponent, pathMatch: 'full'},
@@ -458,6 +480,11 @@ export const RoutingComponents = [
   PrePndtcMainComponent,
   PrePndtcToBeScheduledComponent,
   PrePndtcScheduledComponent,
+  PndTestingMainComponent,
+  pndTestingComponent,
+  PndTestingResultsMainComponent,
+  PNDTestingResultsComponent,
+  pndNotCompleteComponent,
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
   UpdateDecisionYesPndtComponent,

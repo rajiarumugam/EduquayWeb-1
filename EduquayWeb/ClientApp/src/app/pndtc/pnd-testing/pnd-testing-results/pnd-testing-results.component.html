@@ -1,0 +1,537 @@
+      <div class="row layout-top-spacing">
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+              <div class="widget-content widget-content-area br-6">
+                  <div class="row">
+                      <div class="col-md-12">
+                      
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <tbody class="">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="float-left mt-0 mr-4">
+                                                                <h5><b>Subject ID :</b> {{testingPNDData?.anwSubjectId}}
+                                                                    <strong class="ml-5">Subject Name :</strong> {{testingPNDData?.subjectName}}, {{testingPNDData?.age}} yrs
+                                                                    <strong class="ml-5">RCH ID :</strong> {{testingPNDData?.rchId}}
+                                                                </h5>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Subject Details</b>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                        <td class="sp-xs-td-15">{{testingPNDData?.subjectName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                                        <td class="sp-xs-td-15">{{testingPNDData?.anwSubjectId}}</td>
+                                                        <td class="sp-xs-td-9"><b>Age</b></td>
+                                                        <td class="sp-xs-td-15">{{testingPNDData?.age}} yrs</td>
+                                                        <td class="sp-xs-td-9"><b>Contact No</b></td>
+                                                        <td class="sp-xs-td-15">{{testingPNDData?.contactNo}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>LMP Date</b></td>
+                                                        <td>{{testingPNDData?.lmpDate}}</td>
+                                                        <td><b>Gestational Age</b></td>
+                                                        <td>{{testingPNDData?.ga}}</td>
+                                                        <td><b>Obstetrics Score</b></td>
+                                                        <td>{{testingPNDData?.obstetricScore}}</td>
+                                                        <td><b>EC Number</b></td>
+                                                        <td>{{testingPNDData?.ecNumber}}</td>
+                                                        
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                            <div class="widget-content widget-content-area br-6">
+                               
+                                <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h6 class="mt-2"><b>Test Results Summary</b></h6>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                       <th class="text-center"><span>Subject Info</span></th>
+                                                        <!-- <th class="text-center"><span>Barcodes</span></th> -->
+                                                       <th class="text-center"><span>CBC</span></th>
+                                                       <th class="text-center"><span>SST</span></th>
+                                                       <th class="text-center"><span>HPLC</span></th>
+                                                       
+                                                    </tr>
+            
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-left">Alkha, F, 24 yrs </td>
+                                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                                        <td class="text-left">Screening Test Positive</td>
+                                                        <td class="text-left">SST Positive</td>
+                                                        <td class="text-left">Thalassemia</td>
+                                               
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-left">Ajith, M, 27 yrs </td>
+                                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                                        <td class="text-left">Screening Test Positive</td>
+                                                        <td class="text-left">SST Positive</td>
+                                                        <td class="text-left">Thalassemia</td>
+                                                       
+                                                    </tr>
+                                                </tbody>
+                                                </table>
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                            <div class="widget-content widget-content-area br-6">
+                                <div id="toggleAccordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne1">
+                                            <section class="mb-0 mt-0">
+                                                <div role="menu" class="collapsed" data-toggle="collapse"
+                                                    data-target="#defaultAccordionOne" aria-expanded="true"
+                                                    aria-controls="defaultAccordionOne">
+                                                    Detailed Test Results <div class="icons"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-chevron-down">
+                                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                                        </svg></div>
+                                                </div>
+                                            </section>
+                                        </div>
+    
+                                        <div id="defaultAccordionOne" class="collapse"
+                                            aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                            <div class="card-body">
+                                                <div class="table-responsive my-2">
+                                                    <table class="table table-bordered table-hover mb-4">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center"><span>SST Results</span></th>
+                                                                <th class="text-center"><span>Diagnosis</span></th>
+                                                            </tr>
+                    
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-left">Alkha, F, 24 yrs </td>
+                                                                <td class="text-left">SST Positive</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">Ajith, M, 28 yrs </td>
+                                                                <td class="text-left">SST Positive</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="table-responsive my-2">
+                                                    <table class="table table-bordered table-hover mb-4">
+                                                        <thead>
+                                                            <tr>
+                                                               <th class="text-center"><span>CBC Results</span></th>
+                                                                
+                                                               <th class="text-center"><span>Diagnosis</span></th>
+                                                            </tr>
+                    
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-left">Alkha, F, 24 yrs </td>
+                                                                
+                                                                <td class="text-left"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">Ajith, M, 27 yrs </td>
+                                                                
+                                                                <td class="text-left"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="table-responsive my-2">
+                                                    <table class="table table-bordered table-hover mb-4">
+                                                        <thead>
+                                                            <tr>
+                                                               <th class="text-center"><b>HPLC Results</b></th>
+                                                                
+                                                               <th class="text-center"><b>Diagnosis</b></th>
+                                                            </tr>
+                    
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-left">Alkha, F, 24 yrs </td>
+                                                                
+                                                                <td class="text-left"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-left">Ajith, M, 27 yrs </td>
+                                                                
+                                                                <td class="text-left"></td>
+                                                            </tr>
+                    
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                            <div class="widget-content widget-content-area br-6">
+                                <div id="toggleAccordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne1">
+                                            <section class="mb-0 mt-0">
+                                                <div role="menu" class="collapsed" data-toggle="collapse"
+                                                    data-target="#defaultAccordionTwo" aria-expanded="true"
+                                                    aria-controls="defaultAccordionTwo">
+                                                   Pre PNDT Counselling <div class="icons"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-chevron-down">
+                                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                                        </svg></div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div id="defaultAccordionTwo" class="collapse"
+                                            aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped mb-2">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>Date & Time</b></td>
+                                                                        <td>{{testingPNDData?.counsellingDateTime}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Counsellor Name</b></td>
+                                                                        <td>{{testingPNDData?.counsellorName}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Counselling Notes/Remarks</b></td>
+                                                                        <td>{{testingPNDData?.counsellingRemarks}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped mb-2">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>Counselling Status</b></td>
+                                                                        <td>{{testingPNDData?.counsellingStatus}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Scheduled PNDT Date & Time</b></td>
+                                                                        <td>{{testingPNDData?.schedulePNDTDate}} {{testingPNDData?.schedulePNDTTime}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row my-2">
+                                                    <div class="col-md-6 ml-3"><b>Note:</b> Received signed consent form from subject and filed.
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+    
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                            <div class="widget-content br-6">
+                                <div class="row my-3">
+                                    
+                                    <div class="col-md-12 d-flex justify-content-end ">
+                                        <a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl1"
+                                            role="button">Update</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-xl1" tabindex="-1" role="dialog"
+                            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title modaltitle">Update PND Testing</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body form-body">
+                                        <form [formGroup]="FormGroup">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody class="">
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="float-left mt-0 mr-4">
+                                                                        <h5><b>Subject ID :</b> {{testingPNDData?.anwSubjectId}}
+                                                                            <strong class="ml-5">Subject Name :</strong> {{testingPNDData?.subjectName}}, {{testingPNDData?.age}} yrs
+                                                                            <strong class="ml-5">RCH ID :</strong> {{testingPNDData?.rchId}}
+                                                                        </h5>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <span class="note">PNDT Date & Time </span><span
+                                                    class="manto">*</span>
+                                                    <input
+                                                    class="form-control field" type="text"
+                                                     readonly formControlName="pndtDate" [(ngModel)]="selectedpndtDate">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <span class="note">Counsellor Name </span><span
+                                                    class="manto">*</span>
+                                                <input class="form-control field" name="name"
+                                                    required="" type="text" placeholder=""
+                                                    tabindex="1" autocomplete="off" readonly formControlName="counsellorName" [(ngModel)]="selectedcounsellerName">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.obstetricianName.invalid }">Obstetrician Name </span><span
+                                                    class="manto">*</span>
+                                                <input class="form-control field" name="obstetricianName"
+                                                    required="" type="text" placeholder=""
+                                                    tabindex="1" autocomplete="off" formControlName="obstetricianName"  [(ngModel)]="selectedObstetricianName" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.obstetricianName.invalid }">
+                                            </div>
+                                        </div>
+                                          
+                                        <div class="form-row">
+                                        
+                                        <div class="form-group col-md-4">
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.clinicalHistory.invalid }">Clinical History </span><span
+                                                class="manto">*</span>
+                                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="clinicalHistory"  [(ngModel)]="selectedclinicalHistory" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.clinicalHistory.invalid }"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.examination.invalid }">Examination </span><span
+                                                class="manto">*</span>
+                                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="examination"  [(ngModel)]="selectedexamination" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.examination.invalid }"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }">Procedure of Testing </span><span
+                                                class="manto">*</span>
+                                                <select id="inputChild" name="procedureOfTesting"
+                                                    class="form-control field" id="occuptnid"
+                                                    tabindex="7" required="" formControlName="procedureOfTesting"  [(ngModel)]="selectedprocedureOfTesting" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }" (change)="POTchange();">
+                                                    <option [ngValue]="null">Select Procedure</option>
+                                                    <option [value]="data.id" *ngFor="let data of POTData">{{data.name}}</option>
+                                                </select>
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                    <span class="note" [ngClass]="{'label-border-class': firstFormCheck && selectedcomplicationsItems.length==0 ? true : false }">Complications</span> <span class="manto">*</span>                        
+                                                <div class="form-group ">
+                                                    <ng-multiselect-dropdown #multiSelect
+                                                    [placeholder]="'Select'" 
+                                                    [data]="complicationsdata" 
+                                                    [formControl]="complications" 
+                                                    [settings]="settings"
+                                                    [disabled]="false"
+                                                    (onFilterChange)="onFilterChange($event)"
+                                                     (onDropDownClose)="onDropDownClose($event)"
+                                                    (onSelect)="onItemSelect($event)" 
+                                                    (onDeSelect)="onDeSelect($event)"
+                                                    (onSelectAll)="onSelectAll($event)"
+                                                    (onDeSelectAll)="onDeSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4" *ngIf="selectedanyOtherComplications">
+                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">Others </span><span
+                                                    class="manto">*</span>
+                                                <input class="form-control field" name="name"
+                                                    required="" type="text" placeholder=""
+                                                    tabindex="1" autocomplete="off" formControlName="anyOtherComplications" [(ngModel)]="selectedothercomp" [required]="selectedanyOtherComplications" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">
+                                            </div>
+                                            <!-- test3 -->
+                                            <div class="form-group col-md-4" *ngIf="selectedprocedureOfTesting == 3 && !selectedanyOtherComplications  ? true : flase"></div>
+
+
+                                            <div class="form-group col-md-4"  *ngIf="selectedprocedureOfTesting == 3 ? true : false" [ngClass]="{'col-md-offset-3':true }">
+                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.otherPOT.invalid }">Others Procedure of Testing</span><span
+                                                    class="manto">*</span>
+                                                <input class="form-control field" name="name"
+                                                    required="" type="text" placeholder=""
+                                                    tabindex="1" autocomplete="off" formControlName="otherPOT" [(ngModel)]="selectedotherPOT" [required]="selectedprocedureOfTesting == 3 ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.otherPOT.invalid }">
+                                            </div>
+    
+                                        </div>
+
+                                        <div class="form-row" style="display:none;" id="Sideeffects">
+                                            <div class="form-group col-md-3">
+                                                    <span class="note"></span>
+                                                        <input class="form-control field" name="name"
+                                                            required="" type="text" placeholder="Side Effects"
+                                                            tabindex="1" autocomplete="off">
+                                            </div>
+                                          </div>
+                                        </form>
+                                        <form [formGroup]="secondFormGroup">
+                                            <!-- Post PNDT Procedure -->
+                                            <h4 class="modal-title modaltitle py-2">Post PNDT Procedure</h4>
+                                            <span class="note">Condition at Discharge</span>
+                                            <!-- <span class="note">Condition at Discharge</span> -->
+                                            <div class="row py-2">
+                                                <div class="col-md-4">
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">Mother Voided</span><br>
+                                                      <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadioInline1" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="true" [required]='secondFormCheck'>
+                                                            <label class="custom-control-label" for="customRadioInline1">Yes </label>
+                                                            </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadioInline2" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="false" [required]='secondFormCheck'>
+                                                            <label class="custom-control-label" for="customRadioInline2">No</label>
+                                                        </div> 
+                                                </div>
+                                                <div class="col-md-4">
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVital.invalid }">Mother’s Vitals (Pulse & BP) Stable</span><br>
+                                                      <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="customRadioInline3" name="motherVital" class="custom-control-input" formControlName="motherVital" value="true" [required]='secondFormCheck'>
+                                                        <label class="custom-control-label" for="customRadioInline3">Yes </label>
+                                                        </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="customRadioInline4" name="motherVital" class="custom-control-input" formControlName="motherVital" value="false" [required]='secondFormCheck'>
+                                                        <label class="custom-control-label" for="customRadioInline4">No</label>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-4">
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.foetalHeart.invalid }">Foetal Heart Rate documented in Scan</span><br>
+                                                      <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="customRadioInline5" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="true" [required]='secondFormCheck'>
+                                                        <label class="custom-control-label" for="customRadioInline5">Yes </label>
+                                                        </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="customRadioInline6" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="false" [required]='secondFormCheck'>
+                                                        <label class="custom-control-label" for="customRadioInline6">No</label>
+                                                    </div> 
+                                                </div>
+    
+                                                <div class="col-md-4 py-4">
+                                                <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">PNDT Diagnosis</span>
+                                                <select name="occupationoption"
+                                                                class="form-control field" id="inputSideEffects"
+                                                                tabindex="7" [(ngModel)]="selectedPNDTDiagnosis" formControlName="PNDTDiagnosis" [required]='secondFormCheck' [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">
+                                                                <option [ngValue]="null">Select Diagnosis</option>
+                                                                <option [value]="data.id" *ngFor="let data of POTDiagnosis">{{data.name}}</option>
+                                                                
+                                                            </select>
+                
+                                                </div>
+    
+                                                <div class="col-md-4 py-4">
+                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">PNDT Results</span>
+                                                    <select name="occupationoption"
+                                                                    class="form-control field" id="inputSideEffects"
+                                                                    tabindex="7" [(ngModel)]="selectedPNDTResults" formControlName="PNDTResults" [required]='secondFormCheck'  [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">
+                                                                    <option [ngValue]="null">Select Results</option>
+                                                                <option [value]="data.id" *ngFor="let data of POTResultData">{{data.name}}</option>
+                                                                
+                                                                </select>
+                    
+                                                    </div>
+                                                    <div class="col-md-4 py-4">
+                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.planForPregenancy.invalid }">Plan for Pregnancy Continue</span><br>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadioInline7" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="Yes: OG Follow up" [required]='secondFormCheck'>
+                                                    <label class="custom-control-label" for="customRadioInline7">Yes: OG Follow up </label>
+                                                    </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadioInline8" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="Plan for MTP" [required]='secondFormCheck'>
+                                                    <label class="custom-control-label" for="customRadioInline8">Plan for MTP</label>
+                                                </div> 
+    
+                                     </div>
+    
+                                            </div>
+                                    
+                                    
+                                        </form>    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-success successdamaged" role="button"
+                                        id="linktopendingresult" (click)="pndSubmit('save')">Save & Update Later</a>
+                                        <a class="btn btn-success successdamaged" role="button"
+                                            id="linktopendingresult" (click)="pndSubmit('submit')"> Confirm & Close</a>
+                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                                            Close</button>
+                                        <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                    </div>
+                                </div>
+
+
+  
+
+

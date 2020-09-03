@@ -40,6 +40,7 @@ export class DiagosisReportComponent implements OnInit {
   selectedRemarks = "";
   SelecteddiagnosticSummary = "";
   selectedpathologistName = "";
+  selectedOthers;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -95,6 +96,9 @@ export class DiagosisReportComponent implements OnInit {
       this.selectedpathologistName = this.diagnosisReportData.seniorPathologistName;
   if(this.diagnosisReportData.seniorPathologistRemarks)
       this.selectedRemarks = this.diagnosisReportData.seniorPathologistRemarks;
+  if(this.diagnosisReportData.othersResult)
+      this.selectedOthers = this.diagnosisReportData.othersResult;
+      
    
    
    
@@ -190,6 +194,7 @@ export class DiagosisReportComponent implements OnInit {
 
       if(this.HPLCmasterData[3].checked)
       {
+        this.showOthersTextbox = true;
         this.HPLCmasterData[1].disable = true;
         this.HPLCmasterData[2].disable = true;
         this.HPLCmasterData[0].disable = true;
