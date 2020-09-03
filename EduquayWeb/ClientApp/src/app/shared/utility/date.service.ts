@@ -105,4 +105,12 @@ getTime = function () {
   };
   
 
+  convertToDateTimeFormat(strDate){
+  
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+    console.log(dateFormat);
+    return dateFormat;
+  
+  }
 }

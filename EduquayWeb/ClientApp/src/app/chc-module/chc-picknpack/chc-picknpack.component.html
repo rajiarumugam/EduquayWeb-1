@@ -218,7 +218,7 @@
                                                                 <label [ngClass]="{'label-border-class':DDLchc.invalid && DDLchc.touched || chcShipmentForm.submitted && DDLchc.invalid}" for="inputriPoint">Collection CHC<span
                                                                     class="manto">*</span></label>
                                                                     <select class="form-control" (change)="onChangeriPoint($event.target.value)"
-                                                                    name=DDLchc #DDLchc="ngModel" [class.is-invalid]="DDLchc.invalid && DDLchc.touched || chcShipmentForm.submitted && DDLchc.invalid"
+                                                                    name=DDLchc #DDLchc="ngModel" ngModel="ngModel" [class.is-invalid]="DDLchc.invalid && DDLchc.touched || chcShipmentForm.submitted && DDLchc.invalid"
                                                                     required [(ngModel)]="selectedChc">
                                                                       <option value="">--Select--</option>
                                                                       <option *ngFor="let chcPoint of collectionchc"
