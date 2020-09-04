@@ -1,25 +1,25 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
-import { DataService } from 'src/app/shared/data.service';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { user } from 'src/app/shared/auth-response';
+import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
+import { CounsellPostPndtRequest } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-request';
+import { CounsellPostPndtResponse, PostCounsellingList } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-response';
+import { DataService } from 'src/app/shared/data.service';
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
+import { CounsellPostPndtService } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FormBuilder } from '@angular/forms';
-import { user } from 'src/app/shared/auth-response';
-import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
-import { HttpErrorResponse } from '@angular/common/http';
-import { CounsellPrePndtService } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt.service';
-import { CounsellPrePndtResquest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
-import { CounsellPrePndtResponse, CounsellingList } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-to-be-counselled',
-  templateUrl: './to-be-counselled.component.html',
-  styleUrls: ['./to-be-counselled.component.css']
+  selector: 'app-to-be-post-pndt-counselled',
+  templateUrl: './to-be-post-pndt-counselled.component.html',
+  styleUrls: ['./to-be-post-pndt-counselled.component.css']
 })
-export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit  {
+export class ToBePostPndtCounselledComponent implements AfterViewInit, OnDestroy, OnInit  {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
@@ -27,14 +27,13 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
-  prepndtcounsellingErrorMessage: string;
-  masterdataErrorMessage: string;
+  postpndtcounsellingErrorMessage: string;
  
   user: user;
   pndtmtpMasterResponse: PndtMtpMasterResponse;
-  counsellingprepndtRequest: CounsellPrePndtResquest;
-  counsellingprepndtResponse: CounsellPrePndtResponse;
-  counsellinglists: CounsellingList[] = [];
+  counsellingpostpndtRequest: CounsellPostPndtRequest;
+  counsellingpostpndtResponse: CounsellPostPndtResponse;
+  counsellinglists: PostCounsellingList[] = [];
   districts: dataModel[] = [];
   selectedDistrict: string = '';
   chclists: dataModel[] = [];
@@ -49,7 +48,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
   constructor(
     private dataservice: DataService,
     private pndtmtpMasterService: PndtMtpMasterService,
-    private counsellingprepndtService: CounsellPrePndtService,
+    private counsellingpostpndtService: CounsellPostPndtService,
     private tokenService: TokenService,
     private loaderService: LoaderService,
     private _formBuilder: FormBuilder,
@@ -61,7 +60,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     this.loaderService.display(true);
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "To be Counselled"}));
+    this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Post PNDT", "page": "To be Counselled"}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -81,36 +80,35 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
       }   
     };
     this.ddlDistrict(this.user.id);
-    this.counsellingprepndtRequest = {
+    this.counsellingpostpndtRequest = {
       userId: this.user.id, districtId: 0,
       chcId: 0,
       phcId: 0,
       anmId: 0
     };
-    let counsellingdata = this.counsellingprepndtService.getcounsellingLists(this.counsellingprepndtRequest)
+    let counsellingdata = this.counsellingpostpndtService.getcounsellingLists(this.counsellingpostpndtRequest)
       .subscribe(response => {
-        this.counsellingprepndtResponse = response;
+        this.counsellingpostpndtResponse = response;
         this.loaderService.display(false);
-        if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
-          if (this.counsellingprepndtResponse.data.length <= 0) {
-            this.prepndtcounsellingErrorMessage = response.message;
+        if (this.counsellingpostpndtResponse !== null && this.counsellingpostpndtResponse.status === "true") {
+          if (this.counsellingpostpndtResponse.data.length <= 0) {
+            this.postpndtcounsellingErrorMessage = response.message;
           }
           else {
-            this.counsellinglists = this.counsellingprepndtResponse.data;
+            this.counsellinglists = this.counsellingpostpndtResponse.data;
             this.rerender();
           }
         }
         else {
-          this.prepndtcounsellingErrorMessage = response.message;
+          this.postpndtcounsellingErrorMessage = response.message;
         }
         
       },
         (err: HttpErrorResponse) => {
-          this.prepndtcounsellingErrorMessage = err.toString();
+          this.postpndtcounsellingErrorMessage = err.toString();
         });
   }
 
-  
   ddlDistrict(userId) {
     let district = this.pndtmtpMasterService.getDistrict(userId).subscribe(response => {
       this.pndtmtpMasterResponse = response;
@@ -119,15 +117,15 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
         this.selectedDistrict = "";
       }
       else {
-        this.masterdataErrorMessage = response.message;
+        this.postpndtcounsellingErrorMessage = response.message;
       }
     },
       (err: HttpErrorResponse) => {
-        this.masterdataErrorMessage = err.toString();
+        this.postpndtcounsellingErrorMessage = err.toString();
 
       });
   }
-   onChangeDistrict() {
+  onChangeDistrict() {
   
     if (this.selectedDistrict === '') {
       this.selectedchc = '';
@@ -174,11 +172,11 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
           // }
         }
         else {
-          this.masterdataErrorMessage = response.message;
+          this.postpndtcounsellingErrorMessage = response.message;
         }
       },
         (err: HttpErrorResponse) => {
-          this.masterdataErrorMessage = err.toString();
+          this.postpndtcounsellingErrorMessage = err.toString();
 
         });
   }
@@ -198,11 +196,11 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
           // }
         }
         else {
-          this.masterdataErrorMessage = response.message;
+          this.postpndtcounsellingErrorMessage = response.message;
         }
       },
         (err: HttpErrorResponse) => {
-          this.masterdataErrorMessage = err.toString();
+          this.postpndtcounsellingErrorMessage = err.toString();
 
         });
   }
@@ -222,11 +220,11 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
           // }
         }
         else {
-          this.masterdataErrorMessage = response.message;
+          this.postpndtcounsellingErrorMessage = response.message;
         }
       },
         (err: HttpErrorResponse) => {
-          this.masterdataErrorMessage = err.toString();
+          this.postpndtcounsellingErrorMessage = err.toString();
 
         });
   }
@@ -236,28 +234,28 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     this.loaderService.display(true);
     this.recordCount = 0;
     this.counsellinglists=[];
-    this.prepndtcounsellingErrorMessage='';
-    this.counsellingprepndtRequest = {
+    this.postpndtcounsellingErrorMessage='';
+    this.counsellingpostpndtRequest = {
       userId: this.user.id, districtId: +(this.selectedDistrict),
       chcId: +(this.selectedchc),
       phcId: +(this.selectedphc),
       anmId: +(this.selectedanm)
     };
-    let counsellingdata = this.counsellingprepndtService.getcounsellingLists(this.counsellingprepndtRequest)
+    let counsellingdata = this.counsellingpostpndtService.getcounsellingLists(this.counsellingpostpndtRequest)
       .subscribe(response => {
-        this.counsellingprepndtResponse = response;
+        this.counsellingpostpndtResponse = response;
         this.loaderService.display(false);
-        if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
-          if (this.counsellingprepndtResponse.data.length <= 0) {
-            this.prepndtcounsellingErrorMessage = response.message;
+        if (this.counsellingpostpndtResponse !== null && this.counsellingpostpndtResponse.status === "true") {
+          if (this.counsellingpostpndtResponse.data.length <= 0) {
+            this.postpndtcounsellingErrorMessage = response.message;
           }
           else {
-            this.counsellinglists = this.counsellingprepndtResponse.data;
+            this.counsellinglists = this.counsellingpostpndtResponse.data;
             this.recordCount = this.counsellinglists.length;
           }
         }
         else {
-          this.prepndtcounsellingErrorMessage = response.message;
+          this.postpndtcounsellingErrorMessage = response.message;
         }
         this.onLoadSubject.emit(this.recordCount);    //step 5
         this.rerender();
@@ -266,14 +264,14 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
       },
         (err: HttpErrorResponse) => {
           if (this.loadDataTable) this.rerender();
-          this.prepndtcounsellingErrorMessage = err.toString();
+          this.postpndtcounsellingErrorMessage = err.toString();
         });
   }
 
-  openpndtdetail(counsellingdata: CounsellingList ){
+  openpndtdetail(counsellingdata: PostCounsellingList ){
 
     this.anwSubjectId = counsellingdata.anwSubjectId;
-    this.router.navigateByUrl(`/app/update-pre-pndtc?q=${this.anwSubjectId}`);
+    this.router.navigateByUrl(`/app/update-post-pndtc?q=${this.anwSubjectId}`);
     
   }
 

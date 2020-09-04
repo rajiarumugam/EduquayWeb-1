@@ -20,33 +20,34 @@
                 </select>
             </div>
             <div class="form-group col-md-2">
-                <label for="inputCHC">CHC</label>
-                <select id="inputCHC" class="form-control"
-                name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
-                    <option value="">Select</option>
-                    <option *ngFor="let chc of chclists" [(value)]="chc.id ">
-                        {{chc.name}}
-                    </option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputPHC">PHC</label>
-                <select id="inputPHC" class="form-control" name=DDLphc #DDLphc="ngModel" ngModel required [(ngModel)]="selectedphc">
-                    <option value="">Select</option>
-                    <option *ngFor="let phc of phclists" [(value)]=" phc.id ">
-                        {{phc.name}}
-                    </option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputANM">ANM</label>
-                <select id="inputANM" class="form-control" name=DDLanm #DDLanm="ngModel" ngModel required [(ngModel)]="selectedanm">
-                    <option value="">Select</option>
-                    <option *ngFor="let anm of anmlists" [(value)]="anm.id">
-                        {{anm.name}}
-                    </option>
-                </select>
-            </div>
+              <label for="inputCHC">CHC</label>
+              <select id="inputCHC" class="form-control" (change)="onChangechc($event.target.value)"
+              name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
+                  <option value="">Select</option>
+                  <option *ngFor="let chc of chclists" [(value)]=" chc.id ">
+                      {{chc.name}}
+                  </option>
+              </select>
+          </div>
+          <div class="form-group col-md-2">
+              <label for="inputPHC">PHC</label>
+              <select id="inputPHC" class="form-control" name=DDLphc #DDLphc="ngModel" (change)="onChangephc($event.target.value)"
+              ngModel required [(ngModel)]="selectedphc">
+                  <option value="">Select</option>
+                  <option *ngFor="let phc of phclists" [(value)]=" phc.id ">
+                      {{phc.name}}
+                  </option>
+              </select>
+          </div>
+          <div class="form-group col-md-2">
+              <label for="inputANM">ANM</label>
+              <select id="inputANM" class="form-control" name=DDLanm #DDLanm="ngModel" ngModel required [(ngModel)]="selectedanm">
+                  <option value="">Select</option>
+                  <option *ngFor="let anm of anmlists" [(value)]="anm.id">
+                      {{anm.name}}
+                  </option>
+              </select>
+          </div>
             <div class="px-2 bd-highlight search-margin" >
                 <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
                 <a (click)="retrivescheduledlists()"><button type="submit" class="btn search-bu">

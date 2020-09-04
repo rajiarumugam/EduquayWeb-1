@@ -13,16 +13,16 @@
             <div class="row layout-top-spacing">
                 <!-- <div class="col-md-12 text-center">
                 <h5 class="">ANM Name - PHC Name</h5>
-            </div> -->
+                </div> -->
                 <div class="col-md-12">
                     <div class="justify-between">
                         <div class="col-md-4">
-                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-pre-pndt']"
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-post-pndt']"
                                 role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center"> Counselling – Pre PNDT </h5>
+                                <h5 class="float-center"> Counselling – Post PNDT </h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -68,11 +68,11 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="form-row mt-4">
                             <div class="col-sm-12">
-                                <div *ngIf="updatepndtcErrorMessage" class="alert mt-3 mb-2"
-                                    [ngClass]="{'alert-warning': updatepndtcErrorMessage ==='No subjects found', 'alert-danger': updatepndtcErrorMessage !== 'No subjects found'}">
+                                <div *ngIf="updatepostpndtcErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': updatepostpndtcErrorMessage ==='No subjects found', 'alert-danger': updatepostpndtcErrorMessage !== 'No subjects found'}">
                                     <span class="fa fa-info-circle mr-2"
                                         style="font-size: 16px;"></span><strong>Oops!</strong>
-                                    {{updatepndtcErrorMessage}}
+                                    {{updatepostpndtcErrorMessage}}
                                 </div>
                             </div>
                         </div>
@@ -174,15 +174,117 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="6" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;">
+                                                    <a href="#" class="pthead">
+                                                        <b>
+                                                            <div class="d-flex">
+                                                                <div class="p-2">Pre-natal Diagnosis Counselling</div>
+                                                                <div class="ml-auto p-2"><i
+                                                                        class="fa fa-caret-down"></i></div>
+                                                            </div>
+                                                        </b>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="d-none">
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>Date & Time</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.prePNDTCounsellingDateTime}}</td>
+                                                <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.prePNDTCounsellorName}}</td>
+                                                <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.prePNDTCounsellingRemarks}}</td>
+                                            </tr>
 
+                                            <tr>
+                                                <td><b>Counselling Status</b></td>
+                                                <td>{{counsellingdataItem?.prePNDTCounsellingStatus}}</td>
+                                                <td><b>Scheduled PNDT Date & Time</b></td>
+                                                <td>{{counsellingdataItem?.schedulePrePNDTDate}} {{counsellingdataItem?.schedulePrePNDTTime}}</td>
+
+                                            </tr>  
+                                        </tbody>
+                                        <!-- <div class="row my-2">
+                                            <div class="col-md-6 ml-3"><b>Note</b>: Received signed consent form from subject and filed.
+                                            </div>
+                                        </div> -->
+                                    </table>
+                                    
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="6" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;">
+                                                    <a href="#" class="pthead">
+                                                        <b>
+                                                            <div class="d-flex">
+                                                                <div class="p-2">Pre-natal Diagnosis Test</div>
+                                                                <div class="ml-auto p-2"><i
+                                                                        class="fa fa-caret-down"></i></div>
+                                                            </div>
+                                                        </b>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="d-none">
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>PNDT Date & Time</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.pndtDateTime}}</td>
+                                                <td class="sp-xs-td-9"><b>Obstetrician Name</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.pndtObstetrician}}</td>
+                                                <td class="sp-xs-td-9"><b>PNDT Results</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.pndtResults}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Counsellor Name</b></td>
+                                                <td>{{counsellingdataItem?.pndtCounsellorName}} </td>
+                                                <td><b>PNDT Diagnosis</b></td>
+                                                <td>{{counsellingdataItem?.pndtDateTime}}</td>
+
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counsellingdataItem?.foetalDisease === true">
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead class="tablecss">
                                     <tr class="" style="background-color: #e3e8ef;">
                                         <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
-                                            <b>Update Pre-natal Diagnosis Counselling</b>
+                                            <b>Update Post PNDT Counselling</b>
                                         </th>
                                     </tr>
 
@@ -191,8 +293,8 @@
                             </table>
                         </div>
 
-                        <form class="text-left" (ngSubmit)="updatePndtForm.form.valid && onSubmit(updatePndtForm)"
-                            #updatePndtForm="ngForm" novalidate>
+                        <form class="text-left" (ngSubmit)="updatePostPndtForm.form.valid && onSubmit(updatePostPndtForm)"
+                            #updatePostPndtForm="ngForm" novalidate>
                             <div class="table-responsive">
                                 <table class="table table-borderless">
 
@@ -201,7 +303,7 @@
                                             <td>Counsellor Name</td>
                                             <td></td>
                                             <td>
-                                                {{counsellingdataItem?.counsellorName}}
+                                                {{counsellingdataItem?.prePNDTCounsellorName}}
                                             </td>
                                         </tr>
                                         
@@ -213,7 +315,7 @@
                                                     ngModel></textarea></td>
                                         </tr>
                                         <tr>
-                                            <td>The couple has agreed for Pre-natal diagnosis test</td>
+                                            <td>The couple has agreed for MTP</td>
                                             <td></td>
                                             <td>
                                                 <div class="col-sm-12">
@@ -265,7 +367,7 @@
 
                                                 <select class="form-control" name=DDLobstetrician
                                                     #DDLobstetrician="ngModel"
-                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePndtForm.submitted && DDLobstetrician.invalid"
+                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePostPndtForm.submitted && DDLobstetrician.invalid"
                                                     required [(ngModel)]="selectedobstetrician" [disabled]="!isSelectedYes">
                                                     <option value="">Select</option>
                                                     <option *ngFor="let obstetriciandata of obstetricianlists"
@@ -276,7 +378,7 @@
                                                 <small class=" ml-2 text-danger"
                                                     *ngIf="DDLobstetrician.invalid && DDLobstetrician.touched">Please
                                                     choose a Obstetrician Name</small>
-                                                <div *ngIf="updatePndtForm.submitted && DDLobstetrician.invalid">
+                                                <div *ngIf="updatePostPndtForm.submitted && DDLobstetrician.invalid">
                                                     <small *ngIf="DDLobstetrician.untouched"
                                                         class=" ml-2 text-danger">Obstetrician Name is required</small>
                                                 </div>
@@ -287,12 +389,12 @@
                                 </table>
                             </div>
                             <div class="form-row" *ngIf="isDecisionYes">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="table-responsive">
                                         <table class="table table-borderless">
                                             <tbody>
                                                 <tr>
-                                                    <td class="sp-sm-th"> Schedule PNDT Date & Time</td>
+                                                    <td class="sp-sm-th"> Schedule MTP Date & Time</td>
                                                     <td></td>
                                                 </tr>
                                             </tbody>
@@ -343,6 +445,60 @@
                         </form>
                     </div>
                 </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counsellingdataItem?.foetalDisease === false">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
+                                            <b>Update Post PNDT Counselling</b>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                            </table>
+                        </div>
+
+                        <form class="text-left" (ngSubmit)="updatePostPndtForm.form.valid && onSubmit(updatePostPndtForm)"
+                            #updatePostPndtForm="ngForm" novalidate>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Counsellor Name</td>
+                                            <td></td>
+                                            <td>
+                                                {{counsellingdataItem?.prePNDTCounsellorName}}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Counselling Notes/Remarks</td>
+                                            <td></td>
+                                            <td><textarea id="textarea" class="form-control textarea" maxlength="225"
+                                                    rows="2" placeholder="" name=Remarks #Remarks="ngModel"
+                                                    ngModel></textarea></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-row m-1">
+                                <div class="form-group col-md-12">
+                                    <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
+                                    class="flaticon-cancel-12"></i>
+                                Close</button> -->
+                                    <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+                                        name="linkto">Submit</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                
             </div>
 
@@ -352,10 +508,15 @@
 </div>
 <!--  END MAIN CONTAINER  -->
 
-<i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
-<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
-<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
-<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<!--<i appLoadScript [script]="''"></i>-->
+    <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+    <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+    <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+    <!--<i appLoadScript [script]="''"></i>-->
 
 <!--  END MAIN CONTAINER  -->

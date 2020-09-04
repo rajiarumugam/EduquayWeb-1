@@ -85,7 +85,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
     //minDate: this.dyCollectionDate,
-    maxDate: new Date(Date.now()),
+    minDate: new Date(Date.now()),
     enableTime: true,
   };
 
@@ -130,7 +130,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     this.pndtscheduleDate = moment().format("DD/MM/YYYY");
     this.pndtscheduleTime = moment().format("HH:mm");
     this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.dateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.ddlobstetricianName();
   }
