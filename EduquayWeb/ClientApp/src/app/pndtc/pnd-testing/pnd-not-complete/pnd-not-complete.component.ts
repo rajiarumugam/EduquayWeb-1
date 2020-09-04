@@ -33,6 +33,7 @@ export class pndNotCompleteComponent implements AfterViewInit, OnDestroy, OnInit
   ANMdata = []
   selectedAnm = null;
   pndPendingArray = [];  
+  pndNotCompleteArray =[];
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
     ,private dataservice: DataService,private router: Router
@@ -43,11 +44,27 @@ export class pndNotCompleteComponent implements AfterViewInit, OnDestroy, OnInit
     console.log(pndtcTestingArr);
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
-      this.pndPendingArray = pndtcTestingArr.data;
+     
+      this.pndNotCompleteArray = pndtcTestingArr.data;
     }
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getDistrictData();
-    this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
+    var _subjectObj = {
+      "districtId": 0,
+      "chcId": 0,
+      "phcId": 0,
+      "anmId": 0
+    }
+    this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
+      console.log(response);
+      this.pndPendingArray = response.data;
+      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length}));
+    },
+    (err: HttpErrorResponse) =>{
+     
+    });
+   
+   
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,

@@ -34,6 +34,7 @@ export class PndTestingMainComponent implements OnInit {
       if(JSON.parse(x).screen === "PNDTCTESTING")
       {
         this.pendingCount = JSON.parse(x).pendingCount;
+        this.notcompleteCount = JSON.parse(x).notcompleteCount;
        
       }
       

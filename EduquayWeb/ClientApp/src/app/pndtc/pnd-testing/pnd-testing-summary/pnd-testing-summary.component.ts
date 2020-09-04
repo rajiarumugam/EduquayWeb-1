@@ -11,11 +11,11 @@ import { DataService } from 'src/app/shared/data.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pnd-testing',
-  templateUrl: './pnd-testing.component.html',
-  styleUrls: ['./pnd-testing.component.css']
+  selector: 'app-pnd-testing-summary',
+  templateUrl: './pnd-testing-summary.component.html',
+  styleUrls: ['./pnd-testing-summary.component.css']
 })
-export class pndTestingComponent implements AfterViewInit, OnDestroy, OnInit {
+export class pndTestingSummaryComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   loadDataTable: boolean = false;
@@ -47,22 +47,8 @@ export class pndTestingComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pndPendingArray = pndtcTestingArr.data;
     }
 
-    var _subjectObj = {
-      "districtId": 0,
-      "chcId": 0,
-      "phcId": 0,
-      "anmId": 0
-    }
-    this.PNDCService.getnotCompleteDetails(_subjectObj) .subscribe(response => {
-      console.log(response);
-      this.pndNotCompleteArray = response.data;
-      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length}));
-    },
-    (err: HttpErrorResponse) =>{
-     
-    });
+
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.getDistrictData();
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -84,75 +70,13 @@ export class pndTestingComponent implements AfterViewInit, OnDestroy, OnInit {
     };
   }
 
-  getDistrictData(){
-    this.PNDTCmasterService.getPNDTCDistrict()
-    .subscribe(response => {
-      this.districts = response['data'];
-      //this.selectedDistrict = this.user.districtId;
-    },
-    (err: HttpErrorResponse) =>{
-      this.districts = [];
-      //this.erroMessage = err.toString();
-    });
-  }
-  districtChange(){
-    this.PNDTCmasterService.getDistrictBasedCHC(this.selectedDistrict)
-    .subscribe(response => {
-      console.log(response);
-      this.CHCdata = response['data'];
-      console.log(this.selectedchc);
-    },
-    (err: HttpErrorResponse) =>{
-      this.CHCdata = [];
-      this.erroMessage = err.toString();
-    });
-  }
-  chcChange(){
-    this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
-    .subscribe(response => {
-      this.PHCdata = response['data'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.PHCdata = [];
-      this.erroMessage = err.toString();
-    });
-  }
 
-  phcChange(){
-    this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
-    .subscribe(response => {
-      console.log(response);
-      this.ANMdata = response['data'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.ANMdata = [];
-      this.erroMessage = err.toString();
-    });
-  }
 
-  refreshData()
-  {
-    var _subjectObj = {
-      "districtId":this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
-      "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
-      "phcId":this.selectedphc != null ? Number(this.selectedphc) : 0,
-      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0
-    }
-    this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
-      console.log(response);
-      this.pndPendingArray = response.data;
-      this.rerender();
-    },
-    (err: HttpErrorResponse) =>{
-     
-    });
-  }
-
-  openResultPage(data)
+  openViewPage(data)
   {
     console.log(data);
-    this.dataservice.setdata({'pndtestingResult':data});
-    this.router.navigate(['/app/pndtc-testing-result']);
+    this.dataservice.setdata({'pndtestingSummary':data});
+    this.router.navigate(['/app/view-pndtc-summary']);
   }
   
   rerender(): void {
