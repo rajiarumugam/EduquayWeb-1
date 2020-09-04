@@ -34,11 +34,13 @@ export class PndtMtpMasterService {
   }
 
   getChc(id){
+    
     let apiUrl = this.genericServices.buildApiUrl(`${this.chcApi}/${id}`);
     return this.http.get<PndtMtpMasterResponse>({url: apiUrl });
   }
 
   getPhc(id){
+    
     let apiUrl = this.genericServices.buildApiUrl(`${this.phcApi}/${id}`);
     return this.http.get<PndtMtpMasterResponse>({url: apiUrl });
   }

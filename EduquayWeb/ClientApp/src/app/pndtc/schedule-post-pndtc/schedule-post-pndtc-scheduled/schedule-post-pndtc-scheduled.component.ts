@@ -80,7 +80,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       dateFormat: 'd/m/Y H:i',
       defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
-      maxDate: new Date(Date.now()),
+      minDate: new Date(Date.now()),
       enableTime: true,
     };
   
@@ -173,29 +173,47 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
       if (this.selectedDistrict === '') {
         this.selectedchc = '';
-        this.selectedphc = '';
-        this.selectedphc = '';
       }
       else {
         this.ddlChc(this.selectedDistrict);
-        this.ddlPhc(this.selectedDistrict);
-        this.ddlAnm(this.selectedDistrict);
       }
+    }
+
+    onChangechc(){
+
+      if (this.selectedchc === '') {
+        this.selectedphc = '';
+      }
+      else {
+        this.ddlPhc(this.selectedchc);
+      }
+      
+    }
+
+    onChangephc(){
+
+      if (this.selectedphc === '') {
+        this.selectedanm = '';  
+      }
+      else {
+        this.ddlAnm(this.selectedphc);
+      }
+
     }
   
     ddlChc(id) {
   
       this.chclists = [];
       this.selectedchc = '';
-      this.postpndtscheduledErrorMessage = '';
       this.pndtmtpMasterService.getChc(id)
         .subscribe(response => {
           this.pndtmtpMasterResponse = response;
           if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
             this.chclists = this.pndtmtpMasterResponse.data;
-            if (this.chclists.length > 0) {
-              this.selectedchc = this.chclists[0].id.toString();
-            }
+            this.selectedchc = '';
+            // if (this.chclists.length > 0) {
+            //   this.selectedchc = this.chclists[0].id.toString();
+            // }
           }
           else {
             this.postpndtscheduledErrorMessage = response.message;
@@ -211,15 +229,15 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
       this.phclists = [];
       this.selectedphc = '';
-      this.postpndtscheduledErrorMessage = '';
       this.pndtmtpMasterService.getPhc(id)
         .subscribe(response => {
           this.pndtmtpMasterResponse = response;
           if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
             this.phclists = this.pndtmtpMasterResponse.data;
-            if (this.phclists.length > 0) {
-              this.selectedphc = this.phclists[0].id.toString();
-            }
+            this.selectedphc = '';
+            // if (this.phclists.length > 0) {
+            //   this.selectedphc = this.phclists[0].id.toString();
+            // }
           }
           else {
             this.postpndtscheduledErrorMessage = response.message;
@@ -235,15 +253,15 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
       this.anmlists = [];
       this.selectedanm = '';
-      this.postpndtscheduledErrorMessage = '';
       this.pndtmtpMasterService.getAnm(id)
         .subscribe(response => {
           this.pndtmtpMasterResponse = response;
           if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
             this.anmlists = this.pndtmtpMasterResponse.data;
-            if (this.anmlists.length > 0) {
-              this.selectedanm = this.anmlists[0].id.toString();
-            }
+            this.selectedanm = '';
+            // if (this.anmlists.length > 0) {
+            //   this.selectedanm = this.anmlists[0].id.toString();
+            // }
           }
           else {
             this.postpndtscheduledErrorMessage = response.message;
@@ -333,7 +351,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       this.editscheduleDate = moment().format("DD/MM/YYYY");
       this.editscheduleTime = moment().format("HH:mm");
       this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.editDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+      this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
       this.modalService.open(
         editAppointmentFormDetail, {
@@ -354,7 +372,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       this.editscheduleDate = moment().format("DD/MM/YYYY");
       this.editscheduleTime = moment().format("HH:mm");
       this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.editDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+      this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
       this.counsellorId = editAppointmentForm.value.DDcounsellorname;
   
       this.addScheduledRequest = {
@@ -389,7 +407,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
     showResponseMessage(message: string, type: string) {
       var messageType = '';
-      var title = `Pre PNDT Counselling Rescheduled Successfully on ${this.editscheduleDate} at ${this.editscheduleTime}`;
+      var title = `Post PNDT Counselling Rescheduled Successfully on ${this.editscheduleDate} at ${this.editscheduleTime}`;
       if (type === 'e') {
         Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
       }

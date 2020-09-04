@@ -76,7 +76,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
     //minDate: this.dyCollectionDate,
-    maxDate: new Date(Date.now()),
+    minDate: new Date(Date.now()),
     enableTime: true,
   };
 
@@ -122,7 +122,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.scheduleDate = moment().format("DD/MM/YYYY");
     this.scheduleTime = moment().format("HH:mm");
     this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.dateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.pndtmtpSchedulingRequest = {
       userId: this.user.id, districtId: 0,

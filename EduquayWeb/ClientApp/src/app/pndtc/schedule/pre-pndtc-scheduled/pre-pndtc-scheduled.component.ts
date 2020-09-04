@@ -80,7 +80,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
     //minDate: this.dyCollectionDate,
-    maxDate: new Date(Date.now()),
+    minDate: new Date(Date.now()),
     enableTime: true,
   };
 
@@ -333,7 +333,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     this.editscheduleDate = moment().format("DD/MM/YYYY");
     this.editscheduleTime = moment().format("HH:mm");
     this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.editDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.modalService.open(
       editAppointmentFormDetail, {
@@ -354,7 +354,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     this.editscheduleDate = moment().format("DD/MM/YYYY");
     this.editscheduleTime = moment().format("HH:mm");
     this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.editDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
     this.counsellorId = editAppointmentForm.value.DDcounsellorname;
 
     this.addScheduledRequest = {

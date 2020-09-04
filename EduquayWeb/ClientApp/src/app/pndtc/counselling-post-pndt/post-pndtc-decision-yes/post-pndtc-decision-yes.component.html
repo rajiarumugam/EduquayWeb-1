@@ -1,10 +1,11 @@
+<p>post-pndtc-decision-yes works!</p>
 <!--  BEGIN MAIN CONTAINER  -->
 <div class="main-container" id="container">
     <div class="overlay"></div>
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-        <app-site-sidebar module="pndtc" subMenum="Update-Detail-TestResults"></app-site-sidebar>
+        <app-site-sidebar module="pndtc" subMenum="Update-Decision-Yes"></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
     <!--  BEGIN CONTENT AREA  -->
@@ -17,12 +18,12 @@
                 <div class="col-md-12">
                     <div class="justify-between">
                         <div class="col-md-4">
-                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-pre-pndt']"
-                                role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-post-pndt/counselledyes']"
+                            role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center"> Counselling – Pre PNDT </h5>
+                                <h5 class="float-center"> Counselling – Post PNDT </h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -38,7 +39,7 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="form-row mt-4">
                             <div class="col-sm-12">
-                               
+                              
                             </div>
                         </div>
                         <div class="row">
@@ -49,9 +50,9 @@
                                             <tr>
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
-                                                        <h5><b>Subject ID :</b> {{counsellingdataItem?.anwSubjectId}}
-                                                            <strong class="ml-5">Subject Name :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
-                                                            <strong class="ml-5">RCH ID :</strong> {{counsellingdataItem?.rchId}} 
+                                                        <h5><b>Subject ID :</b> {{counselledYesdataItem?.anwSubjectId}}
+                                                            <strong class="ml-5">Subject Name :</strong> {{counselledYesdataItem?.subjectName}}, F, {{counselledYesdataItem?.age}} yrs
+                                                            <strong class="ml-5">RCH ID :</strong> {{counselledYesdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
                                                 </td>
@@ -68,11 +69,11 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="form-row mt-4">
                             <div class="col-sm-12">
-                                <div *ngIf="updatepndtcErrorMessage" class="alert mt-3 mb-2"
-                                    [ngClass]="{'alert-warning': updatepndtcErrorMessage ==='No subjects found', 'alert-danger': updatepndtcErrorMessage !== 'No subjects found'}">
+                                <div *ngIf="postupdateDecisionYespndtErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': postupdateDecisionYespndtErrorMessage ==='No subjects found', 'alert-danger': postupdateDecisionYespndtErrorMessage !== 'No subjects found'}">
                                     <span class="fa fa-info-circle mr-2"
                                         style="font-size: 16px;"></span><strong>Oops!</strong>
-                                    {{updatepndtcErrorMessage}}
+                                    {{postupdateDecisionYespndtErrorMessage}}
                                 </div>
                             </div>
                         </div>
@@ -90,29 +91,29 @@
                                         <tbody>
                                             <tr>
                                                 <td class="sp-xs-td-9"><b>Subject Name</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.subjectName}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.subjectName}}</td>
                                                 <td class="sp-xs-td-9"><b>Subject ID</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.anwSubjectId}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.anwSubjectId}}</td>
                                                 <td class="sp-xs-td-9"><b>Age</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.age}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.age}}</td>
                                                 <td class="sp-xs-td-9"><b>Contact No</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.contactNo}}</td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.contactNo}}</td>
                                             </tr>
                                             <tr>
                                                 <td><b>LMP Date</b></td>
-                                                <td>{{counsellingdataItem?.lmpDate}}</td>
+                                                <td>{{counselledYesdataItem?.lmpDate}}</td>
                                                 <td><b>Gestational Age</b></td>
-                                                <td>{{counsellingdataItem?.ga}}</td>
+                                                <td>{{counselledYesdataItem?.ga}}</td>
                                                 <td><b>Obstetrics Score</b></td>
-                                                <td>{{counsellingdataItem?.obstetricScore}}</td>
+                                                <td>{{counselledYesdataItem?.obstetricScore}}</td>
                                                 <td><b>RCH ID </b></td>
-                                                <td>{{counsellingdataItem?.rchId}}</td>
+                                                <td>{{counselledYesdataItem?.rchId}}</td>
 
                                             </tr>
                                             <tr>
 
                                                 <td><b>EC Number</b></td>
-                                                <td>{{counsellingdataItem?.ecNumber}}</td>
+                                                <td>{{counselledYesdataItem?.ecNumber}}</td>
 
                                             </tr>
 
@@ -151,19 +152,19 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.subjectName}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.subjectName}}</td>
                                                 <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                <td class="text-left">{{counsellingdataItem?.anwCBCTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.anwSSTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.anwHPLCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwCBCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwSSTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwHPLCTestResult}}</td>
 
                                             </tr>
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.spouseName}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseName}}</td>
                                                 <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                <td class="text-left">{{counsellingdataItem?.spouseCBCTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.spouseSSTestResult}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.spouseHPLCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseCBCTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseSSTestResult}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseHPLCTestResult}}</td>
 
                                             </tr>
                                         </tbody>
@@ -174,7 +175,110 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="6" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;">
+                                                    <a href="#" class="pthead">
+                                                        <b>
+                                                            <div class="d-flex">
+                                                                <div class="p-2">Pre-natal Diagnosis Counselling</div>
+                                                                <div class="ml-auto p-2"><i
+                                                                        class="fa fa-caret-down"></i></div>
+                                                            </div>
+                                                        </b>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="d-none">
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>Date & Time</b></td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.prePNDTCounsellingDateTime}}</td>
+                                                <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.prePNDTCounsellorName}}</td>
+                                                <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b></td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.prePNDTCounsellingRemarks}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Counselling Status</b></td>
+                                                <td>{{counselledYesdataItem?.prePNDTCounsellingStatus}}</td>
+                                                <td><b>Scheduled PNDT Date & Time</b></td>
+                                                <td>{{counselledYesdataItem?.schedulePrePNDTDate}} {{counselledYesdataItem?.schedulePrePNDTTime}}</td>
+
+                                            </tr>  
+                                        </tbody>
+                                        <!-- <div class="row my-2">
+                                            <div class="col-md-6 ml-3"><b>Note</b>: Received signed consent form from subject and filed.
+                                            </div>
+                                        </div> -->
+                                    </table>
+                                    
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="6" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;">
+                                                    <a href="#" class="pthead">
+                                                        <b>
+                                                            <div class="d-flex">
+                                                                <div class="p-2">Pre-natal Diagnosis Test</div>
+                                                                <div class="ml-auto p-2"><i
+                                                                        class="fa fa-caret-down"></i></div>
+                                                            </div>
+                                                        </b>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="d-none">
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>PNDT Date & Time</b></td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.pndtDateTime}}</td>
+                                                <td class="sp-xs-td-9"><b>Obstetrician Name</b></td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.pndtObstetrician}}</td>
+                                                <td class="sp-xs-td-9"><b>PNDT Results</b></td>
+                                                <td class="sp-xs-td-15">{{counselledYesdataItem?.pndtResults}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Counsellor Name</b></td>
+                                                <td>{{counselledYesdataItem?.pndtCounsellorName}} </td>
+                                                <td><b>PNDT Diagnosis</b></td>
+                                                <td>{{counselledYesdataItem?.pndtDateTime}}</td>
+
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.foetalDisease === true">
 
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
@@ -182,7 +286,7 @@
                                 <thead class="tablecss">
                                     <tr class="" style="background-color: #e3e8ef;">
                                         <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
-                                            <b>Update Pre-natal Diagnosis Counselling</b>
+                                            <b>Update Post PNDT Counselling</b>
                                         </th>
                                     </tr>
 
@@ -191,8 +295,8 @@
                             </table>
                         </div>
 
-                        <form class="text-left" (ngSubmit)="updatePndtForm.form.valid && onSubmit(updatePndtForm)"
-                            #updatePndtForm="ngForm" novalidate>
+                        <form class="text-left" (ngSubmit)="updatePostPndtyesForm.form.valid && onSubmit(updatePostPndtyesForm)"
+                            #updatePostPndtyesForm="ngForm" novalidate>
                             <div class="table-responsive">
                                 <table class="table table-borderless">
 
@@ -201,7 +305,7 @@
                                             <td>Counsellor Name</td>
                                             <td></td>
                                             <td>
-                                                {{counsellingdataItem?.counsellorName}}
+                                                {{counselledYesdataItem?.counsellorName}}
                                             </td>
                                         </tr>
                                         
@@ -209,26 +313,26 @@
                                             <td>Counselling Notes/Remarks</td>
                                             <td></td>
                                             <td><textarea id="textarea" class="form-control textarea" maxlength="225"
-                                                    rows="2" placeholder="" name=Remarks #Remarks="ngModel"
-                                                    ngModel></textarea></td>
+                                                    rows="2" placeholder="" name=Remarks [(ngModel)]="Remarks"
+                                                   ></textarea></td>
                                         </tr>
                                         <tr>
-                                            <td>The couple has agreed for Pre-natal diagnosis test</td>
+                                            <td>The couple has agreed for MTP</td>
                                             <td></td>
                                             <td>
                                                 <div class="col-sm-12">
                                                     <span class="ml-1 n-chk">
                                                         <label class="maritalstatus-radio-cont">
                                                             <input type="radio" id="options1" [(ngModel)]="myRadio"
-                                                                value="yes"(change)="onClick('decisionyes')"
-                                                                name=decisionyes #decisionyes>
+                                                                value="yes" (change)="onClick('decisionyes')"
+                                                                name=decisionyes #decisionyes [checked]="counselledYesdataItem?.isMTPAgreeYes === true">
                                                             <span class="radio-span">Yes</span>
                                                         </label>
                                                     </span>
                                                     <span class="ml-1 n-chk">
                                                         <label class="maritalstatus-radio-cont">
                                                             <input type="radio" id="options2" [(ngModel)]="myRadio"
-                                                                value="no"(change)="onClick('decisionno')"
+                                                                value="no" (change)="onClick('decisionno')"
                                                                 name=decisionno #decisionno>
                                                             <span class="radio-span">No</span>
                                                         </label>
@@ -237,7 +341,7 @@
                                                         <label class="maritalstatus-radio-cont">
                                                             <input type="radio" id="options3" [(ngModel)]="myRadio"
                                                                 value="decisionpending"
-                                                               (change)="onClick('decisionpending')"
+                                                                (change)="onClick('decisionpending')"
                                                                 name=decisionpending #decisionpending>
                                                             <span class="radio-span">Decision
                                                                 Pending</span>
@@ -265,8 +369,8 @@
 
                                                 <select class="form-control" name=DDLobstetrician
                                                     #DDLobstetrician="ngModel"
-                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePndtForm.submitted && DDLobstetrician.invalid"
-                                                    required [(ngModel)]="selectedobstetrician" [disabled]="!isSelectedYes">
+                                                    [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePostPndtyesForm.submitted && DDLobstetrician.invalid"
+                                                    required [(ngModel)]="selectedobstetrician">
                                                     <option value="">Select</option>
                                                     <option *ngFor="let obstetriciandata of obstetricianlists"
                                                         [(value)]=" obstetriciandata.id ">
@@ -276,10 +380,17 @@
                                                 <small class=" ml-2 text-danger"
                                                     *ngIf="DDLobstetrician.invalid && DDLobstetrician.touched">Please
                                                     choose a Obstetrician Name</small>
-                                                <div *ngIf="updatePndtForm.submitted && DDLobstetrician.invalid">
+                                                <div *ngIf="updatePostPndtyesForm.submitted && DDLobstetrician.invalid">
                                                     <small *ngIf="DDLobstetrician.untouched"
                                                         class=" ml-2 text-danger">Obstetrician Name is required</small>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="isDecisionYes">
+                                            <td>Current Schedule MTP Date & Time</td>
+                                            <td></td>
+                                            <td>
+                                                {{counselledYesdataItem?.mtpScheduleDate}}  {{counselledYesdataItem?.mtpScheduleTime}}
                                             </td>
                                         </tr>
 
@@ -292,7 +403,7 @@
                                         <table class="table table-borderless">
                                             <tbody>
                                                 <tr>
-                                                    <td class="sp-sm-th"> Schedule PNDT Date & Time</td>
+                                                    <td class="sp-sm-th"> Schedule MTP Date & Time</td>
                                                     <td></td>
                                                 </tr>
                                             </tbody>
@@ -308,9 +419,9 @@
                                                         <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
                                                             class="form-control flatpickr flatpickr-input active"
                                                             #pndtschedulePicker [config]="dateOptions" 
-                                                            placeholder="Select Date.." [disabled]="isSelectedYes"
-                                                            formControlName="fixPndtSchedule"></ng2-flatpickr>
-                                                    </td>
+                                                            placeholder="Select Date.."
+                                                            formControlName="fixPndtSchedule" [(ngModel)]="selectedscheduledate"></ng2-flatpickr>
+                                                        </td>
 
                                                 </tr>
                                             </tbody>
@@ -336,6 +447,61 @@
                                     class="flaticon-cancel-12"></i>
                                 Close</button> -->
                                     <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+                                        name="linkto">Update</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.foetalDisease === false">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
+                                            <b>Update Post PNDT Counselling</b>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                            </table>
+                        </div>
+
+                        <form class="text-left" (ngSubmit)="updatePostPndtyesForm.form.valid && onSubmit(updatePostPndtyesForm)"
+                            #updatePostPndtyesForm="ngForm" novalidate>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Counsellor Name</td>
+                                            <td></td>
+                                            <td>
+                                                {{counselledYesdataItem?.prePNDTCounsellorName}}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Counselling Notes/Remarks</td>
+                                            <td></td>
+                                            <td><textarea id="textarea" class="form-control textarea" maxlength="225"
+                                                    rows="2" placeholder="" name=Remarks #Remarks="ngModel"
+                                                    ngModel></textarea></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-row m-1">
+                                <div class="form-group col-md-12">
+                                    <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
+                                    class="flaticon-cancel-12"></i>
+                                Close</button> -->
+                                    <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
                                         name="linkto">Submit</button>
                                     <!-- <button type="button" class="btn btn-primary">Save</button> -->
                                 </div>
@@ -343,7 +509,6 @@
                         </form>
                     </div>
                 </div>
-               
             </div>
 
         </div>
@@ -353,9 +518,15 @@
 <!--  END MAIN CONTAINER  -->
 
 <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
-<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
-<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
-<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<!--<i appLoadScript [script]="''"></i>-->
+<i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+    <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+    <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+    <!--<i appLoadScript [script]="''"></i>-->
 
 <!--  END MAIN CONTAINER  -->
