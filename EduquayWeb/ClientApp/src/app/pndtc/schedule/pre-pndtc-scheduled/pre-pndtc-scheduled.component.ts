@@ -170,17 +170,35 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
       });
   }
   onChangeDistrict() {
-
+  
     if (this.selectedDistrict === '') {
       this.selectedchc = '';
-      this.selectedphc = '';
-      this.selectedphc = '';
     }
     else {
       this.ddlChc(this.selectedDistrict);
-      this.ddlPhc(this.selectedDistrict);
-      this.ddlAnm(this.selectedDistrict);
     }
+  }
+
+  onChangechc(){
+
+    if (this.selectedchc === '') {
+      this.selectedphc = '';
+    }
+    else {
+      this.ddlPhc(this.selectedchc);
+    }
+    
+  }
+
+  onChangephc(){
+
+    if (this.selectedphc === '') {
+      this.selectedanm = '';  
+    }
+    else {
+      this.ddlAnm(this.selectedphc);
+    }
+
   }
 
   ddlChc(id) {
@@ -193,9 +211,10 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         this.pndtmtpMasterResponse = response;
         if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
           this.chclists = this.pndtmtpMasterResponse.data;
-          if (this.chclists.length > 0) {
-            this.selectedchc = this.chclists[0].id.toString();
-          }
+          this.selectedchc = '';
+          // if (this.chclists.length > 0) {
+          //   this.selectedchc = this.chclists[0].id.toString();
+          // }
         }
         else {
           this.masterdataErrorMessage = response.message;
@@ -217,9 +236,10 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         this.pndtmtpMasterResponse = response;
         if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
           this.phclists = this.pndtmtpMasterResponse.data;
-          if (this.phclists.length > 0) {
-            this.selectedphc = this.phclists[0].id.toString();
-          }
+          this.selectedphc = '';
+          // if (this.phclists.length > 0) {
+          //   this.selectedphc = this.phclists[0].id.toString();
+          // }
         }
         else {
           this.masterdataErrorMessage = response.message;
@@ -241,9 +261,10 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         this.pndtmtpMasterResponse = response;
         if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
           this.anmlists = this.pndtmtpMasterResponse.data;
-          if (this.anmlists.length > 0) {
-            this.selectedanm = this.anmlists[0].id.toString();
-          }
+          this.selectedanm = '';
+          // if (this.anmlists.length > 0) {
+          //   this.selectedanm = this.anmlists[0].id.toString();
+          // }
         }
         else {
           this.masterdataErrorMessage = response.message;
