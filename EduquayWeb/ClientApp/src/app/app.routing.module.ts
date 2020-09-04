@@ -164,6 +164,8 @@ import { PNDTCCompletedResolverService } from "./shared/pndtc/pndtc-completed-re
 import { PndTestingResultsMainComponent } from "./pndtc/pnd-testing/pnd-testing-results-main/pnd-testing-results-main.component";
 import { PNDTestingResultsComponent } from "./pndtc/pnd-testing/pnd-testing-results/pnd-testing-results.component";
 import { pndNotCompleteComponent } from "./pndtc/pnd-testing/pnd-not-complete/pnd-not-complete.component";
+import { PostPndtcDecisionNoComponent } from "./pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component";
+import { PostPndtcDecisionAwaitedComponent } from "./pndtc/counselling-post-pndt/post-pndtc-decision-awaited/post-pndtc-decision-awaited.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -378,9 +380,10 @@ const routes: Routes = [
         ]
       },
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
-      //{ path: 'update-Post-pndtc-no', component: UpdateDecisionNoPndtComponent },
-      //{ path: 'update-post-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
+      { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
+      { path: 'update-post-pndtc-awaited', component: PostPndtcDecisionAwaitedComponent },
       { path: 'update-post-pndtc-yes', component: PostPndtcDecisionYesComponent },
+
       { path: 'anm-sample-collection', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
@@ -518,7 +521,9 @@ export const RoutingComponents = [
   PostCounsellingDecisionYesComponent,
   PostCounsellingDecisionNoComponent,
   PostCounsellingDecisionPendingComponent,
-  PostPndtcDecisionYesComponent
+  PostPndtcDecisionYesComponent,
+  PostPndtcDecisionNoComponent,
+  PostPndtcDecisionAwaitedComponent
 ];
 
 
