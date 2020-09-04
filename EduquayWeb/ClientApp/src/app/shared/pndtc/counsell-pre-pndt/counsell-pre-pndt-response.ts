@@ -67,8 +67,6 @@ export interface CounselledList {
     isPNDTAgreeYes: boolean;
     isPNDTAgreeNo: boolean;
     isPNDTAgreePending: boolean;
-    
-
 }
 
 export interface AddPrePndtcCounsellingResponse{

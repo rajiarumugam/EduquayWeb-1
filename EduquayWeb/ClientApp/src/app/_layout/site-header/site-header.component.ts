@@ -55,6 +55,7 @@ export class SiteHeaderComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     setInterval(() => { this.today = Date.now() }, 1);
     this.isPageLoaded = true;

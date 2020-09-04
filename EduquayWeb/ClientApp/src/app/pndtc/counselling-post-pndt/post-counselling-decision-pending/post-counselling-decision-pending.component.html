@@ -1,10 +1,10 @@
-<div class="tab-pane fade show active" id="counselledYes" role="tabpanel" aria-labelledby="counselledYes-tab">
+<div class="tab-pane fade show active" id="counselledAwaited" role="tabpanel" aria-labelledby="counselledAwaited-tab">
     <div class="main-box no-header clearfix">
         <div class="main-box-body clearfix">
             <div class="form-row mt-4">
                 <div class="col-sm-12">
-                  <div *ngIf="prepndtcounselledYesErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': prepndtcounselledYesErrorMessage ==='No subjects found', 'alert-danger': prepndtcounselledYesErrorMessage !== 'No subjects found'}">
-                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{prepndtcounselledYesErrorMessage}}
+                  <div *ngIf="postpndtcounselledAwaitedErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': postpndtcounselledAwaitedErrorMessage ==='No subjects found', 'alert-danger': postpndtcounselledAwaitedErrorMessage !== 'No subjects found'}">
+                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{postpndtcounselledAwaitedErrorMessage}}
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="px-2 bd-highlight search-margin" >
                     <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
-                    <a (click)="retrivecounselledyeslists()"><button type="submit" class="btn search-bu">
+                    <a (click)="retrivecounselledawaitedlists()"><button type="submit" class="btn search-bu">
                             <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
                 </div>   
             </div>
@@ -67,30 +67,33 @@
                             <!-- <th class="text-center"><span>LMP Date</span></th> -->
                             <th class="text-center"><span>GA</span></th>
                             <th class="text-center"><span>Obstetric Score</span></th>
-                            <th class="text-center"><span>Counsellor Name</span></th>
+                            <th class="text-center"><span>PND Testing Result</span></th>
                             <th class="text-center pnddate"><span>Counselling Date & Time</span></th>
                             <th class="text-center"><span>Details</span></th>
                         </tr>
 
                     </thead>
                     <tbody>
-                        <tr *ngFor="let counselledyesdata of counselledyeslists; index as i">
-                            <td class="sno text-center">{{i +1}}</td>
-                            <td class="text-left">{{counselledyesdata.subjectName}}</td>
-                            <td class="text-center">{{counselledyesdata.anwSubjectId}}</td>
-                            <td class="sid">{{counselledyesdata.rchId}}</td>
-                            <td class="text-left">{{counselledyesdata.spouseName}}</td>
-                            <td class="text-center">{{counselledyesdata.contactNo}}</td>
-                            <!-- <td class="text-center">18/05/2020</td> -->
-                            <td class="text-center">{{counselledyesdata.ga}}</td>
-                            <td class="text-center">{{counselledyesdata.obstetricScore}}</td>
-                            <td>{{counselledyesdata.counsellorName}}</td>
-                            <td>{{counselledyesdata.counsellingDateTime}}</td>
-                            <td class="text-center"><a (click)="openpndtdetail(counselledyesdata)"><i
-                                        class="fas fa-edit fa-2x"
-                                        aria-hidden="true"></i></a></td>
+                        <tr *ngFor="let counselledawaiteddata of counselledawaitedlists; index as i"class="tbl-row-red tbl-row-black tbl-row-blue"
+                        [ngClass]="{'tbl-row-black tbl-data-black': counselledawaiteddata.pndtResults == 'Normal Foetus' , 
+                                'tbl-row-red tbl-data-red': counselledawaiteddata.pndtResults == 'Affected Foetus' ,
+                                'tbl-row-blue tbl-data-blue': counselledawaiteddata.pndtResults == 'Foetus is a carrier'  }">
+                        <td class="sno text-center tbl-data-red tbl-data-black tbl-data-blue">{{i +1}}</td>
+                        <td class="text-left tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.subjectName}}</td>
+                        <td class="text-center tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.anwSubjectId}}</td>
+                        <td class="sid tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.rchId}}</td>
+                        <td class="text-left tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.spouseName}}</td>
+                        <td class="text-center tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.contactNo}}</td>
+                        <!-- <td class="text-center">18/05/2020</td> -->
+                        <td class="text-center tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.ga}}</td>
+                        <td class="text-center tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.obstetricScore}}</td>
+                        <td class="tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.pndtResults}}</td>
+                        <td class="tbl-data-red tbl-data-black tbl-data-blue">{{counselledawaiteddata.prePNDTCounsellingDateTime}}</td>
+                        <td class="text-center"><a (click)="openpndtdetail(counselledawaiteddata)"><i
+                                    class="fas fa-edit fa-2x"
+                                    aria-hidden="true"></i></a></td>
 
-                        </tr>
+                    </tr>
                     </tbody>
                 </table>
 

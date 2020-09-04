@@ -79,6 +79,13 @@ import { UpdateDecisionPendingPndtComponent } from './pndtc/counselling-pre-pndt
 import { SchedulePostPndtcMainComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component';
 import { SchedulePostPndtcScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component';
 import { SchedulePostPndtcToBeScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component';
+import { CounsellingPostPndtMainComponent } from './pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component';
+import { ToBePostPndtCounselledComponent } from './pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component';
+import { PostPndtcTestresultsComponent } from './pndtc/counselling-post-pndt/post-pndtc-testresults/post-pndtc-testresults.component';
+import { PostCounsellingDecisionYesComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component';
+import { PostCounsellingDecisionNoComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component';
+import { PostCounsellingDecisionPendingComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component';
+import { PostPndtcDecisionYesComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-yes/post-pndtc-decision-yes.component';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
@@ -136,7 +143,14 @@ const ngWizardConfig: NgWizardConfig = {
     UpdateDecisionPendingPndtComponent,
     SchedulePostPndtcMainComponent,
     SchedulePostPndtcScheduledComponent,
-    SchedulePostPndtcToBeScheduledComponent
+    SchedulePostPndtcToBeScheduledComponent,
+    CounsellingPostPndtMainComponent,
+    ToBePostPndtCounselledComponent,
+    PostPndtcTestresultsComponent,
+    PostCounsellingDecisionYesComponent,
+    PostCounsellingDecisionNoComponent,
+    PostCounsellingDecisionPendingComponent,
+    PostPndtcDecisionYesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
