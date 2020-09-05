@@ -165,6 +165,11 @@ import { PndTestingResultsMainComponent } from "./pndtc/pnd-testing/pnd-testing-
 import { PNDTestingResultsComponent } from "./pndtc/pnd-testing/pnd-testing-results/pnd-testing-results.component";
 import { pndNotCompleteComponent } from "./pndtc/pnd-testing/pnd-not-complete/pnd-not-complete.component";
 
+import { PndTestingSummaryMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-main/pnd-testing-summary-main.component";
+import { pndTestingSummaryComponent } from "./pndtc/pnd-testing/pnd-testing-summary/pnd-testing-summary.component";
+import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolver.service";
+import { PndSummaryViewComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view/pnd-testing-summary-view.component";
+import { PndSummaryViewMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view-main/pnd-testing-summary-view-main.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -349,6 +354,21 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'pndtc-summary', component: PndTestingSummaryMainComponent,
+        children:[
+          {path: '', component: pndTestingSummaryComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCSummaryResolverService}}
+        ]
+      },
+      {
+        path: 'view-pndtc-summary', component: PndSummaryViewMainComponent,
+        children:[
+          {path: '', component: PndSummaryViewComponent, pathMatch: 'full'}
+        ]
+      },
+      /*{
+        path: 'view-pndtc-summary', component: PndSummaryViewComponent,
+      },*/
+      {
         path: 'counselling-pre-pndt', component: CounsellingPrePndtMainComponent,
         children:[
           {path: '', component: ToBeCounselledComponent, pathMatch: 'full'},
@@ -512,6 +532,10 @@ export const RoutingComponents = [
   SchedulePostPndtcMainComponent,
   SchedulePostPndtcScheduledComponent,
   SchedulePostPndtcToBeScheduledComponent,
+  PndTestingSummaryMainComponent,
+  pndTestingSummaryComponent,
+  PndSummaryViewComponent,
+  PndSummaryViewMainComponent,
   CounsellingPostPndtMainComponent,
   ToBePostPndtCounselledComponent,
   PostPndtcTestresultsComponent,

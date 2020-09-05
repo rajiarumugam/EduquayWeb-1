@@ -1,0 +1,512 @@
+<div class="main-container" id="container">
+  <div class="layout-px-spacing">
+      <div class="row layout-top-spacing">
+          <div class="col-md-12">
+              
+              <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4 d-flex justify-content-end">
+                          <div class="btn-toolbar mb-2 mb-md-0">
+                              <div class="btn-group">
+                                  <!--<button type="button" class="btn btn-sm btn-outline-light">-->
+                                  <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as Excel"></button>-->
+                                  <button type="button" class="btn btn-sm btn-outline-light">
+                                      <img src="../../../../assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+              
+              
+              <div class="row py-2 my-2" style="background-color: #1B55E2;">
+  <div class="col-md-2">
+      <img src="../../../../assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1" style="width:65%;">
+  </div>
+  <div class="col-md-8">
+      <h4 class="text-center text-white pt-2">THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA</h4>
+      <h5 class="text-center text-white">PND Summary Report</h5>
+  </div>
+  <div class="col-md-2">
+      <img src="../../../../assets/assets/img/Insteam_CMC_logo.png" class="mt-1" style="width:65%;">
+  </div>
+</div>
+              
+              
+              
+              <div class="row">
+                  <div class="col-md-5">
+                      <!-- <h5 class="float-left"><a class="btn btn-primary" href="notification.html"
+                              role="button">Pre PNDT Schedule</a></h5> -->
+                  </div>
+                  
+                  
+                  
+                  <div class="col-md-4">
+                      <!--<h5 class="float-left">PND Summary Report</h5>-->
+                  </div>
+                  <div class="col-md-4">
+                      <div class="float-right mb-2">
+                          <!-- <a class="btn btn-primary mb" href="counsellorschedulemtp.html" role="button">PNDT
+                              Counsel & Confirm</a> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv" style="display: none;">
+              <div class="widget-content widget-content-area br-6">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <tbody class="">
+                                      <tr>
+                                          <td>
+                                              <span class="float-left mt-0 mr-4">
+                                                  <h5><b>Subject ID :</b> {{pndSummarydata.anwSubjectId}}
+                                                      <strong class="ml-5">Subject Name :</strong> {{pndSummarydata.subjectName}}, {{pndSummarydata.age}} yrs
+                                                      <strong class="ml-5">RCH ID :</strong> {{pndSummarydata.rchId}}
+                                                  </h5>
+                                              </span>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+              <div class="widget-content widget-content-area br-6">
+                  
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                  <thead class="tablecss">
+                                      <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Subject Details</b>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                          <td class="sp-xs-td-15">{{pndSummarydata.subjectName}}</td>
+                                          <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                          <td class="sp-xs-td-15">{{pndSummarydata.anwSubjectId}}</td>
+                                          <td class="sp-xs-td-9"><b>Age</b></td>
+                                          <td class="sp-xs-td-15">{{pndSummarydata.age}} yrs</td>
+                                          <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                          <td class="sp-xs-td-15">{{pndSummarydata.rchId}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td><b>LMP Date</b></td>
+                                          <td>{{pndSummarydata.lmpDate}}</td>
+                                          <td><b>Gestational Age</b></td>
+                                          <td>{{pndSummarydata.ga}}</td>
+                                          <td><b>Obstetrics Score</b></td>
+                                          <td>{{pndSummarydata.obstetricScore}}</td>
+                                          <td><b>EC Number</b></td>
+                                          <td>{{pndSummarydata.ecNumber}}</td>
+                                         
+                                      </tr>
+                                      
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+              <div class="widget-content widget-content-area br-6">
+                 
+                  <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <h6 class="mt-2"><b>Test Results Summary</b></h6>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row mt-3">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                      <tr>
+                                          <th class="text-center"><span>Test</span></th>
+                                          <th class="text-center"><span>Results</span></th>
+                                          <th class="text-center"><span>Diagnosis</span></th>
+                                      </tr>
+
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-left">CBC </td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.anwCBCTestResult}}</td>
+                                          <td class="text-left"></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-left">SST</td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.anwSSTestResult}}</td>
+                                          <td class="text-left"></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-left">HPLC</td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.anwHPLCTestResult}}</td>
+                                          <td class="text-left"></td>
+                                      </tr>
+                                  </tbody>
+                                  </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+              <div class="widget-content widget-content-area br-6">
+                  
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                  <thead class="tablecss">
+                                      <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Pre PNDT Counselling</b>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                              </table>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                 <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b>Date & Time </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.counsellingDateTime}}</td>
+                                      </tr>
+                                  </tbody>
+                                  </table>
+
+                          </div> 
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                     
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b> Counselling Status </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                      <td class="text-left">{{pndSummarydata.counsellingStatus}}</td>
+                                         
+                                          
+                                 
+                                      </tr>
+                                      
+                                     
+                                  </tbody>
+                                  </table>
+
+                          </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+                 
+                 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+              <div class="widget-content widget-content-area br-6">
+                  
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                  <thead class="tablecss">
+                                      <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>PNDT Procedure</b>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                              </table>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                 <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                      
+
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b>Date & Time </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.schedulePNDTDate}} {{pndSummarydata.schedulePNDTTime}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b>Obstetrician Name </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.obstetricianName}} </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b>Examination </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left"> {{pndSummarydata.examination}}</td>
+                                      </tr>
+                                      <!--<tr>
+                                          <td class="text-left" style="width: 35%;"><b>Complications</b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <!--<td class="text-left"> {{pndSummarydata.pndtComplecations}}</td>
+                                      </tr>-->
+                                  </tbody>
+                                  </table>
+
+                          </div> 
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                     
+                                  </thead>
+                                  <tbody>
+                                      <!--<tr>
+                                          <td class="text-left" style="/* width: 35%; */width: 20%;"><b>PNDT Location</b> </td>
+                                      <td class="text-left"></td>
+                                      </tr>-->
+                                      <tr>
+                                          <td class="text-left" style="/* width: 35%; */"><b>Clinical History</b> </td>
+                                          <td class="text-left" style="width: 35%;">{{pndSummarydata.clinicalHistory}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-left" style="/* width: 35%; */"><b>Procedure of Testing</b> </td>
+                                          <td class="text-left">{{pndSummarydata.procedureofTesting}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-left" style="width: 35%;"><b>Complications</b></td>
+                                        <td class="text-left"> {{pndSummarydata.pndtComplecations}}</td>
+                                  </tbody>
+                                  </table>
+
+                          </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+                  <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+              <div class="widget-content widget-content-area br-6">
+                  
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                  <thead class="tablecss">
+                                      <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Post PNDT Procedure</b>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                              </table>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                 <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b>Condition at Discharge </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">
+                                              
+                                                   <ul style="list-style: none;padding-left: 0px;">
+                                                       <li>Mother voided - {{pndSummarydata.motherVoided}}</li>
+                                                       <li>Mother vitals (pulse & Bp) stable - {{pndSummarydata.motherVitalStable}}</li>
+                                                       <li>Foetal heart rate document in scan - {{pndSummarydata.foetalHeartRateDocumentScan}}</li>
+                                                   </ul>
+                                              
+                                                </td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-left" style="width: 35%;"><b>PNDT Results </b></td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                          <td class="text-left">{{pndSummarydata.pndtResult}}</td>
+                                      </tr>
+                                      
+                                      
+                                  </tbody>
+                                  </table>
+
+                          </div> 
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead>
+                                     
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-left" style="
+width: 35%;
+"><b>PNDT Diagnosis</b> </td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                      <td class="text-left">{{pndSummarydata.pndtDiagnosis}}</td>
+                                      </tr>
+                                     
+                                      <tr>
+                                          <td class="text-left"><b>Plan for Pregnancy</b> </td>
+                                          <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
+                                      <td class="text-left">
+                                          <ul style="list-style: none;padding-left: 0px;">
+                                                       <li>{{pndSummarydata.planForPregnency}}</li>
+                                                   </ul>
+                                      </td>
+                                      </tr>
+                                  </tbody>
+                                  </table>
+
+                          </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+                  <div class="modal fade bd-example-modal-xl1" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title modaltitle">MTP Service</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                                  </svg>
+                              </button>
+                          </div>
+                          <div class="modal-body form-body">
+                              
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="table-responsive">
+                                          <table class="table">
+                                              <tbody class="">
+                                                  <tr>
+                                                      <td>
+                                                          <span class="float-left mt-0 mr-4">
+                                                              <h5><b>Subject ID :</b> OD001202032110
+                                                                  <strong class="ml-5">Subject Name :</strong> Alkha
+                                                                  Ramapuri, F, 28 yrs
+                                                                  <strong class="ml-5">RCH ID :</strong> 123456
+                                                              </h5>
+                                                          </span>
+                                                      </td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                      <span class="note">MTP Date &amp; Time <span class="manto">*</span>
+                                          <input class="form-control field" type="text" placeholder="18/04/2020 14:30" readonly="">
+                                  </span></div>
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Counsellor Name </span><span class="manto">*</span>
+                                      <input class="form-control field" name="name" required="" type="text" placeholder="Dr. Akash" tabindex="1" autocomplete="off" readonly="">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Obstetrician Name </span><span class="manto">*</span>
+                                      <input class="form-control field" name="name" required="" type="text" placeholder="Dr. Mugesh" tabindex="1" autocomplete="off">
+                                  </div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Clinical History </span><span class="manto">*</span>
+                                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder=""></textarea>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Examination </span><span class="manto">*</span>
+                                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder=""></textarea>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Procedure of Testing </span><span class="manto">*</span>
+                                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder=""></textarea>
+                                  </div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Complications </span><span class="manto">*</span>
+                                      <select id="inputChild" name="occupationoption" class="form-control field" tabindex="7" required="">
+                                          <option selected="">Select Complications</option>
+                                          <option value="0">Cervical Laceration</option>
+                                          <option value="0">Bleeding</option>
+                                          <option value="0">Pain</option>
+                                          <option value="0">Fever </option>
+                                          <option value="0">Hematoma</option>
+                                          <option value="0">Uterine Perforation </option>
+                                          <option value="0">Bowel and Bladder Injury</option>
+                                          <option value="0">Failed Abortion</option>
+                                          <option value="0">Septic Abortion</option>
+                                          <option value="0">Cervical Shock</option>
+                                        
+                                          <option value="1">Disseminated Intravascular Coagulation (DIC)</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                      <span class="note">Condition at Discharge </span><span class="manto">*</span>
+                                      <select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="">
+                                          <option selected="">Select Results</option>
+                                          <option value="0">Healthy</option>
+                                          <option value="0">Sick</option>
+                                          <option value="0">Expired</option>
+                                          <option value="2">Referral</option>
+                                          <option value="2">DAMA</option>
+                                          <option value="2">LAMA</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <a class="btn btn-success successdamaged" role="button" id="linktomtppending">Submit</a>
+                              <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                                  Close</button>
+                              <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+      </div>

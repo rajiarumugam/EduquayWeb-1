@@ -20,12 +20,17 @@ export class PNDCService {
   }
 
   getnotCompleteDetails(subjectObj){
-    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDT.RETRIVEPNDTCOMPLETEDSUMMARY);
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDT.RETRIVEPNDTNOTCOMPLETED);
     return this.httpClient.post<any>( {url:apiUrl, body: subjectObj});
   }
 
   postPNDTest(subjectObj){
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDT.ADDPNDTEST);
     return this.httpClient.post<any>( {url:apiUrl, body: subjectObj});
+  }
+
+  getPNDTSummary(){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDT.RETRIVEPNDTCOMPLETEDSUMMARY);
+    return this.httpClient.get<any>({url:apiUrl });
   }
 }

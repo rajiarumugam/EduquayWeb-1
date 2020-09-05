@@ -305,7 +305,7 @@
                             </div>
                         </div>
                         <div class="modal fade bd-example-modal-xl1" tabindex="-1" role="dialog"
-                            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="modal-dailog">
                             <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -398,7 +398,8 @@
                                                     <ng-multiselect-dropdown #multiSelect
                                                     [placeholder]="'Select'" 
                                                     [data]="complicationsdata" 
-                                                    [formControl]="complications" 
+                                                    [(ngModel)]="selectedItems"
+                                                    [formControl]="f.complications" 
                                                     [settings]="settings"
                                                     [disabled]="false"
                                                     (onFilterChange)="onFilterChange($event)"
@@ -406,7 +407,8 @@
                                                     (onSelect)="onItemSelect($event)" 
                                                     (onDeSelect)="onDeSelect($event)"
                                                     (onSelectAll)="onSelectAll($event)"
-                                                    (onDeSelectAll)="onDeSelectAll($event)">
+                                                    (onDeSelectAll)="onDeSelectAll($event)"
+                                                    >
                                                         </ng-multiselect-dropdown>
                                                 </div>
                                             </div>
@@ -449,11 +451,11 @@
                                                 <div class="col-md-4">
                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">Mother Voided</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="customRadioInline1" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="true" [required]='secondFormCheck'>
+                                                            <input type="radio" id="customRadioInline1" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="true" [required]='secondFormCheck' [(ngModel)]="fselectedMotherVoided">
                                                             <label class="custom-control-label" for="customRadioInline1">Yes </label>
                                                             </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="customRadioInline2" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="false" [required]='secondFormCheck'>
+                                                            <input type="radio" id="customRadioInline2" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="false" [required]='secondFormCheck' [(ngModel)]="fselectedMotherVoided">
                                                             <label class="custom-control-label" for="customRadioInline2">No</label>
                                                         </div> 
                                                 </div>
@@ -506,11 +508,11 @@
                                                     <div class="col-md-4 py-4">
                                                     <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.planForPregenancy.invalid }">Plan for Pregnancy Continue</span><br>
                                                     <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadioInline7" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="Yes: OG Follow up" [required]='secondFormCheck'>
+                                                    <input type="radio" id="customRadioInline7" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="true" [required]='secondFormCheck'>
                                                     <label class="custom-control-label" for="customRadioInline7">Yes: OG Follow up </label>
                                                     </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadioInline8" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="Plan for MTP" [required]='secondFormCheck'>
+                                                    <input type="radio" id="customRadioInline8" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="false" [required]='secondFormCheck'>
                                                     <label class="custom-control-label" for="customRadioInline8">Plan for MTP</label>
                                                 </div> 
     

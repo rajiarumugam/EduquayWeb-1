@@ -12,7 +12,7 @@ import { PNDCService } from "./pndc.service";
 @Injectable({
   providedIn: 'root'
 })
-export class PNDTCCompletedResolverService implements Resolve<any> {
+export class PNDTCSummaryResolverService implements Resolve<any> {
 
   constructor(
     private tokenService: TokenService,
@@ -26,14 +26,8 @@ export class PNDTCCompletedResolverService implements Resolve<any> {
       state: RouterStateSnapshot
     ): Observable<any> | Promise<any> | any {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    var _subjectObj = {
-      "districtId":0,
-      "chcId":0,
-      "phcId":0,
-      "anmId":0
-    }
 
-    return this.PNDCService.getnotCompleteDetails(_subjectObj).pipe(
+    return this.PNDCService.getPNDTSummary().pipe(
       catchError(error => {
         console.log(error);
         return of({ message: error.toString(), status: 'false' });

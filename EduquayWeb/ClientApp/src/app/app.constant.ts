@@ -53,7 +53,8 @@ export const ENDPOINT = {
     {
         "RETRIVEPNDTPENDING":"api/v1/PNDTObstetrician/RetrievePNDTPending",
         "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDTest",
-        "RETRIVEPNDTCOMPLETEDSUMMARY":"api/v1/PNDTObstetrician/RetrievePNDTCompletedSummary"
+        "RETRIVEPNDTCOMPLETEDSUMMARY":"api/v1/PNDTObstetrician/RetrievePNDTCompletedSummary",
+        "RETRIVEPNDTNOTCOMPLETED":"api/v1/PNDTObstetrician/RetrievePostPNDTNotCompleted"
     },
     "PNDTMASTER":
     {
