@@ -261,7 +261,7 @@
                 
             </ul>
             </li>
-            <li class="menu" style="display:none;">
+            <li class="menu" *ngIf="user.userRole === 'PNDTOBSTETRICIAN'">
                 <a href="#pndtc-counsellor" data-toggle="collapse"  attr.data-active="{{module === 'pndtc-counsellor'}}" attr.aria-expanded="{{module === 'pndtc-counsellor'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -283,7 +283,7 @@
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc-counsellor'}" id="pndtc-counsellor"
                     data-parent="#accordionExample">
                     <li routerLinkActive="active">
-                        <a href="obspndtc.html"> PNDT testing </a>
+                        <a [routerLink]="['/app/pndtc-testing']"> PNDT testing </a>
                     </li>
                     <li>
                         <a href="obsmtp.html"> PND Summary Report  </a>

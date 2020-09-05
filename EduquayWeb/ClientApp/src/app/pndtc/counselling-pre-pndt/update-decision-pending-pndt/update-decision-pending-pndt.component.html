@@ -282,11 +282,22 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr *ngIf="isDecisionYes">
+                                            <td>Schedule PNDT Date & Time</td>
+                                            <td></td>
+                                            <td class="text-center" [formGroup]="dateform">
+                                                <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
+                                                    class="form-control flatpickr flatpickr-input active"
+                                                    #pndtschedulePicker [config]="dateOptions" 
+                                                    placeholder="Select Date.." 
+                                                    formControlName="fixPndtSchedule"></ng2-flatpickr>
+                                            </td>
+                                        </tr>
 
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="form-row" *ngIf="isDecisionYes">
+                            <div class="form-row" *ngIf="isDecisionYes" style="display: none;">
                                 <div class="col-md-6">
                                     <div class="table-responsive">
                                         <table class="table table-borderless">

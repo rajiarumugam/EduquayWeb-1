@@ -278,7 +278,7 @@
                         
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.foetalDisease === true">
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.pndtResults == 'Affected Foetus'">
 
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
@@ -289,23 +289,19 @@
                                             <b>Update Post PNDT Counselling</b>
                                         </th>
                                     </tr>
-
                                 </thead>
-
                             </table>
                         </div>
-
                         <form class="text-left" (ngSubmit)="updatePostPndtyesForm.form.valid && onSubmit(updatePostPndtyesForm)"
                             #updatePostPndtyesForm="ngForm" novalidate>
                             <div class="table-responsive">
                                 <table class="table table-borderless">
-
                                     <tbody>
                                         <tr>
                                             <td>Counsellor Name</td>
                                             <td></td>
                                             <td>
-                                                {{counselledYesdataItem?.counsellorName}}
+                                                {{counselledYesdataItem?.prePNDTCounsellorName}}
                                             </td>
                                         </tr>
                                         
@@ -366,7 +362,6 @@
                                             <td>Obstetrician</td>
                                             <td></td>
                                             <td>
-
                                                 <select class="form-control" name=DDLobstetrician
                                                     #DDLobstetrician="ngModel"
                                                     [class.is-invalid]="DDLobstetrician.invalid && DDLobstetrician.touched || updatePostPndtyesForm.submitted && DDLobstetrician.invalid"
@@ -393,54 +388,19 @@
                                                 {{counselledYesdataItem?.mtpScheduleDate}}  {{counselledYesdataItem?.mtpScheduleTime}}
                                             </td>
                                         </tr>
-
+                                        <tr *ngIf="isDecisionYes">
+                                            <td>Current Schedule MTP Date & Time</td>
+                                            <td></td>
+                                            <td class="text-center" [formGroup]="dateform">
+                                                <ng2-flatpickr id="scToDate" name="fixPndtSchedule" class="form-control flatpickr flatpickr-input active"
+                                                    #pndtschedulePicker [config]="dateOptions" placeholder="Select Date.." formControlName="fixPndtSchedule"
+                                                    [(ngModel)]="selectedscheduledate"></ng2-flatpickr>
+                                            </td>
+                                        </tr>  
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="form-row" *ngIf="isDecisionYes">
-                                <div class="col-md-6">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="sp-sm-th"> Schedule MTP Date & Time</td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>                                               
-                                                    <td class="text-center" [formGroup]="dateform">
-                                                        <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
-                                                            class="form-control flatpickr flatpickr-input active"
-                                                            #pndtschedulePicker [config]="dateOptions" 
-                                                            placeholder="Select Date.."
-                                                            formControlName="fixPndtSchedule" [(ngModel)]="selectedscheduledate"></ng2-flatpickr>
-                                                        </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- <div class="form-row" id="gallery-box1" style="display:none;">
-                            <div class="col-md-12">
-                                <div class="n-chk">
-                                    <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input" id="select_all"
-                                            checked>
-                                        <span class="new-control-indicator"></span>Received signed consent form
-                                        from Subject and filed
-                                    </label>
-                                </div>
-                            </div>
-                        </div> -->
-                            </div>
+                            
                             <div class="form-row m-1">
                                 <div class="form-group col-md-12">
                                     <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
@@ -455,7 +415,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.foetalDisease === false">
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.pndtResults == 'Normal Foetus' || counselledYesdataItem?.pndtResults == 'Foetus is a carrier'">
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
@@ -519,14 +479,14 @@
 
 <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
 <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
-    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
-    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
-    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
-    <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
-    <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
-    <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
-    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-    <!--<i appLoadScript [script]="''"></i>-->
+<i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+<i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<!--<i appLoadScript [script]="''"></i>-->
 
 <!--  END MAIN CONTAINER  -->
