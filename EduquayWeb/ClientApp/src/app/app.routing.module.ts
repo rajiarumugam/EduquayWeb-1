@@ -170,6 +170,19 @@ import { pndTestingSummaryComponent } from "./pndtc/pnd-testing/pnd-testing-summ
 import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolver.service";
 import { PndSummaryViewComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view/pnd-testing-summary-view.component";
 import { PndSummaryViewMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view-main/pnd-testing-summary-view-main.component";
+
+import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
+import { MTPPendingComponent } from "./mtp/mtp-service/mtp-sevice-pending/mtp-sevice-pending.component";
+import { MTPServiceCompletedComponent } from "./mtp/mtp-service/mtp-sevice-completed/mtp-sevice-completed.component";
+import { MTPPendingResolverService } from "./shared/mtp/mtp-pending-resolver.service";
+import { MTPCompletedResolverService } from "./shared/mtp/mtp-completed-resolver.service";
+import { MTPTestingResultsComponent } from "./mtp/mtp-service/mtp-testing-results/mtp-testing-results.component";
+import { MtpTestingResultsMainComponent } from "./mtp/mtp-service/mtp-testing-results-main/mtp-testing-results-main.component";
+import { MtpTestingSummaryMainComponent } from "./mtp/mtp-service/mtp-testing-summary-main/mtp-testing-summary-main.component";
+import { mtpTestingSummaryComponent } from "./mtp/mtp-service/mtp-testing-summary/mtp-testing-summary.component";
+import { MTPSummaryResolverService } from "./shared/mtp/mtp-summary-resolver.service";
+import { MtpSummaryViewMainComponent } from "./mtp/mtp-service/mtp-testing-summary-view-main/mtp-testing-summary-view-main.component";
+import { MtpSummaryViewComponent } from "./mtp/mtp-service/mtp-testing-summary-view/mtp-testing-summary-view.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -360,6 +373,31 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'mtp-service', component: MTPServicMainComponent,
+        children:[
+          {path: '', component: MTPPendingComponent, pathMatch: 'full', resolve: {MTPTesting: MTPPendingResolverService}},
+          {path: 'completed', component: MTPServiceCompletedComponent, pathMatch: 'full', resolve: {MTPTesting: MTPCompletedResolverService}}
+        ]
+      },
+      {
+        path: 'mtp-testing-result', component: MtpTestingResultsMainComponent,
+        children:[
+          {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'mtp-summary', component: MtpTestingSummaryMainComponent,
+        children:[
+          {path: '', component: mtpTestingSummaryComponent, pathMatch: 'full', resolve: {mtpTestingData: MTPSummaryResolverService}}
+        ]
+      },
+      {
+        path: 'view-mtp-summary', component: MtpSummaryViewMainComponent,
+        children:[
+          {path: '', component: MtpSummaryViewComponent, pathMatch: 'full'}
+        ]
+      },
+      {
         path: 'view-pndtc-summary', component: PndSummaryViewMainComponent,
         children:[
           {path: '', component: PndSummaryViewComponent, pathMatch: 'full'}
@@ -542,7 +580,16 @@ export const RoutingComponents = [
   PostCounsellingDecisionYesComponent,
   PostCounsellingDecisionNoComponent,
   PostCounsellingDecisionPendingComponent,
-  PostPndtcDecisionYesComponent
+  PostPndtcDecisionYesComponent,
+  MTPServicMainComponent,
+  MTPPendingComponent,
+  MTPServiceCompletedComponent,
+  MTPTestingResultsComponent,
+  MtpTestingResultsMainComponent,
+  MtpTestingSummaryMainComponent,
+  mtpTestingSummaryComponent,
+  MtpSummaryViewMainComponent,
+  MtpSummaryViewComponent
 ];
 
 

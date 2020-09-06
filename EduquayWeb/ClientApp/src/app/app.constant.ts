@@ -65,6 +65,16 @@ export const ENDPOINT = {
         "RETRIVEPROCEDUREOFTESTING":"api/v1/PNDTMTPMaster/RetrieveProcedureOfTesting",
         "RETRIVEPNDTCCOMPLECATIONS":"api/v1/PNDTMTPMaster/RetrievePNDTComplecations",
         "RETRIVEPNDTCDIAGNOSIS":"api/v1/PNDTMTPMaster/RetrievePNDTDiagnosis",
-        "RETRIVEPNDTRESULT":"api/v1/PNDTMTPMaster/RetrievePNDTResult"
+        "RETRIVEPNDTRESULT":"api/v1/PNDTMTPMaster/RetrievePNDTResult",
+        "RETRIVEMTPCOMPLICATIONS":"api/v1/PNDTMTPMaster/RetrieveMTPComplications",
+        "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions"
+    },
+    "MTP":
+    {
+        "RETRIVEMTPPENDING":"api/v1/MTPObstetrician/RetrieveMTPPending",
+        "RETRIVEMTPCOMPLETED":"api/v1/MTPObstetrician/RetrieveMTPCompleted",
+        "RETRIVEMTPSUMMARY":"api/v1/MTPObstetrician/RetrieveMTPSummary",
+        "ADDMTPTEST":"api/v1/MTPObstetrician/ADDMTPTest"
     }
+
 }

@@ -5,7 +5,7 @@
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-      <app-site-sidebar module="pndtc" subMenum="Schedule-Pre-PNDTC"></app-site-sidebar>
+      <app-site-sidebar module="mtp-counsellor" subMenum="Schedule-Pre-PNDTC"></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
     <!--  BEGIN CONTENT AREA  -->
@@ -23,7 +23,7 @@
               <!-- <h5 class="float-left">Sample Collection</h5> -->
               <div class="col-md-4">
                 <div class="headertit">
-                  <h5 class="float-center">PND Testing</h5>
+                  <h5 class="float-center">MTP services</h5>
                 </div>
               </div>
               <div class="col-md-4">
@@ -39,15 +39,15 @@
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="tobeScheduled-tab" data-toggle="tab"
-                     [routerLink]="['/app/pndtc-testing']" role="tab" aria-controls="home"
+                     [routerLink]="['/app/mtp-service']" role="tab" aria-controls="home"
                      aria-selected="true">
-                     PNDT Pending<span class="badge badge-pill badge-warning shadow mx-1">{{pendingCount}}</span>
+                     MTP Pending<span class="badge badge-pill badge-warning shadow mx-1">{{pendingCount}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="scheduled-tab" data-toggle="tab" [routerLink]="['/app/pndtc-testing/notcompleted']"
+                  <a class="nav-link" id="scheduled-tab" data-toggle="tab" [routerLink]="['/app/mtp-service/completed']"
                      role="tab" aria-controls="profile" aria-selected="false">
-                     Update Post PNDT<span class="badge badge-pill badge-warning shadow ml-1">{{notcompleteCount}}</span>
+                     MTP Completed<span class="badge badge-pill badge-warning shadow ml-1">{{notcompleteCount}}</span>
                   </a>
                 </li>
               </ul>

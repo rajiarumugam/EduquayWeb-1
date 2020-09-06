@@ -1,0 +1,37 @@
+<div class="tab-pane fade show" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="table-responsive my-2">
+                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th><span>S.No</span></th>
+                            <th><span>Subject Name</span></th>
+                            <th><span>Subject ID</span></th>
+                            <th><span>RCH ID</span></th>
+                            <th><span>PNDT Results</span></th>
+                            <th><span>View</span></th>
+                            <th><span>Print</span></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pnddata of mtpPendingArray; index as i">
+                            <td>{{i+1}}</td>
+                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                            <td class="text-center">{{pnddata.anwSubjectId}}</td>
+                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                            <td class="text-center"></td>
+                            <td class="text-center"><a (click)="openViewPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
+                              data-target=".bd-example-modal-xl"></i></a></td>
+                            <td class="text-center"><a (click)="printThePage(pnddata);"><i class="fa fa-print text-primary" aria-hidden="true" data-toggle="modal"
+                                        data-target=".bd-example-modal-xl"></i></a></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
