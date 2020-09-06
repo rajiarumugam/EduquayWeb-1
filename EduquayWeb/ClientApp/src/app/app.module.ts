@@ -88,6 +88,8 @@ import { PostCounsellingDecisionPendingComponent } from './pndtc/counselling-pos
 import { PostPndtcDecisionYesComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-yes/post-pndtc-decision-yes.component';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { PostPndtcDecisionNoComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component';
+import { PostPndtcDecisionAwaitedComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-awaited/post-pndtc-decision-awaited.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -150,7 +152,9 @@ const ngWizardConfig: NgWizardConfig = {
     PostCounsellingDecisionYesComponent,
     PostCounsellingDecisionNoComponent,
     PostCounsellingDecisionPendingComponent,
-    PostPndtcDecisionYesComponent
+    PostPndtcDecisionYesComponent,
+    PostPndtcDecisionNoComponent,
+    PostPndtcDecisionAwaitedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
