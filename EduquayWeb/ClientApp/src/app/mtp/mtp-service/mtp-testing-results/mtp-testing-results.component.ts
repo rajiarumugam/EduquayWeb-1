@@ -303,7 +303,7 @@ export class MTPTestingResultsComponent implements OnInit {
                 text: 'MTP Updated Successfully.',
                 icon: 'success'
               }).then((result) => {
-                $('#modal-dailog').hide();
+                $('#modal-dailog').modal('hide');
                this.FormGroup.reset();
                setTimeout(function () {
                 this._location.back();
