@@ -342,6 +342,13 @@ export class PNDTestingResultsComponent implements OnInit {
            _obj['othersProcedureofTesting'] = this.FormGroup.get('otherPOT').value != undefined ? this.FormGroup.get('otherPOT').value : "";
            _obj['othersComplecations'] = this.FormGroup.get('anyOtherComplications').value != undefined ? this.FormGroup.get('anyOtherComplications').value : "";
 
+
+           _obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
+          _obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : 0;
+          _obj['motherVoided'] = this.secondFormGroup.get('motherVoided').value != undefined ? this.secondFormGroup.get('motherVoided').value : "";
+          _obj['motherVitalStable'] = this.secondFormGroup.get('motherVital').value != undefined ? this.secondFormGroup.get('motherVital').value : "";
+          _obj['foetalHeartRateDocumentScan'] = this.secondFormGroup.get('foetalHeart').value != undefined ? this.secondFormGroup.get('foetalHeart').value : "";
+          _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
            console.log(_obj);
 
            this.sendDataToService(_obj);
@@ -366,12 +373,12 @@ export class PNDTestingResultsComponent implements OnInit {
            _obj['pndtComplecationsId'] = _tempComplectionData;
            _obj['othersProcedureofTesting'] = this.FormGroup.get('otherPOT').value != undefined ? this.FormGroup.get('otherPOT').value : "";
            _obj['othersComplecations'] = this.FormGroup.get('anyOtherComplications').value != undefined ? this.FormGroup.get('anyOtherComplications').value : "";
-          _obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : "";
-          _obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : "";
-          _obj['motherVoided'] = this.secondFormGroup.get('motherVoided').value != undefined ? JSON.parse(this.secondFormGroup.get('motherVoided').value) : "";
-          _obj['motherVitalStable'] = this.secondFormGroup.get('motherVital').value != undefined ? JSON.parse(this.secondFormGroup.get('motherVital').value) : "";
-          _obj['foetalHeartRateDocumentScan'] = this.secondFormGroup.get('foetalHeart').value != undefined ? JSON.parse(this.secondFormGroup.get('foetalHeart').value) : "";
-          _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? JSON.parse(this.secondFormGroup.get('planForPregenancy').value) : "";
+          _obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
+          _obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : 0;
+          _obj['motherVoided'] = this.secondFormGroup.get('motherVoided').value != undefined ? this.secondFormGroup.get('motherVoided').value : "";
+          _obj['motherVitalStable'] = this.secondFormGroup.get('motherVital').value != undefined ? this.secondFormGroup.get('motherVital').value : "";
+          _obj['foetalHeartRateDocumentScan'] = this.secondFormGroup.get('foetalHeart').value != undefined ? this.secondFormGroup.get('foetalHeart').value : "";
+          _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
        
             _obj['isCompletePNDT'] = true;
 
@@ -448,6 +455,11 @@ export class PNDTestingResultsComponent implements OnInit {
     }
 
   }
+  openPopup()
+  {
+    //$('#modal-dailog').show();
+    $('#modal-dailog').modal('show');
+  }
   sendDataToService(_obj)
   {
     this.PNDCService.postPNDTest(_obj)
@@ -458,9 +470,11 @@ export class PNDTestingResultsComponent implements OnInit {
                 text: 'PNDT Updated Successfully.',
                 icon: 'success'
               }).then((result) => {
-                $('#modal-dailog').hide();
+                $('#modal-dailog').modal('hide');
                this.FormGroup.reset();
-               this._location.back();
+               setTimeout(function () {
+                this._location.back();
+             }, 10);
               });
           } else {
             

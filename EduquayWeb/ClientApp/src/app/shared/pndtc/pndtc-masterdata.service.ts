@@ -19,55 +19,59 @@ export class PNDTCmasterService {
 
   
   getPNDTCDistrict(): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEALLDISTRICT);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
   getDistrictBasedCHC(district): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBASEDDISTRICT+district);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
   getCHCBasedPHC(chc): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPHCBASEDPHC+chc);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
   getPHCBasedANM(phc): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPHCBASEDANM+phc);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
   getProcedureOfTesting(): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPROCEDUREOFTESTING);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
   getComplecations(): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPNDTCCOMPLECATIONS);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
   getPNDTCDiagnosis(): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPNDTCDIAGNOSIS);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
   getPNDTCResult(): Observable<any> {
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPNDTRESULT);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getMTPComplications(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEMTPCOMPLICATIONS);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getMTPDischarge(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEMTPDISCHARECONDITION);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }

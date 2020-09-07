@@ -97,14 +97,15 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="text-left">{{testingPNDData?.subjectName}}, F</td>
+                                                        <td class="text-left">{{testingPNDData?.subjectName}}, F </td>
+                                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                                         <td class="text-left">{{testingPNDData?.anwCBCTestResult}}</td>
                                                         <td class="text-left">{{testingPNDData?.anwSSTestResult}}</td>
                                                         <td class="text-left">{{testingPNDData?.anwHPLCTestResult}}</td>
                                                
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-left">{{testingPNDData?.spouseName}}, M</td>
+                                                        <td class="text-left">{{testingPNDData?.spouseName}}, M </td>
                                                         <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                                         <td class="text-left">{{testingPNDData?.spouseCBCTestResult}}</td>
                                                         <td class="text-left">{{testingPNDData?.spouseSSTestResult}}</td>
@@ -248,15 +249,15 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td class="sp-sm-th"><b>Date & Time</b></td>
-                                                                        <td>{{testingPNDData?.counsellingDateTime}}</td>
+                                                                        <td>{{testingPNDData?.prePNDTCounsellingDateTime}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td><b>Counsellor Name</b></td>
-                                                                        <td>{{testingPNDData?.counsellorName}}</td>
+                                                                        <td>{{testingPNDData?.prePNDTCounsellorName}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td><b>Counselling Notes/Remarks</b></td>
-                                                                        <td>{{testingPNDData?.counsellingRemarks}}</td>
+                                                                        <td>{{testingPNDData?.prePNDTCounsellingRemarks}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -268,11 +269,11 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td class="sp-sm-th"><b>Counselling Status</b></td>
-                                                                        <td>{{testingPNDData?.counsellingStatus}}</td>
+                                                                        <td>{{testingPNDData?.prePNDTCounsellingStatus}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td><b>Scheduled PNDT Date & Time</b></td>
-                                                                        <td>{{testingPNDData?.schedulePNDTDate}} {{testingPNDData?.schedulePNDTTime}}</td>
+                                                                        <td>{{testingPNDData?.schedulePNDTDate}} {{testingPNDData?.pndtDateTime}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -292,13 +293,182 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                            <div class="widget-content widget-content-area br-6">
+                                <div id="toggleAccordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne1">
+                                            <section class="mb-0 mt-0">
+                                                <div role="menu" class="collapsed" data-toggle="collapse"
+                                                    data-target="#defaultAccordionThree" aria-expanded="true"
+                                                    aria-controls="defaultAccordionThree">
+                                                   PND Testing <div class="icons"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-chevron-down">
+                                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                                        </svg></div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div id="defaultAccordionThree" class="collapse"
+                                            aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped mb-2">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>PNDT Date & Time</b></td>
+                                                                        <td>{{testingPNDData?.pndtDateTime}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Obstetrician Name</b></td>
+                                                                        <td>{{testingPNDData?.pndtObstetrician}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>PNDT Results</b></td>
+                                                                        <td>{{testingPNDData?.pndtResults}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Clinical History</b></td>
+                                                                        <td>{{testingPNDData?.pndtClinicalHistory}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Procedure of Testing</b></td>
+                                                                        <td>{{testingPNDData?.pndtProcedureOfTesting}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped mb-2">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>Counsellor Name</b></td>
+                                                                        <td>{{testingPNDData?.pndtCounsellorName}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>PNDT Diagnosis</b></td>
+                                                                        <td>{{testingPNDData?.pndtDiagnosis}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>Complications</b></td>
+                                                                        <td>{{testingPNDData?.pndtComplications}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Examination</b></td>
+                                                                        <td>{{testingPNDData?.pndtExamination}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row my-2">
+                                                    <div class="col-md-6 ml-3"><b>Note:</b> Received signed consent form from subject and filed.
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+    
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                            <div class="widget-content widget-content-area br-6">
+                                <div id="toggleAccordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne1">
+                                            <section class="mb-0 mt-0">
+                                                <div role="menu" class="collapsed" data-toggle="collapse"
+                                                    data-target="#defaultAccordionFour" aria-expanded="true"
+                                                    aria-controls="defaultAccordionFour">
+                                                    Post PNDT  Counselling <div class="icons"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-chevron-down">
+                                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                                        </svg></div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div id="defaultAccordionFour" class="collapse"
+                                            aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped mb-2">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>Date & Time</b></td>
+                                                                        <td>{{testingPNDData?.postPNDTCounsellingDateTime}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Counsellor Name</b></td>
+                                                                        <td>{{testingPNDData?.postPNDTCounsellorName}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Counselling Notes/Remarks</b></td>
+                                                                        <td>{{testingPNDData?.postPNDTCounsellingRemarks}}</td>
+                                                                    </tr>
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped mb-2">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="sp-sm-th"><b>Counsellor Status</b></td>
+                                                                        <td>{{testingPNDData?.postPNDTCounsellingStatus}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><b>Scheduled MTP Date & Time</b></td>
+                                                                        <td>{{testingPNDData?.mtpScheduleDate}} {{testingPNDData?.mtpScheduleTime}}</td>
+                                                                    </tr>
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row my-2">
+                                                    <div class="col-md-6 ml-3"><b>Note:</b> Received signed consent form from subject and filed.
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+    
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                             <div class="widget-content br-6">
                                 <div class="row my-3">
                                     
                                     <div class="col-md-12 d-flex justify-content-end ">
-                                        <a class="btn btn-primary" data-toggle="modal" 
-                                            role="button" (click)="openPopup();">Update</a>
+                                        <a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl1"
+                                            role="button">Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +478,7 @@
                             <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title modaltitle">Update PND Testing</h4>
+                                        <h4 class="modal-title modaltitle">MTP Service</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                                 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -344,7 +514,7 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <span class="note">PNDT Date & Time </span><span
+                                                <span class="note">MTP Date & Time </span><span
                                                     class="manto">*</span>
                                                     <input
                                                     class="form-control field" type="text"
@@ -378,19 +548,28 @@
                                                 class="manto">*</span>
                                             <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="examination"  [(ngModel)]="selectedexamination" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.examination.invalid }"></textarea>
                                         </div>
+
                                         <div class="form-group col-md-4">
-                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }">Procedure of Testing </span><span
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }">Procedure of Testing</span><span
                                                 class="manto">*</span>
-                                                <select id="inputChild" name="procedureOfTesting"
-                                                    class="form-control field" id="occuptnid"
-                                                    tabindex="7" required="" formControlName="procedureOfTesting"  [(ngModel)]="selectedprocedureOfTesting" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }" (change)="POTchange();">
-                                                    <option [ngValue]="null">Select Procedure</option>
-                                                    <option [value]="data.id" *ngFor="let data of POTData">{{data.name}}</option>
-                                                </select>
+                                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="procedureOfTesting"  [(ngModel)]="selectedprocedureOfTesting" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }"></textarea>
                                         </div>
+                                        
                                         </div>
                                         
                                         <div class="form-row">
+
+                                            <div class="form-group col-md-4">
+                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.conditionAtDischarge.invalid }">Condition at Discharge </span><span
+                                                    class="manto">*</span>
+                                                    <select id="inputChild" name="conditionAtDischarge"
+                                                        class="form-control field" id="occuptnid"
+                                                        tabindex="7" required="" formControlName="conditionAtDischarge"  [(ngModel)]="selectedconditionAtDischarge" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.conditionAtDischarge.invalid }" (change)="POTchange();">
+                                                        <option [ngValue]="null">Select Procedure</option>
+                                                        <option [value]="data.id" *ngFor="let data of POTData">{{data.name}}</option>
+                                                    </select>
+                                            </div>
+
                                             <div class="col-md-4">
                                                     <span class="note" [ngClass]="{'label-border-class': firstFormCheck && selectedcomplicationsItems.length==0 ? true : false }">Complications</span> <span class="manto">*</span>                        
                                                 <div class="form-group ">
@@ -411,24 +590,7 @@
                                                         </ng-multiselect-dropdown>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-4" *ngIf="selectedanyOtherComplications">
-                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">Others </span><span
-                                                    class="manto">*</span>
-                                                <input class="form-control field" name="name"
-                                                    required="" type="text" placeholder=""
-                                                    tabindex="1" autocomplete="off" formControlName="anyOtherComplications" [(ngModel)]="selectedothercomp" [required]="selectedanyOtherComplications" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">
-                                            </div>
-                                            <!-- test3 -->
-                                            <div class="form-group col-md-4" *ngIf="selectedprocedureOfTesting == 3 && !selectedanyOtherComplications  ? true : flase"></div>
-
-
-                                            <div class="form-group col-md-4"  *ngIf="selectedprocedureOfTesting == 3 ? true : false" [ngClass]="{'col-md-offset-3':true }">
-                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.otherPOT.invalid }">Others Procedure of Testing</span><span
-                                                    class="manto">*</span>
-                                                <input class="form-control field" name="name"
-                                                    required="" type="text" placeholder=""
-                                                    tabindex="1" autocomplete="off" formControlName="otherPOT" [(ngModel)]="selectedotherPOT" [required]="selectedprocedureOfTesting == 3 ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.otherPOT.invalid }">
-                                            </div>
+                                           
     
                                         </div>
 
@@ -441,91 +603,12 @@
                                             </div>
                                           </div>
                                         </form>
-                                        <form [formGroup]="secondFormGroup">
-                                            <!-- Post PNDT Procedure -->
-                                            <h4 class="modal-title modaltitle py-2">Post PNDT Procedure</h4>
-                                            <span class="note">Condition at Discharge</span>
-                                            <!-- <span class="note">Condition at Discharge</span> -->
-                                            <div class="row py-2">
-                                                <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">Mother Voided</span><br>
-                                                      <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="customRadioInline1" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="true" [required]='secondFormCheck' [(ngModel)]="fselectedMotherVoided">
-                                                            <label class="custom-control-label" for="customRadioInline1">Yes </label>
-                                                            </div>
-                                                        <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="customRadioInline2" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="false" [required]='secondFormCheck' [(ngModel)]="fselectedMotherVoided">
-                                                            <label class="custom-control-label" for="customRadioInline2">No</label>
-                                                        </div> 
-                                                </div>
-                                                <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVital.invalid }">Mother’s Vitals (Pulse & BP) Stable</span><br>
-                                                      <div class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="customRadioInline3" name="motherVital" class="custom-control-input" formControlName="motherVital" value="true" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline3">Yes </label>
-                                                        </div>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="customRadioInline4" name="motherVital" class="custom-control-input" formControlName="motherVital" value="false" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline4">No</label>
-                                                    </div> 
-                                                </div>
-                                                <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.foetalHeart.invalid }">Foetal Heart Rate documented in Scan</span><br>
-                                                      <div class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="customRadioInline5" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="true" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline5">Yes </label>
-                                                        </div>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" id="customRadioInline6" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="false" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline6">No</label>
-                                                    </div> 
-                                                </div>
-    
-                                                <div class="col-md-4 py-4">
-                                                <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">PNDT Diagnosis</span>
-                                                <select name="occupationoption"
-                                                                class="form-control field" id="inputSideEffects"
-                                                                tabindex="7" [(ngModel)]="selectedPNDTDiagnosis" formControlName="PNDTDiagnosis" [required]='secondFormCheck' [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">
-                                                                <option [ngValue]="null">Select Diagnosis</option>
-                                                                <option [value]="data.id" *ngFor="let data of POTDiagnosis">{{data.name}}</option>
-                                                                
-                                                            </select>
-                
-                                                </div>
-    
-                                                <div class="col-md-4 py-4">
-                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">PNDT Results</span>
-                                                    <select name="occupationoption"
-                                                                    class="form-control field" id="inputSideEffects"
-                                                                    tabindex="7" [(ngModel)]="selectedPNDTResults" formControlName="PNDTResults" [required]='secondFormCheck'  [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">
-                                                                    <option [ngValue]="null">Select Results</option>
-                                                                <option [value]="data.id" *ngFor="let data of POTResultData">{{data.name}}</option>
-                                                                
-                                                                </select>
-                    
-                                                    </div>
-                                                    <div class="col-md-4 py-4">
-                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.planForPregenancy.invalid }">Plan for Pregnancy Continue</span><br>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadioInline7" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="true" [required]='secondFormCheck'>
-                                                    <label class="custom-control-label" for="customRadioInline7">Yes: OG Follow up </label>
-                                                    </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadioInline8" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="false" [required]='secondFormCheck'>
-                                                    <label class="custom-control-label" for="customRadioInline8">Plan for MTP</label>
-                                                </div> 
-    
-                                     </div>
-    
-                                            </div>
-                                    
-                                    
-                                        </form>    </div>
+                                      </div>
                                     <div class="modal-footer">
+                                        <!--<a class="btn btn-success successdamaged" role="button"
+                                        id="linktopendingresult" (click)="pndSubmit('save')">Save & Update Later</a>-->
                                         <a class="btn btn-success successdamaged" role="button"
-                                        id="linktopendingresult" (click)="pndSubmit('save')">Save & Update Later</a>
-                                        <a class="btn btn-success successdamaged" role="button"
-                                            id="linktopendingresult" (click)="pndSubmit('submit')"> Confirm & Close</a>
+                                            id="linktopendingresult" (click)="pndSubmit('submit')"> Submit</a>
                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
                                             Close</button>
                                         <!-- <button type="button" class="btn btn-primary">Save</button> -->

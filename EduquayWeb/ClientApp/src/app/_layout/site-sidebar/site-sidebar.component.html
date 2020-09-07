@@ -261,8 +261,8 @@
                 
             </ul>
             </li>
-            <li class="menu" *ngIf="user.userRole === 'PNDTOBSTETRICIAN'">
-                <a href="#pndtc-counsellor" data-toggle="collapse"  attr.data-active="{{module === 'pndtc-counsellor'}}" attr.aria-expanded="{{module === 'pndtc-counsellor'}}" class="dropdown-toggle">
+            <li class="menu" *ngIf="user.userRole === 'PNDTOBSTETRICIAN'"><!--*ngIf="user.userRole === 'PNDTOBSTETRICIAN'"-->
+                <a href="#pndtc" data-toggle="collapse"  attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -280,17 +280,17 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc-counsellor'}" id="pndtc-counsellor"
+                <ul class="submenu list-unstyled collapse show" [ngClass]="{'show': module === 'pndtc'}" id="pndtc"
                     data-parent="#accordionExample">
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/pndtc-testing']"> PNDT testing </a>
                     </li>
-                    <li>
-                        <a href="obsmtp.html"> PND Summary Report  </a>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/pndtc-summary']"> PND Summary Report  </a>
                     </li>
                 </ul>
             </li>
-            <li class="menu" style="display:none;">
+            <li class="menu" *ngIf="user.userRole === 'MTPOBSTETRICIAN'"><!--*ngIf="user.userRole === 'MTPOBSTETRICIAN'"-->
                 <a href="#mtp-counsellor" data-toggle="collapse"  attr.data-active="{{module === 'mtp-counsellor'}}" attr.aria-expanded="{{module === 'mtp-counsellor'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -312,12 +312,13 @@
                 </a>
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'mtp-counsellor'}" id="mtp-counsellor"
                     data-parent="#accordionExample">
-                    <li>
-                        <a href="obsmtp.html"> MTP service </a>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/mtp-service']"> MTP service </a>
                     </li>
-                    <!-- <li>
-                        <a href="obsmtp.html">MTP </a>
-                    </li> -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/mtp-summary']"> MTP Summary Report  </a>
+                    </li>
+                 
                 </ul>
             </li>
             <li class="menu menu1" style="display:none;">
