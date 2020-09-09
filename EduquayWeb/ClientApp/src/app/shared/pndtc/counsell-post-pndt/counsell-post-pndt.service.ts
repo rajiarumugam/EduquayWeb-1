@@ -16,7 +16,7 @@ export class CounsellPostPndtService {
   addpostpndtCounsellingeApi: string = "api/v1/PNDTC/ADDPostPNDTCounselling";
   retrievepostpndtCounselledYesApi: string ="api/v1/PNDTC/RetrievePostPNDTCounselledYes";
   retrievepostpndtCounselledNoApi: string ="api/v1/PNDTC/RetrievePostPNDTCounselledNo";
-  retrievepostpndtCounselledPendingApi: string ="api/v1/PNDTC/RetrievePrePNDTCounselledPending";
+  retrievepostpndtCounselledPendingApi: string ="api/v1/PNDTC/RetrievePostPNDTCounselledPending";
 
   constructor(
     private httpClient: HttpClient,

@@ -389,18 +389,26 @@
                                             </td>
                                         </tr>
                                         <tr *ngIf="isDecisionYes">
-                                            <td>Current Schedule MTP Date & Time</td>
+                                            <td>Schedule MTP Date & Time</td>
                                             <td></td>
                                             <td class="text-center" [formGroup]="dateform">
-                                                <ng2-flatpickr id="scToDate" name="fixPndtSchedule" class="form-control flatpickr flatpickr-input active"
-                                                    #pndtschedulePicker [config]="dateOptions" placeholder="Select Date.." formControlName="fixPndtSchedule"
-                                                    [(ngModel)]="selectedscheduledate"></ng2-flatpickr>
+                                                <ng2-flatpickr id="scToDate" name="fixMtpSchedule" class="form-control flatpickr flatpickr-input active"
+                                                    #mtpschedulePicker [config]="dateOptions" placeholder="Select Date.." formControlName="fixMtpSchedule"
+                                                    ></ng2-flatpickr>
                                             </td>
                                         </tr>  
                                     </tbody>
                                 </table>
                             </div>
-                            
+                            <div class="col-md-12" *ngIf="isDecisionYes">
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox" class="new-control-input" id="select_all" checked="">
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                        consent form from Subject and filed
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-row m-1">
                                 <div class="form-group col-md-12">
                                     <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i

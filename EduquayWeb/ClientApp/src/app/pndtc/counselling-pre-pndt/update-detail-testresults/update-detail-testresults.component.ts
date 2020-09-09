@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CounsellPrePndtResquest, AddPrePndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
 import { CounsellPrePndtResponse, CounsellingList, AddPrePndtcCounsellingResponse } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
 import { user } from 'src/app/shared/auth-response';
@@ -114,7 +114,8 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     private tokenService: TokenService,
     private loaderService: LoaderService,
     private activatedRoute: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -360,6 +361,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/app/counselling-pre-pndt`);
+        }
+      });
     }
   }
   decisionNoResponseMessage(message: string, type: string) {
@@ -370,6 +376,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/app/counselling-pre-pndt`);
+        }
+      });
     }
   }
   decisionAwaitedResponseMessage(message: string, type: string) {
@@ -380,6 +391,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+          this.router.navigateByUrl(`/app/counselling-pre-pndt`);
+        }
+      });
     }
   }
   InitializeDateRange() {

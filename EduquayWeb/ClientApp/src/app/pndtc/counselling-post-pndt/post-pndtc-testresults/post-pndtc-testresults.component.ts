@@ -22,7 +22,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PostPndtcTestresultsComponent implements OnInit {
 
-  @ViewChild('pndtschedulePicker', { static: false }) pndtschedulePicker;
+  @ViewChild('mtpschedulePicker', { static: false }) mtpschedulePicker;
 
   updatepostpndtcErrorMessage: string;
   //masterdataErrorMessage: string;
@@ -83,7 +83,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
   popupform: FormGroup;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
-  fixPndtSchedule: string;
+  fixmtpSchedule: string;
   mtpscheduleDate: string;
   mtpscheduleTime: string;
   myRadio: string = '';
@@ -478,11 +478,11 @@ export class PostPndtcTestresultsComponent implements OnInit {
   InitializeDateRange() {
 
     this.dateform = this._formBuilder.group({
-      fixPndtSchedule: [new Date(moment().add(-1, 'day').format())],
+      fixmtpSchedule: [new Date(moment().add(-1, 'day').format())],
     });
 
     //Change of sample collection date
-    this.dateform.controls.fixPndtSchedule.valueChanges.subscribe(changes => {
+    this.dateform.controls.fixmtpSchedule.valueChanges.subscribe(changes => {
       console.log('end: ', changes);
       if (!changes[0]) return;
       const selectedDate2 = changes[0].getTime();

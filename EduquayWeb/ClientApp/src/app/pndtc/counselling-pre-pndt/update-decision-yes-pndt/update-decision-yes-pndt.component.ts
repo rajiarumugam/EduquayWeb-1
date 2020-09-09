@@ -72,6 +72,7 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
   isDecisionYes: boolean = true;
   Remarks: string;
   DDLobstetrician: string;
+  confirmationSelected: boolean;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -82,9 +83,10 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
   pndtscheduleDate: string;
   pndtscheduleTime: string;
   myRadio: string = '';
-  selecteddata: any;
-  testdate: Date;
-  selectedscheduledate: Date;
+  selectedAll: any
+  // selecteddata: any;
+  // testdate: Date;
+  // selectedscheduledate: Date;
 
   dateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -136,7 +138,12 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
       this.retrivecounselledyeslists();
       
     });
-
+    this.pndtscheduleDate = moment().format("DD/MM/YYYY");
+    this.pndtscheduleTime = moment().format("HH:mm");
+   
+    //this.dateOptions.defaultDate = this.selectedscheduledate ;// moment(this.selectedscheduledate).format("DD/MM/YYYY HH:mm");
+    this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
     this.ddlobstetricianName();
     
   }
@@ -174,13 +181,7 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
               //     fixPndtSchedule: new FormControl(this.convertToDateFormat(this.counselledYesdataItem.schedulePNDTDate + ' ' + 
               //     this.counselledYesdataItem.schedulePNDTTime))
               //   });
-              this.pndtscheduleDate = moment().format("DD/MM/YYYY");
-              this.pndtscheduleTime = moment().format("HH:mm");
              
-              //this.dateOptions.defaultDate = this.selectedscheduledate ;// moment(this.selectedscheduledate).format("DD/MM/YYYY HH:mm");
-              this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-              this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
-              
             //this.counsellinglists = this.counselledyesprepndtResponse.data;
 
           }
@@ -242,11 +243,21 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
       this.isDecisionYes = false;
     }
   }
+
+  // checkIfSelected(){
+
+  //   console.log(this.confirmationSelected);
+  //   this.selectedAll = this.counselledyeslists.every(function (item: any) {
+  //     return item.confirmationSelected == true;
+
+  //   })
+  // }
+
   onSubmit(updatePndtyesForm: NgForm) {
 
-    if (this.isSelectedYes === true || this.isPNDTAgreeYes === true) {
+    if (this.isSelectedYes === true) {
       console.log(updatePndtyesForm.value);
- 
+      //this.InitializeDateRange();
       this.counsellingRemarks = updatePndtyesForm.value.Remarks;
       this.assignedObstetricianId = updatePndtyesForm.value.DDLobstetrician;
 
@@ -427,7 +438,7 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
   InitializeDateRange() {
 
     this.dateform = this._formBuilder.group({
-      fixPndtSchedule:  [new Date(moment().add(-1, 'day').format())],
+      fixPndtSchedule: [new Date(moment().add(-1, 'day').format())],
     });
 
     //Change of sample collection date
@@ -438,7 +449,6 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
       this.pndtscheduleDate = moment(new Date(selectedDate2)).format("DD/MM/YYYY");
       this.pndtscheduleTime = moment(new Date(selectedDate2)).format("HH:mm");
     });
-
   }
 
 }

@@ -303,7 +303,25 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="form-row" *ngIf="isDecisionYes" style="display:none;">
+                            <div class="col-md-12" *ngIf="isDecisionYes">
+                                <!-- <div class="n-chk text-center">
+                                    <label class="new-control new-checkbox checkbox-outline-primary">
+                                      <input type="checkbox" class="new-control-input checkbox" 
+                                      value=""
+                                      [(ngModel)]="confirmationSelected"  (change)="checkIfSelected()">
+                                      <span class="new-control-indicator"></span>Received signed
+                                      consent form from Subject and filed
+                                    </label>
+                                </div> -->
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox" class="new-control-input" id="select_all" checked="">
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                        consent form from Subject and filed
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- <div class="form-row" *ngIf="isDecisionYes" style="display:none;">
                                 <div class="col-md-6">
                                     <div class="table-responsive">
                                         <table class="table table-borderless">
@@ -334,19 +352,8 @@
                                         </table>
                                     </div>
                                 </div>
-                                <!-- <div class="form-row" id="gallery-box1" style="display:none;">
-                            <div class="col-md-12">
-                                <div class="n-chk">
-                                    <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input" id="select_all"
-                                            checked>
-                                        <span class="new-control-indicator"></span>Received signed consent form
-                                        from Subject and filed
-                                    </label>
-                                </div>
-                            </div>
-                        </div> -->
-                            </div>
+                                
+                            </div> -->
                             <div class="form-row m-1">
                                 <div class="form-group col-md-12">
                                     <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
