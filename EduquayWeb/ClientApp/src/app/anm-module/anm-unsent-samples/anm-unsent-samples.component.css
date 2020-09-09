@@ -93,4 +93,13 @@ label.new-control.new-checkbox.checkbox-outline-primary {
 .tbl-row-black .tbl-data-black{
     color: #2d2e31;
 }
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
 
