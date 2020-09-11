@@ -372,10 +372,10 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
 
     console.log(editAppointmentForm.value);
 
-    this.editscheduleDate = moment().format("DD/MM/YYYY");
-    this.editscheduleTime = moment().format("HH:mm");
-    this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.editscheduleDate = moment().format("DD/MM/YYYY");
+    // this.editscheduleTime = moment().format("HH:mm");
+    // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
     this.counsellorId = editAppointmentForm.value.DDcounsellorname;
 
     this.addScheduledRequest = {

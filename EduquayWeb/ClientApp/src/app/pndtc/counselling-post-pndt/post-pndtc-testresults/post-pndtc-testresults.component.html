@@ -384,53 +384,29 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr *ngIf="isDecisionYes">
+                                            <td>Schedule MTP Date & Time</td>
+                                            <td></td>
+                                            <td class="text-center" [formGroup]="dateform">
+                                                <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
+                                                    class="form-control flatpickr flatpickr-input active"
+                                                    #pndtschedulePicker [config]="dateOptions" 
+                                                    placeholder="Select Date.."
+                                                    formControlName="fixmtpSchedule"></ng2-flatpickr>
+                                            </td>
+                                    </tr>
 
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="form-row" *ngIf="isDecisionYes">
-                                <div class="col-md-5">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="sp-sm-th"> Schedule MTP Date & Time</td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>                                               
-                                                    <td class="text-center" [formGroup]="dateform">
-                                                        <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
-                                                            class="form-control flatpickr flatpickr-input active"
-                                                            #pndtschedulePicker [config]="dateOptions" 
-                                                            placeholder="Select Date.." [disabled]="isSelectedYes"
-                                                            formControlName="fixPndtSchedule"></ng2-flatpickr>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- <div class="form-row" id="gallery-box1" style="display:none;">
-                            <div class="col-md-12">
+                            <div class="col-md-12" *ngIf="isDecisionYes">
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input" id="select_all"
-                                            checked>
-                                        <span class="new-control-indicator"></span>Received signed consent form
-                                        from Subject and filed
+                                        <input type="checkbox" class="new-control-input" id="select_all" checked="">
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                        consent form from Subject and filed
                                     </label>
                                 </div>
-                            </div>
-                        </div> -->
                             </div>
                             <div class="form-row m-1">
                                 <div class="form-group col-md-12">

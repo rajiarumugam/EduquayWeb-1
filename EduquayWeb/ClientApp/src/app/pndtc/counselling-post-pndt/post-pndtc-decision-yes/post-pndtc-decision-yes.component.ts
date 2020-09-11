@@ -89,7 +89,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
   popupform: FormGroup;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
-  fixPndtSchedule: string;
+  fixMtpSchedule: string;
   mtpscheduleDate: string;
   mtpscheduleTime: string;
   myRadio: string = '';
@@ -185,7 +185,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
             // this.selectedscheduledate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.schedulePNDTDate + ' ' + 
             // this.counselledYesdataItem.schedulePNDTTime);
             // this.dateform = new FormGroup({
-            //     fixPndtSchedule: new FormControl(this.convertToDateFormat(this.counselledYesdataItem.schedulePNDTDate + ' ' + 
+            //     fixMtpSchedule: new FormControl(this.convertToDateFormat(this.counselledYesdataItem.schedulePNDTDate + ' ' + 
             //     this.counselledYesdataItem.schedulePNDTTime))
             //   });
             this.mtpscheduleDate = moment().format("DD/MM/YYYY");
@@ -508,11 +508,11 @@ export class PostPndtcDecisionYesComponent implements OnInit {
   InitializeDateRange() {
 
     this.dateform = this._formBuilder.group({
-      fixPndtSchedule: [new Date(moment().add(-1, 'day').format())],
+      fixMtpSchedule: [new Date(moment().add(-1, 'day').format())],
     });
 
     //Change of sample collection date
-    this.dateform.controls.fixPndtSchedule.valueChanges.subscribe(changes => {
+    this.dateform.controls.fixMtpSchedule.valueChanges.subscribe(changes => {
       console.log('end: ', changes);
       if (!changes[0]) return;
       const selectedDate2 = changes[0].getTime();
