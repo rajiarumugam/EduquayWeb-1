@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
 import { MTPService } from "../../../shared/mtp/mtp.service";
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { FlatpickrOptions } from 'ng2-flatpickr';
 
 
 @Component({
@@ -24,6 +25,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class MTPTestingResultsComponent implements OnInit {
   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   @ViewChild('multiSelect',{static:false}) multiSelect;
+  @ViewChild('dorPicker', { static: false }) DORPicker;
   receivedSampleCount;
   uploadCBCCount = 0;
   currentPage = "";
@@ -76,6 +78,14 @@ export class MTPTestingResultsComponent implements OnInit {
 
   selectedItems = [];
 
+  startOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y H:i',
+    defaultDate: new Date(Date.now()),
+    minDate: new Date(Date.now()),
+    enableTime: true,
+  };
+
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -114,6 +124,7 @@ export class MTPTestingResultsComponent implements OnInit {
     this.testingPNDData = this.DataService.getdata().MTPtestingResult;
     this.selectedcounsellerName = this.testingPNDData.pndtCounsellorName;
     this.selectedpndtDate = this.testingPNDData.mtpScheduleDate+" "+this.testingPNDData.mtpScheduleTime;
+    this.selectedObstetricianName = this.testingPNDData.postPNDTObstetricianName;
     console.log(this.DataService.getdata().MTPtestingResult);
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
 
@@ -131,10 +142,15 @@ export class MTPTestingResultsComponent implements OnInit {
       )],
       conditionAtDischarge: ['', Validators.required]
    });
-   
-      
-    this.getMTPDiagnosis();
+   this.getMTPDiagnosis();
     this.getComplecations();
+   this.DORPicker.flatpickr.set({
+    minDate: this.selectedpndtDate,
+    enable: [],
+    enableTime: true,
+    dateFormat: 'd/m/Y H:i',
+  });
+    
     
 
     
@@ -177,9 +193,11 @@ export class MTPTestingResultsComponent implements OnInit {
 
   public onSelectAll(items: any) {
     console.log(items);
+    this.selectedanyOtherComplications = true;
   }
   public onDeSelectAll(items: any) {
     console.log(items);
+    this.selectedanyOtherComplications = false;
   }
 
   getMTPDiagnosis(){
@@ -219,7 +237,7 @@ export class MTPTestingResultsComponent implements OnInit {
         textField: 'name',
         enableCheckAll: false,
         selectAllText: 'Select All',
-        unSelectAllText: 'Hủy chọn',
+        unSelectAllText: 'Deselect All',
         allowSearchFilter: false,
         limitSelection: -1,
         clearSearchFilter: true,
@@ -276,6 +294,7 @@ export class MTPTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
+          _obj["mtpDateTime"] = this.FormGroup.get('pndtDate').value;
           _obj['anwsubjectId'] = this.testingPNDData.anwSubjectId;
           _obj['spouseSubjectId'] = this.testingPNDData.spouseSubjectId;
           _obj['counsellorId'] = this.testingPNDData.postPNDTCounsellorId;
@@ -305,9 +324,7 @@ export class MTPTestingResultsComponent implements OnInit {
               }).then((result) => {
                 $('#modal-dailog').modal('hide');
                this.FormGroup.reset();
-               setTimeout(function () {
                 this._location.back();
-             }, 1);
                
               });
           } else {
