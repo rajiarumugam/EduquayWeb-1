@@ -185,6 +185,13 @@ import { mtpTestingSummaryComponent } from "./mtp/mtp-service/mtp-testing-summar
 import { MTPSummaryResolverService } from "./shared/mtp/mtp-summary-resolver.service";
 import { MtpSummaryViewMainComponent } from "./mtp/mtp-service/mtp-testing-summary-view-main/mtp-testing-summary-view-main.component";
 import { MtpSummaryViewComponent } from "./mtp/mtp-service/mtp-testing-summary-view/mtp-testing-summary-view.component";
+import { DistrictCoordinatorMainComponent } from "./district-coordinator/district-coordinator-main/district-coordinator-main.component";
+import { DamagedSamplesComponent } from "./district-coordinator/damaged-samples/damaged-samples.component";
+import { UnsentSamplesComponent } from "./district-coordinator/unsent-samples/unsent-samples.component";
+import { SampleTimeoutComponent } from "./district-coordinator/sample-timeout/sample-timeout.component";
+import { PositiveSubjectsComponent } from "./district-coordinator/positive-subjects/positive-subjects.component";
+import { PndtReferralComponent } from "./district-coordinator/pndt-referral/pndt-referral.component";
+import { MtpReferralComponent } from "./district-coordinator/mtp-referral/mtp-referral.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -450,6 +457,16 @@ const routes: Routes = [
       { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
+      { path: 'dc-notification', component: DistrictCoordinatorMainComponent,
+      children:[
+        {path: '', component: DamagedSamplesComponent, pathMatch: 'full'},
+        {path: 'unsent-samples', component: UnsentSamplesComponent, pathMatch: 'full'},
+        {path: 'sample-timeout', component: SampleTimeoutComponent, pathMatch: 'full'},
+        {path: 'positive-subjects', component: PositiveSubjectsComponent, pathMatch: 'full'},
+        {path: 'pndt-referral', component: PndtReferralComponent, pathMatch: 'full'},
+        {path: 'mtp-referral', component: MtpReferralComponent, pathMatch: 'full'}
+      ]
+      },
       
      
     ]
@@ -594,7 +611,15 @@ export const RoutingComponents = [
   MtpSummaryViewMainComponent,
   MtpSummaryViewComponent,
   PostPndtcDecisionNoComponent,
-  PostPndtcDecisionAwaitedComponent
+  PostPndtcDecisionAwaitedComponent,
+  DistrictCoordinatorMainComponent,
+  DamagedSamplesComponent,
+  UnsentSamplesComponent,
+  SampleTimeoutComponent,
+  PositiveSubjectsComponent,
+  PndtReferralComponent,
+  MtpReferralComponent
+
 ];
 
 

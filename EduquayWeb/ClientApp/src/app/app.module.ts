@@ -90,6 +90,13 @@ import { PostPndtcDecisionYesComponent } from './pndtc/counselling-post-pndt/pos
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PostPndtcDecisionNoComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component';
 import { PostPndtcDecisionAwaitedComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-awaited/post-pndtc-decision-awaited.component';
+import { DistrictCoordinatorMainComponent } from './district-coordinator/district-coordinator-main/district-coordinator-main.component';
+import { DamagedSamplesComponent } from './district-coordinator/damaged-samples/damaged-samples.component';
+import { UnsentSamplesComponent } from './district-coordinator/unsent-samples/unsent-samples.component';
+import { SampleTimeoutComponent } from './district-coordinator/sample-timeout/sample-timeout.component';
+import { PositiveSubjectsComponent } from './district-coordinator/positive-subjects/positive-subjects.component';
+import { PndtReferralComponent } from './district-coordinator/pndt-referral/pndt-referral.component';
+import { MtpReferralComponent } from './district-coordinator/mtp-referral/mtp-referral.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -154,7 +161,14 @@ const ngWizardConfig: NgWizardConfig = {
     PostCounsellingDecisionPendingComponent,
     PostPndtcDecisionYesComponent,
     PostPndtcDecisionNoComponent,
-    PostPndtcDecisionAwaitedComponent
+    PostPndtcDecisionAwaitedComponent,
+    DistrictCoordinatorMainComponent,
+    DamagedSamplesComponent,
+    UnsentSamplesComponent,
+    SampleTimeoutComponent,
+    PositiveSubjectsComponent,
+    PndtReferralComponent,
+    MtpReferralComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -366,7 +366,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
   InitializeDateRange() {
 
     this.dateform = this._formBuilder.group({
-      fixSchedule: [new Date(moment().add(-1, 'day').format())],
+      fixSchedule: [new Date(moment().format("DD/MM/YYYY HH:mm"))],
     });
 
     //Change of sample collection date

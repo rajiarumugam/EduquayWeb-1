@@ -393,7 +393,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="menu" style="display:none;">
+            <li class="menu" *ngIf="user.userRole === 'DC'">
                 <a href="#dc" data-toggle="collapse" attr.data-active="{{module === 'dc'}}" attr.aria-expanded="{{module === 'dc'}}"  class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -411,8 +411,8 @@
                     </div>
                 </a>
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'dc'}" id="dc" data-parent="#accordionExample">
-                    <li>
-                        <a href="dc-notification.html"> Notifications </a>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/dc-notification']"> Notifications </a>
                     </li>
                    
                 </ul>
