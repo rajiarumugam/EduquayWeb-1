@@ -106,7 +106,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
   selectedschoolName;
   selectedschoolstreet;
   selectedschoolcity;
-  selectedschoolstate;
+  selectedschoolstate = 1;
   selectedSchoolPincode;
   selectedrbskid;
   selectedschoolsection;
@@ -310,6 +310,7 @@ export class AnmStudentRegistrationComponent implements OnInit {
         val.display = val.stateName;
       });
       this.selectedstate = 1;
+      this.selectedschoolstate = 1;
     },
     (err: HttpErrorResponse) =>{
       this.casteData = [];

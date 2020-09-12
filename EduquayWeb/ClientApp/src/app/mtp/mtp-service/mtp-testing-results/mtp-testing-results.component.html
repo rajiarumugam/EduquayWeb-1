@@ -56,6 +56,12 @@
                                                         <td>{{testingPNDData?.ga}}</td>
                                                         <td><b>Obstetrics Score</b></td>
                                                         <td>{{testingPNDData?.obstetricScore}}</td>
+                                                        <td><b>RCH ID</b></td>
+                                                        <td>{{testingPNDData?.rchId}}</td>
+                                                        
+                                                    </tr>
+                                                    
+                                                    <tr>
                                                         <td><b>EC Number</b></td>
                                                         <td>{{testingPNDData?.ecNumber}}</td>
                                                         
@@ -148,18 +154,18 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center"><span>SST Results</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>SST Results</span></th>
                                                                 <th class="text-center"><span>Diagnosis</span></th>
                                                             </tr>
                     
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left">{{testingPNDData?.subjectName}}, F</td>
+                                                                <td class="text-left" style="width:30%;">{{testingPNDData?.subjectName}}, F</td>
                                                                 <td class="text-left">{{testingPNDData?.anwSSTestResult}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-left">{{testingPNDData?.spouseName}}, M</td>
+                                                                <td class="text-left" style="width:30%;">{{testingPNDData?.spouseName}}, M</td>
                                                                 <td class="text-left">{{testingPNDData?.spouseSSTestResult}}</td>
                                                             </tr>
                                                         </tbody>
@@ -169,7 +175,7 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                               <th class="text-center"><span>CBC Results</span></th>
+                                                               <th class="text-center" style="width:30%;"><span>CBC Results</span></th>
                                                                 
                                                                <th class="text-center"><span>Diagnosis</span></th>
                                                             </tr>
@@ -177,12 +183,12 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left">{{testingPNDData?.subjectName}}, F</td>
+                                                                <td class="text-left" style="width:30%;">{{testingPNDData?.subjectName}}, F</td>
                                                                 
                                                                 <td class="text-left">{{testingPNDData?.anwCBCTestResult}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-left">{{testingPNDData?.spouseName}}, M</td>
+                                                                <td class="text-left" style="width:30%;">{{testingPNDData?.spouseName}}, M</td>
                                                                 
                                                                 <td class="text-left">{{testingPNDData?.spouseCBCTestResult}}</td>
                                                             </tr>
@@ -193,7 +199,7 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                               <th class="text-center"><b>HPLC Results</b></th>
+                                                               <th class="text-center" style="width:30%;"><b>HPLC Results</b></th>
                                                                 
                                                                <th class="text-center"><b>Diagnosis</b></th>
                                                             </tr>
@@ -201,12 +207,12 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left">{{testingPNDData?.subjectName}}, F</td>
+                                                                <td class="text-left" style="width:30%;">{{testingPNDData?.subjectName}}, F</td>
                                                                 
                                                                 <td class="text-left">{{testingPNDData?.anwHPLCDiagnosis}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="text-left">{{testingPNDData?.spouseName}}, M</td>
+                                                                <td class="text-left" style="width:30%;">{{testingPNDData?.spouseName}}, M</td>
                                                                 
                                                                 <td class="text-left">{{testingPNDData?.spouseHPLCDiagnosis}}</td>
                                                             </tr>
@@ -328,7 +334,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td><b>Obstetrician Name</b></td>
-                                                                        <td>{{testingPNDData?.pndtObstetrician}}</td>
+                                                                        <td>{{testingPNDData?.postPNDTObstetricianName}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td><b>PNDT Results</b></td>
@@ -514,11 +520,12 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <span class="note">MTP Date & Time </span><span
+                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }">MTP Date & Time </span><span
                                                     class="manto">*</span>
-                                                    <input
+                                                    <!--<input
                                                     class="form-control field" type="text"
-                                                     readonly formControlName="pndtDate" [(ngModel)]="selectedpndtDate">
+                                                     readonly formControlName="pndtDate" [(ngModel)]="selectedpndtDate">-->
+                                                     <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "pndtDate" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }" [(ngModel)]="selectedpndtDate"></ng2-flatpickr>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <span class="note">Counsellor Name </span><span
