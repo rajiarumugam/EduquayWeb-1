@@ -311,9 +311,16 @@
                                         <tr>
                                             <td>Counselling Notes/Remarks</td>
                                             <td></td>
-                                            <td><textarea id="textarea" class="form-control textarea" maxlength="225"
-                                                    rows="2" placeholder="" name=Remarks  [(ngModel)]="Remarks"
-                                                    ></textarea></td>
+                                            <td>
+                                                <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                                    [class.is-invalid]="Remarks.invalid && Remarks.touched || postupdatePndtpendingForm.submitted && Remarks.invalid" rows="2"
+                                                    placeholder="" name=Remarks #Remarks="ngModel" ngModel required></textarea>
+                                                <small class=" ml-2 text-danger" *ngIf="Remarks.invalid && Remarks.touched">Please
+                                                    Enter the Counselling Notes/Remarks</small>
+                                                <div *ngIf="postupdatePndtpendingForm.submitted && Remarks.invalid">
+                                                    <small *ngIf="Remarks.untouched" class=" ml-2 text-danger">Counselling Notes/Remarks is required</small>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>The couple has agreed for MTP</td>
@@ -448,9 +455,16 @@
                                         <tr>
                                             <td>Counselling Notes/Remarks</td>
                                             <td></td>
-                                            <td><textarea id="textarea" class="form-control textarea" maxlength="225"
-                                                    rows="2" placeholder="" name=Remarks #Remarks="ngModel"
-                                                    ngModel></textarea></td>
+                                            <td>
+                                                <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                                    [class.is-invalid]="Remarks.invalid && Remarks.touched || postupdatePndtpendingForm.submitted && Remarks.invalid" rows="2"
+                                                    placeholder="" name=Remarks #Remarks="ngModel" ngModel required></textarea>
+                                                <small class=" ml-2 text-danger" *ngIf="Remarks.invalid && Remarks.touched">Please
+                                                    Enter the Counselling Notes/Remarks</small>
+                                                <div *ngIf="postupdatePndtpendingForm.submitted && Remarks.invalid">
+                                                    <small *ngIf="Remarks.untouched" class=" ml-2 text-danger">Counselling Notes/Remarks is required</small>
+                                                </div>
+                                            </td>
                                         </tr>
                                         
                                     </tbody>

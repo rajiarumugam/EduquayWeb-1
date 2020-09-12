@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 @Component({
   selector: 'app-post-pndtc-testresults',
@@ -123,14 +124,15 @@ export class PostPndtcTestresultsComponent implements OnInit {
     private loaderService: LoaderService,
     private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dateservice: DateService
   ) { }
 
   ngOnInit() {
 
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT" }));
+    this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Counselling – Post PNDT" }));
     this.InitializeDateRange();
     this.activatedRoute.queryParams.subscribe(params => {
       this.anwSubjectId = params['q'];
@@ -168,6 +170,11 @@ export class PostPndtcTestresultsComponent implements OnInit {
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
               this.foetalDisease = this.counsellingdataItem.foetalDisease;
             //this.counsellinglists = this.counsellingpostpndtResponse.data;
+            // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
+            // this.mtpscheduleTime = moment().format("HH:mm");
+            // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");        
+            // const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.prePNDTCounsellingDateTime);
+            // this.dateOptions.minDate = regDate;
 
           }
         }
@@ -362,7 +369,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
             });
       }
       else {
-        this.decisionAwaitedResponseMessage(`Please update the couple's decision on PNDT`, 'e');
+        this.decisionAwaitedResponseMessage(`Please update the couple's decision on MTP`, 'e');
       }
     }
     else if (this.foetalDisease === false) {

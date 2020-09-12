@@ -14,6 +14,7 @@ import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 @Component({
   selector: 'app-update-detail-testresults',
@@ -115,7 +116,8 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     private loaderService: LoaderService,
     private activatedRoute: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dateservice: DateService
   ) { }
 
   ngOnInit() {
@@ -132,6 +134,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     this.pndtscheduleTime = moment().format("HH:mm");
     this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+
 
     this.ddlobstetricianName();
   }
@@ -159,6 +162,12 @@ export class UpdateDetailTestresultsComponent implements OnInit {
             this.counsellingdataItem = this.counsellingprepndtResponse.data.
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
             //this.counsellinglists = this.counsellingprepndtResponse.data;
+              // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
+              // this.pndtscheduleTime = moment().format("HH:mm");
+              // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+              // //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+              // const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
+              // this.dateOptions.minDate = regDate;
 
           }
         }

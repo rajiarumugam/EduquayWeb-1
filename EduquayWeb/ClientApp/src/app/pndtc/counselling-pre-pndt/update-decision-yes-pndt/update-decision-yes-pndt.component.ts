@@ -140,8 +140,6 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     });
     this.pndtscheduleDate = moment().format("DD/MM/YYYY");
     this.pndtscheduleTime = moment().format("HH:mm");
-   
-    //this.dateOptions.defaultDate = this.selectedscheduledate ;// moment(this.selectedscheduledate).format("DD/MM/YYYY HH:mm");
     this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
     this.ddlobstetricianName();
@@ -183,6 +181,12 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
               //   });
              
             //this.counsellinglists = this.counselledyesprepndtResponse.data;
+              // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
+              // this.pndtscheduleTime = moment().format("HH:mm");
+              // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+              // //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+              // const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
+              // this.dateOptions.minDate = regDate;
 
           }
         }

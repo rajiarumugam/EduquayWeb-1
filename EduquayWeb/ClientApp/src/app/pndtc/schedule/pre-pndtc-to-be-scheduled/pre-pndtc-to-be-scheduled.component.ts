@@ -320,7 +320,6 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.anwSubjectId = schedulingdata.anwSubjectId;
     this.spouseSubjectId = schedulingdata.spouseSubjectId;
 
-
     this.addScheduleRequest = {
       anwsubjectId: this.anwSubjectId,
       spouseSubjectId: this.spouseSubjectId,
@@ -331,6 +330,8 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
+    // return false;
+
     let addScheduleData = this.pndtmtpScheduleService.Addschedule(this.addScheduleRequest)
       .subscribe(response => {
         this.addScheduleResponse = response;
@@ -359,6 +360,11 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+            window.location.reload();
+          }
+      });
 
     }
   }

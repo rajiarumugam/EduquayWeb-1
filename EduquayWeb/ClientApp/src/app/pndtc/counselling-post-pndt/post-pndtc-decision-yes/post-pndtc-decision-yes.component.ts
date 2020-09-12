@@ -394,7 +394,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
             });
       }
       else {
-        this.decisionAwaitedResponseMessage(`Please update the couple's decision on PNDT`, 'e');
+        this.decisionAwaitedResponseMessage(`Please update the couple's decision on MTP`, 'e');
       }
     }
     else if (this.foetalDisease === false) {
