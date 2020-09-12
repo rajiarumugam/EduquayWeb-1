@@ -14,6 +14,7 @@ import { DataService } from 'src/app/shared/data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DcNotificationRequest } from 'src/app/shared/district-coordinator/dc-notification-request';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-damaged-samples',
@@ -97,7 +98,8 @@ export class DamagedSamplesComponent implements AfterViewInit, OnDestroy, OnInit
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -137,12 +139,14 @@ export class DamagedSamplesComponent implements AfterViewInit, OnDestroy, OnInit
 
   dcDamagedSamples(districtId){
 
+    this.loaderService.display(true);
     this.recordCount = 0; //step 3
     this.damagedSamples = [];
     this.dcdamagedSamplesErrorMessage ='';
     let samplesList = this.dcDamagedSamplesService.getdamagedSampleList(this.user.districtId)
     .subscribe(response => {
       this.dcdamagedsamplesResponse = response;
+      this.loaderService.display(false);
       if(this.dcdamagedsamplesResponse !== null && this.dcdamagedsamplesResponse.status === "true"){
         if(this.dcdamagedsamplesResponse.samples.length <= 0){
           this.dcdamagedSamplesErrorMessage = response.message;

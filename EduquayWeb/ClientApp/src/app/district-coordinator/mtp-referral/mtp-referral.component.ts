@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { dcmtpReferral, dcmtpReferralResponse, DcUpdatePndtMtpReferralResponse } from 'src/app/shared/district-coordinator/dc-notification-response';
 import { DcPndtMtpReferralRequest } from 'src/app/shared/district-coordinator/dc-notification-request';
 import { DistrictCoordinatorService } from 'src/app/shared/district-coordinator/district-coordinator.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-mtp-referral',
@@ -129,12 +130,13 @@ export class MtpReferralComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
   
-      this.dataservice.sendData(JSON.stringify({"module": "District Coordinator", "submodule":"Notification", "page": "Positive Subjects"}));
+      this.dataservice.sendData(JSON.stringify({"module": "District Coordinator", "submodule":"Notification", "page": "MTP Referral"}));
       this.recordCount = 0;
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       //this.InitializeDateRange(); 
@@ -168,13 +170,15 @@ export class MtpReferralComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   
     dcmtpReferral(districtId){
-  
+
+      this.loaderService.display(true);
       this.recordCount = 0; //step 3
       this.mtpReferral = [];
       this.dcmtpReferralErrorMessage ='';
       let samplesList = this.dcmtpReferralService.getmtpReferral(this.user.districtId)
       .subscribe(response => {
         this.dcmtpReferralResponse = response;
+        this.loaderService.display(false);
         if(this.dcmtpReferralResponse !== null && this.dcmtpReferralResponse.status === "true"){
           if(this.dcmtpReferralResponse.samples.length <= 0){
             this.dcmtpReferralErrorMessage = response.message;

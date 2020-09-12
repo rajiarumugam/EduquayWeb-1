@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { dcpndtReferralResponse, dcpndtReferral, DcUpdatePndtMtpReferralResponse } from 'src/app/shared/district-coordinator/dc-notification-response';
 import { DistrictCoordinatorService } from 'src/app/shared/district-coordinator/district-coordinator.service';
 import { DcPndtMtpReferralRequest } from 'src/app/shared/district-coordinator/dc-notification-request';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-pndt-referral',
@@ -117,12 +118,13 @@ export class PndtReferralComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
   
-      this.dataservice.sendData(JSON.stringify({"module": "District Coordinator", "submodule":"Notification", "page": "Positive Subjects"}));
+      this.dataservice.sendData(JSON.stringify({"module": "District Coordinator", "submodule":"Notification", "page": "PNDT Referral"}));
       this.recordCount = 0;
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       //this.InitializeDateRange(); 
@@ -156,13 +158,15 @@ export class PndtReferralComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   
     dcpndtReferral(districtId){
-  
+
+      this.loaderService.display(true);
       this.recordCount = 0; //step 3
       this.pndtReferral = [];
       this.dcpndtReferralErrorMessage ='';
       let samplesList = this.dcpndtReferralService.getpndtReferral(this.user.districtId)
       .subscribe(response => {
         this.dcpndtReferralResponse = response;
+        this.loaderService.display(false);
         if(this.dcpndtReferralResponse !== null && this.dcpndtReferralResponse.status === "true"){
           if(this.dcpndtReferralResponse.samples.length <= 0){
             this.dcpndtReferralErrorMessage = response.message;

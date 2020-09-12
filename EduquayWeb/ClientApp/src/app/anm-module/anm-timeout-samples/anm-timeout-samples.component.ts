@@ -240,10 +240,29 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
         this.showResponseMessage(err.toString(), 'e');
         this.timeoutSamplesErrorMessage = err.toString();
       });
-      //swal ("Here's the title!", "...and here's the text!");
+      //swal ("Here's the title!", "...and here's the text!");  this.router.navigateByUrl(`/app/anm-viewshipment?q=${shipmentId}`);
     }
   
     showResponseMessage(message: string, type: string){
+      var messageType = '';
+      if(type === 'e'){
+        Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+      }
+      else{
+        Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+        .then((result) => {
+          if (result.value) {
+            if(this.modalService.hasOpenModals){
+              this.modalService.dismissAll();
+              window.location.reload();
+            }
+           
+          }
+        });
+      }
+    }
+
+    updateStatusResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
         Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
@@ -266,7 +285,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.fetchBarcodes();
 
     if(this.notifySamples === ""){
-      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
+      this.updateStatusResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }   
     this.timeoutUpdateStatusRequest = {
@@ -280,15 +299,15 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       .subscribe(response => {
        this.timeoutUpdateStatusResponse= response;
         if (this.timeoutUpdateStatusResponse !== null && this.timeoutUpdateStatusResponse.status === "true") {
-          this.showResponseMessage(this.timeoutUpdateStatusResponse.message, 's');
+          this.updateStatusResponseMessage(this.timeoutUpdateStatusResponse.message, 's');
         } else {
-          this.showResponseMessage(this.timeoutUpdateStatusResponse.message, 'e');
+          this.updateStatusResponseMessage(this.timeoutUpdateStatusResponse.message, 'e');
           this.timeoutSamplesErrorMessage = response.message;
         }
 
       },
         (err: HttpErrorResponse) => {
-          this.showResponseMessage(err.toString(), 'e');
+          this.updateStatusResponseMessage(err.toString(), 'e');
           this.timeoutSamplesErrorMessage = err.toString();
         });
 

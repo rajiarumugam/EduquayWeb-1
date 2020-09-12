@@ -14,6 +14,7 @@ import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-sample-timeout',
@@ -97,7 +98,8 @@ export class SampleTimeoutComponent implements AfterViewInit, OnDestroy, OnInit 
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
@@ -136,13 +138,14 @@ export class SampleTimeoutComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   
     dcTimeoutSamples(districtId){
-  
+      this.loaderService.display(true);
       this.recordCount = 0; //step 3
       this.timeoutSamples = [];
       this.dctimeoutSamplesErrorMessage ='';
       let samplesList = this.dcTimeoutSamplesService.gettimeoutSampleList(this.user.districtId)
       .subscribe(response => {
         this.dctimeoutSamplesResponse = response;
+        this.loaderService.display(false);
         if(this.dctimeoutSamplesResponse !== null && this.dctimeoutSamplesResponse.status === "true"){
           if(this.dctimeoutSamplesResponse.samples.length <= 0){
             this.dctimeoutSamplesErrorMessage = response.message;

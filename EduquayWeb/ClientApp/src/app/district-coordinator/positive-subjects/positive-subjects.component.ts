@@ -14,6 +14,7 @@ import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-positive-subjects',
@@ -99,7 +100,8 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
@@ -138,13 +140,15 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
     }
   
     dcpositivSubjects(districtId){
-  
+
+      this.loaderService.display(true);
       this.recordCount = 0; //step 3
       this.positivSubjects = [];
       this.dcpositivSubjectsErrorMessage ='';
       let samplesList = this.dcpositivSubjectsService.getpositiveSubjectList(this.user.districtId)
       .subscribe(response => {
         this.dcpositivSubjectsResponse = response;
+        this.loaderService.display(false);
         if(this.dcpositivSubjectsResponse !== null && this.dcpositivSubjectsResponse.status === "true"){
           if(this.dcpositivSubjectsResponse.samples.length <= 0){
             this.dcpositivSubjectsErrorMessage = response.message;

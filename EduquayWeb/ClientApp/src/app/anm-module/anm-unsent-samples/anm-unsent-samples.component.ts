@@ -197,6 +197,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
 
       });
   }
+
   onChangeriPoint() {
     if(this.selectedriPoint === ''){
       this.selectedilrPoint = '';
@@ -624,6 +625,11 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
     }
     else {
       Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
+      .then((result) => {
+        if (result.value) {
+            window.location.reload();
+          }
+      });
     }
   }
 

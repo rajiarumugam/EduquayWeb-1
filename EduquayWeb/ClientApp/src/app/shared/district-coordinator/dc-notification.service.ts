@@ -58,10 +58,10 @@ export class DcNotificationService {
         data !== undefined ? this.timeoutSampleCount = +data : 0;
       });
       await this.pndtReferral(this.user.districtId).then((data) => {
-        data !== undefined ? this.timeoutSampleCount = +data : 0;
+        data !== undefined ? this.pndtdSampleCount = +data : 0;
       });
       await this.mtpReferral(this.user.districtId).then((data) => {
-        data !== undefined ? this.timeoutSampleCount = +data : 0;
+        data !== undefined ? this.mtpSampleCount = +data : 0;
       });
       
       this.DcNotificationModel.damaged = this.damagedSampleCount;

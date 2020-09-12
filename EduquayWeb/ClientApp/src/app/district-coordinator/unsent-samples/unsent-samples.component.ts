@@ -14,6 +14,7 @@ import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-unsent-samples',
@@ -97,7 +98,8 @@ export class UnsentSamplesComponent implements AfterViewInit, OnDestroy, OnInit 
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
@@ -136,13 +138,15 @@ export class UnsentSamplesComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   
     dcunsentSamples(districtId){
-  
+
+      this.loaderService.display(true);
       this.recordCount = 0; //step 3
       this.unsentSamples = [];
       this.dcunsentSamplesErrorMessage ='';
       let samplesList = this.dcunsentSamplesService.getunsentSampleList(this.user.districtId)
       .subscribe(response => {
         this.dcunsentsamplesResponse = response;
+        this.loaderService.display(false);
         if(this.dcunsentsamplesResponse !== null && this.dcunsentsamplesResponse.status === "true"){
           if(this.dcunsentsamplesResponse.samples.length <= 0){
             this.dcunsentSamplesErrorMessage = response.message;

@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { NgForm, FormBuilder, FormGroup } from '@angular/forms';
 import { DateService } from 'src/app/shared/utility/date.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { DataTableDirective } from 'angular-datatables';
 import { TokenService } from 'src/app/shared/token.service';
@@ -124,6 +124,7 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private loaderService: LoaderService,
+    private router: Router,
     private dataservice: DataService
     ) {  }
 
@@ -389,6 +390,8 @@ export class SampleCollectionComponent implements AfterViewInit, OnDestroy, OnIn
       .then((result) => {
         if (result.value) {
           this.modalService.dismissAll();
+          //this.router.navigateByUrl(`/app/anm-sample-collection`);
+          
         }
       });
     }

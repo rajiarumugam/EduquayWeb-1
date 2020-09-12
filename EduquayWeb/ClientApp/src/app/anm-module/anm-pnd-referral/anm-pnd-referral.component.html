@@ -1,7 +1,16 @@
 <div class="tab-pane fade show active" id="PNDTC" role="tabpanel" aria-labelledby="PNDTC-tab">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div *ngIf="anmpndtReferralErrorMessage" class="alert mt-3 mb-2"
+                [ngClass]="{'alert-warning': anmpndtReferralErrorMessage ==='No subjects found', 'alert-danger': anmpndtReferralErrorMessage !== 'No subjects found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
+                {{anmpndtReferralErrorMessage}}
+            </div>
+        </div>
+    </div>
     <div class="table-responsive mb-4 mt-4">
-        <table id="pndrefferal-tblconfig" class="table table-bordered table-hover row-combined"
-            style="width:100%">
+        <table id="pndtreferral-tblconfig" class="table table-bordered table-hover row-combined" datatable
+        [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead class="tablecss">
                 <tr>
                     <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
@@ -29,33 +38,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-center nt-border-right">1</td>
-                    <td class="text-left">Divya</td>
+                <tr *ngFor="let sample of pndtReferral; index as i">
+                    <td class="text-center nt-border-right">{{i +1}}</td>
+                    <td class="text-left">{{sample.anwSubjectName}}</td>
 
-                    <td class="text-center">001252</td>
-                    <td class="text-center">213456</td>
-                    <td class="text-center">9145745456</td>
-                    <td class="nt-border-right text-center"> 10.3 </td>
+                    <td class="text-center">{{sample.anwSubjectId}}</td>
+                    <td class="text-center">{{sample.rchId}}</td>
+                    <td class="text-center">{{sample.anwContactNo}}</td>
+                    <td class="nt-border-right text-center"> {{sample.gestationalAge}} </td>
                     <!-- <td>Thalassemia screening positive</td> -->
-                    <td class="text-left">Kiren</td>
-                    <td class="text-center">001972</td>
-                    <td class="nt-border-right text-center">9154787985</td>
+                    <td class="text-left">{{sample.spouseSubjectName}}</td>
+                    <td class="text-center">{{sample.spouseSubjectId}}</td>
+                    <td class="nt-border-right text-center">{{sample.spouseContactNo}}</td>
                     <!-- <td>Sickle cell disease</td> -->
 
-                    <td class="text-center">19/02/2020 17:00</td>
-                    <td class="nt-border-right text-center">19/03/2020 07:00</td>
-                    <td class="text-center"><select name="occupationoption"
-                            class="form-control field" id="occuptnid" tabindex="7"
-                            required="">
-                            <option value="">No</option>
-                            <option value="male">Yes</option>
+                    <td class="text-center">{{sample.prePNDTCounsellingDate}}</td>
+                    <td class="nt-border-right text-center">{{sample.pndtDate}}</td>
+                    <td class="dropbtn">
+                        <select class="form-control field" tabindex="7" #t
+                            (change)="updateNotification(sample, t.value)">
+                            <option value="0" [selected]="sample.followUpStatus === 'False'">No</option>
+                            <option value="1" [selected]="sample.followUpStatus === 'True'">Yes</option>
                         </select>
-                    </td>
-                    <!-- <td class="text-center"><a href="#" data-toggle="modal"
-                            data-target=".bd-example-modal-xl4"><i
-                                class="fa fa-ellipsis-h bs-tooltip fa-2x text-primary"
-                                title="More Info" aria-hidden="true"></i></a></td> -->
+                    </td>              
                     <td class="text-center">
 
                         <div class="dropdown custom-dropdown">
@@ -76,471 +81,388 @@
 
                             <div class="dropdown-menu"
                                 aria-labelledby="dropdownMenuLink2">
-                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                    data-target=".bd-example-modal-xl4">More Info</a>
-                                <!-- <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a> -->
+                                <a class="dropdown-item" (click)="openpndtReferral(pndtReferralDetail, sample)">More Info</a>
                             </div>
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="text-center nt-border-right">2</td>
-                    <td class="text-left">Pooja</td>
-
-                    <td class="text-center">001252</td>
-                    <td class="text-center">312456</td>
-                    <td class="text-center">9145745456</td>
-                    <td class="nt-border-right text-center"> 10.3 </td>
-                    <!-- <td>Thalassemia screening positive</td> -->
-                    <td class="text-left">Karthik</td>
-                    <td class="text-center">001972</td>
-                    <td class="nt-border-right text-center">9154787985</td>
-                    <!-- <td>Sickle cell disease</td> -->
-
-                    <td class="text-center">19/02/2020 17:00</td>
-                    <td class="nt-border-right text-center">19/03/2020 07:00</td>
-                    <td class="text-center"><select name="occupationoption"
-                            class="form-control field" id="occuptnid" tabindex="7"
-                            required="">
-                            <option value="">No</option>
-                            <option value="male">Yes</option>
-                        </select>
-                    </td>
-                    <td class="text-center">
-
-                        <div class="dropdown custom-dropdown">
-                            <a class="dropdown-toggle text-primary" href="#"
-                                role="button" id="dropdownMenuLink2"
-                                data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                    height="24" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-more-horizontal">
-                                    <circle cx="12" cy="12" r="1"></circle>
-                                    <circle cx="19" cy="12" r="1"></circle>
-                                    <circle cx="5" cy="12" r="1"></circle>
-                                </svg>
-                            </a>
-
-                            <div class="dropdown-menu"
-                                aria-labelledby="dropdownMenuLink2">
-                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                    data-target=".bd-example-modal-xl4">More Info</a>
-                                <!-- <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a> -->
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
 
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary float-right" id="linktobuttonpndref"
+            <a class="btn btn-primary float-right" (click)="pndtReferralUpdateStatus()"
                 role="button">Update Status</a>
         </div>
     </div>
 </div>
-<div class="modal fade bd-example-modal-xl4" tabindex="-1" role="dialog"
-    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document"
-        style="overflow-y: initial !important;">
-        <div class="modal-content" id="modal-xl4">
-            <div class="modal-header">
-                <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Subject
-                    Details</h5>
-                <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
+<ng-template #pndtReferralDetail let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title modaltitle">Subject Details</h4>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-x">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="modal-body form-body">
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3 showhidediv-popup" id="showhidediv-pndt">
+            <div class="widget-content widget-content-area br-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive" style="margin-bottom: -1rem">
+                            <table class="table table-bordered table-striped">
+                                <tbody class="">
+                                    <tr>
+                                        <td>
+                                            <span class="float-left mt-0 mr-4">
+                                                <h5><b>Subject ID</b> :
+                                                    {{anwSubjectId}}
+                                                    <strong class="ml-5">Subject
+                                                        Name:</strong> {{anwSubjectName}}, {{anwGender}}, {{anwAge}} yrs
+                                                </h5>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body" style="height: 500px; overflow: auto;">
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3 showhidediv-popup"
-                    id="showhidediv-pndt">
-                    <div class="widget-content widget-content-area br-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive"
-                                    style="margin-bottom: -1rem">
-                                    <table class="table table-bordered table-striped">
-                                        <tbody class="">
-                                            <tr>
-                                                <td>
-                                                    <span class="float-left mt-0 mr-4">
-                                                        <h5><b>Subject ID</b> :
-                                                            OD0012020001252
-                                                            <strong class="ml-5">Subject
-                                                                Name:</strong> Divya
-                                                            Kiren, F, 24 yrs
-                                                            <strong class="ml-5">RCH
-                                                                ID:</strong> 213456
-                                                        </h5>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="mt-2"><b>Basic Info</b></h6>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
-                    <div class="widget-content widget-content-area br-6">
-                        <div class="container-fluid py-2"
-                            style="background-color: #e3e8ef;">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h6 class="mt-2"><b>Basic Info</b></h6>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="tblBasicInfo14">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <span>Subject</span></th>
+                                        <th class="text-center"><span>Subject
+                                                ID</span></th>
+                                        <th class="text-center">
+                                            <span>District</span></th>
+                                        <th class="text-center"><span>CHC</span>
+                                        </th>
+                                        <th class="text-center"><span>PHC</span>
+                                        </th>
+                                        <th class="text-center"><span>SC</span>
+                                        </th>
+                                        <th class="text-center"><span>RI
+                                                Point</span></th>
+
+                                        <th class="text-center"><span>Date of
+                                                Birth</span></th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">{{anwSubjectName}}, {{anwGender}}, {{anwAge}} yrs </td>
+                                        <td class="text-center">{{anwSubjectId}}
+                                        </td>
+                                        <td class="text-left">{{anwDistrictName}}</td>
+                                        <td class="text-left">{{anwChcName}}</td>
+                                        <td class="text-left">{{anwPhcName}}</td>
+                                        <td class="text-left">{{anwScName}}</td>
+                                        <td class="text-left">{{anwRiPoint}}</td>
+
+                                        <td class="text-center">{{anwdob}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">{{spouseSubjectName}}, {{spouseGender}}, {{spouseAge}}
+                                            yrs </td>
+                                        <td class="text-center">{{spouseSubjectId}}
+                                        </td>
+                                        <td class="text-left">{{spouseDistrictName}}</td>
+                                        <td class="text-left">{{spouseChcName}}</td>
+                                        <td class="text-left">{{spousePhcName}}</td>
+                                        <td class="text-left">{{spouseScName}}</td>
+                                        <td class="text-left">{{spouseRiPoint}}</td>
+
+                                        <td class="text-center">{{spouseDOB}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="mt-2"><b>Socio-Demographic Info</b></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <span>Subject</span></th>
+                                        <th class="text-center">
+                                            <span>Religion</span></th>
+                                        <th class="text-center">
+                                            <span>Caste</span></th>
+                                        <th class="text-center">
+                                            <span>Community</span></th>
+                                        <th class="text-center"><span>Contact
+                                                No</span></th>
+                                        <th class="text-center">
+                                            <span>Address</span></th>
+                                       
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">{{anwSubjectName}}, {{anwGender}}, {{anwAge}} yrs</td>
+                                        <td class="text-left">{{anwReligion}}</td>
+                                        <td class="text-left">{{anwCaste}}</td>
+                                        <td class="text-left">{{anwCommunity}}</td>
+                                        <td class="text-center">{{anwContactNo}}</td>
+                                        <td class="text-left">{{address}}</td>
+                                       
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left"><td class="text-left">{{spouseSubjectName}}, {{spouseGender}}, {{spouseAge}}
+                                            yrs </td>
+                                        <td class="text-left">{{spouseReligion}}</td>
+                                        <td class="text-left">{{spouseCaste}}</td>
+                                        <td class="text-left">{{spouseCommunity}}</td>
+                                        <td class="text-center">{{spouseContactNo}}</td>
+                                        <td class="text-left">{{address}}</td>
+                                       
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div id="toggleAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne1">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#defaultAccordionOne"
+                                    aria-expanded="true"
+                                    aria-controls="defaultAccordionOne">
+                                    Personal Info <div class="icons"><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-chevron-down">
+                                            <polyline points="6 9 12 15 18 9">
+                                            </polyline>
+                                        </svg></div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-md-12">
+                        <div id="defaultAccordionOne" class="collapse"
+                            aria-labelledby="headingOne1"
+                            data-parent="#toggleAccordion">
+                            <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped"
-                                        id="tblBasicInfo14">
+                                    <table
+                                        class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
                                                     <span>Subject</span></th>
-                                                <th class="text-center"><span>Subject
-                                                        ID</span></th>
+                                                <th class="text-center"><span>EC
+                                                        Number</span></th>
+                                                <th class="text-center"><span>
+                                                        RCH ID</span></th>
                                                 <th class="text-center">
-                                                    <span>District</span></th>
-                                                <th class="text-center"><span>CHC</span>
-                                                </th>
-                                                <th class="text-center"><span>PHC</span>
-                                                </th>
-                                                <th class="text-center"><span>SC</span>
-                                                </th>
-                                                <th class="text-center"><span>RI
-                                                        Point</span></th>
-
-                                                <!-- <th class="text-center"><span>Date of
-                                                        Birth</span></th> -->
+                                                    <span>LMP Date</span></th>
+                                                <th class="text-center">
+                                                    <span>GA</span></th>
+                                                <th class="text-center">
+                                                    <span>GPLA</span></th>
                                             </tr>
 
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-left">Divya Kiren, F, 24
-                                                    yrs </td>
-                                                <td class="text-center">OD001202032111
+                                                <td class="text-left">{{anwSubjectName}}, {{anwGender}}, {{anwAge}} yrs  </td>
+                                                <td class="text-center">{{ecNumber}}
                                                 </td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-
-                                                <!-- <td class="text-center">12/09/1990</td> -->
-
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left">Kiren, M, 27 yrs
-                                                </td>
-                                                <td class="text-center">OD001202032567
-                                                </td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-
-                                                <!-- <td class="text-center">12/09/1987</td> -->
-
+                                                <td class="text-center">{{rchId}}</td>
+                                                <td class="text-center">{{lmpDate}}</td>
+                                                <td class="text-center">{{gestationalAge}}</td>
+                                                <td class="text-center">{{gpla}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
+
                             </div>
                         </div>
+
+
                     </div>
+
+
                 </div>
-                <!-- <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
-                    <div class="widget-content widget-content-area br-6">
-                        <div class="container-fluid py-2"
-                            style="background-color: #e3e8ef;">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h6 class="mt-2"><b>Socio-Demographic Info</b></h6>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div id="toggleAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne11">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#defaultAccordionOne1"
+                                    aria-expanded="true"
+                                    aria-controls="defaultAccordionOne1">
+                                    Test Results <div class="icons"><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-chevron-down">
+                                            <polyline points="6 9 12 15 18 9">
+                                            </polyline>
+                                        </svg></div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-md-12">
+                        <div id="defaultAccordionOne1" class="collapse"
+                            aria-labelledby="headingOne11"
+                            data-parent="#toggleAccordion">
+                            <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
+                                    <table
+                                        class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
                                                     <span>Subject</span></th>
                                                 <th class="text-center">
-                                                    <span>Religion</span></th>
+                                                    <span>Barcodes</span></th>
                                                 <th class="text-center">
-                                                    <span>Caste</span></th>
+                                                    <span>CBC</span></th>
                                                 <th class="text-center">
-                                                    <span>Community</span></th>
-                                                <th class="text-center"><span>Contact
-                                                        No</span></th>
+                                                    <span>SST</span></th>
                                                 <th class="text-center">
-                                                    <span>Address</span></th>
-                                                
+                                                    <span>HPLC</span></th>
+
                                             </tr>
 
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-left">Divya Kiren, F, 24
-                                                    yrs </td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-center">9786547890</td>
-                                                <td class="text-left"></td>
-                                               
+                                                <td class="text-left">{{anwSubjectName}}, {{anwGender}}, {{anwAge}} yrs </td>
+                                                <td class="text-center">
+                                                    {{barcodeNo}}
+                                                </td>
+                                                <td class="text-left">
+                                                    {{anwCBCTestResult}}</td>
+                                                <td class="text-left">{{anwSSTestResult}}</td>
+                                                <td class="text-left">
+                                                    {{anwHPLCTestResult}}</td>
 
                                             </tr>
                                             <tr>
-                                                <td class="text-left">Kiren, M, 27 yrs
+                                                <td class="text-left">{{spouseSubjectName}}, {{spouseGender}}, {{spouseAge}}
+                                                    yrs</td>
+                                                <td class="text-center">
+                                                    {{spouseBarcodes}}
                                                 </td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-left"></td>
-                                                <td class="text-center">7786547890</td>
-                                                <td class="text-left"></td>
-                                              
+                                                <td class="text-left">
+                                                    {{spouseCBCTestResult}}</td>
+                                                <td class="text-left">{{spouseSSTestResult}}</td>
+                                                <td class="text-left">
+                                                    {{spouseHPLCTestResult}}</td>
+
                                             </tr>
+                                            <!-- <tr>
+                                                <td class="text-left">Ajith, M,
+                                                    27 yrs </td>
+                                                <td class="text-center">
+                                                    <b>3423422</b>|3423434|3423442
+                                                </td>
+                                                <td class="text-left">
+                                                    Thalassemia Screening
+                                                    Positive</td>
+                                                <td class="text-left">SST
+                                                    Positive</td>
+                                                <td class="text-left">
+                                                    Thalassemia</td>
+
+                                            </tr> -->
                                         </tbody>
                                     </table>
 
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> -->
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
-                    <div class="widget-content widget-content-area br-6">
-                        <div id="toggleAccordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne1">
-                                    <section class="mb-0 mt-0">
-                                        <div role="menu" class="collapsed"
-                                            data-toggle="collapse"
-                                            data-target="#defaultAccordionOne"
-                                            aria-expanded="true"
-                                            aria-controls="defaultAccordionOne">
-                                            Personal Info <div class="icons"><svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    class="feather feather-chevron-down">
-                                                    <polyline points="6 9 12 15 18 9">
-                                                    </polyline>
-                                                </svg></div>
-                                        </div>
-                                    </section>
-                                </div>
-
-                                <div id="defaultAccordionOne" class="collapse"
-                                    aria-labelledby="headingOne1"
-                                    data-parent="#toggleAccordion">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table
-                                                class="table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">
-                                                            <span>Subject</span></th>
-                                                        <th class="text-center"><span>
-                                                                RCH ID</span></th>
-                                                        <th class="text-center"><span>EC
-                                                                Number</span></th>
-
-                                                        <th class="text-center">
-                                                            <span>LMP Date</span></th>
-                                                        <th class="text-center">
-                                                            <span>GA</span></th>
-                                                        <th class="text-center">
-                                                            <span>Obstetrics
-                                                                Score</span></th>
-                                                    </tr>
-
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-left">Divya
-                                                            Kiren, F, 24 yrs </td>
-                                                        <td class="text-center">213456
-                                                        </td>
-                                                        <td class="text-center">12345678
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            12/08/2020</td>
-                                                        <td class="text-center">12.4
-                                                        </td>
-                                                        <td class="text-center">
-                                                            G2-P1-L1-A1</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-                                </div>
 
 
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
-                    <div class="widget-content widget-content-area br-6">
-                        <div id="toggleAccordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne11">
-                                    <section class="mb-0 mt-0">
-                                        <div role="menu" class="collapsed"
-                                            data-toggle="collapse"
-                                            data-target="#defaultAccordionOne1"
-                                            aria-expanded="true"
-                                            aria-controls="defaultAccordionOne1">
-                                            Test Results <div class="icons"><svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    class="feather feather-chevron-down">
-                                                    <polyline points="6 9 12 15 18 9">
-                                                    </polyline>
-                                                </svg></div>
-                                        </div>
-                                    </section>
-                                </div>
-
-                                <div id="defaultAccordionOne1" class="collapse"
-                                    aria-labelledby="headingOne11"
-                                    data-parent="#toggleAccordion">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table
-                                                class="table table-bordered table-hover row-combined"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th rowspan="2">
-                                                            <span>Subject</span></th>
-                                                        <!-- <th rowspan="2"><span>Barcodes</span></th> -->
-                                                        <th colspan="3">
-                                                            <span>Diagnosis</span></th>
-                                                        <!-- <th rowspan="2"><span></span></th> -->
-                                                    </tr>
-                                                    <tr class="combined">
-                                                        <th style="text-align: center;">
-                                                            <b>CBC</b></th>
-                                                        <th style="text-align: center;">
-                                                            <b>SST</b></th>
-                                                        <th style="text-align: center;">
-                                                            <b>HPLC</b></th>
-
-                                                    </tr>
-
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td
-                                                            class="text-left nt-border-right">
-                                                            Divya Kiren, F, 24 yrs </td>
-                                                        <!-- <td class="text-center">
-                                                            <b>3423422</b>|3423434|3423442
-                                                        </td> -->
-                                                        <td class="text-left">
-                                                            Screening test
-                                                            positive</td>
-                                                        <td class="text-left">SST
-                                                            Positive</td>
-                                                        <td class="text-left">
-                                                            Thalassemia</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left">Kiren, M,
-                                                            27 yrs </td>
-                                                        <!-- <td class="text-center">
-                                                            <b>3423422</b>|3423434|3423442
-                                                        </td> -->
-                                                        <td class="text-left">
-                                                            Screening test
-                                                            positive</td>
-                                                        <td class="text-left">SST
-                                                            Positive</td>
-                                                        <td class="text-left">
-                                                            Thalassemia</td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- </div> -->
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal"><i
-                        class="flaticon-cancel-12"></i>
-                    Close</button>
-            </div>
-            <!-- </div> -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
         </div>
     </div>
-
-</div>
+    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+</ng-template>
 
 <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
 <i appLoadScript [script]="'assets/assets/js/anm/notification-mtp.js'"></i>
-<!-- <i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i> -->
-<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
-<i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
-<i appLoadScript [script]="'assets/plugins/flatpickr/notificationunsent-flatpickr.js'"></i>
-<i appLoadScript [script]="'assets/plugins/flatpickr/notificationdamage-flatpickr.js'"></i>
-<i appLoadScript [script]="'assets/plugins/flatpickr/notificationtimeout-flatpickr.js'"></i>
-<i appLoadScript [script]="'assets/plugins/flatpickr/notificationpositive-flatpickr.js'"></i>
-<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+

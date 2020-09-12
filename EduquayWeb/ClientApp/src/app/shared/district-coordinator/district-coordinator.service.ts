@@ -22,7 +22,7 @@ export class DistrictCoordinatorService {
   updatePndtReferralApi: string = "api/v1/DistrictCoordinator/UpdatePNDTReferalStatus";
   updateMtpReferralApi: string = "api/v1/DistrictCoordinator/UpdateMTPReferalStatus"
 
-  userId: number;
+  districtId: number;
 
   constructor(
     private tokenService: TokenService,
@@ -33,42 +33,42 @@ export class DistrictCoordinatorService {
 
   getdamagedSampleList(districtId) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.districtId;
+    this.districtId = user.districtId;
     let apiUrl = this.genericServices.buildApiUrl(`${this.damagedSampleApi}/${districtId}`);
     return this.http.get<DcNotificationResponse>({ url: apiUrl });
   }
 
   gettimeoutSampleList(districtId) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.districtId;
+    this.districtId = user.districtId;
     let apiUrl = this.genericServices.buildApiUrl(`${this.timeoutSampleApi}/${districtId}`);
     return this.http.get<DcNotificationResponse>({ url: apiUrl });
   }
 
   getunsentSampleList(districtId) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.districtId;
+    this.districtId = user.districtId;
     let apiUrl = this.genericServices.buildApiUrl(`${this.unsentSampleApi}/${districtId}`);
     return this.http.get<DcNotificationResponse>({ url: apiUrl });
   }
 
   getpositiveSubjectList(districtId) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.districtId;
+    this.districtId = user.districtId;
     let apiUrl = this.genericServices.buildApiUrl(`${this.positiveSubjectApi}/${districtId}`);
     return this.http.get<dcPositiveSubjectsResponse>({ url: apiUrl });
   }
 
   getpndtReferral(districtId) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.districtId;
+    this.districtId = user.districtId;
     let apiUrl = this.genericServices.buildApiUrl(`${this.pndtReferralApi}/${districtId}`);
     return this.http.get<dcpndtReferralResponse>({ url: apiUrl });
   }
 
   getmtpReferral(districtId) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userId = user.districtId;
+    this.districtId = user.districtId;
     let apiUrl = this.genericServices.buildApiUrl(`${this.mtpReferralApi}/${districtId}`);
     return this.http.get<dcmtpReferralResponse>({ url: apiUrl });
   }

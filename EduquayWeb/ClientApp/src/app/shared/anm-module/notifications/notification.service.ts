@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 import { UnsentSamplesResponse } from './unsent-samples/unsent-samples-response';
 import { PositiveSubjectsResponse } from '../positive-subjects/positive-subjects-response';
 import { PositiveSubjectsService } from '../positive-subjects/positive-subjects.service';
+import { AnmMtpReferralResponse, AnmPndtReferralResponse } from './pndt-mtp-referral/pndt-mtp-referral-response';
+import { PndtMtpReferralService } from './pndt-mtp-referral/pndt-mtp-referral.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,9 @@ export class NotificationService {
   unsentSamplesResponse: UnsentSamplesResponse;
   positivubjectResponse: PositiveSubjectsResponse;
 
+  pndtReferralResponse: AnmPndtReferralResponse;
+  mtpReferrralResponse: AnmMtpReferralResponse;
+
   positiveSampleCount: number = 0;
   unsentSampleCount: number = 0;
   pndtdSampleCount: number = 0;
@@ -39,7 +44,9 @@ export class NotificationService {
     private damagedSampleService: DamagedSamplesService,
     private unsentServiceService: UnsentSamplesServiceService,
     private timeoutExpiryService: TimeoutExpiryServiceService,
-    private positiveSubjectsService: PositiveSubjectsService
+    private positiveSubjectsService: PositiveSubjectsService,
+    private pndtReferralService: PndtMtpReferralService,
+    private mtpReferralService: PndtMtpReferralService,
   ) { }
 
 
@@ -58,6 +65,12 @@ export class NotificationService {
       });
       await this.timeoutSamples().then((data) => {
         data !== undefined ? this.timeoutSampleCount = +data : 0;
+      });
+      await this.pndtReferral(this.user.id).then((data) => {
+        data !== undefined ? this.pndtdSampleCount = +data : 0;
+      });
+      await this.mtpReferral(this.user.id).then((data) => {
+        data !== undefined ? this.mtpSampleCount = +data : 0;
       });
       
       this.notificationModel.damaged = this.damagedSampleCount;
@@ -133,6 +146,40 @@ export class NotificationService {
         }
         resolve(this.timeoutSampleCount);
       });
+    });
+  }
+
+  async pndtReferral(userId) {
+
+    this.pndtdSampleCount = 0;
+    return new Promise(resolve => {
+      let unsentsample = this.pndtReferralService.getPndtReferralList(userId)
+        .subscribe(response => {
+          this.pndtReferralResponse = response;
+          if (this.pndtReferralResponse !== null && this.pndtReferralResponse.status === "true") {
+            if (this.pndtReferralResponse.samples !== undefined && this.pndtReferralResponse.samples.length > 0) {
+              this.pndtdSampleCount = this.pndtReferralResponse.samples.length;
+            }
+          }
+          resolve(this.pndtdSampleCount);
+        });
+    });
+  }
+
+  async mtpReferral(userId) {
+
+    this.mtpSampleCount = 0;
+    return new Promise(resolve => {
+      let unsentsample = this.mtpReferralService.getMtpReferralList(userId)
+        .subscribe(response => {
+          this.mtpReferrralResponse = response;
+          if (this.mtpReferrralResponse !== null && this.mtpReferrralResponse.status === "true") {
+            if (this.mtpReferrralResponse.samples !== undefined && this.mtpReferrralResponse.samples.length > 0) {
+              this.mtpSampleCount = this.mtpReferrralResponse.samples.length;
+            }
+          }
+          resolve(this.mtpSampleCount);
+        });
     });
   }
 
