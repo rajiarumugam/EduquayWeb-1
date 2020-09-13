@@ -358,7 +358,11 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       }
       else {
         Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-  
+        .then((result) => {
+          if (result.value) {
+              window.location.reload();
+            }
+        }); 
       }
     }
   

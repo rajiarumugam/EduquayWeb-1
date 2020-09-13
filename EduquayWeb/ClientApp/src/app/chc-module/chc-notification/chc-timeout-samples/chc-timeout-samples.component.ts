@@ -237,6 +237,7 @@ export class ChcTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
           if (result.value) {
             if (this.modalService.hasOpenModals) {
               this.modalService.dismissAll();
+              window.location.reload();
             }
           }
         });

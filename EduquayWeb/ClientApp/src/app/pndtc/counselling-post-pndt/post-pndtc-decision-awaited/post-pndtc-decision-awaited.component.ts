@@ -135,7 +135,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
   
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT" }));
+      this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Counselling – Post PNDT" }));
       this.InitializeDateRange();
       this.activatedRoute.queryParams.subscribe(params => {
         this.anwSubjectId = params['q'];
@@ -370,7 +370,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
               });
         }
         else {
-          this.decisionAwaitedResponseMessage(`Please update the couple's decision on PNDT`, 'e');
+          this.decisionAwaitedResponseMessage(`Please update the couple's decision on MTP`, 'e');
         }
       }
       else if (this.foetalDisease === false) {

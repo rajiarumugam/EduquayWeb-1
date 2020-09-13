@@ -1,0 +1,409 @@
+<div class="tab-pane fade show active" id="positivesub" role="tabpanel" aria-labelledby="positivesub-tab">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div *ngIf="dcpositivSubjectsErrorMessage" class="alert mt-3 mb-2"
+                [ngClass]="{'alert-warning': dcpositivSubjectsErrorMessage ==='No subjects found', 'alert-danger': dcpositivSubjectsErrorMessage !== 'No subjects found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
+                {{dcpositivSubjectsErrorMessage}}
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive mb-4">
+        <table id="dcpositivesubject-tblconfig" class="table table-bordered table-hover tbl-ht" datatable
+            [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+                <tr>
+                    <th class="text-center"><span>S.No</span></th>
+                    <th class="text-center"><span>ANM Name</span></th>
+                    <th class="text-center"><span>ANM Contact</span></th>
+                    <th class="text-center"><span>CHC</span></th>
+                    <th class="text-center"><span>Subject Name</span></th>
+                    <th class="text-center"><span>Subject ID</span></th>
+                    <th class="text-center">GA</th>
+                    <th class="text-center">Follow-up Status </th>
+                    <th><span class="wordwrap">Details</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sample of positivSubjects; index as i">
+                    <td class="sno text-center">{{i +1}}</td>
+                    <td class="sname text-left">{{sample.anmName}}</td>
+                    <td class="number">{{sample.anmContactNo}}</td>
+                    <td class="text-left">{{sample.chcName}}</td>
+                    <td class="sname">{{sample.subjectName}}</td>
+                    <td class="sid">{{sample.subjectId}}</td>
+                    <td class="text-center">{{sample.gestationalAge}}</td>
+                    <td class="dropbtn">
+                        <select class="form-control field" tabindex="7" #t
+                            (change)="updateNotification(sample, t.value)">
+                            <option value="0" [selected]="sample.followUpStatus === 'False'">No</option>
+                            <option value="1" [selected]="sample.followUpStatus === 'True'">Yes</option>
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <div class="dropdown custom-dropdown">
+                            <a class="dropdown-toggle text-primary" role="button" id="dropdownMenuLink2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-more-horizontal">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="19" cy="12" r="1"></circle>
+                                    <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                <a class="dropdown-item" (click)="openpositivSubjects(positivSubjectsDetail, sample)">More
+                                    Info</a>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary float-right" (click)="positivSubjectsUpdateStatus()" role="button">Update
+                Status</a>
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<ng-template #positivSubjectsDetail let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title modaltitle">Subject Details</h4>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-x">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    <div class="modal-body form-body">
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3 showhidediv-popup" id="showhidediv-pndt">
+            <div class="widget-content widget-content-area br-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive" style="margin-bottom: -1rem">
+                            <table class="table table-bordered table-striped">
+                                <tbody class="">
+                                    <tr>
+                                        <td>
+                                            <span class="float-left mt-0 mr-4">
+                                                <h5><b>Subject ID</b> :
+                                                    {{subjectId}}
+                                                    <strong class="ml-5">Subject
+                                                        Name:</strong> {{subjectName}}, F,
+                                                        {{age}} yrs
+                                                </h5>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="mt-2"><b>Basic Info</b></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="tblBasicInfo14">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <span>Subject</span></th>
+                                        <th class="text-center"><span>Subject
+                                                ID</span></th>
+                                        <th class="text-center">
+                                            <span>District</span></th>
+                                        <th class="text-center"><span>CHC</span>
+                                        </th>
+                                        <th class="text-center"><span>PHC</span>
+                                        </th>
+                                        <th class="text-center"><span>SC</span>
+                                        </th>
+                                        <th class="text-center"><span>RI
+                                                Point</span></th>
+
+                                        <th class="text-center"><span>Date of
+                                                Birth</span></th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">{{subjectName}}, F, {{age}}
+                                            yrs </td>
+                                        <td class="text-center">{{subjectId}}
+                                        </td>
+                                        <td class="text-left">{{districtName}}</td>
+                                        <td class="text-left">{{chcName}}</td>
+                                        <td class="text-left">{{phcName}}</td>
+                                        <td class="text-left">{{scName}}</td>
+                                        <td class="text-left">{{riPoint}}</td>
+
+                                        <td class="text-center">{{dob}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="mt-2"><b>Socio-Demographic Info</b></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <span>Subject</span></th>
+                                        <th class="text-center">
+                                            <span>Religion</span></th>
+                                        <th class="text-center">
+                                            <span>Caste</span></th>
+                                        <th class="text-center">
+                                            <span>Community</span></th>
+                                        <th class="text-center"><span>Contact
+                                                No</span></th>
+                                        <th class="text-center">
+                                            <span>Address</span></th>
+                                        <!-- <th class="text-center"></th> -->
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">{{subjectName}}, F, {{age}}
+                                            yrs </td>
+                                        <td class="text-left">{{religion}}</td>
+                                        <td class="text-left">{{caste}}</td>
+                                        <td class="text-left">{{community}}</td>
+                                        <td class="text-center">{{contactNo}}</td>
+                                        <td class="text-left">{{address}}</td>
+                                        <!-- <td class="text-left"></td> -->
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div id="toggleAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne1">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#defaultAccordionOne"
+                                    aria-expanded="true"
+                                    aria-controls="defaultAccordionOne">
+                                    Personal Info <div class="icons"><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-chevron-down">
+                                            <polyline points="6 9 12 15 18 9">
+                                            </polyline>
+                                        </svg></div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div id="defaultAccordionOne" class="collapse"
+                            aria-labelledby="headingOne1"
+                            data-parent="#toggleAccordion">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    <span>Subject</span></th>
+                                                <th class="text-center"><span>EC
+                                                        Number</span></th>
+                                                <th class="text-center"><span>
+                                                        RCH ID</span></th>
+                                                <th class="text-center">
+                                                    <span>LMP Date</span></th>
+                                                <th class="text-center">
+                                                    <span>GA</span></th>
+                                                <th class="text-center">
+                                                    <span>GPLA</span></th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">{{subjectName}}, F,
+                                                    {{age}} yrs </td>
+                                                <td class="text-center">{{ecNumber}}
+                                                </td>
+                                                <td class="text-center">{{rchId}}</td>
+                                                <td class="text-center">{{lmpDate}}</td>
+                                                <td class="text-center">{{gestationalAge}}</td>
+                                                <td class="text-center">{{gpla}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+            <div class="widget-content widget-content-area br-6">
+                <div id="toggleAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne11">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#defaultAccordionOne1"
+                                    aria-expanded="true"
+                                    aria-controls="defaultAccordionOne1">
+                                    Test Results <div class="icons"><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="feather feather-chevron-down">
+                                            <polyline points="6 9 12 15 18 9">
+                                            </polyline>
+                                        </svg></div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div id="defaultAccordionOne1" class="collapse"
+                            aria-labelledby="headingOne11"
+                            data-parent="#toggleAccordion">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    <span>Subject</span></th>
+                                                <th class="text-center">
+                                                    <span>Barcodes</span></th>
+                                                <th class="text-center">
+                                                    <span>CBC</span></th>
+                                                <th class="text-center">
+                                                    <span>SST</span></th>
+                                                <th class="text-center">
+                                                    <span>HPLC</span></th>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">{{subjectName}}, F, {{age}}
+                                                yrs</td>
+                                                <td class="text-center">
+                                                    {{barcodeNo}}
+                                                </td>
+                                                <td class="text-left">
+                                                    {{cbcTestResult}}</td>
+                                                <td class="text-left">{{ssTestResult}}</td>
+                                                <td class="text-left">
+                                                    {{hplcTestResult}}</td>
+
+                                            </tr>
+                                            <!-- <tr>
+                                                <td class="text-left">Ajith, M,
+                                                    27 yrs </td>
+                                                <td class="text-center">
+                                                    <b>3423422</b>|3423434|3423442
+                                                </td>
+                                                <td class="text-left">
+                                                    Thalassemia Screening
+                                                    Positive</td>
+                                                <td class="text-left">SST
+                                                    Positive</td>
+                                                <td class="text-left">
+                                                    Thalassemia</td>
+
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+        </div>
+    </div>
+    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+</ng-template>
+
+
+

@@ -187,7 +187,8 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       centered: true,
       size: 'xl',
       scrollable: true,
-      
+      backdrop:'static',
+            keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
 
@@ -242,6 +243,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
         if (result.value) {
           if(this.modalService.hasOpenModals){
             this.modalService.dismissAll();
+            window.location.reload();
           }
         }
       });
@@ -253,7 +255,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     this.fetchBarcodes();
 
     if(this.notifySamples === ""){
-      this.showResponseMessage(this.constantService.SelectOneSample, 'e');
+      this.updatestatusResponseMessage(this.constantService.SelectOneSample, 'e');
       return false;
     }
    
@@ -269,15 +271,15 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
       .subscribe(response => {
         this.damagedUpdateStatusResponse = response;
         if (this.damagedUpdateStatusResponse !== null && this.damagedUpdateStatusResponse.status === "true") {
-          this.showResponseMessage(this.damagedUpdateStatusResponse.message, 's');
+          this.updatestatusResponseMessage(this.damagedUpdateStatusResponse.message, 's');
         } else {
-          this.showResponseMessage(this.damagedUpdateStatusResponse.message, 'e');
+          this.updatestatusResponseMessage(this.damagedUpdateStatusResponse.message, 'e');
           this.damagedSamplesErrorMessage = response.message;
         }
 
       },
         (err: HttpErrorResponse) => {
-          this.showResponseMessage(err.toString(), 'e');
+          this.updatestatusResponseMessage(err.toString(), 'e');
           this.damagedSamplesErrorMessage = err.toString();
         });
 
