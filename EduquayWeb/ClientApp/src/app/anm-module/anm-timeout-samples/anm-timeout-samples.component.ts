@@ -16,6 +16,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 //import { EventEmitter } from 'protractor';
 
 @Component({
@@ -88,7 +89,8 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
@@ -121,28 +123,29 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       // this.collectionDate = moment().format("DD/MM/YYYY");
       // this.collectionTime = moment().format("HH:mm");
       console.log(this.TimeoutExpiryServiceService.timeoutSamplesApi);
-      //this.anmtimeoutSamples();
-  
-      this.timeoutSamplesInitResponse = this.route.snapshot.data.timeoutSamplesData;
-      if (this.timeoutSamplesInitResponse.status === 'false') {
-        this.timeoutSamples = [];
-        if (this.timeoutSamplesInitResponse.message !== null && this.timeoutSamplesInitResponse.message.code === "ENOTFOUND") {
-          this.timeoutSamplesErrorMessage = "Unable to connect to api source";
-        }
-        else if (this.timeoutSamplesInitResponse.message !== null || this.timeoutSamplesInitResponse.message == undefined) {
-          this.timeoutSamplesErrorMessage = this.timeoutSamplesInitResponse.message;
-        }
-      }
-      else {
+      this.anmtimeoutSamples();
+      
+      // Resolver //
+      // this.timeoutSamplesInitResponse = this.route.snapshot.data.timeoutSamplesData;
+      // if (this.timeoutSamplesInitResponse.status === 'false') {
+      //   this.timeoutSamples = [];
+      //   if (this.timeoutSamplesInitResponse.message !== null && this.timeoutSamplesInitResponse.message.code === "ENOTFOUND") {
+      //     this.timeoutSamplesErrorMessage = "Unable to connect to api source";
+      //   }
+      //   else if (this.timeoutSamplesInitResponse.message !== null || this.timeoutSamplesInitResponse.message == undefined) {
+      //     this.timeoutSamplesErrorMessage = this.timeoutSamplesInitResponse.message;
+      //   }
+      // }
+      // else {
         
-        if (this.timeoutSamplesInitResponse.sampleList!= null && this.timeoutSamplesInitResponse.sampleList.length > 0) {
-          this.timeoutSamples = this.timeoutSamplesInitResponse.sampleList;
-        }
-      }
+      //   if (this.timeoutSamplesInitResponse.sampleList!= null && this.timeoutSamplesInitResponse.sampleList.length > 0) {
+      //     this.timeoutSamples = this.timeoutSamplesInitResponse.sampleList;
+      //   }
+      // }
      
     }
     anmtimeoutSamples(){
-
+      this.loaderService.display(true);
       this.recordCount = 0;
       this.timeoutSamples = [];
       this.timeoutSamplesErrorMessage ='';
@@ -150,6 +153,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
       let samplesList = this.TimeoutExpiryServiceService.gettimeoutSamples(this.timeoutsamplesRequest)
       .subscribe(response => {
         this.timeoutsamplesResponse = response;
+        this.loaderService.display(false);
         if(this.timeoutsamplesResponse !== null && this.timeoutsamplesResponse.status === "true"){
           if(this.timeoutsamplesResponse.sampleList.length <= 0){
            this.timeoutSamplesErrorMessage = response.message;

@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { anmpndtReferral, AnmPndtReferralResponse, AnmUpdatePndtMtpReferralResponse } from 'src/app/shared/anm-module/notifications/pndt-mtp-referral/pndt-mtp-referral-response';
 import { AnmPndtMtpReferralRequest } from 'src/app/shared/anm-module/notifications/pndt-mtp-referral/pndt-mtp-referral-request';
 import { PndtMtpReferralService } from 'src/app/shared/anm-module/notifications/pndt-mtp-referral/pndt-mtp-referral.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-anm-pnd-referral',
@@ -116,7 +117,8 @@ export class AnmPndReferralComponent implements AfterViewInit, OnDestroy, OnInit
       private tokenService: TokenService,
       private _formBuilder: FormBuilder,
       private constantService: ConstantService,
-      private dataservice: DataService
+      private dataservice: DataService,
+      private loaderService: LoaderService
     ) { }
   
     ngOnInit() {
@@ -155,13 +157,15 @@ export class AnmPndReferralComponent implements AfterViewInit, OnDestroy, OnInit
     }
   
     anmpndtReferral(userId){
-  
+
+      this.loaderService.display(true);
       this.recordCount = 0; //step 3
       this.pndtReferral = [];
       this.anmpndtReferralErrorMessage ='';
       let samplesList = this.anmpndtReferralService.getPndtReferralList(this.user.id)
       .subscribe(response => {
         this.anmpndtReferralResponse = response;
+        this.loaderService.display(false);
         if(this.anmpndtReferralResponse !== null && this.anmpndtReferralResponse.status === "true"){
           if(this.anmpndtReferralResponse.samples.length <= 0){
             this.anmpndtReferralErrorMessage = response.message;

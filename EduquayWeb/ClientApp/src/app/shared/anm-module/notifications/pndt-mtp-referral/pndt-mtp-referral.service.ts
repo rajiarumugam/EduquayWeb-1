@@ -14,7 +14,7 @@ export class PndtMtpReferralService {
   pndtReferralApi: string = "api/v1/ANMNotifications/RetrievePNDTReferal";
   mtpReferralApi: string = "api/v1/ANMNotifications/RetrieveMTPReferal";
   updatepndtReferralApi: string = 'api/v1/ANMNotifications/UpdatePNDTReferalStatus';
-  updatemtpReferralApi: string = '/api/v1/ANMNotifications/UpdateMTPReferalStatus';
+  updatemtpReferralApi: string = 'api/v1/ANMNotifications/UpdateMTPReferalStatus';
   userId: number;
 
   constructor(

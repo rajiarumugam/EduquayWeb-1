@@ -220,10 +220,10 @@ const routes: Routes = [
       {
         path: 'anm-notification', component: AnmNotificationComponent,
         children: [
-          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full',  resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
           { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
-          { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full', resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-          { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full', resolve:{positiveSubjectData: PositiveSubjectsResolverService} },
+          { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+          { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full'}, //resolve:{positiveSubjectData: PositiveSubjectsResolverService} },
           { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
           { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' },

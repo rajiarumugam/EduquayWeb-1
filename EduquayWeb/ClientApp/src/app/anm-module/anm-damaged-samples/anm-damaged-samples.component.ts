@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 @Component({
@@ -87,7 +88,8 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -120,26 +122,29 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     // this.collectionDate = moment().format("DD/MM/YYYY");
     // this.collectionTime = moment().format("HH:mm");
     console.log(this.DamagedSamplesService.damagedSamplesApi);
-    //this.anmdamagedSamples();
+    this.anmdamagedSamples();
 
-    this.damagedSamplesInitResponse = this.route.snapshot.data.damagedSamplesData;
-    if (this.damagedSamplesInitResponse.status === 'false') {
-      this.damagedSamples = [];
-      if (this.damagedSamplesInitResponse.message !== null && this.damagedSamplesInitResponse.message.code === "ENOTFOUND") {
-        this.damagedSamplesErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.damagedSamplesInitResponse.message !== null || this.damagedSamplesInitResponse.message == undefined) {
-        this.damagedSamplesErrorMessage = this.damagedSamplesInitResponse.message;
-      }
-    }
-    else {
+
+    // Resolver //
+    // this.damagedSamplesInitResponse = this.route.snapshot.data.damagedSamplesData;
+    // if (this.damagedSamplesInitResponse.status === 'false') {
+    //   this.damagedSamples = [];
+    //   if (this.damagedSamplesInitResponse.message !== null && this.damagedSamplesInitResponse.message.code === "ENOTFOUND") {
+    //     this.damagedSamplesErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.damagedSamplesInitResponse.message !== null || this.damagedSamplesInitResponse.message == undefined) {
+    //     this.damagedSamplesErrorMessage = this.damagedSamplesInitResponse.message;
+    //   }
+    // }
+    // else {
       
-      if (this.damagedSamplesInitResponse.sampleList!= null && this.damagedSamplesInitResponse.sampleList.length > 0) {
-        this.damagedSamples = this.damagedSamplesInitResponse.sampleList;
-      }
-    }
+    //   if (this.damagedSamplesInitResponse.sampleList!= null && this.damagedSamplesInitResponse.sampleList.length > 0) {
+    //     this.damagedSamples = this.damagedSamplesInitResponse.sampleList;
+    //   }
+    // }
   }
   anmdamagedSamples(){
+    this.loaderService.display(true);
     this.recordCount = 0; //step 3
     this.damagedSamples = [];
     this.damagedSamplesErrorMessage ='';
@@ -147,6 +152,7 @@ export class AnmDamagedSamplesComponent implements AfterViewInit, OnDestroy, OnI
     let samplesList = this.DamagedSamplesService.getdamagedSamples(this.damagedsamplesRequest)
     .subscribe(response => {
       this.damagedsamplesResponse = response;
+      this.loaderService.display(false);
       if(this.damagedsamplesResponse !== null && this.damagedsamplesResponse.status === "true"){
         if(this.damagedsamplesResponse.sampleList.length <= 0){
           this.damagedSamplesErrorMessage = response.message;
