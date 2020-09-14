@@ -23,6 +23,7 @@ import { PositiveSubjectsRequest } from 'src/app/shared/anm-module/positive-subj
 import { ENDPOINT } from 'src/app/app.constant';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-anm-positive-subjects',
@@ -155,7 +156,8 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
     private httpClientService:HttpClientService,
     private genericService: GenericService,
     private constantService: ConstantService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -218,32 +220,34 @@ export class AnmPositiveSubjectsComponent implements AfterViewInit, OnDestroy, O
       spouseEmail: ['',Validators.email],
       pincode:['', Validators.required]
     });
-
-    
-    this.positiveSubjectInitResponse = this.route.snapshot.data.positiveSubjectData;
-    if (this.positiveSubjectInitResponse.status === 'false') {
-      this.positiveSubjectsList = [];
-      if (this.positiveSubjectInitResponse.message !== null && this.positiveSubjectInitResponse.message.code === "ENOTFOUND") {
-        this.positiveSubjectErrorMessage = "Unable to connect to api source";
-      }
-      else if (this.positiveSubjectInitResponse.message !== null || this.positiveSubjectInitResponse.message == undefined) {
-        this.positiveSubjectErrorMessage = this.positiveSubjectInitResponse.message;
-      }
-    }
-    else {
+    this.getpositiveSubjectList(this.user.id);
+    // Resolver //
+    // this.positiveSubjectInitResponse = this.route.snapshot.data.positiveSubjectData;
+    // if (this.positiveSubjectInitResponse.status === 'false') {
+    //   this.positiveSubjectsList = [];
+    //   if (this.positiveSubjectInitResponse.message !== null && this.positiveSubjectInitResponse.message.code === "ENOTFOUND") {
+    //     this.positiveSubjectErrorMessage = "Unable to connect to api source";
+    //   }
+    //   else if (this.positiveSubjectInitResponse.message !== null || this.positiveSubjectInitResponse.message == undefined) {
+    //     this.positiveSubjectErrorMessage = this.positiveSubjectInitResponse.message;
+    //   }
+    // }
+    // else {
       
-      if (this.positiveSubjectInitResponse.positiveSubjects!= null && this.positiveSubjectInitResponse.positiveSubjects.length > 0) {
-        this.positiveSubjectsList = this.positiveSubjectInitResponse.positiveSubjects;
-      }
-    }
+    //   if (this.positiveSubjectInitResponse.positiveSubjects!= null && this.positiveSubjectInitResponse.positiveSubjects.length > 0) {
+    //     this.positiveSubjectsList = this.positiveSubjectInitResponse.positiveSubjects;
+    //   }
+    // }
 
   }
 
   getpositiveSubjectList(userId){
+    this.loaderService.display(true);
     this.positiveSubjectsList = [];
     let positiveSubject = this.PositiveSubjectsService.getPositiveSubject(userId)
     .subscribe(response => {
       this.positiveSubjectResponse = response;
+      this.loaderService.display(false);
       if (this.positiveSubjectResponse !== null && this.positiveSubjectResponse.status === "true") {
         if (this.positiveSubjectResponse.positiveSubjects.length <= 0) {
           this.positiveSubjectErrorMessage = response.message;
