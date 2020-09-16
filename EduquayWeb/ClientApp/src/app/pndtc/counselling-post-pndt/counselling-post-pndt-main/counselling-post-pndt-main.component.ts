@@ -17,6 +17,7 @@ export class CounsellingPostPndtMainComponent implements OnInit {
   counselledyesnumber: number = 0;
   counsellednonumber: number = 0;
   counselledpendingnumber: number = 0;
+  currentPage = "";
 
   constructor(
     private router: Router,
@@ -24,6 +25,7 @@ export class CounsellingPostPndtMainComponent implements OnInit {
     private dataservice: DataService) { }
 
     ngOnInit() {
+      this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
       this.notificationCount();
     }
   

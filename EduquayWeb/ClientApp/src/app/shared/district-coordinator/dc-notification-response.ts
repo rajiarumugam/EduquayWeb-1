@@ -217,3 +217,30 @@ export interface DcUpdatePndtMtpReferralResponse{
     message: string;
     result: string;
 }
+
+export interface dcpostMTPResponse {
+    status: string;
+    message: string;
+    samples: dcpostMTP[];
+}
+
+export interface dcpostMTP {
+    mtpId: number;
+    uniqueSubjectId: string;
+    subjectName: string;
+    rchId: string;
+    anmContactNo: string;
+    anmName: string;
+    mtpDateTime: string;
+    chcName: string;
+    firstFollowUp: string;
+    secondFollowUp: string;
+    thirdFollowUp: string;
+    followupStatus: boolean;
+}
+
+export interface DcUpdatePostMTPResponse{
+    status: string;
+    message: string;
+    result: string;
+}

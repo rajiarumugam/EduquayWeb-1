@@ -23,6 +23,7 @@ export class AnmNotificationComponent implements OnInit {
   mtpReferralSample: number = 0;
   updateChcSample: number = 0;
   postmtpfollowup: number = 0;
+  currentPage = "";
   //Sample: number;
 
   constructor(
@@ -32,6 +33,7 @@ export class AnmNotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule":"Notification"}));
     this.notificationCount();
   }

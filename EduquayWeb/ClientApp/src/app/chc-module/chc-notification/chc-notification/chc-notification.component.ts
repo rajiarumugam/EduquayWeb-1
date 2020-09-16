@@ -17,6 +17,7 @@ export class ChcNotificationComponent implements OnInit {
   unsentSample: number = 0;
   timeoutSample: number = 0;
   positiveSample: number = 0;
+  currentPage = "";
 
   constructor(
     private router: Router,
@@ -26,6 +27,7 @@ export class ChcNotificationComponent implements OnInit {
 
   ngOnInit() {
 
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "submodule": "Notifications"}));
     this.notificationCount();
   }

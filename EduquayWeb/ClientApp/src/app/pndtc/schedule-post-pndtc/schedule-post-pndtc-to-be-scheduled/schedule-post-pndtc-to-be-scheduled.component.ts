@@ -6,7 +6,7 @@ import { user } from 'src/app/shared/auth-response';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { SchedulePostPndtcRequest, AddPostPndtcScheduleRequest } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc-request';
 import { AddPostPndtcScheduleResponse, SchedulingList, SchedulePostPndtcResponse } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc-response';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { DataService } from 'src/app/shared/data.service';
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
@@ -15,6 +15,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-schedule-post-pndtc-to-be-scheduled',
@@ -58,6 +59,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     contactNo: string;
     obstetricScore: string;
     recordCount: number;
+    samplega: string;
   
   
     /*Date Range configuration starts*/
@@ -70,7 +72,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     scheduleTime: string;
     counsellorName: string;
   
-    dateOptions: FlatpickrOptions = {
+    scheduleDateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
       defaultDate: new Date(Date.now()),
@@ -86,6 +88,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       private pndtmtpScheduleService: SchedulePostPndtcService,
       private tokenService: TokenService,
       private loaderService: LoaderService,
+      private modalService: NgbModal,
       private _formBuilder: FormBuilder
   
     ) { }
@@ -120,8 +123,8 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       this.ddlDistrict(this.user.id);
       this.scheduleDate = moment().format("DD/MM/YYYY");
       this.scheduleTime = moment().format("HH:mm");
-      this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
       this.pndtmtpSchedulingRequest = {
         userId: this.user.id, districtId: 0,
@@ -313,12 +316,36 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
           });
   
     }
+
+    openScheduleData(scheduleAppointmentFormDetail, schedulinglists: SchedulingList) {
+
+      this.postpndtscheduleErrorMessage = '';
+      this.subjectName = schedulinglists.subjectName;
+      this.anwSubjectId = schedulinglists.anwSubjectId;
+      this.contactNo = schedulinglists.contactNo;
+      this.samplega = schedulinglists.ga;
+      this.spouseSubjectId = schedulinglists.spouseSubjectId;
   
-    addScheduleData(schedulingdata: SchedulingList) {
+      this.scheduleDate = moment().format("DD/MM/YYYY");
+      this.scheduleTime = moment().format("HH:mm");
+      this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
-      this.anwSubjectId = schedulingdata.anwSubjectId;
-      this.spouseSubjectId = schedulingdata.spouseSubjectId;
+      this.modalService.open(
+        scheduleAppointmentFormDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop: 'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
   
+    }
+  
+    onSubmit(scheduleAppointmentFormDetail: NgForm) {
+
+      console.log(scheduleAppointmentFormDetail.value);
   
       this.addScheduleRequest = {
         anwsubjectId: this.anwSubjectId,
@@ -360,6 +387,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
         Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
         .then((result) => {
           if (result.value) {
+            this.modalService.dismissAll();
               window.location.reload();
             }
         }); 
@@ -368,12 +396,12 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
   
     InitializeDateRange() {
   
-      this.dateform = this._formBuilder.group({
-        fixSchedule: [new Date(moment().add(-1, 'day').format())],
+      this.popupform = this._formBuilder.group({
+        scheduleScheduleDate: [new Date(moment().format("DD/MM/YYYY HH:mm"))],
       });
   
       //Change of sample collection date
-      this.dateform.controls.fixSchedule.valueChanges.subscribe(changes => {
+      this.popupform.controls.scheduleScheduleDate.valueChanges.subscribe(changes => {
         console.log('end: ', changes);
         if (!changes[0]) return;
         const selectedDate2 = changes[0].getTime();

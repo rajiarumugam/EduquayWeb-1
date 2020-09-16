@@ -1,148 +1,111 @@
-<div class="tab-pane fade show active" id="postmtp" role="tabpanel"
-aria-labelledby="postmtp-tab">
+<div class="tab-pane fade show active" id="postmtp" role="tabpanel" aria-labelledby="postmtp-tab">
 
-
-<div class="table-responsive mb-4">
-    <table id="zero-config7" class="table table-bordered table-hover row-combined"
-        style="width:100%">
-        <thead class="tablecss">
-            <tr>
-                <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
-                <th rowspan="2" class="nt-border-right"><span>Subject Name</span>
-                </th>
-                <th rowspan="2" class="nt-border-right">Subject ID</th>
-                <th rowspan="2" class="nt-border-right"><span>RCH ID</span></th>
-                <th rowspan="2" class="nt-border-right">Contact</th>
-                <th colspan="3" class="nt-border-right">MTP Procedure</th>
-                <th colspan="3" class="nt-border-right">Status</th>
-
-
-            </tr>
-            <tr class="combined">
-                <!-- <th class="text-center">S.No</th> -->
-                <th class="text-center">Date</th>
-
-                <th class="text-center">Location</th>
-                <th class="nt-border-right text-center">Obstetrician Name</th>
-                <th class="text-center">1st Follow-up
-                    (MTP+40)</th>
-                <th class="text-center">2nd Follow-up
-                    (MTP+50)</th>
-                <th class="nt-border-right text-center">3rd Follow-up
-                    (MTP+60)</th>
-
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-center nt-border-right">1</td>
-                <td class="text-left nt-border-right">Divya</td>
-
-                <td class="text-center nt-border-right">001252</td>
-                <td class="text-center nt-border-right">312456</td>
-
-                <td class="nt-border-right text-center">9154787985</td>
-                <!-- <td>Sickle cell disease</td> -->
-
-                <td class="text-center">19/02/2020 17:00</td>
-                <td class="text-center"></td>
-                <td class="nt-border-right text-left"></td>
-                <td class="text-center"><select name="occupationoption"
-                        class="form-control field" id="inputMTP40" tabindex="7"
-                        required="">
-                        <option selected>Select</option>
-                        <option value="0">Healthy </option>
-                        <option value="1">Sick </option>
-                        <option value="2">Expired </option>
-                    </select>
-                    <div style="display:none;" id="MTP40">
-                            <input class="form-control field" name="name"
-                                required="" type="text" placeholder="Status Detail"
-                                tabindex="1" autocomplete="off">
-                    </div>
-                </td>
-                <td class="text-center"><select name="occupationoption"
-                    class="form-control field" id="inputMTP50" tabindex="7"
-                    required="">
-                    <option selected>Select</option>
-                    <option value="0">Healthy </option>
-                    <option value="1">Sick </option>
-                    <option value="2">Expired </option>
-                </select>
-                <div style="display:none;" id="MTP50">
-                        <input class="form-control field" name="name"
-                            required="" type="text" placeholder="Status Detail"
-                            tabindex="1" autocomplete="off">
-                </div>
-            </td>
-            <td class="text-center"><select name="occupationoption"
-                class="form-control field" id="inputMTP60" tabindex="7"
-                required="">
-                <option selected>Select</option>
-                <option value="0">Healthy </option>
-                <option value="1">Sick </option>
-                <option value="2">Expired </option>
-            </select>
-            <div style="display:none;" id="MTP60">
-                    <input class="form-control field" name="name"
-                        required="" type="text" placeholder="Status Detail"
-                        tabindex="1" autocomplete="off">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div *ngIf="anmpostMTPErrorMessage" class="alert mt-3 mb-2"
+                [ngClass]="{'alert-warning': anmpostMTPErrorMessage ==='No subjects found', 'alert-danger': anmpostMTPErrorMessage !== 'No subjects found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
+                {{anmpostMTPErrorMessage}}
             </div>
-        </td>
-            </tr>
-            <tr>
-                <td class="text-center nt-border-right">2</td>
-                <td class="text-left nt-border-right">Lashmi</td>
-
-                <td class="text-center nt-border-right">001252</td>
-                <td class="text-center nt-border-right">213456</td>
-
-                <td class="nt-border-right text-center">9154787985</td>
-                <!-- <td>Sickle cell disease</td> -->
-
-                <td class="text-center">19/02/2020 17:00</td>
-                <td class="text-center"></td>
-                <td class="nt-border-right text-left"></td>
-                <td class="text-center"><select name="occupationoption"
-                        class="form-control field" id="occuptnid" tabindex="7"
-                        required="">
-                        <option selected>Select</option>
-                        <option value="male">Healthy </option>
-                        <option value="male">Sick </option>
-                        <option value="male">Expired </option>
-                    </select>
-                </td>
-                <td class="text-center"><select name="occupationoption"
-                        class="form-control field" id="occuptnid" tabindex="7"
-                        required="">
-                        <option selected>Select</option>
-                        <option value="male">Healthy </option>
-                        <option value="male">Sick </option>
-                        <option value="male">Expired </option>
-                    </select>
-                </td>
-                <td class="text-center"><select name="occupationoption"
-                        class="form-control field" id="occuptnid" tabindex="7"
-                        required="">
-                        <option selected>Select</option>
-                        <option value="male">Healthy </option>
-                        <option value="male">Sick </option>
-                        <option value="male">Expired </option>
-                    </select>
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
-
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <a class="btn btn-primary float-right" id="linktobuttonpostmtp"
-            role="button">Update Status</a>
+        </div>
     </div>
-</div>
+    <div class="table-responsive mb-4">
+        <table id="postMTP-tblconfig" class="table table-bordered table-hover row-combined" datatable
+            [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead class="tablecss">
+                <tr>
+                    <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
+                    <th rowspan="2" class="nt-border-right"><span>Subject Name</span>
+                    </th>
+                    <th rowspan="2" class="nt-border-right">Subject ID</th>
+                    <th rowspan="2" class="nt-border-right"><span>RCH ID</span></th>
+                    <th rowspan="2" class="nt-border-right">Contact</th>
+                    <th colspan="3" class="nt-border-right">MTP Procedure</th>
+                    <th colspan="3" class="nt-border-right">Status</th>
+
+
+                </tr>
+                <tr class="combined">
+                    <!-- <th class="text-center">S.No</th> -->
+                    <th class="text-center">Date</th>
+
+                    <th class="text-center">Location</th>
+                    <th class="nt-border-right text-center">Obstetrician Name</th>
+                    <th class="text-center">1st Follow-up
+                        (MTP+40)</th>
+                    <th class="text-center">2nd Follow-up
+                        (MTP+50)</th>
+                    <th class="nt-border-right text-center">3rd Follow-up
+                        (MTP+60)</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sample of postMTP; index as i">
+                    <td class="text-center nt-border-right">{{i +1}}</td>
+                    <td class="text-left nt-border-right">{{sample.subjectName}}</td>
+
+                    <td class="text-center nt-border-right">{{sample.uniqueSubjectId}}</td>
+                    <td class="text-center nt-border-right">{{sample.rchId}}</td>
+
+                    <td class="nt-border-right text-center">{{sample.contactNo}}</td>
+                    <!-- <td>Sickle cell disease</td> -->
+
+                    <td class="text-center">{{sample.mtpDateTime}}</td>
+                    <td class="text-center"></td>
+                    <td class="nt-border-right text-left">{{sample.obstetricianName}}</td>
+                    <td class="text-center">
+                        <select id="inputDistrict" class="form-control" name=DDLfirstfollowup
+                            #DDLfirstfollowup="ngModel" ngModel required [(ngModel)]="selectedfirstfollowup">
+                            <option value="">Select</option>
+                            <option *ngFor="let firstfollowup of firstfollowUpStatus" [(value)]=" firstfollowup.id ">
+                                {{firstfollowup.name}}
+                            </option>
+                        </select>
+                        <div style="display:none;" id="MTP40">
+                            <input class="form-control field" name="name" required="" type="text"
+                                placeholder="Status Detail" tabindex="1" autocomplete="off">
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <select id="inputDistrict" class="form-control" name=DDLsecondfollowup
+                            #DDLsecondfollowup="ngModel" ngModel required [(ngModel)]="selectedsecondfollowup">
+                            <option value="">Select</option>
+                            <option *ngFor="let secondfollowup of secondfollowUpStatus" [(value)]="secondfollowup.id">
+                                {{secondfollowup.name}}
+                            </option>
+                        </select>
+
+                        <div style="display:none;" id="MTP50">
+                            <input class="form-control field" name="name" required="" type="text"
+                                placeholder="Status Detail" tabindex="1" autocomplete="off">
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <select id="inputDistrict" class="form-control" name=DDLthirdfollowup
+                            #DDLthirdfollowup="ngModel" ngModel required [(ngModel)]="selectedthirdfollowup">
+                            <option value="">Select</option>
+                            <option *ngFor="let thirdfollowup of thirdfollowUpStatus" [(value)]="thirdfollowup.id">
+                                {{thirdfollowup.name}}
+                            </option>
+                        </select>
+                        <div style="display:none;" id="MTP60">
+                            <input class="form-control field" name="name" required="" type="text"
+                                placeholder="Status Detail" tabindex="1" autocomplete="off">
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus()" role="button">Update Status</a>
+        </div>
+    </div>
 </div>
 
 <i appLoadScript [script]="'assets/assets/js/anm-module/post-mtp-followup.js'"></i>

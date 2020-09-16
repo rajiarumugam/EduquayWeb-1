@@ -211,7 +211,7 @@
                                                 <td><b>Counselling Status</b></td>
                                                 <td>{{counselledYesdataItem?.prePNDTCounsellingStatus}}</td>
                                                 <td><b>Scheduled PNDT Date & Time</b></td>
-                                                <td>{{counselledYesdataItem?.schedulePrePNDTDate}} {{counselledYesdataItem?.schedulePrePNDTTime}}</td>
+                                                <td>{{counselledYesdataItem?.postPNDTCounsellingDateTime}}</td>
 
                                             </tr>  
                                         </tbody>
@@ -265,7 +265,7 @@
                                                 <td><b>Counsellor Name</b></td>
                                                 <td>{{counselledYesdataItem?.pndtCounsellorName}} </td>
                                                 <td><b>PNDT Diagnosis</b></td>
-                                                <td>{{counselledYesdataItem?.pndtDateTime}}</td>
+                                                <td>{{counselledYesdataItem?.pndtDiagnosis}}</td>
 
                                             </tr>
                                            
@@ -311,7 +311,7 @@
                                             <td>
                                                 <textarea id="textarea" class="form-control textarea" maxlength="225"
                                                     [class.is-invalid]="Remarks.invalid && Remarks.touched || updatePostPndtyesForm.submitted && Remarks.invalid" rows="2"
-                                                    placeholder="" name=Remarks #Remarks="ngModel" ngModel required></textarea>
+                                                    placeholder="" name=Remarks #Remarks="ngModel" [(ngModel)]="remarksdata" required></textarea>
                                                 <small class=" ml-2 text-danger" *ngIf="Remarks.invalid && Remarks.touched">Please
                                                     Enter the Counselling Notes/Remarks</small>
                                                 <div *ngIf="updatePostPndtyesForm.submitted && Remarks.invalid">
@@ -466,7 +466,7 @@
                                             <td>
                                                 <textarea id="textarea" class="form-control textarea" maxlength="225"
                                                     [class.is-invalid]="Remarks.invalid && Remarks.touched || updatePostPndtyesForm.submitted && Remarks.invalid" rows="2"
-                                                    placeholder="" name=Remarks #Remarks="ngModel" ngModel required></textarea>
+                                                    placeholder="" name=Remarks #Remarks="ngModel" [(ngModel)]="remarksdata" required></textarea>
                                                 <small class=" ml-2 text-danger" *ngIf="Remarks.invalid && Remarks.touched">Please
                                                     Enter the Counselling Notes/Remarks</small>
                                                 <div *ngIf="updatePostPndtyesForm.submitted && Remarks.invalid">

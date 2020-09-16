@@ -192,6 +192,7 @@ import { SampleTimeoutComponent } from "./district-coordinator/sample-timeout/sa
 import { PositiveSubjectsComponent } from "./district-coordinator/positive-subjects/positive-subjects.component";
 import { PndtReferralComponent } from "./district-coordinator/pndt-referral/pndt-referral.component";
 import { MtpReferralComponent } from "./district-coordinator/mtp-referral/mtp-referral.component";
+import { PostMtpFollowupComponent } from "./district-coordinator/post-mtp-followup/post-mtp-followup.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -464,7 +465,8 @@ const routes: Routes = [
         {path: 'sample-timeout', component: SampleTimeoutComponent, pathMatch: 'full'},
         {path: 'positive-subjects', component: PositiveSubjectsComponent, pathMatch: 'full'},
         {path: 'pndt-referral', component: PndtReferralComponent, pathMatch: 'full'},
-        {path: 'mtp-referral', component: MtpReferralComponent, pathMatch: 'full'}
+        {path: 'mtp-referral', component: MtpReferralComponent, pathMatch: 'full'},
+        {path: 'postmtp-follow-up', component: PostMtpFollowupComponent, pathMatch: 'full'}
       ]
       },
       
@@ -618,7 +620,8 @@ export const RoutingComponents = [
   SampleTimeoutComponent,
   PositiveSubjectsComponent,
   PndtReferralComponent,
-  MtpReferralComponent
+  MtpReferralComponent,
+  PostMtpFollowupComponent
 
 ];
 

@@ -84,7 +84,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
   dateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
-    defaultDate: new Date(Date.now()),
+    //defaultDate: new Date(Date.now()),
     //minDate: this.dyCollectionDate,
     minDate: new Date(Date.now()),
     enableTime: true,
@@ -130,10 +130,10 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       this.anwSubjectId = params['q'];
       this.retrivecounselledlists();
     });
-    this.pndtscheduleDate = moment().format("DD/MM/YYYY");
-    this.pndtscheduleTime = moment().format("HH:mm");
-    this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
+    // this.pndtscheduleTime = moment().format("HH:mm");
+    // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
 
     this.ddlobstetricianName();
@@ -162,12 +162,12 @@ export class UpdateDetailTestresultsComponent implements OnInit {
             this.counsellingdataItem = this.counsellingprepndtResponse.data.
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
             //this.counsellinglists = this.counsellingprepndtResponse.data;
-              // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
-              // this.pndtscheduleTime = moment().format("HH:mm");
-              // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-              // //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-              // const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
-              // this.dateOptions.minDate = regDate;
+              //this.pndtscheduleDate = moment().format("DD/MM/YYYY");
+              //this.pndtscheduleTime = moment().format("HH:mm");
+              //this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+              //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+              const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
+              this.dateOptions.minDate = regDate;
 
           }
         }
@@ -180,6 +180,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
           this.updatepndtcErrorMessage = err.toString();
         });
   }
+
   ddlobstetricianName() {
 
     this.obstetricianlists = [];
@@ -234,6 +235,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       this.counsellingRemarks = updatePndtForm.value.Remarks;
       this.assignedObstetricianId = updatePndtForm.value.DDLobstetrician;
 
+      if((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)){
+        this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
+        return false;
+      }
+
       this.addCounsellingRequest = {
         prePNDTSchedulingId: this.counsellingdataItem.schedulingId,
         anwsubjectId: this.counsellingdataItem.anwSubjectId,
@@ -250,7 +256,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       };
 
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      // this.decisionYesResponseMessage('Successfully registered', 's');
       // return false;
 
       let addScheduleData = this.counsellingprepndtService.AddprepndtCounselling(this.addCounsellingRequest)
