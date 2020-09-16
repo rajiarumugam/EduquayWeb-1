@@ -1,0 +1,90 @@
+.layout-px-spacing {
+    min-height: calc(100vh - 166px) !important;
+}
+.submitted select.form-control.ng-untouched.ng-pristine.ng-invalid{
+    border: solid 1px red;
+  }
+
+h5.float-left {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 25px;
+}
+
+h5.float-center {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 6px;
+    letter-spacing: 2px;
+}
+.modaltitle {
+    color: #1b55e2;
+    font-weight: 600;
+    text-shadow: 1px 0px #125879;
+    font-size: 20px;
+    /* text-align: center; */
+}
+.manto {
+    color: red;
+    font-weight: 600;
+}
+/* .note{
+    font-size: 15px;
+    font-weight: 600;
+    color: #575858;
+} */
+div.dataTables_wrapper div.dataTables_filter svg {
+    top: 30px !important;
+}
+.table>tbody>tr>td {
+    text-align: center;
+}
+table.dataTable td, table.dataTable th {
+-webkit-box-sizing: content-box;
+box-sizing: content-box;
+padding: 4px 11px;
+}
+label.new-control.new-checkbox.checkbox-outline-primary{
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: initial;
+    left: 0px;
+}
+.leftspace {
+    left: 0px !important;
+}
+
+.tbl-row-red .tbl-data-red {
+    color: red; 
+   
+}
+
+.tbl-row-black .tbl-data-black{
+    color: #2d2e31;
+}
+
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
+.swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel{
+    color: #fff;
+}
+
+/* in the css file or in a style block */
+.angular-with-newlines {
+    white-space: pre-line;;
+  }

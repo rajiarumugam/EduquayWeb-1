@@ -69,7 +69,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
       else if (this.router.url.indexOf('updatechc') >= 0) {
         this.updateChcSample = data;
       }
-      else if (this.router.url.indexOf('postmtp') >= 0) {
+      else if (this.router.url.indexOf('postmtp-follow-up') >= 0) {
         this.postmtpfollowup = data;
       }
       else {

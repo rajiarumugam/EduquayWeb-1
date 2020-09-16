@@ -97,6 +97,7 @@ import { SampleTimeoutComponent } from './district-coordinator/sample-timeout/sa
 import { PositiveSubjectsComponent } from './district-coordinator/positive-subjects/positive-subjects.component';
 import { PndtReferralComponent } from './district-coordinator/pndt-referral/pndt-referral.component';
 import { MtpReferralComponent } from './district-coordinator/mtp-referral/mtp-referral.component';
+import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-followup/post-mtp-followup.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -168,7 +169,8 @@ const ngWizardConfig: NgWizardConfig = {
     SampleTimeoutComponent,
     PositiveSubjectsComponent,
     PndtReferralComponent,
-    MtpReferralComponent
+    MtpReferralComponent,
+    PostMtpFollowupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

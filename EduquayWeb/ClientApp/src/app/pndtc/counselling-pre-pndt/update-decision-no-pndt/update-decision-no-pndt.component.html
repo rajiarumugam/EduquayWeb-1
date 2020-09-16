@@ -211,7 +211,7 @@
                                             <td>
                                                 <textarea id="textarea" class="form-control textarea" maxlength="225"
                                                     [class.is-invalid]="Remarks.invalid && Remarks.touched || updatePndtnoForm.submitted && Remarks.invalid" rows="2"
-                                                    placeholder="" name=Remarks #Remarks="ngModel" ngModel required></textarea>
+                                                    placeholder="" name=Remarks #Remarks="ngModel" [(ngModel)]="remarksdata" required></textarea>
                                                 <small class=" ml-2 text-danger" *ngIf="Remarks.invalid && Remarks.touched">Please
                                                     Enter the Counselling Notes/Remarks</small>
                                                 <div *ngIf="updatePndtnoForm.submitted && Remarks.invalid">

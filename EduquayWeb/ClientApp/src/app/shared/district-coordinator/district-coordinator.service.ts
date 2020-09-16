@@ -3,8 +3,8 @@ import { TokenService } from '../token.service';
 import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../generic.service';
 import { HttpClientService } from '../http-client.service';
-import { DcNotificationResponse, dcUpdateSamples, dcPositiveSubjectsResponse, dcpndtReferralResponse, dcmtpReferralResponse, DcUpdatePndtMtpReferralResponse } from './dc-notification-response';
-import { DcNotificationRequest, DcPndtMtpReferralRequest } from './dc-notification-request';
+import { DcNotificationResponse, dcUpdateSamples, dcPositiveSubjectsResponse, dcpndtReferralResponse, dcmtpReferralResponse, DcUpdatePndtMtpReferralResponse, dcpostMTPResponse, DcUpdatePostMTPResponse } from './dc-notification-response';
+import { DcNotificationRequest, DcPndtMtpReferralRequest, DcPostMTPRequest } from './dc-notification-request';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,12 @@ export class DistrictCoordinatorService {
   positiveSubjectApi: string = "api/v1/DistrictCoordinator/RetrievePositiveSubjectSamples";
   pndtReferralApi: string = "api/v1/DistrictCoordinator/RetrievePNDTReferal";
   mtpReferralApi: string = "api/v1/DistrictCoordinator/RetrieveMTPReferal";
+  postMTPApi: string = "api/v1/DistrictCoordinator/RetrievePostMTPFollowUp";
   updateSampleStatusApi: string = "api/v1/DistrictCoordinator/UpdateSamplesStatus";
   updatePositiveStatusApi: string = "api/v1/DistrictCoordinator/UpdatePositiveSubjectStatus";
   updatePndtReferralApi: string = "api/v1/DistrictCoordinator/UpdatePNDTReferalStatus";
-  updateMtpReferralApi: string = "api/v1/DistrictCoordinator/UpdateMTPReferalStatus"
+  updateMtpReferralApi: string = "api/v1/DistrictCoordinator/UpdateMTPReferalStatus";
+  updatePostMTPApi: string = "api/v1/DistrictCoordinator/UpdatePostMTPFollowupStatus"
 
   districtId: number;
 
@@ -73,6 +75,13 @@ export class DistrictCoordinatorService {
     return this.http.get<dcmtpReferralResponse>({ url: apiUrl });
   }
 
+  getPostMtp(districtId) {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    this.districtId = user.districtId;
+    let apiUrl = this.genericServices.buildApiUrl(`${this.postMTPApi}/${districtId}`);
+    return this.http.get<dcpostMTPResponse>({ url: apiUrl });
+  }
+
   updateSelectedSamples(updateSamples: DcNotificationRequest) {
     let apiUrl = this.genericServices.buildApiUrl(this.updateSampleStatusApi);
     return this.http.post<dcUpdateSamples>({ url: apiUrl, body: updateSamples });
@@ -91,6 +100,11 @@ export class DistrictCoordinatorService {
   updateMtpReferral(updateSamples: DcPndtMtpReferralRequest) {
     let apiUrl = this.genericServices.buildApiUrl(this.updateMtpReferralApi);
     return this.http.post<DcUpdatePndtMtpReferralResponse>({ url: apiUrl, body: updateSamples });
+  }
+
+  updatePostMTP(updateSamples: DcPostMTPRequest) {
+    let apiUrl = this.genericServices.buildApiUrl(this.updatePostMTPApi);
+    return this.http.post<DcUpdatePostMTPResponse>({ url: apiUrl, body: updateSamples });
   }
 
 }

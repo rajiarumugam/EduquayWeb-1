@@ -12,9 +12,11 @@ import { SchedulePrePndtcRequest, AddPrePndtcScheduleRequest } from 'src/app/sha
 import { SchedulePrePndtcResponse, SchedulingList, AddPrePndtcScheduleResponse } from 'src/app/shared/pndtc/schedule-pre-pndtc/schedule-pre-pndtc-response';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pre-pndtc-to-be-scheduled',
@@ -66,12 +68,14 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
   popupform: FormGroup;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
-  fixSchedule: string;
+  scheduleScheduleDate: string;
   scheduleDate: string;
   scheduleTime: string;
   counsellorName: string;
+  index: any;
+  samplega: string;
 
-  dateOptions: FlatpickrOptions = {
+  scheduleDateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
     defaultDate: new Date(Date.now()),
@@ -87,7 +91,9 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     private pndtmtpScheduleService: SchedulePrePndtcService,
     private tokenService: TokenService,
     private loaderService: LoaderService,
-    private _formBuilder: FormBuilder
+    private modalService: NgbModal,
+    private _formBuilder: FormBuilder,
+    private router: Router
 
   ) { }
 
@@ -95,9 +101,10 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
 
     this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.InitializeDateRange();
     this.counsellorName = this.user.firstName;
     this.recordCount = 0;
-    this.InitializeDateRange();
+    
 
     this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled" }));
     this.dtOptions = {
@@ -121,8 +128,8 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.ddlDistrict(this.user.id);
     this.scheduleDate = moment().format("DD/MM/YYYY");
     this.scheduleTime = moment().format("HH:mm");
-    this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+    this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.pndtmtpSchedulingRequest = {
       userId: this.user.id, districtId: 0,
@@ -315,10 +322,37 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
 
   }
 
-  addScheduleData(schedulingdata: SchedulingList) {
+  openScheduleData(scheduleAppointmentFormDetail, schedulinglists: SchedulingList) {
 
-    this.anwSubjectId = schedulingdata.anwSubjectId;
-    this.spouseSubjectId = schedulingdata.spouseSubjectId;
+    this.prepndtscheduleErrorMessage = '';
+    this.subjectName = schedulinglists.subjectName;
+    this.anwSubjectId = schedulinglists.anwSubjectId;
+    this.contactNo = schedulinglists.contactNo;
+    this.samplega = schedulinglists.ga;
+    this.spouseSubjectId = schedulinglists.spouseSubjectId;
+
+    this.scheduleDate = moment().format("DD/MM/YYYY");
+    this.scheduleTime = moment().format("HH:mm");
+    this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+
+    this.modalService.open(
+      scheduleAppointmentFormDetail, {
+      centered: true,
+      size: 'xl',
+      scrollable: true,
+      backdrop: 'static',
+      keyboard: false,
+      ariaLabelledBy: 'modal-basic-title'
+    });
+
+  }
+
+  onSubmit(scheduleAppointmentFormDetail: NgForm) {
+
+    console.log(scheduleAppointmentFormDetail.value);
+    // this.anwSubjectId = schedulingdata.anwSubjectId;
+    // this.spouseSubjectId = schedulingdata.spouseSubjectId;
 
     this.addScheduleRequest = {
       anwsubjectId: this.anwSubjectId,
@@ -362,7 +396,9 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
       .then((result) => {
         if (result.value) {
-            window.location.reload();
+          this.modalService.dismissAll();
+          //this.router.navigateByUrl(`/app/schedule-pre-pndtc/scheduled`);
+          window.location.reload();
           }
       });
 
@@ -371,12 +407,12 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
 
   InitializeDateRange() {
 
-    this.dateform = this._formBuilder.group({
-      fixSchedule: [new Date(moment().format("DD/MM/YYYY HH:mm"))],
+    this.popupform = this._formBuilder.group({
+      scheduleScheduleDate: [new Date(moment().format("DD/MM/YYYY HH:mm"))],
     });
 
     //Change of sample collection date
-    this.dateform.controls.fixSchedule.valueChanges.subscribe(changes => {
+    this.popupform.controls.scheduleScheduleDate.valueChanges.subscribe(changes => {
       console.log('end: ', changes);
       if (!changes[0]) return;
       const selectedDate2 = changes[0].getTime();

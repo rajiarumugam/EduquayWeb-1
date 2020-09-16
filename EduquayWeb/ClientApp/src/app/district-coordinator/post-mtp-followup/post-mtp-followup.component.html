@@ -1,0 +1,73 @@
+<div class="tab-pane fade show active" id="postmtp" role="tabpanel" aria-labelledby="postmtp-tab">
+    <div class="form-row">
+        <div class="col-md-12">
+            <div *ngIf="dcpostMTPErrorMessage" class="alert mt-3 mb-2"
+                [ngClass]="{'alert-warning': dcpostMTPErrorMessage ==='No subjects found', 'alert-danger': dcpostMTPErrorMessage !== 'No subjects found'}">
+                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong>
+                {{dcpostMTPErrorMessage}}
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive mb-4">
+        <table id="dcpostMTP-tblconfig" class="table table-bordered table-hover tbl-ht row-combined" datatable
+            [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead class="tablecss">
+                <tr>
+                    <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
+                    <th rowspan="2" class="nt-border-right"><span>ANM Name</span>
+                    </th>
+                    <th rowspan="2" class="nt-border-right">ANM Contact</th>
+                    <th rowspan="2" class="nt-border-right"><span>CHC</span></th>
+                    <th rowspan="2" class="nt-border-right">Subject Name</th>
+                    <th rowspan="2" class="nt-border-right">Subject ID</th>
+                    <th rowspan="2" class="nt-border-right">MTP Date</th>
+                    <th colspan="3" class="nt-border-right">Status</th>
+                    <th rowspan="2" class="nt-border-right">Follow-up Status </th>
+
+
+                </tr>
+                <tr class="combined">
+                    <th class="text-center">
+                        (MTP+40)</th>
+                    <th class="text-center">
+                        (MTP+50)</th>
+                    <th class="text-center">
+                        (MTP+60)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sample of postMTPList; index as i">
+                    <td class="sno text-center">{{i +1}}</td>
+                    <td class="text-left nt-border-right">{{sample.anmName}}</td>
+
+                    <td class="text-center nt-border-right">{{sample.anmContactNo}}</td>
+                    <td class="text-left nt-border-right">{{sample.chcName}}</td>
+
+                    <td class="nt-border-right text-left">{{sample.subjectName}}</td>
+                    <td class="text-center nt-border-right">{{sample.uniqueSubjectId}}</td>
+                    <td class="text-center nt-border-right">{{sample.mtpDateTime}}</td>
+
+                    <td class="nt-border-right text-left">{{sample.firstFollowUp}}</td>
+                    <td class="nt-border-right text-left">{{sample.secondFollowUp}}</td>
+                    <td class="nt-border-right text-left">{{sample.thirdFollowUp}}</td>
+                    <td class="dropbtn">
+                        <select class="form-control field" tabindex="7" #t
+                            (change)="updateNotification(sample, t.value)">
+                            <option value="0" [selected]="sample.followupStatus === false">No</option>
+                            <option value="1" [selected]="sample.followupStatus === true">Yes</option>
+                        </select>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary float-right" (click)="postMTPUpdateStatus()" role="button">Update
+                Status</a>
+        </div>
+    </div>
+</div>
+<!-- The Modal -->

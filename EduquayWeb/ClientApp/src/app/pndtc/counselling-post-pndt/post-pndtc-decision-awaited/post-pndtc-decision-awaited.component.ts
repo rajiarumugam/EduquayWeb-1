@@ -14,6 +14,7 @@ import { CounsellPostPndtService } from 'src/app/shared/pndtc/counsell-post-pndt
 import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 @Component({
   selector: 'app-post-pndtc-decision-awaited',
@@ -81,7 +82,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     item: any;
     isDecisionYes: boolean = false;
     isDecisionNo: boolean = false;
-    Remarks: string;
+    remarksdata: string;
   
     /*Date Range configuration starts*/
     dateform: FormGroup;
@@ -96,7 +97,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     dateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
-      defaultDate: new Date(Date.now()),
+      //defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
       minDate: new Date(Date.now()),
       enableTime: true,
@@ -128,7 +129,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
       private loaderService: LoaderService,
       private activatedRoute: ActivatedRoute,
       private _formBuilder: FormBuilder,
-      private router: Router
+      private router: Router,
+      private dateservice: DateService
     ) { }
   
     ngOnInit() {
@@ -141,10 +143,10 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         this.anwSubjectId = params['q'];
         this.retrivecounselledpendinglists();
       });
-      this.mtpscheduleDate = moment().format("DD/MM/YYYY");
-      this.mtpscheduleTime = moment().format("HH:mm");
-      this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
+      // this.mtpscheduleTime = moment().format("HH:mm");
+      // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
       this.ddlobstetricianName();
     }
@@ -171,7 +173,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
             else {
               this.counselledPendingdataItem = this.counselledpendingpostpndtResponse.data.
                 find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-                this.Remarks = this.counselledPendingdataItem.prePNDTCounsellingRemarks;
+                this.remarksdata = this.counselledPendingdataItem.prePNDTCounsellingRemarks;
                 this.foetalDisease = this.counselledPendingdataItem.foetalDisease;
               //this.counsellinglists = this.counselledpendingpostpndtResponse.data;
   
@@ -218,6 +220,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         this.isSelectedPending = false;
         this.isDecisionYes = true;
         this.isDecisionNo = false;
+        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledPendingdataItem.postPNDTCounsellingDateTime);
+        this.dateOptions.minDate = regDate;
       }
       else if (item == 'decisionno') {
         this.isSelectedNo = true;
@@ -242,6 +246,10 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
   
           this.counsellingRemarks = postupdatePndtpendingForm.value.Remarks;
           this.assignedObstetricianId = postupdatePndtpendingForm.value.DDLobstetrician;
+          if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
+            this.decisionYesResponseMessage('Please choose Schedule MTP Date & Time', 'e');
+            return false;
+          }
   
           this.addCounselledPendingRequest = {
             postPNDTSchedulingId: this.counselledPendingdataItem.postPNDTSchedulingId,
