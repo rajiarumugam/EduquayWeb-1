@@ -38,7 +38,7 @@
           <div class="widget-content widget-content-area br-6">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="damagedsample-tab" data-toggle="tab"
+                <a class="nav-link active" id="damagedsample-tab" data-toggle="tab" [ngClass]="{'active': currentPage == 'chc-notification' ? true : false}"
                    [routerLink]="['/app/chc-notification']" role="tab" aria-controls="home"
                    aria-selected="true">
                   Damaged Samples<span class="badge badge-pill badge-warning shadow mx-1">{{damagedSample}}</span>
@@ -46,19 +46,19 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-notification/chc-unsent']"
-                   role="tab" aria-controls="profile" aria-selected="false">
+                [ngClass]="{'active': currentPage == 'chc-unsent' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
                   Unsent Samples<span class="badge badge-pill badge-warning shadow ml-1">{{unsentSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="timeoutexpiry-tab" data-toggle="tab" [routerLink]="['/app/chc-notification/chc-timeout']"
-                   role="tab" aria-controls="contact" aria-selected="false">
+                [ngClass]="{'active': currentPage == 'chc-timeout' ? true : false}" role="tab" aria-controls="contact" aria-selected="false">
                   Sample Timeout<span class="badge badge-pill badge-warning shadow ml-1">{{timeoutSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="positivesub-tab" data-toggle="tab" [routerLink]="['/app/chc-notification/chc-positive']"
-                   role="tab" aria-controls="contact" aria-selected="false">
+                [ngClass]="{'active': currentPage == 'chc-positive' ? true : false}" role="tab" aria-controls="contact" aria-selected="false">
                   Positive Subjects<span class="badge badge-pill badge-warning shadow ml-1">{{positiveSample}}</span>
                 </a>
               </li>

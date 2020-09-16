@@ -22,6 +22,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
   mtpReferralSample: number = 0;
   updateChcSample: number = 0;
   postmtpfollowup: number = 0;
+  currentPage = "";
 
   constructor(
     private router: Router,
@@ -30,6 +31,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.notificationCount();
   }
 

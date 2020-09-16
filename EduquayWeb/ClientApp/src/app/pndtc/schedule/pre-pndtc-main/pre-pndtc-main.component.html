@@ -40,13 +40,13 @@
                 <li class="nav-item">
                   <a class="nav-link active" id="tobeScheduled-tab" data-toggle="tab"
                      [routerLink]="['/app/schedule-pre-pndtc']" role="tab" aria-controls="home"
-                     aria-selected="true">
+                     [ngClass]="{'active': currentPage == 'schedule-pre-pndtc' ? true : false}" aria-selected="true">
                      To be Scheduled<span class="badge badge-pill badge-warning shadow mx-1">{{schedulingCount}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="scheduled-tab" data-toggle="tab" [routerLink]="['/app/schedule-pre-pndtc/scheduled']"
-                     role="tab" aria-controls="profile" aria-selected="false">
+                  [ngClass]="{'active': currentPage == 'scheduled' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
                      Scheduled<span class="badge badge-pill badge-warning shadow ml-1">{{scheduledCount}}</span>
                   </a>
                 </li>
