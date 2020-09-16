@@ -93,6 +93,7 @@ export class PostPndtcDecisionNoComponent implements OnInit {
     mtpscheduleDate: string;
     mtpscheduleTime: string;
     myRadio: string = '';
+    confirmationSelected: boolean = false;
   
     dateOptions: FlatpickrOptions = {
       mode: 'single',
@@ -173,8 +174,10 @@ export class PostPndtcDecisionNoComponent implements OnInit {
             else {
               this.counselledNodataItem = this.counsellednopostpndtResponse.data.
                 find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-                this.remarksdata = this.counselledNodataItem.prePNDTCounsellingRemarks;
+                this.remarksdata = this.counselledNodataItem.postPNDTCounsellingRemarks;
                 this.foetalDisease = this.counselledNodataItem.foetalDisease;
+                this.isSelectedNo = this.counselledNodataItem.isMTPAgreeNo;
+                this.isSelectedPending = this.counselledNodataItem.isMTPAgreePending;
               //this.counsellinglists = this.counsellednopostpndtResponse.data;
   
             }
@@ -212,25 +215,25 @@ export class PostPndtcDecisionNoComponent implements OnInit {
           });
     }
   
-    onClick(item) {
+    onClick(radioBtnItem) {
   
-      if (item == 'decisionyes') {
+      if (radioBtnItem == 'decisionyes') {
         this.isSelectedYes = true;
         this.isSelectedNo = false;
         this.isSelectedPending = false;
         this.isDecisionYes = true;
         this.isDecisionawaited = false;
-        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledNodataItem.postPNDTCounsellingDateTime);
+        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledNodataItem.pndtDateTime);
         this.dateOptions.minDate = regDate;
       }
-      else if (item == 'decisionno') {
+      else if (radioBtnItem == 'decisionno') {
         this.isSelectedNo = true;
         this.isSelectedYes = false;
         this.isSelectedPending = false;
         this.isDecisionYes = false;
         this.isDecisionawaited = false;
       }
-      else if (item == 'decisionpending') {
+      else if (radioBtnItem == 'decisionpending') {
         this.isSelectedPending = true;
         this.isSelectedYes = false;
         this.isSelectedNo = false;
@@ -243,11 +246,15 @@ export class PostPndtcDecisionNoComponent implements OnInit {
       if (this.foetalDisease === true) {
         if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
           console.log(updatePostPndtnoForm.value);
-  
+          
+        if(this.confirmationSelected == false){
+          this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+          return false;
+        }
           this.counsellingRemarks = updatePostPndtnoForm.value.Remarks;
           this.assignedObstetricianId = updatePostPndtnoForm.value.DDLobstetrician;
           if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
-            this.decisionYesResponseMessage('Please choose Schedule MTP Date & Time', 'e');
+            this.decisionYesResponseMessage('Please choose Schedule MTP Service Date & Time', 'e');
             return false;
           }
   

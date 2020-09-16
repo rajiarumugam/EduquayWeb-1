@@ -96,6 +96,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
   selecteddata: any;
   testdate: Date;
   selectedscheduledate: Date;
+  confirmationSelected: boolean = true;
 
   dateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -175,16 +176,15 @@ export class PostPndtcDecisionYesComponent implements OnInit {
           else {
             this.counselledYesdataItem = this.counselledyesprepndtResponse.data.
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-            this.remarksdata = this.counselledYesdataItem.prePNDTCounsellingRemarks;
+            this.remarksdata = this.counselledYesdataItem.postPNDTCounsellingRemarks;
             this.selectedobstetrician = this.counselledYesdataItem.postPNDTObstetricianId.toString();
             this.isSelectedYes = this.counselledYesdataItem.isMTPAgreeYes;
             this.isSelectedNo = this.counselledYesdataItem.isMTPAgreeNo;
             this.isSelectedPending = this.counselledYesdataItem.isMTPAgreePending;
             this.foetalDisease = this.counselledYesdataItem.foetalDisease;
-            const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.postPNDTCounsellingDateTime);
+            const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.pndtDateTime);
             this.mtpschedulePicker.flatpickr.set({
-              minDate: new Date(regDate)
-              
+              minDate: regDate
             });
             this.dateOptions.minDate = regDate;
             //this.mtpscheduleDate = moment().format("DD/MM/YYYY");
@@ -234,23 +234,23 @@ export class PostPndtcDecisionYesComponent implements OnInit {
         });
   }
 
-  onClick(item) {
+  onClick(radioBtnItem) {
 
-    if (item == 'decisionyes') {
+    if (radioBtnItem == 'decisionyes') {
       this.isSelectedYes = true;
       this.isSelectedNo = false;
       this.isSelectedPending = false;
       this.isDecisionYes = true;
-      const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.postPNDTCounsellingDateTime);
+      const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.pndtDateTime);
       this.dateOptions.minDate = regDate;
     }
-    else if (item == 'decisionno') {
+    else if (radioBtnItem == 'decisionno') {
       this.isSelectedNo = true;
       this.isSelectedYes = false;
       this.isSelectedPending = false;
       this.isDecisionYes = false;
     }
-    else if (item == 'decisionpending') {
+    else if (radioBtnItem == 'decisionpending') {
       this.isSelectedPending = true;
       this.isSelectedYes = false;
       this.isSelectedNo = false;
@@ -264,50 +264,95 @@ export class PostPndtcDecisionYesComponent implements OnInit {
       if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
         console.log(updatePostPndtyesForm.value);
 
-        this.counsellingRemarks = updatePostPndtyesForm.value.Remarks;
-        this.assignedObstetricianId = updatePostPndtyesForm.value.DDLobstetrician;
-        if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
-          this.decisionYesResponseMessage('Please choose Schedule MTP Date & Time', 'e');
+        if(this.confirmationSelected == false){
+          this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
           return false;
         }
+        if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
+          
+          this.counsellingRemarks = updatePostPndtyesForm.value.Remarks;
+          this.assignedObstetricianId = updatePostPndtyesForm.value.DDLobstetrician;
+          this.addCounselledyesRequest = {
+            postPNDTSchedulingId: this.counselledYesdataItem.postPNDTSchedulingId,
+            anwsubjectId: this.counselledYesdataItem.anwSubjectId,
+            spouseSubjectId: this.counselledYesdataItem.spouseSubjectId,
+            counsellorId: this.counselledYesdataItem.postPNDTCounsellorId,
+            counsellingRemarks: this.counsellingRemarks,
+            assignedObstetricianId: +(this.assignedObstetricianId),
+            isMTPAgreeYes: this.isSelectedYes,
+            isMTPAgreeNo: this.isSelectedNo,
+            isMTPAgreePending: this.isSelectedPending,
+            scheduleMTPDate: this.counselledYesdataItem.mtpScheduleDate,
+            scheduleMTPTime: this.counselledYesdataItem.mtpScheduleTime,
+            isFoetalDisease: this.counselledYesdataItem.foetalDisease,
+            userId: this.user.id,
+          };
+  
+          //Remove below 2 lines after successfully tested
+          // this.decisionYesResponseMessage('Successfully registered', 's');
+          // return false;
+  
+          let addScheduleData = this.counselledyespostpndtService.AddpostpndtCounselling(this.addCounselledyesRequest)
+            .subscribe(response => {
+              this.addCounselledyesResponse = response;
+              if (this.addCounselledyesResponse !== null && this.addCounselledyesResponse.status === "true") {
+                this.decisionUpdateResponseMessage(this.addCounselledyesResponse.message, 's')
+                //this.retrivescheduledlists();
+                //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+              } else {
+                this.decisionUpdateResponseMessage(this.addCounselledyesResponse.message, 'e');
+                this.postupdateDecisionYespndtErrorMessage = response.message;
+              }
+  
+            },
+              (err: HttpErrorResponse) => {
+                this.decisionUpdateResponseMessage(err.toString(), 'e');
+                this.postupdateDecisionYespndtErrorMessage = err.toString();
+              });
+        }
 
-        this.addCounselledyesRequest = {
-          postPNDTSchedulingId: this.counselledYesdataItem.postPNDTSchedulingId,
-          anwsubjectId: this.counselledYesdataItem.anwSubjectId,
-          spouseSubjectId: this.counselledYesdataItem.spouseSubjectId,
-          counsellorId: this.counselledYesdataItem.postPNDTCounsellorId,
-          counsellingRemarks: this.counsellingRemarks,
-          assignedObstetricianId: +(this.assignedObstetricianId),
-          isMTPAgreeYes: this.isSelectedYes,
-          isMTPAgreeNo: this.isSelectedNo,
-          isMTPAgreePending: this.isSelectedPending,
-          scheduleMTPDate: this.mtpscheduleDate,
-          scheduleMTPTime: this.mtpscheduleTime,
-          isFoetalDisease: this.counselledYesdataItem.foetalDisease,
-          userId: this.user.id,
-        };
+        else{
 
-        //Remove below 2 lines after successfully tested
-        // this.decisionYesResponseMessage('Successfully registered', 's');
-        // return false;
+          this.counsellingRemarks = updatePostPndtyesForm.value.Remarks;
+          this.assignedObstetricianId = updatePostPndtyesForm.value.DDLobstetrician;
+          this.addCounselledyesRequest = {
+            postPNDTSchedulingId: this.counselledYesdataItem.postPNDTSchedulingId,
+            anwsubjectId: this.counselledYesdataItem.anwSubjectId,
+            spouseSubjectId: this.counselledYesdataItem.spouseSubjectId,
+            counsellorId: this.counselledYesdataItem.postPNDTCounsellorId,
+            counsellingRemarks: this.counsellingRemarks,
+            assignedObstetricianId: +(this.assignedObstetricianId),
+            isMTPAgreeYes: this.isSelectedYes,
+            isMTPAgreeNo: this.isSelectedNo,
+            isMTPAgreePending: this.isSelectedPending,
+            scheduleMTPDate: this.mtpscheduleDate,
+            scheduleMTPTime: this.mtpscheduleTime,
+            isFoetalDisease: this.counselledYesdataItem.foetalDisease,
+            userId: this.user.id,
+          };
 
-        let addScheduleData = this.counselledyespostpndtService.AddpostpndtCounselling(this.addCounselledyesRequest)
-          .subscribe(response => {
-            this.addCounselledyesResponse = response;
-            if (this.addCounselledyesResponse !== null && this.addCounselledyesResponse.status === "true") {
-              this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 's')
-              //this.retrivescheduledlists();
-              //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
-            } else {
-              this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 'e');
-              this.postupdateDecisionYespndtErrorMessage = response.message;
-            }
+          //Remove below 2 lines after successfully tested
+          // this.decisionYesResponseMessage('Successfully registered', 's');
+          // return false;
 
-          },
-            (err: HttpErrorResponse) => {
-              this.decisionYesResponseMessage(err.toString(), 'e');
-              this.postupdateDecisionYespndtErrorMessage = err.toString();
-            });
+          let addScheduleData = this.counselledyespostpndtService.AddpostpndtCounselling(this.addCounselledyesRequest)
+            .subscribe(response => {
+              this.addCounselledyesResponse = response;
+              if (this.addCounselledyesResponse !== null && this.addCounselledyesResponse.status === "true") {
+                this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 's')
+                //this.retrivescheduledlists();
+                //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+              } else {
+                this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 'e');
+                this.postupdateDecisionYespndtErrorMessage = response.message;
+              }
+
+            },
+              (err: HttpErrorResponse) => {
+                this.decisionYesResponseMessage(err.toString(), 'e');
+                this.postupdateDecisionYespndtErrorMessage = err.toString();
+              });
+        }
       }
       else if (this.isSelectedNo === true) {
         console.log(updatePostPndtyesForm.value);
@@ -447,6 +492,21 @@ export class PostPndtcDecisionYesComponent implements OnInit {
     }
   }
 
+  decisionUpdateResponseMessage(message: string, type: string) {
+    var messageType = '';
+    var title = `Post-PNDT scheduled successfully `;
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
+    }
+    else {
+      Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-post-pndt/counselledyes`);
+          }
+        });
+    }
+  }
 
   decisionYesResponseMessage(message: string, type: string) {
     var messageType = '';

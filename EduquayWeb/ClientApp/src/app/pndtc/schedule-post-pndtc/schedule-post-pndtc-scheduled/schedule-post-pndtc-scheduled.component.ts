@@ -17,6 +17,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SchedulePostPndtcService } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc.service';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 @Component({
   selector: 'app-schedule-post-pndtc-scheduled',
@@ -91,7 +92,8 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       private tokenService: TokenService,
       private loaderService: LoaderService,
       private modalService: NgbModal,
-      private _formBuilder: FormBuilder
+      private _formBuilder: FormBuilder,
+      private dateservice: DateService
     ) { }
   
     ngOnInit() {
@@ -348,10 +350,12 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       this.samplega = scheduleddata.ga;
       this.spouseSubjectId = scheduleddata.spouseSubjectId;
   
-      this.editscheduleDate = moment().format("DD/MM/YYYY");
-      this.editscheduleTime = moment().format("HH:mm");
-      this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.editscheduleDate = moment().format("DD/MM/YYYY");
+      // this.editscheduleTime = moment().format("HH:mm");
+      // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      const regDate = this.dateservice.convertToDateTimeFormat(scheduleddata.pndtDateTime);
+      this.editDateOptions.minDate = regDate;
   
       this.modalService.open(
         editAppointmentFormDetail, {

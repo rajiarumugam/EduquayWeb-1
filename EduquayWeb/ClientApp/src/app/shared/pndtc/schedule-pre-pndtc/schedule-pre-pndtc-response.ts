@@ -34,6 +34,7 @@ export interface ScheduledList {
     counsellorName: string;
     counsellingDateTime: string;
     schedulingId: number;
+    pndtDateTime: string;
 }
 
 export interface AddPrePndtcScheduleResponse{

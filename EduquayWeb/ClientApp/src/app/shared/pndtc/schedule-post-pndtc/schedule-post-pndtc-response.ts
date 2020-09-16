@@ -13,6 +13,7 @@ export interface SchedulingList {
     ga: string;
     contactNo: string;
     obstetricScore: string;
+    pndtDateTime: string;
 }
 
 export interface AddPostPndtcScheduleResponse{

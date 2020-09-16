@@ -93,6 +93,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     mtpscheduleDate: string;
     mtpscheduleTime: string;
     myRadio: string = '';
+    confirmationSelected: boolean = false;
   
     dateOptions: FlatpickrOptions = {
       mode: 'single',
@@ -173,8 +174,10 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
             else {
               this.counselledPendingdataItem = this.counselledpendingpostpndtResponse.data.
                 find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-                this.remarksdata = this.counselledPendingdataItem.prePNDTCounsellingRemarks;
+                this.remarksdata = this.counselledPendingdataItem.postPNDTCounsellingRemarks;
                 this.foetalDisease = this.counselledPendingdataItem.foetalDisease;
+                this.isSelectedNo = this.counselledPendingdataItem.isMTPAgreeNo;
+                this.isSelectedPending = this.counselledPendingdataItem.isMTPAgreePending;
               //this.counsellinglists = this.counselledpendingpostpndtResponse.data;
   
             }
@@ -212,25 +215,25 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
           });
     }
   
-    onClick(item) {
+    onClick(radioBtnItem) {
   
-      if (item == 'decisionyes') {
+      if (radioBtnItem == 'decisionyes') {
         this.isSelectedYes = true;
         this.isSelectedNo = false;
         this.isSelectedPending = false;
         this.isDecisionYes = true;
         this.isDecisionNo = false;
-        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledPendingdataItem.postPNDTCounsellingDateTime);
+        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledPendingdataItem.pndtDateTime);
         this.dateOptions.minDate = regDate;
       }
-      else if (item == 'decisionno') {
+      else if (radioBtnItem == 'decisionno') {
         this.isSelectedNo = true;
         this.isSelectedYes = false;
         this.isSelectedPending = false;
         this.isDecisionYes = false;
         this.isDecisionNo = true;
       }
-      else if (item == 'decisionpending') {
+      else if (radioBtnItem == 'decisionpending') {
         this.isSelectedPending = true;
         this.isSelectedYes = false;
         this.isSelectedNo = false;
@@ -243,14 +246,18 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
       if (this.foetalDisease === true) {
         if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
           console.log(postupdatePndtpendingForm.value);
-  
+              
+        if(this.confirmationSelected == false){
+          this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+          return false;
+        }
           this.counsellingRemarks = postupdatePndtpendingForm.value.Remarks;
           this.assignedObstetricianId = postupdatePndtpendingForm.value.DDLobstetrician;
           if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
-            this.decisionYesResponseMessage('Please choose Schedule MTP Date & Time', 'e');
+            this.decisionYesResponseMessage('Please choose Schedule MTP Service Date & Time', 'e');
             return false;
           }
-  
+          
           this.addCounselledPendingRequest = {
             postPNDTSchedulingId: this.counselledPendingdataItem.postPNDTSchedulingId,
             anwsubjectId: this.counselledPendingdataItem.anwSubjectId,
@@ -436,7 +443,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
         .then((result) => {
           if (result.value) {
-            this.router.navigateByUrl(`/app/counselling-Post-PNDT/counselledawaited`);
+            this.router.navigateByUrl(`/app/counselling-post-pndt/counselledawaited`);
           }
         });
       }
@@ -452,7 +459,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
         .then((result) => {
           if (result.value) {
-            this.router.navigateByUrl(`/app/counselling-Post-PNDT/counselledawaited`);
+            this.router.navigateByUrl(`/app/counselling-post-pndt/counselledawaited`);
           }
         });
       }
@@ -468,7 +475,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
         .then((result) => {
           if (result.value) {
-            this.router.navigateByUrl(`/app/counselling-Post-PNDT/counselledawaited`);
+            this.router.navigateByUrl(`/app/counselling-post-pndt/counselledawaited`);
           }
         });
       }
