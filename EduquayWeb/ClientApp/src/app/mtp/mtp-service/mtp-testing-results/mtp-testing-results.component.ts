@@ -81,7 +81,7 @@ export class MTPTestingResultsComponent implements OnInit {
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
-    defaultDate: new Date(Date.now()),
+    defaultDate:"",
     minDate: new Date(Date.now()),
     enableTime: true,
   };
@@ -144,13 +144,7 @@ export class MTPTestingResultsComponent implements OnInit {
    });
    this.getMTPDiagnosis();
     this.getComplecations();
-   this.DORPicker.flatpickr.set({
-    minDate: this.selectedpndtDate,
-    enable: [],
-    enableTime: true,
-    dateFormat: 'd/m/Y H:i',
-  });
-    
+   
     
 
     
@@ -294,7 +288,7 @@ export class MTPTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj["mtpDateTime"] = this.FormGroup.get('pndtDate').value;
+          _obj["mtpDateTime"] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
           _obj['anwsubjectId'] = this.testingPNDData.anwSubjectId;
           _obj['spouseSubjectId'] = this.testingPNDData.spouseSubjectId;
           _obj['counsellorId'] = this.testingPNDData.postPNDTCounsellorId;
@@ -337,7 +331,22 @@ export class MTPTestingResultsComponent implements OnInit {
             //this.showResponseMessage(err.toString(), 'e');
           });
   }
+  openPopup()
+  {
+    //$('#modal-dailog').show();
+    $('#modal-dailog').modal('show');
 
+    var _tempCurrentDate = this.testingPNDData.mtpScheduleDate.split('/')[2]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[1]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[0]+" "+this.testingPNDData.mtpScheduleTime;
+    console.log(new Date(this.testingPNDData.mtpScheduleDate.split('/')[2]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[1]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[0]));
+    //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+    this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+    this.DORPicker.flatpickr.set({
+      minDate: this.selectedpndtDate,
+      enable: [],
+      enableTime: true,
+      dateFormat: 'd/m/Y H:i',
+    });
+  }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     
