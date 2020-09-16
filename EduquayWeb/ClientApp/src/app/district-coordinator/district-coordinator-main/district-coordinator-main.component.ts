@@ -22,6 +22,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
   mtpReferralSample: number = 0;
   updateChcSample: number = 0;
   postmtpfollowup: number = 0;
+  currentPage = "";
 
   constructor(
     private router: Router,
@@ -30,6 +31,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.notificationCount();
   }
 
@@ -69,7 +71,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
       else if (this.router.url.indexOf('updatechc') >= 0) {
         this.updateChcSample = data;
       }
-      else if (this.router.url.indexOf('postmtp') >= 0) {
+      else if (this.router.url.indexOf('postmtp-follow-up') >= 0) {
         this.postmtpfollowup = data;
       }
       else {

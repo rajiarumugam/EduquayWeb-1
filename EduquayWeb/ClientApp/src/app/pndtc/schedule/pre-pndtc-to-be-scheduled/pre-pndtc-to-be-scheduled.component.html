@@ -67,7 +67,7 @@
                             <th><span>GA</span></th>
                             <th><span>Obstetric Score</span></th>
                             <th><span>Counsellor</span></th>
-                            <th class="scheduledatetime"><span>Date & Time</span></th>
+                            <!-- <th class="scheduledatetime"><span>Date & Time</span></th> -->
                             <th><span>Schedule Appointment</span></th>
                         </tr>
 
@@ -83,11 +83,11 @@
                             <td class="text-center">{{schedulingdata.ga}}</td>
                             <td class="sname text-center">{{schedulingdata.obstetricScore}}</td>
                             <td class="counsellor text-left">{{counsellorName}}</td>
-                            <td class="text-center" [formGroup]="dateform">
+                            <!-- <td class="text-center" [formGroup]="dateform">
                                 <ng2-flatpickr id="scToDate" name="fixSchedule" class="form-control flatpickr flatpickr-input active" #schedulePicker
                                 [config]="dateOptions" placeholder="Select Date.." formControlName="fixSchedule"></ng2-flatpickr>
-                            </td>
-                            <td class="text-center"><a (click)="addScheduleData(schedulingdata)">
+                            </td> -->
+                            <td class="text-center"><a (click)="openScheduleData(scheduleAppointmentFormDetail, schedulingdata)">
                                 <i class="fas fa-calendar-alt fa-2x" aria-hidden="true" id="linktobuttoncounsellor"></i></a>
                             </td>
 
@@ -98,6 +98,66 @@
                 <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
                 <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
             </div>
+
+            <ng-template #scheduleAppointmentFormDetail let-modal>
+  
+                <div class="modal-header">
+                  <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Schedule Appointment</h5>
+                  <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              <div class="modal-body">
+                <form class="text-left" (ngSubmit)="scheduleAppointmentForm.form.valid && onSubmit(scheduleAppointmentForm)" #scheduleAppointmentForm="ngForm" novalidate>
+                  <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                    <div class="form-row">
+                      <div class="form-group col-md-3">
+                        <label class="note">Subject Name </label>
+                        <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
+                          [(ngModel)]="subjectName" name="sampleSubjectName" >
+                      </div>
+
+                      <div class="form-group col-md-3">
+                        <label class="note">Subject ID <span class="manto"></span></label>
+                        <input class="form-control field" name="anwSubjectId" type="text" placeholder="Subject ID" tabindex="6"
+                          autocomplete="off" readonly="" [(ngModel)]="anwSubjectId">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label class="note">Contact Number <span class="manto"></span></label>
+                        <input class="form-control field" name="contactno" type="text" placeholder="RCH ID " tabindex="6"
+                          autocomplete="off" readonly="" [(ngModel)]="contactNo">
+                      </div>
+
+                      <div class="form-group col-md-3">
+                        <label class="note">Gestational Age <span class="manto"></span></label>
+                        <input class="form-control field" name="samplega" required="" type="text"
+                          placeholder="Gestational Age" readonly="" [(ngModel)]="samplega">
+                      </div>
+
+                    </div>
+
+                    <div class="form-row mt-4">
+                      <div class="form-group col-md-3" [formGroup]="popupform">
+                        <label class="note">Date & Time <span class="manto">*</span></label>
+                        <ng2-flatpickr id="popupDate" name="scheduleScheduleDate" class="form-control flatpickr flatpickr-input active" #scheduleDatePicker
+                         [config]="scheduleDateOptions" placeholder="Select Date.." formControlName = "scheduleScheduleDate">
+                        </ng2-flatpickr>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer"> 
+                    <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                    <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+                  </div>
+                </form>
+              </div>
+              <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
+            </ng-template>
            
         </div>
     </div>

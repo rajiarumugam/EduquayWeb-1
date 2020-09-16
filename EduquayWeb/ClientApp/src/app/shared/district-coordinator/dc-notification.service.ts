@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { user } from '../auth-response';
 import { TokenService } from '../token.service';
 import { DcNotificationModel } from './dc-notification-model';
-import { dcmtpReferralResponse, DcNotificationResponse, dcpndtReferralResponse, dcPositiveSubjectsResponse } from './dc-notification-response';
+import { dcmtpReferralResponse, DcNotificationResponse, dcpndtReferralResponse, dcPositiveSubjectsResponse, dcpostMTPResponse } from './dc-notification-response';
 import { DistrictCoordinatorService } from './district-coordinator.service';
 
 @Injectable({
@@ -24,6 +24,8 @@ export class DcNotificationService {
   pndtReferralResponse: dcpndtReferralResponse;
   mtpReferralResponse: dcmtpReferralResponse;
 
+  postMTPResponse: dcpostMTPResponse;
+
   positiveSampleCount: number = 0;
   unsentSampleCount: number = 0;
   pndtdSampleCount: number = 0;
@@ -39,6 +41,7 @@ export class DcNotificationService {
     private positiveSubjectsService: DistrictCoordinatorService,
     private pndtReferralService: DistrictCoordinatorService,
     private mtpReferralService: DistrictCoordinatorService,
+    private postMTPService: DistrictCoordinatorService,
   ) { }
 
   notificationCount() {
@@ -62,6 +65,9 @@ export class DcNotificationService {
       });
       await this.mtpReferral(this.user.districtId).then((data) => {
         data !== undefined ? this.mtpSampleCount = +data : 0;
+      });
+      await this.postMTP(this.user.districtId).then((data) => {
+        data !== undefined ? this.postmtpSampleCount = +data : 0;
       });
       
       this.DcNotificationModel.damaged = this.damagedSampleCount;
@@ -170,4 +176,22 @@ export class DcNotificationService {
       });
     });
   }
+
+  async postMTP(districtId) {
+
+    this.postmtpSampleCount = 0;
+    return new Promise(resolve => {
+      let samplesList = this.postMTPService.getPostMtp(districtId).subscribe(response => {
+        this.postMTPResponse = response;
+        if (this.postMTPResponse.status === "true") {
+          if (this.postMTPResponse.samples != undefined && this.postMTPResponse.samples.length > 0) {
+            this.postmtpSampleCount = this.postMTPResponse.samples.length;
+          }
+        }
+        resolve(this.postmtpSampleCount);
+      });
+    });
+  }
+
+ 
 }

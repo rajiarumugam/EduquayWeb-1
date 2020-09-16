@@ -92,7 +92,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
   dateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
-    defaultDate: new Date(Date.now()),
+    //defaultDate: new Date(Date.now()),
     //minDate: this.dyCollectionDate,
     minDate: new Date(Date.now()),
     enableTime: true,
@@ -138,10 +138,10 @@ export class PostPndtcTestresultsComponent implements OnInit {
       this.anwSubjectId = params['q'];
       this.retrivecounselledlists();
     });
-    this.mtpscheduleDate = moment().format("DD/MM/YYYY");
-    this.mtpscheduleTime = moment().format("HH:mm");
-    this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-    this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
+    // this.mtpscheduleTime = moment().format("HH:mm");
+    // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.ddlobstetricianName();
   }
@@ -173,8 +173,8 @@ export class PostPndtcTestresultsComponent implements OnInit {
             // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
             // this.mtpscheduleTime = moment().format("HH:mm");
             // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");        
-            // const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.prePNDTCounsellingDateTime);
-            // this.dateOptions.minDate = regDate;
+            const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.postPNDTCounsellingDateTime);
+            this.dateOptions.minDate = regDate;
 
           }
         }
@@ -241,6 +241,10 @@ export class PostPndtcTestresultsComponent implements OnInit {
 
         this.counsellingRemarks = updatePostPndtForm.value.Remarks;
         this.assignedObstetricianId = updatePostPndtForm.value.DDLobstetrician;
+        if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
+          this.decisionYesResponseMessage('Please choose Schedule MTP Date & Time', 'e');
+          return false;
+        }
 
         this.addCounsellingRequest = {
           postPNDTSchedulingId: this.counsellingdataItem.postPNDTSchedulingId,

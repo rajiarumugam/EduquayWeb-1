@@ -35,6 +35,7 @@ export interface PostCounsellingList {
     pndtCounsellorName: string;
     pndtDiagnosis: string;
     poatPNDTCounsellorName: string;
+    postPNDTCounsellingDateTime: string;
     postPNDTCounsellorId: number;
     postPNDTSchedulingId: number;
 }
@@ -86,6 +87,7 @@ export interface PostCounselledList {
     foetalDisease: boolean;
     pndtCounsellorName: string;
     pndtDiagnosis: string;
+    postPNDTCounsellingDateTime: string;
     postPNDTCounsellorId: number;
     postPNDTCounsellorName: string;
     postPNDTSchedulingId: number;

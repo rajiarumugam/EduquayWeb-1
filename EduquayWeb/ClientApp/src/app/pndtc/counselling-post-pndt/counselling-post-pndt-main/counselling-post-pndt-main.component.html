@@ -43,25 +43,25 @@
                 <li class="nav-item">
                   <a class="nav-link active" id="tobeCounselled-tab" data-toggle="tab"
                      [routerLink]="['/app/counselling-post-pndt']" role="tab" aria-controls="home"
-                     aria-selected="true">
+                     [ngClass]="{'active': currentPage == 'counselling-post-pndt' ? true : false}" aria-selected="true">
                      To be Counselled<span class="badge badge-pill badge-warning shadow mx-1">{{counsellingnumber}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="counselledYes-tab" data-toggle="tab" [routerLink]="['/app/counselling-post-pndt/counselledyes']"
-                     role="tab" aria-controls="profile" aria-selected="false">
+                  [ngClass]="{'active': currentPage == 'counselledyes' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
                      Counselled, MTP Decision Yes<span class="badge badge-pill badge-warning shadow ml-1">{{counselledyesnumber}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="counselledNo-tab" data-toggle="tab" [routerLink]="['/app/counselling-post-pndt/counselledno']"
-                       role="tab" aria-controls="profile" aria-selected="false">
+                    [ngClass]="{'active': currentPage == 'counselledno' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
                        Counselled, MTP Decision No<span class="badge badge-pill badge-warning shadow ml-1">{{counsellednonumber}}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="counselledAwaited-tab" data-toggle="tab" [routerLink]="['/app/counselling-post-pndt/counselledawaited']"
-                       role="tab" aria-controls="profile" aria-selected="false">
+                    [ngClass]="{'active': currentPage == 'counselledawaited' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
                        Counselled, MTP Decision Awaited<span class="badge badge-pill badge-warning shadow ml-1">{{counselledpendingnumber}}</span>
                     </a>
                   </li>

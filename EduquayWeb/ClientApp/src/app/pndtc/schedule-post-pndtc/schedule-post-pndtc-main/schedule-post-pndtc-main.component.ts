@@ -15,7 +15,7 @@ export class SchedulePostPndtcMainComponent implements OnInit {
 
   schedulingCount: number = 0;
   scheduledCount: number = 0;
-  
+  currentPage = "";
 
   constructor(
     private router: Router,
@@ -24,6 +24,7 @@ export class SchedulePostPndtcMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.notificationCount();
   }
 
