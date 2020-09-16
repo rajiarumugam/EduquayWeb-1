@@ -116,6 +116,52 @@ export class ParentDetail{
     rollNo: string   
 }
 
+export interface prePndtCounselling{
+    uniqueSubjectId: string;
+    date: string;
+    time: string;
+    counsellorName: string;
+    counsellingStatus: string;
+    counsellingNotes: string;
+    agreedForPndt: string;
+}
+
+export interface pndtTesting{
+    uniqueSubjectId: string;
+    date: string;
+    time: string;
+    counsellorName: string;
+    obstetritionName: string;
+    clinicalHistory: string;
+    examination: string;
+    procedureOfTesting: string;
+    pndtDiagnosis: string;
+    pndtresults: string;
+    pndtSideEffects: string;
+}
+export interface postPndtCounselling{
+    uniqueSubjectId  : string;
+    date  : string;
+    time  : string;
+    counsellorName  : string;
+    counsellingStatus  : string;
+    counsellingNotes  : string;
+    agreedForMtp : string;
+}
+
+export interface mtpService {
+    uniqueSubjectId : string;
+    date : string;
+    time : string;
+    counsellorName : string;
+    obstetritionName : string;
+    clinicalHistory : string;
+    examination : string;
+    procedureOfTesting : string;
+    conditionAtDischarge : string;
+    sideEffects : string;
+    }
+
 export interface RetrieveSubjectProfileList{
     status: string;
     message:string;
@@ -127,6 +173,11 @@ export interface SubjectProfileList{
     addressDetail: AddressDetail;
     pregnancyDetail: PregnancyDetail;
     parentDetail: ParentDetail;
+    prePndtCounselling: prePndtCounselling;
+    pndtTesting: pndtTesting;
+    postPndtCounselling: postPndtCounselling;
+    mtpService: mtpService;
+
 }
 
 export interface ReligionResponse{
