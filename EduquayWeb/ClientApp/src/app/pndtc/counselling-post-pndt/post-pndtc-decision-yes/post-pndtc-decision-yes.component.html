@@ -211,7 +211,7 @@
                                                 <td><b>Counselling Status</b></td>
                                                 <td>{{counselledYesdataItem?.prePNDTCounsellingStatus}}</td>
                                                 <td><b>Scheduled PNDT Date & Time</b></td>
-                                                <td>{{counselledYesdataItem?.postPNDTCounsellingDateTime}}</td>
+                                                <td>{{counselledYesdataItem?.pndtDateTime}}</td>
 
                                             </tr>  
                                         </tbody>
@@ -278,7 +278,7 @@
                         
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledYesdataItem?.pndtResults == 'Affected Foetus'">
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
 
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
@@ -389,14 +389,14 @@
                                             </td>
                                         </tr>
                                         <tr *ngIf="isDecisionYes">
-                                            <td>Current Schedule MTP Date & Time</td>
+                                            <td>Current Schedule MTP Service Date & Time</td>
                                             <td></td>
                                             <td>
                                                 {{counselledYesdataItem?.mtpScheduleDate}}  {{counselledYesdataItem?.mtpScheduleTime}}
                                             </td>
                                         </tr>
                                         <tr *ngIf="isDecisionYes">
-                                            <td>Schedule MTP Date & Time</td>
+                                            <td>Schedule MTP Service Date & Time</td>
                                             <td></td>
                                             <td class="text-center" [formGroup]="dateform">
                                                 <ng2-flatpickr id="scToDate" name="fixMtpSchedule" class="form-control flatpickr flatpickr-input active"
@@ -410,11 +410,13 @@
                             <div class="col-md-12" *ngIf="isDecisionYes">
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input" id="select_all" checked="">
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
-                                        consent form from Subject and filed
+                                      <input type="checkbox" class="new-control-input checkbox" 
+                                      [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                      <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                      consent form from Subject and filed
                                     </label>
                                 </div>
+                              
                             </div>
                             <div class="form-row m-1">
                                 <div class="form-group col-md-12">

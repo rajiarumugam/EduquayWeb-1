@@ -398,7 +398,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
         if (result.value) {
           this.modalService.dismissAll();
           //this.router.navigateByUrl(`/app/schedule-pre-pndtc/scheduled`);
-          window.location.reload();
+         
           }
       });
 

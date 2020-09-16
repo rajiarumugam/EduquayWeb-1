@@ -621,7 +621,7 @@ expirySampleResponseMessage(message: string, type: string) {
     Swal.fire({ allowOutsideClick: false, icon: 'success', title: message, confirmButtonText: 'Close' })
     .then((result) => {
       if (result.value) {
-          window.location.reload();
+         
         }
     });
   }

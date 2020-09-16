@@ -257,8 +257,7 @@ export class AnmTimeoutSamplesComponent implements AfterViewInit, OnDestroy, OnI
         .then((result) => {
           if (result.value) {
             if(this.modalService.hasOpenModals){
-              this.modalService.dismissAll();
-              window.location.reload();
+              this.modalService.dismissAll();            
             }
            
           }

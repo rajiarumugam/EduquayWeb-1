@@ -306,9 +306,10 @@
                             <div class="col-md-12" *ngIf="isDecisionYes">
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input" id="select_all" checked="">
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
-                                        consent form from Subject and filed
+                                      <input type="checkbox" class="new-control-input checkbox" 
+                                      [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                      <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                      consent form from Subject and filed
                                     </label>
                                 </div>
                             </div>
