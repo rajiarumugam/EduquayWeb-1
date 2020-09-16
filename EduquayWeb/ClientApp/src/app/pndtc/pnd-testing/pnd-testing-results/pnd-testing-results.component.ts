@@ -170,12 +170,12 @@ export class PNDTestingResultsComponent implements OnInit {
         this.selectedPNDTResults = this.testingPNDData.pndtResultId === 0 ? null : this.testingPNDData.pndtResultId;
 
    this.secondFormGroup = this._formBuilder.group({
-    motherVoided: [_tempMotherVoided],
-    motherVital: [_tempmotherVital],
-    foetalHeart: [_foetalHeart],
-    PNDTDiagnosis: [''],
-    PNDTResults: [''],
-    planForPregenancy: [_planForPregnencyContinue],
+    motherVoided: [_tempMotherVoided, Validators.required],
+    motherVital: [_tempmotherVital, Validators.required],
+    foetalHeart: [_foetalHeart, Validators.required],
+    PNDTDiagnosis: ['', Validators.required],
+    PNDTResults: ['', Validators.required],
+    planForPregenancy: [_planForPregnencyContinue, Validators.required],
    
  });
       
@@ -362,7 +362,7 @@ export class PNDTestingResultsComponent implements OnInit {
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
            _obj['procedureOfTestingId'] = Number(this.FormGroup.get('procedureOfTesting').value);
-           _obj['pndtComplecationsId'] = _tempComplectionData;
+           _obj['pndtComplecationsId'] = ""+_tempComplectionData;
            _obj['othersProcedureofTesting'] = this.FormGroup.get('otherPOT').value != undefined ? this.FormGroup.get('otherPOT').value : "";
            _obj['othersComplecations'] = this.FormGroup.get('anyOtherComplications').value != undefined ? this.FormGroup.get('anyOtherComplications').value : "";
 
@@ -375,12 +375,13 @@ export class PNDTestingResultsComponent implements OnInit {
           _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
            console.log(_obj);
 
-           this.sendDataToService(_obj);
+          this.sendDataToService(_obj);
         }
     }
     else
     {
       this.secondFormCheck = true;
+     
       if(this.FormGroup.valid && this.secondFormGroup.valid && this.selectedcomplicationsItems.length > 0)
         {
           var _tempComplectionData;
