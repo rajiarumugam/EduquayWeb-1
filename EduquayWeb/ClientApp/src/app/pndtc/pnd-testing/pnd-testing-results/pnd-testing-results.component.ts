@@ -80,7 +80,7 @@ export class PNDTestingResultsComponent implements OnInit {
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
-    defaultDate: new Date(Date.now()),
+    defaultDate:"",
     minDate: new Date(Date.now()),
     enableTime: true,
   };
@@ -122,9 +122,10 @@ export class PNDTestingResultsComponent implements OnInit {
     }
     this.testingPNDData = this.DataService.getdata().pndtestingResult;
     this.selectedcounsellerName = this.testingPNDData.counsellorName;
+    console.log(this.testingPNDData);
     this.selectedpndtDate = this.testingPNDData.schedulePNDTDate+" "+this.testingPNDData.schedulePNDTTime;
 
-    //this.DORPicker.flatpickr.setDate(new Date(Date.now()- (this.DAY*0.00025)));
+    
     this.selectedObstetricianName = this.testingPNDData.obstetricianName;
     console.log(this.DataService.getdata().pndtestingResult);
     //this.showConfirmEditLater = this.compareDate(this.diagnosisReportData.dateOfTest,moment().format('DD-MM-YYYY')) <= 7;
@@ -196,47 +197,38 @@ export class PNDTestingResultsComponent implements OnInit {
     if(this.testingPNDData.othersProcedureofTesting != undefined)
     this.selectedotherPOT = this.testingPNDData.othersProcedureofTesting;
 
+    //this.DORPicker.flatpickr.setDate("2020-10-01 20:00");
 
-    this.DORPicker.flatpickr.set({
-      minDate: this.selectedpndtDate,
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
+    
+   
     
   }
   get f() { return this.FormGroup.controls; }
   public onFilterChange(item: any) {
-    console.log(item);
+
   }
   public onDropDownClose(item: any) {
-    console.log(item);
+
   }
 
   public onItemSelect(item: any) {
     this.selectedcomplicationsItems.push(item);
-    console.log(this.selectedcomplicationsItems);
-    
-    console.log(item);
+
     if(item.id == 7)
       this.selectedanyOtherComplications = true;
   }
   public onDeSelect(item: any) {
     var _index = this.selectedcomplicationsItems.findIndex(com => com.id === item.id);
     this.selectedcomplicationsItems.splice(_index,1);
-    console.log(_index);
-    console.log(item);
     if(item.id == 7)
     this.selectedanyOtherComplications = false;
   }
 
   public onSelectAll(items: any) {
     this.selectedanyOtherComplications = true;
-    console.log(items);
   }
   public onDeSelectAll(items: any) {
     this.selectedanyOtherComplications = false;
-    console.log(items);
   }
 
   getProcedureOfTesting(){
@@ -332,8 +324,6 @@ export class PNDTestingResultsComponent implements OnInit {
 
   pndSubmit(type)
   {
-   
-    console.log(type);
    var _obj = {};
    _obj['anwsubjectId'] = this.testingPNDData.anwSubjectId;
    _obj['spouseSubjectId'] = this.testingPNDData.spouseSubjectId;
@@ -346,7 +336,6 @@ export class PNDTestingResultsComponent implements OnInit {
     this.firstFormCheck = true;
     if(type === "save")
     {
-      console.log(this.FormGroup.valid);
         if(this.FormGroup.valid && this.selectedcomplicationsItems.length > 0) 
         {
 
@@ -357,7 +346,7 @@ export class PNDTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj['pndtDateTime'] = this.FormGroup.get('pndtDate').value;
+          _obj['pndtDateTime'] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
            _obj['isCompletePNDT'] = false;
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
@@ -391,7 +380,7 @@ export class PNDTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj['pndtDateTime'] = this.FormGroup.get('pndtDate').value;
+          _obj['pndtDateTime'] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
           _obj['isCompletePNDT'] = false;
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
@@ -485,6 +474,17 @@ export class PNDTestingResultsComponent implements OnInit {
   {
     //$('#modal-dailog').show();
     $('#modal-dailog').modal('show');
+
+    var _tempCurrentDate = this.testingPNDData.schedulePNDTDate.split('/')[2]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[1]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[0]+" "+this.testingPNDData.schedulePNDTTime;
+    console.log(new Date(this.testingPNDData.schedulePNDTDate.split('/')[2]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[1]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[0]));
+    //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+    this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+    this.DORPicker.flatpickr.set({
+      minDate: this.selectedpndtDate,
+      enable: [],
+      enableTime: true,
+      dateFormat: 'd/m/Y H:i',
+    });
   }
   sendDataToService(_obj)
   {
