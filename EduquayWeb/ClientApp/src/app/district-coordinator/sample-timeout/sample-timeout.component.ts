@@ -70,24 +70,26 @@ export class SampleTimeoutComponent implements AfterViewInit, OnDestroy, OnInit 
     gpla: string;
     followUpStatus: string;
     notifySamples: string;
-  
     @HostListener('window:scroll')
-    checkScroll() {
-  
-      // window의 scroll top
-      // Both window.pageYOffset and document.documentElement.scrollTop returns the same result in all the cases. window.pageYOffset is not supported below IE 9.
-  
-      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  
-      //console.log('[scroll]', scrollPosition);
-  
-      if (scrollPosition > 180) {
-        $('#showhidediv').show();
+      checkScroll() {
+    
+        // window의 scroll top
+        // Both window.pageYOffset and document.documentElement.scrollTop returns the same result in all the cases. window.pageYOffset is not supported below IE 9.
+    
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    
+        //console.log('[scroll]', scrollPosition);
+    
+        if (scrollPosition > 180) {
+          $('#showhidediv').show();
+        }
+        else
+          $('#showhidediv').hide();
+    
       }
-      else
-        $('#showhidediv').hide();
   
-    }
+  
+ 
   
     constructor(
       private dcTimeoutSamplesService: DistrictCoordinatorService,
@@ -167,9 +169,12 @@ export class SampleTimeoutComponent implements AfterViewInit, OnDestroy, OnInit 
         this.dctimeoutSamplesErrorMessage = err.toString();
       });
     }
+
+    
   
     opentimeoutSamples(timeoutSamplesDetail, sample: dcSamplesList) {
-  
+      
+      this.checkScroll();
       this.subjectName= sample.subjectName;
       this.subjectId = sample.subjectId;
       this.rchId = sample.rchId;

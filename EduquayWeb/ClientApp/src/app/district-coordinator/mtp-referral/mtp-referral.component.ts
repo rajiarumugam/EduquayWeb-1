@@ -202,7 +202,7 @@ export class MtpReferralComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   
     openmtpReferral(mtpReferralDetail, sample: dcmtpReferral) {
-  
+      
       this.anwSubjectName= sample.anwSubjectName;
       this.anwSubjectId = sample.anwSubjectId;
       this.spouseSubjectName = sample.spouseSubjectName;
