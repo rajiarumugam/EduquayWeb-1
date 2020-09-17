@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
-import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList, RetrieveSubjectProfileList, SubjectProfileList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
+import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList, RetrieveSubjectProfileList, SubjectProfileList, prePndtCounselling, pndtTesting, postPndtCounselling, mtpService } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
@@ -53,6 +53,10 @@ export class AnmSubjectProfileComponent implements OnInit {
   socioDemographicInfo: AddressDetail;
   parentInfo: ParentDetail;
   personalInfo: PregnancyDetail;
+  prePndtCounselling: prePndtCounselling;
+  pndtTesting: pndtTesting;
+  postPndtCounselling: postPndtCounselling;
+  mtpService: mtpService;
   searchsubjectid: string;
   subjectId: string;
   uniqueSubjectId: string;

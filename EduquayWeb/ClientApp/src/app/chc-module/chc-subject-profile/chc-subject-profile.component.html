@@ -377,8 +377,7 @@
                                                     <td>
                                                         <span class="float-left mt-0 mr-4">
                                                             <h5><b>Subject ID :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                <strong class="ml-5">Subject
-                                                                    Name :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
+                                                                <strong class="ml-5">Subject Info :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
                                                                 <strong class="ml-5">RCH ID : </strong>
                                                                 {{chcsubjectprofileItem?.pregnancyDetail.rchId}}
                                                             </h5>
@@ -1084,7 +1083,7 @@
                     </div>
 
                      <!-- ANW counselling Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.prePndtCounselling != null">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -1109,19 +1108,19 @@
                                             <tbody class="d-none">
                                                 <tr>
                                                     <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.date}}</td>
                                                     <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellorName}}</td>
                                                     <td class="sp-xs-td-9"><b>Counselling Status</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellingStatus}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b> </td>
                                                     <td colspan="3">
-                                                       
+                                                        {{chcsubjectprofileItem?.prePndtCounselling.counsellingNotes}}   
                                                     </td>
                                                     <td><b>The couple has agreed for PNDT</b> </td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.prePndtCounselling.agreedForPndt}}</td>
                                                 </tr>
                                                 <tr>
 
@@ -1134,8 +1133,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.pndtTesting != null">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -1160,27 +1159,27 @@
                                             <tbody class="d-none">
                                                 <tr>
                                                     <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15" wrap="true"></td>
+                                                    <td class="sp-xs-td-15" wrap="true">{{chcsubjectprofileItem?.pndtTesting.date}}</td>
                                                     <td class="sp-xs-td-9"><b>Counsellor Name</b> </td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.counsellorName}}</td>
                                                     <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.obstetritionName}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>Clinical History</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.pndtTesting.clinicalHistory}}</td>
                                                     <td><b>Examination</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.pndtTesting.examination}}</td>
                                                     <td><b>Procedure of Testing</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.pndtTesting.procedureOfTesting}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>PNDT Diagnosis</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.pndtTesting.pndtDiagnosis}}</td>
                                                     <td><b>PNDT Results</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.pndtTesting.pndtresults}} </td>
                                                     <td><b>PNDT Side Effects</b></td>
-                                                    <td>
+                                                    <td>{{chcsubjectprofileItem?.pndtTesting.pndtSideEffects}}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1191,7 +1190,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.postPndtCounselling != null">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -1216,17 +1215,17 @@
                                             <tbody class="d-none">
                                                 <tr>
                                                     <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.date}}</td>
                                                     <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellorName}}</td>
                                                     <td class="sp-xs-td-9"><b>Counselling Status</b> </td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellingStatus}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>Counselling Notes/Remarks</b></td>
-                                                    <td colspan="3"></td>
+                                                    <td colspan="3">{{chcsubjectprofileItem?.postPndtCounselling.counsellingNotes}}</td>
                                                     <td><b>The couple has agreed for MTP</b> </td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.postPndtCounselling.agreedForMtp}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1237,7 +1236,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.mtpService != null">
                         <div class="widget-content widget-content-area br-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -1262,23 +1261,23 @@
                                             <tbody class="d-none">
                                                 <tr>
                                                     <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.date}}</td>
                                                     <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.obstetritionName}}</td>
                                                     <td class="sp-xs-td-9"><b>Clinical History</b></td>
-                                                    <td class="sp-xs-td-15"></td>
+                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.clinicalHistory}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>Examination</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.mtpService.examination}}</td>
                                                     <td><b>Procedure of Testing</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.mtpService.procedureOfTesting}}</td>
                                                     <td><b>Side Effects</b></td>
-                                                    <td></td>
+                                                    <td>{{chcsubjectprofileItem?.mtpService.sideEffects}} </td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>Condition at Discharge</b></td>
-                                                    <td colspan="5"></td>
+                                                    <td colspan="5">{{chcsubjectprofileItem?.mtpService.conditionAtDischarge}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
