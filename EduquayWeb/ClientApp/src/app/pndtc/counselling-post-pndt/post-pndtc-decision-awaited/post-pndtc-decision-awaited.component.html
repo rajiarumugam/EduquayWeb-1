@@ -50,7 +50,8 @@
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
                                                         <h5><b>Subject ID :</b> {{counselledPendingdataItem?.anwSubjectId}}
-                                                            <strong class="ml-5">Subject Info :</strong> {{counselledPendingdataItem?.subjectName}}, F, {{counselledPendingdataItem?.age}} yrs
+                                                            <!-- <strong class="ml-5">Subject Info :</strong> {{counselledPendingdataItem?.subjectName}}, F, {{counselledPendingdataItem?.age}} yrs -->
+                                                            <strong class="ml-5">Subject Info :</strong> {{counselledPendingdataItem?.subjectName}}, F
                                                             <strong class="ml-5">RCH ID :</strong> {{counselledPendingdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
@@ -210,7 +211,7 @@
                                                 <td><b>Counselling Status</b></td>
                                                 <td>{{counselledPendingdataItem?.prePNDTCounsellingStatus}}</td>
                                                 <td><b>Scheduled PNDT Date & Time</b></td>
-                                                <td>{{counselledPendingdataItem?.pndtDateTime}}</td>
+                                                <td>{{counselledPendingdataItem?.schedulePrePNDTDate}} {{counselledPendingdataItem?.schedulePrePNDTTime}}</td>
 
                                             </tr>  
                                         </tbody>

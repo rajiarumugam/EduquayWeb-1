@@ -371,7 +371,10 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   onSubmit(editAppointmentForm: NgForm) {
 
     console.log(editAppointmentForm.value);
-
+    if((this.editscheduleDate === '' || this.editscheduleDate == undefined) && (this.editscheduleTime === '' || this.editscheduleTime == undefined)){
+      this.showResponseMessage('Please choose Date & Time', 'e');
+      return false;
+    }
     // this.editscheduleDate = moment().format("DD/MM/YYYY");
     // this.editscheduleTime = moment().format("HH:mm");
     // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
