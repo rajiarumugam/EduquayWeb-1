@@ -79,7 +79,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     editDateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
-      defaultDate: new Date(Date.now()),
+      //defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
       minDate: new Date(Date.now()),
       enableTime: true,
@@ -372,7 +372,10 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     onSubmit(editAppointmentForm: NgForm) {
   
       console.log(editAppointmentForm.value);
-  
+      if((this.editscheduleDate === '' || this.editscheduleDate == undefined) && (this.editscheduleTime === '' || this.editscheduleTime == undefined)){
+        this.showResponseMessage('Please choose Date & Time', 'e');
+        return false;
+      }
       // this.editscheduleDate = moment().format("DD/MM/YYYY");
       // this.editscheduleTime = moment().format("HH:mm");
       // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");

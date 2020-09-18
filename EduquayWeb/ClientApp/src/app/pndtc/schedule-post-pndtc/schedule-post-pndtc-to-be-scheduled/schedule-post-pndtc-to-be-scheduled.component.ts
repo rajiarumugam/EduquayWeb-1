@@ -78,7 +78,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     scheduleDateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
-      defaultDate: new Date(Date.now()),
+      //defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
       minDate: new Date(Date.now()),
       enableTime: true,
@@ -353,7 +353,10 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     onSubmit(scheduleAppointmentFormDetail: NgForm) {
 
       console.log(scheduleAppointmentFormDetail.value);
-  
+      if((this.scheduleDate === '' || this.scheduleDate == undefined) && (this.scheduleTime === '' || this.scheduleTime == undefined)){
+        this.showResponseMessage('Please choose Date & Time', 'e');
+        return false;
+      }
       this.addScheduleRequest = {
         anwsubjectId: this.anwSubjectId,
         spouseSubjectId: this.spouseSubjectId,
@@ -363,7 +366,8 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       };
   
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      //  this.showResponseMessage('Successfully registered', 's');
+      //  return false;
       let addScheduleData = this.pndtmtpScheduleService.Addschedule(this.addScheduleRequest)
         .subscribe(response => {
           this.addScheduleResponse = response;

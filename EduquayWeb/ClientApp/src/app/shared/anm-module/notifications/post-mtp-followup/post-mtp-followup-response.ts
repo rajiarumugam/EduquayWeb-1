@@ -14,7 +14,12 @@ export interface anmPostMTP {
     obstetricianName: string;
     firstFollowUp: number;
     secondFollowUp: number;
-    thirdFollowUp: number;   
+    thirdFollowUp: number; 
+    firstFollowUpStatusDetail: string;
+    secondFollowUpStatusDetail: string;
+    thirdFollowUpStatusDetail: string;  
+    mtpdatetimeFormat: Date;
+    daysCount: number;
 }
 
 export interface UpdatePostMtpFollowupResponse {

@@ -22,6 +22,7 @@
                     <th rowspan="2" class="nt-border-right">Contact</th>
                     <th colspan="3" class="nt-border-right">MTP Procedure</th>
                     <th colspan="3" class="nt-border-right">Status</th>
+                    <th rowspan="2" class="nt-border-right"><span>Update Status</span>
 
 
                 </tr>
@@ -56,44 +57,47 @@
                     <td class="text-center"></td>
                     <td class="nt-border-right text-left">{{sample.obstetricianName}}</td>
                     <td class="text-center">
-                        <select id="inputDistrict" class="form-control" name=DDLfirstfollowup
-                            #DDLfirstfollowup="ngModel" ngModel required [(ngModel)]="selectedfirstfollowup">
+                        <select id="inputDistrict" class="form-control" name="selectedfirstfollowup"
+                            [(ngModel)]="selectedfirstfollowup">
                             <option value="">Select</option>
-                            <option *ngFor="let firstfollowup of firstfollowUpStatus" [(value)]=" firstfollowup.id ">
+                            <option *ngFor="let firstfollowup of firstfollowUpStatus" [(value)]="firstfollowup.id">
                                 {{firstfollowup.name}}
                             </option>
                         </select>
-                        <div style="display:none;" id="MTP40">
+                        <div *ngIf="selectedfirstfollowup === '2'">
                             <input class="form-control field" name="name" required="" type="text"
-                                placeholder="Status Detail" tabindex="1" autocomplete="off">
+                                placeholder="Status Detail" tabindex="1" autocomplete="off" [(ngModel)]="firstfollowUpStatusdetail">
                         </div>
                     </td>
                     <td class="text-center">
-                        <select id="inputDistrict" class="form-control" name=DDLsecondfollowup
-                            #DDLsecondfollowup="ngModel" ngModel required [(ngModel)]="selectedsecondfollowup">
+                        <select id="inputDistrict" class="form-control" name="selectedsecondfollowup" [disabled]="sample.firstFollowUp <= 0 && sample.daysCount <= 50"
+                            [(ngModel)]="selectedsecondfollowup">
                             <option value="">Select</option>
                             <option *ngFor="let secondfollowup of secondfollowUpStatus" [(value)]="secondfollowup.id">
                                 {{secondfollowup.name}}
                             </option>
                         </select>
 
-                        <div style="display:none;" id="MTP50">
-                            <input class="form-control field" name="name" required="" type="text"
+                        <div *ngIf="selectedsecondfollowup === '2'">
+                            <input class="form-control field" name="name" required="" type="text" [(ngModel)]="secondfollowUpStatusdetail"
                                 placeholder="Status Detail" tabindex="1" autocomplete="off">
                         </div>
                     </td>
                     <td class="text-center">
-                        <select id="inputDistrict" class="form-control" name=DDLthirdfollowup
-                            #DDLthirdfollowup="ngModel" ngModel required [(ngModel)]="selectedthirdfollowup">
+                        <select id="inputDistrict" class="form-control" name="selectedthirdfollowup" [disabled]="sample.secondFollowUp <= 0 && sample.daysCount <= 60"
+                             [(ngModel)]="selectedthirdfollowup">
                             <option value="">Select</option>
                             <option *ngFor="let thirdfollowup of thirdfollowUpStatus" [(value)]="thirdfollowup.id">
                                 {{thirdfollowup.name}}
                             </option>
                         </select>
-                        <div style="display:none;" id="MTP60">
-                            <input class="form-control field" name="name" required="" type="text"
+                        <div *ngIf="selectedthirdfollowup === '2'">
+                            <input class="form-control field" name="name" required="" type="text" [(ngModel)]="secondfollowUpStatusdetail"
                                 placeholder="Status Detail" tabindex="1" autocomplete="off">
                         </div>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus(sample)" role="button">Update</a> 
                     </td>
                 </tr>
 
@@ -101,11 +105,11 @@
         </table>
 
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus()" role="button">Update Status</a>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <i appLoadScript [script]="'assets/assets/js/anm-module/post-mtp-followup.js'"></i>

@@ -28,7 +28,7 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
   @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-  
+
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -38,7 +38,7 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   anmpostMTPErrorMessage: string;
   postmtpMasterResponse: PndtMtpMasterResponse;
   anmpostMTPResponse: PostMtpFollowupResponse;
-  postMTP: anmPostMTP[]= [];
+  postMTP: anmPostMTP[] = [];
   firstfollowUpStatus: dataModel[] = [];
   selectedfirstfollowup: string;
   secondfollowUpStatus: dataModel[] = [];
@@ -58,7 +58,16 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   firstFollowUp: number;
   secondFollowUp: number;
   thirdFollowUp: number;
-  
+  firstFollowUpStatusDetail: string;
+  secondFollowUpStatusDetail: string;
+  thirdFollowUpStatusDetail: string;
+  isSickSelected: boolean = false;
+  mtpdatetimeFormat: Date;
+  daysCount: number;
+  firstfollowUpStatusdetail: string;
+  secondfollowUpStatusdetail: string;
+  thirdfollowUpStatusdetail: string;
+
   constructor(
     private anmpostMTPService: PostMtpFollowupService,
     private postmtpMasterService: PndtMtpMasterService,
@@ -74,12 +83,12 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   ) { }
 
   ngOnInit() {
-  
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Notifications", "page": "Post MTP Follow-up"}));
+
+    this.dataservice.sendData(JSON.stringify({ "module": "ANM", "submodule": "Notifications", "page": "Post MTP Follow-up" }));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     //this.InitializeDateRange(); 
-    this.dtOptions = { 
+    this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
       processing: true,
@@ -107,15 +116,21 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     this.ddlfirstfollowUp();
     this.ddlsecondfollowUp();
     this.ddlthirdfollowUp();
- 
+
   }
 
   ddlfirstfollowUp() {
+
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
         this.firstfollowUpStatus = this.postmtpMasterResponse.data;
         this.selectedfirstfollowup = "";
+        // this.postMTP.forEach(element => {
+        //   this.selectedfirstfollowup = element.firstFollowUp.toString(); 
+        //   console.log(this.selectedfirstfollowup);
+        // });
+        
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -131,8 +146,9 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
-        this.firstfollowUpStatus = this.postmtpMasterResponse.data;
-        this.selectedfirstfollowup = "";
+        this.secondfollowUpStatus = this.postmtpMasterResponse.data;
+        this.selectedsecondfollowup = "";
+        this.isSickSelected = true;
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -148,8 +164,8 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
-        this.firstfollowUpStatus = this.postmtpMasterResponse.data;
-        this.selectedfirstfollowup = "";
+        this.thirdfollowUpStatus = this.postmtpMasterResponse.data;
+        this.selectedthirdfollowup = "";
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -161,89 +177,192 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       });
   }
 
-  anmpostMTP(userId){
+  anmpostMTP(userId) {
     this.loaderService.display(true);
     this.recordCount = 0; //step 3
     this.postMTP = [];
-    this.anmpostMTPErrorMessage ='';
+    this.anmpostMTPErrorMessage = '';
     let samplesList = this.anmpostMTPService.getpostMTPList(this.user.id)
-    .subscribe(response => {
-      this.anmpostMTPResponse = response;
-      this.loaderService.display(false);
-      if(this.anmpostMTPResponse !== null && this.anmpostMTPResponse.status === "true"){
-        if(this.anmpostMTPResponse.subjects.length <= 0){
+      .subscribe(response => {
+        this.anmpostMTPResponse = response;
+        this.loaderService.display(false);
+        if (this.anmpostMTPResponse !== null && this.anmpostMTPResponse.status === "true") {
+          if (this.anmpostMTPResponse.subjects.length <= 0) {
+            this.anmpostMTPErrorMessage = response.message;
+          }
+          else {
+            this.postMTP = this.anmpostMTPResponse.subjects;
+            this.postMTP.forEach(element => {
+              // this.selectedfirstfollowup = element.firstFollowUp.toString(); 
+              // console.log(this.selectedfirstfollowup);
+              var date1: any = element.mtpdatetimeFormat = this.dateService.convertToDateTimeFormat(element.mtpDateTime);
+              var date2: any = new Date(new Date().getTime());
+              element.daysCount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+              console.log(element.daysCount);
+             
+            });
+
+            // this.selectedfirstfollowup = this.firstFollowUp.toString();
+            // this.selectedsecondfollowup = this.secondFollowUp.toString();
+            // this.selectedthirdfollowup = this.thirdFollowUp.toString();
+            this.recordCount = this.postMTP.length; //step 4
+          }
+        }
+        else {
           this.anmpostMTPErrorMessage = response.message;
         }
-        else{
-          this.postMTP = this.anmpostMTPResponse.subjects;
-          this.selectedfirstfollowup = this.firstFollowUp.toString();
-          this.selectedsecondfollowup = this.secondFollowUp.toString();
-          this.selectedthirdfollowup = this.thirdFollowUp.toString();
-          this.recordCount = this.postMTP.length; //step 4
-        }
-      }
-      else{
-        this.anmpostMTPErrorMessage = response.message;
-      }
-      this.onLoadSubject.emit(this.recordCount);    //step 5
-      this.rerender();
-      this.loadDataTable = true;
-    },
-    (err: HttpErrorResponse) => {
-      if (this.loadDataTable) this.rerender();
-      this.anmpostMTPErrorMessage = err.toString();
-    });
+        this.onLoadSubject.emit(this.recordCount);    //step 5
+        this.rerender();
+        this.loadDataTable = true;
+      },
+        (err: HttpErrorResponse) => {
+          if (this.loadDataTable) this.rerender();
+          this.anmpostMTPErrorMessage = err.toString();
+        });
   }
 
-  // postmtpUpdateStatus(){
-  //   this.anmpostMTPErrorMessage = '';
-  //   //this.fetchBarcodes();
+  postmtpUpdateStatus(sample: anmPostMTP) {
+    
+    this.anmpostMTPErrorMessage = '';
+    if (sample.firstFollowUp > 0 && sample.daysCount > 50) {
 
-  //   // if(this.notifySamples === ""){
-  //   //   this.updatestatusResponseMessage(this.constantService.SelectOneSample, 'e');
-  //   //   return false;
-  //   // }
-   
-  //   this.anmpostMTPRequest = {
-  //     userId: this.user.id,
-  //     mtpId: this.mtpId,
-  //     followUpNo: 0,
-  //     followUpStatusId: 0,  
-     
-  //   }
-  //   //Remove below 2 lines after successfully tested
-  //   // this.showResponseMessage('Successfully registered', 's');
-  //   // return false;
-  //   let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
-  //     .subscribe(response => {
-  //       this.anmupdatepostMTPResponse = response;
-  //       if (this.anmupdatepostMTPResponse !== null && this.anmupdatepostMTPResponse.status === "true") {
-  //         this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 's');
-  //       } else {
-  //         this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 'e');
-  //         this.anmpostMTPErrorMessage = response.message;
-  //       }
+      this.mtpId = sample.mtpId;
+      if (this.selectedsecondfollowup === "0" || this.selectedsecondfollowup === '') {
+        this.updatestatusResponseMessage("please choose atleast one follow up status", 'e');
+        return false;
+      }
+      if (this.selectedsecondfollowup === '2') {
+        this.secondfollowUpStatusdetail = this.secondfollowUpStatusdetail;
+      }
+      else {
+        this.secondfollowUpStatusdetail = '';
+      }
 
-  //     },
-  //       (err: HttpErrorResponse) => {
-  //         this.updatestatusResponseMessage(err.toString(), 'e');
-  //         this.anmpostMTPErrorMessage = err.toString();
-  //       });
+      this.anmpostMTPRequest = {
+        userId: this.user.id,
+        mtpId: this.mtpId,
+        followUpNo: 1,
+        followUpStatusId: +(this.selectedfirstfollowup),
+        followUpStatusDetail: this.secondfollowUpStatusdetail
 
-  // }
+      }
+      //Remove below 2 lines after successfully tested
+      this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      return false;
+      let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
+        .subscribe(response => {
+          this.anmupdatepostMTPResponse = response;
+          if (this.anmupdatepostMTPResponse !== null && this.anmupdatepostMTPResponse.status === "true") {
+            this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 's');
+          } else {
+            this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 'e');
+            this.anmpostMTPErrorMessage = response.message;
+          }
 
-  updatestatusResponseMessage(result: string, type: string){
-    var messageType = '';
-    if(type === 'e'){
-      Swal.fire({icon:'error', title: result, confirmButtonText: 'Close', allowOutsideClick: false})
+        },
+          (err: HttpErrorResponse) => {
+            this.updatestatusResponseMessage(err.toString(), 'e');
+            this.anmpostMTPErrorMessage = err.toString();
+          });
     }
-    else{
-      Swal.fire({icon:'success', title: result, confirmButtonText: 'Close', allowOutsideClick: false})
-      .then((result) => {
-        if (result.value) {
-          this.modalService.dismissAll();
-        }
-      });
+
+    else if (sample.secondFollowUp > 0 && sample.daysCount > 60) {
+      this.mtpId = sample.mtpId;
+      if (this.selectedthirdfollowup === "0" || this.selectedthirdfollowup === '') {
+        this.updatestatusResponseMessage("please choose atleast one follow up status", 'e');
+        return false;
+      }
+
+      if (this.selectedthirdfollowup === '2') {
+        this.thirdfollowUpStatusdetail = this.thirdfollowUpStatusdetail;
+      }
+      else {
+        this.thirdfollowUpStatusdetail = '';
+      }
+      this.anmpostMTPRequest = {
+        userId: this.user.id,
+        mtpId: this.mtpId,
+        followUpNo: 1,
+        followUpStatusId: +(this.selectedfirstfollowup),
+        followUpStatusDetail: this.thirdfollowUpStatusdetail
+
+      }
+      //Remove below 2 lines after successfully tested
+      this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      return false;
+      let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
+        .subscribe(response => {
+          this.anmupdatepostMTPResponse = response;
+          if (this.anmupdatepostMTPResponse !== null && this.anmupdatepostMTPResponse.status === "true") {
+            this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 's');
+          } else {
+            this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 'e');
+            this.anmpostMTPErrorMessage = response.message;
+          }
+
+        },
+          (err: HttpErrorResponse) => {
+            this.updatestatusResponseMessage(err.toString(), 'e');
+            this.anmpostMTPErrorMessage = err.toString();
+          });
+    }
+    else {
+
+      this.mtpId = sample.mtpId;
+      if (this.selectedfirstfollowup === "0" || this.selectedfirstfollowup === '') {
+        this.updatestatusResponseMessage("please choose atleast one follow up status", 'e');
+        return false;
+      }
+
+      if (this.selectedfirstfollowup === '2') {
+        this.firstfollowUpStatusdetail = this.firstfollowUpStatusdetail;
+      }
+      else {
+        this.firstfollowUpStatusdetail = '';
+      }
+
+      this.anmpostMTPRequest = {
+        userId: this.user.id,
+        mtpId: this.mtpId,
+        followUpNo: 1,
+        followUpStatusId: +(this.selectedfirstfollowup),
+        followUpStatusDetail: this.firstfollowUpStatusdetail
+
+      }
+      //Remove below 2 lines after successfully tested
+      // this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      // return false;
+      let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
+        .subscribe(response => {
+          this.anmupdatepostMTPResponse = response;
+          if (this.anmupdatepostMTPResponse !== null && this.anmupdatepostMTPResponse.status === "true") {
+            this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 's');
+          } else {
+            this.updatestatusResponseMessage(this.anmupdatepostMTPResponse.message, 'e');
+            this.anmpostMTPErrorMessage = response.message;
+          }
+
+        },
+          (err: HttpErrorResponse) => {
+            this.updatestatusResponseMessage(err.toString(), 'e');
+            this.anmpostMTPErrorMessage = err.toString();
+          });
+    }
+
+  }
+
+  updatestatusResponseMessage(result: string, type: string) {
+    var messageType = '';
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: result, confirmButtonText: 'Close', allowOutsideClick: false })
+    }
+    else {
+      Swal.fire({ icon: 'success', title: result, confirmButtonText: 'Close', allowOutsideClick: false })
+        .then((result) => {
+          if (result.value) {
+            this.modalService.dismissAll();
+          }
+        });
     }
   }
 
