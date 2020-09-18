@@ -13,6 +13,8 @@ import { PositiveSubjectsResponse } from '../positive-subjects/positive-subjects
 import { PositiveSubjectsService } from '../positive-subjects/positive-subjects.service';
 import { AnmMtpReferralResponse, AnmPndtReferralResponse } from './pndt-mtp-referral/pndt-mtp-referral-response';
 import { PndtMtpReferralService } from './pndt-mtp-referral/pndt-mtp-referral.service';
+import { PostMtpFollowupResponse } from './post-mtp-followup/post-mtp-followup-response';
+import { PostMtpFollowupService } from './post-mtp-followup/post-mtp-followup.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,7 @@ export class NotificationService {
 
   pndtReferralResponse: AnmPndtReferralResponse;
   mtpReferrralResponse: AnmMtpReferralResponse;
+  postMTPResponse: PostMtpFollowupResponse;
 
   positiveSampleCount: number = 0;
   unsentSampleCount: number = 0;
@@ -47,6 +50,7 @@ export class NotificationService {
     private positiveSubjectsService: PositiveSubjectsService,
     private pndtReferralService: PndtMtpReferralService,
     private mtpReferralService: PndtMtpReferralService,
+    private postMTPService: PostMtpFollowupService
   ) { }
 
 
@@ -71,6 +75,9 @@ export class NotificationService {
       });
       await this.mtpReferral(this.user.id).then((data) => {
         data !== undefined ? this.mtpSampleCount = +data : 0;
+      });
+      await this.postMTP(this.user.id).then((data) => {
+        data !== undefined ? this.postmtpSampleCount = +data : 0;
       });
       
       this.notificationModel.damaged = this.damagedSampleCount;
@@ -182,7 +189,20 @@ export class NotificationService {
         });
     });
   }
+    async postMTP(userId) {
 
-
-
+      this.postmtpSampleCount = 0;
+      return new Promise(resolve => {
+        let unsentsample = this.postMTPService.getpostMTPList(userId)
+          .subscribe(response => {
+            this.postMTPResponse = response;
+            if (this.postMTPResponse !== null && this.postMTPResponse.status === "true") {
+              if (this.postMTPResponse.subjects !== undefined && this.postMTPResponse.subjects.length > 0) {
+                this.postmtpSampleCount = this.postMTPResponse.subjects.length;
+              }
+            }
+            resolve(this.postmtpSampleCount);
+          });
+      });
+    }
 }

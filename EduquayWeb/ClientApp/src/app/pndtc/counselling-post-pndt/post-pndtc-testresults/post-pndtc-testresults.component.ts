@@ -88,6 +88,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
   mtpscheduleDate: string;
   mtpscheduleTime: string;
   myRadio: string = '';
+  confirmationSelected: boolean = false;
 
   dateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -173,7 +174,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
             // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
             // this.mtpscheduleTime = moment().format("HH:mm");
             // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");        
-            const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.postPNDTCounsellingDateTime);
+            const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.pndtDateTime);
             this.dateOptions.minDate = regDate;
 
           }
@@ -211,21 +212,23 @@ export class PostPndtcTestresultsComponent implements OnInit {
         });
   }
 
-  onClick(item) {
+  onClick(radioBtnItem) {
 
-    if (item == 'decisionyes') {
+    if (radioBtnItem == 'decisionyes') {
       this.isSelectedYes = true;
       this.isSelectedNo = false;
       this.isSelectedPending = false;
       this.isDecisionYes = true;
+      const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.pndtDateTime);
+      this.dateOptions.minDate = regDate;
     }
-    else if (item == 'decisionno') {
+    else if (radioBtnItem == 'decisionno') {
       this.isSelectedNo = true;
       this.isSelectedYes = false;
       this.isSelectedPending = false;
       this.isDecisionYes = false;
     }
-    else if (item == 'decisionpending') {
+    else if (radioBtnItem == 'decisionpending') {
       this.isSelectedPending = true;
       this.isSelectedYes = false;
       this.isSelectedNo = false;
@@ -239,10 +242,15 @@ export class PostPndtcTestresultsComponent implements OnInit {
       if (this.isSelectedYes === true) {
         console.log(updatePostPndtForm.value);
 
+        if(this.confirmationSelected == false){
+          this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+          return false;
+        }
         this.counsellingRemarks = updatePostPndtForm.value.Remarks;
         this.assignedObstetricianId = updatePostPndtForm.value.DDLobstetrician;
+
         if((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)){
-          this.decisionYesResponseMessage('Please choose Schedule MTP Date & Time', 'e');
+          this.decisionYesResponseMessage('Please choose Schedule MTP Service Date & Time', 'e');
           return false;
         }
 

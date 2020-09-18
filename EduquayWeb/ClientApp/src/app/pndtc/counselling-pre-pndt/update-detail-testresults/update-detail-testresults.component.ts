@@ -70,6 +70,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
   isSelectedPending: boolean;
   item: any;
   isDecisionYes: boolean = false;
+  confirmationSelected: boolean = false;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -205,21 +206,21 @@ export class UpdateDetailTestresultsComponent implements OnInit {
         });
   }
 
-  onClick(item) {
+  onClick(radioBtnItem) {
 
-    if (item == 'decisionyes') {
+    if (radioBtnItem == 'decisionyes') {
       this.isSelectedYes = true;
       this.isSelectedNo = false;
       this.isSelectedPending = false;
       this.isDecisionYes = true;
     }
-    else if (item == 'decisionno') {
+    else if (radioBtnItem == 'decisionno') {
       this.isSelectedNo = true;
       this.isSelectedYes = false;
       this.isSelectedPending = false;
       this.isDecisionYes = false;
     }
-    else if (item == 'decisionpending') {
+    else if (radioBtnItem == 'decisionpending') {
       this.isSelectedPending = true;
       this.isSelectedYes = false;
       this.isSelectedNo = false;
@@ -227,11 +228,25 @@ export class UpdateDetailTestresultsComponent implements OnInit {
     }
   }
 
+  checkIfSelected(){
+    
+    this.confirmationSelected = true;
+    console.log(this.confirmationSelected);
+    // //console.log(this.sampleList);
+    // this.selectedAll = this.counselledyeslists.every(function (item: any) {
+    //   return item.confirmationSelected = true;
+    // })
+  }
+
   onSubmit(updatePndtForm: NgForm) {
 
     if (this.isSelectedYes === true) {
       console.log(updatePndtForm.value);
-
+      
+      if(this.confirmationSelected == false){
+        this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+        return false;
+      }
       this.counsellingRemarks = updatePndtForm.value.Remarks;
       this.assignedObstetricianId = updatePndtForm.value.DDLobstetrician;
 

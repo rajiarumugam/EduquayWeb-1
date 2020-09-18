@@ -627,7 +627,7 @@ export class AnmUnsentSamplesComponent implements AfterViewInit, OnDestroy, OnIn
       Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
       .then((result) => {
         if (result.value) {
-            window.location.reload();
+           
           }
       });
     }

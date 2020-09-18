@@ -50,7 +50,8 @@
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
                                                         <h5><b>Subject ID :</b> {{counsellingdataItem?.anwSubjectId}}
-                                                            <strong class="ml-5">Subject Name :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
+                                                            <!-- <strong class="ml-5">Subject Info :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs -->
+                                                            <strong class="ml-5">Subject Info :</strong> {{counsellingdataItem?.subjectName}}, F,
                                                             <strong class="ml-5">RCH ID :</strong> {{counsellingdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
@@ -306,9 +307,10 @@
                             <div class="col-md-12" *ngIf="isDecisionYes">
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input" id="select_all" checked="">
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
-                                        consent form from Subject and filed
+                                      <input type="checkbox" class="new-control-input checkbox" 
+                                      [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                      <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                      consent form from Subject and filed
                                     </label>
                                 </div>
                             </div>

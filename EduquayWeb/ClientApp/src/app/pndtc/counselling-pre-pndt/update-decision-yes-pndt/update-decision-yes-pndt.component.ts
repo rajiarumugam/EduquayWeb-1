@@ -72,7 +72,7 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
   isDecisionYes: boolean = true;
   remarksdata: string;
   DDLobstetrician: string;
-  confirmationSelected: boolean;
+  confirmationSelected: boolean = true;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -91,13 +91,13 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
   dateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
-   // defaultDate: new Date(Date.now()),
+    // defaultDate: new Date(Date.now()),
     minDate: new Date(Date.now()),
     //maxDate: new Date(Date.now()),
     enableTime: true,
   };
 
-  
+
 
   @HostListener('window:scroll')
   checkScroll() {
@@ -138,15 +138,15 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.anwSubjectId = params['q'];
       this.retrivecounselledyeslists();
-     // this.getMinDate();
+      // this.getMinDate();
     });
-   
+
     // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
     // this.pndtscheduleTime = moment().format("HH:mm");
     // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
     this.ddlobstetricianName();
-    this.onClick('decisionyes');
+    //this.onClick('decisionyes');
 
   }
 
@@ -172,24 +172,24 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
           else {
             this.counselledYesdataItem = this.counselledyesprepndtResponse.data.
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-              this.remarksdata = this.counselledYesdataItem.counsellingRemarks;
-              this.selectedobstetrician = this.counselledYesdataItem.obstetricianId.toString();
-              this.isSelectedYes = this.counselledYesdataItem.isPNDTAgreeYes;
-              // if (this.counselledYesdataItem.isPNDTAgreeYes === true) {
-              //   const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
-              //   this.dateOptions.minDate = regDate;
-              // }
-              const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
-              this.pndtschedulePicker.flatpickr.set({
-                minDate: regDate
-              });
-              this.dateOptions.minDate = regDate;
+            this.remarksdata = this.counselledYesdataItem.counsellingRemarks;
+            this.selectedobstetrician = this.counselledYesdataItem.obstetricianId.toString();
+            this.isSelectedYes = this.counselledYesdataItem.isPNDTAgreeYes;
+            // if (this.counselledYesdataItem.isPNDTAgreeYes === true) {
+            //   const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
+            //   this.dateOptions.minDate = regDate;
+            // }
+            const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
+            this.pndtschedulePicker.flatpickr.set({
+              minDate: regDate
+            });
+            this.dateOptions.minDate = regDate;
             //this.counsellinglists = this.counselledyesprepndtResponse.data;
-              // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
-              // this.pndtscheduleTime = moment().format("HH:mm");
-              // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-              // //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-              // const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
+            // this.pndtscheduleDate = moment().format("DD/MM/YYYY");
+            // this.pndtscheduleTime = moment().format("HH:mm");
+            // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+            // //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+            // const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
 
           }
         }
@@ -202,9 +202,9 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
           this.updateDecisionYespndtErrorMessage = err.toString();
         });
   }
-  
 
-  getMinDate(){
+
+  getMinDate() {
 
     if (this.counselledYesdataItem.isPNDTAgreeYes === true) {
       const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
@@ -236,9 +236,9 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
         });
   }
 
-  onClick(item) {
+  onClick(radioBtnItem) {
 
-    if (item == 'decisionyes') {
+    if (radioBtnItem == 'decisionyes') {
       this.isSelectedYes = true;
       this.isSelectedNo = false;
       this.isSelectedPending = false;
@@ -246,13 +246,13 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
       const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
       this.dateOptions.minDate = regDate;
     }
-    else if (item == 'decisionno') {
+    else if (radioBtnItem == 'decisionno') {
       this.isSelectedNo = true;
       this.isSelectedYes = false;
       this.isSelectedPending = false;
       this.isDecisionYes = false;
     }
-    else if (item == 'decisionpending') {
+    else if (radioBtnItem == 'decisionpending') {
       this.isSelectedPending = true;
       this.isSelectedYes = false;
       this.isSelectedNo = false;
@@ -260,65 +260,108 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     }
   }
 
-  // checkIfSelected(){
-
-  //   console.log(this.confirmationSelected);
-  //   this.selectedAll = this.counselledyeslists.every(function (item: any) {
-  //     return item.confirmationSelected == true;
-
-  //   })
-  // }
+  checkIfSelected(){
+    
+    this.confirmationSelected = true;
+    console.log(this.confirmationSelected);
+   
+  }
 
   onSubmit(updatePndtyesForm: NgForm) {
 
     if (this.isSelectedYes === true) {
       console.log(updatePndtyesForm.value);
+      //this.checkIfSelected();
       //this.InitializeDateRange();
-      this.counsellingRemarks = updatePndtyesForm.value.Remarks;
-      this.assignedObstetricianId = updatePndtyesForm.value.DDLobstetrician;
-      
-      if((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)){
-        this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
+      if(this.confirmationSelected == false){
+        this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
         return false;
       }
 
-      this.addCounselledyesRequest = {
-        prePNDTSchedulingId: this.counselledYesdataItem.schedulingId,
-        anwsubjectId: this.counselledYesdataItem.anwSubjectId,
-        spouseSubjectId: this.counselledYesdataItem.spouseSubjectId,
-        counsellorId: this.counselledYesdataItem.counsellorId,
-        counsellingRemarks: this.counsellingRemarks,
-        assignedObstetricianId: +(this.assignedObstetricianId),
-        isPNDTAgreeYes: this.isSelectedYes,
-        isPNDTAgreeNo: this.isSelectedNo,
-        isPNDTAgreePending: this.isSelectedPending,
-        schedulePNDTDate: this.pndtscheduleDate,
-        schedulePNDTTime: this.pndtscheduleTime,
-        userId: this.user.id,
-      };
+      if ((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)) {
 
-      //Remove below 2 lines after successfully tested
-      // this.decisionYesResponseMessage('Successfully registered', 's');
-      // return false;
+        this.counsellingRemarks = updatePndtyesForm.value.Remarks;
+        this.assignedObstetricianId = updatePndtyesForm.value.DDLobstetrician;
+        this.addCounselledyesRequest = {
+          prePNDTSchedulingId: this.counselledYesdataItem.schedulingId,
+          anwsubjectId: this.counselledYesdataItem.anwSubjectId,
+          spouseSubjectId: this.counselledYesdataItem.spouseSubjectId,
+          counsellorId: this.counselledYesdataItem.counsellorId,
+          counsellingRemarks: this.counsellingRemarks,
+          assignedObstetricianId: +(this.assignedObstetricianId),
+          isPNDTAgreeYes: this.isSelectedYes,
+          isPNDTAgreeNo: this.isSelectedNo,
+          isPNDTAgreePending: this.isSelectedPending,
+          schedulePNDTDate: this.counselledYesdataItem.schedulePNDTDate,
+          schedulePNDTTime: this.counselledYesdataItem.schedulePNDTTime,
+          userId: this.user.id,
+        };
 
-      let addCounselledNoData = this.counselledyesprepndtService.AddprepndtCounselling(this.addCounselledyesRequest)
-        .subscribe(response => {
-          this.addCounselledyesResponse = response;
-          if (this.addCounselledyesResponse !== null && this.addCounselledyesResponse.status === "true") {
-            this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 's')
-            //this.retrivescheduledlists();
-            //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
-          } else {
-            this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 'e');
-            this.updateDecisionYespndtErrorMessage = response.message;
-          }
+        //Remove below 2 lines after successfully tested
+        // this.decisionYesResponseMessage('Successfully registered', 's');
+        // return false;
 
-        },
-          (err: HttpErrorResponse) => {
-            this.decisionYesResponseMessage(err.toString(), 'e');
-            this.updateDecisionYespndtErrorMessage = err.toString();
-          });
+        let addCounselledNoData = this.counselledyesprepndtService.AddprepndtCounselling(this.addCounselledyesRequest)
+          .subscribe(response => {
+            this.addCounselledyesResponse = response;
+            if (this.addCounselledyesResponse !== null && this.addCounselledyesResponse.status === "true") {
+              this.decisionUpdateResponseMessage(this.addCounselledyesResponse.message, 's')
+              //this.retrivescheduledlists();
+              //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+            } else {
+              this.decisionUpdateResponseMessage(this.addCounselledyesResponse.message, 'e');
+              this.updateDecisionYespndtErrorMessage = response.message;
+            }
+
+          },
+            (err: HttpErrorResponse) => {
+              this.decisionUpdateResponseMessage(err.toString(), 'e');
+              this.updateDecisionYespndtErrorMessage = err.toString();
+            });
+      }
+      else {
+        this.counsellingRemarks = updatePndtyesForm.value.Remarks;
+        this.assignedObstetricianId = updatePndtyesForm.value.DDLobstetrician;
+        this.addCounselledyesRequest = {
+          prePNDTSchedulingId: this.counselledYesdataItem.schedulingId,
+          anwsubjectId: this.counselledYesdataItem.anwSubjectId,
+          spouseSubjectId: this.counselledYesdataItem.spouseSubjectId,
+          counsellorId: this.counselledYesdataItem.counsellorId,
+          counsellingRemarks: this.counsellingRemarks,
+          assignedObstetricianId: +(this.assignedObstetricianId),
+          isPNDTAgreeYes: this.isSelectedYes,
+          isPNDTAgreeNo: this.isSelectedNo,
+          isPNDTAgreePending: this.isSelectedPending,
+          schedulePNDTDate: this.pndtscheduleDate,
+          schedulePNDTTime: this.pndtscheduleTime,
+          userId: this.user.id,
+        };
+
+        //Remove below 2 lines after successfully tested
+        // this.decisionYesResponseMessage('Successfully registered', 's');
+        // return false;
+
+        let addCounselledNoData = this.counselledyesprepndtService.AddprepndtCounselling(this.addCounselledyesRequest)
+          .subscribe(response => {
+            this.addCounselledyesResponse = response;
+            if (this.addCounselledyesResponse !== null && this.addCounselledyesResponse.status === "true") {
+              this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 's')
+              //this.retrivescheduledlists();
+              //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+            } else {
+              this.decisionYesResponseMessage(this.addCounselledyesResponse.message, 'e');
+              this.updateDecisionYespndtErrorMessage = response.message;
+            }
+
+          },
+            (err: HttpErrorResponse) => {
+              this.decisionYesResponseMessage(err.toString(), 'e');
+              this.updateDecisionYespndtErrorMessage = err.toString();
+            });
+
+      }
     }
+
     else if (this.isSelectedNo === true) {
       console.log(updatePndtyesForm.value);
 
@@ -410,6 +453,22 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     }
   }
 
+  decisionUpdateResponseMessage(message: string, type: string) {
+    var messageType = '';
+    var title = `Pre-PNDT scheduled successfully `;
+    if (type === 'e') {
+      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
+    }
+    else {
+      Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
+          }
+        });
+    }
+  }
+
   decisionYesResponseMessage(message: string, type: string) {
     var messageType = '';
     var title = `Pre-PNDT scheduled successfully on ${this.pndtscheduleDate} at ${this.pndtscheduleTime}`;
@@ -418,11 +477,11 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-      .then((result) => {
-        if (result.value) {
-          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
+          }
+        });
     }
   }
   decisionNoResponseMessage(message: string, type: string) {
@@ -433,11 +492,11 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-      .then((result) => {
-        if (result.value) {
-          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
+          }
+        });
     }
   }
   decisionAwaitedResponseMessage(message: string, type: string) {
@@ -448,11 +507,11 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-      .then((result) => {
-        if (result.value) {
-          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledyes`);
+          }
+        });
     }
   }
 

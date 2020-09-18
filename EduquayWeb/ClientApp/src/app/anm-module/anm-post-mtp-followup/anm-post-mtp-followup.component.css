@@ -51,4 +51,9 @@
     border-bottom: none;
     border-top: none;
   }
+
+  table.dataTable .form-control {
+    color: #151617 !important;
+    font-size: 0.875rem;
+}
   

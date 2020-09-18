@@ -72,6 +72,7 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
     isDecisionYes: boolean = false;
     isDecisionNo: boolean = false;
     remarksdata: string;
+    confirmationSelected: boolean = false;
   
     /*Date Range configuration starts*/
     dateform: FormGroup;
@@ -163,6 +164,9 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
               this.counselledPendingdataItem = this.counselledpendingprepndtResponse.data.
                 find(counselling => counselling.anwSubjectId === this.anwSubjectId);
                 this.remarksdata = this.counselledPendingdataItem.counsellingRemarks;
+                this.isSelectedYes = this.counselledPendingdataItem.isPNDTAgreeYes;
+                this.isSelectedNo = this.counselledPendingdataItem.isPNDTAgreeNo;
+                this.isSelectedPending = this.counselledPendingdataItem.isPNDTAgreePending;
               //this.counsellinglists = this.counselledpendingprepndtResponse.data;
   
             }
@@ -200,9 +204,9 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
           });
     }
   
-    onClick(item) {
+    onClick(radioBtnItem) {
   
-      if (item == 'decisionyes') {
+      if (radioBtnItem == 'decisionyes') {
         this.isSelectedYes = true;
         this.isSelectedNo = false;
         this.isSelectedPending = false;
@@ -211,14 +215,14 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
         const regDate = this.dateservice.convertToDateTimeFormat(this.counselledPendingdataItem.counsellingDateTime);
         this.dateOptions.minDate = regDate;
       }
-      else if (item == 'decisionno') {
+      else if (radioBtnItem == 'decisionno') {
         this.isSelectedNo = true;
         this.isSelectedYes = false;
         this.isSelectedPending = false;
         this.isDecisionYes = false;
         this.isDecisionNo = true;
       }
-      else if (item == 'decisionpending') {
+      else if (radioBtnItem == 'decisionpending') {
         this.isSelectedPending = true;
         this.isSelectedYes = false;
         this.isSelectedNo = false;
@@ -231,8 +235,14 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
       if (this.isSelectedYes === true) {
         console.log(updatePndtpendingForm.value);
         this.isDecisionYes = true;
+
+        if(this.confirmationSelected == false){
+          this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+          return false;
+        }
         this.counsellingRemarks = updatePndtpendingForm.value.Remarks;
         this.assignedObstetricianId = updatePndtpendingForm.value.DDLobstetrician;
+
         if((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)){
           this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
           return false;

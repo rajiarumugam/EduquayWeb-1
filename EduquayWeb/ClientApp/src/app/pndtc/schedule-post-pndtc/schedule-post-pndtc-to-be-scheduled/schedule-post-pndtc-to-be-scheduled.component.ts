@@ -16,6 +16,8 @@ import { LoaderService } from 'src/app/shared/loader/loader.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DateService } from 'src/app/shared/utility/date.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-post-pndtc-to-be-scheduled',
@@ -53,6 +55,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     anwSubjectId: string;
     subjectName: string;
     spouseSubjectId: string;
+    pndtDateTime: string;
     spouseName: string;
     rchId: string;
     ga: string;
@@ -75,7 +78,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     scheduleDateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
-      defaultDate: new Date(Date.now()),
+      //defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
       minDate: new Date(Date.now()),
       enableTime: true,
@@ -89,7 +92,9 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       private tokenService: TokenService,
       private loaderService: LoaderService,
       private modalService: NgbModal,
-      private _formBuilder: FormBuilder
+      private _formBuilder: FormBuilder,
+      private dateservice: DateService,
+      private router: Router
   
     ) { }
   
@@ -121,10 +126,10 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
         }
       };
       this.ddlDistrict(this.user.id);
-      this.scheduleDate = moment().format("DD/MM/YYYY");
-      this.scheduleTime = moment().format("HH:mm");
-      this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.scheduleDate = moment().format("DD/MM/YYYY");
+      // this.scheduleTime = moment().format("HH:mm");
+      // this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
       this.pndtmtpSchedulingRequest = {
         userId: this.user.id, districtId: 0,
@@ -326,10 +331,12 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       this.samplega = schedulinglists.ga;
       this.spouseSubjectId = schedulinglists.spouseSubjectId;
   
-      this.scheduleDate = moment().format("DD/MM/YYYY");
-      this.scheduleTime = moment().format("HH:mm");
-      this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.scheduleDate = moment().format("DD/MM/YYYY");
+      // this.scheduleTime = moment().format("HH:mm");
+      // this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      const regDate = this.dateservice.convertToDateTimeFormat(schedulinglists.pndtDateTime);
+      this.scheduleDateOptions.minDate = regDate;
   
       this.modalService.open(
         scheduleAppointmentFormDetail, {
@@ -346,7 +353,10 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     onSubmit(scheduleAppointmentFormDetail: NgForm) {
 
       console.log(scheduleAppointmentFormDetail.value);
-  
+      if((this.scheduleDate === '' || this.scheduleDate == undefined) && (this.scheduleTime === '' || this.scheduleTime == undefined)){
+        this.showResponseMessage('Please choose Date & Time', 'e');
+        return false;
+      }
       this.addScheduleRequest = {
         anwsubjectId: this.anwSubjectId,
         spouseSubjectId: this.spouseSubjectId,
@@ -356,7 +366,8 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       };
   
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      //  this.showResponseMessage('Successfully registered', 's');
+      //  return false;
       let addScheduleData = this.pndtmtpScheduleService.Addschedule(this.addScheduleRequest)
         .subscribe(response => {
           this.addScheduleResponse = response;
@@ -388,7 +399,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
         .then((result) => {
           if (result.value) {
             this.modalService.dismissAll();
-              window.location.reload();
+            //this.router.navigateByUrl(`/app/schedule-post-pndtc/scheduled`);
             }
         }); 
       }

@@ -50,7 +50,8 @@
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
                                                         <h5><b>Subject ID :</b> {{counselledNodataItem?.anwSubjectId}}
-                                                            <strong class="ml-5">Subject Name :</strong> {{counselledNodataItem?.subjectName}}, F, {{counselledNodataItem?.age}} yrs
+                                                            <!-- <strong class="ml-5">Subject Info :</strong> {{counselledNodataItem?.subjectName}}, F, {{counselledNodataItem?.age}} yrs -->
+                                                            <strong class="ml-5">Subject Info :</strong> {{counselledNodataItem?.subjectName}}, F
                                                             <strong class="ml-5">RCH ID :</strong> {{counselledNodataItem?.rchId}} 
                                                       </h5>
                                                     </span>
@@ -210,7 +211,7 @@
                                                 <td><b>Counselling Status</b></td>
                                                 <td>{{counselledNodataItem?.prePNDTCounsellingStatus}}</td>
                                                 <td><b>Scheduled PNDT Date & Time</b></td>
-                                                <td>{{counselledNodataItem?.postPNDTCounsellingDateTime}}</td>
+                                                <td>{{counselledNodataItem?.schedulePrePNDTDate}} {{counselledNodataItem?.schedulePrePNDTTime}}</td>
 
                                             </tr>  
                                         </tbody>
@@ -277,7 +278,7 @@
                         
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counselledNodataItem?.foetalDisease === true">
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
 
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
@@ -392,7 +393,7 @@
                                             </td>
                                         </tr>
                                         <tr *ngIf="isDecisionYes">
-                                            <td> Schedule PNDT Date & Time</td>
+                                            <td> Schedule MTP Service Date & Time</td>
                                             <td></td>
                                             <td class="text-center" [formGroup]="dateform">
                                                 <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
@@ -406,8 +407,19 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="col-md-12" *ngIf="isDecisionYes">
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-outline-primary">
+                                      <input type="checkbox" class="new-control-input checkbox" 
+                                      [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                      <span class="new-control-indicator"></span>&nbsp; &nbsp;Received signed
+                                      consent form from Subject and filed
+                                    </label>
+                                </div>
+                              
+                            </div>
                             
-                            <div class="form-row m-1" *ngIf="isDecisionawaited || isDecisionYes">
+                            <div class="form-row m-1" >
                                 <div class="form-group col-md-12">
                                     <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
                                     class="flaticon-cancel-12"></i>

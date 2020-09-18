@@ -353,7 +353,10 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     console.log(scheduleAppointmentFormDetail.value);
     // this.anwSubjectId = schedulingdata.anwSubjectId;
     // this.spouseSubjectId = schedulingdata.spouseSubjectId;
-
+    if((this.scheduleDate === '' || this.scheduleDate == undefined) && (this.scheduleTime === '' || this.scheduleTime == undefined)){
+      this.showResponseMessage('Please choose Date & Time', 'e');
+      return false;
+    }
     this.addScheduleRequest = {
       anwsubjectId: this.anwSubjectId,
       spouseSubjectId: this.spouseSubjectId,
@@ -398,7 +401,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
         if (result.value) {
           this.modalService.dismissAll();
           //this.router.navigateByUrl(`/app/schedule-pre-pndtc/scheduled`);
-          window.location.reload();
+         
           }
       });
 

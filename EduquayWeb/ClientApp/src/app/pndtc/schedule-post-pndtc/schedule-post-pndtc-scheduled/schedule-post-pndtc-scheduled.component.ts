@@ -17,6 +17,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SchedulePostPndtcService } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc.service';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 @Component({
   selector: 'app-schedule-post-pndtc-scheduled',
@@ -78,7 +79,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     editDateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
-      defaultDate: new Date(Date.now()),
+      //defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
       minDate: new Date(Date.now()),
       enableTime: true,
@@ -91,7 +92,8 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       private tokenService: TokenService,
       private loaderService: LoaderService,
       private modalService: NgbModal,
-      private _formBuilder: FormBuilder
+      private _formBuilder: FormBuilder,
+      private dateservice: DateService
     ) { }
   
     ngOnInit() {
@@ -348,10 +350,12 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       this.samplega = scheduleddata.ga;
       this.spouseSubjectId = scheduleddata.spouseSubjectId;
   
-      this.editscheduleDate = moment().format("DD/MM/YYYY");
-      this.editscheduleTime = moment().format("HH:mm");
-      this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.editscheduleDate = moment().format("DD/MM/YYYY");
+      // this.editscheduleTime = moment().format("HH:mm");
+      // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      // this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      const regDate = this.dateservice.convertToDateTimeFormat(scheduleddata.pndtDateTime);
+      this.editDateOptions.minDate = regDate;
   
       this.modalService.open(
         editAppointmentFormDetail, {
@@ -368,7 +372,10 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     onSubmit(editAppointmentForm: NgForm) {
   
       console.log(editAppointmentForm.value);
-  
+      if((this.editscheduleDate === '' || this.editscheduleDate == undefined) && (this.editscheduleTime === '' || this.editscheduleTime == undefined)){
+        this.showResponseMessage('Please choose Date & Time', 'e');
+        return false;
+      }
       // this.editscheduleDate = moment().format("DD/MM/YYYY");
       // this.editscheduleTime = moment().format("HH:mm");
       // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
