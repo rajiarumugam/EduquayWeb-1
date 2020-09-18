@@ -193,6 +193,16 @@ import { PositiveSubjectsComponent } from "./district-coordinator/positive-subje
 import { PndtReferralComponent } from "./district-coordinator/pndt-referral/pndt-referral.component";
 import { MtpReferralComponent } from "./district-coordinator/mtp-referral/mtp-referral.component";
 import { PostMtpFollowupComponent } from "./district-coordinator/post-mtp-followup/post-mtp-followup.component";
+
+
+import { ReportSampleStatusComponent } from "./molecular-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { ReportSampleStatusMainComponent } from "./molecular-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+import { UpdateMolResultComponent } from "./molecular-lab/update-mol-result/update-mol-result/update-mol-result.component";
+import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/update-mol-result-main/update-mol-result-main.component";
+
+import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
+import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -357,6 +367,17 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'molecular-report', component: ReportSampleStatusMainComponent,
+        children:[
+          {path: '', component: ReportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+        ]
+      },{
+        path: 'update-molecular-result', component: UpdateMolResultMainComponent,
+        children:[
+          {path: '', component: UpdateMolResultComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+        ]
+      },
+      {
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
           {path: '', component: PrePndtcToBeScheduledComponent, pathMatch: 'full'},
@@ -393,6 +414,11 @@ const routes: Routes = [
         path: 'mtp-testing-result', component: MtpTestingResultsMainComponent,
         children:[
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
+        ]
+      },{
+        path: 'view-case-sheet', component: ViewCaseSheetMainComponent,
+        children:[
+          {path: '', component: ViewCaseSheetComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -621,7 +647,13 @@ export const RoutingComponents = [
   PositiveSubjectsComponent,
   PndtReferralComponent,
   MtpReferralComponent,
-  PostMtpFollowupComponent
+  PostMtpFollowupComponent,
+  ReportSampleStatusComponent,
+  ReportSampleStatusMainComponent,
+  UpdateMolResultComponent,
+  UpdateMolResultMainComponent,
+  ViewCaseSheetComponent,
+  ViewCaseSheetMainComponent
 
 ];
 

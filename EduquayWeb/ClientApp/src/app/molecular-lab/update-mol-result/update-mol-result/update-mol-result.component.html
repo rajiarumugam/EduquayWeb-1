@@ -1,0 +1,158 @@
+<div class="tab-pane fade show" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="table-responsive my-2">
+                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th><span>S.No</span></th>
+                            <th><span>Subject Name</span></th>
+                            <th><span>Subject ID</span></th>
+                            <th><span>RCH ID</span></th>
+                            <th><span>Barcode</span></th>
+                            <th><span>District</span></th>
+                            <th><span>Update Molecular Test Result</span></th>
+                            <th><span>View Case Sheet</span></th>
+                            
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pnddata of pndPendingArray; index as i">
+                            <td>{{i+1}}</td>
+                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                            <td class="text-center">{{pnddata.anwSubjectId}}</td>
+                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                            <td style="text-align: left">{{pnddata.contactNo}}</td>
+                            <td class="text-center">{{pnddata.lmpDate}}</td>
+                            
+                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
+                                        data-target=".bd-example-modal-xl"></i></a></td>
+                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
+                                          data-target=".bd-example-modal-xl"></i></a></td>
+  
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title modaltitle">Molecular Test Results</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-x">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
+                                             
+                                                <div class="widget-content widget-content-area br-6 mb-3"> -->
+                                                    <div class="row mt-4">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive mb-4 my-2"
+                                                                style="overflow-x: hidden;">
+                                                                <table id="zero-config"
+                                                                    class="table table-bordered table-hover"
+                                                                    style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="sno text-center"><span>S.No</span></th>
+                                                                            <th ><span>Subject
+                                                                                    Name</span></th>
+                                                                            <th><span>Subject ID</span></th>
+                                                                            <th><span>RCH ID</span></th>
+                                                                            <th><span>Barcode</span></th>
+                                                                            <th><span>Gender</span></th>
+                                                                            <th><span>Date</span></th>
+                                                                            <th>
+                                                                                <span>District</span></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="text-center">1</td>
+                                                                            <td style="text-align: left;">Alkha Akash Kumar</td>
+                                                                           
+                                                                            <td class="text-center">OD001202032110</td>
+                                                                            <td class="text-center">123456</td>
+                                                                            <td class="text-center">020155</td>
+                                                                            <td style="text-align: left;">Female</td>
+                                                                            <td class="text-center">13/09/2020</td>
+                                                                            <td style="text-align: left;">Cuttack</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Shipment ID end -->
+
+                                                    <div class="br-6">
+
+                                                        <div class="row">
+                                                            <div class="col-md-4 col-sm-6">
+                                                                <!-- <h5>Molecular test results</h5> -->
+                                                                <h6 class="mt-1"><b>Genetic diagnosis</b></h6>
+                                                                <select id="inputChild" class="form-control">
+                                                                     <option value="">Select Diagnosis</option>
+                                                                        <option value="male">Normal</option>
+                                                                        <option value="male">Heterozygous β Thalassemia</option>
+                                                                        <option value="female">Homozygous β Thalassemia</option>
+                                                                        <option value="female">Heterozygous HbS</option>
+                                                                        <option value="female">Homozygous HbS</option>
+                                                                        <option value="female">Compound Heterozygous HbS/β Thalassemia</option>
+                                                                        <option value="female">Heterozygous HbD</option>
+                                                                        <option value="female">Homozygous HbD</option>
+                                                                        <option value="female">Compound Heterozygous HbD/β Thalassemia</option>
+                                                                        <option value="female">Compound Heterozygous HbS/HbD</option>
+                                                                        <option value="female">Heterozygous HbE</option>
+                                                                        <option value="female">Homozygous HbE</option>
+                                                                        <option value="female">Compound Heterozygous HbE/β Thalassemia</option>
+                                                                        <option value="female">Compound Heterozygous HbS/HbE</option>
+                                                                        <!-- <option value="female">Heterozygous HbS with α Thalassemia</option>
+                                                                        <option value="female">Heterozygous HbE with α Thalassemia</option>
+                                                                        <option value="female">Heterozygous HbD with α Thalassemia</option> -->
+                                                                </select>
+                                                                <h6 class="pt-3"><b>Result</b></h6>
+                                                                
+                                                                <select id="inputResults" class="form-control">
+                                                                    <option selected="">Select</option>
+                                                                    <option value="0">Normal</option>
+                                                                    <option value="1">DNA Test Positive
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6" style="display:none;"
+                                                                id="businessnew">
+                                                                <h5>&nbsp;</h5>
+                                                                <textarea id="textarea" class="form-control textarea mb-4"
+                                                                    maxlength="225" rows="2" placeholder=""></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary float-right" id="linktobuttonupdateresult">Save</button>
+                                            <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                                                Close</button>
+                                        </div>
+                                    </div>
+
+

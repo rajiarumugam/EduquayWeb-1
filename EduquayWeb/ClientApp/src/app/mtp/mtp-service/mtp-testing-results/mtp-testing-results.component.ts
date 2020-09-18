@@ -288,7 +288,7 @@ export class MTPTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj["mtpDateTime"] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
+          _obj["mtpDateTime"] = typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate;
           _obj['anwsubjectId'] = this.testingPNDData.anwSubjectId;
           _obj['spouseSubjectId'] = this.testingPNDData.spouseSubjectId;
           _obj['counsellorId'] = this.testingPNDData.postPNDTCounsellorId;

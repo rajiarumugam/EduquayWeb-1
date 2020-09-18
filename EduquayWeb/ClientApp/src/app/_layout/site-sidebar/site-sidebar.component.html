@@ -199,7 +199,7 @@
                 </li>
             </ul>
         </li>
-        <li class="menu" style="display:none;">
+        <li class="menu">
             <a href="#molecularlab" data-toggle="collapse" attr.data-active="{{module === 'molecularlab'}}" attr.aria-expanded="{{module === 'molecularlab'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -219,16 +219,15 @@
                 <li>
                     <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>
                 </li>
-                <li>
-                    <a href="geneticlabsamplelist.html"> Update Mol. Results</a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/update-molecular-result']"> Update Mol. Results </a>
                 </li>
-                <li>
-                    <a href="molecularcasesheet.html"> View Case Sheet</a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/view-case-sheet']"> View Case Sheet </a>
                 </li>
-                <li>
-                    <a href="molecularreport.html"> Report - Sample Status</a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/molecular-report']"> Report - Sample Status </a>
                 </li>
-                
             </ul>
         </li>
         <li class="menu" *ngIf="user.userRole === 'COUNSELLOR'">
@@ -360,7 +359,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="menu menu1" style="display:none;">
+            <li class="menu menu1">
                 <a href="#birthmonitoringlab" data-toggle="collapse" attr.data-active="{{module === 'birthmonitoringlab'}}" attr.aria-expanded="{{module === 'birthmonitoringlab'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"

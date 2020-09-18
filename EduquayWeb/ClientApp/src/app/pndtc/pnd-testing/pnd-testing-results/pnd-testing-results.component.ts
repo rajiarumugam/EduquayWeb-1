@@ -346,7 +346,10 @@ export class PNDTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj['pndtDateTime'] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
+
+          console.log(this.selectedpndtDate);
+          console.log(typeof(this.selectedpndtDate));
+          _obj['pndtDateTime'] = typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate;
            _obj['isCompletePNDT'] = false;
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
@@ -364,7 +367,7 @@ export class PNDTestingResultsComponent implements OnInit {
           _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
            console.log(_obj);
 
-          this.sendDataToService(_obj);
+          //this.sendDataToService(_obj);
         }
     }
     else
@@ -380,7 +383,9 @@ export class PNDTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj['pndtDateTime'] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
+
+          console.log(this.selectedpndtDate);
+          _obj['pndtDateTime'] = typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate;
           _obj['isCompletePNDT'] = false;
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
@@ -399,7 +404,7 @@ export class PNDTestingResultsComponent implements OnInit {
 
             console.log(_obj);
 
-            this.sendDataToService(_obj);
+            //this.sendDataToService(_obj);
         }
     }
       
