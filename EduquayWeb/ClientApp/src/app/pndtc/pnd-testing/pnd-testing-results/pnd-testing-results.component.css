@@ -78,3 +78,14 @@ h5.float-left {
 {
   margin-left:20px;
 }
+
+::ng-deep .multiselect-dropdown .dropdown-btn .selected-item
+{
+    border: 1px solid blue !important;
+    background: blue !important;
+}
+
+::ng-deep .multiselect-item-checkbox input[type=checkbox]:checked + div:before
+{
+  background: blue !important;
+}

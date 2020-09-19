@@ -24,6 +24,7 @@ type AOA = any[][];
     centralReceiptsData;
     errorMessage;
     user;
+    allowUpload = false;
 
     data: AOA = [];
     wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
@@ -52,6 +53,8 @@ type AOA = any[][];
           this.centralUploadResultData = this.DataService.getdata().centraluploaddata;
           this.showUploadResult = true;
       }
+      if(this.centralUploadResultData.length === 0)
+        this.allowUpload = true;
       this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "submodule": "Update HPLC Results", "pagealter": " Upload HPLC Results"}));
     }
     else{
