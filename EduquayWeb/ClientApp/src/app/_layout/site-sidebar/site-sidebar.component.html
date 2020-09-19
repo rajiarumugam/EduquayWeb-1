@@ -125,12 +125,12 @@
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/chc-sample-shipmentlog']"> Shipment Log </a>
                 </li>
-                <li>
-                    <a href="chcpositivecases.html"> Report - Sample Status </a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/chc-report']"> Report - Sample Status </a>
                 </li>
             </ul>
         </li>
-        <li class="menu"  *ngIf="user.userRole === 'HPLCLT'">
+        <li class="menu" ><!--*ngIf="user.userRole === 'HPLCLT'"-->
             <a href="#centrallab" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
                 <div class="">
                     <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -164,8 +164,8 @@
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/central-shipment']"> Shipment Log </a>
                 </li>
-                <li>
-                    <a href="centralpositive.html"> Report - Sample Status</a>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/centrallab-report']"> Report - Sample Status </a>
                 </li>
             </ul>
         </li>

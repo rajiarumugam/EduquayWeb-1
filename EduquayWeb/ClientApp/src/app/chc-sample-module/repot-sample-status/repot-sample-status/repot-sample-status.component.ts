@@ -14,11 +14,11 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 declare var $: any;
 
 @Component({
-  selector: 'app-update-mol-result',
-  templateUrl: './update-mol-result.component.html',
-  styleUrls: ['./update-mol-result.component.css']
+  selector: 'app-repot-sample-status',
+  templateUrl: './repot-sample-status.component.html',
+  styleUrls: ['./repot-sample-status.component.css']
 })
-export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnInit {
+export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('startPicker1', { static: false }) pickerStart;
@@ -38,25 +38,59 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
   ANMdata = []
   selectedAnm = null;
   pndPendingArray = [];  
+  pndNotCompleteArray = [];
+  fromDate = "";
+  toDate = "";
 
+  DAY = 86400000;
+  dateform:FormGroup;
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: "",
+    maxDate: new Date(Date.now()),
+  };
 
-  popupSelectedData;
-
+  startOptions2: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: '',
+    maxDate: new Date(Date.now())
+  };
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
     ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    var pndtcTestingArr = this.route.snapshot.data.mlSampleData;
+    var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
     console.log(pndtcTestingArr);
-   
+    this.dateform = this._formBuilder.group({
+      fromDate: [''],
+      toDate: ['']
+    });
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
-      this.pndPendingArray = pndtcTestingArr.subjects;
+      this.pndPendingArray = pndtcTestingArr.data;
     }
 
+    var _subjectObj = {
+      "districtId": 0,
+      "chcId": 0,
+      "phcId": 0,
+      "anmId": 0
+    }
+    this.PNDCService.getnotCompleteDetails(_subjectObj) .subscribe(response => {
+      console.log(response);
+      this.pndNotCompleteArray = response.data;
+      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length}));
+    },
+    (err: HttpErrorResponse) =>{
+     
+    });
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.getDistrictData();
+    //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -75,6 +109,25 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
         }, 
       }   
     };
+
+    this.dateform.controls.toDate.valueChanges.subscribe(changes => {
+      if (!changes[0]) return;
+      const selectedDate1 = changes[0].getTime();
+      const monthLaterDate = selectedDate1;
+      this.pickerStart.flatpickr.set({
+        maxDate: new Date(selectedDate1)
+      });
+    });
+
+    // Start Date Changes
+    this.dateform.controls.fromDate.valueChanges.subscribe(changes => {
+      if (!changes[0]) return;
+      const selectedDate = changes[0].getTime();
+      const monthLaterDate = selectedDate + (this.DAY*30);
+      this.pickerEnd.flatpickr.set({
+        minDate: new Date(selectedDate),
+      });
+    });
   }
 
   getDistrictData(){
@@ -123,11 +176,27 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
     });
   }
 
+  refreshData()
+  {
+    var _subjectObj = {
+      "districtId":this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
+      "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
+      "phcId":this.selectedphc != null ? Number(this.selectedphc) : 0,
+      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0
+    }
+    this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
+      console.log(response);
+      this.pndPendingArray = response.data;
+      this.rerender();
+    },
+    (err: HttpErrorResponse) =>{
+     
+    });
+  }
 
   openResultPage(data)
   {
     console.log(data);
-    this.popupSelectedData = data;
     $('#fadeinModal').modal('show');
   }
   

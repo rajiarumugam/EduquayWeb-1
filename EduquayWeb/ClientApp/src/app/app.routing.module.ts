@@ -203,6 +203,15 @@ import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/
 import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
 import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
 
+
+import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { CHCreportSampleStatusMainComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+
+import { MLSampleRcptResolverService } from "./shared/molecularlab/ml-sample-rcpt-resolver.service";
+import { MLUpdateMolResultResolverService } from "./shared/molecularlab/ml-update-mol-result-resolver.service";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -355,6 +364,18 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'centrallab-report', component: CentralLabreportSampleStatusMainComponent,
+        children:[
+          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+        ]
+      },
+      {
+        path: 'chc-report', component: CHCreportSampleStatusMainComponent,
+        children:[
+          {path: '', component: CHCreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+        ]
+      },
+      {
         path: 'central-shipment', component: CentralShipmentMainComponent,
         children:[
           {path: '', component: CentralCentralShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabShipmentResolverService}}
@@ -363,7 +384,7 @@ const routes: Routes = [
       {
         path: 'molecularlab', component: MolecularSampleRcptMainComponent,
         children:[
-          {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+          {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
         ]
       },
       {
@@ -374,7 +395,7 @@ const routes: Routes = [
       },{
         path: 'update-molecular-result', component: UpdateMolResultMainComponent,
         children:[
-          {path: '', component: UpdateMolResultComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+          {path: '', component: UpdateMolResultComponent, pathMatch: 'full', resolve: {mlSampleData: MLUpdateMolResultResolverService}}
         ]
       },
       {
@@ -653,7 +674,11 @@ export const RoutingComponents = [
   UpdateMolResultComponent,
   UpdateMolResultMainComponent,
   ViewCaseSheetComponent,
-  ViewCaseSheetMainComponent
+  ViewCaseSheetMainComponent,
+  CentralLabreportSampleStatusComponent,
+  CentralLabreportSampleStatusMainComponent,
+  CHCreportSampleStatusComponent,
+  CHCreportSampleStatusMainComponent
 
 ];
 

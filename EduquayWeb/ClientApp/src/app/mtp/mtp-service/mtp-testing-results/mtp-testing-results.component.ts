@@ -77,6 +77,7 @@ export class MTPTestingResultsComponent implements OnInit {
   fselectedMotherVoided;
 
   selectedItems = [];
+  minMTPDate;
 
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -124,6 +125,7 @@ export class MTPTestingResultsComponent implements OnInit {
     this.testingPNDData = this.DataService.getdata().MTPtestingResult;
     this.selectedcounsellerName = this.testingPNDData.pndtCounsellorName;
     this.selectedpndtDate = this.testingPNDData.mtpScheduleDate+" "+this.testingPNDData.mtpScheduleTime;
+    this.minMTPDate = this.testingPNDData.postPNDTCounsellingDateTime;
     this.selectedObstetricianName = this.testingPNDData.postPNDTObstetricianName;
     console.log(this.DataService.getdata().MTPtestingResult);
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
@@ -341,7 +343,7 @@ export class MTPTestingResultsComponent implements OnInit {
     //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
     this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
     this.DORPicker.flatpickr.set({
-      minDate: this.selectedpndtDate,
+      minDate: this.minMTPDate,
       enable: [],
       enableTime: true,
       dateFormat: 'd/m/Y H:i',
