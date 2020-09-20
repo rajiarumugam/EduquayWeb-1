@@ -1,0 +1,8 @@
+.red-border-class
+{
+    border: 1px solid red;
+}
+.label-border-class
+{
+    color: red !important;
+}

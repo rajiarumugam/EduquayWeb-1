@@ -24,6 +24,12 @@ export class MolecularLabsampleService {
     return this.http.get<any>( {url:apiUrl});
   }
   
+  retriveMLUpdateResult()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.RETRIVERECEIVEDSUBJECTS+user.molecularLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
 
   addCBCtest(obj){
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDCBCTEST);

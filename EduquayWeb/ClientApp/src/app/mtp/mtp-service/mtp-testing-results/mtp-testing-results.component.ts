@@ -299,7 +299,7 @@ export class MTPTestingResultsComponent implements OnInit {
           _obj['postPNDTCounsellingId'] = this.testingPNDData.postPNDTCounsellingId;
            _obj["clinicalHistory"] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
-           _obj['mtpComplecationsId'] = _tempComplectionData;
+           _obj['mtpComplecationsId'] = ''+_tempComplectionData;
            _obj['procedureOfTesting'] = this.FormGroup.get('procedureOfTesting').value;
            _obj['dischargeConditionId'] = Number(this.FormGroup.get('conditionAtDischarge').value);
            

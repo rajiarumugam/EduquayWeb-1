@@ -368,7 +368,7 @@ export class PNDTestingResultsComponent implements OnInit {
           _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
            console.log(_obj);
 
-          //this.sendDataToService(_obj);
+          this.sendDataToService(_obj);
         }
     }
     else
@@ -405,7 +405,7 @@ export class PNDTestingResultsComponent implements OnInit {
 
             console.log(_obj);
 
-            //this.sendDataToService(_obj);
+            this.sendDataToService(_obj);
         }
     }
       
