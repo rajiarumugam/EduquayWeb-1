@@ -5,13 +5,17 @@ import { masterService } from 'src/app/shared/master/district/masterdata.service
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenService } from 'src/app/shared/token.service';
 import { ActivatedRoute } from '@angular/router';
-import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
 import { PNDCService } from "../../../shared/pndtc/pndc.service";
-import { DataService } from 'src/app/shared/data.service';
 import { Router } from '@angular/router';
-import { FlatpickrOptions } from 'ng2-flatpickr';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 declare var $: any;
+import * as moment from 'moment';
+import { ENDPOINT } from '../../../app.constant';
+import { GenericService } from '../../../shared/generic.service';
+import { HttpClientService } from '../../../shared/http-client.service';
+import Swal from 'sweetalert2';
+import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
+import { DataService } from '../../../shared/data.service';
 
 @Component({
   selector: 'app-update-mol-result',
@@ -21,8 +25,6 @@ declare var $: any;
 export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
-  @ViewChild('startPicker1', { static: false }) pickerStart;
-  @ViewChild('endPicker', { static: false }) pickerEnd;
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -38,18 +40,37 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
   ANMdata = []
   selectedAnm = null;
   pndPendingArray = [];  
-
-
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  selectedDiagnosis = null;
+  selectedResult = null;
   popupSelectedData;
+  clinicalDiagnosisData;
+  molecularResultsData;
+  showRemarks = false;
+  selectedRemarks;
+  firstFormCheck = false;
+  errorMessage;
+  
 
 
-  constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder
+
+  constructor(private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
+    ,private router: Router,private _formBuilder: FormBuilder,private masterService:masterService,private genericService: GenericService, private httpClientService:HttpClientService,private MolecularLabsampleService: MolecularLabsampleService,private DataService:DataService,
   ) { }
 
   ngOnInit() {
     var pndtcTestingArr = this.route.snapshot.data.mlSampleData;
     console.log(pndtcTestingArr);
+
+    this.firstFormGroup = this._formBuilder.group({
+      geneticDiagnosis: ['', Validators.required],
+      molecularresult: ['', Validators.required]
+   });
+
+   this.secondFormGroup = this._formBuilder.group({
+    processSample: ['true', Validators.required]
+ });
    
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
@@ -75,62 +96,120 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
         }, 
       }   
     };
+
+    this.getClinicalDiagnosisData();
+    this.getMolecularResults();
   }
 
-  getDistrictData(){
-    this.PNDTCmasterService.getPNDTCDistrict()
+  radioChange(event)
+  {
+    console.log(event.target.value);
+    if(event.target.value == 'false')
+        this.showRemarks = true;
+    else
+      this.showRemarks = false;
+  }
+  getClinicalDiagnosisData(){
+    this.masterService.getClinicalDiagnosis()
     .subscribe(response => {
-      this.districts = response['data'];
-      //this.selectedDistrict = this.user.districtId;
+      console.log(response);
+        this.clinicalDiagnosisData = response['diagnosis'];
     },
     (err: HttpErrorResponse) =>{
-      this.districts = [];
+      this.clinicalDiagnosisData = [];
       //this.erroMessage = err.toString();
     });
   }
-  districtChange(){
-    this.PNDTCmasterService.getDistrictBasedCHC(this.selectedDistrict)
+  getMolecularResults(){
+    this.masterService.getMolecularResults()
     .subscribe(response => {
       console.log(response);
-      this.CHCdata = response['data'];
-      console.log(this.selectedchc);
+      this.molecularResultsData = response['molecularResults'];
+      console.log(this.molecularResultsData);
     },
     (err: HttpErrorResponse) =>{
-      this.CHCdata = [];
+      this.molecularResultsData = [];
       this.erroMessage = err.toString();
     });
   }
-  chcChange(){
-    this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
-    .subscribe(response => {
-      this.PHCdata = response['data'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.PHCdata = [];
-      this.erroMessage = err.toString();
-    });
+  
+
+  openviewPage(data)
+  {
+      this.DataService.setdata({'updateMolResu':data});
+      this.router.navigateByUrl(`/app/update-molecular-casesheet`);
   }
-
-  phcChange(){
-    this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
-    .subscribe(response => {
-      console.log(response);
-      this.ANMdata = response['data'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.ANMdata = [];
-      this.erroMessage = err.toString();
-    });
-  }
-
-
   openResultPage(data)
   {
     console.log(data);
     this.popupSelectedData = data;
     $('#fadeinModal').modal('show');
+    this.selectedDiagnosis = null;
+    this.selectedResult = null;
   }
-  
+  submitData()
+  {
+    this.firstFormCheck = true;
+    console.log(this.firstFormGroup.valid);
+    if(this.firstFormGroup.valid && this.secondFormGroup.valid)
+    {
+
+
+      if(this.secondFormGroup.get('processSample').value == "false")
+      {
+          if(this.selectedRemarks == undefined || this.selectedRemarks == null)
+          {
+              return;
+          }
+      }
+        var user = JSON.parse(this.tokenService.getUser('lu'));
+
+        var _obj = {};
+        _obj['uniqueSubjectId'] = this.popupSelectedData.uniqueSubjectId;
+        _obj['barcodeNo'] = this.popupSelectedData.barcodeNo;
+        
+        _obj['diagnosisId'] = Number(this.firstFormGroup.get('geneticDiagnosis').value);
+        _obj['resultId'] = Number(this.firstFormGroup.get('molecularresult').value);
+        _obj['processSample'] = Boolean(this.secondFormGroup.get('processSample').value);
+        _obj['remarks'] = this.selectedRemarks == undefined ? "":this.selectedRemarks;
+        _obj['userId'] = user.id;
+      console.log(_obj);
+
+        var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.ADDMOLECULARRESULT);
+        this.httpClientService.post<any>({url:apiUrl, body: _obj}).subscribe(response => {
+          
+          if(response.status === "true")
+          {
+            Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Molecular Test Results updated Successfully',
+              showCancelButton: false, confirmButtonText: 'OK'})
+                .then((result) => {
+                  if (result.value) {
+                    $('#fadeinModal').modal('hide');
+                    this.MolecularLabsampleService.retriveMLUpdateResult().subscribe(response => {
+                      if(response.status === "true")
+                      {
+                        this.pndPendingArray = response.subjects;
+                        this.rerender();
+                      }
+                                
+                    },
+                    (err: HttpErrorResponse) =>{
+                      console.log(err);
+                    });
+                    
+                  }
+                  
+                });
+          }else{
+              this.errorMessage = response.message;
+          }
+          
+              },
+              (err: HttpErrorResponse) =>{
+                console.log(err);
+              });
+    }
+  }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first   

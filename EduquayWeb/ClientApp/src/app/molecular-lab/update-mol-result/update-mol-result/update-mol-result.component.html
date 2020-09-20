@@ -28,7 +28,7 @@
                             
                             <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
                                         data-target=".bd-example-modal-xl"></i></a></td>
-                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
+                            <td class="text-center"><a (click)="openviewPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
                                           data-target=".bd-example-modal-xl"></i></a></td>
   
 
@@ -87,14 +87,14 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td class="text-center">1</td>
-                                                                            <td style="text-align: left;">Alkha Akash Kumar</td>
+                                                                            <td style="text-align: left;">{{popupSelectedData?.subjectName}}</td>
                                                                            
-                                                                            <td class="text-center">OD001202032110</td>
-                                                                            <td class="text-center">123456</td>
-                                                                            <td class="text-center">020155</td>
-                                                                            <td style="text-align: left;">Female</td>
-                                                                            <td class="text-center">13/09/2020</td>
-                                                                            <td style="text-align: left;">Cuttack</td>
+                                                                            <td class="text-center">{{popupSelectedData?.uniqueSubjectId}}</td>
+                                                                            <td class="text-center">{{popupSelectedData?.rchId}}</td>
+                                                                            <td class="text-center">{{popupSelectedData?.barcodeNo}}</td>
+                                                                            <td style="text-align: left;">{{popupSelectedData?.gender}}</td>
+                                                                            <td class="text-center">{{popupSelectedData?.dob}}</td>
+                                                                            <td style="text-align: left;">{{popupSelectedData?.district}}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -104,52 +104,50 @@
                                                     <!-- Shipment ID end -->
 
                                                     <div class="br-6">
-
                                                         <div class="row">
-                                                            <div class="col-md-4 col-sm-6">
+                                                            <div class="col-md-4" [formGroup]="secondFormGroup">
+                                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && secondFormGroup.controls.processSample.invalid }">Process Sample</span><br>
+                                                                <div class="custom-control custom-radio custom-control-inline">
+                                                                        <input type="radio" id="customRadioInline1" name="processSample" class="custom-control-input" formControlName="processSample" value="true" [required]='firstFormCheck' (change)="radioChange($event)">
+                                                                        <label class="custom-control-label" for="customRadioInline1">Yes </label>
+                                                                        </div>
+                                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                                        <input type="radio" id="customRadioInline2" name="processSample" class="custom-control-input" formControlName="processSample" value="false" [required]='true' (change)="radioChange($event)">
+                                                                        <label class="custom-control-label" for="customRadioInline2">No</label>
+                                                                    </div> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4 col-sm-6" *ngIf="showRemarks"
+                                                                    id="businessnew">
+                                                                    <span class="note" [ngClass]="{'label-border-class': selectedRemarks == undefined || selectedRemarks == null}">Remarks</span>
+                                                                    <textarea id="textarea" class="form-control textarea mb-4" 
+                                                                        maxlength="225" rows="2" placeholder="" [ngClass]="{'red-border-class': selectedRemarks == undefined || selectedRemarks == null }" [required]="showRemarks" [(ngModel)]="selectedRemarks"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4 col-sm-6" [formGroup]="firstFormGroup">
                                                                 <!-- <h5>Molecular test results</h5> -->
-                                                                <h6 class="mt-1"><b>Genetic diagnosis</b></h6>
-                                                                <select id="inputChild" class="form-control">
-                                                                     <option value="">Select Diagnosis</option>
-                                                                        <option value="male">Normal</option>
-                                                                        <option value="male">Heterozygous β Thalassemia</option>
-                                                                        <option value="female">Homozygous β Thalassemia</option>
-                                                                        <option value="female">Heterozygous HbS</option>
-                                                                        <option value="female">Homozygous HbS</option>
-                                                                        <option value="female">Compound Heterozygous HbS/β Thalassemia</option>
-                                                                        <option value="female">Heterozygous HbD</option>
-                                                                        <option value="female">Homozygous HbD</option>
-                                                                        <option value="female">Compound Heterozygous HbD/β Thalassemia</option>
-                                                                        <option value="female">Compound Heterozygous HbS/HbD</option>
-                                                                        <option value="female">Heterozygous HbE</option>
-                                                                        <option value="female">Homozygous HbE</option>
-                                                                        <option value="female">Compound Heterozygous HbE/β Thalassemia</option>
-                                                                        <option value="female">Compound Heterozygous HbS/HbE</option>
-                                                                        <!-- <option value="female">Heterozygous HbS with α Thalassemia</option>
-                                                                        <option value="female">Heterozygous HbE with α Thalassemia</option>
-                                                                        <option value="female">Heterozygous HbD with α Thalassemia</option> -->
+                                                                <h6 class="mt-1" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.geneticDiagnosis.invalid }"><b>Genetic diagnosis</b></h6>
+                                                                <select id="inputDistrict" class="form-control" required name="geneticDiagnosis" [(ngModel)]="selectedDiagnosis"  formControlName = "geneticDiagnosis" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.geneticDiagnosis.invalid }">
+                                                                    <option [ngValue]="null">Select Diagnosis</option>
+                                                                    <option [value]="cd.id" *ngFor="let cd of clinicalDiagnosisData">{{cd.diagnosisName}}</option>
                                                                 </select>
-                                                                <h6 class="pt-3"><b>Result</b></h6>
                                                                 
-                                                                <select id="inputResults" class="form-control">
-                                                                    <option selected="">Select</option>
-                                                                    <option value="0">Normal</option>
-                                                                    <option value="1">DNA Test Positive
-                                                                    </option>
+                                                                <h6 class="pt-3" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.molecularresult.invalid }"><b>Result</b></h6>
+                                                                <select id="inputDistrict" class="form-control" required name="molecularresult" [(ngModel)]="selectedResult"  formControlName = "molecularresult" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.molecularresult.invalid }">
+                                                                    <option [ngValue]="null">Select</option>
+                                                                    <option [value]="cd.id" *ngFor="let cd of molecularResultsData">{{cd.resultName}}</option>
                                                                 </select>
+                                                                
                                                             </div>
-                                                            <div class="col-md-4 col-sm-6" style="display:none;"
-                                                                id="businessnew">
-                                                                <h5>&nbsp;</h5>
-                                                                <textarea id="textarea" class="form-control textarea mb-4"
-                                                                    maxlength="225" rows="2" placeholder=""></textarea>
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     <br>
                                                 </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary float-right" id="linktobuttonupdateresult">Save</button>
+                                            <button class="btn btn-primary float-right" id="linktobuttonupdateresult" (click)="submitData();">Save</button>
                                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
                                                 Close</button>
                                         </div>

@@ -208,7 +208,8 @@ import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sampl
 import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
 import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { CHCreportSampleStatusMainComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
-
+import { updateMolResultViewMainComponent } from "./molecular-lab/update-mol-result/update-mol-result-view-main/update-mol-result-view-main.component";
+import { UpdateMolResultViewComponent } from "./molecular-lab/update-mol-result/update-mol-result-view/update-mol-result-view.component";
 import { MLSampleRcptResolverService } from "./shared/molecularlab/ml-sample-rcpt-resolver.service";
 import { MLUpdateMolResultResolverService } from "./shared/molecularlab/ml-update-mol-result-resolver.service";
 
@@ -396,6 +397,11 @@ const routes: Routes = [
         path: 'update-molecular-result', component: UpdateMolResultMainComponent,
         children:[
           {path: '', component: UpdateMolResultComponent, pathMatch: 'full', resolve: {mlSampleData: MLUpdateMolResultResolverService}}
+        ]
+      },{
+        path: 'update-molecular-casesheet', component: updateMolResultViewMainComponent,
+        children:[
+          {path: '', component: UpdateMolResultViewComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -678,7 +684,9 @@ export const RoutingComponents = [
   CentralLabreportSampleStatusComponent,
   CentralLabreportSampleStatusMainComponent,
   CHCreportSampleStatusComponent,
-  CHCreportSampleStatusMainComponent
+  CHCreportSampleStatusMainComponent,
+  updateMolResultViewMainComponent,
+  UpdateMolResultViewComponent
 
 ];
 
