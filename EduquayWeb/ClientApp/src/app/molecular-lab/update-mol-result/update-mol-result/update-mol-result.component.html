@@ -13,7 +13,6 @@
                             <th><span>District</span></th>
                             <th><span>Update Molecular Test Result</span></th>
                             <th><span>View Case Sheet</span></th>
-                            
                         </tr>
 
                     </thead>
@@ -88,7 +87,6 @@
                                                                         <tr>
                                                                             <td class="text-center">1</td>
                                                                             <td style="text-align: left;">{{popupSelectedData?.subjectName}}</td>
-                                                                           
                                                                             <td class="text-center">{{popupSelectedData?.uniqueSubjectId}}</td>
                                                                             <td class="text-center">{{popupSelectedData?.rchId}}</td>
                                                                             <td class="text-center">{{popupSelectedData?.barcodeNo}}</td>
@@ -120,22 +118,22 @@
                                                         <div class="row">
                                                             <div class="col-md-4 col-sm-6" *ngIf="showRemarks"
                                                                     id="businessnew">
-                                                                    <span class="note" [ngClass]="{'label-border-class': selectedRemarks == undefined || selectedRemarks == null}">Remarks</span>
+                                                                    <span class="note" [ngClass]="{'label-border-class': firstFormCheck && (selectedRemarks == undefined || selectedRemarks == null)}">Remarks</span>
                                                                     <textarea id="textarea" class="form-control textarea mb-4" 
-                                                                        maxlength="225" rows="2" placeholder="" [ngClass]="{'red-border-class': selectedRemarks == undefined || selectedRemarks == null }" [required]="showRemarks" [(ngModel)]="selectedRemarks"></textarea>
+                                                                        maxlength="225" rows="2" placeholder="" [ngClass]="{'red-border-class': firstFormCheck && (selectedRemarks == undefined || selectedRemarks == null) }" [required]="showRemarks" [(ngModel)]="selectedRemarks"></textarea>
                                                                 </div>
                                                             </div>
-                                                        <div class="row">
+                                                        <div class="row" *ngIf="!showRemarks">
                                                             <div class="col-md-4 col-sm-6" [formGroup]="firstFormGroup">
                                                                 <!-- <h5>Molecular test results</h5> -->
                                                                 <h6 class="mt-1" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.geneticDiagnosis.invalid }"><b>Genetic diagnosis</b></h6>
-                                                                <select id="inputDistrict" class="form-control" required name="geneticDiagnosis" [(ngModel)]="selectedDiagnosis"  formControlName = "geneticDiagnosis" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.geneticDiagnosis.invalid }">
+                                                                <select id="inputDistrict" class="form-control" [required]="!showRemarks ? true : false" name="geneticDiagnosis" [(ngModel)]="selectedDiagnosis"  formControlName = "geneticDiagnosis" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.geneticDiagnosis.invalid }">
                                                                     <option [ngValue]="null">Select Diagnosis</option>
                                                                     <option [value]="cd.id" *ngFor="let cd of clinicalDiagnosisData">{{cd.diagnosisName}}</option>
                                                                 </select>
                                                                 
                                                                 <h6 class="pt-3" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.molecularresult.invalid }"><b>Result</b></h6>
-                                                                <select id="inputDistrict" class="form-control" required name="molecularresult" [(ngModel)]="selectedResult"  formControlName = "molecularresult" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.molecularresult.invalid }">
+                                                                <select id="inputDistrict" class="form-control" [required]="!showRemarks ? true : false" name="molecularresult" [(ngModel)]="selectedResult"  formControlName = "molecularresult" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.molecularresult.invalid }">
                                                                     <option [ngValue]="null">Select</option>
                                                                     <option [value]="cd.id" *ngFor="let cd of molecularResultsData">{{cd.resultName}}</option>
                                                                 </select>

@@ -212,6 +212,7 @@ import { updateMolResultViewMainComponent } from "./molecular-lab/update-mol-res
 import { UpdateMolResultViewComponent } from "./molecular-lab/update-mol-result/update-mol-result-view/update-mol-result-view.component";
 import { MLSampleRcptResolverService } from "./shared/molecularlab/ml-sample-rcpt-resolver.service";
 import { MLUpdateMolResultResolverService } from "./shared/molecularlab/ml-update-mol-result-resolver.service";
+import { MolucularLabReportResolverService } from "./shared/molecularlab/mi-report-resolver.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -391,7 +392,7 @@ const routes: Routes = [
       {
         path: 'molecular-report', component: ReportSampleStatusMainComponent,
         children:[
-          {path: '', component: ReportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+          {path: '', component: ReportSampleStatusComponent, pathMatch: 'full', resolve: {mlReport: MolucularLabReportResolverService}}
         ]
       },{
         path: 'update-molecular-result', component: UpdateMolResultMainComponent,

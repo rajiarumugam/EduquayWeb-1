@@ -130,7 +130,7 @@
                 </li>
             </ul>
         </li>
-        <li class="menu" *ngIf="user.userRole === 'HPLCLT'">
+        <li class="menu"><!--*ngIf="user.userRole === 'HPLCLT'"-->
             <a href="#centrallab" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
                 <div class="">
                     <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -216,15 +216,15 @@
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/molecularlab']"> Sample Rcpt </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>
-                </li>
+                </li>-->
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/update-molecular-result']"> Update Mol. Results </a>
                 </li>
-                <li routerLinkActive="active">
+                <!--<li routerLinkActive="active">
                     <a [routerLink]="['/app/view-case-sheet']"> View Case Sheet </a>
-                </li>
+                </li>-->
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/molecular-report']"> Report - Sample Status </a>
                 </li>

@@ -31,16 +31,8 @@ export class MolecularLabsampleService {
     return this.http.get<any>( {url:apiUrl});
   }
 
-  addCBCtest(obj){
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDCBCTEST);
-    return this.http.post<any>({url:apiUrl, body: obj });
-
+  getMolecularReport(subjectObj){
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.RETRIVEMOLECULARREPORTS1);
+    return this.http.post<any>( {url:apiUrl, body: subjectObj});
   }
-
-  addSSTtest(obj){
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDSSTTEST);
-    return this.http.post<any>({url:apiUrl, body: obj });
-
-  }
-
 }

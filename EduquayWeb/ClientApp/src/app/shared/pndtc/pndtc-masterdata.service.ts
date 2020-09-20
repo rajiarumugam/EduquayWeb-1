@@ -75,5 +75,11 @@ export class PNDTCmasterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
+  getMLSampleStatus(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.RETRIVEMOLECULARSAMPLESTATUS);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
   
 }
