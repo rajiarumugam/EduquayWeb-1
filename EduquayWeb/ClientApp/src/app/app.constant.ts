@@ -91,9 +91,9 @@ export const ENDPOINT = {
         "ADDRECEIVEDSHIPMENT":"api/v1/MolecularLab/AddReceivedShipments",
         "RETRIVERECEIVEDSUBJECTS":"api/v1/MolecularLab/RetrieveReceivedSubjects/",
         "ADDMOLECULARRESULT":"api/v1/MolecularLab/AddMolecularResult",
-        "RETRIVEMOLECULARREPORTS":"api​/v1​/MolecularLab​/RetrieveMolecularReports",
+        "RETRIVEMOLECULARREPORTS":"api/v1/MolecularLab/RetrieveMolecularReports",
         "RETRIVEMOLECULARSAMPLESTATUS":"api/v1/MolecularLab/RetrieveMolecularSampleStatus",
-        "RETRIVEMOLECULARREPORTS1":"api​/v1​/MolecularLab​/RetrieveMolecularReports",
+        "RETRIVEMOLECULARREPORTS1":"api/v1/MolecularLab/RetrieveMolecularReports",
     }
 
 }

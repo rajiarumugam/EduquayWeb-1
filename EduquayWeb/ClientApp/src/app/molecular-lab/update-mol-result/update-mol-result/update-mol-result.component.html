@@ -26,9 +26,9 @@
                             <td class="text-center">{{pnddata.district}}</td>
                             
                             <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl"></i></a></td>
+                                        ></i></a></td>
                             <td class="text-center"><a (click)="openviewPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
-                                          data-target=".bd-example-modal-xl"></i></a></td>
+                                          ></i></a></td>
   
 
                         </tr>
@@ -41,7 +41,7 @@
 </div>
 
 
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-xl" id="fadeinModal" tabindex="-1" role="dialog"
                                 aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                                     <div class="modal-content">

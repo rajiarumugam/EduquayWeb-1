@@ -160,7 +160,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
     this.firstFormCheck = true;
     console.log(this.firstFormGroup.valid);
 
-
+    
 
       if(this.secondFormGroup.get('processSample').value == "false")
       {
@@ -184,7 +184,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
         
         _obj['diagnosisId'] = this.secondFormGroup.get('processSample').value == "false" ? 0 : Number(this.firstFormGroup.get('geneticDiagnosis').value);
         _obj['resultId'] = this.secondFormGroup.get('processSample').value == "false" ? 0 : Number(this.firstFormGroup.get('molecularresult').value);
-        _obj['processSample'] = Boolean(this.secondFormGroup.get('processSample').value);
+        _obj['processSample'] = this.secondFormGroup.get('processSample').value == "true" ? true : false;
         _obj['remarks'] = this.selectedRemarks == undefined ? "":this.selectedRemarks;
         _obj['userId'] = user.id;
       console.log(_obj);
