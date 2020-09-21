@@ -97,6 +97,7 @@ import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sa
 import { CentralHPLCupdateComponent } from "./central-lab/HPLC-update/central-update-hplc/central-update-hplc.component";
 import { CentralReceivedSampleComponent } from "./central-lab/HPLC-update/central-update-hplc-received/central-update-hplc-received.component";
 import { CentralHPLCUploadComponent } from "./central-lab/HPLC-update/central-update-hplc-upload/central-update-hplc-upload.component";
+import { CentralLabReportResolverService } from "./shared/centrallab/centrallab-report-resolver.service";
 
 import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
 import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";
@@ -213,6 +214,8 @@ import { UpdateMolResultViewComponent } from "./molecular-lab/update-mol-result/
 import { MLSampleRcptResolverService } from "./shared/molecularlab/ml-sample-rcpt-resolver.service";
 import { MLUpdateMolResultResolverService } from "./shared/molecularlab/ml-update-mol-result-resolver.service";
 import { MolucularLabReportResolverService } from "./shared/molecularlab/mi-report-resolver.service";
+
+import { CHCReportResolverService } from "./shared/chc-sample/chc-report-resolver.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -368,13 +371,13 @@ const routes: Routes = [
       {
         path: 'centrallab-report', component: CentralLabreportSampleStatusMainComponent,
         children:[
-          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CentralLabReportResolverService}}
         ]
       },
       {
         path: 'chc-report', component: CHCreportSampleStatusMainComponent,
         children:[
-          {path: '', component: CHCreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}}
+          {path: '', component: CHCreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CHCReportResolverService}}
         ]
       },
       {

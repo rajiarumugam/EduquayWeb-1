@@ -17,23 +17,17 @@
               </div>
                 <div class="form-group col-md-2">
                     <label for="inputSubjectcategory">Sample Status</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedDistrict" (ngModelChange)="districtChange()">
-                      <option [ngValue]="null">Select District</option>
-                      <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-                    </select>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                        <option [ngValue]="null">Select Status</option>
+                        <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
+                      </select>
                 </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">District</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedDistrict" (ngModelChange)="districtChange()">
-                      <option [ngValue]="null">Select District</option>
-                      <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-                    </select>
-                </div>
+                
                 <div class="form-group col-md-1">
                     <label for="inputSubjectcategory">CHC</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" [disabled]="selectedDistrict == null ? true : false" (ngModelChange)="chcChange()">
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" (ngModelChange)="chcChange()">
                       <option [ngValue]="null">Select CHC</option>
-                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-1">
@@ -64,12 +58,12 @@
                             <th><span>Subject Name</span></th>
                             <th><span>Subject ID</span></th>
                             <th><span>RCH ID</span></th>
+                            <th><span>ANM Name</span></th>
+                            <th><span>RI Point</span></th>
                             <th><span>Barcode</span></th>
                             <th><span>Shipment Date</span></th>
                             <th><span>Sample Status</span></th>
-                            <th><span>Clinical Diagnosis</span></th>
-                            <th><span>View</span></th>
-                            <th><span>Print</span></th>
+                            <th><span>Result</span></th>
                         </tr>
 
                     </thead>
@@ -77,18 +71,14 @@
                         <tr *ngFor="let pnddata of pndPendingArray; index as i">
                             <td>{{i+1}}</td>
                             <td style="text-align: left">{{pnddata.subjectName}}</td>
-                            <td class="text-center">{{pnddata.anwSubjectId}}</td>
+                            <td class="text-center">{{pnddata.uniqueSubjectId}}</td>
                             <td class="sid text-center">{{pnddata.rchId}}</td>
-                            <td style="text-align: left">{{pnddata.contactNo}}</td>
-                            <td class="text-center">{{pnddata.lmpDate}}</td>
-                            <td class="text-center">{{pnddata.ga}}</td>
-                            <td class="text-left">{{pnddata.schedulePNDTDate}} {{pnddata.schedulePNDTTime}}</td>
-                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl"></i></a></td>
-                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-print text-primary" aria-hidden="true" data-toggle="modal"
-                                          data-target=".bd-example-modal-xl"></i></a></td>
-  
-
+                            <td style="text-align: left">{{pnddata.anmName}}</td>
+                            <td class="text-center">{{pnddata.riPoint}}</td>
+                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                            <td class="text-left">{{pnddata.shipmentDate}}</td>
+                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                            <td class="text-left">{{pnddata.hplcResult}}</td>
                         </tr>
                     </tbody>
                 </table>

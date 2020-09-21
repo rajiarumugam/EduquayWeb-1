@@ -53,8 +53,10 @@ type AOA = any[][];
           this.centralUploadResultData = this.DataService.getdata().centraluploaddata;
           this.showUploadResult = true;
       }
-      if(this.centralUploadResultData.length === 0)
-        this.allowUpload = true;
+      if(this.centralReceiptsData.length === 0)
+          this.allowUpload = true;
+        else
+          this.allowUpload = false;
       this.DataService.sendData(JSON.stringify({'screen':'CENTRAL','page':"upload","uploadcount":this.centralUploadResultData.length,"receivedcount":this.centralReceiptsData.length-this.centralUploadResultData.length, "module": "Central Lab", "submodule": "Update HPLC Results", "pagealter": " Upload HPLC Results"}));
     }
     else{

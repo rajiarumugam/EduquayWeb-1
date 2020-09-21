@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 declare var $: any;
+import * as moment from 'moment';
+import { centralsampleService } from "./../../../shared/centrallab/central-sample.service";
 
 @Component({
   selector: 'app-repot-sample-status',
@@ -42,6 +44,9 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   fromDate = "";
   toDate = "";
 
+  sampleStatusData = [];
+  selectedSampleStatus = null;
+
   DAY = 86400000;
   dateform:FormGroup;
   startOptions1: FlatpickrOptions = {
@@ -59,7 +64,7 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   };
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder
+    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private centralsampleService:centralsampleService
   ) { }
 
   ngOnInit() {
@@ -71,25 +76,14 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
     });
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
-      this.pndPendingArray = pndtcTestingArr.data;
+      this.pndPendingArray = pndtcTestingArr.subjects;
+      console.log(this.pndPendingArray);
     }
 
-    var _subjectObj = {
-      "districtId": 0,
-      "chcId": 0,
-      "phcId": 0,
-      "anmId": 0
-    }
-    this.PNDCService.getnotCompleteDetails(_subjectObj) .subscribe(response => {
-      console.log(response);
-      this.pndNotCompleteArray = response.data;
-      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length}));
-    },
-    (err: HttpErrorResponse) =>{
-     
-    });
+    
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.getDistrictData();
+    this.getSampleStatusData();
+    this.getCHCData();
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -129,7 +123,16 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
       });
     });
   }
-
+  getSampleStatusData(){
+    this.centralsampleService.getSampleStatus()
+    .subscribe(response => {
+      console.log(response);
+      this.sampleStatusData = response['sampleStatus'];
+    },
+    (err: HttpErrorResponse) =>{
+      this.sampleStatusData = [];
+    });
+  }
   getDistrictData(){
     this.PNDTCmasterService.getPNDTCDistrict()
     .subscribe(response => {
@@ -141,11 +144,11 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
       //this.erroMessage = err.toString();
     });
   }
-  districtChange(){
-    this.PNDTCmasterService.getDistrictBasedCHC(this.selectedDistrict)
+  getCHCData(){
+    this.PNDTCmasterService.getCHCbyCentrallab()
     .subscribe(response => {
       console.log(response);
-      this.CHCdata = response['data'];
+      this.CHCdata = response['chc'];
       console.log(this.selectedchc);
     },
     (err: HttpErrorResponse) =>{
@@ -179,14 +182,17 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   refreshData()
   {
     var _subjectObj = {
-      "districtId":this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
+      "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
+      "centralLabId": this.user.centralLabId,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
       "phcId":this.selectedphc != null ? Number(this.selectedphc) : 0,
-      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0
+      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0,
+      "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
+      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
     }
-    this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
+    this.centralsampleService.getCentralLabReport(_subjectObj) .subscribe(response => {
       console.log(response);
-      this.pndPendingArray = response.data;
+      this.pndPendingArray = response.subjects;
       this.rerender();
     },
     (err: HttpErrorResponse) =>{

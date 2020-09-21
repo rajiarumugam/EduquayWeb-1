@@ -4,6 +4,7 @@ import { GenericService } from '../generic.service';
 import { HttpClientService } from '../http-client.service';
 import { ENDPOINT } from 'src/app/app.constant';
 import { TokenService } from 'src/app/shared/token.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -37,4 +38,14 @@ export class chcsampleService {
 
   }
 
+  getCHCSampleReport(subjectObj){
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECHCSAMPLEREPORT);
+    return this.http.post<any>( {url:apiUrl, body: subjectObj});
+  }
+
+  getSampleStatus(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECHCSAMPLESTATUS);
+    return this.http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }

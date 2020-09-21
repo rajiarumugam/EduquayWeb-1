@@ -54,8 +54,11 @@ type AOA = any[][];
           this.showUploadResult = true;
           
       }
-      if(this.chcUploadResultData.length === 0)
+      if(this.chcReceiptsData.length === 0)
             this.allowUpload = true;
+      else
+            this.allowUpload = false;
+            
       this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"upload","uploadcount":this.chcUploadResultData.length,"receivedcount":this.chcReceiptsData.length-this.chcUploadResultData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Upload CBC Results"}));
     }
     else{
