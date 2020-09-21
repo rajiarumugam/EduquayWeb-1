@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 declare var $: any;
+import * as moment from 'moment';
+import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
 
 @Component({
   selector: 'app-repot-sample-status',
@@ -27,6 +29,8 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
+  sampleStatusData = [];
+  selectedSampleStatus = null;
   districts = [];
   selectedDistrict = null;
   user;
@@ -59,37 +63,26 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   };
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder
+    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder,private MolecularLabsampleService:MolecularLabsampleService
   ) { }
 
   ngOnInit() {
-    var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
+    var pndtcTestingArr = this.route.snapshot.data.mlReport;
     console.log(pndtcTestingArr);
     this.dateform = this._formBuilder.group({
       fromDate: [''],
       toDate: ['']
     });
+    console.log(pndtcTestingArr);
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
       this.pndPendingArray = pndtcTestingArr.data;
     }
 
-    var _subjectObj = {
-      "districtId": 0,
-      "chcId": 0,
-      "phcId": 0,
-      "anmId": 0
-    }
-    this.PNDCService.getnotCompleteDetails(_subjectObj) .subscribe(response => {
-      console.log(response);
-      this.pndNotCompleteArray = response.data;
-      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length}));
-    },
-    (err: HttpErrorResponse) =>{
-     
-    });
+
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getDistrictData();
+    this.getSampleStatus();
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -176,15 +169,32 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     });
   }
 
+  getSampleStatus(){
+    this.PNDTCmasterService.getMLSampleStatus()
+    .subscribe(response => {
+      console.log(response);
+      this.sampleStatusData = response['sampleStatus'];
+    },
+    (err: HttpErrorResponse) =>{
+      this.sampleStatusData = [];
+      this.erroMessage = err.toString();
+    });
+  }
+
   refreshData()
   {
+
     var _subjectObj = {
+      "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
+      "molecularLabId": this.user.molecularLabId,
       "districtId":this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
       "phcId":this.selectedphc != null ? Number(this.selectedphc) : 0,
-      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0
+      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0,
+      "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
+      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
     }
-    this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
+    this.MolecularLabsampleService.getMolecularReport(_subjectObj).subscribe(response => {
       console.log(response);
       this.pndPendingArray = response.data;
       this.rerender();

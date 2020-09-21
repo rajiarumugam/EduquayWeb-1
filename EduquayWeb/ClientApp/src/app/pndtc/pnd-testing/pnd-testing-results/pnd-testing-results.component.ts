@@ -74,6 +74,7 @@ export class PNDTestingResultsComponent implements OnInit {
   selectedpathologistName = "";
   selectedOthers;
   fselectedMotherVoided;
+  disableDatepicker = false;
 
   selectedItems = [];
   minPndtDate;
@@ -148,6 +149,10 @@ export class PNDTestingResultsComponent implements OnInit {
       anyOtherComplications: [""]
    });
 
+   if(this.testingPNDData.pndTestId != undefined)
+      this.disableDatepicker = true;
+    else
+      this.disableDatepicker = false;
    
    let _tempMotherVoided = "";
    if(this.testingPNDData.motherVoided != undefined)
@@ -484,13 +489,17 @@ export class PNDTestingResultsComponent implements OnInit {
     var _tempCurrentDate = this.testingPNDData.schedulePNDTDate.split('/')[2]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[1]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[0]+" "+this.testingPNDData.schedulePNDTTime;
     console.log(new Date(this.testingPNDData.schedulePNDTDate.split('/')[2]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[1]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[0]));
     //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.set({
-      minDate: this.minPndtDate,
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
+    if(!this.disableDatepicker)
+    {
+      this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+      this.DORPicker.flatpickr.set({
+        minDate: this.minPndtDate,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
+    }
+    
   }
   sendDataToService(_obj)
   {

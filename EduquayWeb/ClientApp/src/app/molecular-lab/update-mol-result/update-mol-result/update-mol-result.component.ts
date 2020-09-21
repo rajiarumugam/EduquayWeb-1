@@ -64,8 +64,8 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
     console.log(pndtcTestingArr);
 
     this.firstFormGroup = this._formBuilder.group({
-      geneticDiagnosis: ['', Validators.required],
-      molecularresult: ['', Validators.required]
+      geneticDiagnosis: [''],
+      molecularresult: ['']
    });
 
    this.secondFormGroup = this._formBuilder.group({
@@ -105,9 +105,17 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
   {
     console.log(event.target.value);
     if(event.target.value == 'false')
-        this.showRemarks = true;
+    {
+      this.showRemarks = true;
+      this.selectedDiagnosis = null;
+      this.selectedResult = null;
+    }
     else
+    {
+      this.selectedRemarks = "";
       this.showRemarks = false;
+    }
+      
   }
   getClinicalDiagnosisData(){
     this.masterService.getClinicalDiagnosis()
@@ -151,8 +159,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
   {
     this.firstFormCheck = true;
     console.log(this.firstFormGroup.valid);
-    if(this.firstFormGroup.valid && this.secondFormGroup.valid)
-    {
+
 
 
       if(this.secondFormGroup.get('processSample').value == "false")
@@ -162,19 +169,25 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
               return;
           }
       }
+      else
+      {
+          if(this.firstFormGroup.get('geneticDiagnosis').value == undefined || this.firstFormGroup.get('molecularresult').value == undefined)
+          {
+            return;
+          }
+      }
         var user = JSON.parse(this.tokenService.getUser('lu'));
 
         var _obj = {};
         _obj['uniqueSubjectId'] = this.popupSelectedData.uniqueSubjectId;
         _obj['barcodeNo'] = this.popupSelectedData.barcodeNo;
         
-        _obj['diagnosisId'] = Number(this.firstFormGroup.get('geneticDiagnosis').value);
-        _obj['resultId'] = Number(this.firstFormGroup.get('molecularresult').value);
+        _obj['diagnosisId'] = this.secondFormGroup.get('processSample').value == "false" ? 0 : Number(this.firstFormGroup.get('geneticDiagnosis').value);
+        _obj['resultId'] = this.secondFormGroup.get('processSample').value == "false" ? 0 : Number(this.firstFormGroup.get('molecularresult').value);
         _obj['processSample'] = Boolean(this.secondFormGroup.get('processSample').value);
         _obj['remarks'] = this.selectedRemarks == undefined ? "":this.selectedRemarks;
         _obj['userId'] = user.id;
       console.log(_obj);
-
         var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.ADDMOLECULARRESULT);
         this.httpClientService.post<any>({url:apiUrl, body: _obj}).subscribe(response => {
           
@@ -208,7 +221,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
               (err: HttpErrorResponse) =>{
                 console.log(err);
               });
-    }
+
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

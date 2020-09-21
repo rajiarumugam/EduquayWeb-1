@@ -32,7 +32,10 @@ export const ENDPOINT = {
         "RETRIVECBC":"api/v1/CHCReceiptProcessing/RetrieveCBC/",
         "ADDCBCTEST":"api/v1/CHCReceiptProcessing/AddCBCTest",
         "RETRIVESST":"api/v1/CHCReceiptProcessing/RetrieveSST/",
-        "ADDSSTTEST":"api/v1/CHCReceiptProcessing/AddSSTest"
+        "ADDSSTTEST":"api/v1/CHCReceiptProcessing/AddSSTest",
+        "RETRIVECHCSAMPLEREPORT":"api/v1/CHCReceiptProcessing/RetrieveCHCSampleStatusReports",
+        "RETRIVECHCSAMPLESTATUS":"api/v1/CHCReceiptProcessing/RetrieveCHCSampleStatus",
+        "RETRIVECHCBYTESTINGCHC":"api/v1/WebMaster/RetrieveCHCByTestingCHC/"
     },
     "CENTRALLAB":
     {
@@ -42,7 +45,10 @@ export const ENDPOINT = {
         "ADDHPLCTEST":"api/v1/CentralLab/AddHPLCTest",
         "RETRIVESHIPMENTLOG":"api/v1/CentralLab/RetrieveShipmentLog/",
         "RETRIVEPICKANDPACK":"api/v1/CentralLab/RetrievePickandPack/",
-        "ADDSHIPMENT":"api/v1/CentralLab/AddShipment"
+        "ADDSHIPMENT":"api/v1/CentralLab/AddShipment",
+        "RETRIVECENTRALLABREPORT":"api/v1/CentralLab/RetrieveCentralLabReports",
+        "RETRIVECENTRALLABSAMPLESTATUS":"api/v1/CentralLab/RetrieveCentralLabSampleStatus",
+        "RETRIVECHCBYCENTRALLAB":"api/v1/WebMaster/RetrieveCHCByCentralLab/"
     },
     "PATHOLOGIST":
     {
@@ -84,7 +90,10 @@ export const ENDPOINT = {
         "RETRIVEMOLECULARLABRECEPIT":"api/v1/MolecularLab/RetrieveMolecularLabReceipt/",
         "ADDRECEIVEDSHIPMENT":"api/v1/MolecularLab/AddReceivedShipments",
         "RETRIVERECEIVEDSUBJECTS":"api/v1/MolecularLab/RetrieveReceivedSubjects/",
-        "ADDMOLECULARRESULT":"api/v1/MolecularLab/AddMolecularResult"
+        "ADDMOLECULARRESULT":"api/v1/MolecularLab/AddMolecularResult",
+        "RETRIVEMOLECULARREPORTS":"api​/v1​/MolecularLab​/RetrieveMolecularReports",
+        "RETRIVEMOLECULARSAMPLESTATUS":"api/v1/MolecularLab/RetrieveMolecularSampleStatus",
+        "RETRIVEMOLECULARREPORTS1":"api​/v1​/MolecularLab​/RetrieveMolecularReports",
     }
 
 }

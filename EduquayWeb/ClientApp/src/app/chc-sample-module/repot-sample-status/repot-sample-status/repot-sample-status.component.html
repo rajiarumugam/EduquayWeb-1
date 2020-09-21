@@ -17,23 +17,17 @@
               </div>
                 <div class="form-group col-md-2">
                     <label for="inputSubjectcategory">Sample Status</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedDistrict" (ngModelChange)="districtChange()">
-                      <option [ngValue]="null">Select District</option>
-                      <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-                    </select>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                        <option [ngValue]="null">Select Status</option>
+                        <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
+                      </select>
                 </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">District</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedDistrict" (ngModelChange)="districtChange()">
-                      <option [ngValue]="null">Select District</option>
-                      <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-                    </select>
-                </div>
+                
                 <div class="form-group col-md-1">
                     <label for="inputSubjectcategory">CHC</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" [disabled]="selectedDistrict == null ? true : false" (ngModelChange)="chcChange()">
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" (ngModelChange)="chcChange()">
                       <option [ngValue]="null">Select CHC</option>
-                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-1">
@@ -64,12 +58,12 @@
                             <th><span>Subject Name</span></th>
                             <th><span>Subject ID</span></th>
                             <th><span>RCH ID</span></th>
+                            <th><span>ANM Name</span></th>
+                            <th><span>RI Point</span></th>
                             <th><span>Barcode</span></th>
                             <th><span>Shipment Date</span></th>
                             <th><span>Sample Status</span></th>
-                            <th><span>Clinical Diagnosis</span></th>
-                            <th><span>View</span></th>
-                            <th><span>Print</span></th>
+                            <th><span>Result</span></th>
                         </tr>
 
                     </thead>
@@ -77,18 +71,14 @@
                         <tr *ngFor="let pnddata of pndPendingArray; index as i">
                             <td>{{i+1}}</td>
                             <td style="text-align: left">{{pnddata.subjectName}}</td>
-                            <td class="text-center">{{pnddata.anwSubjectId}}</td>
+                            <td class="text-center">{{pnddata.uniqueSubjectId}}</td>
                             <td class="sid text-center">{{pnddata.rchId}}</td>
-                            <td style="text-align: left">{{pnddata.contactNo}}</td>
-                            <td class="text-center">{{pnddata.lmpDate}}</td>
-                            <td class="text-center">{{pnddata.ga}}</td>
-                            <td class="text-left">{{pnddata.schedulePNDTDate}} {{pnddata.schedulePNDTTime}}</td>
-                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl"></i></a></td>
-                            <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-print text-primary" aria-hidden="true" data-toggle="modal"
-                                          data-target=".bd-example-modal-xl"></i></a></td>
-  
-
+                            <td style="text-align: left">{{pnddata.anmName}}</td>
+                            <td class="text-center">{{pnddata.riPoint}}</td>
+                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                            <td class="text-left">{{pnddata.shipmentDate}}</td>
+                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                            <td class="text-left">{{pnddata.cbcResult}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -98,116 +88,4 @@
     </div>
 </div>
 
-
-<div class="modal mdllarge fade bd-example-modal-xl" id="fadeinModal" tabindex="-1" role="dialog"
-                    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-              <div class="modal-dialog  modal-xl modal-dialog-centered">
-                  <!-- Modal content-->
-                  <div class="modal-content" id="exampleModalLabel">
-                      <div class="modal-header">
-                          <h5 class="modal-title modaltitle text-center">Report - Sample Status</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                  height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                  class="feather feather-x">
-                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                              </svg>
-                          </button>
-                      </div>
-
-                      <div class="modal-body form-body">
-                          
-                          <div class="row my-2">
-                              <div class="col-md-4">
-                                  <h5 class="float-left"><b>Subject ID</b> : OD001202032110</h5>
-                              </div>
-                              <div class="col-md-4">
-                                  <!-- <h5 class="float-center"><b>Infant ID</b> : OD001202032110</h5> -->
-                              </div>
-                              <div class="col-md-4 d-flex justify-content-end">
-                                  <div class="btn-toolbar mb-2 mb-md-0">
-                                      <div class="btn-group">
-                                          <button type="button" class="btn btn-sm btn-outline-light">
-                                              <img src="assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button>
-                                          <button type="button" class="btn btn-sm btn-outline-light">
-                                              <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row my-2">
-                              <div class="col-md-12">
-                                  <div class="table-responsive" style="overflow-x: hidden;">
-                                      <table class="table table-bordered table-striped">
-                                          <thead class="tablecss">
-                                              <tr class="" style="background-color: #e3e8ef;">
-                                                  <th colspan="8" class="text-left"
-                                                      style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
-                                                  </th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              <tr>
-                                                  <td class="sp-xs-td-9 text-left"><b>Subject Name</b></td>
-                                                  <td class="sp-xs-td-15 text-left">Mrs.Alkha</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>Subject ID</b></td>
-                                                  <td class="sp-xs-td-15 text-left">OD001202032110</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>Age</b></td>
-                                                  <td class="sp-xs-td-15 text-left">28 yrs</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>Contact No</b></td>
-                                                  <td class="sp-xs-td-15 text-left">7898765342</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-left"><b>LMP Date</b></td>
-                                                  <td class="text-left">20/05/2020</td>
-                                                  <td class="text-left"><b>Gestational Age</b></td>
-                                                  <td class="text-left">12</td>
-                                                  <td class="text-left"><b>RCH ID</b></td>
-                                                  <td class="text-left">123456</td>
-                                                  <td class="text-left"><b>Obstetrics Score</b></td>
-                                                  <td class="text-left">G2-P1-L1-A1</td>
-                                                  
-                                                  
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-left"><b>EC Number</b></td>
-                                                  <td class="text-left">12345678</td>
-                                              </tr>
-                                          </tbody>
-                                      </table>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="table-responsive my-3">
-                              <table class="table table-bordered table-striped">
-                                  <thead class="tablecss">
-                                      <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>
-                                                  Result</b>
-                                          </th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <tr>
-                                          <td class="sp-xs-td-9 text-left"><b>Clinical Diagnosis</b></td>
-                                          <td class="sp-xs-td-15 text-left"> Homozygous Beta Thalassemia</td>
-                                          <td class="sp-xs-td-9 text-left"><b>Molecular Test Result</b></td>
-                                          <td class="sp-xs-td-15 text-left"> DNA Test Positive</td>
-  
-                                      </tr>
-  
-                                  </tbody>
-                              </table>
-                          </div>
-                          <div class="modal-footer">
-                              <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                                  Close</button>
-                              <!-- <button type="button" class="btn btn-primary">Save</button> -->
-                          </div>
-                  </div>
-              </div>
-          </div>
-</div>
 

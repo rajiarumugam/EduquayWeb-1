@@ -42,6 +42,7 @@ export class MTPTestingResultsComponent implements OnInit {
   POTDiagnosis= [];
   POTResultData = [];
   selectedothercomp;
+  disableDatePicker = false;
 
   complicationsdata = [];
   settings = {};
@@ -149,7 +150,11 @@ export class MTPTestingResultsComponent implements OnInit {
    
     
 
-    
+    if(this.testingPNDData.mtpID != undefined)
+        this.disableDatePicker = true;
+      else
+        this.disableDatePicker = false;
+   
     if(this.testingPNDData.mtpClinicalHistory != undefined)
         this.selectedclinicalHistory = this.testingPNDData.mtpClinicalHistory;
     if(this.testingPNDData.mtpExamination != undefined)
@@ -341,13 +346,17 @@ export class MTPTestingResultsComponent implements OnInit {
     var _tempCurrentDate = this.testingPNDData.mtpScheduleDate.split('/')[2]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[1]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[0]+" "+this.testingPNDData.mtpScheduleTime;
     console.log(new Date(this.testingPNDData.mtpScheduleDate.split('/')[2]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[1]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[0]));
     //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.set({
-      minDate: this.minMTPDate,
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
+    if(!this.disableDatePicker)
+    {
+      this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+      this.DORPicker.flatpickr.set({
+        minDate: this.minMTPDate,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
+    }
+    
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
