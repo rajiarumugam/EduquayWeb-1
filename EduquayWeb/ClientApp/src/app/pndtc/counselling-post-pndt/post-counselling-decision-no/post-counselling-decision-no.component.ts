@@ -125,7 +125,7 @@ export class PostCounsellingDecisionNoComponent implements AfterViewInit, OnDest
   
         });
     }
-    onChangeDistrict() {
+    onChangeDistrict(event) {
   
       if (this.selectedDistrict === '') {
         this.selectedchc = '';
@@ -135,7 +135,7 @@ export class PostCounsellingDecisionNoComponent implements AfterViewInit, OnDest
       }
     }
   
-    onChangechc(){
+    onChangechc(event){
   
       if (this.selectedchc === '') {
         this.selectedphc = '';
@@ -146,7 +146,7 @@ export class PostCounsellingDecisionNoComponent implements AfterViewInit, OnDest
       
     }
   
-    onChangephc(){
+    onChangephc(event){
   
       if (this.selectedphc === '') {
         this.selectedanm = '';  

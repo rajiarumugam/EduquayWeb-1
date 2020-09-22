@@ -15,7 +15,7 @@ import { PostMtpFollowupService } from 'src/app/shared/anm-module/notifications/
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { anmPostMTP, PostMtpFollowupResponse, UpdatePostMtpFollowupResponse } from 'src/app/shared/anm-module/notifications/post-mtp-followup/post-mtp-followup-response';
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
-import { dataModel, PndtMtpMasterResponse } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
+import { dataModel, getfollowupstatus, PndtMtpMasterResponse } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { PostMtpFollowupRequest } from 'src/app/shared/anm-module/notifications/post-mtp-followup/post-mtp-followup-request';
 
 @Component({
@@ -72,6 +72,8 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   getsecondFollowUp: number;
   getthirdFollowUp: number;
   postMtpData: anmPostMTP;
+  getfollowupstatus: getfollowupstatus[]= [];
+  id: number;
 
   constructor(
     private anmpostMTPService: PostMtpFollowupService,
@@ -146,8 +148,16 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
-        this.firstfollowUpStatus = this.postmtpMasterResponse.data;
+       this.firstfollowUpStatus = this.postmtpMasterResponse.data;  
+        //this.getfollowupstatus.push(newRecord);
         this.selectedfirstfollowup = "";
+        // this.firstfollowUpStatus.forEach(element1 => {
+        //   var getdataindex = this.firstfollowUpStatus.findIndex(com => com.id === element1.id)
+        //   if (getdataindex >= 0) {
+        //     this.getfollowupstatus.push(this.firstfollowUpStatus[getdataindex]);
+        //   }
+        // }); 
+       
       }
       else {
         this.anmpostMTPErrorMessage = response.message;

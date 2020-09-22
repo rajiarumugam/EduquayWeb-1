@@ -7,4 +7,10 @@ export class PndtMtpMasterResponse {
 export interface dataModel {
     id: number;
     name: string;
+    getfollowupstatus: getfollowupstatus[];
+}
+
+export interface getfollowupstatus {
+    id: number;
+    name: string;
 }
