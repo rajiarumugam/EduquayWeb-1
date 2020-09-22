@@ -15,6 +15,7 @@ import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.servi
 import { MTPService } from "../../../shared/mtp/mtp.service";
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 
 @Component({
@@ -106,14 +107,14 @@ export class MTPTestingResultsComponent implements OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private PNDTCmasterService: PNDTCmasterService, private MTPService:MTPService) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private PNDTCmasterService: PNDTCmasterService, private MTPService:MTPService, private loaderService: LoaderService) {
 
    
    }
 
   ngOnInit() {
 
-   
+    this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
    
    this.testResultGroup = this._formBuilder.group({
@@ -127,7 +128,10 @@ export class MTPTestingResultsComponent implements OnInit {
     this.selectedcounsellerName = this.testingPNDData.pndtCounsellorName;
     this.selectedpndtDate = this.testingPNDData.mtpScheduleDate+" "+this.testingPNDData.mtpScheduleTime;
     this.minMTPDate = this.testingPNDData.postPNDTCounsellingDateTime;
-    this.selectedObstetricianName = this.testingPNDData.postPNDTObstetricianName;
+    if(this.testingPNDData.mtpObstetricianName != undefined)
+      this.selectedObstetricianName = this.testingPNDData.mtpObstetricianName;
+    else
+      this.selectedObstetricianName = this.testingPNDData.postPNDTObstetricianName;
     console.log(this.DataService.getdata().MTPtestingResult);
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
 
@@ -287,7 +291,7 @@ export class MTPTestingResultsComponent implements OnInit {
       console.log(this.FormGroup.valid);
         if(this.FormGroup.valid && this.selectedcomplicationsItems.length > 0) 
         {
-
+          
           var _tempComplectionData;
           this.selectedcomplicationsItems.forEach((element,index) => {
             if(index === 0)
@@ -315,14 +319,17 @@ export class MTPTestingResultsComponent implements OnInit {
   
   sendDataToService(_obj)
   {
+    this.loaderService.display(true);
     this.MTPService.postMTPTest(_obj)
         .subscribe(response => {
           this.diagnosisReportResponse = response;
+          this.loaderService.display(false);
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
               Swal.fire({ allowOutsideClick: false,
                 text: 'MTP Updated Successfully.',
                 icon: 'success'
               }).then((result) => {
+                
                 $('#modal-dailog').modal('hide');
                this.FormGroup.reset();
                 this._location.back();
