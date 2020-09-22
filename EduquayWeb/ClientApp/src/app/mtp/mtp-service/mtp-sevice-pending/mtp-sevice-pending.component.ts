@@ -9,6 +9,7 @@ import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.servi
 import { MTPService } from "../../../shared/mtp/mtp.service";
 import { DataService } from 'src/app/shared/data.service';
 import { Router } from '@angular/router';
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-pnd-testing',
@@ -36,10 +37,11 @@ export class MTPPendingComponent implements AfterViewInit, OnDestroy, OnInit {
   mtpCompleteArray = [];
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private MTPService:MTPService
-    ,private dataservice: DataService,private router: Router
+    ,private dataservice: DataService,private router: Router,private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     var mtpTestingArr = this.route.snapshot.data.MTPTesting;
     console.log(mtpTestingArr);
     if(mtpTestingArr !== undefined && mtpTestingArr.status.toString() === "true"){
@@ -85,53 +87,66 @@ export class MTPPendingComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   getDistrictData(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getPNDTCDistrict()
     .subscribe(response => {
       this.districts = response['data'];
+      this.loaderService.display(false);
       //this.selectedDistrict = this.user.districtId;
     },
     (err: HttpErrorResponse) =>{
       this.districts = [];
+      this.loaderService.display(false);
       //this.erroMessage = err.toString();
     });
   }
   districtChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getDistrictBasedCHC(this.selectedDistrict)
     .subscribe(response => {
       console.log(response);
       this.CHCdata = response['data'];
+      this.loaderService.display(false);
       console.log(this.selectedchc);
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
   chcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
     .subscribe(response => {
       this.PHCdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
 
   phcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
     .subscribe(response => {
       console.log(response);
       this.ANMdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.ANMdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
 
   refreshData()
   {
+    this.loaderService.display(true);
     var _subjectObj = {
       "districtId":this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
@@ -142,9 +157,10 @@ export class MTPPendingComponent implements AfterViewInit, OnDestroy, OnInit {
       console.log(response);
       this.mtpPendingArray = response.data;
       this.rerender();
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
-     
+      this.loaderService.display(false);
     });
   }
 
