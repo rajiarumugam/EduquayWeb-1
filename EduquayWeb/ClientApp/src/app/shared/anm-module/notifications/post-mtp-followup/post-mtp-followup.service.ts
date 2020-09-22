@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenericService } from 'src/app/shared/generic.service';
 import { HttpClientService } from 'src/app/shared/http-client.service';
+import { PndtMtpMasterResponse } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { TokenService } from 'src/app/shared/token.service';
 import { PostMtpFollowupRequest } from './post-mtp-followup-request';
 import { PostMtpFollowupResponse, UpdatePostMtpFollowupResponse } from './post-mtp-followup-response';
@@ -13,6 +14,7 @@ export class PostMtpFollowupService {
 
   postMTPApi: string = "api/v1/ANMNotifications/RetrievePostMTPFollowUp";
   updatepostMTPApi: string = 'api/v1/ANMNotifications/UpdateMTPFollowUpStatus';
+  followUpStatusApi: string = "api/v1/PNDTMTPMaster/RetrieveFollowUp";
 
   userId: number;
 
@@ -33,5 +35,10 @@ export class PostMtpFollowupService {
   updatepostMtpReferral(updatemtpSamples: PostMtpFollowupRequest) {
     let apiUrl = this.genericServices.buildApiUrl(this.updatepostMTPApi);
     return this.http.post<UpdatePostMtpFollowupResponse>({ url: apiUrl, body: updatemtpSamples });
+  }
+
+  getfollowUpStatus(){
+    let apiUrl = this.genericServices.buildApiUrl(this.followUpStatusApi);
+    return this.http.get<PndtMtpMasterResponse>({url: apiUrl });
   }
 }

@@ -40,11 +40,11 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   anmpostMTPResponse: PostMtpFollowupResponse;
   postMTP: anmPostMTP[] = [];
   firstfollowUpStatus: dataModel[] = [];
-  selectedfirstfollowup: string;
+  selectedfirstfollowup: string = "";
   secondfollowUpStatus: dataModel[] = [];
-  selectedsecondfollowup: string;
+  selectedsecondfollowup: string = "";
   thirdfollowUpStatus: dataModel[] = [];
-  selectedthirdfollowup: string;
+  selectedthirdfollowup: string = "";
   anmpostMTPRequest: PostMtpFollowupRequest;
   anmupdatepostMTPResponse: UpdatePostMtpFollowupResponse;
 
@@ -61,12 +61,17 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   firstFollowUpStatusDetail: string;
   secondFollowUpStatusDetail: string;
   thirdFollowUpStatusDetail: string;
-  isSickSelected: boolean = false;
+  is_secondfollowup_edit: boolean = true;
+  is_thirfollowup_edit: boolean = true;
   mtpdatetimeFormat: Date;
   daysCount: number;
   firstfollowUpStatusdetail: string;
   secondfollowUpStatusdetail: string;
   thirdfollowUpStatusdetail: string;
+  getfirstFollowUp: number;
+  getsecondFollowUp: number;
+  getthirdFollowUp: number;
+  postMtpData: anmPostMTP;
 
   constructor(
     private anmpostMTPService: PostMtpFollowupService,
@@ -112,12 +117,29 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     // this.collectionDate = moment().format("DD/MM/YYYY");
     // this.collectionTime = moment().format("HH:mm");
     console.log(this.anmpostMTPService.postMTPApi);
-    this.anmpostMTP(this.user.id);
-    this.ddlfirstfollowUp();
-    this.ddlsecondfollowUp();
-    this.ddlthirdfollowUp();
+    this.anmpostMTP(this.user.id);   
 
   }
+
+  toggleSecondDisable() {
+    this.postMTP.forEach(element => {
+      if (element.firstFollowUp > 0 && element.daysCount >= 50) {
+        this.is_secondfollowup_edit = false;
+        console.log(this.is_secondfollowup_edit);
+      }
+    });
+  }
+
+  toggleThirdDisable() {
+    this.postMTP.forEach(element => {
+      if (element.secondFollowUp > 0 && element.daysCount >= 60) {
+        this.is_thirfollowup_edit = false;
+        console.log(this.is_thirfollowup_edit);
+      }
+    });
+  }
+
+  
 
   ddlfirstfollowUp() {
 
@@ -126,11 +148,6 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
         this.firstfollowUpStatus = this.postmtpMasterResponse.data;
         this.selectedfirstfollowup = "";
-        // this.postMTP.forEach(element => {
-        //   this.selectedfirstfollowup = element.firstFollowUp.toString(); 
-        //   console.log(this.selectedfirstfollowup);
-        // });
-        
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -142,13 +159,25 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       });
   }
 
+  // choosefirstfollowUp(firstfollowUpStatus: dataModel, selectedfirstfollowup: string){
+  //   if(selectedfirstfollowup === '1'){
+  //     firstfollowUpStatus.id = 1;
+  //   }
+  //   else if(selectedfirstfollowup === '2'){
+  //     firstfollowUpStatus.id = 2;
+  //   }
+  //   else if(selectedfirstfollowup === '3'){
+  //     firstfollowUpStatus.id = 3;
+  //   }
+  //   console.log(this.firstfollowUpStatus);
+  // }
+
   ddlsecondfollowUp() {
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
         this.secondfollowUpStatus = this.postmtpMasterResponse.data;
         this.selectedsecondfollowup = "";
-        this.isSickSelected = true;
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -178,8 +207,10 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   }
 
   anmpostMTP(userId) {
+
     this.loaderService.display(true);
     this.recordCount = 0; //step 3
+    //this.postMtpData = new anmPostMTP();
     this.postMTP = [];
     this.anmpostMTPErrorMessage = '';
     let samplesList = this.anmpostMTPService.getpostMTPList(this.user.id)
@@ -193,18 +224,20 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
           else {
             this.postMTP = this.anmpostMTPResponse.subjects;
             this.postMTP.forEach(element => {
-              // this.selectedfirstfollowup = element.firstFollowUp.toString(); 
-              // console.log(this.selectedfirstfollowup);
+              // this.getfirstFollowUp = element.firstFollowUp;
+              // this.getsecondFollowUp = element.secondFollowUp;
+              // this.getthirdFollowUp = element.thirdFollowUp;
               var date1: any = element.mtpdatetimeFormat = this.dateService.convertToDateTimeFormat(element.mtpDateTime);
               var date2: any = new Date(new Date().getTime());
               element.daysCount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
               console.log(element.daysCount);
-             
+              this.ddlfirstfollowUp();
+              this.ddlsecondfollowUp();
+              this.ddlthirdfollowUp();
             });
-
-            // this.selectedfirstfollowup = this.firstFollowUp.toString();
-            // this.selectedsecondfollowup = this.secondFollowUp.toString();
-            // this.selectedthirdfollowup = this.thirdFollowUp.toString();
+            //this.firstfollowUpStatus = this.postMtpData;
+            this.toggleSecondDisable();
+            this.toggleThirdDisable();
             this.recordCount = this.postMTP.length; //step 4
           }
         }
@@ -222,7 +255,7 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   }
 
   postmtpUpdateStatus(sample: anmPostMTP) {
-    
+
     this.anmpostMTPErrorMessage = '';
     if (sample.firstFollowUp > 0 && sample.daysCount > 50) {
 
@@ -330,8 +363,8 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
 
       }
       //Remove below 2 lines after successfully tested
-      // this.updatestatusResponseMessage(' testing Successfully registered', 's');
-      // return false;
+      this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      return false;
       let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
         .subscribe(response => {
           this.anmupdatepostMTPResponse = response;

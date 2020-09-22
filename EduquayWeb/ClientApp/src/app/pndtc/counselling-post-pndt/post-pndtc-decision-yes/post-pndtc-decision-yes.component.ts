@@ -182,7 +182,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
             this.isSelectedNo = this.counselledYesdataItem.isMTPAgreeNo;
             this.isSelectedPending = this.counselledYesdataItem.isMTPAgreePending;
             this.foetalDisease = this.counselledYesdataItem.foetalDisease;
-            const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.pndtDateTime);
+            const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.postPNDTCounsellingDateTime);
             this.mtpschedulePicker.flatpickr.set({
               minDate: regDate
             });
@@ -241,7 +241,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
       this.isSelectedNo = false;
       this.isSelectedPending = false;
       this.isDecisionYes = true;
-      const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.pndtDateTime);
+      const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.postPNDTCounsellingDateTime);
       this.dateOptions.minDate = regDate;
     }
     else if (radioBtnItem == 'decisionno') {

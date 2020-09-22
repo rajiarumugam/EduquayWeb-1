@@ -223,7 +223,7 @@ export class PostPndtcDecisionNoComponent implements OnInit {
         this.isSelectedPending = false;
         this.isDecisionYes = true;
         this.isDecisionawaited = false;
-        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledNodataItem.pndtDateTime);
+        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledNodataItem.postPNDTCounsellingDateTime);
         this.dateOptions.minDate = regDate;
       }
       else if (radioBtnItem == 'decisionno') {

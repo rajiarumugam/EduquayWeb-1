@@ -88,8 +88,9 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
       }
       else
         $('#showhidediv').hide();
-  
+        console.log(this.checkScroll());
     }
+    
   
     constructor(
       private dcpositivSubjectsService: DistrictCoordinatorService,
@@ -172,7 +173,7 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
     }
   
     openpositivSubjects(positivSubjectsDetail, sample: dcPositiveSubjectsList) {
-  
+
       this.subjectName= sample.subjectName;
       this.subjectId = sample.subjectId;
       this.rchId = sample.rchId;
@@ -201,8 +202,7 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
       this.cbcTestResult = sample.cbcTestResult;
       this.ssTestResult = sample.ssTestResult;
       this.hplcTestResult = sample.hplcTestResult;
-     
-  
+       
       this.modalService.open(
         positivSubjectsDetail, {
         centered: true,
