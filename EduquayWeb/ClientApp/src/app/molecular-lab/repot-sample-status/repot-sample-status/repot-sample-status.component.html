@@ -17,7 +17,7 @@
               </div>
                 <div class="form-group col-md-2">
                     <label for="inputSubjectcategory">Sample Status</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus" (ngModelChange)="districtChange()">
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
                       <option [ngValue]="null">Select Status</option>
                       <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
                     </select>
