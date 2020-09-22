@@ -125,7 +125,7 @@ export class PostCounsellingDecisionPendingComponent implements AfterViewInit, O
   
         });
     }
-    onChangeDistrict() {
+    onChangeDistrict(event) {
   
       if (this.selectedDistrict === '') {
         this.selectedchc = '';
@@ -135,7 +135,7 @@ export class PostCounsellingDecisionPendingComponent implements AfterViewInit, O
       }
     }
   
-    onChangechc(){
+    onChangechc(event){
   
       if (this.selectedchc === '') {
         this.selectedphc = '';
@@ -146,7 +146,7 @@ export class PostCounsellingDecisionPendingComponent implements AfterViewInit, O
       
     }
   
-    onChangephc(){
+    onChangephc(event){
   
       if (this.selectedphc === '') {
         this.selectedanm = '';  

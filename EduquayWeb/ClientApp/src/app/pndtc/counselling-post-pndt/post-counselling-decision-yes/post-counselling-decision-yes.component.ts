@@ -126,7 +126,7 @@ export class PostCounsellingDecisionYesComponent implements AfterViewInit, OnDes
   
         });
     }
-    onChangeDistrict() {
+    onChangeDistrict(event) {
   
       if (this.selectedDistrict === '') {
         this.selectedchc = '';
@@ -136,7 +136,7 @@ export class PostCounsellingDecisionYesComponent implements AfterViewInit, OnDes
       }
     }
   
-    onChangechc(){
+    onChangechc(event){
   
       if (this.selectedchc === '') {
         this.selectedphc = '';
@@ -147,7 +147,7 @@ export class PostCounsellingDecisionYesComponent implements AfterViewInit, OnDes
       
     }
   
-    onChangephc(){
+    onChangephc(event){
   
       if (this.selectedphc === '') {
         this.selectedanm = '';  
