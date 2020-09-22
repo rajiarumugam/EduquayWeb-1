@@ -103,7 +103,7 @@ export class MtpReferralComponent implements AfterViewInit, OnDestroy, OnInit {
     followUpStatus: string
     notifySamples: string;
   
-    @HostListener('window:scroll')
+    @HostListener('window:beforeunload', ['$event'])
     checkScroll() {
   
       // window의 scroll top

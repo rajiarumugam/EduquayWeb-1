@@ -141,7 +141,7 @@
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th class="text-center"><span>Subject Name</span></th>
+                                                <th class="text-center"><span>Subject Info</span></th>
                                                 <!-- <th class="text-center"><span>Barcodes</span></th> -->
                                                 <th class="text-center"><span>CBC</span></th>
                                                 <th class="text-center"><span>SST</span></th>
@@ -152,7 +152,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.subjectName}}</td>
+                                                <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>
                                                 <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                                 <td class="text-left">{{counsellingdataItem?.anwCBCTestResult}}</td>
                                                 <td class="text-left">{{counsellingdataItem?.anwSSTestResult}}</td>
@@ -160,7 +160,7 @@
 
                                             </tr>
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.spouseName}}</td>
+                                                <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>
                                                 <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                                 <td class="text-left">{{counsellingdataItem?.spouseCBCTestResult}}</td>
                                                 <td class="text-left">{{counsellingdataItem?.spouseSSTestResult}}</td>
@@ -252,13 +252,52 @@
                                                         </label>
                                                     </span>
 
-                                                    <div id="gallery-box" style="display: none;">
-                                                        <div class="row">
-                                                            <div class="col-md-12" style="padding-left: 5px;">
-                                                                <form action="" class="mt-2">
+                                                    <div *ngIf="isDecisionYes" style="display: none;">
+                                                        <div class="row mt-2">
+                                                            <div class="col-md-12">
+                                                                <span class="hidden-file">
+                                                                    <input type="file" accept=".pdf, .tiff|pdf/*, .xlsx, .tiff|xls/*" #fileInput 
+                                                                    ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+                                                                  </span>
+                                                                <!-- <form action="" class="mt-2">
                                                                     <span>Upload consent form : </span>
                                                                     <input type="file" id="myFile" name="filename">
-                                                                </form>
+                                                                </form> -->
+                                                                <div class="btn-group" (click)="fileInput.click()">
+                                                                    <button type="button" class="btn btn-primary btn-group-icon btn-group-divider">
+                                                                        <i class="fa fa-plus-circle fa-2x text-white" aria-hidden="true"></i>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary">
+                                                                     Upload Documents
+                                                                    </button>
+                                                                </div>
+                                                                <!-- <div class="progress-bar progress-bar-success" [ngStyle]="{ 'width': uploader.queue[0].progress + '%', 'height': '5px' }" 
+                                                                ></div> -->
+                                                                <table class="table table-bordered table-hover mt-3">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Name</th>
+                                                                            <th>Size</th>
+                                                                            <th>Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr *ngFor="let item of uploader.queue[0]">
+                                                                            <td>
+                                                                                {{ item?.file?.name }}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                                    Remove
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>

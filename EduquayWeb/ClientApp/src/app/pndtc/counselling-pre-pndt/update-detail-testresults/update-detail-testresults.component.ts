@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CounsellPrePndtResquest, AddPrePndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
 import { CounsellPrePndtResponse, CounsellingList, AddPrePndtcCounsellingResponse } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
@@ -15,6 +15,10 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { FileUploader, FileLikeObject, FileSelectDirective } from 'ng2-file-upload';
+
+const URL = 'http://localhost:4200/fileupload/';
+
 
 @Component({
   selector: 'app-update-detail-testresults',
@@ -22,7 +26,7 @@ import { DateService } from 'src/app/shared/utility/date.service';
   styleUrls: ['./update-detail-testresults.component.css']
 })
 export class UpdateDetailTestresultsComponent implements OnInit {
-
+  @ViewChild('fileInput', { static: false }) fileInput;
   @ViewChild('pndtschedulePicker', { static: false }) pndtschedulePicker;
 
   updatepndtcErrorMessage: string;
@@ -81,7 +85,10 @@ export class UpdateDetailTestresultsComponent implements OnInit {
   pndtscheduleDate: string;
   pndtscheduleTime: string;
   myRadio: string = '';
+  fileName: string;
+  file: File;
 
+  consentForm: File;
   dateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
@@ -139,6 +146,31 @@ export class UpdateDetailTestresultsComponent implements OnInit {
 
     this.ddlobstetricianName();
   }
+
+  // public uploader: FileUploader = new FileUploader({
+  //   url: URL,
+  //   disableMultipart : false,
+  //   autoUpload: true,
+  //   method: 'post',
+  //   itemAlias: 'attachment',
+  //   allowedFileType: ['pdf', 'xls', 'application'],
+  //   allowedMimeType: [ 'application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  //   });
+    // allowedFileType: ['image', 'pdf', 'xls', 'application', 'doc', 'docx'],
+    // allowedMimeType: ['image/jpg',
+    //   'image/jpeg', 'text/plain','text/xml',
+    //   'image/png', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'],
+    // });
+
+  // public onFileSelected(event: EventEmitter<File[]>) {
+  //   //this.loaderService.display(true);
+  //   this.consentForm = event[0];
+  //   this.fileName = this.consentForm.name;
+  //   //this.loaderService.display(false);
+  //   console.log(this.consentForm);
+
+  // }
+
 
   retrivecounselledlists() {
 
@@ -255,6 +287,11 @@ export class UpdateDetailTestresultsComponent implements OnInit {
         return false;
       }
 
+      //const fileBrowser = this.fileInput.nativeElement;
+      // const formData = new FormData();
+      // formData.append('ConsentForm', this.consentForm, this.consentForm.name);
+      // console.log(this.consentForm);
+
       this.addCounsellingRequest = {
         prePNDTSchedulingId: this.counsellingdataItem.schedulingId,
         anwsubjectId: this.counsellingdataItem.anwSubjectId,
@@ -268,11 +305,12 @@ export class UpdateDetailTestresultsComponent implements OnInit {
         schedulePNDTDate: this.pndtscheduleDate,
         schedulePNDTTime: this.pndtscheduleTime,
         userId: this.user.id,
+        //formData: formData
       };
 
       //Remove below 2 lines after successfully tested
-      // this.decisionYesResponseMessage('Successfully registered', 's');
-      // return false;
+      //  this.decisionYesResponseMessage('Successfully registered', 's');
+      //  return false;
 
       let addScheduleData = this.counsellingprepndtService.AddprepndtCounselling(this.addCounsellingRequest)
         .subscribe(response => {
@@ -311,6 +349,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
         schedulePNDTDate: '',
         schedulePNDTTime: '',
         userId: this.user.id,
+        //formData: null
       };
 
       //Remove below 2 lines after successfully tested
@@ -354,6 +393,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
         schedulePNDTDate: '',
         schedulePNDTTime: '',
         userId: this.user.id,
+        //formData: null
       };
 
       //Remove below 2 lines after successfully tested

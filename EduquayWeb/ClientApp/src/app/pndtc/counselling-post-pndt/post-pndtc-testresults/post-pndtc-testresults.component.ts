@@ -174,7 +174,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
             // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
             // this.mtpscheduleTime = moment().format("HH:mm");
             // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");        
-            const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.pndtDateTime);
+            const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.postPNDTCounsellingDateTime);
             this.dateOptions.minDate = regDate;
 
           }
@@ -219,7 +219,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
       this.isSelectedNo = false;
       this.isSelectedPending = false;
       this.isDecisionYes = true;
-      const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.pndtDateTime);
+      const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.postPNDTCounsellingDateTime);
       this.dateOptions.minDate = regDate;
     }
     else if (radioBtnItem == 'decisionno') {

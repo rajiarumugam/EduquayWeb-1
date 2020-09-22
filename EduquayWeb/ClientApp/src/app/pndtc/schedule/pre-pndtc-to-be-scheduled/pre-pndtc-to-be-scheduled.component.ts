@@ -105,7 +105,6 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.counsellorName = this.user.firstName;
     this.recordCount = 0;
     
-
     this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled" }));
     this.dtOptions = {
       pagingType: 'simple_numbers',
