@@ -14,6 +14,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 declare var $: any;
 import * as moment from 'moment';
 import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-repot-sample-status',
@@ -63,10 +64,11 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   };
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder,private MolecularLabsampleService:MolecularLabsampleService
+    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder,private MolecularLabsampleService:MolecularLabsampleService,private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.mlReport;
     console.log(pndtcTestingArr);
     this.dateform = this._formBuilder.group({
@@ -76,7 +78,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     console.log(pndtcTestingArr);
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
-      this.pndPendingArray = pndtcTestingArr.data;
+      this.pndPendingArray = pndtcTestingArr.subjects;
     }
 
 
@@ -124,9 +126,11 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   }
 
   getDistrictData(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getPNDTCDistrict()
     .subscribe(response => {
       this.districts = response['data'];
+      this.loaderService.display(false);
       //this.selectedDistrict = this.user.districtId;
     },
     (err: HttpErrorResponse) =>{
@@ -135,11 +139,13 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     });
   }
   districtChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getDistrictBasedCHC(this.selectedDistrict)
     .subscribe(response => {
       console.log(response);
       this.CHCdata = response['data'];
       console.log(this.selectedchc);
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
@@ -147,9 +153,11 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     });
   }
   chcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
     .subscribe(response => {
       this.PHCdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
@@ -158,10 +166,12 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   }
 
   phcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
     .subscribe(response => {
       console.log(response);
       this.ANMdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.ANMdata = [];
@@ -170,10 +180,12 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   }
 
   getSampleStatus(){
+    
     this.PNDTCmasterService.getMLSampleStatus()
     .subscribe(response => {
       console.log(response);
       this.sampleStatusData = response['sampleStatus'];
+
     },
     (err: HttpErrorResponse) =>{
       this.sampleStatusData = [];
@@ -183,7 +195,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
 
   refreshData()
   {
-
+    this.loaderService.display(true);
     var _subjectObj = {
       "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "molecularLabId": this.user.molecularLabId,
@@ -196,8 +208,9 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     }
     this.MolecularLabsampleService.getMolecularReport(_subjectObj).subscribe(response => {
       console.log(response);
-      this.pndPendingArray = response.data;
+      this.pndPendingArray = response.subjects;
       this.rerender();
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
      

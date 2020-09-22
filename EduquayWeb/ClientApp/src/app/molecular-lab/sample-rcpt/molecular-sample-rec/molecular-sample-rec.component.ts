@@ -13,6 +13,7 @@ import { GenericService } from '../../../shared/generic.service';
 import { HttpClientService } from '../../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-molecular-sample-rec',
@@ -60,10 +61,11 @@ export class MolecularSampleRcptComponent implements OnInit {
     private tokenService: TokenService,
     private genericService: GenericService,
     private httpClientService:HttpClientService,
-    private MolecularLabsampleService: MolecularLabsampleService
+    private MolecularLabsampleService: MolecularLabsampleService,private loaderService: LoaderService
     ) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     this.form = this._formBuilder.group({
       receivedDate: ["", Validators.required]
     });
@@ -198,6 +200,7 @@ export class MolecularSampleRcptComponent implements OnInit {
           console.log(this.form.valid);
           if(this.form.valid)
           {
+            this.loaderService.display(true);
               var user = JSON.parse(this.tokenService.getUser('lu'));
               var _sampleResult = [];
 
@@ -230,11 +233,13 @@ export class MolecularSampleRcptComponent implements OnInit {
                             {
                               this.chcReceiptsData = response.molecularLabReceipts;
                               this.rerender();
+                              this.loaderService.display(false);
                             }
                                       
                           },
                           (err: HttpErrorResponse) =>{
                             console.log(err);
+                            this.loaderService.display(false);
                           });
                           
                         }
@@ -247,6 +252,7 @@ export class MolecularSampleRcptComponent implements OnInit {
                     },
                     (err: HttpErrorResponse) =>{
                       console.log(err);
+                      this.loaderService.display(false);
                     });
           }
 
