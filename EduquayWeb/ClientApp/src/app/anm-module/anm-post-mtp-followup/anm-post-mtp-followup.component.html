@@ -53,10 +53,10 @@
                     <td class="text-center"></td>
                     <td class="nt-border-right text-left">{{sample.obstetricianName}}</td>
                     <td class="text-center">
-                        <select id="inputDistrict" class="form-control" name ="selectedfirstfollowup_{{$index}}"
-                            #selectedfirstfollowup="ngModel" ngModel>
+                        <select id="inputDistrict" class="form-control" name ="sample.selectedfirstfollowup_{{i}}"
+                           [(ngModel)]="sample.selectedfirstfollowup">
                             <option value="">Select</option>
-                            <option *ngFor="let firstfollowup of postMTP.firstfollowUpStatus" [(value)]="firstfollowup.id">
+                            <option *ngFor="let firstfollowup of firstfollowUpStatus" [(value)]="firstfollowup.id">
                                 {{firstfollowup.name}}
                             </option>
                         </select>

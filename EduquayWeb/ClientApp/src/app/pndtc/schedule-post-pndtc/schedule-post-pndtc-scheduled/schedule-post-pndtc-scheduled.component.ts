@@ -171,7 +171,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
         });
     }
-    onChangeDistrict() {
+    onChangeDistrict(event) {
   
       if (this.selectedDistrict === '') {
         this.selectedchc = '';
@@ -181,7 +181,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       }
     }
 
-    onChangechc(){
+    onChangechc(event){
 
       if (this.selectedchc === '') {
         this.selectedphc = '';
@@ -192,7 +192,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       
     }
 
-    onChangephc(){
+    onChangephc(event){
 
       if (this.selectedphc === '') {
         this.selectedanm = '';  

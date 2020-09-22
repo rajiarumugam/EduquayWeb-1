@@ -169,7 +169,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
 
       });
   }
-  onChangeDistrict() {
+  onChangeDistrict(event) {
   
     if (this.selectedDistrict === '') {
       this.selectedchc = '';
@@ -179,7 +179,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     }
   }
 
-  onChangechc(){
+  onChangechc(event){
 
     if (this.selectedchc === '') {
       this.selectedphc = '';
@@ -190,7 +190,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     
   }
 
-  onChangephc(){
+  onChangephc(event){
 
     if (this.selectedphc === '') {
       this.selectedanm = '';  

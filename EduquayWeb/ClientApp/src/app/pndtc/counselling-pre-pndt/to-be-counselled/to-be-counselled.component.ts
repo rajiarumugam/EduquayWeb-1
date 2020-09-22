@@ -127,7 +127,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
 
       });
   }
-   onChangeDistrict() {
+   onChangeDistrict(event) {
   
     if (this.selectedDistrict === '') {
       this.selectedchc = '';
@@ -137,7 +137,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     }
   }
 
-  onChangechc(){
+  onChangechc(event){
 
     if (this.selectedchc === '') {
       this.selectedphc = '';
@@ -148,7 +148,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     
   }
 
-  onChangephc(){
+  onChangephc(event){
 
     if (this.selectedphc === '') {
       this.selectedanm = '';  
