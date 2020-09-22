@@ -46,6 +46,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   pndNotCompleteArray = [];
   fromDate = "";
   toDate = "";
+  selectedData;
 
   DAY = 86400000;
   dateform:FormGroup;
@@ -220,6 +221,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   openResultPage(data)
   {
     console.log(data);
+    this.selectedData = data;
     $('#fadeinModal').modal('show');
   }
   

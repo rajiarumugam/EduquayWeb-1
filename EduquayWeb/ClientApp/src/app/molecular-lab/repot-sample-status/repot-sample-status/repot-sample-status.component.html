@@ -77,12 +77,12 @@
                         <tr *ngFor="let pnddata of pndPendingArray; index as i">
                             <td>{{i+1}}</td>
                             <td style="text-align: left">{{pnddata.subjectName}}</td>
-                            <td class="text-center">{{pnddata.anwSubjectId}}</td>
+                            <td class="text-center">{{pnddata.uniqueSubjectId}}</td>
                             <td class="sid text-center">{{pnddata.rchId}}</td>
                             <td style="text-align: left">{{pnddata.contactNo}}</td>
-                            <td class="text-center">{{pnddata.lmpDate}}</td>
-                            <td class="text-center">{{pnddata.ga}}</td>
-                            <td class="text-left">{{pnddata.schedulePNDTDate}} {{pnddata.schedulePNDTTime}}</td>
+                            <td class="text-center">{{pnddata.shipmentDate}}</td>
+                            <td class="text-center">{{pnddata.sampleStatus}}</td>
+                            <td class="text-left">{{pnddata.diagnosis}}</td>
                             <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
                                         data-target=".bd-example-modal-xl"></i></a></td>
                             <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fa fa-print text-primary" aria-hidden="true" data-toggle="modal"
@@ -121,7 +121,7 @@
                           
                           <div class="row my-2">
                               <div class="col-md-4">
-                                  <h5 class="float-left"><b>Subject ID</b> : OD001202032110</h5>
+                                  <h5 class="float-left"><b>Subject ID</b> : {{selectedData?.uniqueSubjectId}}</h5>
                               </div>
                               <div class="col-md-4">
                                   <!-- <h5 class="float-center"><b>Infant ID</b> : OD001202032110</h5> -->
@@ -151,29 +151,29 @@
                                           <tbody>
                                               <tr>
                                                   <td class="sp-xs-td-9 text-left"><b>Subject Name</b></td>
-                                                  <td class="sp-xs-td-15 text-left">Mrs.Alkha</td>
+                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.subjectName}}</td>
                                                   <td class="sp-xs-td-9 text-left"><b>Subject ID</b></td>
-                                                  <td class="sp-xs-td-15 text-left">OD001202032110</td>
+                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.uniqueSubjectId}}</td>
                                                   <td class="sp-xs-td-9 text-left"><b>Age</b></td>
-                                                  <td class="sp-xs-td-15 text-left">28 yrs</td>
+                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.age}} yrs</td>
                                                   <td class="sp-xs-td-9 text-left"><b>Contact No</b></td>
-                                                  <td class="sp-xs-td-15 text-left">7898765342</td>
+                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.contactNo}}</td>
                                               </tr>
                                               <tr>
                                                   <td class="text-left"><b>LMP Date</b></td>
-                                                  <td class="text-left">20/05/2020</td>
+                                                  <td class="text-left">{{selectedData?.lmpDate}}</td>
                                                   <td class="text-left"><b>Gestational Age</b></td>
-                                                  <td class="text-left">12</td>
+                                                  <td class="text-left">{{selectedData?.ga}}</td>
                                                   <td class="text-left"><b>RCH ID</b></td>
-                                                  <td class="text-left">123456</td>
+                                                  <td class="text-left">{{selectedData?.rchId}}</td>
                                                   <td class="text-left"><b>Obstetrics Score</b></td>
-                                                  <td class="text-left">G2-P1-L1-A1</td>
+                                                  <td class="text-left">{{selectedData?.obstetricScore}}</td>
                                                   
                                                   
                                               </tr>
                                               <tr>
                                                   <td class="text-left"><b>EC Number</b></td>
-                                                  <td class="text-left">12345678</td>
+                                                  <td class="text-left">{{selectedData?.ecNumber}}</td>
                                               </tr>
                                           </tbody>
                                       </table>
@@ -192,9 +192,9 @@
                                   <tbody>
                                       <tr>
                                           <td class="sp-xs-td-9 text-left"><b>Clinical Diagnosis</b></td>
-                                          <td class="sp-xs-td-15 text-left"> Homozygous Beta Thalassemia</td>
+                                          <td class="sp-xs-td-15 text-left"> {{selectedData?.diagnosis}}</td>
                                           <td class="sp-xs-td-9 text-left"><b>Molecular Test Result</b></td>
-                                          <td class="sp-xs-td-15 text-left"> DNA Test Positive</td>
+                                          <td class="sp-xs-td-15 text-left"> {{selectedData?.molecularResult}}</td>
   
                                       </tr>
   
