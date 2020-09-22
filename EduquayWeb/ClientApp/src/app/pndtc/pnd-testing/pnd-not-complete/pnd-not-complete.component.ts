@@ -9,6 +9,7 @@ import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.servi
 import { PNDCService } from "../../../shared/pndtc/pndc.service";
 import { DataService } from 'src/app/shared/data.service';
 import { Router } from '@angular/router';
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-pnd-not-complete',
@@ -36,10 +37,11 @@ export class pndNotCompleteComponent implements AfterViewInit, OnDestroy, OnInit
   pndNotCompleteArray =[];
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router
+    ,private dataservice: DataService,private router: Router,private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
     console.log(pndtcTestingArr);
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
@@ -97,42 +99,51 @@ export class pndNotCompleteComponent implements AfterViewInit, OnDestroy, OnInit
     });
   }
   districtChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getDistrictBasedCHC(this.selectedDistrict)
     .subscribe(response => {
       console.log(response);
       this.CHCdata = response['data'];
-      console.log(this.selectedchc);
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
   chcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
     .subscribe(response => {
-      this.PHCdata = response['data'];
+      this.PHCdata = response['data']; 
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
 
   phcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
     .subscribe(response => {
       console.log(response);
       this.ANMdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.ANMdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
 
   refreshData()
   {
+    this.loaderService.display(true);
     var _subjectObj = {
       "districtId":this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
@@ -142,10 +153,11 @@ export class pndNotCompleteComponent implements AfterViewInit, OnDestroy, OnInit
     this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
       console.log(response);
       this.pndPendingArray = response.data;
+      this.loaderService.display(false);
       this.rerender();
     },
     (err: HttpErrorResponse) =>{
-     
+      this.loaderService.display(false);
     });
   }
 

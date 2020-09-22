@@ -142,38 +142,48 @@
                             <label class="birthreg" for="inputDistrict" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }">{{'LMPDate' | translate }}</label><span class="manto"> *</span>
                                 <ng2-flatpickr id="dateOfLMP" name="lmpdate" #lmpdatePicker class="form-control flatpickr flatpickr-input active" [config]="startOptionsLMP" placeholder="Select Date.." formControlName = "lmpdate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lmpdate.invalid }" [(ngModel)]="selectedlmpdate"></ng2-flatpickr>
                         </div>
-
-                        <!--<div class="form-group col-md-3">
-                            <label class="birthreg" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
-                            <input type="text" autocomplete="off"class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            maxlength = "6" numbersOnly>
-                        </div>-->
-
                     </div>
                     <div class="form-row my-2">
                         <div class="form-group col-md-2">
                             <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.g.invalid }">{{'G' | translate }}</label><span class="manto"> *</span>
-                            <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.g.invalid }" (change)="gonChange();">
+                            <!--<select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.g.invalid }" (change)="gonChange();">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                            </select>-->
+
+                            <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.g.invalid }">
                                 <option [ngValue]="null">Select</option>
                                 <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputP" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.p.invalid }">{{'P' | translate }}</label><span class="manto"> *</span>
-                            <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
+                            <!--<select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
                                 <option [ngValue]="null">Select</option>
                                 <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
+                            </select>-->
+                            <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.p.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLAADATA; let ind=index;">{{data.value}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"> *</span>
-                            <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }" [attr.disabled]="Ldisabled ? Ldisabled : null">
+                            <!--<select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }" [attr.disabled]="Ldisabled ? Ldisabled : null">
                                 <option [ngValue]="null">Select</option>
                                 <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedp != null ? +selectedp+1 : null; let ind=index;">{{data.value}}</option>
+                            </select>-->
+                            <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.l.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLAADATA; let ind=index;">{{data.value}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputA" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.a.invalid }">{{'A' | translate }}</label><span class="manto"> *</span>
+                            <!--<select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.a.invalid }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="data.id" *ngFor="let data of GPLAADATA">{{data.value}}</option>
+                            </select>-->
                             <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.a.invalid }">
                                 <option [ngValue]="null">Select</option>
                                 <option [value]="data.id" *ngFor="let data of GPLAADATA">{{data.value}}</option>

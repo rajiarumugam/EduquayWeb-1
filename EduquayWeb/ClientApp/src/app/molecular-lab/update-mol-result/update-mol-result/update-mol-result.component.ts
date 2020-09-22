@@ -16,6 +16,7 @@ import { HttpClientService } from '../../../shared/http-client.service';
 import Swal from 'sweetalert2';
 import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
 import { DataService } from '../../../shared/data.service';
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-update-mol-result',
@@ -56,10 +57,11 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
 
 
   constructor(private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private router: Router,private _formBuilder: FormBuilder,private masterService:masterService,private genericService: GenericService, private httpClientService:HttpClientService,private MolecularLabsampleService: MolecularLabsampleService,private DataService:DataService,
+    ,private router: Router,private _formBuilder: FormBuilder,private masterService:masterService,private genericService: GenericService, private httpClientService:HttpClientService,private MolecularLabsampleService: MolecularLabsampleService,private DataService:DataService,private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.mlSampleData;
     console.log(pndtcTestingArr);
 
@@ -177,7 +179,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
           }
       }
         var user = JSON.parse(this.tokenService.getUser('lu'));
-
+        this.loaderService.display(true);
         var _obj = {};
         _obj['uniqueSubjectId'] = this.popupSelectedData.uniqueSubjectId;
         _obj['barcodeNo'] = this.popupSelectedData.barcodeNo;
@@ -203,6 +205,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
                       {
                         this.pndPendingArray = response.subjects;
                         this.rerender();
+                        this.loaderService.display(false);
                       }
                                 
                     },
@@ -220,6 +223,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
               },
               (err: HttpErrorResponse) =>{
                 console.log(err);
+                this.loaderService.display(false);
               });
 
   }

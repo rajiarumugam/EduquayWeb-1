@@ -14,6 +14,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 declare var $: any;
 import * as moment from 'moment';
 import { centralsampleService } from "./../../../shared/centrallab/central-sample.service";
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-repot-sample-status',
@@ -64,10 +65,11 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   };
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private centralsampleService:centralsampleService
+    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private centralsampleService:centralsampleService,private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
     console.log(pndtcTestingArr);
     this.dateform = this._formBuilder.group({
@@ -157,30 +159,37 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
     });
   }
   chcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
     .subscribe(response => {
       this.PHCdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.PHCdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
 
   phcChange(){
+    this.loaderService.display(true);
     this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
     .subscribe(response => {
       console.log(response);
       this.ANMdata = response['data'];
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
       this.ANMdata = [];
       this.erroMessage = err.toString();
+      this.loaderService.display(false);
     });
   }
 
   refreshData()
   {
+    this.loaderService.display(true);
     var _subjectObj = {
       "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "centralLabId": this.user.centralLabId,
@@ -194,9 +203,10 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
       console.log(response);
       this.pndPendingArray = response.subjects;
       this.rerender();
+      this.loaderService.display(false);
     },
     (err: HttpErrorResponse) =>{
-     
+      this.loaderService.display(false);
     });
   }
 

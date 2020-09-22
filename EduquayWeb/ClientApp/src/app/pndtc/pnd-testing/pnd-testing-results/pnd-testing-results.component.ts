@@ -15,6 +15,7 @@ import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.servi
 import { PNDCService } from "../../../shared/pndtc/pndc.service";
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { LoaderService } from './../../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-pnd-testing-results',
@@ -104,14 +105,14 @@ export class PNDTestingResultsComponent implements OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private PNDTCmasterService: PNDTCmasterService, private PNDCService:PNDCService) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private PNDTCmasterService: PNDTCmasterService, private PNDCService:PNDCService, private loaderService: LoaderService) {
 
    
    }
 
   ngOnInit() {
 
-   
+    this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
    
    this.testResultGroup = this._formBuilder.group({
@@ -503,9 +504,11 @@ export class PNDTestingResultsComponent implements OnInit {
   }
   sendDataToService(_obj)
   {
+    this.loaderService.display(true);
     this.PNDCService.postPNDTest(_obj)
         .subscribe(response => {
           this.diagnosisReportResponse = response;
+          this.loaderService.display(false);
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
               Swal.fire({ allowOutsideClick: false,
                 text: 'PNDT Updated Successfully.',
