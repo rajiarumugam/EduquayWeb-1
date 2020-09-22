@@ -270,6 +270,8 @@
 "Sample_Collection_Date_Time":"Sample Collection Date & Time",
 "DeliveryExecutiveName":"Delivery Executive Name",
 "ReceivingCentralLab":"Receiving Central Lab",
-"AgingofSample":"Aging of Sample (hours)"
+"AgingofSample":"Aging of Sample (hours)",
+"CentralLab":"Central Lab",
+"HPLCTestingDateTime":"HPLC Testing Date & Time"
 
 }

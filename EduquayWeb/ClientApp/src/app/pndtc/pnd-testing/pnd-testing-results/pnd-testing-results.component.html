@@ -11,7 +11,7 @@
                                                         <td>
                                                             <span class="float-left mt-0 mr-4">
                                                                 <h5><b>Subject ID :</b> {{testingPNDData?.anwSubjectId}}
-                                                                    <strong class="ml-5">Subject Name :</strong> {{testingPNDData?.subjectName}}, {{testingPNDData?.age}} yrs
+                                                                    <strong class="ml-5">Subject Info :</strong> {{testingPNDData?.subjectName}}, {{testingPNDData?.age}} yrs
                                                                     <strong class="ml-5">RCH ID :</strong> {{testingPNDData?.rchId}}
                                                                 </h5>
                                                             </span>
@@ -153,8 +153,8 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width:30%;"><span>SST Results</span></th>
-                                                                <th class="text-center"><span>Diagnosis</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
+                                                                <th class="text-center"><span>Results and Lab Diganosis</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -175,8 +175,8 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width:30%;"><span>CBC Results</span></th>
-                                                                <th class="text-center"><span>Diagnosis</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
+                                                                <th class="text-center"><span>Results and Lab Diganosis</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -197,8 +197,8 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width:30%;"><span>HPLC Results</span></th>
-                                                                <th class="text-center"><span>Diagnosis</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
+                                                                <th class="text-center"><span>Results and Lab Diganosis</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -334,7 +334,7 @@
                                                                 <td>
                                                                     <span class="float-left mt-0 mr-4">
                                                                         <h5><b>Subject ID :</b> {{testingPNDData?.anwSubjectId}}
-                                                                            <strong class="ml-5">Subject Name :</strong> {{testingPNDData?.subjectName}}, {{testingPNDData?.age}} yrs
+                                                                            <strong class="ml-5">Subject Info :</strong> {{testingPNDData?.subjectName}}, {{testingPNDData?.age}} yrs
                                                                             <strong class="ml-5">RCH ID :</strong> {{testingPNDData?.rchId}}
                                                                         </h5>
                                                                     </span>
@@ -350,10 +350,10 @@
                                             <div class="form-group col-md-4">
                                                 <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }">PNDT Date & Time </span><span
                                                     class="manto">*</span>
-                                                    <!--<input
-                                                    class="form-control field" type="text" formControlName="pndtDate" [(ngModel)]="selectedpndtDate">-->
+                                                    <input
+                                                    class="form-control field" type="text" formControlName="pndtDate" [(ngModel)]="selectedpndtDate" *ngIf = "disableDatepicker" readonly>
 
-                                                    <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "pndtDate" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }" [(ngModel)]="selectedpndtDate"></ng2-flatpickr>
+                                                    <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "pndtDate" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }" [(ngModel)]="selectedpndtDate" *ngIf = "!disableDatepicker"></ng2-flatpickr>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <span class="note">Counsellor Name </span><span

@@ -42,6 +42,7 @@ export class MTPTestingResultsComponent implements OnInit {
   POTDiagnosis= [];
   POTResultData = [];
   selectedothercomp;
+  disableDatePicker = false;
 
   complicationsdata = [];
   settings = {};
@@ -77,6 +78,7 @@ export class MTPTestingResultsComponent implements OnInit {
   fselectedMotherVoided;
 
   selectedItems = [];
+  minMTPDate;
 
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -124,6 +126,7 @@ export class MTPTestingResultsComponent implements OnInit {
     this.testingPNDData = this.DataService.getdata().MTPtestingResult;
     this.selectedcounsellerName = this.testingPNDData.pndtCounsellorName;
     this.selectedpndtDate = this.testingPNDData.mtpScheduleDate+" "+this.testingPNDData.mtpScheduleTime;
+    this.minMTPDate = this.testingPNDData.postPNDTCounsellingDateTime;
     this.selectedObstetricianName = this.testingPNDData.postPNDTObstetricianName;
     console.log(this.DataService.getdata().MTPtestingResult);
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
@@ -147,7 +150,11 @@ export class MTPTestingResultsComponent implements OnInit {
    
     
 
-    
+    if(this.testingPNDData.mtpID != undefined)
+        this.disableDatePicker = true;
+      else
+        this.disableDatePicker = false;
+   
     if(this.testingPNDData.mtpClinicalHistory != undefined)
         this.selectedclinicalHistory = this.testingPNDData.mtpClinicalHistory;
     if(this.testingPNDData.mtpExamination != undefined)
@@ -288,7 +295,7 @@ export class MTPTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj["mtpDateTime"] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
+          _obj["mtpDateTime"] = typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate;
           _obj['anwsubjectId'] = this.testingPNDData.anwSubjectId;
           _obj['spouseSubjectId'] = this.testingPNDData.spouseSubjectId;
           _obj['counsellorId'] = this.testingPNDData.postPNDTCounsellorId;
@@ -297,7 +304,7 @@ export class MTPTestingResultsComponent implements OnInit {
           _obj['postPNDTCounsellingId'] = this.testingPNDData.postPNDTCounsellingId;
            _obj["clinicalHistory"] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
-           _obj['mtpComplecationsId'] = _tempComplectionData;
+           _obj['mtpComplecationsId'] = ''+_tempComplectionData;
            _obj['procedureOfTesting'] = this.FormGroup.get('procedureOfTesting').value;
            _obj['dischargeConditionId'] = Number(this.FormGroup.get('conditionAtDischarge').value);
            
@@ -339,13 +346,17 @@ export class MTPTestingResultsComponent implements OnInit {
     var _tempCurrentDate = this.testingPNDData.mtpScheduleDate.split('/')[2]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[1]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[0]+" "+this.testingPNDData.mtpScheduleTime;
     console.log(new Date(this.testingPNDData.mtpScheduleDate.split('/')[2]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[1]+"-"+this.testingPNDData.mtpScheduleDate.split('/')[0]));
     //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.set({
-      minDate: this.selectedpndtDate,
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
+    if(!this.disableDatePicker)
+    {
+      this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+      this.DORPicker.flatpickr.set({
+        minDate: this.minMTPDate,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
+    }
+    
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

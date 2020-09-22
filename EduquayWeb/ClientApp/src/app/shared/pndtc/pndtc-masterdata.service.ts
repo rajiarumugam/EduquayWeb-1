@@ -75,5 +75,26 @@ export class PNDTCmasterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
+  getMLSampleStatus(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.RETRIVEMOLECULARSAMPLESTATUS);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getCHCbyCentrallab(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVECHCBYCENTRALLAB+this.user.centralLabId);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getCHCbyTestingCHC(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECHCBYTESTINGCHC+this.user.chcId);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+  
   
 }

@@ -74,9 +74,10 @@ export class PNDTestingResultsComponent implements OnInit {
   selectedpathologistName = "";
   selectedOthers;
   fselectedMotherVoided;
+  disableDatepicker = false;
 
   selectedItems = [];
-
+  minPndtDate;
   startOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
@@ -125,6 +126,7 @@ export class PNDTestingResultsComponent implements OnInit {
     console.log(this.testingPNDData);
     this.selectedpndtDate = this.testingPNDData.schedulePNDTDate+" "+this.testingPNDData.schedulePNDTTime;
 
+    this.minPndtDate = this.testingPNDData.counsellingDateTime;
     
     this.selectedObstetricianName = this.testingPNDData.obstetricianName;
     console.log(this.DataService.getdata().pndtestingResult);
@@ -147,6 +149,10 @@ export class PNDTestingResultsComponent implements OnInit {
       anyOtherComplications: [""]
    });
 
+   if(this.testingPNDData.pndTestId != undefined)
+      this.disableDatepicker = true;
+    else
+      this.disableDatepicker = false;
    
    let _tempMotherVoided = "";
    if(this.testingPNDData.motherVoided != undefined)
@@ -346,7 +352,10 @@ export class PNDTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj['pndtDateTime'] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
+
+          console.log(this.selectedpndtDate);
+          console.log(typeof(this.selectedpndtDate));
+          _obj['pndtDateTime'] = typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate;
            _obj['isCompletePNDT'] = false;
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
@@ -380,7 +389,9 @@ export class PNDTestingResultsComponent implements OnInit {
             else
             _tempComplectionData += ","+element.id;
           });
-          _obj['pndtDateTime'] = moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm');
+
+          console.log(this.selectedpndtDate);
+          _obj['pndtDateTime'] = typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate;
           _obj['isCompletePNDT'] = false;
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
@@ -478,13 +489,17 @@ export class PNDTestingResultsComponent implements OnInit {
     var _tempCurrentDate = this.testingPNDData.schedulePNDTDate.split('/')[2]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[1]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[0]+" "+this.testingPNDData.schedulePNDTTime;
     console.log(new Date(this.testingPNDData.schedulePNDTDate.split('/')[2]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[1]+"-"+this.testingPNDData.schedulePNDTDate.split('/')[0]));
     //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
-    this.DORPicker.flatpickr.set({
-      minDate: this.selectedpndtDate,
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
+    if(!this.disableDatepicker)
+    {
+      this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+      this.DORPicker.flatpickr.set({
+        minDate: this.minPndtDate,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      });
+    }
+    
   }
   sendDataToService(_obj)
   {

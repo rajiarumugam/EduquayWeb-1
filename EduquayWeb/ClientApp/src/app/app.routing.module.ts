@@ -97,6 +97,7 @@ import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sa
 import { CentralHPLCupdateComponent } from "./central-lab/HPLC-update/central-update-hplc/central-update-hplc.component";
 import { CentralReceivedSampleComponent } from "./central-lab/HPLC-update/central-update-hplc-received/central-update-hplc-received.component";
 import { CentralHPLCUploadComponent } from "./central-lab/HPLC-update/central-update-hplc-upload/central-update-hplc-upload.component";
+import { CentralLabReportResolverService } from "./shared/centrallab/centrallab-report-resolver.service";
 
 import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
 import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";
@@ -193,6 +194,29 @@ import { PositiveSubjectsComponent } from "./district-coordinator/positive-subje
 import { PndtReferralComponent } from "./district-coordinator/pndt-referral/pndt-referral.component";
 import { MtpReferralComponent } from "./district-coordinator/mtp-referral/mtp-referral.component";
 import { PostMtpFollowupComponent } from "./district-coordinator/post-mtp-followup/post-mtp-followup.component";
+
+
+import { ReportSampleStatusComponent } from "./molecular-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { ReportSampleStatusMainComponent } from "./molecular-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+import { UpdateMolResultComponent } from "./molecular-lab/update-mol-result/update-mol-result/update-mol-result.component";
+import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/update-mol-result-main/update-mol-result-main.component";
+
+import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
+import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
+
+
+import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { CHCreportSampleStatusMainComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+import { updateMolResultViewMainComponent } from "./molecular-lab/update-mol-result/update-mol-result-view-main/update-mol-result-view-main.component";
+import { UpdateMolResultViewComponent } from "./molecular-lab/update-mol-result/update-mol-result-view/update-mol-result-view.component";
+import { MLSampleRcptResolverService } from "./shared/molecularlab/ml-sample-rcpt-resolver.service";
+import { MLUpdateMolResultResolverService } from "./shared/molecularlab/ml-update-mol-result-resolver.service";
+import { MolucularLabReportResolverService } from "./shared/molecularlab/mi-report-resolver.service";
+
+import { CHCReportResolverService } from "./shared/chc-sample/chc-report-resolver.service";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -345,6 +369,18 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'centrallab-report', component: CentralLabreportSampleStatusMainComponent,
+        children:[
+          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CentralLabReportResolverService}}
+        ]
+      },
+      {
+        path: 'chc-report', component: CHCreportSampleStatusMainComponent,
+        children:[
+          {path: '', component: CHCreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CHCReportResolverService}}
+        ]
+      },
+      {
         path: 'central-shipment', component: CentralShipmentMainComponent,
         children:[
           {path: '', component: CentralCentralShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabShipmentResolverService}}
@@ -353,7 +389,23 @@ const routes: Routes = [
       {
         path: 'molecularlab', component: MolecularSampleRcptMainComponent,
         children:[
-          {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+          {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
+        ]
+      },
+      {
+        path: 'molecular-report', component: ReportSampleStatusMainComponent,
+        children:[
+          {path: '', component: ReportSampleStatusComponent, pathMatch: 'full', resolve: {mlReport: MolucularLabReportResolverService}}
+        ]
+      },{
+        path: 'update-molecular-result', component: UpdateMolResultMainComponent,
+        children:[
+          {path: '', component: UpdateMolResultComponent, pathMatch: 'full', resolve: {mlSampleData: MLUpdateMolResultResolverService}}
+        ]
+      },{
+        path: 'update-molecular-casesheet', component: updateMolResultViewMainComponent,
+        children:[
+          {path: '', component: UpdateMolResultViewComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -393,6 +445,11 @@ const routes: Routes = [
         path: 'mtp-testing-result', component: MtpTestingResultsMainComponent,
         children:[
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
+        ]
+      },{
+        path: 'view-case-sheet', component: ViewCaseSheetMainComponent,
+        children:[
+          {path: '', component: ViewCaseSheetComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -621,7 +678,19 @@ export const RoutingComponents = [
   PositiveSubjectsComponent,
   PndtReferralComponent,
   MtpReferralComponent,
-  PostMtpFollowupComponent
+  PostMtpFollowupComponent,
+  ReportSampleStatusComponent,
+  ReportSampleStatusMainComponent,
+  UpdateMolResultComponent,
+  UpdateMolResultMainComponent,
+  ViewCaseSheetComponent,
+  ViewCaseSheetMainComponent,
+  CentralLabreportSampleStatusComponent,
+  CentralLabreportSampleStatusMainComponent,
+  CHCreportSampleStatusComponent,
+  CHCreportSampleStatusMainComponent,
+  updateMolResultViewMainComponent,
+  UpdateMolResultViewComponent
 
 ];
 

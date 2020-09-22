@@ -104,6 +104,15 @@ export class masterService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
+  getMolecularResults()
+  {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVEMOLECULARRESULT);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  
+
   retriveMocularLab(): Observable<any> {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVEMOLECULARLAB+this.user.centralLabId);
