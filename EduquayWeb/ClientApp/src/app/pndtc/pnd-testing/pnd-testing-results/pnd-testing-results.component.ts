@@ -397,7 +397,7 @@ export class PNDTestingResultsComponent implements OnInit {
            _obj['clinicalHistory'] = this.FormGroup.get('clinicalHistory').value;
            _obj['examination'] = this.FormGroup.get('examination').value;
            _obj['procedureOfTestingId'] = Number(this.FormGroup.get('procedureOfTesting').value);
-           _obj['pndtComplecationsId'] = _tempComplectionData;
+           _obj['pndtComplecationsId'] = ""+_tempComplectionData;
            _obj['othersProcedureofTesting'] = this.FormGroup.get('otherPOT').value != undefined ? this.FormGroup.get('otherPOT').value : "";
            _obj['othersComplecations'] = this.FormGroup.get('anyOtherComplications').value != undefined ? this.FormGroup.get('anyOtherComplications').value : "";
           _obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
