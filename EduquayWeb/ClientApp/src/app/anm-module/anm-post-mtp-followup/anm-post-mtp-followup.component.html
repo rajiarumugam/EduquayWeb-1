@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let sample of postMTP; let i = index;">
+                <tr *ngFor="let sample of postMTP; let i = index;" >
                     <td class="text-center nt-border-right">{{i +1}}</td>
                     <td class="text-left nt-border-right">{{sample.subjectName}}</td>
                     <td class="text-center nt-border-right">{{sample.uniqueSubjectId}}</td>
@@ -53,29 +53,31 @@
                     <td class="text-center"></td>
                     <td class="nt-border-right text-left">{{sample.obstetricianName}}</td>
                     <td class="text-center">
-                        <select id="inputDistrict" class="form-control" name ="sample.selectedfirstfollowup_{{i}}"
-                           [(ngModel)]="selectedfirstfollowup">
+                        <div (click)='toggleFirstDisable()'>
+                        <select id="inputDistrict" class="form-control" name="selectedfirstfollowup" (change)="changeFirstFollowup($event.target.value,i)"
+                         [(ngModel)]="selectedfirstfollowup[i]" [disabled]= "is_firstfollowup_edit[i]">
                             <option value="">Select</option>
-                            <option *ngFor="let firstfollowup of firstfollowUpStatus" [(value)]="firstfollowup.id">
-                                {{firstfollowup.name}}
+                            <option *ngFor="let firstfollowupdata of getfrstfollowupstatus" [(value)]="firstfollowupdata.id">
+                                {{firstfollowupdata.name}}
                             </option>
                         </select>
-                        <div *ngIf="selectedfirstfollowup === '1'">
-                            <input class="form-control field" name="name" required="" type="text"
+                        <div *ngIf="selectedfirstfollowup[i] === '2'">
+                            <input class="form-control field" name="firstfollowUpStatusdetail" required="" type="text"
                                 placeholder="Status Detail" tabindex="1" autocomplete="off" [(ngModel)]="firstfollowUpStatusdetail">
                         </div>
+                    </div>
                     </td>
                     <td class="text-center">
                         <div (click)='toggleSecondDisable()'>
-                            <select id="inputDistrict" class="form-control" name="selectedsecondfollowup" [disabled]= "is_secondfollowup_edit"
-                                [(ngModel)]="selectedsecondfollowup">
+                            <select id="inputDistrict" class="form-control" name="selectedsecondfollowup" [disabled]= "is_secondfollowup_edit[i]"
+                            (change)="changeSecondFollowup($event.target.value,i)" [(ngModel)]="selectedsecondfollowup[i]">
                                 <option value="">Select</option>
-                                <option *ngFor="let secondfollowup of secondfollowUpStatus" [(value)]="secondfollowup.id">
+                                <option *ngFor="let secondfollowup of getthirdfollowupstatus" [(value)]="secondfollowup.id">
                                     {{secondfollowup.name}}
                                 </option>
                             </select>
 
-                            <div *ngIf="selectedsecondfollowup === '2'">
+                            <div *ngIf="selectedsecondfollowup[i] === '2'">
                                 <input class="form-control field" name="name" required="" type="text" [(ngModel)]="secondfollowUpStatusdetail"
                                     placeholder="Status Detail" tabindex="1" autocomplete="off">
                             </div>
@@ -83,21 +85,21 @@
                     </td>
                     <td class="text-center">
                         <div (click)='toggleThirdDisable()'>
-                            <select id="inputDistrict" class="form-control" name="selectedthirdfollowup" [disabled]="is_thirfollowup_edit"
-                                [(ngModel)]="selectedthirdfollowup">
+                            <select id="inputDistrict" class="form-control" name="selectedthirdfollowup" [disabled]="is_thirfollowup_edit[i]"
+                            (change)="changeThirdFollowup($event.target.value,i)" [(ngModel)]="selectedthirdfollowup[i]">
                                 <option value="">Select</option>
                                 <option *ngFor="let thirdfollowup of thirdfollowUpStatus" [(value)]="thirdfollowup.id">
                                     {{thirdfollowup.name}}
                                 </option>
                             </select>
-                            <div *ngIf="selectedthirdfollowup === '2'">
-                                <input class="form-control field" name="name" required="" type="text" [(ngModel)]="secondfollowUpStatusdetail"
+                            <div *ngIf="selectedthirdfollowup[i] === '2'">
+                                <input class="form-control field" name="name" required="" type="text" [(ngModel)]="thirdfollowUpStatusdetail"
                                     placeholder="Status Detail" tabindex="1" autocomplete="off">
                             </div>
                         </div>
                     </td>
                     <td>
-                        <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus(sample)" role="button">Update</a> 
+                        <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus(sample, i)" role="button">Update</a> 
                     </td>
                 </tr>
 

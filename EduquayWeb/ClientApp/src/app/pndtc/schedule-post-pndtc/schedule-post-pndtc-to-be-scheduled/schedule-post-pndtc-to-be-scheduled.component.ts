@@ -63,6 +63,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     obstetricScore: string;
     recordCount: number;
     samplega: string;
+    recordCount1: number;
   
   
     /*Date Range configuration starts*/
@@ -74,6 +75,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
     scheduleDate: string;
     scheduleTime: string;
     counsellorName: string;
+    postScheduledArray = [];
   
     scheduleDateOptions: FlatpickrOptions = {
       mode: 'single',
@@ -157,6 +159,16 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
         },
           (err: HttpErrorResponse) => {
             this.postpndtscheduleErrorMessage = err.toString();
+          });
+
+          this.pndtmtpScheduleService.getscheduledLists(this.pndtmtpSchedulingRequest) .subscribe(response => {
+            console.log(response);
+            this.postScheduledArray = response.data;
+            this.recordCount1 = this.postScheduledArray.length;
+            this.recordCount = this.schedulinglists.length;
+          },
+          (err: HttpErrorResponse) =>{
+           
           });
     }
   
@@ -303,8 +315,9 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
               this.postpndtscheduleErrorMessage = response.message;
             }
             else {
-              this.schedulinglists = this.pndtmtpSchedulingResponse.data;
-              this.recordCount = this.schedulinglists.length;
+              this.schedulinglists = this.pndtmtpSchedulingResponse.data;            
+              this.recordCount = this.schedulinglists.length-this.postScheduledArray.length;
+              this.recordCount1 = this.postScheduledArray.length;
   
             }
           }

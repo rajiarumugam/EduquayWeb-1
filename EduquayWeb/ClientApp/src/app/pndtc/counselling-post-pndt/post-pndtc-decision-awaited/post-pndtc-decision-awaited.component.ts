@@ -149,7 +149,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
       // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
       // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
-      this.ddlobstetricianName();
+      this.ddlmtpobstetricianName();
     }
   
     retrivecounselledpendinglists() {
@@ -191,12 +191,12 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
             this.postupdateDecisionPendingpndtErrorMessage = err.toString();
           });
     }
-    ddlobstetricianName() {
+    ddlmtpobstetricianName() {
   
       this.obstetricianlists = [];
       this.selectedobstetrician = '';
       this.postupdateDecisionPendingpndtErrorMessage = '';
-      this.pndtmtpMasterService.getobstetricianName()
+      this.pndtmtpMasterService.getmtpobstetricianName()
         .subscribe(response => {
           this.pndtmtpMasterResponse = response;
           if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {

@@ -149,7 +149,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
 
     });
 
-    this.ddlobstetricianName();
+    this.ddlmtpobstetricianName();
     this.onClick('decisionyes');
     
   }
@@ -210,12 +210,12 @@ export class PostPndtcDecisionYesComponent implements OnInit {
 
 
 
-  ddlobstetricianName() {
+  ddlmtpobstetricianName() {
 
     this.obstetricianlists = [];
     this.selectedobstetrician = '';
     this.postupdateDecisionYespndtErrorMessage = '';
-    this.pndtmtpMasterService.getobstetricianName()
+    this.pndtmtpMasterService.getmtpobstetricianName()
       .subscribe(response => {
         this.pndtmtpMasterResponse = response;
         if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {

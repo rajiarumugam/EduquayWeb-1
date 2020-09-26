@@ -66,6 +66,8 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     schedulingId: number;
     samplega: string;
     recordCount: number;
+    recordCount1: number;
+    postSchedulingdArray=[];
   
     /*Date Range configuration starts*/
     dateform: FormGroup;
@@ -140,6 +142,8 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
             }
             else {
               this.scheduledlists = this.pndtmtpScheduledResponse.data;
+              this.recordCount1 = this.postSchedulingdArray.length-this.scheduledlists.length;
+            this.recordCount = this.scheduledlists.length;
               this.rerender();
             }
           }
@@ -151,6 +155,16 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
           (err: HttpErrorResponse) => {
             
             this.postpndtscheduledErrorMessage = err.toString();
+          });
+
+          this.pndtmtpScheduleService.getschedulingLists(this.pndtmtpScheduledRequest) .subscribe(response => {
+            console.log(response);
+            this.postSchedulingdArray = response.data;
+            this.recordCount1 = this.postSchedulingdArray.length-this.scheduledlists.length;
+            this.recordCount = this.scheduledlists.length;
+          },
+          (err: HttpErrorResponse) =>{
+           
           });
     }
   
@@ -323,6 +337,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
             }
             else {
               this.scheduledlists = this.pndtmtpScheduledResponse.data;
+              this.recordCount1 = this.postSchedulingdArray.length-this.scheduledlists.length;
               this.recordCount = this.scheduledlists.length;
   
             }

@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { authResponse } from '../../shared/auth-response';
+import { authResponse, resetLoginResponse } from '../../shared/auth-response';
 import { TokenService } from '../../shared/token.service';
 import { AuthService } from '../../shared/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { HttpClientService } from 'src/app/shared/http-client.service';
+import { GenericService } from 'src/app/shared/generic.service';
+import { AuthRequest } from 'src/app/shared/auth-request';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +23,23 @@ export class LoginComponent implements OnInit {
   loginStatus: string = this.loginCaption;
   authResult: authResponse;
   isLoginError: boolean = false;
+  resetLoginResquest: AuthRequest;
+  resetLoginResponse: resetLoginResponse;
   loginErrorMessage: string;
   ngDisabled: string;
   isProcessing: boolean = false;
   textPassword: string;
   isPassword: boolean = true;
+  resetloginlErrorMessage: string;
 
   constructor(
       private tokenService: TokenService, 
       private authService: AuthService, 
       private router: Router, 
       private route: ActivatedRoute,
-      private el: ElementRef
+      private el: ElementRef,
+      private httpClientService:HttpClientService,
+      private genericService: GenericService
     ) { }
 
   ngOnInit() {
@@ -91,6 +99,36 @@ export class LoginComponent implements OnInit {
   forgotPassword(){
     this.showResponseMessage('Please contact administrator to reset your password', 'i');
   }
+
+  // resetLogin(){
+
+  //   let emailInput = this.loginForm.value.userid;
+  //   let passwordInput = this.loginForm.value.password;
+    
+  //   this.resetLoginResquest = {
+  //     userName: emailInput,
+  //     password: passwordInput,
+     
+  //   }
+  //   //Remove below 2 lines after successfully tested
+  //   // this.showResponseMessage('Successfully registered', 's');
+  //   // return false;
+  //   let adddamagedsample = this.authService.resetLoginFunc(this.resetLoginResquest)
+  //     .subscribe(response => {
+  //       this.resetLoginResponse = response;
+  //       if (this.resetLoginResponse !== null && this.resetLoginResponse.success === true) {
+  //         this.showResponseMessage(this.resetLoginResponse.message, 's');
+  //       } else {
+  //         this.showResponseMessage(this.resetLoginResponse.message, 'e');
+  //         this.resetloginlErrorMessage = response.message;
+  //       }
+
+  //     },
+  //     (err: HttpErrorResponse) =>{
+  //       console.log(err);
+  //     });
+
+  // }
 
   showResponseMessage(message: string, type: string){
     var messageType = '';
