@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { authResponse } from './auth-response';
+import { authResponse, resetLoginResponse } from './auth-response';
 import { TokenService } from './token.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GenericService } from './generic.service';
+import { AuthRequest } from './auth-request';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +16,11 @@ export class AuthService {
   loginApi: string = 'api/v1/UserIdentity/Login';
   patientApi: string = 'api/v1/Patient/GetPatients';
   logoutApi: string = 'api/v1/User/Logout';
+  resetloginApi: string = 'api/v1/UserIdentity/ResetLogin';
 
   constructor(
-    private httpClient: HttpClient, 
+    private httpClient: HttpClient,
+    private http: HttpClientService, 
     private tokenService: TokenService, 
     private genericService: GenericService) { }
 
@@ -64,5 +68,21 @@ export class AuthService {
   private log(message: string) {
     console.log(message);
   }
+
+  // resetLoginFunc(resetdata: AuthRequest): Observable<any>{
+  //   let httpHeaders = new HttpHeaders({
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+  //     'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+  //     'No-Auth': 'True',
+  //     'Content-Type': 'application/json',
+  //     'Cache-Control': 'no-cache'
+  //   });
+  //   let options = {
+  //     headers: httpHeaders
+  //   };
+  //   let apiUrl = this.genericService.buildApiUrl(this.resetloginApi);
+  //   return this.http.post<resetLoginResponse>({url:apiUrl, header: options, body: resetdata });
+  // }
 
 }

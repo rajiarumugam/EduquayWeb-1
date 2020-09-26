@@ -41,6 +41,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
   addScheduleRequest: AddPrePndtcScheduleRequest;
   addScheduleResponse: AddPrePndtcScheduleResponse;
   schedulinglists: SchedulingList[] = [];
+  preScheduledArray = [];
   districts: dataModel[] = [];
   selectedDistrict: string = '';
   chclists: dataModel[] = [];
@@ -74,6 +75,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
   counsellorName: string;
   index: any;
   samplega: string;
+  recordCount1: number;
 
   scheduleDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -103,7 +105,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.counsellorName = this.user.firstName;
-    this.recordCount = 0;
+  //this.recordCount = 0;
     
     this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled" }));
     this.dtOptions = {
@@ -130,6 +132,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
+
     this.pndtmtpSchedulingRequest = {
       userId: this.user.id, districtId: 0,
       chcId: 0,
@@ -146,6 +149,8 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
           }
           else {
             this.schedulinglists = this.pndtmtpSchedulingResponse.data;
+            this.recordCount1 = this.preScheduledArray.length;
+            this.recordCount = this.schedulinglists.length;
             this.rerender();
           }
         }
@@ -156,6 +161,16 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
       },
         (err: HttpErrorResponse) => {
           this.prepndtscheduleErrorMessage = err.toString();
+        });
+
+        this.pndtmtpScheduleService.getscheduledLists(this.pndtmtpSchedulingRequest) .subscribe(response => {
+          console.log(response);
+          this.preScheduledArray = response.data;
+          this.recordCount1 = this.preScheduledArray.length;
+          this.recordCount = this.schedulinglists.length;
+        },
+        (err: HttpErrorResponse) =>{
+         
         });
   }
 
@@ -304,6 +319,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
           else {
             this.schedulinglists = this.pndtmtpSchedulingResponse.data;
             this.recordCount = this.schedulinglists.length;
+            this.recordCount1 = this.preScheduledArray.length;
 
           }
         }

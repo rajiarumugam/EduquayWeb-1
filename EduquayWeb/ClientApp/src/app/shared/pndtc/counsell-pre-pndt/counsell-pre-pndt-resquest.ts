@@ -19,5 +19,6 @@ export interface AddPrePndtCounsellingRequest{
     schedulePNDTDate: string;
     schedulePNDTTime: string;
     userId: number,
-    //formData: any
+    //formData: any,
+    //fileData: string,
 }

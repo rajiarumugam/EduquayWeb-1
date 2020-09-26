@@ -65,6 +65,8 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   schedulingId: number;
   samplega: string;
   recordCount: number;
+  recordCount1: number;
+  preSchedulingdArray = [];
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -138,6 +140,8 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
           }
           else {
             this.scheduledlists = this.pndtmtpScheduledResponse.data;
+            this.recordCount1 = this.preSchedulingdArray.length;
+          this.recordCount = this.scheduledlists.length;
             this.rerender();
           }
         }
@@ -149,6 +153,15 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         (err: HttpErrorResponse) => {
           
           this.prepndtscheduledErrorMessage = err.toString();
+        });
+        this.pndtmtpScheduleService.getschedulingLists(this.pndtmtpScheduledRequest) .subscribe(response => {
+          console.log(response);
+          this.preSchedulingdArray = response.data;
+          this.recordCount1 = this.preSchedulingdArray.length;
+          this.recordCount = this.scheduledlists.length;
+        },
+        (err: HttpErrorResponse) =>{
+         
         });
   }
 
@@ -324,7 +337,8 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
           }
           else {
             this.scheduledlists = this.pndtmtpScheduledResponse.data;
-            this.recordCount = this.scheduledlists.length;
+            this.recordCount1 = this.preSchedulingdArray.length;
+          this.recordCount = this.scheduledlists.length;
 
           }
         }

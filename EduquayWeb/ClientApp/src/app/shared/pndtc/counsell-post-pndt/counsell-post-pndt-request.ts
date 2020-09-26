@@ -20,4 +20,6 @@ export interface AddPostPndtCounsellingRequest{
     scheduleMTPTime: string;
     isFoetalDisease: boolean;
     userId: number
+    //formData: any;
+    //fileData: string;
 }

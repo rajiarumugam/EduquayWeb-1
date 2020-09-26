@@ -81,6 +81,8 @@
                           <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none" [(ngModel)]="textPassword" (change)="showPassword()">
                           <span class="slider round"></span>
                         </label>
+                        <!-- <a class="pointer" (click)="resetLogin()"
+                        class="forgot-pass-link d-flex justify-content-right">Reset</a> -->
                       </div>
                       <div class="field-wrapper">
                         <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"
@@ -104,6 +106,7 @@
                   <div class="field-wrapper">
                       <a class="pointer" (click)="forgotPassword()"
                           class="forgot-pass-link d-flex justify-content-left">Forgot Password?</a>
+                        
                   </div>
   
                   </div>

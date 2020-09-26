@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, EventEmitter } from '@angular/core';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { CounsellPostPndtRequest, AddPostPndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-request';
 import { CounsellPostPndtResponse, PostCounsellingList, AddPostPndtcCounsellingResponse } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-response';
@@ -15,6 +15,9 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { FileUploader } from 'ng2-file-upload';
+
+//const URL = 'http://localhost:4200/fileupload/';
 
 @Component({
   selector: 'app-post-pndtc-testresults',
@@ -24,7 +27,7 @@ import { DateService } from 'src/app/shared/utility/date.service';
 export class PostPndtcTestresultsComponent implements OnInit {
 
   @ViewChild('mtpschedulePicker', { static: false }) mtpschedulePicker;
-
+  @ViewChild('fileInput', { static: false }) fileInput;
   updatepostpndtcErrorMessage: string;
   //masterdataErrorMessage: string;
 
@@ -89,6 +92,10 @@ export class PostPndtcTestresultsComponent implements OnInit {
   mtpscheduleTime: string;
   myRadio: string = '';
   confirmationSelected: boolean = false;
+  fileName: string;
+  file: File;
+
+  consentForm: File;
 
   dateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -144,8 +151,33 @@ export class PostPndtcTestresultsComponent implements OnInit {
     // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
-    this.ddlobstetricianName();
+    this.ddlmtpobstetricianName();
+    
   }
+
+  // public uploader: FileUploader = new FileUploader({
+  //   url: URL,
+  //   disableMultipart : false,
+  //   autoUpload: true,
+  //   method: 'post',
+  //   itemAlias: 'attachment',
+  //   allowedFileType: ['pdf', 'xls', 'application'],
+  //   allowedMimeType: [ 'application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  //   });
+  //   // allowedFileType: ['image', 'pdf', 'xls', 'application', 'doc', 'docx'],
+  //   // allowedMimeType: ['image/jpg',
+  //   //   'image/jpeg', 'text/plain','text/xml',
+  //   //   'image/png', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'],
+  //   // });
+
+  // public onFileSelected(event: EventEmitter<File[]>) {
+  //   //this.loaderService.display(true);
+  //   this.consentForm = event[0];
+  //   this.fileName = this.consentForm.name;
+  //   //this.loaderService.display(false);
+  //   console.log(this.consentForm);
+
+  // }
 
   retrivecounselledlists() {
 
@@ -188,12 +220,12 @@ export class PostPndtcTestresultsComponent implements OnInit {
           this.updatepostpndtcErrorMessage = err.toString();
         });
   }
-  ddlobstetricianName() {
+  ddlmtpobstetricianName() {
 
     this.obstetricianlists = [];
     this.selectedobstetrician = '';
     this.updatepostpndtcErrorMessage = '';
-    this.pndtmtpMasterService.getobstetricianName()
+    this.pndtmtpMasterService.getmtpobstetricianName()
       .subscribe(response => {
         this.pndtmtpMasterResponse = response;
         if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
@@ -253,6 +285,9 @@ export class PostPndtcTestresultsComponent implements OnInit {
           this.decisionYesResponseMessage('Please choose Schedule MTP Service Date & Time', 'e');
           return false;
         }
+        // const formData = new FormData();
+        // formData.append('ConsentForm', this.consentForm, this.consentForm.name);
+        // console.log(this.consentForm);
 
         this.addCounsellingRequest = {
           postPNDTSchedulingId: this.counsellingdataItem.postPNDTSchedulingId,
@@ -268,6 +303,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
           scheduleMTPTime: this.mtpscheduleTime,
           isFoetalDisease: this.counsellingdataItem.foetalDisease,
           userId: this.user.id,
+          //formData: this.consentForm
         };
 
         //Remove below 2 lines after successfully tested
@@ -312,6 +348,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
           scheduleMTPTime: '',
           isFoetalDisease: this.counsellingdataItem.foetalDisease,
           userId: this.user.id,
+          //formData: null
         };
 
         //Remove below 2 lines after successfully tested
@@ -356,6 +393,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
           scheduleMTPTime: '',
           isFoetalDisease: this.counsellingdataItem.foetalDisease,
           userId: this.user.id,
+          //formData: null
         };
 
         //Remove below 2 lines after successfully tested
@@ -403,6 +441,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
         scheduleMTPTime: '',
         isFoetalDisease: this.counsellingdataItem.foetalDisease,
         userId: this.user.id,
+        //formData: null
       };
 
       //Remove below 2 lines after successfully tested
