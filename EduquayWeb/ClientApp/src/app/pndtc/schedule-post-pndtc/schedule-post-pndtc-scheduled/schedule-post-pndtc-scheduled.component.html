@@ -66,7 +66,7 @@
                             <th><span>Obstetric Score</span></th>
                             <th><span>Contact</span></th>
                             <th><span>Spouse Name</span></th>
-                            <th><span>Counsellor</span></th>
+                            <th class="scheduledate"><span>Counsellor</span></th>
                             <th class="scheduledate"><span>Date & Time</span></th>
                             <th><span>Edit Appointment</span></th>
                         </tr>
@@ -83,7 +83,7 @@
                             <td class="text-center">{{scheduleddata.contactNo}}</td>
                             <td style="text-align: left">{{scheduleddata.spouseName}}</td>
                             <td class="text-left">{{scheduleddata.counsellorName}}</td>
-                            <td class="text-center">{{scheduleddata.counsellingDateTime}}</td>
+                            <td class="text-left">{{scheduleddata.counsellingDateTime}}</td>
                             <td class="text-center"><a (click)="editAppiontment(editAppointmentFormDetail, scheduleddata)">
                               <i class="fas fa-calendar-alt fa-2x"></i></a></td>
 

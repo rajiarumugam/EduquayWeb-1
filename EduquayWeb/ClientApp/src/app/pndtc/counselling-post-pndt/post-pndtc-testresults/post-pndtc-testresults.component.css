@@ -94,3 +94,7 @@
 .btn-group>.btn, .btn-group .btn {
   padding: 8px 7px !important;
 }
+
+.table-bordered tr .cls-border {
+  border: none!important;
+}

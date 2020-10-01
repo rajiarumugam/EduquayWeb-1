@@ -343,6 +343,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
         if (this.pndtmtpSchedulingResponse !== null && this.pndtmtpSchedulingResponse.status === "true") {
           if (this.pndtmtpSchedulingResponse.data.length <= 0) {
             this.prepndtscheduleErrorMessage = response.message;
+            this.getScheduledLists();
           }
           else {
             this.schedulinglists = this.pndtmtpSchedulingResponse.data;
@@ -353,7 +354,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
         else {
           this.prepndtscheduleErrorMessage = response.message;
         }
-        this.onLoadSubject.emit(this.recordCount);    //step 5
+        //this.onLoadSubject.emit(this.recordCount);    //step 5
         this.rerender();
         this.loadDataTable = true;
       },

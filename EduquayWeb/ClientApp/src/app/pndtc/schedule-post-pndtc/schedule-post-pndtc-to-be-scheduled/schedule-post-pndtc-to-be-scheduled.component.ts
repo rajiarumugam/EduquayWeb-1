@@ -135,17 +135,17 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
       // this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
       // this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
-      var _postScheduledArr = this.route.snapshot.data.postScheduled;
-        console.log(_postScheduledArr);
-        if(_postScheduledArr !== undefined && _postScheduledArr.status.toString() === "true"){
+      var _postSchedulingArr = this.route.snapshot.data.postScheduling;
+        console.log(_postSchedulingArr);
+        if(_postSchedulingArr !== undefined && _postSchedulingArr.status.toString() === "true"){
           //var _tempData = centralReceiptsArr.hplcDetail;
         
-          this.schedulinglists = _postScheduledArr.data;
+          this.schedulinglists = _postSchedulingArr.data;
         }
-        this.getPostSchedulinglists();
+        this.getPostScheduledlists();
     }
 
-    getPostSchedulinglists(){
+    getPostScheduledlists(){
       this.loaderService.display(true);
       var _subjectObj = {
         "districtId": 0,
@@ -154,7 +154,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
         "anmId": 0,
         "userId": this.user.id
       }
-      this.pndtmtpScheduleService.getscheduledLists(_subjectObj) .subscribe(response => {
+      this.pndtmtpScheduleService.getscheduledLists(_subjectObj).subscribe(response => {
         console.log(response);
         this.loaderService.display(false);
         this.scheduledlists = response.data;
@@ -306,17 +306,18 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
           if (this.pndtmtpSchedulingResponse !== null && this.pndtmtpSchedulingResponse.status === "true") {
             if (this.pndtmtpSchedulingResponse.data.length <= 0) {
               this.postpndtscheduleErrorMessage = response.message;
+              this.getPostScheduledlists();
             }
             else {
               this.schedulinglists = this.pndtmtpSchedulingResponse.data;            
-              this.getPostSchedulinglists();
+              this.getPostScheduledlists();
   
             }
           }
           else {
             this.postpndtscheduleErrorMessage = response.message;
           }
-          this.onLoadSubject.emit(this.recordCount);    //step 5
+         // this.onLoadSubject.emit(this.recordCount);    //step 5
           this.rerender();
           this.loadDataTable = true;
         },
