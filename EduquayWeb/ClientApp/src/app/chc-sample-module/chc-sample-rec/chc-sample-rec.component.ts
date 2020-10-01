@@ -172,6 +172,15 @@ export class CHCSampleRcptComponent implements OnInit {
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       }); 
+    }else
+    {
+      this.processingPicker.flatpickr.set({
+        maxDate: new Date(Date.now()),
+        minDate: data.shipmentDateTime,
+        enable: [],
+        enableTime: true,
+        dateFormat: 'd/m/Y H:i',
+      }); 
     }
     
     this.popupData['receiptDetail'].forEach(function(val,index){
