@@ -8,5 +8,7 @@ export enum Verbs {
   export class HttpOptions {
     url: string
     body?: any
+    options?: any
+    header?: any
     cacheMins?: number
 }

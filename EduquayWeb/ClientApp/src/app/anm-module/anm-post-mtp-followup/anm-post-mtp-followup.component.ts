@@ -1,12 +1,12 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, EventEmitter, Output, HostListener } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { AsyncSubject, Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { TokenService } from 'src/app/shared/token.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -17,6 +17,7 @@ import { anmPostMTP, PostMtpFollowupResponse, UpdatePostMtpFollowupResponse } fr
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
 import { dataModel, getfollowupstatus, PndtMtpMasterResponse } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { PostMtpFollowupRequest } from 'src/app/shared/anm-module/notifications/post-mtp-followup/post-mtp-followup-request';
+
 
 @Component({
   selector: 'app-anm-post-mtp-followup',
@@ -40,11 +41,11 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   anmpostMTPResponse: PostMtpFollowupResponse;
   postMTP: anmPostMTP[] = [];
   firstfollowUpStatus: dataModel[] = [];
-  selectedfirstfollowup: string = "";
+  selectedfirstfollowup: Array<any> = [];
   secondfollowUpStatus: dataModel[] = [];
-  selectedsecondfollowup: string = "";
+  selectedsecondfollowup: Array<any> = [];
   thirdfollowUpStatus: dataModel[] = [];
-  selectedthirdfollowup: string = "";
+  selectedthirdfollowup: Array<any> = [];
   anmpostMTPRequest: PostMtpFollowupRequest;
   anmupdatepostMTPResponse: UpdatePostMtpFollowupResponse;
 
@@ -61,8 +62,9 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   firstFollowUpStatusDetail: string;
   secondFollowUpStatusDetail: string;
   thirdFollowUpStatusDetail: string;
-  is_secondfollowup_edit: boolean = true;
-  is_thirfollowup_edit: boolean = true;
+  is_firstfollowup_edit: Array<any> = [];
+  is_secondfollowup_edit: Array<any> = [];
+  is_thirfollowup_edit: Array<any> = [];
   mtpdatetimeFormat: Date;
   daysCount: number;
   firstfollowUpStatusdetail: string;
@@ -72,8 +74,14 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
   getsecondFollowUp: number;
   getthirdFollowUp: number;
   postMtpData: anmPostMTP;
-  getfollowupstatus: getfollowupstatus[]= [];
+  getfrstfollowupstatus = [];
+  getsecondfollowupstatus = [];
+  getthirdfollowupstatus = [];
   id: number;
+  selectedfirstvalue: string;
+  selecteddefaultvalue: string;
+  //testform: FormGroup;
+  //angular: any;
 
   constructor(
     private anmpostMTPService: PostMtpFollowupService,
@@ -86,7 +94,8 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
     private dataservice: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+   
   ) { }
 
   ngOnInit() {
@@ -94,6 +103,9 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     this.dataservice.sendData(JSON.stringify({ "module": "ANM", "submodule": "Notifications", "page": "Post MTP Follow-up" }));
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    // this.testform = this._formBuilder.group({
+    //   mettype: ['']
+    // });
     //this.InitializeDateRange(); 
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -119,44 +131,79 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
     // this.collectionDate = moment().format("DD/MM/YYYY");
     // this.collectionTime = moment().format("HH:mm");
     console.log(this.anmpostMTPService.postMTPApi);
-    this.anmpostMTP(this.user.id);   
+    this.anmpostMTPList(this.user.id);  
+    this.ddlfirstfollowUp();
+    this.ddlsecondfollowUp();
+    this.ddlthirdfollowUp(); 
 
   }
 
+  toggleFirstDisable(){
+    this.postMTP.forEach((element, index) => {
+      if (element.firstFollowUp > 0) {
+        this.is_firstfollowup_edit[index] = true;
+      }
+      else{
+        this.is_firstfollowup_edit[index] = false;
+      }
+    });
+  }
+
   toggleSecondDisable() {
-    this.postMTP.forEach(element => {
-      if (element.firstFollowUp > 0 && element.daysCount >= 50) {
-        this.is_secondfollowup_edit = false;
+    this.postMTP.forEach((element, index) => {
+      if (element.firstFollowUp > 0 && element.secondFollowUp <= 0 && element.daysCount >= 50) {
+        this.is_secondfollowup_edit[index] = false;
         console.log(this.is_secondfollowup_edit);
       }
+      else if(element.secondFollowUp > 0 ){
+        this.is_secondfollowup_edit[index] = true;
+      }
+      else{
+        this.is_secondfollowup_edit[index] = true;
+      }
+      
     });
   }
 
   toggleThirdDisable() {
-    this.postMTP.forEach(element => {
-      if (element.secondFollowUp > 0 && element.daysCount >= 60) {
-        this.is_thirfollowup_edit = false;
+    this.postMTP.forEach((element, index) => {
+      if (element.firstFollowUp > 0 && element.secondFollowUp > 0 && element.thirdFollowUp <= 0 && element.daysCount >= 60) {
+        this.is_thirfollowup_edit[index]  = false;
         console.log(this.is_thirfollowup_edit);
+      }
+      else if(element.thirdFollowUp > 0 ){
+        this.is_thirfollowup_edit[index] = true;
+      }
+      else{
+        this.is_thirfollowup_edit[index] = true;
       }
     });
   }
 
-  
+  changeFirstFollowup(selectedfrstvalue, i){    
+    console.log("change state",this.selectedfirstfollowup[i]);
+    this.selectedfirstfollowup[i] = this.getfrstfollowupstatus.find(cntry => cntry.id == selectedfrstvalue).this.selectedfirstfollowup; 
+  }
+
+  changeSecondFollowup(selectedscndvalue, i){    
+    console.log("change state",this.selectedsecondfollowup[i]);
+    this.selectedsecondfollowup[i] = this.getsecondfollowupstatus.find(cntry => cntry.id == selectedscndvalue).this.selectedsecondfollowup; 
+  }
+
+  changeThirdFollowup(selectedthrdvalue, i){    
+    console.log("change state",this.selectedthirdfollowup[i]);
+    this.selectedthirdfollowup[i] = this.getthirdfollowupstatus.find(cntry => cntry.id == selectedthrdvalue).this.selectedthirdfollowup; 
+  }
 
   ddlfirstfollowUp() {
 
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
-       this.firstfollowUpStatus = this.postmtpMasterResponse.data;  
-        //this.getfollowupstatus.push(newRecord);
-        this.selectedfirstfollowup = "";
-        // this.firstfollowUpStatus.forEach(element1 => {
-        //   var getdataindex = this.firstfollowUpStatus.findIndex(com => com.id === element1.id)
-        //   if (getdataindex >= 0) {
-        //     this.getfollowupstatus.push(this.firstfollowUpStatus[getdataindex]);
-        //   }
-        // }); 
+       this.firstfollowUpStatus = this.postmtpMasterResponse.data;     
+         this.firstfollowUpStatus.forEach(element => {  
+            this.getfrstfollowupstatus.push(element);       
+       });
        
       }
       else {
@@ -169,25 +216,14 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       });
   }
 
-  // choosefirstfollowUp(firstfollowUpStatus: dataModel, selectedfirstfollowup: string){
-  //   if(selectedfirstfollowup === '1'){
-  //     firstfollowUpStatus.id = 1;
-  //   }
-  //   else if(selectedfirstfollowup === '2'){
-  //     firstfollowUpStatus.id = 2;
-  //   }
-  //   else if(selectedfirstfollowup === '3'){
-  //     firstfollowUpStatus.id = 3;
-  //   }
-  //   console.log(this.firstfollowUpStatus);
-  // }
-
   ddlsecondfollowUp() {
     let district = this.postmtpMasterService.getfollowUpStatus().subscribe(response => {
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
         this.secondfollowUpStatus = this.postmtpMasterResponse.data;
-        this.selectedsecondfollowup = "";
+        this.secondfollowUpStatus.forEach(element => {  
+          this.getsecondfollowupstatus.push(element);      
+        });
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -204,7 +240,9 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       this.postmtpMasterResponse = response;
       if (this.postmtpMasterResponse !== null && this.postmtpMasterResponse.status === "true") {
         this.thirdfollowUpStatus = this.postmtpMasterResponse.data;
-        this.selectedthirdfollowup = "";
+        this.thirdfollowUpStatus.forEach(element => {  
+          this.getthirdfollowupstatus.push(element);      
+        });
       }
       else {
         this.anmpostMTPErrorMessage = response.message;
@@ -216,7 +254,7 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       });
   }
 
-  anmpostMTP(userId) {
+  anmpostMTPList(userId) {
 
     this.loaderService.display(true);
     this.recordCount = 0; //step 3
@@ -233,19 +271,39 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
           }
           else {
             this.postMTP = this.anmpostMTPResponse.subjects;
-            this.postMTP.forEach(element => {
-              // this.getfirstFollowUp = element.firstFollowUp;
-              // this.getsecondFollowUp = element.secondFollowUp;
-              // this.getthirdFollowUp = element.thirdFollowUp;
+            this.postMTP.forEach((element, index) => {
+               this.getfirstFollowUp = element.firstFollowUp;
+              this.getsecondFollowUp = element.secondFollowUp;
+              this.getthirdFollowUp = element.thirdFollowUp;
               var date1: any = element.mtpdatetimeFormat = this.dateService.convertToDateTimeFormat(element.mtpDateTime);
               var date2: any = new Date(new Date().getTime());
-              element.daysCount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+              element.daysCount = Math.floor((date1 - date2) / (1000 * 60 * 60 * 24));
               console.log(element.daysCount);
-              this.ddlfirstfollowUp();
-              this.ddlsecondfollowUp();
-              this.ddlthirdfollowUp();
+              // First follow-up status //
+                if(this.getfirstFollowUp > 0){
+                  this.selectedfirstfollowup[index] =  this.getfirstFollowUp;
+                }
+                else{
+                  this.selectedfirstfollowup[index] = '';
+                }
+              // Second follow-up status // 
+                if(this.getsecondFollowUp > 0){
+                  this.selectedsecondfollowup[index] =  this.getsecondFollowUp;
+                }
+                else{
+                  this.selectedsecondfollowup[index] = '';
+                } 
+              // Third follow-up status // 
+                if(this.getthirdFollowUp > 0){
+                  this.selectedthirdfollowup[index] =  this.getthirdFollowUp;
+                }
+                else{
+                  this.selectedthirdfollowup[index] = '';
+                }            
+                        
             });
             //this.firstfollowUpStatus = this.postMtpData;
+            this.toggleFirstDisable();
             this.toggleSecondDisable();
             this.toggleThirdDisable();
             this.recordCount = this.postMTP.length; //step 4
@@ -264,17 +322,17 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
         });
   }
 
-  postmtpUpdateStatus(sample: anmPostMTP) {
+  postmtpUpdateStatus(sample: anmPostMTP, i) {
 
     this.anmpostMTPErrorMessage = '';
-    if (sample.firstFollowUp > 0 && sample.daysCount > 50) {
+    if (sample.firstFollowUp > 0 && sample.secondFollowUp <= 0 && sample.daysCount >= 50) {
 
       this.mtpId = sample.mtpId;
-      if (this.selectedsecondfollowup === "0" || this.selectedsecondfollowup === '') {
+      if (this.selectedsecondfollowup[i] === "") {
         this.updatestatusResponseMessage("please choose atleast one follow up status", 'e');
         return false;
       }
-      if (this.selectedsecondfollowup === '2') {
+      if (this.selectedsecondfollowup[i] === '2') {
         this.secondfollowUpStatusdetail = this.secondfollowUpStatusdetail;
       }
       else {
@@ -284,14 +342,14 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       this.anmpostMTPRequest = {
         userId: this.user.id,
         mtpId: this.mtpId,
-        followUpNo: 1,
-        followUpStatusId: +(this.selectedfirstfollowup),
+        followUpNo: 2,
+        followUpStatusId: +(this.selectedsecondfollowup[i]),
         followUpStatusDetail: this.secondfollowUpStatusdetail
 
       }
       //Remove below 2 lines after successfully tested
-      this.updatestatusResponseMessage(' testing Successfully registered', 's');
-      return false;
+      // this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      // return false;
       let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
         .subscribe(response => {
           this.anmupdatepostMTPResponse = response;
@@ -307,16 +365,17 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
             this.updatestatusResponseMessage(err.toString(), 'e');
             this.anmpostMTPErrorMessage = err.toString();
           });
+         
     }
 
-    else if (sample.secondFollowUp > 0 && sample.daysCount > 60) {
+    else if (sample.secondFollowUp > 0 && sample.firstFollowUp > 0 && sample.daysCount >= 60) {
       this.mtpId = sample.mtpId;
-      if (this.selectedthirdfollowup === "0" || this.selectedthirdfollowup === '') {
+      if (this.selectedthirdfollowup[i] === "") {
         this.updatestatusResponseMessage("please choose atleast one follow up status", 'e');
         return false;
       }
 
-      if (this.selectedthirdfollowup === '2') {
+      if (this.selectedthirdfollowup[i] === '2') {
         this.thirdfollowUpStatusdetail = this.thirdfollowUpStatusdetail;
       }
       else {
@@ -325,14 +384,14 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
       this.anmpostMTPRequest = {
         userId: this.user.id,
         mtpId: this.mtpId,
-        followUpNo: 1,
-        followUpStatusId: +(this.selectedfirstfollowup),
+        followUpNo: 3,
+        followUpStatusId: +(this.selectedthirdfollowup[i]),
         followUpStatusDetail: this.thirdfollowUpStatusdetail
 
       }
       //Remove below 2 lines after successfully tested
-      this.updatestatusResponseMessage(' testing Successfully registered', 's');
-      return false;
+      // this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      // return false;
       let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
         .subscribe(response => {
           this.anmupdatepostMTPResponse = response;
@@ -349,15 +408,14 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
             this.anmpostMTPErrorMessage = err.toString();
           });
     }
-    else {
-
+    else if(sample.firstFollowUp <= 0){
       this.mtpId = sample.mtpId;
-      if (this.selectedfirstfollowup === "0" || this.selectedfirstfollowup === '') {
+      if (this.selectedfirstfollowup[i] === '') {
         this.updatestatusResponseMessage("please choose atleast one follow up status", 'e');
         return false;
       }
 
-      if (this.selectedfirstfollowup === '2') {
+      if (this.selectedfirstfollowup[i] === '2') {
         this.firstfollowUpStatusdetail = this.firstfollowUpStatusdetail;
       }
       else {
@@ -368,13 +426,13 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
         userId: this.user.id,
         mtpId: this.mtpId,
         followUpNo: 1,
-        followUpStatusId: +(this.selectedfirstfollowup),
+        followUpStatusId: +(this.selectedfirstfollowup[i]),
         followUpStatusDetail: this.firstfollowUpStatusdetail
 
       }
       //Remove below 2 lines after successfully tested
-      this.updatestatusResponseMessage(' testing Successfully registered', 's');
-      return false;
+      // this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      // return false;
       let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
         .subscribe(response => {
           this.anmupdatepostMTPResponse = response;
@@ -391,6 +449,22 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
             this.anmpostMTPErrorMessage = err.toString();
           });
     }
+    else if(sample.firstFollowUp > 0 && sample.secondFollowUp <= 0 && sample.thirdFollowUp <= 0){
+      //this.updatestatusResponseMessage('testing Successfully registered', 'e');
+      Swal.fire({ icon: 'warning', title: 'Already First follow Up Status completed', confirmButtonText: 'Close', allowOutsideClick: false })
+    }
+    else if(sample.firstFollowUp > 0 && sample.secondFollowUp > 0 && sample.thirdFollowUp <= 0){
+      //this.updatestatusResponseMessage('testing Successfully registered', 'e');
+      Swal.fire({ icon: 'warning', title: 'Already First & Second follow Up Status completed', confirmButtonText: 'Close', allowOutsideClick: false })
+    }
+    else if(sample.firstFollowUp > 0 && sample.secondFollowUp > 0 && sample.thirdFollowUp > 0){
+      //this.updatestatusResponseMessage('testing Successfully registered', 'e');
+      Swal.fire({ icon: 'warning', title: 'Already all follow Up Status completed', confirmButtonText: 'Close', allowOutsideClick: false })
+    }
+    
+    // else {
+    //   this.updatestatusResponseMessage('testing Successfully registered', 'e');
+    // }
 
   }
 

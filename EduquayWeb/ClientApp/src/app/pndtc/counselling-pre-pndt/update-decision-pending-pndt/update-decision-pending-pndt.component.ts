@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, EventEmitter } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { CounsellPrePndtResquest, AddPrePndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-update-decision-pending-pndt',
@@ -83,6 +84,10 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
     pndtscheduleDate: string;
     pndtscheduleTime: string;
     myRadio: string = '';
+    fileName: string;
+    file: File;
+
+    consentForm: File;
   
     dateOptions: FlatpickrOptions = {
       mode: 'single',
@@ -139,6 +144,30 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
       // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
       this.ddlobstetricianName();
+    }
+
+    public uploader: FileUploader = new FileUploader({
+      //url: URL,
+      disableMultipart : false,
+      autoUpload: true,
+      method: 'post',
+      itemAlias: 'attachment',
+      allowedFileType: ['pdf', 'xls', 'application'],
+      allowedMimeType: [ 'application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+      });
+      // allowedFileType: ['image', 'pdf', 'xls', 'application', 'doc', 'docx'],
+      // allowedMimeType: ['image/jpg',
+      //   'image/jpeg', 'text/plain','text/xml',
+      //   'image/png', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'],
+      // });
+  
+    public onFileSelected(event: EventEmitter<File[]>) {
+      //this.loaderService.display(true);
+      this.consentForm = event[0];
+      this.fileName = this.consentForm.name;
+      //this.loaderService.display(false);
+      console.log(this.consentForm);
+  
     }
   
     retrivecounselledpendinglists() {
@@ -247,6 +276,10 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
           this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
           return false;
         }
+         const formData = new FormData();
+        formData.append('ConsentForm', this.consentForm, this.consentForm.name);
+        console.log(formData);
+
   
         this.addCounselledPendingRequest = {
           prePNDTSchedulingId: this.counselledPendingdataItem.schedulingId,
@@ -264,10 +297,10 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
         };
   
         //Remove below 2 lines after successfully tested
-        // this.decisionYesResponseMessage('Successfully registered', 's');
+        // this.decisionYesResponseMessage('testing Successfully registered', 's');
         // return false;
   
-        let addCounselledPendingData = this.counselledpendingprepndtService.AddprepndtCounselling(this.addCounselledPendingRequest)
+        let addCounselledPendingData = this.counselledpendingprepndtService.AddprepndtCounselling(this.addCounselledPendingRequest, formData)
           .subscribe(response => {
             this.addCounselledPendingResponse = response;
             if (this.addCounselledPendingResponse !== null && this.addCounselledPendingResponse.status === "true") {
@@ -290,7 +323,10 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
   
         this.counsellingRemarks = updatePndtpendingForm.value.Remarks;
         this.assignedObstetricianId = updatePndtpendingForm.value.DDLobstetrician;
-  
+
+        const formData = new FormData();
+        formData: null;
+
         this.addCounselledPendingRequest = {
           prePNDTSchedulingId: this.counselledPendingdataItem.schedulingId,
           anwsubjectId: this.counselledPendingdataItem.anwSubjectId,
@@ -310,7 +346,7 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
         // this.decisionNoResponseMessage('Successfully registered', 's');
         // return false;
   
-        let addCounselledNoData = this.counselledpendingprepndtService.AddprepndtCounselling(this.addCounselledPendingRequest)
+        let addCounselledNoData = this.counselledpendingprepndtService.AddprepndtCounselling(this.addCounselledPendingRequest, formData)
           .subscribe(response => {
             this.addCounselledPendingResponse = response;
             if (this.addCounselledPendingResponse !== null && this.addCounselledPendingResponse.status === "true") {
@@ -333,6 +369,8 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
   
         this.counsellingRemarks = updatePndtpendingForm.value.Remarks;
         this.assignedObstetricianId = updatePndtpendingForm.value.DDLobstetrician;
+        const formData = new FormData();
+        formData: null;
   
         this.addCounselledPendingRequest = {
           prePNDTSchedulingId: this.counselledPendingdataItem.schedulingId,
@@ -353,7 +391,7 @@ export class UpdateDecisionPendingPndtComponent implements OnInit {
         // this.decisionAwaitedResponseMessage('Successfully registered', 's');
         // return false;
   
-        let addCounselledNoData = this.counselledpendingprepndtService.AddprepndtCounselling(this.addCounselledPendingRequest)
+        let addCounselledNoData = this.counselledpendingprepndtService.AddprepndtCounselling(this.addCounselledPendingRequest, formData)
           .subscribe(response => {
             this.addCounselledPendingResponse = response;
             if (this.addCounselledPendingResponse !== null && this.addCounselledPendingResponse.status === "true") {

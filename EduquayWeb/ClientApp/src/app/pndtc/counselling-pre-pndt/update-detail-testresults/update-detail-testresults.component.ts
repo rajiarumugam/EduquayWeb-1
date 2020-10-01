@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { FileUploader, FileLikeObject, FileSelectDirective } from 'ng2-file-upload';
 
-const URL = 'http://localhost:4200/fileupload/';
+//const URL = 'http://localhost:4200/fileupload/';
 
 
 @Component({
@@ -290,7 +290,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       //const fileBrowser = this.fileInput.nativeElement;
       // const formData = new FormData();
       // formData.append('ConsentForm', this.consentForm, this.consentForm.name);
-      // console.log(this.consentForm);
+      // console.log(formData);
 
       this.addCounsellingRequest = {
         prePNDTSchedulingId: this.counsellingdataItem.schedulingId,
@@ -310,7 +310,7 @@ export class UpdateDetailTestresultsComponent implements OnInit {
 
       //Remove below 2 lines after successfully tested
       //  this.decisionYesResponseMessage('Successfully registered', 's');
-      //  return false;
+      //return false;
 
       let addScheduleData = this.counsellingprepndtService.AddprepndtCounselling(this.addCounsellingRequest)
         .subscribe(response => {

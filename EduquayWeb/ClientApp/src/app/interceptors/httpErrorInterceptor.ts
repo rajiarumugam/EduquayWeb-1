@@ -35,7 +35,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             }
           }
           return throwError(
-            'Something bad happened; please try again later.');
+            `Something bad happened; please try again later. ${error.message}`);
         })
       );
   }

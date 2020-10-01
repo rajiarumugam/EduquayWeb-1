@@ -46,4 +46,10 @@ export interface user {
   shipmentFrom: number,
 }
 
+export interface resetLoginResponse {
+  message: string;
+  success: boolean;
+  errors: string;
+}
+
 

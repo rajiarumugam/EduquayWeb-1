@@ -42,7 +42,8 @@ export class HttpClientService {
   private httpCall<T>(verb: Verbs, options: HttpOptions): Observable<T> {
 
     // Setup default values
-    options.body = options.body || null
+    options.body = options.body || null;
+    options.header = options.header || null;
 
     return this.http.request<T>(verb, options.url, options)
       .pipe(
@@ -70,7 +71,7 @@ export class HttpClientService {
 */
     return this.http.request<T>(verb, options.url, {
       body: options.body
-    })
+    }, )
       .pipe(
         switchMap(response => {
           if (options.cacheMins > 0) {
