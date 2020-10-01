@@ -216,6 +216,10 @@ import { MLUpdateMolResultResolverService } from "./shared/molecularlab/ml-updat
 import { MolucularLabReportResolverService } from "./shared/molecularlab/mi-report-resolver.service";
 
 import { CHCReportResolverService } from "./shared/chc-sample/chc-report-resolver.service";
+import { ToBeSchedulingResolverService } from "./shared/pndtc/schedule-pre-pndtc/to-be-scheduling-resolver.service";
+import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/scheduled-resolver.service";
+import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
+import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -411,8 +415,8 @@ const routes: Routes = [
       {
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
-          {path: '', component: PrePndtcToBeScheduledComponent, pathMatch: 'full'},
-          {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full'}
+          {path: '', component: PrePndtcToBeScheduledComponent, pathMatch: 'full', resolve: {tobeScheduling: ToBeSchedulingResolverService}},
+          {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
         ]
       },
       {
@@ -489,8 +493,8 @@ const routes: Routes = [
       {
         path: 'schedule-post-pndtc', component: SchedulePostPndtcMainComponent,
         children:[
-          {path: '', component: SchedulePostPndtcToBeScheduledComponent, pathMatch: 'full'},
-          {path: 'scheduled', component: SchedulePostPndtcScheduledComponent, pathMatch: 'full'}
+          {path: '', component: SchedulePostPndtcToBeScheduledComponent, pathMatch: 'full', resolve: {postScheduling: PostSchedulingResolverService}},
+          {path: 'scheduled', component: SchedulePostPndtcScheduledComponent, pathMatch: 'full', resolve: {postScheduled: PostScheduledResolverService}},
         ]
       },
       {

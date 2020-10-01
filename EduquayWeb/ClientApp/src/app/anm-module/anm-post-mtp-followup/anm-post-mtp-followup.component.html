@@ -53,7 +53,7 @@
                     <td class="text-center"></td>
                     <td class="nt-border-right text-left">{{sample.obstetricianName}}</td>
                     <td class="text-center">
-                        <div (click)='toggleFirstDisable()'>
+                        <!-- <div (click)='toggleFirstDisable()'> -->
                         <select id="inputDistrict" class="form-control" name="selectedfirstfollowup" (change)="changeFirstFollowup($event.target.value,i)"
                          [(ngModel)]="selectedfirstfollowup[i]" [disabled]= "is_firstfollowup_edit[i]">
                             <option value="">Select</option>
@@ -65,7 +65,7 @@
                             <input class="form-control field" name="firstfollowUpStatusdetail" required="" type="text"
                                 placeholder="Status Detail" tabindex="1" autocomplete="off" [(ngModel)]="firstfollowUpStatusdetail">
                         </div>
-                    </div>
+                    <!-- </div> -->
                     </td>
                     <td class="text-center">
                         <div (click)='toggleSecondDisable()'>

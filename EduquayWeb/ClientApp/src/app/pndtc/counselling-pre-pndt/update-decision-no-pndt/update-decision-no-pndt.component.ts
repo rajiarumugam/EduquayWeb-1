@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, EventEmitter } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/shared/data.service';
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
@@ -11,10 +11,11 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { user } from 'src/app/shared/auth-response';
 import { AddPrePndtCounsellingRequest, CounsellPrePndtResquest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
-import { AddPrePndtcCounsellingResponse, CounselledList, CounselledprepndtResponse } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
+import { AddPrePndtcCounsellingResponse, CounselledList, CounselledprepndtResponse, FileDetails, prePndtFileUploadResponse } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-update-decision-no-pndt',
@@ -34,11 +35,19 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
   counsellednolists: CounselledList[] = [];
   addCounselledNoRequest: AddPrePndtCounsellingRequest;
   addCounselledNoResponse: AddPrePndtcCounsellingResponse;
+  prePndtFileUploadResponse: prePndtFileUploadResponse;
+  prePNDTCFileDetails: FileDetails;
   anwSubjectId: string;
   counselledNodataItem: CounselledList;
   selectedobstetrician: string = '';
   obstetricianlists: dataModel[] = [];
   user: user;
+  prePndtcFileName: string;
+  prePndtcFileLocation: string;
+  fileName: string;
+  file: File;
+
+  consentForm: File;
 
   subjectName: string;
   spouseSubjectId: string;
@@ -163,10 +172,10 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
           else {
             this.counselledNodataItem = this.counsellednoprepndtResponse.data.
               find(counselling => counselling.anwSubjectId === this.anwSubjectId);
-              this.remarksdata = this.counselledNodataItem.counsellingRemarks;
-              this.isSelectedYes = this.counselledNodataItem.isPNDTAgreeYes;
-                this.isSelectedNo = this.counselledNodataItem.isPNDTAgreeNo;
-                this.isSelectedPending = this.counselledNodataItem.isPNDTAgreePending;
+            this.remarksdata = this.counselledNodataItem.counsellingRemarks;
+            this.isSelectedYes = this.counselledNodataItem.isPNDTAgreeYes;
+            this.isSelectedNo = this.counselledNodataItem.isPNDTAgreeNo;
+            this.isSelectedPending = this.counselledNodataItem.isPNDTAgreePending;
             //this.counsellinglists = this.counsellednoprepndtResponse.data;
 
           }
@@ -179,6 +188,30 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.updateDecisionNopndtErrorMessage = err.toString();
         });
+  }
+
+  public uploader: FileUploader = new FileUploader({
+    //url: URL,
+    disableMultipart: false,
+    autoUpload: true,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['pdf', 'xls', 'application'],
+    allowedMimeType: ['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  });
+  // allowedFileType: ['image', 'pdf', 'xls', 'application', 'doc', 'docx'],
+  // allowedMimeType: ['image/jpg',
+  //   'image/jpeg', 'text/plain','text/xml',
+  //   'image/png', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'],
+  // });
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    //this.loaderService.display(true);
+    this.consentForm = event[0];
+    this.fileName = this.consentForm.name;
+    //this.loaderService.display(false);
+    console.log(this.consentForm);
+
   }
   ddlobstetricianName() {
 
@@ -234,55 +267,139 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
 
     if (this.isSelectedYes === true) {
       console.log(updatePndtnoForm.value);
+      this.isDecisionYes = true;
+      const formData = new FormData();
+      if (formData === undefined || this.consentForm === undefined) {
+        // this.decisionAwaitedResponseMessage('Please choose a file', 'e');
+        // return false;
+        if (this.confirmationSelected == false) {
+          this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+          return false;
+        }
+        this.counsellingRemarks = updatePndtnoForm.value.Remarks;
+        this.assignedObstetricianId = updatePndtnoForm.value.DDLobstetrician;
 
-      if(this.confirmationSelected == false){
-        this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
-        return false;
+        if ((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)) {
+          this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
+          return false;
+        }
+
+        this.addCounselledNoRequest = {
+          prePNDTSchedulingId: this.counselledNodataItem.schedulingId,
+          anwsubjectId: this.counselledNodataItem.anwSubjectId,
+          spouseSubjectId: this.counselledNodataItem.spouseSubjectId,
+          counsellorId: this.counselledNodataItem.counsellorId,
+          counsellingRemarks: this.counsellingRemarks,
+          assignedObstetricianId: +(this.assignedObstetricianId),
+          isPNDTAgreeYes: this.isSelectedYes,
+          isPNDTAgreeNo: this.isSelectedNo,
+          isPNDTAgreePending: this.isSelectedPending,
+          schedulePNDTDate: this.pndtscheduleDate,
+          schedulePNDTTime: this.pndtscheduleTime,
+          userId: this.user.id,
+          fileName: this.prePndtcFileName,
+          fileLocation: this.prePndtcFileLocation
+        };
+
+        //Remove below 2 lines after successfully tested
+        // this.decisionYesResponseMessage('testing Successfully registered', 's');
+        // return false;
+
+        let addCounselledPendingData = this.counsellednoprepndtService.AddprepndtCounselling(this.addCounselledNoRequest)
+          .subscribe(response => {
+            this.addCounselledNoResponse = response;
+            if (this.addCounselledNoResponse !== null && this.addCounselledNoResponse.status === "true") {
+              this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 's')
+              //this.retrivescheduledlists();
+              //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+            } else {
+              this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 'e');
+              this.updateDecisionNopndtErrorMessage = response.message;
+            }
+
+          },
+            (err: HttpErrorResponse) => {
+              this.decisionYesResponseMessage(err.toString(), 'e');
+              this.updateDecisionNopndtErrorMessage = err.toString();
+            });
+
+
       }
-      this.counsellingRemarks = updatePndtnoForm.value.Remarks;
-      this.assignedObstetricianId = updatePndtnoForm.value.DDLobstetrician;
+      else {
+        formData.append('ConsentForm', this.consentForm, this.consentForm.name);
+        console.log(formData);
+        this.counsellednoprepndtService.prePNDTuploadFile(formData)
+          .subscribe(response => {
+            this.prePndtFileUploadResponse = response;
+            if (this.prePndtFileUploadResponse !== null && this.prePndtFileUploadResponse.status === "true") {
+              this.prePNDTCFileDetails = this.prePndtFileUploadResponse.data;
+              this.prePndtcFileName = this.prePNDTCFileDetails.fileName;
+              this.prePndtcFileLocation = this.prePNDTCFileDetails.fileLocation;
+              if (this.prePndtcFileLocation === '' || this.prePndtcFileLocation === undefined) {
+                this.decisionAwaitedResponseMessage('location undefined', 'e');
+                return false;
+              }
+              if (this.confirmationSelected == false) {
+                this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+                return false;
+              }
+              this.counsellingRemarks = updatePndtnoForm.value.Remarks;
+              this.assignedObstetricianId = updatePndtnoForm.value.DDLobstetrician;
 
-      if((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)){
-        this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
-        return false;
+              if ((this.pndtscheduleDate === '' || this.pndtscheduleDate == undefined) && (this.pndtscheduleTime === '' || this.pndtscheduleTime == undefined)) {
+                this.decisionYesResponseMessage('Please choose Schedule PNDT Date & Time', 'e');
+                return false;
+              }
+
+              this.addCounselledNoRequest = {
+                prePNDTSchedulingId: this.counselledNodataItem.schedulingId,
+                anwsubjectId: this.counselledNodataItem.anwSubjectId,
+                spouseSubjectId: this.counselledNodataItem.spouseSubjectId,
+                counsellorId: this.counselledNodataItem.counsellorId,
+                counsellingRemarks: this.counsellingRemarks,
+                assignedObstetricianId: +(this.assignedObstetricianId),
+                isPNDTAgreeYes: this.isSelectedYes,
+                isPNDTAgreeNo: this.isSelectedNo,
+                isPNDTAgreePending: this.isSelectedPending,
+                schedulePNDTDate: this.pndtscheduleDate,
+                schedulePNDTTime: this.pndtscheduleTime,
+                userId: this.user.id,
+                fileName: this.prePndtcFileName,
+                fileLocation: this.prePndtcFileLocation
+              };
+
+              //Remove below 2 lines after successfully tested
+              // this.decisionYesResponseMessage('testing Successfully registered', 's');
+              // return false;
+
+              let addCounselledPendingData = this.counsellednoprepndtService.AddprepndtCounselling(this.addCounselledNoRequest)
+                .subscribe(response => {
+                  this.addCounselledNoResponse = response;
+                  if (this.addCounselledNoResponse !== null && this.addCounselledNoResponse.status === "true") {
+                    this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 's')
+                    //this.retrivescheduledlists();
+                    //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+                  } else {
+                    this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 'e');
+                    this.updateDecisionNopndtErrorMessage = response.message;
+                  }
+
+                },
+                  (err: HttpErrorResponse) => {
+                    this.decisionYesResponseMessage(err.toString(), 'e');
+                    this.updateDecisionNopndtErrorMessage = err.toString();
+                  });
+
+            }
+            else {
+              this.updateDecisionNopndtErrorMessage = response.message;
+            }
+          },
+            (err: HttpErrorResponse) => {
+              this.updateDecisionNopndtErrorMessage = err.toString();
+
+            });
       }
-
-      this.addCounselledNoRequest = {
-        prePNDTSchedulingId: this.counselledNodataItem.schedulingId,
-        anwsubjectId: this.counselledNodataItem.anwSubjectId,
-        spouseSubjectId: this.counselledNodataItem.spouseSubjectId,
-        counsellorId: this.counselledNodataItem.counsellorId,
-        counsellingRemarks: this.counsellingRemarks,
-        assignedObstetricianId: +(this.assignedObstetricianId),
-        isPNDTAgreeYes: this.isSelectedYes,
-        isPNDTAgreeNo: this.isSelectedNo,
-        isPNDTAgreePending: this.isSelectedPending,
-        schedulePNDTDate: this.pndtscheduleDate,
-        schedulePNDTTime: this.pndtscheduleTime,
-        userId: this.user.id,
-      };
-
-      //Remove below 2 lines after successfully tested
-      // this.decisionYesResponseMessage('Successfully registered', 's');
-      // return false;
-
-      let addCounselledNoData = this.counsellednoprepndtService.AddprepndtCounselling(this.addCounselledNoRequest)
-        .subscribe(response => {
-          this.addCounselledNoResponse = response;
-          if (this.addCounselledNoResponse !== null && this.addCounselledNoResponse.status === "true") {
-            this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 's')
-            //this.retrivescheduledlists();
-            //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
-          } else {
-            this.decisionYesResponseMessage(this.addCounselledNoResponse.message, 'e');
-            this.updateDecisionNopndtErrorMessage = response.message;
-          }
-
-        },
-          (err: HttpErrorResponse) => {
-            this.decisionYesResponseMessage(err.toString(), 'e');
-            this.updateDecisionNopndtErrorMessage = err.toString();
-          });
     }
     else if (this.isSelectedNo === true) {
       console.log(updatePndtnoForm.value);
@@ -303,6 +420,8 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
         schedulePNDTDate: '',
         schedulePNDTTime: '',
         userId: this.user.id,
+        fileName: null,
+        fileLocation: null
       };
 
       //Remove below 2 lines after successfully tested
@@ -346,6 +465,8 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
         schedulePNDTDate: '',
         schedulePNDTTime: '',
         userId: this.user.id,
+        fileName: null,
+        fileLocation: null
       };
 
       //Remove below 2 lines after successfully tested
@@ -383,11 +504,11 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-      .then((result) => {
-        if (result.value) {
-          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
+          }
+        });
     }
   }
   decisionNoResponseMessage(message: string, type: string) {
@@ -398,11 +519,11 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-      .then((result) => {
-        if (result.value) {
-          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
+          }
+        });
     }
   }
   decisionAwaitedResponseMessage(message: string, type: string) {
@@ -413,11 +534,11 @@ export class UpdateDecisionNoPndtComponent implements OnInit {
     }
     else {
       Swal.fire({ icon: 'success', title: title, confirmButtonText: 'Ok', allowOutsideClick: false })
-      .then((result) => {
-        if (result.value) {
-          this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
-        }
-      });
+        .then((result) => {
+          if (result.value) {
+            this.router.navigateByUrl(`/app/counselling-pre-pndt/counselledno`);
+          }
+        });
     }
   }
 

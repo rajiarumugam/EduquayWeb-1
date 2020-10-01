@@ -57,6 +57,7 @@ export class HttpClientService {
 
     // Setup default values
     options.body = options.body || null
+    options.header = options.header || null
     options.cacheMins = options.cacheMins || 0
 
     /*
@@ -69,9 +70,7 @@ export class HttpClientService {
       }
     }
 */
-    return this.http.request<T>(verb, options.url, {
-      body: options.body
-    }, )
+    return this.http.request<T>(verb, options.url, {body: options.body}, )
       .pipe(
         switchMap(response => {
           if (options.cacheMins > 0) {
