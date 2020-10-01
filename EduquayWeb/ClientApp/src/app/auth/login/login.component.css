@@ -131,6 +131,23 @@ html {
 .menu-font-size {
   font-size: 1.05rem;
 }
+.modaltitle {
+  color: #1b55e2;
+  font-weight: 600;
+  text-shadow: 1px 0px #125879;
+  font-size: 20px;
+  /* text-align: center; */
+}
+
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
 
 /* .modal-header .modal-body form .form .field-wrapper .input svg {
   position: absolute !important;

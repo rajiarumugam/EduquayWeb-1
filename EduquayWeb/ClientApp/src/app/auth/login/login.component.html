@@ -216,10 +216,11 @@
                       
                       </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+                    <div class="modal-footer float-right">
+                      <button class="btn float-right" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                      <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto" name="linkto">Submit</button>
                       <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
-                      <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                      
                     </div>
 
                   </div>
