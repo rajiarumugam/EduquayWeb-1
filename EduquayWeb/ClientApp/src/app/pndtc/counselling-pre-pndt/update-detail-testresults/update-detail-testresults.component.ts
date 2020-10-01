@@ -244,6 +244,8 @@ export class UpdateDetailTestresultsComponent implements OnInit {
       this.isSelectedNo = false;
       this.isSelectedPending = false;
       this.isDecisionYes = true;
+      const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
+      this.dateOptions.minDate = regDate;
     }
     else if (radioBtnItem == 'decisionno') {
       this.isSelectedNo = true;

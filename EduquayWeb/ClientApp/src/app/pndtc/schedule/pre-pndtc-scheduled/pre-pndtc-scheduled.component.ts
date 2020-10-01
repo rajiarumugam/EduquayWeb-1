@@ -359,6 +359,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         if (this.pndtmtpScheduledResponse !== null && this.pndtmtpScheduledResponse.status === "true") {
           if (this.pndtmtpScheduledResponse.data.length <= 0) {
             this.prepndtscheduledErrorMessage = response.message;
+            this.getSchedulinglists();
           }
           else {
             this.scheduledlists = this.pndtmtpScheduledResponse.data;

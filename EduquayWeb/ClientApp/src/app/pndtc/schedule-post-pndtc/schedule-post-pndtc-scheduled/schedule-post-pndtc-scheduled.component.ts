@@ -127,17 +127,17 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
         }
       };
       this.ddlDistrict(this.user.id);
-      var _postSchedulingArr = this.route.snapshot.data.postScheduling;
-      console.log(_postSchedulingArr);
-      if(_postSchedulingArr !== undefined && _postSchedulingArr.status.toString() === "true"){
+      var _postScheduedArr = this.route.snapshot.data.postScheduled;
+      console.log(_postScheduedArr);
+      if(_postScheduedArr !== undefined && _postScheduedArr.status.toString() === "true"){
         //var _tempData = centralReceiptsArr.hplcDetail;
       
-        this.scheduledlists = _postSchedulingArr.data;
+        this.scheduledlists = _postScheduedArr.data;
       }
-      this.getPostScheduledlists();
+      this.getPostSchedulinglists();
   }
 
-  getPostScheduledlists(){
+  getPostSchedulinglists(){
     this.loaderService.display(true);
     var _subjectObj = {
       "districtId": 0,
@@ -323,17 +323,18 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
           if (this.pndtmtpScheduledResponse !== null && this.pndtmtpScheduledResponse.status === "true") {
             if (this.pndtmtpScheduledResponse.data.length <= 0) {
               this.postpndtscheduledErrorMessage = response.message;
+              this.getPostSchedulinglists();
             }
             else {
               this.scheduledlists = this.pndtmtpScheduledResponse.data;
-              this.getPostScheduledlists();
+              this.getPostSchedulinglists();
   
             }
           }
           else {
             this.postpndtscheduledErrorMessage = response.message;
           }
-          this.onLoadSubject.emit(this.recordCount);    //step 5
+          //this.onLoadSubject.emit(this.recordCount);    //step 5
           this.rerender();
           this.loadDataTable = true;
         },
