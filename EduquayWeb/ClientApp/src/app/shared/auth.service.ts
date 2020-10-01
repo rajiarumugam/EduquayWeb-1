@@ -69,20 +69,21 @@ export class AuthService {
     console.log(message);
   }
 
-  // resetLoginFunc(resetdata: AuthRequest): Observable<any>{
-  //   let httpHeaders = new HttpHeaders({
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-  //     'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
-  //     'No-Auth': 'True',
-  //     'Content-Type': 'application/json',
-  //     'Cache-Control': 'no-cache'
-  //   });
-  //   let options = {
-  //     headers: httpHeaders
-  //   };
-  //   let apiUrl = this.genericService.buildApiUrl(this.resetloginApi);
-  //   return this.http.post<resetLoginResponse>({url:apiUrl, header: options, body: resetdata });
-  // }
+  resetLoginFunc(resetdata: AuthRequest): Observable<any> {
+      let httpHeaders = new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+        'No-Auth': 'True',
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache'
+      });
+      let options = {
+        headers: httpHeaders
+      };
+    let apiUrl = this.genericService.buildApiUrl(this.resetloginApi);
+    return this.httpClient.post(apiUrl, resetdata, options);
+    //return this.http.post<resetLoginResponse>({url:apiUrl, header: options, body: resetdata });
+  }
 
 }

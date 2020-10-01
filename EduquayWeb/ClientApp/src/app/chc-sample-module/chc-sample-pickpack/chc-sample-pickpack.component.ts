@@ -591,13 +591,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         //if (element.sampleSelected) {
         if (isFirst) {
           //this.selectedBarcodes += element.barcodeNo;
-          getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
+          getdates = [{ "selecteddate": this.convertToDateFormat(element.cbcTestCompletedDate) }];
           isFirst = false;
         }
         else {
            //this.selectedBarcodes += ',' + element.barcodeNo;
           
-          getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
+          getdates.push({ "selecteddate": this.convertToDateFormat(element.cbcTestCompletedDate) });
         }
       }
     });

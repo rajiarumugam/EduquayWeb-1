@@ -138,16 +138,16 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
 
   }
 
-  toggleFirstDisable(){
-    this.postMTP.forEach((element, index) => {
-      if (element.firstFollowUp > 0) {
-        this.is_firstfollowup_edit[index] = true;
-      }
-      else{
-        this.is_firstfollowup_edit[index] = false;
-      }
-    });
-  }
+  // toggleFirstDisable(){
+  //   this.postMTP.forEach((element, index) => {
+  //     if (element.firstFollowUp > 0) {
+  //       this.is_firstfollowup_edit[index] = true;
+  //     }
+  //     else{
+  //       this.is_firstfollowup_edit[index] = false;
+  //     }
+  //   });
+  // }
 
   toggleSecondDisable() {
     this.postMTP.forEach((element, index) => {
@@ -302,8 +302,7 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
                 }            
                         
             });
-            //this.firstfollowUpStatus = this.postMtpData;
-            this.toggleFirstDisable();
+            //this.toggleFirstDisable();
             this.toggleSecondDisable();
             this.toggleThirdDisable();
             this.recordCount = this.postMTP.length; //step 4
@@ -431,8 +430,8 @@ export class AnmPostMtpFollowupComponent implements AfterViewInit, OnDestroy, On
 
       }
       //Remove below 2 lines after successfully tested
-      // this.updatestatusResponseMessage(' testing Successfully registered', 's');
-      // return false;
+      this.updatestatusResponseMessage(' testing Successfully registered', 's');
+      return false;
       let adddamagedsample = this.anmpostMTPService.updatepostMtpReferral(this.anmpostMTPRequest)
         .subscribe(response => {
           this.anmupdatepostMTPResponse = response;

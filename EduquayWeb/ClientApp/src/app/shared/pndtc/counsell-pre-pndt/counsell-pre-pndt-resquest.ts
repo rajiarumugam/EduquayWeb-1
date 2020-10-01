@@ -18,7 +18,7 @@ export interface AddPrePndtCounsellingRequest{
     isPNDTAgreePending: boolean;
     schedulePNDTDate: string;
     schedulePNDTTime: string;
-    userId: number,
-    //formData: any,
-    //fileData: string,
+    userId: number;
+    fileName: string;
+    fileLocation: string;
 }

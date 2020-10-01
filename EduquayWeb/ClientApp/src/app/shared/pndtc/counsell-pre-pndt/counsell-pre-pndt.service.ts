@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { CounsellPrePndtResquest, AddPrePndtCounsellingRequest } from './counsell-pre-pndt-resquest';
-import { CounsellPrePndtResponse, AddPrePndtcCounsellingResponse, CounselledprepndtResponse } from './counsell-pre-pndt-response';
+import { CounsellPrePndtResponse, AddPrePndtcCounsellingResponse, CounselledprepndtResponse, prePndtFileUploadResponse } from './counsell-pre-pndt-response';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,8 @@ import { CounsellPrePndtResponse, AddPrePndtcCounsellingResponse, Counselledprep
 export class CounsellPrePndtService {
 
   retrieveprepndtCounsellingApi: string = "api/v1/PNDTC/RetrievePrePNDTCounselling";
+  prePndtcFileUploadApi: string = "api/v1/PNDTC/PrePNDTFileUpload";
+  //prePndtcFileUploadApi: string ="api/v1/PNDTC/TestingPurpose";
   addprepndtCounsellingeApi: string = "api/v1/PNDTC/ADDPrePNDTCounselling";
   retrieveprepndtCounselledYesApi: string ="api/v1/PNDTC/RetrievePrePNDTCounselledYes";
   retrieveprepndtCounselledNoApi: string ="api/v1/PNDTC/RetrievePrePNDTCounselledNo";
@@ -46,18 +48,23 @@ export class CounsellPrePndtService {
     return this.http.post<CounselledprepndtResponse>({url: apiUrl, body: counselledPendingList});
   }
 
-  AddprepndtCounselling(addCounselling: AddPrePndtCounsellingRequest, formData?: FormData){
+  AddprepndtCounselling(addCounselling: AddPrePndtCounsellingRequest){
+    let apiUrl=this.genericServices.buildApiUrl(this.addprepndtCounsellingeApi);
+    return this.http.post<AddPrePndtcCounsellingResponse>({url: apiUrl, body: addCounselling});
+  }
+
+  prePNDTuploadFile( formData: FormData){
     let httpHeaders = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
       'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
-      'Content-Type': 'application/pdf',
+      // 'Content-Type': 'application/pdf',
     });
     let headoptions = {
       headers: httpHeaders
     };
-    let apiUrl=this.genericServices.buildApiUrl(this.addprepndtCounsellingeApi);
-    return this.http.post<AddPrePndtcCounsellingResponse>({url: apiUrl, header: headoptions, body: addCounselling, options: formData});
+    let apiUrl = this.genericServices.buildApiUrl(this.prePndtcFileUploadApi);
+    return this.http.post<prePndtFileUploadResponse>({url: apiUrl, header: headoptions, body: formData});
   }
  
 }
