@@ -9,14 +9,14 @@ import { user } from 'src/app/shared/auth-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SchedulePrePndtcService } from 'src/app/shared/pndtc/schedule-pre-pndtc/schedule-pre-pndtc.service';
 import { SchedulePrePndtcRequest, AddPrePndtcScheduleRequest } from 'src/app/shared/pndtc/schedule-pre-pndtc/schedule-pre-pndtc-request';
-import { SchedulePrePndtcResponse, SchedulingList, AddPrePndtcScheduleResponse } from 'src/app/shared/pndtc/schedule-pre-pndtc/schedule-pre-pndtc-response';
+import { SchedulePrePndtcResponse, SchedulingList, AddPrePndtcScheduleResponse, ScheduledPrePndtcResponse, ScheduledList } from 'src/app/shared/pndtc/schedule-pre-pndtc/schedule-pre-pndtc-response';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pre-pndtc-to-be-scheduled',
@@ -38,9 +38,14 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
   pndtmtpMasterResponse: PndtMtpMasterResponse;
   pndtmtpSchedulingRequest: SchedulePrePndtcRequest;
   pndtmtpSchedulingResponse: SchedulePrePndtcResponse;
+  pndtmtpScheduledRequest: SchedulePrePndtcRequest;
+  pndtmtpScheduledResponse: ScheduledPrePndtcResponse;
+  scheduledlists: ScheduledList[] = [];
+  //scheduledlists = [];
   addScheduleRequest: AddPrePndtcScheduleRequest;
   addScheduleResponse: AddPrePndtcScheduleResponse;
   schedulinglists: SchedulingList[] = [];
+  //schedulinglists = [];
   preScheduledArray = [];
   districts: dataModel[] = [];
   selectedDistrict: string = '';
@@ -95,19 +100,20 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     private loaderService: LoaderService,
     private modalService: NgbModal,
     private _formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
 
   ) { }
 
   ngOnInit() {
 
-    this.loaderService.display(true);
+    this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.counsellorName = this.user.firstName;
   //this.recordCount = 0;
     
-    this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled" }));
+    // this.dataservice.sendData(JSON.stringify({ "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled" }));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -132,46 +138,68 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     this.scheduleDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     this.scheduleDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
-
-    this.pndtmtpSchedulingRequest = {
-      userId: this.user.id, districtId: 0,
-      chcId: 0,
-      phcId: 0,
-      anmId: 0
-    };
-    let schedulingdata = this.pndtmtpScheduleService.getschedulingLists(this.pndtmtpSchedulingRequest)
-      .subscribe(response => {
-        this.pndtmtpSchedulingResponse = response;
-        this.loaderService.display(false);
-        if (this.pndtmtpSchedulingResponse !== null && this.pndtmtpSchedulingResponse.status === "true") {
-          if (this.pndtmtpSchedulingResponse.data.length <= 0) {
-            this.prepndtscheduleErrorMessage = response.message;
-          }
-          else {
-            this.schedulinglists = this.pndtmtpSchedulingResponse.data;
-            this.recordCount1 = this.preScheduledArray.length;
-            this.recordCount = this.schedulinglists.length;
-            this.rerender();
-          }
-        }
-        else {
-          this.prepndtscheduleErrorMessage = response.message;
-        }
+    var _preSchedulingArr = this.route.snapshot.data.tobeScheduling;
+    console.log(_preSchedulingArr);
+    if(_preSchedulingArr !== undefined && _preSchedulingArr.status.toString() === "true"){
+      //var _tempData = centralReceiptsArr.hplcDetail;
+    
+      this.schedulinglists = _preSchedulingArr.data;
+    }
+    this.getScheduledLists();
+    // this.pndtmtpScheduledRequest = {
+    //   userId: this.user.id,
+    //   districtId: 0,
+    //   chcId: 0,
+    //   phcId: 0,
+    //   anmId: 0
+    // };
+    // let scheduleddata = this.pndtmtpScheduleService.getscheduledLists(this.pndtmtpScheduledRequest)
+    //   .subscribe(response => {
+    //     this.pndtmtpScheduledResponse = response;
+    //     this.loaderService.display(false);
+    //     if (this.pndtmtpScheduledResponse !== null && this.pndtmtpScheduledResponse.status === "true") {
+    //       if (this.pndtmtpScheduledResponse.data.length <= 0) {
+    //         this.prepndtscheduleErrorMessage = response.message;
+    //       }
+    //       else {
+    //         this.scheduledlists = this.pndtmtpScheduledResponse.data;
+    //         // this.recordCount1 = this.preSchedulingdArray.length;
+    //         // this.recordCount = this.scheduledlists.length;
+    //         this.dataservice.sendData(JSON.stringify({"screen": "PreScheduling","schedulingCount":this.schedulinglists.length,"scheduledCount":this.scheduledlists.length}));
+    //         this.rerender();
+    //       }
+    //     }
+    //     else {
+    //       this.prepndtscheduleErrorMessage = response.message;
+    //     }
         
-      },
-        (err: HttpErrorResponse) => {
-          this.prepndtscheduleErrorMessage = err.toString();
-        });
+    //   },
+    //     (err: HttpErrorResponse) => {
+          
+    //       this.prepndtscheduleErrorMessage = err.toString();
+    //     });
+    
+        
+  }
 
-        this.pndtmtpScheduleService.getscheduledLists(this.pndtmtpSchedulingRequest) .subscribe(response => {
-          console.log(response);
-          this.preScheduledArray = response.data;
-          this.recordCount1 = this.preScheduledArray.length;
-          this.recordCount = this.schedulinglists.length;
-        },
-        (err: HttpErrorResponse) =>{
-         
-        });
+  getScheduledLists(){
+    this.loaderService.display(true);
+    var _subjectObj = {
+      "districtId": 0,
+      "chcId": 0,
+      "phcId": 0,
+      "anmId": 0,
+      "userId": this.user.id
+    }
+    this.pndtmtpScheduleService.getscheduledLists(_subjectObj) .subscribe(response => {
+      console.log(response);
+      this.loaderService.display(false);
+      this.scheduledlists = response.data;
+      this.dataservice.sendData(JSON.stringify({"screen": "PreScheduling","schedulingCount":this.schedulinglists.length,"scheduledCount":this.scheduledlists.length, "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled"}));
+    },
+    (err: HttpErrorResponse) =>{
+     
+    });
   }
 
   ddlDistrict(userId) {
@@ -318,9 +346,8 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
           }
           else {
             this.schedulinglists = this.pndtmtpSchedulingResponse.data;
-            this.recordCount = this.schedulinglists.length;
-            this.recordCount1 = this.preScheduledArray.length;
-
+            //this.dataservice.sendData(JSON.stringify({"screen": "PreScheduling","schedulingCount":this.schedulinglists.length,"scheduledCount":this.scheduledlists.length,"module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "To be Scheduled"}));
+            this.getScheduledLists();
           }
         }
         else {

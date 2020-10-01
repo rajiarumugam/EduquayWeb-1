@@ -50,8 +50,7 @@
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
                                                         <h5><b>Subject ID :</b> {{counsellingdataItem?.anwSubjectId}}
-                                                            <!-- <strong class="ml-5">Subject Info :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs -->
-                                                            <strong class="ml-5">Subject Info :</strong> {{counsellingdataItem?.subjectName}}, F,
+                                                            <strong class="ml-5">Subject Info :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
                                                             <strong class="ml-5">RCH ID :</strong> {{counsellingdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
@@ -251,12 +250,13 @@
                                                                 Pending</span>
                                                         </label>
                                                     </span>
-
-                                                    <!-- <div *ngIf="isDecisionYes">
+                                                    <div *ngIf="isDecisionYes">
                                                         <div class="row mt-2">
                                                             <div class="col-md-12">
                                                                 <span class="hidden-file">
-                                                                    <input type="file" accept=".pdf, .tiff|pdf/*, .xlsx, .tiff|xls/*" #fileInput ng2FileSelect
+                                                                    <!-- <input type="file" accept=".pdf, .tiff|pdf/*, .xlsx, .tiff|xls/*" #fileInput ng2FileSelect
+                                                                        [uploader]="uploader" (change)="onFileChanged($event)"  /> -->
+                                                                        <input type="file" accept=".pdf, .tiff|pdf/*, .xlsx, .tiff|xls/*" #fileInput ng2FileSelect
                                                                         [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
                                                                 </span>
                                                                 <div class="btn-group" (click)="fileInput.click()">
@@ -271,7 +271,7 @@
 
                                                             </div>
                                                         </div>
-                                                    </div> -->
+                                                    </div>
                                                 </div>
                                             </td>
 

@@ -13,6 +13,7 @@ export interface SamplePickpack {
     barcodeNo: string;
     sampleDateTime: string;
     gestationalAge: string;
+    cbcTestCompletedDate: string;
     startpickpackSelected: boolean;
     tempCHCData: tempCHCData[];
     //shipment: ShipmentID;
@@ -35,6 +36,7 @@ export interface startPickpack{
     barcodeNo: string;
     sampleDateTime: string;
     gestationalAge: string;
+    cbcTestCompletedDate: string;
     startpickpackSelected: boolean;
     tempCHCData: tempCHCData[];
     //shipment: ShipmentID;

@@ -63,7 +63,7 @@ export interface CounselledList {
     counsellingRemarks: string;
     counsellingDateTime: string;
     fileName: string;
-    fileData: string;
+    fileLocation: string;
     isPNDTAgreeYes: boolean;
     isPNDTAgreeNo: boolean;
     isPNDTAgreePending: boolean;
@@ -79,6 +79,17 @@ export interface AddPrePndtcCounsellingResponse{
 export interface ScheduledPndtDateTime{
     schedulePNDTDate: string;
     schedulePNDTTime: string;
+}
+
+export interface prePndtFileUploadResponse{
+    status: string;
+    message: string;
+    data: FileDetails;
+}
+
+export interface FileDetails{
+   fileName: string;
+   fileLocation: string;
 }
 
 

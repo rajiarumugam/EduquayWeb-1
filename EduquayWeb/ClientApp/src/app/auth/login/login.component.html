@@ -23,7 +23,7 @@
 
   </div>
   
-    <div class="col-md-3" style="height: 450px;">
+    <div class="col-md-3">
       <div class="form-form">
         <div class="col-md-12">
           <div class="form-form-wrap">
@@ -43,8 +43,7 @@
                   </div>
                 </div>
                 <form class="text-left" (ngSubmit)="userLogin()" #f="ngForm">
-                  <div class="form">
-  
+                  <div class="form"> 
                     <div id="username-field" class="field-wrapper input">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -81,9 +80,9 @@
                           <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none" [(ngModel)]="textPassword" (change)="showPassword()">
                           <span class="slider round"></span>
                         </label>
-                        <!-- <a class="pointer" (click)="resetLogin()"
-                        class="forgot-pass-link d-flex justify-content-right">Reset</a> -->
+                      
                       </div>
+                     
                       <div class="field-wrapper">
                         <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"
                           [disabled]="!f.valid" [ngClass]="ngDisabled"> {{loginStatus}}
@@ -91,8 +90,14 @@
                             style="margin-bottom: -3px;"></div>
                         </button>
                       </div>
+                     
   
                     </div>
+                    <div class="field-wrapper">
+                      <a class="pointer" (click)="openResetLogin(resetloginDetails)"
+                      class="forgot-pass-link d-flex justify-content-right">Reset Login</a>
+                    </div>
+                   
   
                     <div class="field-wrapper d-flex justify-content-left keep-logged-in">
                       <div class="n-chk new-checkbox checkbox-outline-primary">
@@ -106,7 +111,7 @@
                   <div class="field-wrapper">
                       <a class="pointer" (click)="forgotPassword()"
                           class="forgot-pass-link d-flex justify-content-left">Forgot Password?</a>
-                        
+                       
                   </div>
   
                   </div>
@@ -119,6 +124,7 @@
       </div>
   
     </div>
+    
     <div class="col-md-10 py-5">
       <div class="row">
           <div class="col-md-3 text-center">
@@ -148,6 +154,86 @@
           </div>
       </div>
   </div>
+     <!-- The Modal -->
+
+     <ng-template #resetloginDetails let-modal>
+
+      <div class="modal-header">
+        <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Reset Login</h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    <div class="modal-body">
+      <div class="form-form">
+        <!-- <div class="col-md-12"> -->
+          <div class="form-form-wrap">
+            <!-- <div class="form-container"> -->
+              <div class="form-content">
+                <form class="text-left" (ngSubmit)="onSubmit(resetLoginForm)" #resetLoginForm="ngForm">
+                  <div class="form">
+
+                    <div id="username-field" class="field-wrapper input">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-user">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                      <input id="userid" name="userid" type="text" class="form-control" placeholder="Username" ngModel
+                        #emailVal="ngModel" required>
+                      <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
+                        user id</span>
+                    </div>
+
+                    <div id="password-field" class="field-wrapper input mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-lock">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                      <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control" placeholder="Password"
+                        ngModel #passwordVal="ngModel" required password minlength="5">
+                      <span class="input-error"
+                        *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
+                        password</span>
+                      <span class="input-error"
+                        *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.minlength">Please enter at
+                        least 5 chars</span>
+                    </div>
+                    <div class="d-sm-flex justify-content-between">
+                      <div class="field-wrapper toggle-pass">
+                        <p class="d-inline-block">Show Password</p>
+                        <label class="switch s-primary">
+                          <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none" [(ngModel)]="textPassword" (change)="showPassword()">
+                          <span class="slider round"></span>
+                        </label>
+                      
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+                      <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                      <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            <!-- </div> -->
+          </div>
+        <!-- </div> -->
+      </div>
+      
+    </div>
+    <!-- <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i> -->
+    <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
+  </ng-template>
   <!--  </div> -->
   <div class="col-md-2">
       <!-- <button type="submit" class="btn btn-primary" value="" style="padding: 3px; margin-right: 5px;">HELP</button>  -->
