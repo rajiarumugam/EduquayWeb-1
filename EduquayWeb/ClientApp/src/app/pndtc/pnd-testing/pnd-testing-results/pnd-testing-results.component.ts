@@ -374,7 +374,7 @@ export class PNDTestingResultsComponent implements OnInit {
           _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
            console.log(_obj);
 
-          this.sendDataToService(_obj);
+          this.sendDataToService(_obj,'PNDT details saved and Post PNDT Procedure to be updated');
         }
     }
     else
@@ -411,7 +411,7 @@ export class PNDTestingResultsComponent implements OnInit {
 
             console.log(_obj);
 
-            this.sendDataToService(_obj);
+            this.sendDataToService(_obj,'PNDT Updated Successfully.');
         }
     }
       
@@ -457,7 +457,7 @@ export class PNDTestingResultsComponent implements OnInit {
             showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
               .then((result) => {
                 if (result.value) {
-                    this.sendDataToService(_obj);
+                    this.sendDataToService(_obj,"PNDT details saved and Post PNDT Procedure to be updated.");
                 }
                 else{
                 
@@ -470,7 +470,7 @@ export class PNDTestingResultsComponent implements OnInit {
           showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
             .then((result) => {
               if (result.value) {
-                  this.sendDataToService(_obj);
+                  this.sendDataToService(_obj,'PNDT Updated Successfully.');
               }
               else{
               
@@ -502,7 +502,7 @@ export class PNDTestingResultsComponent implements OnInit {
     }
     
   }
-  sendDataToService(_obj)
+  sendDataToService(_obj,msg)
   {
     this.loaderService.display(true);
     this.PNDCService.postPNDTest(_obj)
@@ -511,7 +511,7 @@ export class PNDTestingResultsComponent implements OnInit {
           this.loaderService.display(false);
           if (this.diagnosisReportResponse !== null && this.diagnosisReportResponse.status === "true") {
               Swal.fire({ allowOutsideClick: false,
-                text: 'PNDT Updated Successfully.',
+                text: msg,
                 icon: 'success'
               }).then((result) => {
                 $('#modal-dailog').modal('hide');
