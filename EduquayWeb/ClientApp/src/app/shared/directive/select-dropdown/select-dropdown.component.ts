@@ -49,6 +49,7 @@ export class SelectDropdownComponent implements ControlValueAccessor{
   _display: string = 'Select';
 
   isListHide = true;
+  isDisabled = true;
 
   searchText = '';
 
@@ -129,19 +130,23 @@ export class SelectDropdownComponent implements ControlValueAccessor{
   }
 
   toggle() {
-    this.isListHide = !this.isListHide;
-    this.searchText = '';
-    if (!this.isListHide) {
-      setTimeout(() => this.filterInput.nativeElement.focus(), 0);
-      this.listItems.forEach((item) => {
-        if (JSON.parse(item.nativeElement.getAttribute('data-dd-value'))['id'] === this.value) {
-          this.addHightLightClass(item.nativeElement);
-          this.scrollToView(item.nativeElement);
-        } else {
-          this.removeHightLightClass(item.nativeElement);
-        }
-      })
+    if(!this.isDisabled)
+    {
+      this.isListHide = !this.isListHide;
+      this.searchText = '';
+      if (!this.isListHide) {
+        setTimeout(() => this.filterInput.nativeElement.focus(), 0);
+        this.listItems.forEach((item) => {
+          if (JSON.parse(item.nativeElement.getAttribute('data-dd-value'))['id'] === this.value) {
+            this.addHightLightClass(item.nativeElement);
+            this.scrollToView(item.nativeElement);
+          } else {
+            this.removeHightLightClass(item.nativeElement);
+          }
+        })
+      }
     }
+    
   }
 
   focus() {
