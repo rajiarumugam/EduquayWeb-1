@@ -540,8 +540,8 @@ export class AnmAwRegistrationComponent implements OnInit {
     {
       this.Pdisabled = false;
       this.Ldisabled = true;
-      this.selectedl = null;
-      //this.selecteda = null;
+      //this.selectedl = null;
+      this.selecteda = null;
       this.selectedp = null;
     }
     ponChange()
@@ -549,7 +549,7 @@ export class AnmAwRegistrationComponent implements OnInit {
       //this.selecteda = +this.selectedg - +this.selectedp;
       /*if(this.selecteda === 0)
       this.selecteda = "00";*/
-      this.Ldisabled = false;
+      //this.Ldisabled = false;
     }
     ecNumberChange()
     {
