@@ -40,33 +40,35 @@
                 <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                            <th><span>S.No</span></th>
-                            <th><span>Subject Name</span></th>
-                            <th><span>Subject ID</span></th>
-                            <th><span>RCH ID</span></th>
-                            <th><span>Contact Number</span></th>
-                            <th><span>LMP Date</span></th>
-                            <th><span>GA</span></th>
-                            <th><span>Obstetrician</span></th>
-                            <th><span>MTP Date & Time</span></th>
-                            <th><span>View Report</span></th>
+                          <th><span>S.No</span></th>
+                          <th><span>Subject Name</span></th>
+                          <th><span>Subject ID</span></th>
+                          <th><span>RCH ID</span></th>
+                          <th><span>LMP Date</span></th>
+                          <th><span>GA</span></th>
+                          <th><span>Obs Score</span></th>
+                          <th><span>Contact Number</span></th>
+                          <th><span>Obstetrician</span></th>
+                          <th><span>MTP Date & Time</span></th>
+                          <th><span>View Report</span></th>
                         </tr>
 
                     </thead>
                     <tbody>
                         <tr *ngFor="let mtpdata of mtpPendingArray; index as i">
-                            <td>{{i+1}}</td>
-                            <td style="text-align: left">{{mtpdata.subjectName}}</td>
-                            <td class="text-center">{{mtpdata.anwSubjectId}}</td>
-                            <td class="sid text-center">{{mtpdata.rchId}}</td>
-                            <td style="text-align: left">{{mtpdata.contactNo}}</td>
-                            <td class="text-center">{{mtpdata.lmpDate}}</td>
-                            <td class="text-center">{{mtpdata.ga}}</td>
-                            <td class="sname text-center">{{mtpdata.obstetricScore}}</td>
-                            <td class="text-left">{{mtpdata.mtpScheduleDate}} {{mtpdata.mtpScheduleTime}}</td>
-                            <td class="text-center"><a (click)="openResultPage(mtpdata);"><i class="fas fa-edit fa-2x" aria-hidden="true" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl"></i></a></td>
-
+                              <td>{{i+1}}</td>
+                              <td style="text-align: left">{{mtpdata.subjectName}}</td>
+                              <td class="text-center">{{mtpdata.anwSubjectId}}</td>
+                              <td class="sid text-center">{{mtpdata.rchId}}</td>
+                              
+                              <td class="text-center">{{mtpdata.lmpDate}}</td>
+                              <td class="text-center">{{mtpdata.ga}}</td>
+                              <td class="sname text-center">{{mtpdata.obstetricScore}}</td>
+                              <td style="text-align: left">{{mtpdata.contactNo}}</td>
+                              <td class="sname text-center">{{mtpdata.mtpObstetricianName}}</td>
+                              <td class="text-left">{{mtpdata.mtpScheduleDate}} {{mtpdata.mtpScheduleTime}}</td>
+                              <td class="text-center"><a (click)="openResultPage(mtpdata);"><i class="fas fa-edit fa-2x" aria-hidden="true" data-toggle="modal"
+                                          data-target=".bd-example-modal-xl"></i></a></td>
                         </tr>
                     </tbody>
                 </table>
