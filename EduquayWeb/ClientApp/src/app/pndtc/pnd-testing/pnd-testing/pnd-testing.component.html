@@ -44,9 +44,10 @@
                             <th><span>Subject Name</span></th>
                             <th><span>Subject ID</span></th>
                             <th><span>RCH ID</span></th>
-                            <th><span>Contact Number</span></th>
                             <th><span>LMP Date</span></th>
                             <th><span>GA</span></th>
+                            <th><span>Obs Score</span></th>
+                            <th><span>Contact Number</span></th>
                             <th><span>Obstetrician</span></th>
                             <th><span>PNDT Date & Time</span></th>
                             <th><span>Update PNDT</span></th>
@@ -59,9 +60,11 @@
                             <td style="text-align: left">{{pnddata.subjectName}}</td>
                             <td class="text-center">{{pnddata.anwSubjectId}}</td>
                             <td class="sid text-center">{{pnddata.rchId}}</td>
-                            <td style="text-align: left">{{pnddata.contactNo}}</td>
+                            
                             <td class="text-center">{{pnddata.lmpDate}}</td>
                             <td class="text-center">{{pnddata.ga}}</td>
+                            <td class="sname text-center">{{pnddata.obstetricScore}}</td>
+                            <td style="text-align: left">{{pnddata.contactNo}}</td>
                             <td class="sname text-center">{{pnddata.obstetricianName}}</td>
                             <td class="text-left">{{pnddata.schedulePNDTDate}} {{pnddata.schedulePNDTTime}}</td>
                             <td class="text-center"><a (click)="openResultPage(pnddata);"><i class="fas fa-edit fa-2x" aria-hidden="true" data-toggle="modal"
