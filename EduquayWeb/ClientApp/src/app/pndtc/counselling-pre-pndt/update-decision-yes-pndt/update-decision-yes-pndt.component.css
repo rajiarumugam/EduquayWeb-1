@@ -59,12 +59,19 @@
 .maritalstatus-radio-cont
 {
   margin-left:20px;
-  font-size: 15px;
+  font-size: 13px;
   color: #191a1d;
   font-weight: 400;
   letter-spacing: 1px;
   padding-left: 3px;
   margin-bottom: .1rem;
+}
+.new-control {
+  font-size: 13px !important;
+  padding-top: 2px !important;
+}
+.form-control {
+  font-size: 14px !important;
 }
 
 .hidden-file {
