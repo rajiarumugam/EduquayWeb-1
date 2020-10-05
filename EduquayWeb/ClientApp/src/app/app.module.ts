@@ -36,7 +36,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'; 
 
-import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+//import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
 import { DataService } from './shared/data.service';
 import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component';
@@ -100,9 +100,9 @@ import { PndtReferralComponent } from './district-coordinator/pndt-referral/pndt
 import { MtpReferralComponent } from './district-coordinator/mtp-referral/mtp-referral.component';
 import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-followup/post-mtp-followup.component';
 
-const ngWizardConfig: NgWizardConfig = {
-  theme: THEME.default
-};
+// const ngWizardConfig: NgWizardConfig = {
+//   theme: THEME.default
+// };
 
 @NgModule({
   declarations: [

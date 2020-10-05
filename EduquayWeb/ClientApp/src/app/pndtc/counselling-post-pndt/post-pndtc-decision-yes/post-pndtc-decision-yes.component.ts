@@ -271,7 +271,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
       if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
         console.log(updatePostPndtyesForm.value);
         const formData = new FormData();
-        if (formData === undefined && this.counselledYesdataItem.fileName === '') {
+        if (formData === undefined || this.counselledYesdataItem.fileName === '') {
           if (this.confirmationSelected == false) {
             this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
             return false;

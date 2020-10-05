@@ -320,7 +320,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     this.ddlcentrallab(this.user.chcId);
     this.ddlProviderName();
-    this.fetchBarcodes();
+    this.fetchMaxDate();
     this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
 
     this.chclabtechnician = this.user.name;
@@ -345,7 +345,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   onSubmit(chcShipmentForm: NgForm){
     this.samplepicknpackErrorMessage = '';
     var _arrsubmitSelectedBarcode = [];
-    this.fetchBarcodes();
+    this.fetchMaxDate();
     this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
     //var shipmentId = "123";
     console.log(chcShipmentForm.value);
@@ -581,7 +581,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         this._intSelectedBarcode = _arrSelectedBarcode.length;
         return _arrSelectedBarcode.join(',');
       }
-  fetchBarcodes() {
+
+  fetchMaxDate() {
     this.selectedBarcodes = '';
     var isFirst = true;
     var getdates;
