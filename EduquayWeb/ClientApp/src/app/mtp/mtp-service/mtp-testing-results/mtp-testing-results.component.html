@@ -155,7 +155,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
-                                                                <th class="text-center"><span>Results and Lab Diganosis</span></th>
+                                                                <th class="text-center"><span>SST Results</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -177,7 +177,7 @@
                                                             <tr>
                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
                                                                 
-                                                               <th class="text-center"><span>Results and Lab Diganosis</span></th>
+                                                               <th class="text-center"><span>CBC Results</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -201,7 +201,7 @@
                                                             <tr>
                                                                <th class="text-center" style="width:30%;"><b>Subject Info</b></th>
                                                                 
-                                                               <th class="text-center"><b>Results and Lab Diganosis</b></th>
+                                                               <th class="text-center"><b>HPLC Results & Lab Diagnosis</b></th>
                                                             </tr>
                     
                                                         </thead>
@@ -209,12 +209,12 @@
                                                             <tr>
                                                                 <td class="text-left" style="width:30%;">{{testingPNDData?.subjectName}}, F</td>
                                                                 
-                                                                <td class="text-left">{{testingPNDData?.anwHPLCDiagnosis}}</td>
+                                                                <td class="text-left">{{testingPNDData?.anwHPLCTestResult}} ; {{testingPNDData?.anwHPLCDiagnosis}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="text-left" style="width:30%;">{{testingPNDData?.spouseName}}, M</td>
                                                                 
-                                                                <td class="text-left">{{testingPNDData?.spouseHPLCDiagnosis}}</td>
+                                                                <td class="text-left">{{testingPNDData?.spouseHPLCTestResult}} ; {{testingPNDData?.spouseHPLCDiagnosis}}</td>
                                                             </tr>
                     
                                                     </table>
