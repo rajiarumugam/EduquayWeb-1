@@ -66,6 +66,7 @@ import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cb
 import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 import { PositiveSubjectsResolverService } from "./shared/anm-module/positive-subjects/positive-subjects-resolver.service";
+import {  CHCCBCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-chc-resolver.service";
 
 import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update-sst/chc-update-sst.component";
 import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
@@ -221,6 +222,8 @@ import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/sche
 import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
 import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
 
+import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-chc/chc-update-cbc-chc.component";
+import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -318,11 +321,18 @@ const routes: Routes = [
           {path: 'negative', component: SSTUpdateNegativeComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateSSTReceivedService}}
         ]
       },
-      {
+      /*{
         path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
         children:[
           {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
           {path: 'upload', component: CBCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
+        ]
+      },*/
+      {
+        path: 'chc-update-cbc', component: CHCUpdateCBCCHCComponent,
+        children:[
+          {path: '', component: CBCCHCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCCBCupdateReceivedService}},
+          
         ]
       },
       {
@@ -694,7 +704,9 @@ export const RoutingComponents = [
   CHCreportSampleStatusComponent,
   CHCreportSampleStatusMainComponent,
   updateMolResultViewMainComponent,
-  UpdateMolResultViewComponent
+  UpdateMolResultViewComponent,
+  CHCUpdateCBCCHCComponent,
+  CBCCHCReceivedSampleComponent
 
 ];
 

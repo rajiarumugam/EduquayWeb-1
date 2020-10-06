@@ -272,6 +272,8 @@
 "ReceivingCentralLab":"Receiving Central Lab",
 "AgingofSample":"Aging of Sample (hours)",
 "CentralLab":"Central Lab",
-"HPLCTestingDateTime":"HPLC Testing Date & Time"
+"HPLCTestingDateTime":"HPLC Testing Date & Time",
+"TestedTime":"Tested Time",
+"validateResult":"Validate result"
 
 }
