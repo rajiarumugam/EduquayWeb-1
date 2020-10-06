@@ -97,10 +97,21 @@ export interface PostCounselledList {
     mtpScheduleTime: string;
     postPNDTCounsellingRemarks: string;
     fileName: string;
-    fileData: string;
+    fileLocation: string;
     isMTPAgreeYes: boolean;
     isMTPAgreeNo: boolean;
     isMTPAgreePending: boolean;
+}
+
+export interface postPndtFileUploadResponse{
+    status: string;
+    message: string;
+    data: PostFileDetails;
+}
+
+export interface PostFileDetails{
+   fileName: string;
+   fileLocation: string;
 }
 
 

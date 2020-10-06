@@ -207,6 +207,8 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
             //   const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
             //   this.dateOptions.minDate = regDate;
             // }
+            // const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
+            // this.dateOptions.minDate = regDate;
             const regDate = this.dateservice.convertToDateTimeFormat(this.counselledYesdataItem.counsellingDateTime);
             this.pndtschedulePicker.flatpickr.set({
               minDate: regDate
@@ -301,7 +303,7 @@ export class UpdateDecisionYesPndtComponent implements OnInit {
       console.log(updatePndtyesForm.value);
       this.isDecisionYes = true;
       const formData = new FormData();
-      if (formData === undefined && this.counselledYesdataItem.fileName === '') {
+      if (formData === undefined || this.counselledYesdataItem.fileName === '') {
         // this.decisionAwaitedResponseMessage('Please choose a file', 'e');
         // return false;
         if (this.confirmationSelected == false) {

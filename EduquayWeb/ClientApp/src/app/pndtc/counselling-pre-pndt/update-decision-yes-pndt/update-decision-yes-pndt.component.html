@@ -251,7 +251,7 @@
                                                         </label>
                                                     </span>
 
-                                                    <div *ngIf="isDecisionYes" [hidden]="counselledYesdataItem.fileName">
+                                                    <div *ngIf="isDecisionYes" [hidden]="counselledYesdataItem?.fileName">
                                                         <div class="row mt-2">
                                                             <div class="col-md-12">
                                                                 <span class="hidden-file">
@@ -277,7 +277,7 @@
                                             </td>
 
                                         </tr>
-                                        <tr *ngIf="isDecisionYes" [hidden]="!counselledYesdataItem.fileName">
+                                        <tr *ngIf="isDecisionYes" [hidden]="!counselledYesdataItem?.fileName">
                                             <td>Name as a Consent form</td>
                                             <td></td>
                                             <td>{{counselledYesdataItem?.fileName}}</td>

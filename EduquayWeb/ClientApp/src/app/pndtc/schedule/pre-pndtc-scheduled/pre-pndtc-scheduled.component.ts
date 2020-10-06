@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChildren,ViewChild , Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DataService } from 'src/app/shared/data.service';
@@ -17,6 +17,7 @@ import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import * as flatpickr from "flatpickr"
 
 @Component({
   selector: 'app-pre-pndtc-scheduled',
@@ -26,11 +27,13 @@ import { ActivatedRoute } from '@angular/router';
 export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  @ViewChild('editDatePicker', { static: true }) editDatePicker;
+  flatpickrElement: any;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  @ViewChild('editDatePicker', { static: false }) editDatePicker;
+ 
 
   masterdataErrorMessage: string;
   prepndtscheduledErrorMessage: string;
@@ -72,6 +75,8 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   recordCount: number;
   recordCount1: number;
   preSchedulingdArray = [];
+  selectedpndtDate;
+  disableDatepicker = false;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -85,7 +90,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   editDateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
-    defaultDate: new Date(Date.now()),
+    defaultDate: '',
     //minDate: this.dyCollectionDate,
     minDate: new Date(Date.now()),
     enableTime: true,
@@ -132,9 +137,16 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     var _preScheduledArr = this.route.snapshot.data.preScheduled;
         console.log(_preScheduledArr);
         if(_preScheduledArr !== undefined && _preScheduledArr.status.toString() === "true"){
-          //var _tempData = centralReceiptsArr.hplcDetail;
-        
+          //var _tempData = centralReceiptsArr.hplcDetail;        
           this.scheduledlists = _preScheduledArr.data;
+          // this.scheduledlists.forEach(element => {
+          //   this.selectedpndtDate = element.counsellingDateTime;
+          //   if(element.schedulingId <= 0)
+          //   this.disableDatepicker = true;
+          //   else
+          //   this.disableDatepicker = false;           
+          //   });
+          
         }
         this.getSchedulinglists();
     // this.pndtmtpSchedulingRequest = {
@@ -338,6 +350,11 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         });
   }
 
+  get f() { return this.popupform.controls; }
+  public onFilterChange(item: any) {
+
+  }
+
   retrivescheduledlists() {
     
     this.recordCount = 0;
@@ -359,9 +376,11 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         if (this.pndtmtpScheduledResponse !== null && this.pndtmtpScheduledResponse.status === "true") {
           if (this.pndtmtpScheduledResponse.data.length <= 0) {
             this.prepndtscheduledErrorMessage = response.message;
+            this.getSchedulinglists();
           }
           else {
             this.scheduledlists = this.pndtmtpScheduledResponse.data;
+            
             this.getSchedulinglists();
             //this.dataservice.sendData(JSON.stringify({"screen": "PreScheduling","schedulingCount":this.schedulinglists.length,"scheduledCount":this.scheduledlists.length, "module": "PNDTC Counsellor", "submodule": "Schedule – Pre PNDT counselling", "page": "Scheduled"}));
 
@@ -389,7 +408,22 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     this.contactNo = scheduleddata.contactNo;
     this.samplega = scheduleddata.ga;
     this.spouseSubjectId = scheduleddata.spouseSubjectId;
-
+    //this.selectedpndtDate = scheduleddata.counsellingDateTime;
+   
+    //var _tempCurrentDate = scheduleddata.counsellingDateTime.split('/')[4]+"-"+scheduleddata.counsellingDateTime.split('/')[3]+"-"+scheduleddata.counsellingDateTime.split('/')[2]+" "+scheduleddata.counsellingDateTime.split('/')[1]+":"+scheduleddata.counsellingDateTime.split('/')[0];
+    //console.log(new Date(scheduleddata.counsellingDateTime.split('/')[2]+"-"+scheduleddata.counsellingDateTime.split('/')[1]+"-"+scheduleddata.counsellingDateTime.split('/')[0]));
+    //this.DORPicker.flatpickr.setDate(new Date(_tempCurrentDate));
+    // if(!this.disableDatepicker)
+    // {
+    //   this.editDatePicker.flatpickr.setDate(new Date(scheduleddata.counsellingDateTime));
+    //   this.editDatePicker.flatpickr.set({
+    //     minDate: new Date(Date.now()),
+    //     enable: [],
+    //     enableTime: true,
+    //     dateFormat: 'd/m/Y H:i',
+    //   });
+    
+    // }
     this.editscheduleDate = moment().format("DD/MM/YYYY");
     this.editscheduleTime = moment().format("HH:mm");
     this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
@@ -419,12 +453,14 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     // this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
     this.counsellorId = editAppointmentForm.value.DDcounsellorname;
-
+    // console.log(this.selectedpndtDate);
+    // console.log(typeof(this.selectedpndtDate));
     this.addScheduledRequest = {
       anwsubjectId: this.anwSubjectId,
       spouseSubjectId: this.spouseSubjectId,
       counsellorId: +(this.counsellorId),
       counsellingDateTime: this.editscheduleDate + ' ' + this.editscheduleTime,
+      //counsellingDateTime: typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate,
       userId: this.user.id,
     };
 

@@ -70,6 +70,13 @@ export class SchedulePostPndtcMainComponent implements OnInit {
   //     }
   //   });
   // }
-
+  receivedSamples(event)
+  {
+    console.log(event);
+  }
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+  }
 
 }

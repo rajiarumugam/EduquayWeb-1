@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, EventEmitter } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { CounsellPostPndtRequest, AddPostPndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-request';
-import { CounselledpostpndtResponse, PostCounselledList, AddPostPndtcCounsellingResponse } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-response';
+import { CounselledpostpndtResponse, PostCounselledList, AddPostPndtcCounsellingResponse, postPndtFileUploadResponse, PostFileDetails } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-response';
 import { user } from 'src/app/shared/auth-response';
 import { DataService } from 'src/app/shared/data.service';
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
@@ -15,6 +15,7 @@ import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-post-pndtc-decision-awaited',
@@ -39,7 +40,13 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     selectedobstetrician: string = '';
     obstetricianlists: dataModel[] = [];
     user: user;
-  
+    postPndtFileUploadResponse: postPndtFileUploadResponse;
+  prePNDTCFileDetails: PostFileDetails;
+  fileName: string;
+  file: File;
+  postPndtcFileName: string;
+  postPndtcFileLocation: string;
+  consentForm: File;
     subjectName: string;
   spouseSubjectId: string;
   spouseName: string;
@@ -98,7 +105,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     dateOptions: FlatpickrOptions = {
       mode: 'single',
       dateFormat: 'd/m/Y H:i',
-      //defaultDate: new Date(Date.now()),
+      defaultDate: new Date(Date.now()),
       //minDate: this.dyCollectionDate,
       minDate: new Date(Date.now()),
       enableTime: true,
@@ -144,13 +151,34 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         this.anwSubjectId = params['q'];
         this.retrivecounselledpendinglists();
       });
-      // this.mtpscheduleDate = moment().format("DD/MM/YYYY");
-      // this.mtpscheduleTime = moment().format("HH:mm");
-      // this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
-      // this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      this.mtpscheduleDate = moment().format("DD/MM/YYYY");
+      this.mtpscheduleTime = moment().format("HH:mm");
+      this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+      this.dateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
   
       this.ddlmtpobstetricianName();
     }
+
+    
+  public uploader: FileUploader = new FileUploader({
+    //url: URL,
+    disableMultipart : false,
+    autoUpload: true,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['pdf', 'xls', 'application'],
+    allowedMimeType: [ 'application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+    });
+  
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    //this.loaderService.display(true);
+    this.consentForm = event[0];
+    this.fileName = this.consentForm.name;
+    //this.loaderService.display(false);
+    console.log(this.consentForm);
+
+  }
   
     retrivecounselledpendinglists() {
   
@@ -223,8 +251,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
         this.isSelectedPending = false;
         this.isDecisionYes = true;
         this.isDecisionNo = false;
-        const regDate = this.dateservice.convertToDateTimeFormat(this.counselledPendingdataItem.postPNDTCounsellingDateTime);
-        this.dateOptions.minDate = regDate;
+        // const regDate = this.dateservice.convertToDateTimeFormat(this.counselledPendingdataItem.postPNDTCounsellingDateTime);
+        // this.dateOptions.minDate = regDate;
       }
       else if (radioBtnItem == 'decisionno') {
         this.isSelectedNo = true;
@@ -242,11 +270,12 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
       }
     }
     onSubmit(postupdatePndtpendingForm: NgForm) {
-
+      this.postupdateDecisionPendingpndtErrorMessage = '';
       if (this.foetalDisease === true) {
         if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
           console.log(postupdatePndtpendingForm.value);
-              
+          const formData = new FormData();
+        if (formData === undefined || this.consentForm === undefined) {      
         if(this.confirmationSelected == false){
           this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
           return false;
@@ -272,6 +301,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
             scheduleMTPTime: this.mtpscheduleTime,
             isFoetalDisease: this.counselledPendingdataItem.foetalDisease,
             userId: this.user.id,
+            fileName: null,
+            fileLocation: null
           };
   
           //Remove below 2 lines after successfully tested
@@ -296,6 +327,86 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
                 this.postupdateDecisionPendingpndtErrorMessage = err.toString();
               });
         }
+        else {
+
+          formData.append('ConsentForm', this.consentForm, this.consentForm.name);
+          console.log(formData);
+          this.counselledpendingpostpndtService.prePNDTuploadFile(formData)
+            .subscribe(response => {
+              this.postPndtFileUploadResponse = response;
+              if (this.postPndtFileUploadResponse !== null && this.postPndtFileUploadResponse.status === "true") {
+                this.prePNDTCFileDetails = this.postPndtFileUploadResponse.data;
+                this.postPndtcFileName = this.prePNDTCFileDetails.fileName;
+                this.postPndtcFileLocation = this.prePNDTCFileDetails.fileLocation;
+
+                if (this.postPndtcFileLocation === '' || this.postPndtcFileLocation === undefined) {
+                  this.decisionAwaitedResponseMessage('Please choose a file', 'e');
+                  return false;
+                }
+                if (this.confirmationSelected == false) {
+                  this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
+                  return false;
+                }
+                this.counsellingRemarks = postupdatePndtpendingForm.value.Remarks;
+                this.assignedObstetricianId = postupdatePndtpendingForm.value.DDLobstetrician;
+
+                if ((this.mtpscheduleDate === '' || this.mtpscheduleDate == undefined) && (this.mtpscheduleTime === '' || this.mtpscheduleTime == undefined)) {
+                  this.decisionYesResponseMessage('Please choose Schedule MTP Service Date & Time', 'e');
+                  return false;
+                }
+
+                this.addCounselledPendingRequest = {
+                  postPNDTSchedulingId: this.counselledPendingdataItem.postPNDTSchedulingId,
+                  anwsubjectId: this.counselledPendingdataItem.anwSubjectId,
+                  spouseSubjectId: this.counselledPendingdataItem.spouseSubjectId,
+                  counsellorId: this.counselledPendingdataItem.postPNDTCounsellorId,
+                  counsellingRemarks: this.counsellingRemarks,
+                  assignedObstetricianId: +(this.assignedObstetricianId),
+                  isMTPAgreeYes: this.isSelectedYes,
+                  isMTPAgreeNo: this.isSelectedNo,
+                  isMTPAgreePending: this.isSelectedPending,
+                  scheduleMTPDate: this.mtpscheduleDate,
+                  scheduleMTPTime: this.mtpscheduleTime,
+                  isFoetalDisease: this.counselledPendingdataItem.foetalDisease,
+                  userId: this.user.id,
+                  fileName: this.postPndtcFileName,
+                  fileLocation: this.postPndtcFileLocation
+                };
+
+                //Remove below 2 lines after successfully tested
+                // this.decisionYesResponseMessage('testing Successfully registered', 's');
+                // return false;
+
+                let addScheduleData = this.counselledpendingpostpndtService.AddpostpndtCounselling(this.addCounselledPendingRequest)
+            .subscribe(response => {
+              this.addCounselledPendingResponse = response;
+              if (this.addCounselledPendingResponse !== null && this.addCounselledPendingResponse.status === "true") {
+                this.decisionYesResponseMessage(this.addCounselledPendingResponse.message, 's')
+                //this.retrivescheduledlists();
+                //this.subjectList.splice(this.subjectList.findIndex(x => x.id === this.subjectId), 1);
+              } else {
+                this.decisionYesResponseMessage(this.addCounselledPendingResponse.message, 'e');
+                this.postupdateDecisionPendingpndtErrorMessage = response.message;
+              }
+  
+            },
+              (err: HttpErrorResponse) => {
+                this.decisionYesResponseMessage(err.toString(), 'e');
+                this.postupdateDecisionPendingpndtErrorMessage = err.toString();
+              });
+        }
+              else {
+                this.postupdateDecisionPendingpndtErrorMessage = response.message;
+              }
+            },
+              (err: HttpErrorResponse) => {
+                this.decisionYesResponseMessage(err.toString(), 'e');
+                this.postupdateDecisionPendingpndtErrorMessage = err.toString();
+
+              });
+
+        }
+      }
         else if (this.isSelectedNo === true) {
           console.log(postupdatePndtpendingForm.value);
   
@@ -316,6 +427,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
             scheduleMTPTime: '',
             isFoetalDisease: this.counselledPendingdataItem.foetalDisease,
             userId: this.user.id,
+            fileName: null,
+            fileLocation: null
           };
   
           //Remove below 2 lines after successfully tested
@@ -360,6 +473,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
             scheduleMTPTime: '',
             isFoetalDisease: this.counselledPendingdataItem.foetalDisease,
             userId: this.user.id,
+            fileName: null,
+            fileLocation: null
           };
   
           //Remove below 2 lines after successfully tested
@@ -407,6 +522,8 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
           scheduleMTPTime: '',
           isFoetalDisease: this.counselledPendingdataItem.foetalDisease,
           userId: this.user.id,
+          fileName: null,
+        fileLocation: null
         };
   
         //Remove below 2 lines after successfully tested
