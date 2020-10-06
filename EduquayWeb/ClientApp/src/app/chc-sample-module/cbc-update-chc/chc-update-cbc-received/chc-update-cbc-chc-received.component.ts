@@ -36,6 +36,8 @@ export class CBCCHCReceivedSampleComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+
+   
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     //this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Update CBC Results"}));
     this.dtOptions = {
@@ -99,35 +101,62 @@ export class CBCCHCReceivedSampleComponent implements OnInit {
   _obj["confirmStatus"] =type;
   _obj["userId"] = this.user.id;
 
-  this.chcsampleService.addCHCtestData(_obj)
-  .subscribe(response => {
-    var _response = response;
-    if (_response !== null && _response.status === "true") {
-        /*Swal.fire({ allowOutsideClick: false,
-          text: 'CBC results uploaded successfully.',
-          icon: 'success'
-        }).then((result) => {
-         
-        });*/
-        this.refreshdata();
-    } else {
-      
-      this.errorMessage = response.message;
-    }
-
-  },
-    (err: HttpErrorResponse) => {
-      //this.showResponseMessage(err.toString(), 'e');
+  
+if(type == 1 || type == 2)
+{
+    var _msg:any = type == 1 ?  "Barcode: "+data.barcodeNo+" MCV: "+data.mcv+" RDW-SD: "+data.rdw+". Do you want to confirm?": "Barcode: "+data.barcodeNo+" MCV: "+data.mcv+" RDW-SD: "+data.rdw+". Do you want to Re-run the sample again?";
+  Swal.fire({
+    icon: 'success', title: _msg,
+    showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false
+  })
+    .then((result) => {
+      if (result.value) {
+       this.postData(_obj);
+      }
+      else {
+        console.log('hitting no');
+      }
     });
+    }
+    else
+    {
+      this.postData(_obj);
+    }
+    
   console.log(_obj);
     }
 
+    postData(_obj)
+    {
+
+      this.chcsampleService.addCHCtestData(_obj)
+      .subscribe(response => {
+        var _response = response;
+        if (_response !== null && _response.status === "true") {
+            Swal.fire({ allowOutsideClick: false,
+              text: _response.message,
+              icon: 'success'
+            }).then((result) => {
+              this.refreshdata();
+            });
+            
+        } else {
+          
+          this.errorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
+    }
     refreshdata()
     {
       this.chcsampleService.retriveCHCtestData().subscribe(response => {
         if(response.status === "true")
         {
           this.chcReceiptsData = response.cbcDetail;
+          this.DataService.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
           this.rerender();
         }        
       },
