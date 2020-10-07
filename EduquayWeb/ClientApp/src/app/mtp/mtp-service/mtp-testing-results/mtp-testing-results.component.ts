@@ -43,7 +43,7 @@ export class MTPTestingResultsComponent implements OnInit {
   POTDiagnosis= [];
   POTResultData = [];
   selectedothercomp;
-  disableDatePicker = false;
+  disableDatePicker = true;
 
   complicationsdata = [];
   settings = {};
@@ -154,10 +154,10 @@ export class MTPTestingResultsComponent implements OnInit {
    
     
 
-    if(this.testingPNDData.mtpID != undefined)
+    /*if(this.testingPNDData.mtpID != undefined)
         this.disableDatePicker = true;
       else
-        this.disableDatePicker = false;
+        this.disableDatePicker = false;*/
    
     if(this.testingPNDData.mtpClinicalHistory != undefined)
         this.selectedclinicalHistory = this.testingPNDData.mtpClinicalHistory;
