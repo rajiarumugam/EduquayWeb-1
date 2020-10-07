@@ -377,8 +377,8 @@ export class CHCSampleRcptComponent implements OnInit {
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
                   if(this.popupData.shipmentFrom === 'ANM - CHC')
                   {
-                    _obj['ilrInDateTime'] = this.ILRform.get('ilrInDateTime').value != undefined ? moment(new Date(this.ILRform.get('ilrInDateTime').value)).format("DD/MM/YYYY HH:MM") : '';
-                    _obj['ilrOutDateTime'] = this.ILRform.get('ilrOutDateTime').value != undefined ? moment(new Date(this.ILRform.get('ilrOutDateTime').value)).format("DD/MM/YYYY HH:MM") : '';
+                    _obj['ilrInDateTime'] = (this.ILRform.get('ilrInDateTime').value != undefined && this.ILRform.get('ilrInDateTime').value != "") ? moment(new Date(this.ILRform.get('ilrInDateTime').value)).format("DD/MM/YYYY HH:MM") : '';
+                    _obj['ilrOutDateTime'] = (this.ILRform.get('ilrOutDateTime').value != undefined && this.ILRform.get('ilrOutDateTime').value != "") ? moment(new Date(this.ILRform.get('ilrOutDateTime').value)).format("DD/MM/YYYY HH:MM") : '';
                   }
                   else{
                     _obj['ilrInDateTime'] = "";

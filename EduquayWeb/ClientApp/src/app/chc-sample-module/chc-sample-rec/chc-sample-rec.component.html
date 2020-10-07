@@ -44,12 +44,12 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="form-row my-2">
                                 <div class="col-md-3" [formGroup]="ILRform" [hidden]="popupData?.shipmentFrom === 'ANM - CHC' ? false : true">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && ILRform.controls.ilrInDateTime.invalid }"><b>{{'ILRInDateTime' | translate }}</b>
-                                        <ng2-flatpickr id="scFromDate" name="ilrInDateTime" formControlName="ilrInDateTime" class="form-control flatpickr flatpickr-input active" #ilrInDatePicker [config]="ilrInDateOptions" placeholder="Select Date.." [(ngModel)]="ILRInDate" (change)="inDateChange();" [ngClass]="{'red-border-class': formCheck && ILRform.controls.ilrInDateTime.invalid }" [required]="popupData?.shipmentFrom === 'ANM - CHC' ? true: false "></ng2-flatpickr>
+                                        <ng2-flatpickr id="scFromDate" name="ilrInDateTime" formControlName="ilrInDateTime" class="form-control flatpickr flatpickr-input active" #ilrInDatePicker [config]="ilrInDateOptions" placeholder="Select Date.." [(ngModel)]="ILRInDate" (change)="inDateChange();" [ngClass]="{'red-border-class': formCheck && ILRform.controls.ilrInDateTime.invalid }" [required]=""></ng2-flatpickr>
                                         </h6>
                                 </div>
                                 <div class="col-md-3" [formGroup]="ILRform" [hidden]="popupData?.shipmentFrom === 'ANM - CHC' ? false : true">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && ILRform.controls.ilrOutDateTime.invalid }"><b>{{'ILROutDateTime' | translate }}</b>
-                                        <ng2-flatpickr id="scFromDate" name="ilrOutDateTime" formControlName="ilrOutDateTime" class="form-control flatpickr flatpickr-input active" #ilrOutDatePicker [config]="ilrOutDateOptions" placeholder="Select Date.." [(ngModel)]="ILROutDate" (change)="outDateChange();" [ngClass]="{'red-border-class': formCheck && ILRform.controls.ilrOutDateTime.invalid }" [required]="popupData?.shipmentFrom === 'ANM - CHC' ? true: false "></ng2-flatpickr>
+                                        <ng2-flatpickr id="scFromDate" name="ilrOutDateTime" formControlName="ilrOutDateTime" class="form-control flatpickr flatpickr-input active" #ilrOutDatePicker [config]="ilrOutDateOptions" placeholder="Select Date.." [(ngModel)]="ILROutDate" (change)="outDateChange();" [ngClass]="{'red-border-class': formCheck && ILRform.controls.ilrOutDateTime.invalid }" [required]="ILRInDate != '' ? true: false "></ng2-flatpickr>
                                        </h6>
                                 </div>
                                 <!--<div class="col-md-3" [formGroup]="form">
