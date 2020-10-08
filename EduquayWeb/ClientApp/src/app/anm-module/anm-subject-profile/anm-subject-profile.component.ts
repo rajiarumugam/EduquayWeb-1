@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewChildren } from '@angular/core';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
-import { SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
-import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList, RetrieveSubjectProfileList, SubjectProfileList, prePndtCounselling, pndtTesting, postPndtCounselling, mtpService } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
+import { AddSubjectprofileRequest, SubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
+import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, ReligionResponse, Religion, GovtIDTypeResponse, GovIdType, CasteResponse, CommunityeResponse, CasteList, CommunityList, RetrieveSubjectProfileList, SubjectProfileList, prePndtCounselling, pndtTesting, postPndtCounselling, mtpService, AddSubjectProfileResponse } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
@@ -11,6 +11,9 @@ import { DataService } from 'src/app/shared/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 
@@ -22,11 +25,14 @@ import { user } from 'src/app/shared/auth-response';
 export class AnmSubjectProfileComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChildren('dobPicker') dobPicker;
     
   subjectProfileErrorMessage: string;
   
   subjectProfileRequest: SubjectProfileRequest;
   anmsubjectProfileResponse: RetrieveSubjectProfileList;
+  addanmsubjectProfileRequest: AddSubjectprofileRequest;
+  addanmsubjectProfileResponse: AddSubjectProfileResponse;
   religionResponse: ReligionResponse;
   user: user;
 
@@ -57,6 +63,9 @@ export class AnmSubjectProfileComponent implements OnInit {
   pndtTesting: pndtTesting;
   postPndtCounselling: postPndtCounselling;
   mtpService: mtpService;
+  subjectprofileLists: SubjectProfileList[]=[];
+  subjectprofileItem: SubjectProfileList;
+
   searchsubjectid: string;
   subjectId: string;
   uniqueSubjectId: string;
@@ -100,15 +109,57 @@ export class AnmSubjectProfileComponent implements OnInit {
   p: number;
   l: number;
   a: number;
+  motherFirstName: string;
+  motherMiddleName: string;
+  motherLastName: string;
+  motherContactNo: string;
+  fatherFirstName: string;
+  fatherMiddleName: string;
+  fatherLastName: string;
+  fatherContactNo: string;
+  gaurdianFirstName: string;
+  gaurdianMiddleName: string;
+  gaurdianLastName: string;
+  gaurdianContactNo: string;
+  rbskId: string;
+  schoolName: string;
+  schoolAddress1: string;
+  schoolAddress2: string;
+  schoolAddress3: string;
+  schoolPincode: string;
+  schoolCity: string;
+  schoolState: string;
+  standard: string;
+  section: string;
+  rollNo: string
   barcodes: string;
-  Glists: number [];
-  selectedG: number = 0 ;
+  Glists: number[];
+  selectedG: number = 0;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   firstFormCheck = false;
   secondFormCheck = false;
-  subjectprofileLists: SubjectProfileList[]=[];
-  subjectprofileItem: SubjectProfileList;
+  selecteda = null;
+  selectedl = null;
+  selectedp = null;
+  selectedg = null;
+  Ldisabled = true;
+  Pdisabled = true;
+  Adisabled = true;
+  selecteddob;
+  selectedage;
+  createdSubjectId = "";
+  disableDatepicker = false;
+  ageValidate = false;
+  GPLADATA = [{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
+  GPLAADATA = [{id:'0',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
+
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now()),
+  };
 
   @HostListener('window:scroll')
   checkScroll() {
@@ -152,44 +203,58 @@ export class AnmSubjectProfileComponent implements OnInit {
       this.anmSubjectProfile();
     });
 
+    
     this.firstFormGroup = this._formBuilder.group({
-      // dor: ['', Validators.required],
-      // district: ['', Validators.required],
-      // chc: ['', Validators.required],
-      // phc: ['', Validators.required],
-      // sc: ['', Validators.required],
-      // ripoint: ['', Validators.required],
-      // pincode: ['', Validators.required],
-      // contactNumber: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-      // subjectitle: ['Ms.'],
+
       firstname: ['null', Validators.required],
       middlename: [''],
       lastname: ['null', Validators.required],
       dob: [''],
-      age: ['', [Validators.required,Validators.min(1), Validators.max(99)]],
-      DDLreligion: ['null', Validators.required],
-      DDLcaste: ['null', Validators.required],
-      DDLcommunity: ['null', Validators.required],
-   });
-   this.secondFormGroup = this._formBuilder.group({
-    ecNumber: [''],
-    DDLGovtIDType: [''],
-    GovtIDDetail: [''],
-    house: ['null', Validators.required],
-    street: ['null', Validators.required],
-    city : ['null', Validators.required],
-    stateName: ['null', Validators.required],
-    mobileNo: ['null', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-    spouseFirstName: ['null', Validators.required],
-    spouseMiddleName: [''],
-    spouseLastName: ['null', Validators.required],
-    spouseContactNo: ['null', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
-    emailId: ['null',Validators.email],
-    rchId: ['null', Validators.required],
-  });
+      age: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
+      DDLreligion: ['', Validators.required],
+      DDLcaste: ['', Validators.required],
+      DDLcommunity: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      ecNumber: [''],
+      DDLGovtIDType: [''],
+      GovtIDDetail: [''],
+      house: ['null', Validators.required],
+      street: ['null', Validators.required],
+      city: ['null', Validators.required],
+      stateName: ['null', Validators.required],
+      pincode: ['', [Validators.min(100000), Validators.max(999999)]],
+      mobileNo: ['null', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
+      spouseFirstName: ['null', Validators.required],
+      spouseMiddleName: [''],
+      spouseLastName: ['null', Validators.required],
+      spouseContactNo: ['null', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
+      motherFirstName: [''],
+      motherMiddleName: [''],
+      motherLastName: [''],
+      motherContactNo: ['null', [Validators.min(1000000000), Validators.max(9999999999)]],
+      fatherFirstName: [''],
+      fatherMiddleName: [''],
+      fatherLastName: [''],
+      fatherContactNo: ['null', [Validators.min(1000000000), Validators.max(9999999999)]],
+      guardianFirstName: [''],
+      guardianMiddleName: [''],
+      guardianLastName: [''],
+      guardianContactNo: ['null', [Validators.min(1000000000), Validators.max(9999999999)]],
+      emailId: ['',Validators.email],
+      rchId: ['null', Validators.required],
+      g: ['', Validators.required],
+      p: ['', Validators.required],
+      l: ['', Validators.required],
+      a: ['', Validators.required],
+      schoolname: [''],
+      schoolstreet: [''],
+      schoolcity: [''],
+      schoolstate: [''],
+      schoolpincode: ['', [Validators.min(100000), Validators.max(999999)]],
+      rbskid: [''],
+    });
 
- 
-    
   }
 
   // anmSubjectProfile() {
@@ -253,8 +318,12 @@ export class AnmSubjectProfileComponent implements OnInit {
           else {
             //this.subjectprofileLists = this.subjectProfileResponse.subjectsDetail;
             this.subjectprofileItem = this.anmsubjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
-            //this.subjectprofileItem = this.subjectProfileResponse.subjectsDetail[0];          
-            //this.basicInfo
+            this.selecteddob = this.subjectprofileItem.primaryDetail.dob;
+            //this.dobPicker.flatpickr.setDate(this.subjectprofileItem.primaryDetail.dob, true, 'm/d/Y');
+            this.selectedg = this.subjectprofileItem.pregnancyDetail.g.toString();
+            this.selectedp = this.subjectprofileItem.pregnancyDetail.p.toString();
+            this.selectedl = this.subjectprofileItem.pregnancyDetail.l.toString();
+            this.selecteda = this.subjectprofileItem.pregnancyDetail.a.toString();
            
           }
         }
@@ -269,54 +338,6 @@ export class AnmSubjectProfileComponent implements OnInit {
 
   }
 
-  editSubjectProfile(subjectProfiledetail) {
-    
-    this.ddlReligion();
-    this.ddlGovtIdType();
-    this.ddlCaste();
-    //this.ddlGvalue();
-    this.firstFormGroup = new FormGroup({
-      firstName: new FormControl(this.basicInfo.firstName),
-      lastName: new FormControl(this.basicInfo.lastName),
-      middleName: new FormControl(this.basicInfo.middleName),
-      dob: new FormControl(this.basicInfo.dob),
-      age: new FormControl(this.basicInfo.age),
-      DDLreligion: new FormControl(this.socioDemographicInfo.religionName),
-      DDLcaste: new FormControl(this.socioDemographicInfo.casteName),
-      DDLcommunity: new FormControl(this.socioDemographicInfo.communityName),
-      
-    });
-    this.secondFormGroup = new FormGroup({
-      house: new FormControl(this.socioDemographicInfo.address1),
-      street: new FormControl(this.socioDemographicInfo.address2), 
-      city: new FormControl(this.socioDemographicInfo.address3),
-      stateName: new FormControl(this.socioDemographicInfo.stateName),
-      pincode: new FormControl(this.socioDemographicInfo.pincode),
-      mobileNo: new FormControl(this.basicInfo.mobileNo),
-      emailId: new FormControl(this.basicInfo.emailId),
-      govIdDetail: new FormControl(this.basicInfo.govIdDetail),
-      rchId: new FormControl(this.personalInfo.rchId),
-      ecNumber: new FormControl(this.personalInfo.ecNumber),
-      spouseFirstName: new FormControl(this.basicInfo.spouseFirstName),
-      spouseMiddleName: new FormControl(this.basicInfo.spouseMiddleName),
-      spouseLastName: new FormControl(this.basicInfo.spouseLastName),
-      spouseContactNo: new FormControl(this.basicInfo.spouseContactNo),
-      DDLGovtIDType: new FormControl(this.basicInfo.govIdType)
-
-    });
-    
-
-    this.modalService.open(
-      subjectProfiledetail, {
-      centered: true,
-      size: 'xl',
-      scrollable: true,
-      backdrop:'static',
-      keyboard: false,
-      ariaLabelledBy: 'modal-basic-title'
-    });
-  }
-
   ddlReligion() {
     this.religions = [];
     this.selectedreligion = '0';
@@ -325,9 +346,9 @@ export class AnmSubjectProfileComponent implements OnInit {
       if (this.religionResponse !== null && this.religionResponse.status === "true") {
         this.religions = this.religionResponse.religion;
         if (this.religions.length > 0) {
-          this.selectedreligion = this.socioDemographicInfo.religionId.toString();
+          this.selectedreligion = this.subjectprofileItem.addressDetail.religionId.toString();
           // this.firstFormGroup = new FormGroup({
-          //   DDLreligion : new FormControl(this.socioDemographicInfo.religionId.toString())
+          //   DDLreligion : new FormControl(this.chcsocioDemographicInfo.religionId.toString())
           // });
         }
 
@@ -341,7 +362,7 @@ export class AnmSubjectProfileComponent implements OnInit {
 
       });
   }
-  
+
 
   ddlGovtIdType() {
     this.govtIdTypes = [];
@@ -351,7 +372,7 @@ export class AnmSubjectProfileComponent implements OnInit {
       if (this.govtIdTypeResponse !== null && this.govtIdTypeResponse.status === "true") {
         this.govtIdTypes = this.govtIdTypeResponse.govIdType;
         if (this.govtIdTypes.length > 0) {
-          this.selectedgovtidtype = this.basicInfo.govIdTypeId.toString();
+          this.selectedgovtidtype = this.subjectprofileItem.primaryDetail.govIdTypeId.toString();
         }
 
       }
@@ -373,8 +394,8 @@ export class AnmSubjectProfileComponent implements OnInit {
       if (this.casteResponse !== null && this.casteResponse.status === "true") {
         this.castes = this.casteResponse.caste;
         if (this.castes.length > 0) {
-          this.selectedcaste = this.socioDemographicInfo.casteId.toString();
-          this.onChangecaste(this.socioDemographicInfo.casteId.toString())
+          this.selectedcaste = this.subjectprofileItem.addressDetail.casteId.toString();
+          this.onChangecaste(this.subjectprofileItem.addressDetail.casteId.toString())
         }
 
       }
@@ -396,8 +417,8 @@ export class AnmSubjectProfileComponent implements OnInit {
       if (this.communityResponse !== null && this.communityResponse.status === "true") {
         this.communities = this.communityResponse.community;
         if (this.communities.length > 0) {
-          if (this.communities.findIndex(com => com.id === this.socioDemographicInfo.communityId) >= 0) {
-            this.selectedcommunity = this.socioDemographicInfo.communityId.toString();
+          if (this.communities.findIndex(com => com.id === this.subjectprofileItem.addressDetail.communityId) >= 0) {
+            this.selectedcommunity = this.subjectprofileItem.addressDetail.communityId.toString();
           }
           else {
             this.selectedcommunity = '0';
@@ -414,39 +435,454 @@ export class AnmSubjectProfileComponent implements OnInit {
       });
   }
 
-  ddlGvalue(){
-    this.Glists = [];
-    this.selectedG = 0;
-    this.httpService.get('./assets/Glists.json').subscribe(
-      data => {
-        this.Glists = data as number [];	 // FILL THE ARRAY WITH DATA.
-        //  console.log(this.Glists[1]);
-        this.selectedG = this.personalInfo.g
-      },
-      (err: HttpErrorResponse) => {
-        console.log (err.message);
-      }
-    );
+  editSubjectProfile(subjectProfiledetail, subjectprofileItem: SubjectProfileList) {
+   
+    this.selecteddob = subjectprofileItem.primaryDetail.dob;
+    this.startOptions1.defaultDate = subjectprofileItem.primaryDetail.dob;
+    this.startOptions1.maxDate = moment().format("DD/MM/YYYY");
+
+    if (subjectprofileItem.primaryDetail.childSubjectTypeId === 1) {
+      this.ddlReligion();
+      this.ddlGovtIdType();
+      this.ddlCaste();
+      //this.ddlGvalue();
+      //this.selectedfirstName = subjectprofileItem.primaryDetail.firstName;
+     
+      this.firstFormGroup = new FormGroup({
+        firstName: new FormControl(subjectprofileItem.primaryDetail.firstName),
+        lastName: new FormControl(subjectprofileItem.primaryDetail.lastName),
+        middleName: new FormControl(subjectprofileItem.primaryDetail.middleName),
+        dob: new FormControl(this.selecteddob),
+        age: new FormControl(subjectprofileItem.primaryDetail.age),
+        DDLreligion: new FormControl(subjectprofileItem.addressDetail.religionName),
+        DDLcaste: new FormControl(subjectprofileItem.addressDetail.casteName),
+        DDLcommunity: new FormControl(subjectprofileItem.addressDetail.communityName),
+
+      });
+      this.secondFormGroup = new FormGroup({
+        house: new FormControl(subjectprofileItem.addressDetail.address1),
+        street: new FormControl(subjectprofileItem.addressDetail.address2),
+        city: new FormControl(subjectprofileItem.addressDetail.address3),
+        stateName: new FormControl(subjectprofileItem.addressDetail.stateName),
+        pincode: new FormControl(subjectprofileItem.addressDetail.pincode),
+        mobileNo: new FormControl(subjectprofileItem.primaryDetail.mobileNo),
+        emailId: new FormControl(subjectprofileItem.primaryDetail.emailId),
+        govIdDetail: new FormControl(subjectprofileItem.primaryDetail.govIdDetail),
+        rchId: new FormControl(subjectprofileItem.pregnancyDetail.rchId),
+        ecNumber: new FormControl(subjectprofileItem.pregnancyDetail.ecNumber),
+        spouseFirstName: new FormControl(subjectprofileItem.primaryDetail.spouseFirstName),
+        spouseMiddleName: new FormControl(subjectprofileItem.primaryDetail.spouseMiddleName),
+        spouseLastName: new FormControl(subjectprofileItem.primaryDetail.spouseLastName),
+        spouseContactNo: new FormControl(subjectprofileItem.primaryDetail.spouseContactNo),
+        DDLGovtIDType: new FormControl(subjectprofileItem.primaryDetail.govIdType),
+        g: new FormControl(subjectprofileItem.pregnancyDetail.g),
+        p: new FormControl(subjectprofileItem.pregnancyDetail.p),
+        l: new FormControl(subjectprofileItem.pregnancyDetail.l),
+        a: new FormControl(subjectprofileItem.pregnancyDetail.a)
+
+      });
+
+      this.modalService.open(
+        subjectProfiledetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop: 'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+    }
+    else if (subjectprofileItem.primaryDetail.childSubjectTypeId === 2) {
+      this.ddlReligion();
+      this.ddlGovtIdType();
+      this.ddlCaste();
+      //this.ddlGvalue();
+      //this.selectedfirstName = subjectprofileItem.primaryDetail.firstName;
+      this.firstFormGroup = new FormGroup({
+        firstName: new FormControl(subjectprofileItem.primaryDetail.firstName),
+        lastName: new FormControl(subjectprofileItem.primaryDetail.lastName),
+        middleName: new FormControl(subjectprofileItem.primaryDetail.middleName),
+        dob: new FormControl(this.selecteddob),
+        age: new FormControl(subjectprofileItem.primaryDetail.age),
+        DDLreligion: new FormControl(subjectprofileItem.addressDetail.religionName),
+        DDLcaste: new FormControl(subjectprofileItem.addressDetail.casteName),
+        DDLcommunity: new FormControl(subjectprofileItem.addressDetail.communityName),
+
+      });
+      this.secondFormGroup = new FormGroup({
+        house: new FormControl(subjectprofileItem.addressDetail.address1),
+        street: new FormControl(subjectprofileItem.addressDetail.address2),
+        city: new FormControl(subjectprofileItem.addressDetail.address3),
+        stateName: new FormControl(subjectprofileItem.addressDetail.stateName),
+        pincode: new FormControl(subjectprofileItem.addressDetail.pincode),
+        mobileNo: new FormControl(subjectprofileItem.primaryDetail.mobileNo),
+        emailId: new FormControl(subjectprofileItem.primaryDetail.emailId),
+        govIdDetail: new FormControl(subjectprofileItem.primaryDetail.govIdDetail),
+        rchId: new FormControl(subjectprofileItem.pregnancyDetail.rchId),
+        ecNumber: new FormControl(subjectprofileItem.pregnancyDetail.ecNumber),
+        spouseFirstName: new FormControl(subjectprofileItem.primaryDetail.spouseFirstName),
+        spouseMiddleName: new FormControl(subjectprofileItem.primaryDetail.spouseMiddleName),
+        spouseLastName: new FormControl(subjectprofileItem.primaryDetail.spouseLastName),
+        spouseContactNo: new FormControl(subjectprofileItem.primaryDetail.spouseContactNo),
+        DDLGovtIDType: new FormControl(subjectprofileItem.primaryDetail.govIdType),
+
+      });
+
+      this.modalService.open(
+        subjectProfiledetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop: 'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+    }
+    
+   
   }
 
-  // nextStep(stepper: MatStepper) {
-  //   //this.firstFormCheck = true;
-  //   //if(this.firstFormGroup.valid)
-  //   stepper.next();
-  // }
+
+  calculateAge() {
+    var today = new Date();
+    var birthDate = new Date(this.selecteddob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    this.ageValidate = true;
+    this.selectedage = age;
+    //return age;
+  }
+  ageEntered() {
+    if (!this.ageValidate)
+      this.dobPicker.flatpickr.setDate("");
+
+    this.ageValidate = false;
+  }
+
   nextStep(stepper: MatStepper) {
     this.firstFormCheck = true;
-      if(this.firstFormGroup.valid)
-       stepper.next();
-    }
+    if (this.firstFormGroup.valid)
+      stepper.next();
+  }
 
-    // prevStep() {
-    //   this.stepper.previous();
-    //   }
 
   prevStep(stepper: MatStepper) {
     stepper.previous();
   }
 
-  
+  gonChange()
+  {
+    this.Pdisabled = false;
+    this.Ldisabled = true;
+    this.selectedl = null;
+    this.selecteda = null;
+    this.selectedp = null;
+  }
+  ponChange()
+  {
+    /*this.selecteda = +this.selectedg - +this.selectedp;
+    if(this.selecteda === 0)
+    this.selecteda = "00";*/
+    this.Ldisabled = false;
+  }
+
+
+  formSubmit() {
+    this.subjectProfileErrorMessage = "";
+
+    this.secondFormCheck = true;
+    if (this.secondFormGroup.valid && this.firstFormGroup.valid) {
+      if (this.subjectprofileItem.primaryDetail.subjectTypeId === 1) {
+
+        this.firstName = this.firstFormGroup.controls.firstName.value;
+        this.middleName = this.firstFormGroup.controls.middleName.value;
+        this.lastName = this.firstFormGroup.controls.lastName.value;
+        this.age = this.firstFormGroup.controls.age.value;
+        var getdobdate = this.firstFormGroup.controls.dob.value;
+        this.dob =  moment(new Date(getdobdate)).format("DD/MM/YYYY");
+        this.emailId = this.secondFormGroup.controls.emailId.value;
+        this.govIdTypeId = +this.secondFormGroup.controls.DDLGovtIDType.value;
+        this.govIdDetail = this.secondFormGroup.controls.govIdDetail.value;
+        this.rchId = this.secondFormGroup.controls.rchId.value;
+        this.ecNumber = this.secondFormGroup.controls.ecNumber.value.toString();;
+        this.spouseFirstName = this.secondFormGroup.controls.spouseFirstName.value;
+        this.spouseMiddleName = this.secondFormGroup.controls.spouseMiddleName.value;
+        this.spouseLastName = this.secondFormGroup.controls.spouseLastName.value;
+        this.spouseContactNo = this.secondFormGroup.controls.spouseContactNo.value.toString();
+        this.mobileNo = this.secondFormGroup.controls.mobileNo.value.toString();
+        this.address1 = this.secondFormGroup.controls.house.value;
+        this.address2 = this.secondFormGroup.controls.street.value;
+        this.address3 = this.secondFormGroup.controls.city.value;
+        this.pincode = this.secondFormGroup.controls.pincode.value.toString();
+        this.stateName = this.secondFormGroup.controls.stateName.value;
+        this.selectedg = this.secondFormGroup.controls.g.value;
+        this.selectedp = this.secondFormGroup.controls.p.value;
+        this.selectedl = this.secondFormGroup.controls.l.value;
+        this.selecteda = this.secondFormGroup.controls.a.value;
+
+        this.addanmsubjectProfileRequest = {
+          subjectPrimaryRequest: {
+            subjectTypeId: this.subjectprofileItem.primaryDetail.subjectTypeId,
+            childSubjectTypeId: this.subjectprofileItem.primaryDetail.childSubjectTypeId,
+            uniqueSubjectId: this.subjectprofileItem.primaryDetail.uniqueSubjectId,
+            districtId: this.subjectprofileItem.primaryDetail.districtId,
+            chcId: this.subjectprofileItem.primaryDetail.chcId,
+            phcId: this.subjectprofileItem.primaryDetail.phcId,
+            scId: this.subjectprofileItem.primaryDetail.scId,
+            riId: this.subjectprofileItem.primaryDetail.riId,
+            subjectTitle: this.subjectprofileItem.primaryDetail.subjectTitle,
+            firstName: this.firstName,
+            middleName: this.middleName,
+            lastName: this.lastName,
+            dob: this.dob,
+            age: this.age,
+            gender: this.subjectprofileItem.primaryDetail.gender,
+            maritalStatus: this.subjectprofileItem.primaryDetail.maritalStatus,
+            mobileNo: this.mobileNo,
+            emailId: this.emailId,
+            govIdTypeId: this.govIdTypeId,
+            govIdDetail: this.govIdDetail,
+            spouseSubjectId: this.subjectprofileItem.primaryDetail.spouseSubjectId,
+            spouseFirstName: this.spouseFirstName,
+            spouseMiddleName: this.spouseMiddleName,
+            spouseLastName: this.spouseLastName,
+            spouseContactNo: this.spouseContactNo,
+            spouseGovIdTypeId: 0,
+            spouseGovIdDetail: '',
+            assignANMId: this.subjectprofileItem.primaryDetail.assignANMId,
+            dateOfRegister: this.subjectprofileItem.primaryDetail.dateOfRegister,
+            registeredFrom: this.user.registeredFrom,
+            createdBy: this.user.id,
+            source: 'N',
+          },
+          subjectAddressRequest: {
+            religionId: +(this.selectedreligion),
+            casteId: +(this.selectedcaste),
+            communityId: +(this.selectedcommunity),
+            address1: this.address1,
+            address2: this.address2,
+            address3: this.address3,
+            pincode: this.pincode,
+            stateName: this.stateName,
+            updatedBy: this.user.id
+          },
+          subjectPregnancyRequest: {
+            rchId: this.rchId,
+            ecNumber: this.ecNumber,
+            lmpDate: this.subjectprofileItem.pregnancyDetail.lmpDate,
+            // g: this.g,
+            // p: this.p,
+            // l: this.l,
+            // a: this.a,
+            g: +(this.selectedg),
+            p: +(this.selectedp),
+            l: +(this.selectedl),
+            a: +(this.selecteda),
+            updatedBy: this.user.id,
+          },
+          subjectParentRequest: {
+            motherFirstName: this.subjectprofileItem.parentDetail.motherFirstName,
+            motherMiddleName: this.subjectprofileItem.parentDetail.motherMiddleName,
+            motherLastName: this.subjectprofileItem.parentDetail.motherLastName,
+            motherGovIdTypeId: 0,
+            motherGovIdDetail: '',
+            motherContactNo: this.subjectprofileItem.parentDetail.motherContactNo,
+            fatherFirstName: this.subjectprofileItem.parentDetail.fatherFirstName,
+            fatherMiddleName: this.subjectprofileItem.parentDetail.fatherMiddleName,
+            fatherLastName: this.subjectprofileItem.parentDetail.fatherLastName,
+            fatherGovIdTypeId: 0,
+            fatherGovIdDetail: "",
+            fatherContactNo: this.subjectprofileItem.parentDetail.fatherContactNo,
+            gaurdianFirstName: this.subjectprofileItem.parentDetail.gaurdianFirstName,
+            gaurdianMiddleName: this.subjectprofileItem.parentDetail.gaurdianMiddleName,
+            gaurdianLastName: this.subjectprofileItem.parentDetail.gaurdianLastName,
+            gaurdianGovIdTypeId: 0,
+            gaurdianGovIdDetail: "",
+            gaurdianContactNo: this.subjectprofileItem.parentDetail.gaurdianContactNo,
+            rbskId: this.subjectprofileItem.parentDetail.rbskId,
+            schoolName: this.subjectprofileItem.parentDetail.schoolName,
+            schoolAddress1: this.subjectprofileItem.parentDetail.schoolAddress1,
+            schoolAddress2: "",
+            schoolAddress3: "",
+            schoolPincode: this.subjectprofileItem.parentDetail.schoolPincode,
+            schoolCity: this.subjectprofileItem.parentDetail.schoolCity,
+            schoolState: this.subjectprofileItem.parentDetail.schoolState,
+            standard: this.subjectprofileItem.parentDetail.standard,
+            section: this.subjectprofileItem.parentDetail.section,
+            rollNo: this.subjectprofileItem.parentDetail.rollNo,
+            updatedBy: this.user.id,
+          }
+        }
+        // this.showResponseMessage('testing done', 's');
+        // return false;
+        var some = this.SubjectProfileService.addSubjectProfile(this.addanmsubjectProfileRequest).subscribe(response => {
+          this.addanmsubjectProfileResponse = response;
+          console.log(this.addanmsubjectProfileResponse);
+          this.loaderService.display(false);
+          if (this.addanmsubjectProfileResponse !== null && this.addanmsubjectProfileResponse.status === true) {
+            this.showResponseMessage(this.addanmsubjectProfileResponse.message, 's')
+          } else {
+            this.showResponseMessage(this.addanmsubjectProfileResponse.message, 'e');
+            this.subjectProfileErrorMessage = response.message;
+          }
+
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectProfileErrorMessage = err.toString();
+          });
+      }
+      else if (this.subjectprofileItem.primaryDetail.subjectTypeId === 2) {
+
+        this.firstName = this.firstFormGroup.controls.firstName.value;
+        this.middleName = this.firstFormGroup.controls.middleName.value;
+        this.lastName = this.firstFormGroup.controls.lastName.value;
+        this.age = this.firstFormGroup.controls.age.value;
+        var getdobdate = this.firstFormGroup.controls.dob.value;
+        this.dob =  moment(new Date(getdobdate)).format("DD/MM/YYYY");
+        this.emailId = this.secondFormGroup.controls.emailId.value;
+        this.govIdTypeId = +this.secondFormGroup.controls.DDLGovtIDType.value;
+        this.govIdDetail = this.secondFormGroup.controls.govIdDetail.value;
+        //this.rchId = this.secondFormGroup.controls.rchId.value;
+        this.ecNumber = this.secondFormGroup.controls.ecNumber.value.toString();;
+        this.spouseFirstName = this.secondFormGroup.controls.spouseFirstName.value;
+        this.spouseMiddleName = this.secondFormGroup.controls.spouseMiddleName.value;
+        this.spouseLastName = this.secondFormGroup.controls.spouseLastName.value;
+        this.spouseContactNo = this.secondFormGroup.controls.spouseContactNo.value.toString();
+        this.mobileNo = this.secondFormGroup.controls.mobileNo.value.toString();
+        this.address1 = this.secondFormGroup.controls.house.value;
+        this.address2 = this.secondFormGroup.controls.street.value;
+        this.address3 = this.secondFormGroup.controls.city.value;
+        this.pincode = this.secondFormGroup.controls.pincode.value.toString();
+        this.stateName = this.secondFormGroup.controls.stateName.value;
+
+        this.addanmsubjectProfileRequest = {
+
+          subjectPrimaryRequest: {
+            subjectTypeId: this.subjectprofileItem.primaryDetail.subjectTypeId,
+            childSubjectTypeId: this.subjectprofileItem.primaryDetail.childSubjectTypeId,
+            uniqueSubjectId: this.subjectprofileItem.primaryDetail.uniqueSubjectId,
+            districtId: this.subjectprofileItem.primaryDetail.districtId,
+            chcId: this.subjectprofileItem.primaryDetail.chcId,
+            phcId: this.subjectprofileItem.primaryDetail.phcId,
+            scId: this.subjectprofileItem.primaryDetail.scId,
+            riId: this.subjectprofileItem.primaryDetail.riId,
+            subjectTitle: this.subjectprofileItem.primaryDetail.subjectTitle,
+            firstName: this.firstName,
+            middleName: this.middleName,
+            lastName: this.lastName,
+            dob: this.dob,
+            age: this.age,
+            gender: this.subjectprofileItem.primaryDetail.gender,
+            maritalStatus: this.subjectprofileItem.primaryDetail.maritalStatus,
+            mobileNo: this.mobileNo,
+            emailId: this.emailId,
+            govIdTypeId: this.govIdTypeId,
+            govIdDetail: this.govIdDetail,
+            spouseSubjectId: this.subjectprofileItem.primaryDetail.spouseSubjectId,
+            spouseFirstName: this.spouseFirstName,
+            spouseMiddleName: this.spouseMiddleName,
+            spouseLastName: this.spouseLastName,
+            spouseContactNo: this.spouseContactNo,
+            spouseGovIdTypeId: 0,
+            spouseGovIdDetail: '',
+            assignANMId: this.subjectprofileItem.primaryDetail.assignANMId,
+            dateOfRegister: this.subjectprofileItem.primaryDetail.dateOfRegister,
+            registeredFrom: this.user.registeredFrom,
+            createdBy: this.user.id,
+            source: 'N',
+          },
+          subjectAddressRequest: {
+            religionId: +(this.selectedreligion),
+            casteId: +(this.selectedcaste),
+            communityId: +(this.selectedcommunity),
+            address1: this.address1,
+            address2: this.address2,
+            address3: this.address3,
+            pincode: this.pincode,
+            stateName: this.stateName,
+            updatedBy: this.user.id
+          },
+          subjectPregnancyRequest: {
+            rchId: this.subjectprofileItem.pregnancyDetail.rchId,
+            ecNumber: this.ecNumber,
+            lmpDate: this.subjectprofileItem.pregnancyDetail.lmpDate,
+            g: this.subjectprofileItem.pregnancyDetail.g,
+            p: this.subjectprofileItem.pregnancyDetail.p,
+            l: this.subjectprofileItem.pregnancyDetail.l,
+            a: this.subjectprofileItem.pregnancyDetail.a,
+            updatedBy: this.user.id,
+          },
+          subjectParentRequest: {
+            motherFirstName: this.subjectprofileItem.parentDetail.motherFirstName,
+            motherMiddleName: this.subjectprofileItem.parentDetail.motherMiddleName,
+            motherLastName: this.subjectprofileItem.parentDetail.motherLastName,
+            motherGovIdTypeId: 0,
+            motherGovIdDetail: '',
+            motherContactNo: this.subjectprofileItem.parentDetail.motherContactNo,
+            fatherFirstName: this.subjectprofileItem.parentDetail.fatherFirstName,
+            fatherMiddleName: this.subjectprofileItem.parentDetail.fatherMiddleName,
+            fatherLastName: this.subjectprofileItem.parentDetail.fatherLastName,
+            fatherGovIdTypeId: 0,
+            fatherGovIdDetail: "",
+            fatherContactNo: this.subjectprofileItem.parentDetail.fatherContactNo,
+            gaurdianFirstName: this.subjectprofileItem.parentDetail.gaurdianFirstName,
+            gaurdianMiddleName: this.subjectprofileItem.parentDetail.gaurdianMiddleName,
+            gaurdianLastName: this.subjectprofileItem.parentDetail.gaurdianLastName,
+            gaurdianGovIdTypeId: 0,
+            gaurdianGovIdDetail: "",
+            gaurdianContactNo: this.subjectprofileItem.parentDetail.gaurdianContactNo,
+            rbskId: this.subjectprofileItem.parentDetail.rbskId,
+            schoolName: this.subjectprofileItem.parentDetail.schoolName,
+            schoolAddress1: this.subjectprofileItem.parentDetail.schoolAddress1,
+            schoolAddress2: "",
+            schoolAddress3: "",
+            schoolPincode: this.subjectprofileItem.parentDetail.schoolPincode,
+            schoolCity: this.subjectprofileItem.parentDetail.schoolCity,
+            schoolState: this.subjectprofileItem.parentDetail.schoolState,
+            standard: this.subjectprofileItem.parentDetail.standard,
+            section: this.subjectprofileItem.parentDetail.section,
+            rollNo: this.subjectprofileItem.parentDetail.rollNo,
+            updatedBy: this.user.id,
+          }
+        }
+        // this.showResponseMessage('testing done', 's');
+        // return false;
+        var some = this.SubjectProfileService.addSubjectProfile(this.addanmsubjectProfileRequest).subscribe(response => {
+          this.addanmsubjectProfileResponse = response;
+          console.log(this.addanmsubjectProfileResponse);
+          this.loaderService.display(false);
+          if (this.addanmsubjectProfileResponse !== null && this.addanmsubjectProfileResponse.status === true) {
+            this.showResponseMessage(this.addanmsubjectProfileResponse.message, 's')
+          } else {
+            this.showResponseMessage(this.addanmsubjectProfileResponse.message, 'e');
+            this.subjectProfileErrorMessage = response.message;
+          }
+
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectProfileErrorMessage = err.toString();
+          });
+      }
+      
+    }
+  }
+
+  showResponseMessage(message: string, type: string) {
+    var messageType = '';
+    if (type === 'e') {
+      Swal.fire({ allowOutsideClick: false, icon: 'error', title: message, confirmButtonText: 'Close' })
+    }
+    else {
+      Swal.fire({ allowOutsideClick: false, icon: 'success', title: message, confirmButtonText: 'Close' })
+        .then((result) => {
+          if (result.value) {
+            this.modalService.dismissAll();
+            window.location.reload();
+          }
+        });
+    }
+  }  
 }

@@ -34,7 +34,7 @@ export class PrimaryDetail{
     dob: string;
     age: number;
     gender: string;
-    maritalStatus: string;
+    maritalStatus: boolean;
     mobileNo: string;
     emailId: string;
     dateOfRegister: string;
@@ -222,4 +222,10 @@ export interface CommunityeResponse{
 export interface CommunityList{
     id: number;
     communityName: string;
+}
+
+export interface AddSubjectProfileResponse{
+    status: boolean;
+    message: string;
+    uniqueSubjectId: string;
 }
