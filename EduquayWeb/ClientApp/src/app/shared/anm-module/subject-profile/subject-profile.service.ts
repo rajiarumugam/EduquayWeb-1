@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
-import { SubjectProfileResponse, ReligionResponse, GovtIDTypeResponse, CasteResponse, CommunityeResponse, RetrieveSubjectProfileList } from './subject-profile-response';
-import { SubjectProfileRequest, ParticularSubjectProfileRequest } from './subject-profile-request';
+import { SubjectProfileResponse, ReligionResponse, GovtIDTypeResponse, CasteResponse, CommunityeResponse, RetrieveSubjectProfileList, AddSubjectProfileResponse } from './subject-profile-response';
+import { SubjectProfileRequest, ParticularSubjectProfileRequest, AddSubjectprofileRequest } from './subject-profile-request';
 import { TokenService } from '../../token.service';
 
 
@@ -21,6 +21,7 @@ export class SubjectProfileService {
   chcsubjectprofileListApi: string = "api/v1/Subject/RetrieveCHCSubjectList";
   chcparticularSubProfile: string = "api/v1/Subject/RetrieveParticularCHCSubjectList";
   anmparticularSubProfile: string = "api/v1/Subject/RetrieveParticularSubjectList";
+  addSubjectProfileApi: string = "api/v1/Subject/Add"
 
   userId: number;
 
@@ -69,6 +70,11 @@ export class SubjectProfileService {
   getCommunnity(code){
     let apiUrl = this.genericService.buildApiUrl(`${this.communityApi}/${code}`);
     return this.http.get<CommunityeResponse>({url: apiUrl });
+  }
+
+  addSubjectProfile(chcaddsubProfile: AddSubjectprofileRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.addSubjectProfileApi);
+    return this.http.post<AddSubjectProfileResponse>({url: apiUrl, body: chcaddsubProfile});
   }
 
 }
