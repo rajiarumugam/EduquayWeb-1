@@ -48,4 +48,16 @@ export class chcsampleService {
     return this.http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
+  addCHCtestData(obj){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDCHCTESTRESULT);
+    return this.http.post<any>({url:apiUrl, body: obj });
+
+  }
+  retriveCHCtestData()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.RETRIVECBCTEST+user.chcId);
+    return this.http.get<any>( {url:apiUrl});
+  }
 }
