@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { user } from 'src/app/shared/auth-response';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { SchedulePostPndtcRequest, AddPostPndtcScheduleRequest } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc-request';
-import { SchedulePostPndtcResponse, AddPostPndtcScheduleResponse, SchedulingList } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc-response';
+import { SchedulePostPndtcResponse, AddPostPndtcScheduleResponse, SchedulingList, ScheduledPostPndtcResponse } from 'src/app/shared/pndtc/schedule-post-pndtc/schedule-post-pndtc-response';
 import { ScheduledList } from 'src/app/shared/pndtc/schedule-pre-pndtc/schedule-pre-pndtc-response';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
@@ -39,9 +39,10 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     pndtmtpMasterResponse: PndtMtpMasterResponse;
     pndtmtpScheduledRequest: SchedulePostPndtcRequest;
     pndtmtpScheduledResponse: SchedulePostPndtcResponse;
+    ScheduledPostPndtcResponse: ScheduledPostPndtcResponse;
     addScheduledRequest: AddPostPndtcScheduleRequest;
     addScheduledResponse: AddPostPndtcScheduleResponse;
-    scheduledlists: SchedulingList[] = [];
+    scheduledlists: ScheduledList[] = [];
     schedulinglists: SchedulingList[] = [];
     districts: dataModel[] = [];
     selectedDistrict: string = '';
@@ -53,6 +54,8 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     selectedanm: string = '';
     counsellornamelist: dataModel[] = [];
     selectedname: string = '';
+    editscheduleDateTime: string;
+    selectedpostpndtDate: string
   
     anwSubjectId: string;
     subjectName: string;
@@ -133,6 +136,10 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
         //var _tempData = centralReceiptsArr.hplcDetail;
       
         this.scheduledlists = _postScheduedArr.data;
+        this.scheduledlists.forEach(element => {
+          this.selectedpostpndtDate = element.counsellingDateTime;
+                  
+          });
       }
       this.getPostSchedulinglists();
   }
@@ -318,15 +325,15 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
       let picknpack = this.pndtmtpScheduleService.getscheduledLists(this.pndtmtpScheduledRequest)
         .subscribe(response => {
-          this.pndtmtpScheduledResponse = response;
+          this.ScheduledPostPndtcResponse = response;
           this.loaderService.display(false);
-          if (this.pndtmtpScheduledResponse !== null && this.pndtmtpScheduledResponse.status === "true") {
-            if (this.pndtmtpScheduledResponse.data.length <= 0) {
+          if (this.ScheduledPostPndtcResponse !== null && this.ScheduledPostPndtcResponse.status === "true") {
+            if (this.ScheduledPostPndtcResponse.data.length <= 0) {
               this.postpndtscheduledErrorMessage = response.message;
               this.getPostSchedulinglists();
             }
             else {
-              this.scheduledlists = this.pndtmtpScheduledResponse.data;
+              this.scheduledlists = this.ScheduledPostPndtcResponse.data;
               this.getPostSchedulinglists();
   
             }
@@ -353,11 +360,14 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
       this.contactNo = scheduleddata.contactNo;
       this.samplega = scheduleddata.ga;
       this.spouseSubjectId = scheduleddata.spouseSubjectId;
+      this.selectedpostpndtDate = scheduleddata.counsellingDateTime;
   
       // this.editscheduleDate = moment().format("DD/MM/YYYY");
       // this.editscheduleTime = moment().format("HH:mm");
       // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
       // this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+      this.editDateOptions.defaultDate = scheduleddata.counsellingDateTime;
+      //this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
       const regDate = this.dateservice.convertToDateTimeFormat(scheduleddata.pndtDateTime);
       this.editDateOptions.minDate = regDate;
   
@@ -376,7 +386,11 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
     onSubmit(editAppointmentForm: NgForm) {
   
       console.log(editAppointmentForm.value);
-      if((this.editscheduleDate === '' || this.editscheduleDate == undefined) && (this.editscheduleTime === '' || this.editscheduleTime == undefined)){
+      if (this.popupform.valid) {
+        var getdobdate = this.popupform.controls.editScheduleDate.value;
+        this.editscheduleDateTime =  moment(new Date(getdobdate)).format("DD/MM/YYYY HH:mm");
+      }
+      if((this.editscheduleDateTime === '' || this.editscheduleDateTime == undefined) && (this.editscheduleDateTime === '' || this.editscheduleDateTime == undefined)){
         this.showResponseMessage('Please choose Date & Time', 'e');
         return false;
       }
@@ -390,7 +404,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
         anwsubjectId: this.anwSubjectId,
         spouseSubjectId: this.spouseSubjectId,
         counsellorId: +(this.counsellorId),
-        counsellingDateTime: this.editscheduleDate + ' ' + this.editscheduleTime,
+        counsellingDateTime: this.editscheduleDateTime,
         userId: this.user.id,
       };
   
@@ -418,7 +432,7 @@ export class SchedulePostPndtcScheduledComponent implements  AfterViewInit, OnDe
   
     showResponseMessage(message: string, type: string) {
       var messageType = '';
-      var title = `Post PNDT Counselling Rescheduled Successfully on ${this.editscheduleDate} at ${this.editscheduleTime}`;
+      var title = `Post PNDT Counselling Rescheduled Successfully on ${this.editscheduleDateTime}`;
       if (type === 'e') {
         Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
       }

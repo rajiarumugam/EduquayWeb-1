@@ -147,18 +147,18 @@
                                                         id="dobnewdate" placeholder="select Date..." required> -->
                                                     <!-- <input class="form-control field" type="text" formControlName="dob" [(ngModel)]="selecteddob" *ngIf = "disableDatepicker" readonly> -->
                                                     <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
-                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (change)="calculateAge()"></ng2-flatpickr>
+                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (ngModelChange)="calculateAge()"></ng2-flatpickr>
                                                     </div>
                                                     <div class="form-group col-md-4" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
                                                         <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.age" formControlName="age" oninput="javascript: if (Number(this.value)>18) this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                                        maxlength = "2" numbersOnly (ngModelChange)="ageEntered();"
+                                                        maxlength = "2" numbersOnly 
                                                             placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.age" formControlName="age" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                                        maxlength = "2" numbersOnly (ngModelChange)="ageEntered();"
+                                                        <input type="Text" class="form-control" [(ngModel)]="selectedage" formControlName="age" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "2" numbersOnly 
                                                             placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">

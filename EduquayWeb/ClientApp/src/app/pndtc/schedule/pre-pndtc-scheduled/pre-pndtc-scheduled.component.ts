@@ -86,6 +86,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   editScheduleDate: string;
   editscheduleDate: string;
   editscheduleTime: string;
+  editscheduleDateTime: string;
 
   editDateOptions: FlatpickrOptions = {
     mode: 'single',
@@ -139,13 +140,10 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
         if(_preScheduledArr !== undefined && _preScheduledArr.status.toString() === "true"){
           //var _tempData = centralReceiptsArr.hplcDetail;        
           this.scheduledlists = _preScheduledArr.data;
-          // this.scheduledlists.forEach(element => {
-          //   this.selectedpndtDate = element.counsellingDateTime;
-          //   if(element.schedulingId <= 0)
-          //   this.disableDatepicker = true;
-          //   else
-          //   this.disableDatepicker = false;           
-          //   });
+          this.scheduledlists.forEach(element => {
+            this.selectedpndtDate = element.counsellingDateTime;
+                    
+            });
           
         }
         this.getSchedulinglists();
@@ -408,7 +406,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     this.contactNo = scheduleddata.contactNo;
     this.samplega = scheduleddata.ga;
     this.spouseSubjectId = scheduleddata.spouseSubjectId;
-    //this.selectedpndtDate = scheduleddata.counsellingDateTime;
+    this.selectedpndtDate = scheduleddata.counsellingDateTime;
    
     //var _tempCurrentDate = scheduleddata.counsellingDateTime.split('/')[4]+"-"+scheduleddata.counsellingDateTime.split('/')[3]+"-"+scheduleddata.counsellingDateTime.split('/')[2]+" "+scheduleddata.counsellingDateTime.split('/')[1]+":"+scheduleddata.counsellingDateTime.split('/')[0];
     //console.log(new Date(scheduleddata.counsellingDateTime.split('/')[2]+"-"+scheduleddata.counsellingDateTime.split('/')[1]+"-"+scheduleddata.counsellingDateTime.split('/')[0]));
@@ -424,9 +422,9 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
     //   });
     
     // }
-    this.editscheduleDate = moment().format("DD/MM/YYYY");
-    this.editscheduleTime = moment().format("HH:mm");
-    this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+    // this.editscheduleDate = moment().format("DD/MM/YYYY");
+    // this.editscheduleTime = moment().format("HH:mm");
+    this.editDateOptions.defaultDate = scheduleddata.counsellingDateTime;
     this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
 
     this.modalService.open(
@@ -444,14 +442,19 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
   onSubmit(editAppointmentForm: NgForm) {
 
     console.log(editAppointmentForm.value);
-    if((this.editscheduleDate === '' || this.editscheduleDate == undefined) && (this.editscheduleTime === '' || this.editscheduleTime == undefined)){
-      this.showResponseMessage('Please choose Date & Time', 'e');
-      return false;
-    }
+    
     // this.editscheduleDate = moment().format("DD/MM/YYYY");
     // this.editscheduleTime = moment().format("HH:mm");
     // this.editDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
     // this.editDateOptions.minDate = moment().format("DD/MM/YYYY HH:mm");
+    if (this.popupform.valid) {
+      var getdobdate = this.popupform.controls.editScheduleDate.value;
+      this.editscheduleDateTime =  moment(new Date(getdobdate)).format("DD/MM/YYYY HH:mm");
+    }
+    if((this.editscheduleDateTime === '' || this.editscheduleDateTime == undefined) && (this.editscheduleDateTime === '' || this.editscheduleDateTime == undefined)){
+      this.showResponseMessage('Please choose Date & Time', 'e');
+      return false;
+    }
     this.counsellorId = editAppointmentForm.value.DDcounsellorname;
     // console.log(this.selectedpndtDate);
     // console.log(typeof(this.selectedpndtDate));
@@ -459,7 +462,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
       anwsubjectId: this.anwSubjectId,
       spouseSubjectId: this.spouseSubjectId,
       counsellorId: +(this.counsellorId),
-      counsellingDateTime: this.editscheduleDate + ' ' + this.editscheduleTime,
+      counsellingDateTime: this.editscheduleDateTime,
       //counsellingDateTime: typeof(this.selectedpndtDate) == 'object' ? moment(this.selectedpndtDate[0]).format('DD/MM/YYYY HH:mm') : this.selectedpndtDate,
       userId: this.user.id,
     };
@@ -488,7 +491,7 @@ export class PrePndtcScheduledComponent implements AfterViewInit, OnDestroy, OnI
 
   showResponseMessage(message: string, type: string) {
     var messageType = '';
-    var title = `Pre PNDT Counselling Rescheduled Successfully on ${this.editscheduleDate} at ${this.editscheduleTime}`;
+    var title = `Pre PNDT Counselling Rescheduled Successfully on ${this.editscheduleDateTime}`;
     if (type === 'e') {
       Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
     }

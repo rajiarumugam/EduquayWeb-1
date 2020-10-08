@@ -16,6 +16,28 @@ export interface SchedulingList {
     pndtDateTime: string;
 }
 
+export interface ScheduledPostPndtcResponse {
+    status: string;
+    message: string;
+    data: ScheduledList[]; 
+}
+
+export interface ScheduledList {
+    anwSubjectId: string;
+    subjectName: string;
+    spouseSubjectId: string;
+    spouseName: string;
+    rchId: string;
+    contactNo: string;
+    ga: string;
+    obstetricScore: string;
+    counsellorId: number;
+    counsellorName: string;
+    counsellingDateTime: string;
+    schedulingId: number;
+    pndtDateTime: string;
+}
+
 export interface AddPostPndtcScheduleResponse{
     status: string;
     message: string;

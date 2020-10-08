@@ -156,7 +156,7 @@
                         <label class="note">Date & Time <span class="manto">*</span></label>
                         
                         <ng2-flatpickr id="popupDate" name="editScheduleDate" class="form-control flatpickr flatpickr-input active" #editDatePicker
-                         [config]="editDateOptions" placeholder="Select Date.." formControlName = "editScheduleDate">
+                         [config]="editDateOptions" placeholder="Select Date.." formControlName = "editScheduleDate" [(ngModel)]="selectedpndtDate">
                         </ng2-flatpickr>
                         <!-- <input class="form-control field" type="text" formControlName="editScheduleDate" [(ngModel)]="selectedpndtDate" *ngIf = "disableDatepicker" readonly>
                         <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #editDatePicker [config]="editDateOptions" placeholder="Select Date.." formControlName = "editScheduleDate"
