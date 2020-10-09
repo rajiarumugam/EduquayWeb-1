@@ -144,16 +144,23 @@
                                                         <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">Date of Birth</label>
                                                         <!-- <input type="Text" class="form-control flatpickr flatpickr-input active"
                                                         [(ngModel)]="chcsubjectprofileItem?.primaryDetail.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
-                                                    id="dobnewdate" placeholder="select Date..." required> -->
+                                                        id="dobnewdate" placeholder="select Date..." required> -->
+                                                    <!-- <input class="form-control field" type="text" formControlName="dob" [(ngModel)]="selecteddob" *ngIf = "disableDatepicker" readonly> -->
                                                     <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
-                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob" ></ng2-flatpickr>
+                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (ngModelChange)="calculateAge()"></ng2-flatpickr>
+                                                    </div>
+                                                    <div class="form-group col-md-4" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
+                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.age" formControlName="age" oninput="javascript: if (Number(this.value)>18) this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "2" numbersOnly 
+                                                            placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.age" formControlName="age"
+                                                        <input type="Text" class="form-control" [(ngModel)]="selectedage" formControlName="age" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "2" numbersOnly 
                                                             placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
-        
                                                     <div class="form-group col-md-4">
                                                         <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
                                                         <select id="inputReligion" class="form-control" formControlName="DDLreligion" required
@@ -183,8 +190,7 @@
                                                             {{community.communityName}}
                                                         </option>
                                                     </select>
-        
-                                                    
+                                                   
                                                     </div>
                                                 </div>
                                                 <div class="reges-form-bottom-btns">
@@ -219,45 +225,47 @@
         
                                                 </div>
                                                 <div class="form-row my-2">
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot
                                                             Number</label><span class="manto"></span>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.address1" formControlName="house"
                                                             placeholder="House Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street &
                                                             Locality</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.address2" formControlName="street"
                                                             placeholder="Street" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City /
                                                             Village</label><span class="manto"></span>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.address3" formControlName="city"
                                                             placeholder="City" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid}">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">State</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.stateName" formControlName="stateName"
                                                             placeholder="State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">Pincode</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.pincode" formControlName="pincode"
-                                                        ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">
+                                                        ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }" 
+                                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  maxlength = "6" numbersOnly>
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">Contact</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.mobileNo" formControlName="mobileNo"
-                                                        placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">
+                                                        placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "10" numbersOnly>
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputEmail">Email</label>
                                                         <input type="email" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.emailId" formControlName="emailId"
                                                          placeholder="Email" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)">
                                                         <label for="inputGovtId">Govt ID Type</label>
                                                         <select id="inputGovtId" class="form-control" formControlName="DDLGovtIDType"
                                                         [(ngModel)]="selectedgovtidtype">
@@ -267,24 +275,24 @@
                                                         </option>
                                                     </select>
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)" >
                                                         <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdDetail"
                                                         placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1">
                                                         <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.pregnancyDetail.rchId" formControlName="rchId"
                                                         placeholder="RCH ID" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputecno">EC Number</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.pregnancyDetail.ecNumber" formControlName="ecNumber"
                                                         placeholder="EC Number">
                                                     </div>
         
                                                 </div>
-                                                <div class="form-row my-2">
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)">
         
                                                     <div class="form-group col-md-3">
                                                         <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First
@@ -311,40 +319,208 @@
                                                         <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">Spouse Contact</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.spouseContactNo" formControlName="spouseContactNo"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }"
-                                                            placeholder="Contact Number" required>
+                                                            placeholder="Contact Number" required oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
                                                     </div>
                                                 </div>
-                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.subjectTypeId === 1">
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === false)">
+        
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }">Mother’s First Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherFirstName" formControlName="motherFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }"
+                                                            placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherMiddleName" formControlName="motherMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherLastName" formControlName="motherLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLMGovtIDType"
+                                                        [(ngModel)]="selectedMgovtidtype">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
+                                                        </option>
+                                                    </select>
+                                                    </div> -->
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdMDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdMDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdMDetail.invalid }">
+                                                    </div> -->
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherContactNo" formControlName="motherContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }"
+                                                            placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === false)">
+        
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }">Father’s First Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherFirstName" formControlName="fatherFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }"
+                                                            placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherMiddleName" formControlName="fatherMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherLastName" formControlName="fatherLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLFGovtIDType"
+                                                        [(ngModel)]="selectedMgovtidtype">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
+                                                        </option>
+                                                    </select>
+                                                    </div>
                                                     <div class="form-group col-md-2">
-                                                        <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">{{'G' | translate }}</label><span class="manto"> </span>
-                                                        <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdFDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">
+                                                    </div> -->
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherContactNo" formControlName="fatherContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }"
+                                                            placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === false)">
+        
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }">Guardian’s First Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianFirstName" formControlName="guardianFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }"
+                                                            placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianMiddleName" formControlName="guardianMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianLastName" formControlName="guardianLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLFGovtIDType"
+                                                        [(ngModel)]="selectedMgovtidtype">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
+                                                        </option>
+                                                    </select>
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdFDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">
+                                                    </div> -->
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianContactNo" formControlName="guardianContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }"
+                                                            placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1">
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">G</label><span class="manto"> </span>
+                                                         <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }" (change)="gonChange();">
                                                             <option [ngValue]="null">Select</option>
-                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label class="birthreg" for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">{{'P' | translate }}</label><span class="manto"></span>
-                                                        <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" >
+                                                        <label  for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">P</label><span class="manto"></span>
+                                                        <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
                                                             <option [ngValue]="null">Select</option>
-                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"></span>
-                                                        <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }" >
+                                                        <label  for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">L</label><span class="manto"></span>
+                                                         <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">
                                                             <option [ngValue]="null">Select</option>
-                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedp != null ? +selectedp+1 : null; let ind=index;">{{data.value}}</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLAADATA; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label class="birthreg" for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">{{'A' | translate }}</label><span class="manto"></span>
-                                                        <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">
+                                                        <label  for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">A</label><span class="manto"></span>
+                                                         <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }"   [attr.disabled]="Pdisabled ? Pdisabled : null">
                                                             <option [ngValue]="null">Select</option>
-                                                            <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                         
                                                     </div>
-                                                </div> -->
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputschoolName" >SchoolName</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschoolName" placeholder="School Name" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolName" formControlName = "schoolname">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label  for="inputschool">Street And Locality</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschool" placeholder="Street" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolAddress1" formControlName = "schoolstreet">
+                                                    </div>
+                                                    <div class="form-group col-md-2"> 
+                                                        <label  for="inputschoolCity">City/Village</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschoolCity" placeholder="City" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolCity" formControlName = "schoolcity">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputschoolState">State</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschoolState" placeholder="State" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolState" formControlName = "schoolstate" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                                        <!-- <app-select-dropdown [(ngModel)]="selectedschoolstate" class="form-control" id="inputschoolState" formControlName="schoolstate" [list]="statelist" returnId="false" placeholder="Select State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }"></app-select-dropdown> -->
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputSchoolPincode">Pincode</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputSchoolPincode" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolPincode" placeholder="Pincode" formControlName = "schoolpincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "6" numbersOnly>
+                                                    </div>
+                                                </div>
+                                
+                                                <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">                 
+                                                  <div class="form-group col-md-2">
+                                                      <label  for="rbskid">RBSKID</label>
+                                                      <input type="text" autocomplete="off"class="form-control" id="rbskid" placeholder="ID" [(ngModel)]="chcsubjectprofileItem?.parentDetail.rbskId" formControlName = "rbskid">
+                                                  </div>
+                                                  
+                                              </div>
                                                 <div class="reges-form-bottom-btns">
                                                     <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">Previous</button>
                                                     <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
@@ -357,14 +533,12 @@
 
                             </div>
                             <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/profileanm-flatpickr.js'"></i> -->
-                            <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
+                            <!-- <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
                             <i appLoadScript [script]="'assets/assets/js/anm-module/anm-subjectprofile.js'"></i>
-                            <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
+                            <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i> -->
                         </ng-template>
                   
-
-
-                
+   
                 <div class="col-xl-12 col-lg-12 col-sm-12">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
                         <div class="widget-content widget-content-area br-6">
@@ -409,14 +583,14 @@
                                     <span class="float-left mt-0">
                                         <h5><b>Subject ID : </b>{{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
                                     </span>
-                                    <a class="btn btn-primary float-right mb-2" style="display:none;" (click)="editchcSubjectProfile(chcsubjectProfiledetail, chcsubjectprofileItem?.primaryDetail, chcsubjectprofileItem?.addressDetail, chcsubjectprofileItem?.pregnancyDetail)"
+                                    <a class="btn btn-primary float-right mb-2"  (click)="editchcSubjectProfile(chcsubjectProfiledetail, chcsubjectprofileItem)"
                                     role="button"> <i class="fa fa-pencil append-icon mr-1"></i>Edit</a>
                                    
                                 </div>
                             </div>
 
                              <!-- ANW Basic Info-->
-                            <div class="row" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+                            <div class="row" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblBasicInfo">
@@ -456,7 +630,7 @@
                             </div>
 
                             <!-- Spouse Basic Info-->
-                            <div class="row" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 2">
+                            <div class="row" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblBasicInfo">
@@ -496,7 +670,7 @@
                             </div>
 
                              <!-- Age > 18  Basic Info-->
-                            <div class="row" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 3">
+                            <div class="row" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblBasicInfo">
@@ -546,7 +720,7 @@
                             </div>
 
                              <!-- Walk-in Basic Info-->
-                             <div class="row" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 4">
+                             <div class="row" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblBasicInfo">
@@ -609,438 +783,446 @@
                     </div>
 
                     <!-- ANW Socio-Demographic Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Socio-Demographic Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Religion</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Caste</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Community</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
-                                                </tr>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
+                                                    </tr>
 
-                                                <tr>
-                                                    <td><b>Address</b></td>
-                                                    <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}},
-                                                        {{chcsubjectprofileItem?.addressDetail.address2}},
-                                                        {{chcsubjectprofileItem?.addressDetail.address3}},
-                                                        {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                    <td><b>District</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
+                                                    <tr>
+                                                        <td><b>Address</b></td>
+                                                        <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}},
+                                                            {{chcsubjectprofileItem?.addressDetail.address2}},
+                                                            {{chcsubjectprofileItem?.addressDetail.address3}},
+                                                            {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
+                                                        <td><b>District</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>CHC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
-                                                    <td><b>PHC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.phcName}}</td>
-                                                    <td><b>SC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.scName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>CHC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
+                                                        <td><b>PHC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.phcName}}</td>
+                                                        <td><b>SC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.scName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>RI Point</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.riSite}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>RI Point</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.riSite}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Spouse Socio-Demographic Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 2">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Socio-Demographic Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Religion</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Caste</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Community</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
-                                                </tr>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 2">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
+                                                    </tr>
 
-                                                <tr>
-                                                    <td><b>Address</b></td>
-                                                    <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}},
-                                                        {{chcsubjectprofileItem?.addressDetail.address2}},
-                                                        {{chcsubjectprofileItem?.addressDetail.address3}},
-                                                        {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                    <td><b>District</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
+                                                    <tr>
+                                                        <td><b>Address</b></td>
+                                                        <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}},
+                                                            {{chcsubjectprofileItem?.addressDetail.address2}},
+                                                            {{chcsubjectprofileItem?.addressDetail.address3}},
+                                                            {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
+                                                        <td><b>District</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>CHC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
-                                                    <td><b>PHC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.phcName}}</td>
-                                                    <td><b>SC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.scName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>CHC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
+                                                        <td><b>PHC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.phcName}}</td>
+                                                        <td><b>SC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.scName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>RI Point</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.riSite}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>RI Point</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.riSite}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Age < 18 Socio-Demographic Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 3">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Socio-Demographic Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Religion</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Caste</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Community</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
-                                                </tr>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 3">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
+                                                    </tr>
 
-                                                <tr>
-                                                    <td><b>Address</b></td>
-                                                    <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}}, {{chcsubjectprofileItem?.addressDetail.address2}}, {{chcsubjectprofileItem?.addressDetail.address3}}, {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                    <td><b>District</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
+                                                    <tr>
+                                                        <td><b>Address</b></td>
+                                                        <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}}, {{chcsubjectprofileItem?.addressDetail.address2}}, {{chcsubjectprofileItem?.addressDetail.address3}}, {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
+                                                        <td><b>District</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>CHC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
-                                                    
-                                                </tr>
-                                    
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>CHC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
+                                                        
+                                                    </tr>
+                                        
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Walk-in Socio-Demographic Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 4">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Socio-Demographic Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Religion</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Caste</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Community</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
-                                                </tr>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 4">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" >
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
+                                                    </tr>
 
-                                                <tr>
-                                                    <td><b>Address</b></td>
-                                                    <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}}, {{chcsubjectprofileItem?.addressDetail.address2}}, {{chcsubjectprofileItem?.addressDetail.address3}}, {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                    <td><b>District</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
+                                                    <tr>
+                                                        <td><b>Address</b></td>
+                                                        <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}}, {{chcsubjectprofileItem?.addressDetail.address2}}, {{chcsubjectprofileItem?.addressDetail.address3}}, {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
+                                                        <td><b>District</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>CHC</b></td>
-                                                    <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
-                                                    
-                                                </tr>
-                                    
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>CHC</b></td>
+                                                        <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
+                                                        
+                                                    </tr>
+                                        
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                      <!-- ANW personal Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Personal Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>EC Number</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
-                                                    <td class="sp-xs-td-9"><b>RCH ID</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.rchId}}</td>
-                                                    <td class="sp-xs-td-9"><b>LMP Date</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.lmpDate}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Gestational Age</b> </td>
-                                                    <td>{{chcsubjectprofileItem?.pregnancyDetail.gestationalperiod}}</td>
-                                                    <td><b>Obstetrics Score</b></td>
-                                                    <td>G{{chcsubjectprofileItem?.pregnancyDetail.g}}-P{{chcsubjectprofileItem?.pregnancyDetail.p}}-L{{chcsubjectprofileItem?.pregnancyDetail.l}}-A{{chcsubjectprofileItem?.pregnancyDetail.a}}
-                                                    </td>
-                                                    <td><b>Barcodes</b></td>
-                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
-                                                    <td>{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                     <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 1">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
+                                                        <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.rchId}}</td>
+                                                        <td class="sp-xs-td-9"><b>LMP Date</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.lmpDate}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Gestational Age</b> </td>
+                                                        <td>{{chcsubjectprofileItem?.pregnancyDetail.gestationalperiod}}</td>
+                                                        <td><b>Obstetrics Score</b></td>
+                                                        <td>G{{chcsubjectprofileItem?.pregnancyDetail.g}}-P{{chcsubjectprofileItem?.pregnancyDetail.p}}-L{{chcsubjectprofileItem?.pregnancyDetail.l}}-A{{chcsubjectprofileItem?.pregnancyDetail.a}}
+                                                        </td>
+                                                        <td><b>Barcodes</b></td>
+                                                        <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                        <td>{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                      <!-- Spouse personal Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 2">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Personal Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>EC Number</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
-                                                    <td class="sp-xs-td-9"><b>RCH ID</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.rchId}}</td>
-                                                    <td class="sp-xs-td-9"><b>Barcodes</b></td>
-                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
-                                                </tr>
-                                               
-                                            </tbody>
-                                        </table>
+                     <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 2">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  >
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
+                                                        <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.rchId}}</td>
+                                                        <td class="sp-xs-td-9"><b>Barcodes</b></td>
+                                                        <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
+                                                    </tr>
+                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                      <!-- Walk-in personal Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 4">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="3" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Personal Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-9"><b>EC Number</b></td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
-                                                    <td class="sp-xs-td-9"><b>Barcodes</b></td>
-                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
-                                                </tr>
-                                               
-                                            </tbody>
-                                        </table>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 4">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  >
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="3" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-9"><b>EC Number</b></td>
+                                                        <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
+                                                        <td class="sp-xs-td-9"><b>Barcodes</b></td>
+                                                        <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
+                                                    </tr>
+                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                      <!-- Age < 18 personal Info-->
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile"  *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 3">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Personal Info</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>RBSK ID</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.rbskId}}</td>
-                                                    <td class="sp-xs-td-9"><b>School Name</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.schoolName}}</td>
-                                                    <td class="sp-xs-td-9"><b>School Address</b></td>
-                                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.schoolAddress1}}
-                                                        {{chcsubjectprofileItem?.parentDetail.schoolCity}} {{chcsubjectprofileItem?.parentDetail.schoolState}} {{chcsubjectprofileItem?.parentDetail.schoolPincode}} </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Standard</b></td>
-                                                    <td>{{chcsubjectprofileItem?.parentDetail.standard}}</td>
-                                                    <td><b>Section</b></td>
-                                                    <td>{{chcsubjectprofileItem?.parentDetail.section}}</td>
-                                                    <td><b>Roll Number</b></td>
-                                                    <td>{{chcsubjectprofileItem?.parentDetail.rollNo}}</td>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.childSubjectTypeId === 3">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" >
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>RBSK ID</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.rbskId}}</td>
+                                                        <td class="sp-xs-td-9"><b>School Name</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.schoolName}}</td>
+                                                        <td class="sp-xs-td-9"><b>School Address</b></td>
+                                                        <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.schoolAddress1}}
+                                                            {{chcsubjectprofileItem?.parentDetail.schoolCity}} {{chcsubjectprofileItem?.parentDetail.schoolState}} {{chcsubjectprofileItem?.parentDetail.schoolPincode}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Standard</b></td>
+                                                        <td>{{chcsubjectprofileItem?.parentDetail.standard}}</td>
+                                                        <td><b>Section</b></td>
+                                                        <td>{{chcsubjectprofileItem?.parentDetail.section}}</td>
+                                                        <td><b>Roll Number</b></td>
+                                                        <td>{{chcsubjectprofileItem?.parentDetail.rollNo}}</td>
 
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Barcode</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
-                                                    
-                                                </tr>
-                                               
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Barcode</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
+                                                        
+                                                    </tr>
+                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-
                      <!-- ANW & Spouse & Age < 18 & Walk-in Test results-->
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
                         <div class="widget-content widget-content-area br-6">
@@ -1083,210 +1265,214 @@
                     </div>
 
                      <!-- ANW counselling Info-->
-                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.prePndtCounselling != null">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Pre PNDT Counselling</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.date}}</td>
-                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellorName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Counselling Status</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellingStatus}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b> </td>
-                                                    <td colspan="3">
-                                                        {{chcsubjectprofileItem?.prePndtCounselling.counsellingNotes}}   
-                                                    </td>
-                                                    <td><b>The couple has agreed for PNDT</b> </td>
-                                                    <td>{{chcsubjectprofileItem?.prePndtCounselling.agreedForPndt}}</td>
-                                                </tr>
-                                                <tr>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem?.prePndtCounselling != null">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Pre PNDT Counselling</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.date}}</td>
+                                                        <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellorName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Counselling Status</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellingStatus}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b> </td>
+                                                        <td colspan="3">
+                                                            {{chcsubjectprofileItem?.prePndtCounselling.counsellingNotes}}   
+                                                        </td>
+                                                        <td><b>The couple has agreed for PNDT</b> </td>
+                                                        <td>{{chcsubjectprofileItem?.prePndtCounselling.agreedForPndt}}</td>
+                                                    </tr>
+                                                    <tr>
 
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.pndtTesting != null">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">PND Testing</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15" wrap="true">{{chcsubjectprofileItem?.pndtTesting.date}}</td>
-                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b> </td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.counsellorName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.obstetritionName}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Clinical History</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pndtTesting.clinicalHistory}}</td>
-                                                    <td><b>Examination</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pndtTesting.examination}}</td>
-                                                    <td><b>Procedure of Testing</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pndtTesting.procedureOfTesting}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>PNDT Diagnosis</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pndtTesting.pndtDiagnosis}}</td>
-                                                    <td><b>PNDT Results</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pndtTesting.pndtresults}} </td>
-                                                    <td><b>PNDT Side Effects</b></td>
-                                                    <td>{{chcsubjectprofileItem?.pndtTesting.pndtSideEffects}}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.postPndtCounselling != null">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2">Post PNDT Counselling</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.date}}</td>
-                                                    <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellorName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Counselling Status</b> </td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellingStatus}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Counselling Notes/Remarks</b></td>
-                                                    <td colspan="3">{{chcsubjectprofileItem?.postPndtCounselling.counsellingNotes}}</td>
-                                                    <td><b>The couple has agreed for MTP</b> </td>
-                                                    <td>{{chcsubjectprofileItem?.postPndtCounselling.agreedForMtp}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem.mtpService != null">
-                        <div class="widget-content widget-content-area br-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead class="tablecss">
-                                                <tr class="" style="background-color: #e3e8ef;">
-                                                    <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;">
-                                                        <a href="#" class="pthead">
-                                                            <b>
-                                                                <div class="d-flex">
-                                                                    <div class="p-2"> MTP Service</div>
-                                                                    <div class="ml-auto p-2"><i
-                                                                            class="fa fa-caret-down"></i></div>
-                                                                </div>
-                                                            </b>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="d-none">
-                                                <tr>
-                                                    <td class="sp-xs-td-9"><b>Date</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.date}}</td>
-                                                    <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.obstetritionName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Clinical History</b></td>
-                                                    <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.clinicalHistory}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Examination</b></td>
-                                                    <td>{{chcsubjectprofileItem?.mtpService.examination}}</td>
-                                                    <td><b>Procedure of Testing</b></td>
-                                                    <td>{{chcsubjectprofileItem?.mtpService.procedureOfTesting}}</td>
-                                                    <td><b>Side Effects</b></td>
-                                                    <td>{{chcsubjectprofileItem?.mtpService.sideEffects}} </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Condition at Discharge</b></td>
-                                                    <td colspan="5">{{chcsubjectprofileItem?.mtpService.conditionAtDischarge}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem?.pndtTesting != null">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">PND Testing</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-15" wrap="true">{{chcsubjectprofileItem?.pndtTesting.date}}</td>
+                                                        <td class="sp-xs-td-9"><b>Counsellor Name</b> </td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.counsellorName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.obstetritionName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Clinical History</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pndtTesting.clinicalHistory}}</td>
+                                                        <td><b>Examination</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pndtTesting.examination}}</td>
+                                                        <td><b>Procedure of Testing</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pndtTesting.procedureOfTesting}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>PNDT Diagnosis</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pndtTesting.pndtDiagnosis}}</td>
+                                                        <td><b>PNDT Results</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pndtTesting.pndtresults}} </td>
+                                                        <td><b>PNDT Side Effects</b></td>
+                                                        <td>{{chcsubjectprofileItem?.pndtTesting.pndtSideEffects}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem?.postPndtCounselling != null">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2">Post PNDT Counselling</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.date}}</td>
+                                                        <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellorName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Counselling Status</b> </td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellingStatus}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Counselling Notes/Remarks</b></td>
+                                                        <td colspan="3">{{chcsubjectprofileItem?.postPndtCounselling.counsellingNotes}}</td>
+                                                        <td><b>The couple has agreed for MTP</b> </td>
+                                                        <td>{{chcsubjectprofileItem?.postPndtCounselling.agreedForMtp}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="chcsubjectprofileItem.primaryDetail.subjectTypeId === 1 && chcsubjectprofileItem?.mtpService != null">
+                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                            <div class="widget-content widget-content-area br-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="tablecss">
+                                                    <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="6" class="text-left"
+                                                            style="color:#3a3b3e;font-size: 15px;">
+                                                            <a href="#" class="pthead">
+                                                                <b>
+                                                                    <div class="d-flex">
+                                                                        <div class="p-2"> MTP Service</div>
+                                                                        <div class="ml-auto p-2"><i
+                                                                                class="fa fa-caret-down"></i></div>
+                                                                    </div>
+                                                                </b>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="d-none">
+                                                    <tr>
+                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.date}}</td>
+                                                        <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.obstetritionName}}</td>
+                                                        <td class="sp-xs-td-9"><b>Clinical History</b></td>
+                                                        <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.clinicalHistory}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Examination</b></td>
+                                                        <td>{{chcsubjectprofileItem?.mtpService.examination}}</td>
+                                                        <td><b>Procedure of Testing</b></td>
+                                                        <td>{{chcsubjectprofileItem?.mtpService.procedureOfTesting}}</td>
+                                                        <td><b>Side Effects</b></td>
+                                                        <td>{{chcsubjectprofileItem?.mtpService.sideEffects}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Condition at Discharge</b></td>
+                                                        <td colspan="5">{{chcsubjectprofileItem?.mtpService.conditionAtDischarge}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
                     <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
                     <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>

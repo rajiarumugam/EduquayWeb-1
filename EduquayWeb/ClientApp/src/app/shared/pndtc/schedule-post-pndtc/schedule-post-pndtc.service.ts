@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { SchedulePostPndtcRequest, AddPostPndtcScheduleRequest } from './schedule-post-pndtc-request';
-import { SchedulePostPndtcResponse, AddPostPndtcScheduleResponse } from './schedule-post-pndtc-response';
+import { SchedulePostPndtcResponse, AddPostPndtcScheduleResponse, ScheduledPostPndtcResponse } from './schedule-post-pndtc-response';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,6 @@ export class SchedulePostPndtcService {
 
   getscheduledLists(schedulingList: SchedulePostPndtcRequest){
     let apiUrl=this.genericServices.buildApiUrl(this.retrievepostpndtScheduledApi);
-    return this.http.post<SchedulePostPndtcResponse>({url: apiUrl, body: schedulingList});
+    return this.http.post<ScheduledPostPndtcResponse>({url: apiUrl, body: schedulingList});
   }
 }

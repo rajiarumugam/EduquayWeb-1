@@ -121,6 +121,7 @@
                                         <th><span>{{'SubjectRegDate' | translate }}</span></th>
                                         <th><span>{{'Register By' | translate }}</span></th>
                                         <th><span >{{'View' | translate }}</span></th>
+                                        <!-- <th><span >{{'Edit' | translate }}</span></th> -->
                                       </tr>
 
                                 </thead>
@@ -128,18 +129,21 @@
                                     <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
                                         <td style="text-align: center">{{i +1}}</td>
                                         <td style="text-align: left">{{subjectinfo.primaryDetail.firstName}} {{subjectinfo.primaryDetail.middleName}}
-                                        {{subjectinfo.primaryDetail.lastName}}</td>
-                                        <td style="text-align: center">{{subjectinfo.primaryDetail.uniqueSubjectId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.pregnancyDetail.rchId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.primaryDetail.mobileNo}}</td>
-                                        <td class="text-left sname">{{subjectinfo.primaryDetail.subjectType}}</td>
-                                        <td style="text-align: center">{{subjectinfo.primaryDetail.dateOfRegister}}</td>
-                                        <td style="text-align: left">{{subjectinfo.primaryDetail.registeredFrom}}</td>
-                                        <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                            {{subjectinfo.primaryDetail.lastName}}</td>
+                                            <td style="text-align: center">{{subjectinfo.primaryDetail.uniqueSubjectId}}</td>
+                                            <td style="text-align: center">{{subjectinfo.pregnancyDetail.rchId}}</td>
+                                            <td style="text-align: center">{{subjectinfo.primaryDetail.mobileNo}}</td>
+                                            <td class="text-left sname">{{subjectinfo.primaryDetail.subjectType}}</td>
+                                            <td style="text-align: center">{{subjectinfo.primaryDetail.dateOfRegister}}</td>
+                                            <td style="text-align: left">{{subjectinfo.primaryDetail.registeredFrom}}</td>
+                                            <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
-                                        </td>
-                                        <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
-                                                                    aria-hidden="true"></i> </a></td> -->
+                                            </td>
+                                            <!-- <td style="text-align: center">
+                                                <a (click)="openEditSubjectdetail(chcsubjectProfiledetail, subjectinfo)">
+                                                    <i class="fa fa-pencil append-icon text-primary mr-1"></i>
+                                                </a>
+                                            </td> -->
                                     </tr>
 
                                 </tbody>
@@ -147,6 +151,291 @@
                         </div>
                     </div>
                 </div>
+                <ng-template #chcsubjectProfiledetail let-modal>
+
+                    <div class="modal-header">
+                        <h5 class="modal-title modaltitle" id="myLargeModalLabel">Subject Profile
+                        </h5>
+                        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body form-body">
+                        <!--form popup-->
+                        <!-- <div class="widget-content widget-content-area"> -->
+                            <mat-horizontal-stepper [linear]="false" #stepper>
+                                <mat-step [stepControl]="firstFormGroup">
+                                    <form [formGroup]="firstFormGroup">    
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody class="">
+                                                            <tr>
+                                                                <td>
+                                                                    <!-- <span class="float-left mt-0 mr-4">
+                                                                        <h5><b>Subject ID :</b> {{subjectprofileListitem?.primaryDetail.uniqueSubjectId}}
+                                                                            <strong class="ml-5">Subject
+                                                                                Name :</strong> {{firstName}} {{lastName}}, {{gender | slice:0:1}}, {{age}} yrs
+                                                                            <strong class="ml-5">RCH ID : </strong>
+                                                                            {{rchId}}
+                                                                        </h5>
+                                                                    </span> -->
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row my-2">       
+                                            <div class="form-group col-md-4">
+                                                <label for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">First
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="firstName" formControlName="firstName"
+                                            placeholder="First Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputMiddlename">Middle
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="middleName" formControlName="middleName"
+                                                placeholder="Middle Name">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">Last
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="lastName" formControlName="lastName"
+                                                placeholder="Last Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-4">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">Date of Birth</label>
+                                                <!-- <input type="Text" class="form-control flatpickr flatpickr-input active"
+                                                [(ngModel)]="dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
+                                            id="dobnewdate" placeholder="select Date..." required> -->
+                                            <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
+                                            [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob" ></ng2-flatpickr>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="age" formControlName="age"
+                                                    placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
+                                                <select id="inputReligion" class="form-control" formControlName="DDLreligion" required
+                                                    [(ngModel)]="selectedreligion" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">
+                                                    <option  [ngValue]="null">--Select--</option>
+                                                    <option *ngFor="let religion of chcreligions" [(value)]="religion.id">
+                                                        {{religion.religionName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">Caste</label>
+                                                <select id="inputCaste" class="form-control" formControlName="DDLcaste" required (change)="onChangecaste($event.target.value)"
+                                                [(ngModel)]="selectedcaste" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">
+                                                <option  [ngValue]="null">--Select--</option>
+                                                <option *ngFor="let caste of chccastes" [(value)]="caste.id ">
+                                                    {{caste.casteName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">Community</label>
+                                                <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" required
+                                                [(ngModel)]="selectedcommunity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">
+                                                <option [ngValue]="null">--Select--</option>
+                                                <option *ngFor="let community of chccommunities" [(value)]="community.id ">
+                                                    {{community.communityName}}
+                                                </option>
+                                            </select>
+
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="reges-form-bottom-btns">
+                                            <button mat-button matStepperPrevious class="reg-btn-disable" >Previous</button>
+                                            <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">Next</button>
+                                        </div>    
+                                    </form>
+                                </mat-step>
+                                <mat-step [stepControl]="secondFormGroup">
+                                    <form [formGroup]="secondFormGroup">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody class="">
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="float-left mt-0 mr-4">
+                                                                        <h5><b>Subject ID :</b> {{uniqueSubjectId}}
+                                                                            <strong class="ml-5">Subject
+                                                                                Name :</strong> {{firstName}} {{lastName}}, {{gender | slice:0:1}}, {{age}} yrs
+                                                                            <strong class="ml-5">RCH ID : </strong>
+                                                                            {{rchId}}
+                                                                        </h5>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row my-2">
+                                            <div class="form-group col-md-3">
+                                                <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot
+                                                    Number</label><span class="manto"></span>
+                                                <input type="text" class="form-control" [(ngModel)]="address1" formControlName="house"
+                                                    placeholder="House Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street &
+                                                    Locality</label>
+                                                <input type="text" class="form-control" [(ngModel)]="address2" formControlName="street"
+                                                    placeholder="Street" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City /
+                                                    Village</label><span class="manto"></span>
+                                                <input type="text" class="form-control" [(ngModel)]="address3" formControlName="city"
+                                                    placeholder="City" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid}">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">State</label>
+                                                <input type="text" class="form-control" [(ngModel)]="stateName" formControlName="stateName"
+                                                    placeholder="State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">Pincode</label>
+                                                <input type="number" class="form-control" [(ngModel)]="pincode" formControlName="pincode"
+                                                ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">Contact</label>
+                                                <input type="number" class="form-control" [(ngModel)]="mobileNo" formControlName="mobileNo"
+                                                placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputEmail">Email</label>
+                                                <input type="email" class="form-control" [(ngModel)]="emailId" formControlName="emailId"
+                                                 placeholder="Email" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputGovtId">Govt ID Type</label>
+                                                <select id="inputGovtId" class="form-control" formControlName="DDLGovtIDType"
+                                                [(ngModel)]="selectedgovtidtype">
+                                                <option value="0">--Select--</option>
+                                                <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                    {{ govId.govIdTypeName }}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
+                                                <input type="text" class="form-control" [(ngModel)]="govIdDetail" formControlName="govIdDetail"
+                                                placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
+                                                <input type="text" class="form-control" [(ngModel)]="rchId" formControlName="rchId"
+                                                placeholder="RCH ID" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputecno">EC Number</label>
+                                                <input type="number" class="form-control" [(ngModel)]="ecNumber" formControlName="ecNumber"
+                                                placeholder="EC Number">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row my-2">
+
+                                            <div class="form-group col-md-3">
+                                                <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="spouseFirstName" formControlName="spouseFirstName"
+                                                [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }"
+                                                    placeholder="First Name" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputSpouseMiddlename">Middle
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="spouseMiddleName" formControlName="spouseMiddleName"
+                                                    
+                                                    placeholder="Middle Name">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">Last
+                                                    Name</label>
+                                                <input type="Text" class="form-control" [(ngModel)]="spouseLastName" formControlName="spouseLastName"
+                                                [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }"
+                                                    placeholder="Last Name">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">Spouse Contact</label>
+                                                <input type="number" class="form-control" [(ngModel)]="spouseContactNo" formControlName="spouseContactNo"
+                                                [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }"
+                                                    placeholder="Contact Number" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row my-2" *ngIf="subjectTypeId === 1">
+                                            <div class="form-group col-md-2">
+                                                <label class="birthreg" for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">{{'G' | translate }}</label><span class="manto"> </span>
+                                                <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">
+                                                    <option [ngValue]="null">Select</option>
+                                                    <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="birthreg" for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">{{'P' | translate }}</label><span class="manto"></span>
+                                                <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" >
+                                                    <option [ngValue]="null">Select</option>
+                                                    <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="birthreg" for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"></span>
+                                                <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }" >
+                                                    <option [ngValue]="null">Select</option>
+                                                    <option [(value)]="data.id" *ngFor="let data of GPLADATA | slice:0:selectedp != null ? +selectedp+1 : null; let ind=index;">{{data.value}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label class="birthreg" for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">{{'A' | translate }}</label><span class="manto"></span>
+                                                <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">
+                                                    <option [ngValue]="null">Select</option>
+                                                    <option [(value)]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div> -->
+                                        <div class="reges-form-bottom-btns">
+                                            <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">Previous</button>
+                                            <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
+                                        </div>    
+                                    </form>
+                                </mat-step>
+                            </mat-horizontal-stepper>
+                                    
+                                  
+
+                    </div>
+                    <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/profileanm-flatpickr.js'"></i> -->
+                    <!-- <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/anm-module/anm-subjectprofile.js'"></i>
+                    <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i> -->
+                </ng-template>
             </div>
           
 

@@ -113,11 +113,11 @@
                                                                     <tr>
                                                                         <td>
                                                                             <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>Subject ID :</b> {{primaryDetail.uniqueSubjectId}}
+                                                                                <h5><b>Subject ID :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}
                                                                                     <strong class="ml-5">Subject
-                                                                                        Name :</strong> {{primaryDetail.firstName}} {{primaryDetail.lastName}}, {{primaryDetail.gender | slice:0:1}}, {{primaryDetail.age}} yrs
+                                                                                        Name :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs
                                                                                     <strong class="ml-5">RCH ID : </strong>
-                                                                                    {{pregnancyDetail.rchId}}
+                                                                                    {{subjectprofileItem?.pregnancyDetail.rchId}}
                                                                                 </h5>
                                                                             </span>
                                                                         </td>
@@ -132,42 +132,51 @@
                                                     <div class="form-group col-md-4">
                                                         <label for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">First
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.firstName" formControlName="firstName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.firstName" formControlName="firstName"
                                                     placeholder="First Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputMiddlename">Middle
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.middleName" formControlName="middleName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.middleName" formControlName="middleName"
                                                         placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">Last
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.lastName" formControlName="lastName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.lastName" formControlName="lastName"
                                                         placeholder="Last Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
                                                     </div>
                                                 </div>
                                                 <div class="form-row mt-4">
                                                     <div class="form-group col-md-4">
                                                         <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">Date of Birth</label>
-                                                        <input type="Text" class="form-control flatpickr flatpickr-input active"
-                                                        [(ngModel)]="primaryDetail.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
-                                                    id="dobnewdate" placeholder="select Date..." required>
+                                                        <!-- <input type="Text" class="form-control flatpickr flatpickr-input active"
+                                                        [(ngModel)]="subjectprofileItem?.primaryDetail.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
+                                                        id="dobnewdate" placeholder="select Date..." required> -->
+                                                    <!-- <input class="form-control field" type="text" formControlName="dob" [(ngModel)]="selecteddob" *ngIf = "disableDatepicker" readonly> -->
+                                                    <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
+                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (ngModelChange)="calculateAge()"></ng2-flatpickr>
                                                     </div>
+                                                    <!-- <div class="form-group col-md-4" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 3">
+                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.age" formControlName="age" oninput="javascript: if (Number(this.value)>18) this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "2" numbersOnly (ngModelChange)="ageEntered();"
+                                                            placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
+                                                    </div> -->
                                                     <div class="form-group col-md-4">
                                                         <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.age" formControlName="age"
+                                                        <input type="Text" class="form-control" [(ngModel)]="selectedage" formControlName="age" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "2" numbersOnly 
                                                             placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
-        
                                                     <div class="form-group col-md-4">
                                                         <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
                                                         <select id="inputReligion" class="form-control" formControlName="DDLreligion" required
                                                             [(ngModel)]="selectedreligion" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">
-                                                            <option value="0">--Select--</option>
+                                                            <option  [ngValue]="null">--Select--</option>
                                                             <option *ngFor="let religion of religions" [(value)]="religion.id">
-                                                                {{ religion.religionName }}
+                                                                {{religion.religionName}}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -175,9 +184,9 @@
                                                         <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">Caste</label>
                                                         <select id="inputCaste" class="form-control" formControlName="DDLcaste" required (change)="onChangecaste($event.target.value)"
                                                         [(ngModel)]="selectedcaste" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">
-                                                        <option value="0">--Select--</option>
+                                                        <option  [ngValue]="null">--Select--</option>
                                                         <option *ngFor="let caste of castes" [(value)]="caste.id ">
-                                                            {{ caste.casteName }}
+                                                            {{caste.casteName}}
                                                         </option>
                                                     </select>
                                                     </div>
@@ -185,13 +194,12 @@
                                                         <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">Community</label>
                                                         <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" required
                                                         [(ngModel)]="selectedcommunity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">
-                                                        <option value="0">--Select--</option>
+                                                        <option [ngValue]="null">--Select--</option>
                                                         <option *ngFor="let community of communities" [(value)]="community.id ">
-                                                            {{ community.communityName }}
+                                                            {{community.communityName}}
                                                         </option>
                                                     </select>
-        
-                                                    
+                                                   
                                                     </div>
                                                 </div>
                                                 <div class="reges-form-bottom-btns">
@@ -210,11 +218,11 @@
                                                                     <tr>
                                                                         <td>
                                                                             <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>Subject ID :</b> {{primaryDetail.uniqueSubjectId}}
+                                                                                <h5><b>Subject ID :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}
                                                                                     <strong class="ml-5">Subject
-                                                                                        Name :</strong> {{primaryDetail.firstName}} {{primaryDetail.lastName}}, {{primaryDetail.gender | slice:0:1}}, {{primaryDetail.age}} yrs
+                                                                                        Name :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs
                                                                                     <strong class="ml-5">RCH ID : </strong>
-                                                                                    {{pregnancyDetail.rchId}}
+                                                                                    {{subjectprofileItem?.pregnancyDetail.rchId}}
                                                                                 </h5>
                                                                             </span>
                                                                         </td>
@@ -226,143 +234,302 @@
         
                                                 </div>
                                                 <div class="form-row my-2">
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot
                                                             Number</label><span class="manto"></span>
                                                         <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.addressDetail.address1" formControlName="house"
                                                             placeholder="House Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street &
                                                             Locality</label>
                                                         <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.addressDetail.address2" formControlName="street"
                                                             placeholder="Street" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City /
                                                             Village</label><span class="manto"></span>
                                                         <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.addressDetail.address3" formControlName="city"
                                                             placeholder="City" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid}">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">State</label>
                                                         <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.addressDetail.stateName" formControlName="stateName"
                                                             placeholder="State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">Pincode</label>
                                                         <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.addressDetail.pincode" formControlName="pincode"
-                                                        ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">
+                                                        ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }" 
+                                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  maxlength = "6" numbersOnly>
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">Contact</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="primaryDetail.mobileNo" formControlName="mobileNo"
-                                                        placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">
+                                                        <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.mobileNo" formControlName="mobileNo"
+                                                        placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "10" numbersOnly>
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputEmail">Email</label>
-                                                        <input type="email" class="form-control" [(ngModel)]="primaryDetail.emailId" formControlName="emailId"
-                                                         placeholder="Email" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
+                                                        <input type="email" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.emailId" formControlName="emailId"
+                                                         placeholder="Email" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="inputGovtId" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">Govt ID Type</label>
+                                                    <div class="form-group col-md-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 || subjectprofileItem?.primaryDetail.subjectTypeId === 2 || (subjectprofileItem?.primaryDetail.subjectTypeId === 4 && subjectprofileItem?.primaryDetail.maritalStatus === true)">
+                                                        <label for="inputGovtId">Govt ID Type</label>
                                                         <select id="inputGovtId" class="form-control" formControlName="DDLGovtIDType"
-                                                        [(ngModel)]="selectedgovtidtype" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
+                                                        [(ngModel)]="selectedgovtidtype">
                                                         <option value="0">--Select--</option>
                                                         <option *ngFor="let govId of govtIdTypes" [(value)]="govId.id ">
                                                             {{ govId.govIdTypeName }}
                                                         </option>
                                                     </select>
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 || subjectprofileItem?.primaryDetail.subjectTypeId === 2 || (subjectprofileItem?.primaryDetail.subjectTypeId === 4 && subjectprofileItem?.primaryDetail.maritalStatus === true)" >
                                                         <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="primaryDetail.govIdDetail" formControlName="govIdDetail"
-                                                        placeholder="Enter Detail" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
+                                                        <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1">
                                                         <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="pregnancyDetail.rchId" formControlName="rchId"
+                                                        <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.pregnancyDetail.rchId" formControlName="rchId"
                                                         placeholder="RCH ID" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="inputecno">EC Number</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="pregnancyDetail.ecNumber" formControlName="ecNumber"
-                                                        placeholder="EC Number" required>
+                                                        <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.pregnancyDetail.ecNumber" formControlName="ecNumber"
+                                                        placeholder="EC Number">
                                                     </div>
         
                                                 </div>
-                                                <div class="form-row my-2">
+                                                <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 || subjectprofileItem?.primaryDetail.subjectTypeId === 2">
         
                                                     <div class="form-group col-md-3">
                                                         <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.spouseFirstName" formControlName="spouseFirstName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.spouseFirstName" formControlName="spouseFirstName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }"
                                                             placeholder="First Name" required>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputSpouseMiddlename">Middle
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.spouseMiddleName" formControlName="spouseMiddleName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.spouseMiddleName" formControlName="spouseMiddleName"
                                                             
                                                             placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">Last
                                                             Name</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="primaryDetail.spouseLastName" formControlName="spouseLastName"
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.spouseLastName" formControlName="spouseLastName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }"
                                                             placeholder="Last Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">Spouse Contact</label>
-                                                        <input type="number" class="form-control" [(ngModel)]="primaryDetail.spouseContactNo" formControlName="spouseContactNo"
+                                                        <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.spouseContactNo" formControlName="spouseContactNo"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }"
-                                                            placeholder="Contact Number" required>
+                                                            placeholder="Contact Number" required oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="form-row my-2">
+                                                <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 3 || (subjectprofileItem?.primaryDetail.subjectTypeId === 4 && subjectprofileItem?.primaryDetail.maritalStatus === false)">
+        
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputG">G</label>
-                                                        <select id="inputG" class="form-control" name="ddlG"
-                                                        [(ngModel)]="selectedg">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }">Mother’s First Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.motherFirstName" formControlName="motherFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }"
+                                                            placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.motherMiddleName" formControlName="motherMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.motherLastName" formControlName="motherLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLMGovtIDType"
+                                                        [(ngModel)]="selectedMgovtidtype">
                                                         <option value="0">--Select--</option>
-                                                        <option *ngFor="let Glist of Glists" [(value)]="Glist.id ">
-                                                            {{ Glist.gvalue }}
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
+                                                        </option>
+                                                    </select>
+                                                    </div> -->
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdMDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdMDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdMDetail.invalid }">
+                                                    </div> -->
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.motherContactNo" formControlName="motherContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }"
+                                                            placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 3 || (subjectprofileItem?.primaryDetail.subjectTypeId === 4 && subjectprofileItem?.primaryDetail.maritalStatus === false)">
+        
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }">Father’s First Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.fatherFirstName" formControlName="fatherFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }"
+                                                            placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.fatherMiddleName" formControlName="fatherMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.fatherLastName" formControlName="fatherLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLFGovtIDType"
+                                                        [(ngModel)]="selectedMgovtidtype">
+                                                        <option value="0">--Select--</option>
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
                                                         </option>
                                                     </select>
                                                     </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdFDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">
+                                                    </div> -->
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputP">P</label>
-                                                        <select id="inputP" class="form-control" name="ddlP"
-                                                        [(ngModel)]="selectedp">
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.fatherContactNo" formControlName="fatherContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }"
+                                                            placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 3 || (subjectprofileItem?.primaryDetail.subjectTypeId === 4 && subjectprofileItem?.primaryDetail.maritalStatus === false)">
+        
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }">Guardian’s First Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.gaurdianFirstName" formControlName="guardianFirstName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }"
+                                                            placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseMiddlename">Middle
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.gaurdianMiddleName" formControlName="guardianMiddleName"
+                                                            
+                                                            placeholder="Middle Name">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }">Last
+                                                            Name</label>
+                                                        <input type="Text" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.gaurdianLastName" formControlName="guardianLastName"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }"
+                                                            placeholder="Last Name">
+                                                    </div>
+                                                    <!-- <div class="form-group col-md-2">
+                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                        <select id="inputGovtId" class="form-control" formControlName="DDLFGovtIDType"
+                                                        [(ngModel)]="selectedMgovtidtype">
                                                         <option value="0">--Select--</option>
-                                                        <option *ngFor="let Plist of Glists" [(value)]="Plist.id ">
-                                                            {{ Plist.pvalue }}
+                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                            {{ govId.govIdTypeName }}
                                                         </option>
                                                     </select>
                                                     </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">Govt ID Detail</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="subjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdFDetail"
+                                                        placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">
+                                                    </div> -->
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputL">L</label>
-                                                        <select id="inputL" class="form-control" name="ddlL"
-                                                        [(ngModel)]="selectedl">
-                                                        <option value="0">--Select--</option>
-                                                        <option *ngFor="let Llist of Llists" [(value)]="Llist.id ">
-                                                            {{ Llist.lvalue }}
-                                                        </option>
-                                                    </select>
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }">Contact</label>
+                                                        <input type="number" class="form-control" [(ngModel)]="subjectprofileItem?.parentDetail.gaurdianContactNo" formControlName="guardianContactNo"
+                                                        [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }"
+                                                            placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            maxlength = "10" numbersOnly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1">
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">G</label><span class="manto"> </span>
+                                                         <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }" (change)="gonChange();">
+                                                            <option [ngValue]="null">Select</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputA">A</label>
-                                                        <select id="inputA" class="form-control" name="ddlA"
-                                                        [(ngModel)]="selectedg">
-                                                        <option value="0">--Select--</option>
-                                                        <option *ngFor="let Alist of Alists" [(value)]="Alist.id ">
-                                                            {{ Alist.avalue }}
-                                                        </option>
-                                                    </select>
+                                                        <label  for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">P</label><span class="manto"></span>
+                                                        <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
+                                                            <option [ngValue]="null">Select</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
+                                                        </select>
                                                     </div>
-                                                </div> -->
+                                                    <div class="form-group col-md-3">
+                                                        <label  for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">L</label><span class="manto"></span>
+                                                         <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">
+                                                            <option [ngValue]="null">Select</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLAADATA; let ind=index;">{{data.value}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label  for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">A</label><span class="manto"></span>
+                                                         <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }"   [attr.disabled]="Pdisabled ? Pdisabled : null">
+                                                            <option [ngValue]="null">Select</option>
+                                                            <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 3">
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputschoolName" >SchoolName</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschoolName" placeholder="School Name" [(ngModel)]="subjectprofileItem?.parentDetail.schoolName" formControlName = "schoolname">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label  for="inputschool">Street And Locality</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschool" placeholder="Street" [(ngModel)]="subjectprofileItem?.parentDetail.schoolAddress1" formControlName = "schoolstreet">
+                                                    </div>
+                                                    <div class="form-group col-md-2"> 
+                                                        <label  for="inputschoolCity">City/Village</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschoolCity" placeholder="City" [(ngModel)]="subjectprofileItem?.parentDetail.schoolCity" formControlName = "schoolcity">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputschoolState">State</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputschoolState" placeholder="State" [(ngModel)]="subjectprofileItem?.parentDetail.schoolState" formControlName = "schoolstate" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                                        
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label  for="inputSchoolPincode">Pincode</label>
+                                                        <input type="text" autocomplete="off"class="form-control" id="inputSchoolPincode" [(ngModel)]="subjectprofileItem?.parentDetail.schoolPincode" placeholder="Pincode" formControlName = "schoolpincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        maxlength = "6" numbersOnly>
+                                                    </div>
+                                                </div>
+                                
+                                                <div class="form-row my-2" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 3">                 
+                                                  <div class="form-group col-md-2">
+                                                      <label  for="rbskid">RBSKID</label>
+                                                      <input type="text" autocomplete="off"class="form-control" id="rbskid" placeholder="ID" [(ngModel)]="subjectprofileItem?.parentDetail.rbskId" formControlName = "rbskid">
+                                                  </div>
+                                                  
+                                              </div>-->
                                                 <div class="reges-form-bottom-btns">
                                                     <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">Previous</button>
                                                     <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
@@ -372,295 +539,14 @@
                                     </mat-horizontal-stepper>
                                             
                                           
-                                <!-- <div id="circle-basic" class="">
-                                    <h3>Section-1</h3>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody class="">
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="float-left mt-0 mr-4">
-                                                                        <h5><b>Subject ID :</b> {{primaryDetail.uniqueSubjectId}}
-                                                                            <strong class="ml-5">Subject
-                                                                                Name :</strong> {{primaryDetail.firstName}} {{primaryDetail.lastName}}, {{primaryDetail.gender | slice:0:1}}, {{primaryDetail.age}} yrs
-                                                                            <strong class="ml-5">RCH ID : </strong>
-                                                                            {{pregnancyDetail.rchId}}
-                                                                        </h5>
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
 
-                                        </div>
-                                        <div class="form-row my-2">
-
-                                            <div class="form-group col-md-4">
-                                                <label for="inputFirstname">First
-                                                    Name</label>
-                                                <input type="Text" class="form-control" [(ngModel)]="primaryDetail.firstName" name="FirstName"
-                                                    placeholder="Alkha" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputMiddlename">Middle
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputMiddlename"
-                                                    placeholder="Middle Name">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputLastname">Last
-                                                    Name</label>
-                                                <input type="Text" class="form-control" [(ngModel)]="primaryDetail.lastName" name="LastName"
-                                                    placeholder="Sakthi">
-                                            </div>
-                                        </div>
-                                        <div class="form-row mt-4">
-                                            <div class="form-group col-md-4">
-                                                <label for="inputdob">Date of Birth</label>
-                                                <input type="Text" class="form-control flatpickr flatpickr-input active"
-                                                    id="dobnewdate" placeholder="DD/MM/YYYY" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputAge">Age</label>
-                                                <input type="Text" class="form-control" id="inputAge"
-                                                    placeholder="28 yrs" required>
-                                            </div>
-
-                                            
-                                            <div class="form-group col-md-4">
-                                                <label for="inputReligion">Religion</label>
-                                                <select id="inputReligion" class="form-control">
-                                                    <option selected>Hindu</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputCaste">Caste</label>
-                                                <select id="inputCaste" class="form-control">
-                                                    <option selected>Caste</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="inputCommunity">Community</label>
-                                                <select id="inputCommunity" class="form-control">
-                                                    <option selected>BC</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <h3>Section-2</h3>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody class="">
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="float-left mt-0 mr-4">
-                                                                        <h5><b>Subject ID :</b> {{primaryDetail.uniqueSubjectId}}
-                                                                            <strong class="ml-5">Subject
-                                                                                Name :</strong> {{primaryDetail.firstName}} {{primaryDetail.lastName}}, {{primaryDetail.gender | slice:0:1}}, {{primaryDetail.age}} yrs
-                                                                            <strong class="ml-5">RCH ID : </strong>
-                                                                            {{pregnancyDetail.rchId}}
-                                                                        </h5>
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-row my-2">
-                                            <div class="form-group col-md-3">
-                                                <label for="inputHouseno">House / Plot
-                                                    Number</label><span class="manto"></span>
-                                                <input type="text" class="form-control" id="inputHouseno"
-                                                    placeholder="House Number" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputStreet">Street &
-                                                    Locality</label>
-                                                <input type="text" class="form-control" id="inputStreet"
-                                                    placeholder="Street" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputCity">City /
-                                                    Village</label><span class="manto"></span>
-                                                <input type="text" class="form-control" id="inputCity"
-                                                    placeholder="City" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputState">State</label>
-                                                <input type="text" class="form-control" id="inputState"
-                                                    placeholder="Odisha">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputPincode">Pincode</label>
-                                                <input type="number" class="form-control" id="inputPincode"
-                                                    placeholder="Pincode" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputContact">Contact</label>
-                                                <input type="number" class="form-control" id="inputContact"
-                                                    placeholder="8347464644" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputEmail">Email</label>
-                                                <input type="email" class="form-control" id="inputEmail"
-                                                    placeholder="Email" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputGovtId">Govt ID Type</label>
-                                                <select id="inputGovtId" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>Driving License</option>
-                                                    <option>Voter ID</option>
-                                                    <option>PAN card</option>
-                                                    <option>Ration Card</option>
-                                                    <option>Passport</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputGovtdetail">Govt ID Detail</label>
-                                                <input type="text" class="form-control" id="inputGovtdetail"
-                                                    placeholder="Enter Detail" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputrchid">RCH ID</label>
-                                                <input type="text" class="form-control" id="inputrchid"
-                                                    placeholder="RCH ID" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputecno">EC Number</label>
-                                                <input type="number" class="form-control" id="inputecno"
-                                                    placeholder="EC Number" required>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-row my-2">
-
-                                            <div class="form-group col-md-3">
-                                                <label for="inputSpouseFirstname">Spouse First
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputSpouseFirstname"
-                                                    placeholder="Sakthi" required>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputSpouseMiddlename">Middle
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputSpouseMiddlename"
-                                                    placeholder="Middle Name">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputSpouseLastname">Last
-                                                    Name</label>
-                                                <input type="Text" class="form-control" id="inputSpouseLastname"
-                                                    placeholder="Suresh">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputspusemoblieno">Spouse Contact</label>
-                                                <input type="number" class="form-control" id="inputspusemoblieno"
-                                                    placeholder="8347464644" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-row my-2">
-                                            <div class="form-group col-md-3">
-                                                <label for="inputG">G</label>
-                                                <select id="inputG" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputP">P</label>
-                                                <select id="inputP" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputL">L</label>
-                                                <select id="inputL" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="inputA">A</label>
-                                                <select id="inputA" class="form-control">
-                                                    <option selected>Select</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </section>
-                                </div>
-                                
-                            </div> -->
                             </div>
                             <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/profileanm-flatpickr.js'"></i> -->
-                            <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
+                            <!-- <i appLoadScript [script]="'assets/assets/js/anm/subject-profile.js'"></i>
                             <i appLoadScript [script]="'assets/assets/js/anm-module/anm-subjectprofile.js'"></i>
-                            <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i>
+                            <i appLoadScript [script]="'assets/plugins/jquery-step/custom-jquery.steps.js'"></i> -->
                         </ng-template>
+                  
                     </div>
 
 
@@ -708,8 +594,8 @@
                                     <span class="float-left mt-0">
                                         <h5><b>Subject ID : </b>{{subjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
                                     </span>
-                                    <a class="btn btn-primary float-right mb-2" (click)="editSubjectProfile(subjectProfiledetail, primaryDetail, subjectprofileItem?.addressDetail, pregnancyDetail)"
-                                    role="button" style="display: none"> <i class="fa fa-pencil append-icon mr-1"></i>Edit</a>
+                                    <a class="btn btn-primary float-right mb-2" (click)="editSubjectProfile(subjectProfiledetail, subjectprofileItem)"
+                                    role="button"> <i class="fa fa-pencil append-icon mr-1"></i>Edit</a>
                                    
                                 </div>
                             </div>
