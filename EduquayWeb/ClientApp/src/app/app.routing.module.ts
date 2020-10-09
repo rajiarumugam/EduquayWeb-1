@@ -93,6 +93,8 @@ import { ChcPositiveSubjectResolverService } from "./shared/chc-module/chc-posit
 import { CentrallabSampleResolverService } from "./shared/centrallab/central-sample-resolver.service";
 import { CentrallabShipmentResolverService } from "./shared/centrallab/central-shipment-resolver.service";
 import { CentralupdateHPLCService } from "./shared/centrallab/central-update-hplc-resolver.service";
+import { CentralupdateHPLCNewService } from "./shared/centrallab/central-update-hplc-new-resolver.service";
+
 import { CentralSampleRcptMainComponent } from "./central-lab/sample-rcpt/central-sample-rcpt-main/central-sample-rcpt-main.component";
 import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sample-rec/central-sample-rec.component";
 import { CentralHPLCupdateComponent } from "./central-lab/HPLC-update/central-update-hplc/central-update-hplc.component";
@@ -222,6 +224,8 @@ import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/sche
 import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
 import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
 
+import { HPLCUpdateNewComponent } from "./central-lab/HPLC-update-new/HPLC-update-new/HPLC-update-new.component";
+import { HPLCReceivedNewComponent } from './central-lab/HPLC-update-new/HPLC-update-new-received/HPLC-update-new-received.component';
 import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-chc/chc-update-cbc-chc.component";
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
 const routes: Routes = [
@@ -336,12 +340,19 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'central-update-hplc', component: HPLCUpdateNewComponent,
+        children:[
+          {path: '', component: HPLCReceivedNewComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCNewService}},
+          
+        ]
+      },
+      /*{
         path: 'central-update-hplc', component: CentralHPLCupdateComponent,
         children:[
           {path: '', component: CentralReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}},
           {path: 'upload', component: CentralHPLCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
-      },
+      },*/
       {
         path: 'pathologist-hplc', component: DiagosisHPLCmainComponent,
         children:[
@@ -706,7 +717,9 @@ export const RoutingComponents = [
   updateMolResultViewMainComponent,
   UpdateMolResultViewComponent,
   CHCUpdateCBCCHCComponent,
-  CBCCHCReceivedSampleComponent
+  CBCCHCReceivedSampleComponent,
+  HPLCUpdateNewComponent,
+  HPLCReceivedNewComponent
 
 ];
 

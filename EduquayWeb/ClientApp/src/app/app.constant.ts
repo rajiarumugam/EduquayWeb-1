@@ -50,7 +50,9 @@ export const ENDPOINT = {
         "ADDSHIPMENT":"api/v1/CentralLab/AddShipment",
         "RETRIVECENTRALLABREPORT":"api/v1/CentralLab/RetrieveCentralLabReports",
         "RETRIVECENTRALLABSAMPLESTATUS":"api/v1/CentralLab/RetrieveCentralLabSampleStatus",
-        "RETRIVECHCBYCENTRALLAB":"api/v1/WebMaster/RetrieveCHCByCentralLab/"
+        "RETRIVECHCBYCENTRALLAB":"api/v1/WebMaster/RetrieveCHCByCentralLab/",
+        "RETRIVEHPLCTEST":"api/v1/CentralLab/RetrieveHPLCTest/",
+        "ADDHPLCTETRESULT":"api/v1/CentralLab/AddHPLCTestResult"
     },
     "PATHOLOGIST":
     {

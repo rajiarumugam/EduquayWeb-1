@@ -5,14 +5,14 @@
     <div class="shadow-bottom"></div>
 
     <ul class="list-unstyled menu-categories" id="accordionExample">
-        <li class="menu">
+        <!--<li class="menu">
             <a [routerLink]="['/app']" attr.aria-expanded="{{subMenu === 'dashboard'}}" attr.data-active="{{module === 'dashboard'}}"class="dropdown-toggle">
                 <div class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    <span>Dashboard</span>
+                    <span>{{'Dashboard' | translate }}</span>
                 </div>
             </a>
-        </li>
+        </li>-->
         <li class="menu" *ngIf="user.userRole === 'ANM'">
             <a href="#anm" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
                 <div class="">
@@ -20,7 +20,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/nurse.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                    <span>ANM</span>
+                    <span>{{'ANM' | translate }}</span>
                 </div>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -32,22 +32,22 @@
             </a>
             <ul class="submenu list-unstyled collapse show" id="anm" data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/anm-notification']"> Notifications </a>
+                    <a [routerLink]="['/app/anm-notification']"> {{'Notifications' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/anm-subregn']"> Registration </a>
+                    <a [routerLink]="['/app/anm-subregn']"> {{'Registration' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/anm-sample-collection']"> Sample Collection </a>
+                    <a [routerLink]="['/app/anm-sample-collection']"> {{'SampleCollection' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/anm-pickpack']"> Pick & Pack </a>
+                    <a [routerLink]="['/app/anm-pickpack']"> {{'Pick&Pack' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/anm-shipment']"> Shipment Log </a>
+                    <a [routerLink]="['/app/anm-shipment']"> {{'Shipmentlog' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/anm-subprofile']"> Subject Profile </a>
+                    <a [routerLink]="['/app/anm-subprofile']"> {{'SubjectProfile' | translate }} </a>
                 </li>
             </ul>
         </li>
@@ -70,22 +70,22 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chc'}" id="chc" data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-notification']">  Notifications </a>
+                    <a [routerLink]="['/app/chc-notification']">  {{'Notifications' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-subregn']"> Registration </a>
+                    <a [routerLink]="['/app/chc-subregn']"> {{'Registration' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-sample-collection']"> Sample Collection </a>
+                    <a [routerLink]="['/app/chc-sample-collection']"> {{'SampleCollection' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-pickandpack']"> Pick & Pack </a>
+                    <a [routerLink]="['/app/chc-pickandpack']"> {{'Pick&Pack' | translate }}</a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-shipmentlog']"> Shipment Log</a>
+                    <a [routerLink]="['/app/chc-shipmentlog']"> {{'Shipmentlog' | translate }}</a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-subjectprofile']"> Subject Profile </a>
+                    <a [routerLink]="['/app/chc-subjectprofile']"> {{'SubjectProfile' | translate }} </a>
                 </li>
             </ul>
         </li>
@@ -108,25 +108,25 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chcsam'}" id="chcsam" data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-sample']"> Sample Rcpt </a>
+                    <a [routerLink]="['/app/chc-sample']"> {{'SampleRcpt' | translate }} </a>
                 </li>
                 <!-- <li routerLinkActive="active">
                     <a href="receivedmanual.html"> Sample Rcpt - Manual  </a>
                 </li> -->
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-update-cbc']"> Update CBC Results </a>
+                    <a [routerLink]="['/app/chc-update-cbc']"> {{'Update_CBC_Results' | translate }}</a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-update-sst']"> Update SST Results </a>
+                    <a [routerLink]="['/app/chc-update-sst']"> {{'UpdateSSTResults' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-sample-pickpack']"> Pick & Pack </a>
+                    <a [routerLink]="['/app/chc-sample-pickpack']"> {{'Pick&Pack' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-sample-shipmentlog']"> Shipment Log </a>
+                    <a [routerLink]="['/app/chc-sample-shipmentlog']"> {{'Shipmentlog' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/chc-report']"> Report - Sample Status </a>
+                    <a [routerLink]="['/app/chc-report']"> {{'ReportSampleStatus' | translate }} </a>
                 </li>
             </ul>
         </li>
@@ -137,7 +137,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/test.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                    <span>CENTRAL LAB</span>
+                    <span>{{'MENU_CENTRALLAB' | translate }}</span>
                 </div>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -150,22 +150,22 @@
             <ul class="submenu list-unstyled collapse show"  id="centrallab" data-parent="#accordionExample"
                 style="">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/centrallab']"> Sample Rcpt </a>
+                    <a [routerLink]="['/app/centrallab']"> {{'SampleRcpt' | translate }} </a>
                 </li>
                 <!-- <li>
                     <a href="receivedmanualcentral.html"> Sample Rcpt - Manual </a>
                 </li> -->
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/central-update-hplc']"> Update HPLC Results </a>
+                    <a [routerLink]="['/app/central-update-hplc']"> {{'UpdateHPLCResults' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/central-pickpack']"> Pick & Pack </a>
+                    <a [routerLink]="['/app/central-pickpack']"> {{'Pick&Pack' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/central-shipment']"> Shipment Log </a>
+                    <a [routerLink]="['/app/central-shipment']"> {{'Shipmentlog' | translate }}</a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/centrallab-report']"> Report - Sample Status </a>
+                    <a [routerLink]="['/app/centrallab-report']"> {{'ReportSampleStatus' | translate }} </a>
                 </li>
             </ul>
         </li>
@@ -177,7 +177,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/blood.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                    <span>PATHOLOGIST</span>
+                    <span>{{'PATHOLOGIST' | translate }}</span>
                 </div>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -191,11 +191,11 @@
                 <ul class="submenu list-unstyled collapse show"  id="pathologist" data-parent="#accordionExample"
                 style="">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/pathologist-hplc/abnormal']"> Diagnosis - HPLC </a>
+                    <a [routerLink]="['/app/pathologist-hplc/abnormal']"> {{'DiagnosisHPLC' | translate }} </a>
                 </li>
                
                 <li>
-                    <a href="pathoreport.html"> Report - Diagnosis </a>
+                    <a href="pathoreport.html"> {{'ReportDiagnosis' | translate }} </a>
                 </li>
             </ul>
         </li>
@@ -206,7 +206,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/gene.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                        <span>MOLECULAR LAB</span>
+                        <span>{{'MOLECULARLAB' | translate }}</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -214,19 +214,19 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'molecularlab'}" id="molecularlab" data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/molecularlab']"> Sample Rcpt </a>
+                    <a [routerLink]="['/app/molecularlab']"> {{'SampleRcpt' | translate }} </a>
                 </li>
                 <!--<li>
                     <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>
                 </li>-->
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/update-molecular-result']"> Update Mol. Results </a>
+                    <a [routerLink]="['/app/update-molecular-result']"> {{'UpdateMolResults' | translate }} </a>
                 </li>
                 <!--<li routerLinkActive="active">
                     <a [routerLink]="['/app/view-case-sheet']"> View Case Sheet </a>
                 </li>-->
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/molecular-report']"> Report - Sample Status </a>
+                    <a [routerLink]="['/app/molecular-report']"> {{'ReportSampleStatus' | translate }} </a>
                 </li>
             </ul>
         </li>
@@ -237,7 +237,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/enrollment.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                        <span>SCHEDULE & COUNSEL (PNDTC)</span>
+                        <span>{{'SCHEDULECOUNSEL' | translate }}</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -246,16 +246,16 @@
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc'}"  id="pndtc"
                 data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/schedule-pre-pndtc']"> Schedule – Pre PNDT counselling </a>
+                    <a [routerLink]="['/app/schedule-pre-pndtc']"> {{'SchedulePrePNDTcounselling' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/counselling-pre-pndt']">Counselling – Pre PNDT </a>
+                    <a [routerLink]="['/app/counselling-pre-pndt']"> {{'CounsellingPrePNDT' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/schedule-post-pndtc']"> Schedule – Post PNDT counselling</a>
+                    <a [routerLink]="['/app/schedule-post-pndtc']"> {{'SchedulePostPNDTcounselling' | translate }}</a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/counselling-post-pndt']"> Counselling– Post PNDT</a>
+                    <a [routerLink]="['/app/counselling-post-pndt']"> {{'CounsellingPostPNDT' | translate }}</a>
                 </li>
                 
             </ul>
@@ -269,6 +269,7 @@
                 </svg>
                         <span>PNDTC
                             Obstetrician
+                           
                             </span>
                     </div>
                     <div>
@@ -282,10 +283,10 @@
                 <ul class="submenu list-unstyled collapse show" [ngClass]="{'show': module === 'pndtc'}" id="pndtc"
                     data-parent="#accordionExample">
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/pndtc-testing']"> PND Testing </a>
+                        <a [routerLink]="['/app/pndtc-testing']">  {{'PNDTesting' | translate }} </a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/pndtc-summary']"> PND Summary Report  </a>
+                        <a [routerLink]="['/app/pndtc-summary']">  {{'PNDSummaryReport' | translate }}  </a>
                     </li>
                 </ul>
             </li>
@@ -312,10 +313,10 @@
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'mtp-counsellor'}" id="mtp-counsellor"
                     data-parent="#accordionExample">
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/mtp-service']"> MTP Service </a>
+                        <a [routerLink]="['/app/mtp-service']"> {{'MTPService' | translate }} </a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/mtp-summary']"> MTP Summary Report  </a>
+                        <a [routerLink]="['/app/mtp-summary']"> {{'MTPSummaryReport' | translate }}  </a>
                     </li>
                  
                 </ul>
@@ -327,7 +328,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/hospital-1.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                        <span>SENTINEL HOSPITAL</span>
+                        <span>{{'SENTINELHOSPITAL' | translate }} </span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -340,22 +341,22 @@
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'birthmonitoring'}" id="birthmonitoring" data-parent="#accordionExample"
                     style="">
                     <li>
-                        <a href="infantregistration.html"> Mother Registration </a>
+                        <a href="infantregistration.html"> {{'MotherRegistration' | translate }} </a>
                     </li>
                     <li>
-                        <a href="babyregister.html"> Infant Registration </a>
+                        <a href="babyregister.html"> {{'InfantRegistration' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantcollection.html"> Sample Collection </a>
+                        <a href="infantcollection.html"> {{'SampleCollection' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantpickpack.html"> Pick and Pack </a>
+                        <a href="infantpickpack.html"> {{'Pick&Pack' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantshipmentlog.html"> Shipment Log </a>
+                        <a href="infantshipmentlog.html"> {{'Shipmentlog' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantprofile.html"> Infant Profile </a>
+                        <a href="infantprofile.html"> {{'InfantProfile' | translate }} </a>
                     </li>
                 </ul>
             </li>
@@ -366,7 +367,7 @@
                         xmlns:xlink="http://www.w3.org/1999/xlink">
                         <image href="./assets/assets/img/menu/dna.svg" x="0" y="0" height="18px" width="18px" />
                     </svg>
-                        <span>MOLECULAR LAB</span>
+                        <span>{{'MOLECULARLAB' | translate }}</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -379,16 +380,16 @@
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'birthmonitoringlab'}" id="birthmonitoringlab" data-parent="#accordionExample"
                     style="">
                     <li>
-                        <a href="infantshipmentreceipt.html"> Sample Receipt </a>
+                        <a href="infantshipmentreceipt.html"> {{'SampleReceipt' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantmolecularlab.html"> Update Mol. Results </a>
+                        <a href="infantmolecularlab.html"> {{'UpdateMolResults' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantcasesheet.html"> Case Sheet </a>
+                        <a href="infantcasesheet.html"> {{'CaseSheet' | translate }} </a>
                     </li>
                     <li>
-                        <a href="infantreport.html"> Report - Sample Status </a>
+                        <a href="infantreport.html"> {{'ReportSampleStatus' | translate }} </a>
                     </li>
                 </ul>
             </li>
@@ -399,7 +400,7 @@
                         xmlns:xlink="http://www.w3.org/1999/xlink">
                         <image href="./assets/assets/img/menu/doctor.svg" x="0" y="0" height="18px" width="18px" />
                     </svg>
-                        <span>DISTRICT COORDINATOR</span>
+                        <span>{{'DISTRICTCOORDINATOR' | translate }}</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -411,7 +412,7 @@
                 </a>
                 <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'dc'}" id="dc" data-parent="#accordionExample">
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/dc-notification']"> Notifications </a>
+                        <a [routerLink]="['/app/dc-notification']"> {{'Notifications' | translate }} </a>
                     </li>
                    
                 </ul>
