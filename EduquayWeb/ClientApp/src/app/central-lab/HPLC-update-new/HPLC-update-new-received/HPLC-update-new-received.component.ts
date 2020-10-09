@@ -100,7 +100,7 @@ export class HPLCReceivedNewComponent implements OnInit {
 
     
   Swal.fire({
-    icon: 'success', title:  "Barcode: "+data.barcodeNo+" HbA0: "+data.HbA0+" HbA2: "+data.HbA2+" HbD: "+data.HbD+" HbF: "+data.HbF+" HbS: "+data.HbS+"Do you want to confirm?",
+    icon: 'success', title:  "Barcode: "+data.barcodeNo+" HbA0: "+data.hbA0+" HbA2: "+data.hbA2+" HbD: "+data.hbD+" HbF: "+data.hbF+" HbS: "+data.hbS+"Do you want to confirm?",
     showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false
   })
     .then((result) => {
