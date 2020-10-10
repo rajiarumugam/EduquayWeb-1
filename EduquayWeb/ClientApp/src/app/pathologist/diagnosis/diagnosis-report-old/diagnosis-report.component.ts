@@ -41,10 +41,6 @@ export class DiagosisReportComponent implements OnInit {
   SelecteddiagnosticSummary = "";
   selectedpathologistName = "";
   selectedOthers;
-
-  settings = {};
-  selectedcomplicationsItems = [];
-  selectedanyOtherComplications = false;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -110,57 +106,16 @@ export class DiagosisReportComponent implements OnInit {
     this.getHPLCmaster();
   }
 
-  get f() { return this.FormGroup.controls; }
   getClinicalDiagnosis()
   {
     this.masterService.getClinicalDiagnosis()
     .subscribe(response => {
       this.clinicalDiagnosisMasterData = response['diagnosis'];
-      this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData;
-      console.log(this.clinicalDiagnosisData);
-      this.clinicalDiagnosisData.forEach(element => {
-        element.name = element.diagnosisName;
-      });
 
-      if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
-      {                        
-          var _tempArr = this.diagnosisReportData.clinicalDiagnosisId.split(",");
-          var  _tempSelecedArr = [];
-          this.clinicalDiagnosisData.forEach(element => {
-            _tempArr.forEach(element1 => {
-                if(element.id == element1)
-                {
-                  _tempSelecedArr.push(element);
-                  this.selectedcomplicationsItems.push(element);
-                }
-            });
-          });
-          this.selectedDiagnosis = _tempSelecedArr;
-      }
-
-      this.settings = {
-        singleSelection: false,
-        idField: 'id',  
-        textField: 'name',
-        enableCheckAll: false,
-        selectAllText: 'Select All',
-        unSelectAllText: 'Deselect All',
-        allowSearchFilter: false,
-        limitSelection: -1,
-        clearSearchFilter: true,
-        maxHeight: 197,
-        itemsShowLimit: 2,
-        searchPlaceholderText: 'Search',
-        noDataAvailablePlaceholderText: 'No data',
-        closeDropDownOnSelection: false,
-        showSelectedItemsAtTop: false,
-        defaultOpen: false
-      };
-
-      /*if(this.diagnosisReportData.isNormal)
+      if(this.diagnosisReportData.isNormal)
         this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName === "Normal");
       else
-        this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName != "Normal");*/
+        this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName != "Normal");
 
     },
     (err: HttpErrorResponse) =>{
@@ -345,20 +300,12 @@ export class DiagosisReportComponent implements OnInit {
    
     if(this.tempHPLCmasterChecked != "" && this.FormGroup.valid)
     {
-
-      var _tempComplectionData;
-      this.selectedcomplicationsItems.forEach((element,index) => {
-        if(index === 0)
-          _tempComplectionData = element.id;
-        else
-        _tempComplectionData += ","+element.id;
-      });
         var _obj = {};
         _obj['uniqueSubjectId'] = this.diagnosisReportData.uniqueSubjectId ;
         _obj['barcodeNo'] = this.diagnosisReportData.barcodeNo ;
         _obj['centralLabId'] = this.user.centralLabId ;
         _obj['hplcTestResultId'] = this.diagnosisReportData.hplcTestResultId;
-        _obj['clinicalDiagnosisId'] = _tempComplectionData;
+        _obj['clinicalDiagnosisId'] = Number(this.FormGroup.get('cd').value);
         _obj['hplcResultMasterId'] = ""+this.tempHPLCmasterChecked;
         _obj['isNormal'] = this.FormGroup.get('swapcase').value === "normal" ? true : false;
         _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value; 
@@ -435,38 +382,6 @@ export class DiagosisReportComponent implements OnInit {
         return result;
     }
    
-    public onFilterChange(item: any) {
-      console.log(item);
-    }
-    public onDropDownClose(item: any) {
-      console.log(item);
-    }
-  
-    public onItemSelect(item: any) {
-      this.selectedcomplicationsItems.push(item);
-      console.log(this.selectedcomplicationsItems);
-      
-      console.log(item);
-      if(item.id == 7)
-        this.selectedanyOtherComplications = true;
-    }
-    public onDeSelect(item: any) {
-      var _index = this.selectedcomplicationsItems.findIndex(com => com.id === item.id);
-      this.selectedcomplicationsItems.splice(_index,1);
-      console.log(_index);
-      console.log(item);
-      /*if(item.id == 7)
-      this.selectedanyOtherComplications = false;*/
-    }
-  
-    public onSelectAll(items: any) {
-      console.log(items);
-      //this.selectedanyOtherComplications = true;
-    }
-    public onDeSelectAll(items: any) {
-      console.log(items);
-      //this.selectedanyOtherComplications = false;
-    }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     
