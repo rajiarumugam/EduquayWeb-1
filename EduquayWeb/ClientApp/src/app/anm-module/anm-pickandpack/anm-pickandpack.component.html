@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center"> Pick & Pack to CHC </h5>
+                                <h5 class="float-center"> {{'Pick&Pack' | translate }} to CHC </h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -134,7 +134,7 @@
                         </div> -->
                         <ng-template #picknPackdetail let-modal>
                                     <div class="modal-header">
-                                        <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
+                                        <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}
                                         </h5>
                                         <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
                                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -154,7 +154,7 @@
                                                 <div class="col-md-12" id="text">
                                                         <div class="form-row">
                                                             <div class="form-group col-md-3">
-                                                                <label>ANM Name <span
+                                                                <label>{{'ANMName' | translate }} <span
                                                                     class="manto">*</span></label>
                                                                     <input class="form-control field" readonly type="text" placeholder="ANM Name"
                                                                     [(ngModel)]="name" name="ANMName" >
@@ -162,7 +162,7 @@
                                                             </div>
 
                                                             <div class="form-group col-md-3">
-                                                                <label [ngClass]="{'label-border-class':DDriPoint.invalid && DDriPoint.touched || shipmentForm.submitted && DDriPoint.invalid}" for="inputriPoint">RI Point<span
+                                                                <label [ngClass]="{'label-border-class':DDriPoint.invalid && DDriPoint.touched || shipmentForm.submitted && DDriPoint.invalid}" for="inputriPoint">{{'RIPoint' | translate }}<span
                                                                     class="manto"> *</span></label>
                                                                     <select class="form-control" (change)="onChangeriPoint($event.target.value)"
                                                                     name=DDriPoint #DDriPoint="ngModel" [class.is-invalid]="DDriPoint.invalid && DDriPoint.touched || shipmentForm.submitted && DDriPoint.invalid"
@@ -179,7 +179,7 @@
                                                                       </div>  
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <label [ngClass]="{'label-border-class':DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid}" for="inputilrPoint">ILR Point<span
+                                                                <label [ngClass]="{'label-border-class':DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid}" for="inputilrPoint">{{'ILRPoint' | translate }}<span
                                                                     class="manto"> *</span></label>
                                                                     <select id="inputilrPoint" class="form-control"
                                                                     name="DDilrPoint" #DDilrPoint="ngModel" [class.is-invalid]="DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid"
@@ -196,7 +196,7 @@
                                                                       </div> 
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">Receiving Testing CHC<span
+                                                                <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">{{'ReceivingTestingCHC' | translate }}<span
                                                                     class="manto"> *</span></label>
                                                                 <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid"
                                                                     class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
@@ -215,7 +215,7 @@
 
                                                         <div class="form-row my-2">
                                                             <div class="form-group col-md-3">
-                                                                <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid}" for="inputAvdName">AVD Name<span
+                                                                <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid}" for="inputAvdName">{{'AVDName' | translate }}<span
                                                                     class="manto"> *</span></label>
                                                                 <input type="text" 
                                                                 name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || shipmentForm.submitted && DDLavdName.invalid"
@@ -228,7 +228,7 @@
                                                             </div>
 
                                                             <div class="form-group col-md-3">
-                                                                <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || shipmentForm.submitted && avdcontactNo.invalid}">Contact Number<span
+                                                                <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || shipmentForm.submitted && avdcontactNo.invalid}">{{'ContactNumber' | translate }}<span
                                                                     class="manto"> *</span></label>
                                                                 <input class="form-control field" name="avdcontactNo" #avdcontactNo="ngModel" ngModel maxlength="10" autocomplete="off"
                                                                 numbersOnly oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
@@ -243,14 +243,14 @@
                                                                     </div>
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <label>Alternate AVD Name<span
+                                                                <label>{{'AlternateAVDName' | translate }}<span
                                                                     class="manto"></span></label>
                                                                 <input class="form-control field" name="alternatename" #alternatename="ngModel" ngModel autocomplete="off"  
                                                                 type="text" placeholder="Alternate AVD Name" [(ngModel)]="alternateAVD" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">     
                                                                 <small class=" ml-2 text-danger" [class.d-none]="hasAlternateAvdName">Please enter altername AVD Name</small>  
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <label>Alternate AVD Contact Number<span
+                                                                <label>{{'AlternateAVDContactNumber' | translate }}<span
                                                                     class="manto"></span></label>
                                                                 <input class="form-control field" name="alternatecontactNo" [class.is-invalid]="alternatecontactNo.invalid && alternatecontactNo.touched || shipmentForm.submitted && alternatecontactNo.invalid"
                                                                 #alternatecontactNo="ngModel" ngModel maxlength="10" numbersOnly autocomplete="off"
@@ -280,7 +280,7 @@
                                                         </div>
                                                         <div class="form-row my-2" [formGroup]="popupform">
                                                             <div class="form-group col-md-3">
-                                                                <label class="note">Shipment Date & Time <span class="manto">*</span></label>
+                                                                <label class="note">{{'ShipmentDate&Time' | translate }} <span class="manto">*</span></label>
                                                                 <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
                                                                   placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
                                                                 <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
@@ -302,9 +302,9 @@
                                                             </div> -->
                                                             <span ><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{ _strSelectedBarcode}}</span>
                                                             <button class="btn"  (click)="modal.dismiss()"><i
-                                                                class="flaticon-cancel-12"></i> Close</button>
+                                                                class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
                                                             <button type="submit" class="btn btn-primary"
-                                                                id="linktobuttonpickpak">Submit</button>
+                                                                id="linktobuttonpickpak">{{'Submit' | translate }}</button>
                                                             
                                                         </div>
 

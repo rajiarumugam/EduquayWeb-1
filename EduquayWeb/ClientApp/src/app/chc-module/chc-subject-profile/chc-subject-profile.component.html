@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center"> View Subject Profile</h5>
+                                <h5 class="float-center"> {{'ViewSubjectProfile' | translate }}</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -79,7 +79,7 @@
                         <ng-template #chcsubjectProfiledetail let-modal>
 
                             <div class="modal-header">
-                                <h5 class="modal-title modaltitle" id="myLargeModalLabel">Subject Profile
+                                <h5 class="modal-title modaltitle" id="myLargeModalLabel">{{'SubjectProfile' | translate }}
                                 </h5>
                                 <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -104,10 +104,9 @@
                                                                     <tr>
                                                                         <td>
                                                                             <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>Subject ID :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                                    <strong class="ml-5">Subject
-                                                                                        Name :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
-                                                                                    <strong class="ml-5">RCH ID : </strong>
+                                                                                <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
+                                                                                    <strong class="ml-5">{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
+                                                                                    <strong class="ml-5">{{'RCHID' | translate }} : </strong>
                                                                                     {{chcsubjectprofileItem?.pregnancyDetail.rchId}}
                                                                                 </h5>
                                                                             </span>
@@ -121,48 +120,37 @@
                                                 </div>
                                                 <div class="form-row my-2">       
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">First
-                                                            Name</label>
+                                                        <label for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">{{'FirstName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.firstName" formControlName="firstName"
                                                     placeholder="First Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstName.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputMiddlename">Middle
-                                                            Name</label>
+                                                        <label for="inputMiddlename">{{'MiddleName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.middleName" formControlName="middleName"
                                                         placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">Last
-                                                            Name</label>
+                                                        <label for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">{{'LastName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.lastName" formControlName="lastName"
                                                         placeholder="Last Name" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.lastName.invalid }">
                                                     </div>
                                                 </div>
                                                 <div class="form-row mt-4">
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">Date of Birth</label>
-                                                        <!-- <input type="Text" class="form-control flatpickr flatpickr-input active"
-                                                        [(ngModel)]="chcsubjectprofileItem?.primaryDetail.dob" formControlName="dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"
-                                                        id="dobnewdate" placeholder="select Date..." required> -->
-                                                    <!-- <input class="form-control field" type="text" formControlName="dob" [(ngModel)]="selecteddob" *ngIf = "disableDatepicker" readonly> -->
+                                                        <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">{{'DateofBirth' | translate }}</label>
+                                                      
                                                     <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
                                                     [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (ngModelChange)="calculateAge()"></ng2-flatpickr>
                                                     </div>
-                                                    <div class="form-group col-md-4" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
-                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
-                                                        <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.age" formControlName="age" oninput="javascript: if (Number(this.value)>18) this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                                        maxlength = "2" numbersOnly 
-                                                            placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
-                                                    </div>
+                                                  
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">Age</label>
+                                                        <label for="inputAge" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">{{'Age' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="selectedage" formControlName="age" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                                         maxlength = "2" numbersOnly 
                                                             placeholder="Age" required [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.age.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">Religion</label>
+                                                        <label for="inputReligion" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">{{'Religion' | translate }}</label>
                                                         <select id="inputReligion" class="form-control" formControlName="DDLreligion" required
                                                             [(ngModel)]="selectedreligion" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLreligion.invalid }">
                                                             <option  [ngValue]="null">--Select--</option>
@@ -172,7 +160,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">Caste</label>
+                                                        <label for="inputCaste" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">{{'Caste' | translate }}</label>
                                                         <select id="inputCaste" class="form-control" formControlName="DDLcaste" required (change)="onChangecaste($event.target.value)"
                                                         [(ngModel)]="selectedcaste" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcaste.invalid }">
                                                         <option  [ngValue]="null">--Select--</option>
@@ -182,7 +170,7 @@
                                                     </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">Community</label>
+                                                        <label for="inputCommunity" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">{{'Community' | translate }}</label>
                                                         <select id="inputCommunity" class="form-control" formControlName="DDLcommunity" required
                                                         [(ngModel)]="selectedcommunity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.DDLcommunity.invalid }">
                                                         <option [ngValue]="null">--Select--</option>
@@ -194,8 +182,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="reges-form-bottom-btns">
-                                                    <button mat-button matStepperPrevious class="reg-btn-disable" >Previous</button>
-                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">Next</button>
+                                                    <button mat-button matStepperPrevious class="reg-btn-disable" >{{'Previous' | translate }}</button>
+                                                    <button mat-button  class="float-right reg-btn-enable" (click)="nextStep(stepper);">{{'Next' | translate }}</button>
                                                 </div>    
                                             </form>
                                         </mat-step>
@@ -209,10 +197,9 @@
                                                                     <tr>
                                                                         <td>
                                                                             <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>Subject ID :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                                    <strong class="ml-5">Subject
-                                                                                        Name :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
-                                                                                    <strong class="ml-5">RCH ID : </strong>
+                                                                                <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
+                                                                                    <strong class="ml-5">{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
+                                                                                    <strong class="ml-5">{{'RCHID' | translate }} : </strong>
                                                                                     {{chcsubjectprofileItem?.pregnancyDetail.rchId}}
                                                                                 </h5>
                                                                             </span>
@@ -226,67 +213,64 @@
                                                 </div>
                                                 <div class="form-row my-2">
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">House / Plot
-                                                            Number</label><span class="manto"></span>
+                                                        <label for="inputHouseno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">{{'HousePlotNumber' | translate }}</label><span class="manto"></span>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.address1" formControlName="house"
                                                             placeholder="House Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.house.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">Street &
-                                                            Locality</label>
+                                                        <label for="inputStreet" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">{{'StreetAndLocality' | translate }}</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.address2" formControlName="street"
                                                             placeholder="Street" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.street.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">City /
-                                                            Village</label><span class="manto"></span>
+                                                        <label for="inputCity" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.city.invalid }">{{'CityOrVillage' | translate }}</label><span class="manto"></span>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.address3" formControlName="city"
                                                             placeholder="City" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.city.invalid}">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">State</label>
+                                                        <label for="inputState" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">{{'State' | translate }}</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.stateName" formControlName="stateName"
                                                             placeholder="State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.stateName.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">Pincode</label>
+                                                        <label for="inputPincode" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.addressDetail.pincode" formControlName="pincode"
                                                         ngModel placeholder="Pincode" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.pincode.invalid }" 
                                                         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  maxlength = "6" numbersOnly>
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">Contact</label>
+                                                        <label for="inputContact" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }">{{'Contact' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.mobileNo" formControlName="mobileNo"
                                                         placeholder="Contact Number" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.mobileNo.invalid }" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                                         maxlength = "10" numbersOnly>
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputEmail">Email</label>
+                                                        <label for="inputEmail">{{'Email' | translate }}</label>
                                                         <input type="email" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.emailId" formControlName="emailId"
                                                          placeholder="Email" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.DDLGovtIDType.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)">
-                                                        <label for="inputGovtId">Govt ID Type</label>
+                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.subjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.subjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.subjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)">
+                                                        <label for="inputGovtId">{{'GovtIDType' | translate }}</label>
                                                         <select id="inputGovtId" class="form-control" formControlName="DDLGovtIDType"
                                                         [(ngModel)]="selectedgovtidtype">
                                                         <option value="0">--Select--</option>
-                                                        <option *ngFor="let govId of chcgovtIdTypes" [(value)]="govId.id ">
+                                                        <option *ngFor="let govId of govtIdTypes" [(value)]="govId.id ">
                                                             {{ govId.govIdTypeName }}
                                                         </option>
                                                     </select>
                                                     </div>
-                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)" >
-                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">Govt ID Detail</label>
+                                                    <div class="form-group col-md-3" *ngIf="chcsubjectprofileItem?.primaryDetail.subjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.subjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.subjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)" >
+                                                        <label for="inputGovtdetail" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">{{'GovtIDDetail' | translate }}</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.govIdDetail" formControlName="govIdDetail"
                                                         placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdDetail.invalid }">
                                                     </div>
-                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1">
-                                                        <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">RCH ID</label>
+                                                    <div class="form-group col-md-2" *ngIf="chcsubjectprofileItem?.primaryDetail.subjectTypeId === 1">
+                                                        <label for="inputrchid" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">{{'RCHID' | translate }}</label>
                                                         <input type="text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.pregnancyDetail.rchId" formControlName="rchId"
                                                         placeholder="RCH ID" required [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.rchId.invalid }">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="inputecno">EC Number</label>
+                                                        <label for="inputecno">{{'ECNumber' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.pregnancyDetail.ecNumber" formControlName="ecNumber"
                                                         placeholder="EC Number">
                                                     </div>
@@ -295,28 +279,24 @@
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === true)">
         
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">Spouse First
-                                                            Name</label>
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }">{{'SpouseFirstName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.spouseFirstName" formControlName="spouseFirstName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseFirstName.invalid }"
                                                             placeholder="First Name" required>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseMiddlename">Middle
-                                                            Name</label>
+                                                        <label for="inputSpouseMiddlename">{{'MiddleName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.spouseMiddleName" formControlName="spouseMiddleName"
-                                                            
-                                                            placeholder="Middle Name">
+                                                             placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">Last
-                                                            Name</label>
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }">{{'LastName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.spouseLastName" formControlName="spouseLastName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseLastName.invalid }"
                                                             placeholder="Last Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">Spouse Contact</label>
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }">{{'SpouseContact' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.primaryDetail.spouseContactNo" formControlName="spouseContactNo"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.spouseContactNo.invalid }"
                                                             placeholder="Contact Number" required oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -326,21 +306,19 @@
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === false)">
         
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }">Mother’s First Name</label>
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }">{{'Mother’sFirstName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherFirstName" formControlName="motherFirstName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherFirstName.invalid }"
                                                             placeholder="First Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseMiddlename">Middle
-                                                            Name</label>
+                                                        <label for="inputSpouseMiddlename">{{'MiddleName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherMiddleName" formControlName="motherMiddleName"
                                                             
                                                             placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }">Last
-                                                            Name</label>
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }">{{'LastName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherLastName" formControlName="motherLastName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherLastName.invalid }"
                                                             placeholder="Last Name">
@@ -361,7 +339,7 @@
                                                         placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdMDetail.invalid }">
                                                     </div> -->
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }">Contact</label>
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }">{{'Contact' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.motherContactNo" formControlName="motherContactNo"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.motherContactNo.invalid }"
                                                             placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -371,21 +349,19 @@
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === false)">
         
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }">Father’s First Name</label>
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }">{{'Father’sFirstName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherFirstName" formControlName="fatherFirstName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherFirstName.invalid }"
                                                             placeholder="First Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseMiddlename">Middle
-                                                            Name</label>
+                                                        <label for="inputSpouseMiddlename">{{'MiddleName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherMiddleName" formControlName="fatherMiddleName"
                                                             
                                                             placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }">Last
-                                                            Name</label>
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }">{{'LastName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherLastName" formControlName="fatherLastName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherLastName.invalid }"
                                                             placeholder="Last Name">
@@ -406,7 +382,7 @@
                                                         placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">
                                                     </div> -->
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }">Contact</label>
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }">{{'Contact' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.fatherContactNo" formControlName="fatherContactNo"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.fatherContactNo.invalid }"
                                                             placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -416,21 +392,19 @@
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || (chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4 && chcsubjectprofileItem?.primaryDetail.maritalStatus === false)">
         
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }">Guardian’s First Name</label>
+                                                        <label for="inputSpouseFirstname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }">{{'Guardian’sFirstName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianFirstName" formControlName="guardianFirstName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianFirstName.invalid }"
                                                             placeholder="First Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseMiddlename">Middle
-                                                            Name</label>
+                                                        <label for="inputSpouseMiddlename">{{'MiddleName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianMiddleName" formControlName="guardianMiddleName"
                                                             
                                                             placeholder="Middle Name">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }">Last
-                                                            Name</label>
+                                                        <label for="inputSpouseLastname" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }">{{'LastName' | translate }}</label>
                                                         <input type="Text" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianLastName" formControlName="guardianLastName"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianLastName.invalid }"
                                                             placeholder="Last Name">
@@ -451,7 +425,7 @@
                                                         placeholder="Enter Detail" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.govIdFDetail.invalid }">
                                                     </div> -->
                                                     <div class="form-group col-md-3">
-                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }">Contact</label>
+                                                        <label for="inputspusemoblieno" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }">{{'Contact' | translate }}</label>
                                                         <input type="number" class="form-control" [(ngModel)]="chcsubjectprofileItem?.parentDetail.gaurdianContactNo" formControlName="guardianContactNo"
                                                         [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.guardianContactNo.invalid }"
                                                             placeholder="Contact Number" oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -460,28 +434,28 @@
                                                 </div>
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1">
                                                     <div class="form-group col-md-2">
-                                                        <label  for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">G</label><span class="manto"> </span>
+                                                        <label  for="inputG" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }">{{'G' | translate }}</label><span class="manto"> </span>
                                                          <select id="inputG" class="form-control" [(ngModel)]="selectedg" formControlName = "g" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.g.invalid }" (change)="gonChange();">
                                                             <option [ngValue]="null">Select</option>
                                                             <option [value]="data.id" *ngFor="let data of GPLADATA">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label  for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">P</label><span class="manto"></span>
+                                                        <label  for="inputP" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }">{{'P' | translate }}</label><span class="manto"></span>
                                                         <select id="inputP" class="form-control" [(ngModel)]="selectedp" formControlName = "p" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.p.invalid }" [attr.disabled]="Pdisabled ? Pdisabled : null" (change)="ponChange();">
                                                             <option [ngValue]="null">Select</option>
                                                             <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label  for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">L</label><span class="manto"></span>
+                                                        <label  for="inputL" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">{{'L' | translate }}</label><span class="manto"></span>
                                                          <select id="inputL" class="form-control" [(ngModel)]="selectedl" formControlName = "l" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.l.invalid }">
                                                             <option [ngValue]="null">Select</option>
                                                             <option [value]="data.id" *ngFor="let data of GPLAADATA; let ind=index;">{{data.value}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label  for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">A</label><span class="manto"></span>
+                                                        <label  for="inputA" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }">{{'A' | translate }}</label><span class="manto"></span>
                                                          <select id="inputA" class="form-control" [(ngModel)]="selecteda" formControlName = "a" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.a.invalid }"   [attr.disabled]="Pdisabled ? Pdisabled : null">
                                                             <option [ngValue]="null">Select</option>
                                                             <option [value]="data.id" *ngFor="let data of GPLAADATA | slice:0:selectedg != null ? +selectedg : null; let ind=index;">{{data.value}}</option>
@@ -491,24 +465,24 @@
                                                 </div>
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
                                                     <div class="form-group col-md-2">
-                                                        <label  for="inputschoolName" >SchoolName</label>
+                                                        <label  for="inputschoolName" >{{'SchoolName' | translate }}</label>
                                                         <input type="text" autocomplete="off"class="form-control" id="inputschoolName" placeholder="School Name" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolName" formControlName = "schoolname">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label  for="inputschool">Street And Locality</label>
+                                                        <label  for="inputschool">{{'StreetAndLocality' | translate }}</label>
                                                         <input type="text" autocomplete="off"class="form-control" id="inputschool" placeholder="Street" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolAddress1" formControlName = "schoolstreet">
                                                     </div>
                                                     <div class="form-group col-md-2"> 
-                                                        <label  for="inputschoolCity">City/Village</label>
+                                                        <label  for="inputschoolCity">{{'CityOrVillage' | translate }}</label>
                                                         <input type="text" autocomplete="off"class="form-control" id="inputschoolCity" placeholder="City" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolCity" formControlName = "schoolcity">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label  for="inputschoolState">State</label>
+                                                        <label  for="inputschoolState">{{'State' | translate }}</label>
                                                         <input type="text" autocomplete="off"class="form-control" id="inputschoolState" placeholder="State" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolState" formControlName = "schoolstate" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                                                         <!-- <app-select-dropdown [(ngModel)]="selectedschoolstate" class="form-control" id="inputschoolState" formControlName="schoolstate" [list]="statelist" returnId="false" placeholder="Select State" [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.state.invalid }"></app-select-dropdown> -->
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label  for="inputSchoolPincode">Pincode</label>
+                                                        <label  for="inputSchoolPincode">{{'Pincode' | translate }}</label>
                                                         <input type="text" autocomplete="off"class="form-control" id="inputSchoolPincode" [(ngModel)]="chcsubjectprofileItem?.parentDetail.schoolPincode" placeholder="Pincode" formControlName = "schoolpincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                                         maxlength = "6" numbersOnly>
                                                     </div>
@@ -516,14 +490,14 @@
                                 
                                                 <div class="form-row my-2" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">                 
                                                   <div class="form-group col-md-2">
-                                                      <label  for="rbskid">RBSKID</label>
+                                                      <label  for="rbskid">{{'RBSKID' | translate }}</label>
                                                       <input type="text" autocomplete="off"class="form-control" id="rbskid" placeholder="ID" [(ngModel)]="chcsubjectprofileItem?.parentDetail.rbskId" formControlName = "rbskid">
                                                   </div>
                                                   
                                               </div>
                                                 <div class="reges-form-bottom-btns">
-                                                    <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">Previous</button>
-                                                    <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">Submit</button>
+                                                    <button mat-button class="reg-btn-enable"  (click)="prevStep(stepper);">{{'Previous' | translate }}</button>
+                                                    <button mat-button class="float-right reg-btn-enable" (click)="formSubmit();">{{'Submit' | translate }}</button>
                                                 </div>    
                                             </form>
                                         </mat-step>
@@ -550,9 +524,9 @@
                                                 <tr>
                                                     <td>
                                                         <span class="float-left mt-0 mr-4">
-                                                            <h5><b>Subject ID :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                <strong class="ml-5">Subject Info :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
-                                                                <strong class="ml-5">RCH ID : </strong>
+                                                            <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
+                                                                <strong class="ml-5">{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
+                                                                <strong class="ml-5">{{'RCHID' | translate }} : </strong>
                                                                 {{chcsubjectprofileItem?.pregnancyDetail.rchId}}
                                                             </h5>
                                                         </span>  
@@ -581,10 +555,10 @@
                                 <div class="col-md-12" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 1 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 2
                                 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3 || chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 4">
                                     <span class="float-left mt-0">
-                                        <h5><b>Subject ID : </b>{{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
+                                        <h5><b>{{'SubjectID' | translate }} : </b>{{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
                                     </span>
                                     <a class="btn btn-primary float-right mb-2"  (click)="editchcSubjectProfile(chcsubjectProfiledetail, chcsubjectprofileItem)"
-                                    role="button"> <i class="fa fa-pencil append-icon mr-1"></i>Edit</a>
+                                    role="button"> <i class="fa fa-pencil append-icon mr-1"></i>{{'Edit' | translate }}</a>
                                    
                                 </div>
                             </div>
@@ -597,30 +571,30 @@
                                             <thead class="tablecss">
                                                 <tr class="" style="background-color: #e3e8ef;">
                                                     <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate }}</b>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'SubjectName' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.firstName}}
                                                         {{chcsubjectprofileItem?.primaryDetail.lastName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate }} </b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.gender}}</td>
-                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'DateofBirth' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.dob}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Age</b></td>
+                                                    <td><b>{{'Age' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.age}}</td>
-                                                    <td><b>Contact No</b></td>
+                                                    <td><b>{{'ContactNo' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.mobileNo}}</td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseFirstName"><b>Spouse Name</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseFirstName"><b>{{'SpouseName' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseFirstName">{{chcsubjectprofileItem?.primaryDetail.spouseFirstName}} {{chcsubjectprofileItem?.primaryDetail.spouseLastName}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseContactNo"><b>Spouse Contact</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseContactNo"><b>{{'SpouseContact' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseContactNo">{{chcsubjectprofileItem?.primaryDetail.spouseContactNo}}</td>
                                                 </tr>
                                             </tbody>
@@ -637,30 +611,30 @@
                                             <thead class="tablecss">
                                                 <tr class="" style="background-color: #e3e8ef;">
                                                     <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate }}</b>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'SubjectName' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.firstName}}
                                                         {{chcsubjectprofileItem?.primaryDetail.lastName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate }} </b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.gender}}</td>
-                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'DateofBirth' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.dob}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Age</b></td>
+                                                    <td><b>{{'Age' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.age}}</td>
-                                                    <td><b>Contact No</b></td>
+                                                    <td><b>{{'ContactNo' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.mobileNo}}</td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseFirstName"><b>Spouse Name</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseFirstName"><b>{{'SpouseName' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseFirstName">{{chcsubjectprofileItem?.primaryDetail.spouseFirstName}} {{chcsubjectprofileItem?.primaryDetail.spouseLastName}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseContactNo"><b>Spouse Contact</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseContactNo"><b>{{'SpouseContact' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.primaryDetail.spouseContactNo">{{chcsubjectprofileItem?.primaryDetail.spouseContactNo}}</td>
                                                 </tr>
                                             </tbody>
@@ -669,7 +643,7 @@
                                 </div>
                             </div>
 
-                             <!-- Age > 18  Basic Info-->
+                             <!-- Age > 18  {{'BasicInfo' | translate }}-->
                             <div class="row" *ngIf="chcsubjectprofileItem?.primaryDetail.childSubjectTypeId === 3">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -677,39 +651,39 @@
                                             <thead class="tablecss">
                                                 <tr class="" style="background-color: #e3e8ef;">
                                                     <th colspan="8" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate }}</b>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'SubjectName' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.firstName}}
                                                         {{chcsubjectprofileItem?.primaryDetail.lastName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate }} </b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.gender}}</td>
-                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'DateofBirth' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.dob}}</td>
-                                                    <td class="sp-xs-td-9"><b>Age</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'Age' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.age}}</td>
                                                 </tr>
                                                 <tr>    
-                                                    <td><b>Contact No</b></td>
+                                                    <td><b>{{'ContactNo' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.mobileNo}}</td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.motherFirstName"><b>Mother’s Name </b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.motherFirstName"><b>{{'Mother’sName' | translate }} </b></td>
                                                     <td colspan="3" [hidden]="!chcsubjectprofileItem?.parentDetail.motherFirstName">{{chcsubjectprofileItem?.parentDetail.motherFirstName}} {{chcsubjectprofileItem?.parentDetail.motherMiddleName}} {{chcsubjectprofileItem?.parentDetail.motherLastName}}</td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.motherContactNo"><b>Mother Contact</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.motherContactNo"><b>{{'MotherContact' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.parentDetail.motherContactNo">{{chcsubjectprofileItem?.parentDetail.motherContactNo}}</td>
                                                 </tr>
                                                
                                                 <tr>    
-                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.fatherFirstName"><b>Father’s Name </b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.fatherFirstName"><b>{{'Father’sName' | translate }} </b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.parentDetail.fatherFirstName">{{chcsubjectprofileItem?.parentDetail.fatherFirstName}} {{chcsubjectprofileItem?.parentDetail.fatherMiddleName}} {{chcsubjectprofileItem?.parentDetail.fatherLastName}}</td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.fatherContactNo"><b>Father Contact</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.fatherContactNo"><b>{{'Father’sName' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.parentDetail.fatherContactNo">{{chcsubjectprofileItem?.parentDetail.fatherContactNo}}</td> 
-                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.gaurdianFirstName"><b>Guardian’s Name </b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.gaurdianFirstName"><b>{{'Guardian’sName' | translate }} </b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.parentDetail.gaurdianFirstName">{{chcsubjectprofileItem?.parentDetail.gaurdianFirstName}} {{chcsubjectprofileItem?.parentDetail.gaurdianMiddleName}} {{chcsubjectprofileItem?.parentDetail.gaurdianLastName}}</td>
-                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.gaurdianContactNo"><b>Guardian’s Contact</b></td>
+                                                    <td [hidden]="!chcsubjectprofileItem?.parentDetail.gaurdianContactNo"><b>{{'Guardian’sContact' | translate }}</b></td>
                                                     <td [hidden]="!chcsubjectprofileItem?.parentDetail.gaurdianContactNo">{{chcsubjectprofileItem?.parentDetail.gaurdianContactNo}}</td>     
                                                 </tr>
                                                
@@ -727,50 +701,50 @@
                                             <thead class="tablecss">
                                                 <tr class="" style="background-color: #e3e8ef;">
                                                     <th colspan="6" class="text-left"
-                                                        style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate }}</b>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'SubjectName' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.firstName}}  {{chcsubjectprofileItem?.primaryDetail.middleName}}
                                                         {{chcsubjectprofileItem?.primaryDetail.lastName}}</td>
-                                                    <td class="sp-xs-td-9"><b>Gender </b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate }} </b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.gender}}</td>
-                                                    <td class="sp-xs-td-9"><b>Date of Birth</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'DateofBirth' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.dob}}</td>
                                                     
                                                 </tr>
                                                
                                                 <tr>    
-                                                    <td><b>Age</b></td>
+                                                    <td><b>{{'Age' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.age}}</td>
-                                                    <td><b>Contact No</b></td>
+                                                    <td><b>{{'ContactNo' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.mobileNo}}</td>
-                                                    <td><b>Spouse Name</b></td>
+                                                    <td><b>{{'SpouseName' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.spouseFirstName}} {{chcsubjectprofileItem?.primaryDetail.spouseMiddleName}} {{chcsubjectprofileItem?.primaryDetail.spouseLastName}}</td>
                                                     
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Spouse Contact</b></td>
+                                                    <td><b>{{'SpouseContact' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.primaryDetail.spouseContactNo}}</td>
-                                                    <td><b>Mother’s Name </b></td>
+                                                    <td><b>{{'Mother’sName' | translate }} </b></td>
                                                     <td>{{chcsubjectprofileItem?.parentDetail.motherFirstName}} {{chcsubjectprofileItem?.parentDetail.motherMiddleName}} {{chcsubjectprofileItem?.parentDetail.motherLastName}}</td>
-                                                    <td><b>Mother Contact</b></td>
+                                                    <td><b>{{'MotherContact' | translate }}</b></td>
                                                     <td >{{chcsubjectprofileItem?.parentDetail.motherContactNo}}</td>
                                                 </tr>
                                                 <tr>    
-                                                    <td><b>Father’s Name </b></td>
+                                                    <td><b>{{'Father’sName' | translate }} </b></td>
                                                     <td>{{chcsubjectprofileItem?.parentDetail.fatherFirstName}} {{chcsubjectprofileItem?.parentDetail.fatherMiddleName}} {{chcsubjectprofileItem?.parentDetail.fatherLastName}}</td>
-                                                    <td><b>Father Contact</b></td>
+                                                    <td><b>{{'Father’sName' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.parentDetail.fatherContactNo}}</td> 
-                                                    <td><b>Guardian’s Name </b></td>
+                                                    <td><b>{{'Guardian’sName' | translate }} </b></td>
                                                     <td>{{chcsubjectprofileItem?.parentDetail.gaurdianFirstName}} {{chcsubjectprofileItem?.parentDetail.gaurdianMiddleName}} {{chcsubjectprofileItem?.parentDetail.gaurdianLastName}}</td>
                                                        
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Guardian’s Contact</b></td>
+                                                    <td><b>{{'Guardian’sContact' | translate }}</b></td>
                                                     <td>{{chcsubjectprofileItem?.parentDetail.gaurdianContactNo}}</td> 
                                                 </tr>
                                                
@@ -797,7 +771,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="p-2">{{'SocioDemographicInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -808,35 +782,35 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Religion' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Caste' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Community' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td><b>Address</b></td>
+                                                        <td><b>{{'Address' | translate }}</b></td>
                                                         <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}},
                                                             {{chcsubjectprofileItem?.addressDetail.address2}},
                                                             {{chcsubjectprofileItem?.addressDetail.address3}},
                                                             {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                        <td><b>District</b></td>
+                                                        <td><b>{{'District' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>CHC</b></td>
+                                                        <td><b>{{'CHC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
-                                                        <td><b>PHC</b></td>
+                                                        <td><b>{{'PHC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.phcName}}</td>
-                                                        <td><b>SC</b></td>
+                                                        <td><b>{{'SC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.scName}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>RI Point</b></td>
+                                                        <td><b>{{'RIPoint' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.riSite}}</td>
                                                     </tr>
                                                 </tbody>
@@ -863,7 +837,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="p-2">{{'SocioDemographicInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -874,35 +848,35 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Religion' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Caste' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Community' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td><b>Address</b></td>
+                                                        <td><b>{{'Address' | translate }}</b></td>
                                                         <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}},
                                                             {{chcsubjectprofileItem?.addressDetail.address2}},
                                                             {{chcsubjectprofileItem?.addressDetail.address3}},
                                                             {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                        <td><b>District</b></td>
+                                                        <td><b>{{'District' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>CHC</b></td>
+                                                        <td><b>{{'CHC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
-                                                        <td><b>PHC</b></td>
+                                                        <td><b>{{'PHC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.phcName}}</td>
-                                                        <td><b>SC</b></td>
+                                                        <td><b>{{'SC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.scName}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>RI Point</b></td>
+                                                        <td><b>{{'RIPoint' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.riSite}}</td>
                                                     </tr>
                                                 </tbody>
@@ -929,7 +903,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="p-2">{{'SocioDemographicInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -940,23 +914,23 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Religion' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Caste' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Community' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td><b>Address</b></td>
+                                                        <td><b>{{'Address' | translate }}</b></td>
                                                         <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}}, {{chcsubjectprofileItem?.addressDetail.address2}}, {{chcsubjectprofileItem?.addressDetail.address3}}, {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                        <td><b>District</b></td>
+                                                        <td><b>{{'District' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>CHC</b></td>
+                                                        <td><b>{{'CHC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
                                                         
                                                     </tr>
@@ -985,7 +959,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Socio-Demographic Info</div>
+                                                                        <div class="p-2">{{'SocioDemographicInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -996,23 +970,23 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Religion</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Religion' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.religionName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Caste</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Caste' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.casteName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Community</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Community' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.addressDetail.communityName}}</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td><b>Address</b></td>
+                                                        <td><b>{{'Address' | translate }}</b></td>
                                                         <td colspan="3">{{chcsubjectprofileItem?.addressDetail.address1}}, {{chcsubjectprofileItem?.addressDetail.address2}}, {{chcsubjectprofileItem?.addressDetail.address3}}, {{chcsubjectprofileItem?.addressDetail.stateName}}, {{chcsubjectprofileItem?.addressDetail.pincode}} </td>
-                                                        <td><b>District</b></td>
+                                                        <td><b>{{'District' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.districtName}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>CHC</b></td>
+                                                        <td><b>{{'CHC' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.primaryDetail.chcName}}</td>
                                                         
                                                     </tr>
@@ -1041,7 +1015,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="p-2">{{'PersonalInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1052,20 +1026,20 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'ECNumber' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
-                                                        <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'RCHID' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.rchId}}</td>
-                                                        <td class="sp-xs-td-9"><b>LMP Date</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'LMPDate' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.lmpDate}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Gestational Age</b> </td>
+                                                        <td><b>{{'GestationalAge' | translate }}</b> </td>
                                                         <td>{{chcsubjectprofileItem?.pregnancyDetail.gestationalperiod}}</td>
-                                                        <td><b>Obstetrics Score</b></td>
+                                                        <td><b>{{'GestationalAge' | translate }}</b></td>
                                                         <td>G{{chcsubjectprofileItem?.pregnancyDetail.g}}-P{{chcsubjectprofileItem?.pregnancyDetail.p}}-L{{chcsubjectprofileItem?.pregnancyDetail.l}}-A{{chcsubjectprofileItem?.pregnancyDetail.a}}
                                                         </td>
-                                                        <td><b>Barcodes</b></td>
+                                                        <td><b>{{'Barcodes' | translate }}</b></td>
                                                         <!-- <td><b>3423422</b>|3423434|3423442</td> -->
                                                         <td>{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
                                                     </tr>
@@ -1093,7 +1067,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="p-2">{{'PersonalInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1104,11 +1078,11 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>EC Number</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'ECNumber' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
-                                                        <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'RCHID' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.rchId}}</td>
-                                                        <td class="sp-xs-td-9"><b>Barcodes</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Barcodes' | translate }}</b></td>
                                                         <!-- <td><b>3423422</b>|3423434|3423442</td> -->
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
                                                     </tr>
@@ -1137,7 +1111,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="p-2">{{'PersonalInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1148,9 +1122,9 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-9"><b>EC Number</b></td>
+                                                        <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-9"><b>{{'ECNumber' | translate }}</b></td>
                                                         <td [hidden]="!chcsubjectprofileItem?.pregnancyDetail.ecNumber" class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.ecNumber}}</td>
-                                                        <td class="sp-xs-td-9"><b>Barcodes</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Barcodes' | translate }}</b></td>
                                                         <!-- <td><b>3423422</b>|3423434|3423442</td> -->
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
                                                     </tr>
@@ -1179,7 +1153,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Personal Info</div>
+                                                                        <div class="p-2">{{'PersonalInfo' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1190,26 +1164,26 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>RBSK ID</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'RBSKID' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.rbskId}}</td>
-                                                        <td class="sp-xs-td-9"><b>School Name</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'SchoolName' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.schoolName}}</td>
-                                                        <td class="sp-xs-td-9"><b>School Address</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'SchoolAddress' | translate }}</b></td>
                                                         <!-- <td><b>3423422</b>|3423434|3423442</td> -->
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.parentDetail.schoolAddress1}}
                                                             {{chcsubjectprofileItem?.parentDetail.schoolCity}} {{chcsubjectprofileItem?.parentDetail.schoolState}} {{chcsubjectprofileItem?.parentDetail.schoolPincode}} </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Standard</b></td>
+                                                        <td><b>{{'Standard' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.parentDetail.standard}}</td>
-                                                        <td><b>Section</b></td>
+                                                        <td><b>{{'Section' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.parentDetail.section}}</td>
-                                                        <td><b>Roll Number</b></td>
+                                                        <td><b>{{'RollNumber' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.parentDetail.rollNo}}</td>
 
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Barcode</b></td>
+                                                        <td><b>{{'Barcodes' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pregnancyDetail.barcodes}}</td>
                                                         
                                                     </tr>
@@ -1237,7 +1211,7 @@
                                                         <a href="#" class="pthead">
                                                             <b>
                                                                 <div class="d-flex">
-                                                                    <div class="p-2">Results</div>
+                                                                    <div class="p-2">{{'Results' | translate }}</div>
                                                                     <div class="ml-auto p-2"><i
                                                                             class="fa fa-caret-down"></i></div>
                                                                 </div>
@@ -1248,11 +1222,11 @@
                                             </thead>
                                             <tbody class="d-none">
                                                 <tr>
-                                                    <td class="sp-xs-td-9"><b>CBC Test Result</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'CBCTestResult' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.cbcTestResult}}</td>
-                                                    <td class="sp-xs-td-9"><b>SST Result</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'SSTResult' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.ssTestResult}}</td>
-                                                    <td class="sp-xs-td-9"><b>HPLC Test Result</b></td>
+                                                    <td class="sp-xs-td-9"><b>{{'HPLCTestResult' | translate }}</b></td>
                                                     <td class="sp-xs-td-15">{{chcsubjectprofileItem?.primaryDetail.hplcTestResult}}</td>
                                                 </tr>
                                             </tbody>
@@ -1279,7 +1253,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Pre PNDT Counselling</div>
+                                                                        <div class="p-2">{{'PrePNDTCounselling' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1290,19 +1264,19 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.date}}</td>
-                                                        <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'CounsellorName' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellorName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Counselling Status</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'CounsellingStatus' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.prePndtCounselling.counsellingStatus}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Counselling Notes/Remarks</b> </td>
+                                                        <td class="sp-xs-td-9"><b>{{'CounsellingNotes/Remarks' | translate }}</b> </td>
                                                         <td colspan="3">
                                                             {{chcsubjectprofileItem?.prePndtCounselling.counsellingNotes}}   
                                                         </td>
-                                                        <td><b>The couple has agreed for PNDT</b> </td>
+                                                        <td><b>{{'ThecouplehasagreedforPNDT' | translate }}</b> </td>
                                                         <td>{{chcsubjectprofileItem?.prePndtCounselling.agreedForPndt}}</td>
                                                     </tr>
                                                     <tr>
@@ -1331,7 +1305,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">PND Testing</div>
+                                                                        <div class="p-2">{{'PNDTesting' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1342,27 +1316,27 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
                                                         <td class="sp-xs-td-15" wrap="true">{{chcsubjectprofileItem?.pndtTesting.date}}</td>
-                                                        <td class="sp-xs-td-9"><b>Counsellor Name</b> </td>
+                                                        <td class="sp-xs-td-9"><b>{{'CounsellorName' | translate }}</b> </td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.counsellorName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'LabObstetricianName' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.pndtTesting.obstetritionName}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Clinical History</b></td>
+                                                        <td><b>{{'ClinicalHistory' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pndtTesting.clinicalHistory}}</td>
-                                                        <td><b>Examination</b></td>
+                                                        <td><b>{{'Examination' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pndtTesting.examination}}</td>
-                                                        <td><b>Procedure of Testing</b></td>
+                                                        <td><b>{{'ProcedureofTesting' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pndtTesting.procedureOfTesting}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>PNDT Diagnosis</b></td>
+                                                        <td><b>{{'PNDTDiagnosis' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pndtTesting.pndtDiagnosis}}</td>
-                                                        <td><b>PNDT Results</b></td>
+                                                        <td><b>{{'PNDTResults' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pndtTesting.pndtresults}} </td>
-                                                        <td><b>PNDT Side Effects</b></td>
+                                                        <td><b>{{'PNDTSideEffects' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.pndtTesting.pndtSideEffects}}
                                                         </td>
                                                     </tr>
@@ -1388,7 +1362,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2">Post PNDT Counselling</div>
+                                                                        <div class="p-2">{{'PostPNDTCounselling' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1399,17 +1373,17 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.date}}</td>
-                                                        <td class="sp-xs-td-9"><b>Counsellor Name</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'CounsellorName' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellorName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Counselling Status</b> </td>
+                                                        <td class="sp-xs-td-9"><b>{{'CounsellingStatus' | translate }}</b> </td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.postPndtCounselling.counsellingStatus}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Counselling Notes/Remarks</b></td>
+                                                        <td><b>{{'CounsellingNotes/Remarks' | translate }}</b></td>
                                                         <td colspan="3">{{chcsubjectprofileItem?.postPndtCounselling.counsellingNotes}}</td>
-                                                        <td><b>The couple has agreed for MTP</b> </td>
+                                                        <td><b>{{'ThecouplehasagreedforMTP' | translate }}</b> </td>
                                                         <td>{{chcsubjectprofileItem?.postPndtCounselling.agreedForMtp}}</td>
                                                     </tr>
                                                 </tbody>
@@ -1435,7 +1409,7 @@
                                                             <a href="#" class="pthead">
                                                                 <b>
                                                                     <div class="d-flex">
-                                                                        <div class="p-2"> MTP Service</div>
+                                                                        <div class="p-2"> {{'MTPService' | translate }}</div>
                                                                         <div class="ml-auto p-2"><i
                                                                                 class="fa fa-caret-down"></i></div>
                                                                     </div>
@@ -1446,23 +1420,23 @@
                                                 </thead>
                                                 <tbody class="d-none">
                                                     <tr>
-                                                        <td class="sp-xs-td-9"><b>Date</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.date}}</td>
-                                                        <td class="sp-xs-td-9"><b>Lab Obstetrician Name</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'LabObstetricianName' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.obstetritionName}}</td>
-                                                        <td class="sp-xs-td-9"><b>Clinical History</b></td>
+                                                        <td class="sp-xs-td-9"><b>{{'ClinicalHistory' | translate }}</b></td>
                                                         <td class="sp-xs-td-15">{{chcsubjectprofileItem?.mtpService.clinicalHistory}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Examination</b></td>
+                                                        <td><b>{{'Examination' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.mtpService.examination}}</td>
-                                                        <td><b>Procedure of Testing</b></td>
+                                                        <td><b>{{'ProcedureofTesting' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.mtpService.procedureOfTesting}}</td>
-                                                        <td><b>Side Effects</b></td>
+                                                        <td><b>{{'SideEffects' | translate }}</b></td>
                                                         <td>{{chcsubjectprofileItem?.mtpService.sideEffects}} </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Condition at Discharge</b></td>
+                                                        <td><b>{{'ConditionatDischarge' | translate }}</b></td>
                                                         <td colspan="5">{{chcsubjectprofileItem?.mtpService.conditionAtDischarge}}</td>
                                                     </tr>
                                                 </tbody>

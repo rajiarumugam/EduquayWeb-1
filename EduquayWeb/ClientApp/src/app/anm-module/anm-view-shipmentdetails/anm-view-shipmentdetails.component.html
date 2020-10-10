@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center">Shipment Details</h5>
+                                <h5 class="float-center">{{'ShipmentDetails' | translate }}</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -39,10 +39,10 @@
                     <div class="widget-content widget-content-area br-6">
                         <div class="row my-4">
                             <div class="col-md-4">
-                                <span><b>Shipment ID : </b></span><span>{{shipmentItem.shipmentId}}</span>
+                                <span><b>{{'ShipmentID' | translate }} : </b></span><span>{{shipmentItem.shipmentId}}</span>
                             </div>
                             <div class="col-md-4">
-                                <span><b>Shipment Date & Time : </b></span><span>{{shipmentItem.shipmentDateTime}}</span>
+                                <span><b>{{'ShipmentDate&Time' | translate }} : </b></span><span>{{shipmentItem.shipmentDateTime}}</span>
                             </div>                            
                         </div>
                         <div class="container-fluid">
@@ -53,35 +53,35 @@
                         </div>
                         <div class="row my-4">
                             <div class="col-md-3">
-                                <span><b>ANM Name : </b></span><span>{{shipmentItem.anmName}}</span>
+                                <span><b>{{'ANMName' | translate }} : </b></span><span>{{shipmentItem.anmName}}</span>
                             </div>
                             
                             <div class="col-md-3">
-                                <span><b>RI Point : </b></span><span>{{shipmentItem.riPoint}}</span>
+                                <span><b>{{'RIPoint' | translate }} : </b></span><span>{{shipmentItem.riPoint}}</span>
                             </div>
                             <div class="col-md-3">
-                                <span><b>ILR Point : </b></span><span>{{shipmentItem.ilrPoint}}</span>
+                                <span><b>{{'ILRPoint' | translate }} : </b></span><span>{{shipmentItem.ilrPoint}}</span>
                             </div>
                             <div class="col-md-3">
-                                <span><b>Receiving Testing CHC : </b></span><span>{{shipmentItem.testingCHC}}</span>
+                                <span><b>{{'ReceivingTestingCHC' | translate }}: </b></span><span>{{shipmentItem.testingCHC}}</span>
                             </div>
                         </div>
                         <div class="row my-4" [hidden]="shipmentItem.alternateAVD">
                             <div class="col-md-3">
-                                <span><b>AVD Name : </b></span><span>{{shipmentItem.avdName}}</span>
+                                <span><b>{{'AVDName' | translate }} : </b></span><span>{{shipmentItem.avdName}}</span>
                             </div>
                             <div class="col-md-3">
-                                <span><b>Contact Number : </b></span><span>{{shipmentItem.contactNo}}</span>
+                                <span><b>{{'ContactNumber' | translate }} : </b></span><span>{{shipmentItem.contactNo}}</span>
                             </div>
                             
                             
                         </div>
                         <div class="row my-4" [hidden]="!shipmentItem.alternateAVD">
                             <div class="col-md-3">
-                                <span ><b>Alternate AVD Name : </b></span><span>{{shipmentItem.alternateAVD}}</span>
+                                <span ><b>{{'AlternateAVDName' | translate }} : </b></span><span>{{shipmentItem.alternateAVD}}</span>
                             </div>
                             <div class="col-md-6">
-                                <span><b>Alternate AVD Contact Number : </b></span><span>{{shipmentItem.alternateAVDContactNo}}</span>
+                                <span><b>{{'AlternateAVDContactNumber' | translate }} : </b></span><span>{{shipmentItem.alternateAVDContactNo}}</span>
                                 <!-- <span [hidden]="!shipmentItem.alternateAVDContactNo"><b>Alternate AVD Contact Number : </b></span><span>{{shipmentItem.alternateAVDContactNo}}</span> -->
                             </div>
                         </div>
@@ -90,12 +90,12 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="text-center"><span>S.No</span></th>
-                                        <th class="text-center"> <span>Subject Name</span></th>
-                                        <th class="text-center"><span>Subject ID</span></th>
-                                        <th class="text-center"><span>RCH ID</span></th>
-                                        <th class="text-center"><span>Barcode</span></th>
-                                        <th class="text-center"><span>Sample Collection Date & Time</span></th>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th class="text-center"> <span>{{'SubjectName' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'SubjectID' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'Barcode' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'SampleCollectionDate_Time' | translate }}</span></th>
                                     </tr>
 
                                 </thead>

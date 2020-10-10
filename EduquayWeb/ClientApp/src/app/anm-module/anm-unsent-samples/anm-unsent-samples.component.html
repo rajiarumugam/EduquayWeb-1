@@ -10,16 +10,16 @@
         <table id="unsentsample-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>
-                    <th class="text-center"><span>S.No</span></th>
-                    <th class="text-center"><span>Subject Name</span></th>
-                    <th class="text-center">Subject ID</th>
-                    <th class="text-center"><span>RCH ID</span></th>
+                    <th><span>{{'SNo' | translate }}</span></th>
+                    <th><span>{{'SubjectName' | translate }}</span></th>
+                    <th><span>{{'SubjectID' | translate }}</span></th>
+                    <th><span>{{'RCHID' | translate }}</span></th>
                     <!-- <th class="text-center">Subject Type</th> -->
                     <!-- <th class="text-center">Contact</th> -->
-                    <th class="text-center">Barcode</th>
-                    <th class="text-center us-datetime">Sample Collection Date & Time</th>
-                    <th class="text-center agingsample">Aging of Sample in hours</th>
-                    <th class="text-center">GA</th>
+                    <th class="text-center">{{'Barcode' | translate }}</th>
+                    <th class="text-center us-datetime">{{'SampleCollectionDate_Time' | translate }}</th>
+                    <th class="text-center agingsample">{{'AgingofSample' | translate }}</th>
+                    <th><span>{{'GA' | translate }}</span></th>
                     <!-- <th><input type="checkbox" id="select_all" class="" /></th> -->
                     <th class="text-center" style="width:4rem">
                         <div class="n-chk">
@@ -62,7 +62,7 @@
     <div class="d-flex flex-row-reverse">
         <div class="px-1">
             <a class="btn btn-primary"  (click)="getCreateShipmentConfirmation(unsentSamplesDetail)"
-            role="button">Create Shipment</a>
+            role="button">{{'CreateShipment' | translate }}</a>
         </div> 
         <div class="px-1">
             <a class="btn btn-danger float-right mr-2" (click)="getExpirySamplesConfirmation()"
@@ -77,10 +77,11 @@
 <!-- The Modal -->
     <ng-template #unsentSamplesDetail let-modal>
             <div class="modal-header">
-                <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment</h5>
+                <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}</h5>
                 <button type="button" class="close" (click)="modal.dismiss()">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        viewBox="0 0 24 
+                        24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-x">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -95,14 +96,14 @@
                         <div class="col-md-12" id="text">
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label>ANM Name <span
+                                        <label>{{'ANMName' | translate }} <span
                                             class="manto"></span></label>
                                             <input class="form-control field" readonly="" type="text" placeholder="ANM Name"
                                             [(ngModel)]="name" name="ANMName" >
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label [ngClass]="{'label-border-class':DDriPoint.invalid && DDriPoint.touched || unsentsampleForm.submitted && DDriPoint.invalid}" for="inputriPoint">RI Point<span
+                                        <label [ngClass]="{'label-border-class':DDriPoint.invalid && DDriPoint.touched || unsentsampleForm.submitted && DDriPoint.invalid}" for="inputriPoint">{{'RIPoint' | translate }} <span
                                             class="manto">*</span></label>
                                             <select class="form-control" (change)="onChangeriPoint($event.target.value)"
                                             name=DDriPoint #DDriPoint="ngModel" [class.is-invalid]="DDriPoint.invalid && DDriPoint.touched || unsentsampleForm.submitted && DDriPoint.invalid"
@@ -119,7 +120,7 @@
                                               </div>  
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label [ngClass]="{'label-border-class':DDilrPoint.invalid && DDilrPoint.touched || unsentsampleForm.submitted && DDilrPoint.invalid}" for="inputilrPoint">ILR Point<span
+                                        <label [ngClass]="{'label-border-class':DDilrPoint.invalid && DDilrPoint.touched || unsentsampleForm.submitted && DDilrPoint.invalid}" for="inputilrPoint">{{'ILRPoint' | translate }} <span
                                             class="manto">*</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="DDilrPoint" #DDilrPoint="ngModel" [class.is-invalid]="DDilrPoint.invalid && DDilrPoint.touched || unsentsampleForm.submitted && DDilrPoint.invalid"
@@ -136,7 +137,7 @@
                                               </div> 
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || unsentsampleForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">Receiving Testing CHC<span
+                                        <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || unsentsampleForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">{{'ReceivingTestingCHC' | translate }} <span
                                             class="manto">*</span></label>
                                         <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || unsentsampleForm.submitted && DDLtestingChc.invalid"
                                             class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
@@ -155,7 +156,7 @@
 
                                 <div class="form-row my-2">
                                     <div class="form-group col-md-3">
-                                        <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid}" for="inputAvdName">AVD Name<span
+                                        <label [ngClass]="{'label-border-class':DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid}" for="inputAvdName">{{'AVDName' | translate }}<span
                                             class="manto"> *</span></label>
                                         <input type="text"
                                         name="DDLavdName" #DDLavdName="ngModel" [class.is-invalid]="DDLavdName.invalid && DDLavdName.touched || unsentsampleForm.submitted && DDLavdName.invalid"
@@ -168,7 +169,7 @@
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || unsentsampleForm.submitted && avdcontactNo.invalid}">Contact Number<span
+                                        <label [ngClass]="{'label-border-class':avdcontactNo.invalid && avdcontactNo.touched || unsentsampleForm.submitted && avdcontactNo.invalid}">{{'ContactNumber' | translate }}<span
                                             class="manto"> *</span></label>
                                         <input class="form-control field" name="avdcontactNo" #avdcontactNo="ngModel" ngModel maxlength="10"
                                         numbersOnly oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
@@ -183,14 +184,14 @@
                                             </div>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label>Alternate AVD Name<span
+                                        <label>{{'AlternateAVDName' | translate }}<span
                                             class="manto"></span></label>
                                         <input class="form-control field" name="alternatename" #alternatename="ngModel" ngModel autocomplete="off"
                                         type="text" placeholder="Alternate AVD Name" [(ngModel)]="alternateAVD" (keyup)="hasAlternateAvdName=hasAlternateContactNumber=true">     
                                         <small class=" ml-2 text-danger" [class.d-none]="hasAlternateAvdName">Please enter altername AVD Name</small>  
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label>Alternate AVD Contact Number<span
+                                        <label>{{'AlternateAVDContactNumber' | translate }}<span
                                             class="manto"></span></label>
                                         <input class="form-control field" name="alternatecontactNo" [class.is-invalid]="alternatecontactNo.invalid && alternatecontactNo.touched || unsentsampleForm.submitted && alternatecontactNo.invalid"
                                         #alternatecontactNo="ngModel" ngModel maxlength="10" numbersOnly autocomplete="off"
@@ -217,7 +218,7 @@
                                 </div>
                                 <div class="form-row my-2" [formGroup]="popupform">
                                     <div class="form-group col-md-3">
-                                        <label class="note">Shipment Date & Time <span class="manto">*</span></label>
+                                        <label class="note">{{'ShipmentDateAndTime' | translate }} <span class="manto">*</span></label>
                                         <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
                                           placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
                                         <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
@@ -230,9 +231,9 @@
                                 <div class="modal-footer">
                                     <span class="mr-auto d-none d-sm-none d-md-none d-lg-block"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>                                   
                                     <button class="btn"  (click)="modal.dismiss()"><i
-                                        class="flaticon-cancel-12"></i> Close</button>
+                                        class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                                     <button type="submit" class="btn btn-primary"
-                                        id="linktobuttonpickpak">Submit</button>
+                                        id="linktobuttonpickpak">{{'Submit' | translate }}</button>
                                 </div>
 
 
