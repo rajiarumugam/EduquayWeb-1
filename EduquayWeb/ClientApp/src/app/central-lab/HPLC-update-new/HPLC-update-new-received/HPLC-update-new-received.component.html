@@ -28,7 +28,7 @@
             <td style="text-align: center;">{{ person.hbD }}</td>
             <td style="text-align: center;">{{ person.hbF }}</td>
             <td style="text-align: center;">{{ person.hbS }}</td>
-            <td style="text-align: center;">{{ person.testedDateTime }}</td>
+            <td style="text-align: center;">{{ person.testedDate }}</td>
             <td style="text-align: center;"><button class="button-cls" [ngClass]="{'rerun-btn-disabled': (person.testId == 0) ? true : false}" (click)="confirm(person,1);" [disabled]="(person.testId == 0) ? true : false">Confirm</button></td>
         </tr>
     </tbody>
