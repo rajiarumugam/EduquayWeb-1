@@ -42,4 +42,17 @@ export class centralsampleService {
     return this.http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
+  addHSBCtestNew(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDHPLCTETRESULT);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+  retriveHPLCtestData()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEHPLCTEST+user.centralLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
 }

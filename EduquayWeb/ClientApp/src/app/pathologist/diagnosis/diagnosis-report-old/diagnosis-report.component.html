@@ -192,13 +192,13 @@
                                 <div class="col-sm-8">
                                     <span class="ml-1 n-chk">
                                         <label class="maritalstatus-radio-cont">
-                                            <input type="radio" value="abnormal" formControlName="swapcase">
+                                            <input type="radio" value="abnormal" formControlName="swapcase" (change)="radioChange($event)">
                                               <span class="radio-span">Abnormal</span>
                                           </label>
                                        </span>
                                     <span class="n-chk">
                                         <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
-                                            <input type="radio" value="normal" formControlName="swapcase">
+                                            <input type="radio" value="normal" formControlName="swapcase" (change)="radioChange($event)">
                                             <span class="radio-span">Normal</span>
                                           </label>
                                         </span>
@@ -208,28 +208,12 @@
 
                             <div class="form-group col-md-4">
                                 <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> Lab Diagnosis</b><span class="manto"> *</span></span>
-                                <!--<select name="occupationoption" class="form-control field" id="occuptnid"
+                                <select name="occupationoption" class="form-control field" id="occuptnid"
                                             tabindex="7" [(ngModel)]="selectedDiagnosis" formControlName = "cd" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.cd.invalid }">
                                             <option [ngValue]="null">Select Diagnosis</option>
                                             <option *ngFor="let clinical of clinicalDiagnosisData" [value]="clinical.id">
                                             {{ clinical.diagnosisName }}</option>
-                                        </select>-->
-
-                                        <ng-multiselect-dropdown #multiSelect
-                                                    [placeholder]="'Select'" 
-                                                    [data]="clinicalDiagnosisData" 
-                                                    [(ngModel)]="selectedDiagnosis"
-                                                    [formControl]="f.cd" 
-                                                    [settings]="settings"
-                                                    [disabled]="false"
-                                                    (onFilterChange)="onFilterChange($event)"
-                                                     (onDropDownClose)="onDropDownClose($event)"
-                                                    (onSelect)="onItemSelect($event)" 
-                                                    (onDeSelect)="onDeSelect($event)"
-                                                    (onSelectAll)="onSelectAll($event)"
-                                                    (onDeSelectAll)="onDeSelectAll($event)"
-                                                    >
-                                                        </ng-multiselect-dropdown>
+                                        </select>
                             </div>
                         
                             <div class="form-group col-md-8">
@@ -239,7 +223,7 @@
                                     <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData; let i = index">
                                         <span class="ml-1 n-chk">
                                             <label class="new-control new-checkbox checkbox-outline-primary">
-                                                <input #checkboxes type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked">
+                                                <input #checkboxes type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked" [disabled]="hplc.disable">
                                                   <span class="radio-span">{{hplc.hplcResultName}}</span>
                                               </label>
                                            </span>

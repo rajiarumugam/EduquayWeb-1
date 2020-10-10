@@ -66,7 +66,29 @@ export class LoginComponent implements OnInit {
         if (this.authResult && (this.authResult.status)) {
           this.tokenService.setToken('currentUser', this.authResult.token, 'somename');
           this.tokenService.setUser('lu', this.authResult.userDetail);
-          this.router.navigate(['/app'], { relativeTo: this.route });
+          console.log(this.authResult.userDetail);
+          if(this.authResult.userDetail.userRole === "ANM")
+              this.router.navigate(['/app/anm-notification'], { relativeTo: this.route });
+          else if(this.authResult.userDetail.userRole === "CHCLTLEVEL1" || this.authResult.userDetail.userRole === "CHCSRLT")
+              this.router.navigate(['/app/chc-notification'], { relativeTo: this.route });
+          else if(this.authResult.userDetail.userRole === "CHCLTLEVEL2")
+              this.router.navigate(['/app/chc-sample'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "HPLCLT")
+              this.router.navigate(['/app/centrallab'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "PATHO")
+              this.router.navigate(['/app/pathologist-hplc/abnormal'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "MOLECULARLT")
+              this.router.navigate(['/app/molecularlab'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "COUNSELLOR")
+              this.router.navigate(['/app/schedule-pre-pndtc'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "PNDTOBSTETRICIAN")
+              this.router.navigate(['/app/pndtc-testing'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "MTPOBSTETRICIAN")
+              this.router.navigate(['/app/mtp-service'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "DC")
+              this.router.navigate(['/app/dc-notification'], { relativeTo: this.route });
+
+
         } else if ((this.authResult && (!this.authResult.status))) {
           this.isLoginError = true;
           this.loginErrorMessage = this.authResult.errors[0];

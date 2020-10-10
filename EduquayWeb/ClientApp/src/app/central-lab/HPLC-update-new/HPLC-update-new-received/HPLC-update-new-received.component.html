@@ -1,0 +1,35 @@
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th><span>{{'SNo' | translate }}</span></th>
+            <th><span>{{'SubjectID' | translate }}</span></th>
+            <th><span>{{'RCHID' | translate }}</span></th>
+            <th><span>{{'Barcode' | translate }}</span></th>
+            <th><span>{{'HbA0' | translate }}</span></th>
+            <th><span>{{'HbA2' | translate }}</span></th>
+            <!--<th style="text-align: center;"><b>{{'HbLA1c/CHb-1' | translate }}</b></th>
+            <th style="text-align: center;"><b>{{'HbLA1c/CHb-2' | translate }}</b></th>-->
+            <th><span>{{'HbD' | translate }}</span></th>
+            <th><span>{{'HbF' | translate }}</span></th>
+            <th><span>{{'HbS' | translate }}</span></th>
+            <th><span>{{'TestedTime' | translate }}</span></th>
+            <th><span>{{'validateResult' | translate }}</span></th>
+        </tr>
+       
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of chcReceiptsData;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.hbA0 }}</td>
+            <td style="text-align: center;">{{ person.hbA2 }}</td>
+            <td style="text-align: center;">{{ person.hbD }}</td>
+            <td style="text-align: center;">{{ person.hbF }}</td>
+            <td style="text-align: center;">{{ person.hbS }}</td>
+            <td style="text-align: center;">{{ person.testedDate }}</td>
+            <td style="text-align: center;"><button class="button-cls" [ngClass]="{'rerun-btn-disabled': (person.testId == 0) ? true : false}" (click)="confirm(person,1);" [disabled]="(person.testId == 0) ? true : false">Confirm</button></td>
+        </tr>
+    </tbody>
+</table>
