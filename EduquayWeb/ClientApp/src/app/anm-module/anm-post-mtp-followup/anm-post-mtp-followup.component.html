@@ -14,30 +14,27 @@
             [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead class="tablecss">
                 <tr>
-                    <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
-                    <th rowspan="2" class="nt-border-right"><span>Subject Name</span>
+                    <th rowspan="2" class="nt-border-right"><span>{{'SNo' | translate }}</span></th>
+                    <th rowspan="2" class="nt-border-right"><span>{{'SubjectName' | translate }}</span>
                     </th>
-                    <th rowspan="2" class="nt-border-right">Subject ID</th>
-                    <th rowspan="2" class="nt-border-right"><span>RCH ID</span></th>
-                    <th rowspan="2" class="nt-border-right">Contact</th>
-                    <th colspan="3" class="nt-border-right">MTP Procedure</th>
-                    <th colspan="3" class="nt-border-right">Status</th>
-                    <th rowspan="2" class="nt-border-right"><span>Update Status</span>
+                    <th rowspan="2" class="nt-border-right">{{'SubjectID' | translate }}</th>
+                    <th rowspan="2" class="nt-border-right"><span>{{'RCHID' | translate }}</span></th>
+                    <th rowspan="2" class="nt-border-right">{{'Contact' | translate }}</th>
+                    <th colspan="3" class="nt-border-right">{{'MTPProcedure' | translate }}</th>
+                    <th colspan="3" class="nt-border-right">{{'Status' | translate }}</th>
+                    <th rowspan="2" class="nt-border-right"><span>{{'UpdateStatus' | translate }}</span>
 
 
                 </tr>
                 <tr class="combined">
                     <!-- <th class="text-center">S.No</th> -->
-                    <th class="text-center">Date</th>
+                    <th class="text-center">{{'Date' | translate }}</th>
 
-                    <th class="text-center">Location</th>
-                    <th class="nt-border-right text-center">Obstetrician Name</th>
-                    <th class="text-center">1st Follow-up
-                        (MTP+40)</th>
-                    <th class="text-center">2nd Follow-up
-                        (MTP+50)</th>
-                    <th class="nt-border-right text-center">3rd Follow-up
-                        (MTP+60)</th>
+                    <th class="text-center">{{'Location' | translate }}</th>
+                    <th class="nt-border-right text-center">{{'ObstetricianName' | translate }}</th>
+                    <th class="text-center">{{'1stFollow-up(MTP+40)' | translate }}</th>
+                    <th class="text-center">{{'2nd Follow-up(MTP+50)' | translate }}</th>
+                    <th class="nt-border-right text-center">{{'3rd Follow-up(MTP+60)' | translate }}</th>
 
 
                 </tr>
@@ -99,7 +96,7 @@
                         </div>
                     </td>
                     <td>
-                        <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus(sample, i)" role="button">Update</a> 
+                        <a class="btn btn-primary float-right" (click)="postmtpUpdateStatus(sample, i)" role="button">{{'Update' | translate }}</a> 
                     </td>
                 </tr>
 

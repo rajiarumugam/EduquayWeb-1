@@ -23,7 +23,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Notifications</h5>
+                <h5 class="float-center">{{'Notifications' | translate }}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -41,48 +41,48 @@
                 <a class="nav-link active" id="damagedsample-tab" data-toggle="tab" [ngClass]="{'active': currentPage == 'anm-notification' ? true : false}"
                    [routerLink]="['/app/anm-notification']" role="tab" aria-controls="home"
                    aria-selected="true">
-                  Damaged Samples<span class="badge badge-pill badge-warning shadow mx-1">{{damagedSample}}</span>
+                  {{'DamagedSamples' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{damagedSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/unsent']"
                 [ngClass]="{'active': currentPage == 'unsent' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
-                  Unsent Samples<span class="badge badge-pill badge-warning shadow ml-1">{{unsentSample}}</span>
+                 {{'UnsentSamples' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{unsentSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="timeoutexpiry-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/timeout']"
                 [ngClass]="{'active': currentPage == 'timeout' ? true : false}" role="tab" aria-controls="contact" aria-selected="false">
-                  Sample Timeout<span class="badge badge-pill badge-warning shadow ml-1">{{timeoutSample}}</span>
+                  {{'SampleTimeout' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{timeoutSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="positivesub-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/positive']"
                 [ngClass]="{'active': currentPage == 'positive' ? true : false}" role="tab" aria-controls="contact" aria-selected="false">
-                  Positive Subjects<span class="badge badge-pill badge-warning shadow ml-1">{{positiveSample}}</span>
+                  {{'PositiveSubjects' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{positiveSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="PNDTC-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/pndreferral']" role="tab"
                 [ngClass]="{'active': currentPage == 'pndreferral' ? true : false}" aria-controls="contact" aria-selected="false">
-                  PND Referral<span class="badge badge-pill badge-warning shadow ml-1">{{pndReferralSample}}</span>
+                 {{'PNDReferral' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{pndReferralSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="MTP-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/mtpreferral']" role="tab"
                 [ngClass]="{'active': currentPage == 'mtpreferral' ? true : false}" aria-controls="contact" aria-selected="false">
-                  MTP Referral<span class="badge badge-pill badge-warning shadow ml-1">{{mtpReferralSample}}</span>
+                  {{'MTPReferral' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{mtpReferralSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="pendingCHC-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/updatechc']" role="tab"
                 [ngClass]="{'active': currentPage == 'updatechc' ? true : false}" aria-controls="contact" aria-selected="false">
-                   Update CHC Reg<span class="badge badge-pill badge-warning shadow ml-1">{{updateChcSample}}</span>
+                   {{'UpdateCHCReg' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{updateChcSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="postmtp-tab" data-toggle="tab" [routerLink]="['/app/anm-notification/postmtp']" role="tab"
-                [ngClass]="{'active': currentPage == 'postmtp' ? true : false}"  aria-controls="contact" aria-selected="false">Post MTP Follow-up <span
+                [ngClass]="{'active': currentPage == 'postmtp' ? true : false}"  aria-controls="contact" aria-selected="false">{{'PostMTPFollow-up' | translate }} <span
                         class="badge badge-pill badge-warning shadow ml-1">{{postmtpfollowup}}</span></a>
             </li>
             </ul>

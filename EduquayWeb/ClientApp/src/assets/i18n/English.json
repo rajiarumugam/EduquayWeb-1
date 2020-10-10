@@ -274,6 +274,18 @@
 "CentralLab":"Central Lab",
 "HPLCTestingDateTime":"HPLC Testing Date & Time",
 "TestedTime":"Tested Time",
-"validateResult":"Validate result"
+"validateResult":"Validate result",
+"LogisticsServiceProvider":"Logistics Service Provider",
+"CHCLabTechnicianName":"CHC Lab Technician Name",
+"ScreeningCenterShipmentLog":"Screening Center ShipmentLog",
+"Pre-natalDiagnosisCounselling": "Pre-natal Diagnosis Counselling",
+"RegisterBy": "Register By",
+"Pick&PackforHPLClab": "Pick & Pack for HPLC lab",
+"PendingforPickup": "Pending for Pickup",
+"StartPickandPack": "Start Pick and Pack",
+"PrimaryTube": "Primary Tube",
+"LabTechnician":"Lab Technician",
+"AliquotedHPLCTube": "Aliquoted HPLC Tube",
+"ShipmentLogforHPLClab": "ShipmentLog for HPLC lab"
 
 }

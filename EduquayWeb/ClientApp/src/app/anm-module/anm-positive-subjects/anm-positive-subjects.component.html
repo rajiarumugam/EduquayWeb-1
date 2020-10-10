@@ -14,15 +14,15 @@
         <table id="positivesubject-tblconfig" class="table table-bordered table-hover tbl-ht"  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>
-                    <th class="text-center">S.No</th>
-                    <th class="text-center">Subject Name</th>
-                    <th class="text-center">Subject ID</th>
-                    <th class="text-center">RCH ID</th>
-                    <th class="text-center">Contact</th>
-                    <th class="text-center">HPLC Test Results</th>
-                    <th class="text-center">GA</th>
-                    <th class="text-center">Notified</th>
-                    <th class="no-content">Reg Spouse</th>
+                    <th><span>{{'SNo' | translate }}</span></th>
+                    <th><span>{{'SubjectName' | translate }}</span></th>
+                    <th><span>{{'SubjectID' | translate }}</span></th>
+                    <th><span>{{'RCHID' | translate }}</span></th>
+                    <th><span>{{'Contact' | translate }}</span></th>
+                    <th class="text-center">{{'HPLCTestResults' | translate }}</th>
+                    <th><span>{{'GA' | translate }}</span></th>
+                    <th><span>{{'Notified' | translate }}</span></th>
+                    <th class="no-content">{{'RegSpouse' | translate }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,14 +53,14 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary float-right" (click)="positiveSubjectUpdateStatus()"  role="button">Update Status</a>
+            <a class="btn btn-primary float-right" (click)="positiveSubjectUpdateStatus()"  role="button">{{'UpdateStatus' | translate }}</a>
         </div>
     </div>
 </div>
 <!-- The Modal -->
 <ng-template #positiveSubjectsDetail let-modal>
     <div class="modal-header">
-        <h4 class="modal-title modaltitle">Spouse Registration</h4>
+        <h4 class="modal-title modaltitle">{{'SpouseRegistration' | translate }}</h4>
         <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

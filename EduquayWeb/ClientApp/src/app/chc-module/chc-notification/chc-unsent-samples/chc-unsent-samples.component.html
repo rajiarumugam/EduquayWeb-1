@@ -10,14 +10,14 @@
         <table id="chc-unsentsample-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>
-                    <th class="text-center"><span>S.No</span></th>
-                    <th class="text-center"><span>Subject Name</span></th>
-                    <th class="text-center">Subject ID</th>
-                    <th class="text-center"><span>RCH ID</span></th>
-                    <th class="text-center">Barcode</th>
-                    <th class="text-center us-datetime">Sample Collection Date & Time</th>
-                    <th class="text-center agingsample">Aging of Sample in hours</th>
-                    <th class="text-center">GA</th>
+                    <th class="text-center"><span>{{'SNo' | translate }}</span></th>
+                    <th class="text-center"><span>{{'SubjectName' | translate }}</span></th>
+                    <th class="text-center">{{'SubjectID' | translate }}</th>
+                    <th class="text-center"><span>{{'RCHI' | translate }}D</span></th>
+                    <th class="text-center">{{'Barcode' | translate }}</th>
+                    <th class="text-center us-datetime">{{'SampleCollectionDate_Time' | translate }}</th>
+                    <th class="text-center agingsample">{{'AgingofSample' | translate }}</th>
+                    <th class="text-center">{{'GA' | translate }}</th>
                     <th class="text-center rch">
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -59,7 +59,7 @@
     <div class="d-flex flex-row-reverse">
         <div class="px-1"> 
             <a class="btn btn-primary float-right"  (click)="getUnsentCreateShipmentConfirmation(chcunsentSamplesDetail)"
-                role="button">Create Shipment</a>
+                role="button">{{'CreateShipment' | translate }}</a>
         </div>
         <div class="px-1"> 
             <a class="btn btn-danger float-right mr-2" (click)="getUnsentExpirySamplesConfirmation()"
@@ -75,7 +75,7 @@
 <!-- The Modal -->
 <ng-template #chcunsentSamplesDetail let-modal>
     <div class="modal-header">
-        <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment
+        <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}
         </h5>
         <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -96,7 +96,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label [ngClass]="{'label-border-class':!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid}">
-                                    CHC Lab Technician Name <span
+                                    {{'CHCLabTechnicianName' | translate }} <span
                                     class="manto"></span></label>
                                     <input class="form-control field" name="chctechnicianname" #chctechnicianname="ngModel" ngModel 
                                     [class.is-invalid]="!chctechnicianname.valid && chctechnicianname.touched || chcShipmentForm.submitted && chctechnicianname.invalid" readonly 
@@ -108,7 +108,7 @@
                                     </div>      
                             </div>
                             <div class="form-group col-md-3">
-                                <label [ngClass]="{'label-border-class':!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid}"> Collection CHC <span
+                                <label [ngClass]="{'label-border-class':!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid}"> {{'CollectionCHC' | translate }} <span
                                     class="manto"> </span></label>
                                 <input class="form-control field" name="collectionchc" #collectionchc="ngModel" ngModel 
                                 [class.is-invalid]="!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid" readonly 
@@ -121,7 +121,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || chcShipmentForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">
-                                    Receiving Testing CHC <span class="manto">*</span></label>
+                                    {{'ReceivingTestingCHC' | translate }} <span class="manto">*</span></label>
                                     <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || chcShipmentForm.submitted && DDLtestingChc.invalid"
                                     class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
                                     <option value="" selected>--Select--</option>
@@ -136,7 +136,7 @@
                                   </div>
                             </div>
                              <div class="form-group col-md-3">
-                                <label [ngClass]="{'label-border-class':DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid}" for="inputAvdName">Logistics Service Provider<span
+                                <label [ngClass]="{'label-border-class':DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid}" for="inputAvdName">{{'LogisticsServiceProvider' | translate }}<span
                                     class="manto"> *</span></label>
                                 <select name="inputAvdName"
                                 name="DDLserviceproviderName" #DDLserviceproviderName="ngModel" [class.is-invalid]="DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid"
@@ -156,7 +156,7 @@
 
                         <div class="form-row my-2">   
                             <div class="form-group col-md-3">
-                                <label [ngClass]="{'label-border-class':!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid}"> Delivery Executive Name <span
+                                <label [ngClass]="{'label-border-class':!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid}"> {{'DeliveryExecutiveName' | translate }} <span
                                     class="manto"> *</span></label>
                                 <input class="form-control field" name="deliveryexecutivename" #deliveryexecutivename="ngModel" ngModel autocomplete="off"
                                 [class.is-invalid]="!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid" required 
@@ -169,7 +169,7 @@
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid}">Contact Number <span
+                                <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid}">{{'ContactNumber' | translate }} <span
                                     class="manto">*</span></label>
                                 <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10"
                                 numbersOnly oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" autocomplete="off"
@@ -184,7 +184,7 @@
                                     </div>
                             </div>
                             <div class="form-group col-md-3" [formGroup]="popupform">
-                                <label class="note">Shipment Date & Time <span class="manto">*</span></label>
+                                <label class="note">{{'ShipmentDate&Time' | translate }} <span class="manto">*</span></label>
                                 <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
                                  [config]="shipmentDateOptions" placeholder="Select Date.." formControlName = "shipmentDate" [ngModel]="dataOfPickPack">
                                 </ng2-flatpickr>
@@ -195,9 +195,9 @@
                         <div class="modal-footer">
                             <span class="mr-auto d-none d-sm-none d-md-none d-lg-block"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>
                             <button type="submit" class="btn btn-primary"
-                                id="linktobuttonpickpak">Submit</button>
+                                id="linktobuttonpickpak">{{'Submit' | translate }}</button>
                             <button class="btn"  (click)="modal.dismiss()"><i
-                                    class="flaticon-cancel-12"></i> Close</button>
+                                    class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
                         </div>
 
 
