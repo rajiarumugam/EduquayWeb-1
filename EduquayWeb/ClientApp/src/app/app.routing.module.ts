@@ -112,6 +112,7 @@ import { DiagosisHPLCmainComponent } from "./pathologist/diagnosis/diagnosis-hpl
 import { DiagnosisHPLCAbnormaComponent } from "./pathologist/diagnosis/diagnosis-hplc-abnormal/diagnosis-hplc-abnormal.component";
 import {DiagnosisHPLCAbEditComponent } from "./pathologist/diagnosis/diagnosis-hplc-edit/diagnosis-hplc-edit.component";
 import { DiagosisReportComponent } from "./pathologist/diagnosis/diagnosis-report/diagnosis-report.component";
+import { DiagosisReportComponent1 } from "./pathologist/diagnosis/diagnosis-report-old/diagnosis-report.component";
 import { DiagosisReportmainComponent } from "./pathologist/diagnosis/diagnosis-report-main/diagnosis-report-main.component";
 import { ChcSamplePickpackResolverService } from "./shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-resolver.service";
 
@@ -719,7 +720,8 @@ export const RoutingComponents = [
   CHCUpdateCBCCHCComponent,
   CBCCHCReceivedSampleComponent,
   HPLCUpdateNewComponent,
-  HPLCReceivedNewComponent
+  HPLCReceivedNewComponent,
+  DiagosisReportComponent1
 
 ];
 
