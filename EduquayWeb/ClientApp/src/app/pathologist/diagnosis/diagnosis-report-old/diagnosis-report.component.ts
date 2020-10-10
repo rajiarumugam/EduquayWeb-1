@@ -17,7 +17,7 @@ import * as moment from 'moment';
   templateUrl: './diagnosis-report.component.html',
   styleUrls: ['./diagnosis-report.component.css']
 })
-export class DiagosisReportComponent implements OnInit {
+export class DiagosisReportComponent1 implements OnInit {
   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   receivedSampleCount;
   uploadCBCCount = 0;
