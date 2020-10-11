@@ -229,6 +229,8 @@ import { HPLCUpdateNewComponent } from "./central-lab/HPLC-update-new/HPLC-updat
 import { HPLCReceivedNewComponent } from './central-lab/HPLC-update-new/HPLC-update-new-received/HPLC-update-new-received.component';
 import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-chc/chc-update-cbc-chc.component";
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
+import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
+import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -241,6 +243,7 @@ const routes: Routes = [
       { path: 'about', component: AboutUsComponent, pathMatch: 'full'},      
       { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
       { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
+      { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'}
     ]
   },
 
@@ -539,6 +542,7 @@ const routes: Routes = [
       { path: 'anm-pickpack', component: AnmPickandPackComponent },  // resolve: {picknpackData: PicknpackResolverService}
       { path: 'anm-shipment', component: AnmShipmentComponent }, // resolve: {shipmentLogData: ShipmentlogResolverService }
       { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
+      { path: 'chc-reg-viewsubjectprofile', component: AnmChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
       { path: 'dc-notification', component: DistrictCoordinatorMainComponent,
@@ -721,7 +725,10 @@ export const RoutingComponents = [
   CBCCHCReceivedSampleComponent,
   HPLCUpdateNewComponent,
   HPLCReceivedNewComponent,
-  DiagosisReportComponent1
+  DiagosisReportComponent1,
+  GetOtpComponent,
+  ChcSubjectProfileComponent,
+  AnmChcSubjectProfileComponent
 
 ];
 
