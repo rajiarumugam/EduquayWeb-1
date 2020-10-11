@@ -33,6 +33,7 @@
                     </div>
                 </div>
             </div>
+            <!-- <app-anm-chc-subject-profile #anmchcsubjectprofile></app-anm-chc-subject-profile> -->
                 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                     <div class="widget-content widget-content-area br-6">
                             
@@ -130,8 +131,10 @@
                                         <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
-                                        <!-- <td style="text-align: center"><a href="#"><i class="fa fa-print text-primary"
-                                                                    aria-hidden="true"></i> </a></td> -->
+                                        <!-- <td style="text-align: center"><a *ngIf="subjectinfo.primaryDetail.registeredFrom === 'CHC'" 
+                                            (click)="anmchcsubjectprofile.chcSubjectProfiledata()">
+                                            <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i>
+                                         </a></td> -->
                                     </tr>
 
                                 </tbody>

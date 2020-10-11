@@ -14,6 +14,7 @@ import { user } from 'src/app/shared/auth-response';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 
 
@@ -188,7 +189,8 @@ export class AnmSubjectProfileComponent implements OnInit {
     private loaderService: LoaderService,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private dateservice: DateService
   ) { }
 
   ngOnInit() {
@@ -319,6 +321,7 @@ export class AnmSubjectProfileComponent implements OnInit {
             //this.subjectprofileLists = this.subjectProfileResponse.subjectsDetail;
             this.subjectprofileItem = this.anmsubjectProfileResponse.subjectsDetail.find(profile => profile.primaryDetail.uniqueSubjectId === this.uniqueSubjectId);
             this.selecteddob = this.subjectprofileItem.primaryDetail.dob;
+            this.selectedage = this.subjectprofileItem.primaryDetail.age;
             //this.dobPicker.flatpickr.setDate(this.subjectprofileItem.primaryDetail.dob, true, 'm/d/Y');
             this.selectedg = this.subjectprofileItem.pregnancyDetail.g.toString();
             this.selectedp = this.subjectprofileItem.pregnancyDetail.p.toString();
@@ -438,6 +441,7 @@ export class AnmSubjectProfileComponent implements OnInit {
   editSubjectProfile(subjectProfiledetail, subjectprofileItem: SubjectProfileList) {
    
     this.selecteddob = subjectprofileItem.primaryDetail.dob;
+    this.selectedage = subjectprofileItem.primaryDetail.age;
     this.startOptions1.defaultDate = subjectprofileItem.primaryDetail.dob;
     this.startOptions1.maxDate = moment().format("DD/MM/YYYY");
 
@@ -545,7 +549,8 @@ export class AnmSubjectProfileComponent implements OnInit {
 
   calculateAge() {
     var today = new Date();
-    var birthDate = new Date(this.selecteddob);
+    var birthDate = this.dateservice.convertToDateFormat(this.selecteddob);
+    //var birthDate = new Date(this.selecteddob);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -601,8 +606,13 @@ export class AnmSubjectProfileComponent implements OnInit {
         this.middleName = this.firstFormGroup.controls.middleName.value;
         this.lastName = this.firstFormGroup.controls.lastName.value;
         this.age = this.firstFormGroup.controls.age.value;
-        var getdobdate = this.firstFormGroup.controls.dob.value;
-        this.dob =  moment(new Date(getdobdate)).format("DD/MM/YYYY");
+        if( typeof(this.firstFormGroup.controls.dob.value) === 'string' ){
+          this.dob = this.firstFormGroup.controls.dob.value;
+        }
+        else{
+          var getdobdate = this.firstFormGroup.controls.dob.value;
+          this.dob =  moment(new Date(getdobdate)).format("DD/MM/YYYY");
+        }        
         this.emailId = this.secondFormGroup.controls.emailId.value;
         this.govIdTypeId = +this.secondFormGroup.controls.DDLGovtIDType.value;
         this.govIdDetail = this.secondFormGroup.controls.govIdDetail.value;
@@ -740,8 +750,13 @@ export class AnmSubjectProfileComponent implements OnInit {
         this.middleName = this.firstFormGroup.controls.middleName.value;
         this.lastName = this.firstFormGroup.controls.lastName.value;
         this.age = this.firstFormGroup.controls.age.value;
-        var getdobdate = this.firstFormGroup.controls.dob.value;
-        this.dob =  moment(new Date(getdobdate)).format("DD/MM/YYYY");
+        if( typeof(this.firstFormGroup.controls.dob.value) === 'string' ) { 
+          this.dob = this.firstFormGroup.controls.dob.value;
+        }
+        else{
+          var getdobdate = this.firstFormGroup.controls.dob.value;
+          this.dob =  moment(new Date(getdobdate)).format("DD/MM/YYYY");
+        }   
         this.emailId = this.secondFormGroup.controls.emailId.value;
         this.govIdTypeId = +this.secondFormGroup.controls.DDLGovtIDType.value;
         this.govIdDetail = this.secondFormGroup.controls.govIdDetail.value;

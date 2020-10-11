@@ -113,4 +113,12 @@ getTime = function () {
     return dateFormat;
   
   }
+  convertToDateFormat(strDate){
+  
+    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1'));
+    console.log(dateFormat);
+    return dateFormat;
+  
+  }
 }
