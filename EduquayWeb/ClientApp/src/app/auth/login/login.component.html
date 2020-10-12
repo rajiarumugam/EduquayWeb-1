@@ -65,13 +65,13 @@
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                       </svg>
                       <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control" placeholder="Password"
-                        ngModel #passwordVal="ngModel" required password minlength="5">
+                        ngModel #passwordVal="ngModel" required password maxlength="8">
                       <span class="input-error"
                         *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
                         password</span>
                       <span class="input-error"
-                        *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.minlength">Please enter at
-                        least 5 chars</span>
+                        *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.maxlength">Please enter at
+                        least 8 chars</span>
                     </div>
                     <div class="d-sm-flex justify-content-between">
                       <div class="field-wrapper toggle-pass">

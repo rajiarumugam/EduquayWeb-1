@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/shared/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/shared/data.service';
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-chc-sample-view-shipment',
@@ -41,6 +42,7 @@ export class ChcSampleViewShipmentComponent implements OnInit {
   associatedANM: string;
   sampleCollectionDateTime: string;
   shipmentItem: ChcSampleShipmentList;
+  fileName: any;
 
   constructor(
     private ChcSampleShipmentviewService: ChcSampleShipmentlogService,
@@ -75,6 +77,7 @@ export class ChcSampleViewShipmentComponent implements OnInit {
         else{
           //this.shipmentList = this.shipmentResponse.shipmentLogs;
           this.shipmentItem = this.chcshipmentviewResponse.shipmentLogs.find(shipment => shipment.shipmentId === this.shipmentId);
+          this.fileName= this.shipmentItem.shipmentId +'.xlsx';
           if(this.shipmentItem.samplesDetail.length > 0){
             this.sampleDetails = this.shipmentItem.samplesDetail;
           }
@@ -89,5 +92,20 @@ export class ChcSampleViewShipmentComponent implements OnInit {
     });
     
   }
+
+  exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('excel-table'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
+    }
 
 }
