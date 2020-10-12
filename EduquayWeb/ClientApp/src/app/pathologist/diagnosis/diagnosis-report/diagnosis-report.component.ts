@@ -86,7 +86,7 @@ export class DiagosisReportComponent implements OnInit {
       cd: ['', Validators.required],
       swapcase:[this.diagnosisReportData.isNormal ? 'normal' : 'abnormal'],
       consulSeniorPatho:[this.diagnosisReportData.isConsultSeniorPathologist != undefined ? ''+this.diagnosisReportData.isConsultSeniorPathologist : 'false'],
-      diagnosticSummary:['',Validators.required],
+      diagnosticSummary:[''],
       pathologistName:[''],
       remarks:[''],
       others: ['']
@@ -361,7 +361,7 @@ export class DiagosisReportComponent implements OnInit {
         _obj['clinicalDiagnosisId'] = _tempComplectionData;
         _obj['hplcResultMasterId'] = ""+this.tempHPLCmasterChecked;
         _obj['isNormal'] = this.FormGroup.get('swapcase').value === "normal" ? true : false;
-        _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value; 
+        _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value != undefined ? this.FormGroup.get('diagnosticSummary').value : ""; 
         _obj['isConsultSeniorPathologist'] = this.FormGroup.get('consulSeniorPatho').value === 'true' ? true : false;
         _obj['seniorPathologistName'] = this.FormGroup.get('pathologistName').value != undefined ? this.FormGroup.get('pathologistName').value : "";
         _obj['seniorPathologistRemarks'] = this.FormGroup.get('remarks').value != undefined ? this.FormGroup.get('remarks').value : ""; 

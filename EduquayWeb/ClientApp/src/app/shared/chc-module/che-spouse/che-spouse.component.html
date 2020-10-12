@@ -4,7 +4,7 @@
             <!-- Modal content-->
             <div class="modal-content" id="exampleModalLabel">
                 <div class="modal-header">
-                    <h5 class="modal-title modaltitle">Spouse Registration</h5> 
+                    <h5 class="modal-title modaltitle">{{'SpouseRegistration' | translate }}</h5> 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -33,7 +33,7 @@
                                         <input type="text" autocomplete="off"   class="form-control" id="inputRCHID" placeholder="{{'RCHID' | translate }}" required [(ngModel)]="selectedrchId" formControlName = "rchId" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.rchId.invalid }" readonly>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'Contact Number' | translate }}</label><span class="manto"> *</span>
+                                        <label class="birthreg" for="inputContact" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }">{{'ContactNumber' | translate }}</label><span class="manto"> *</span>
                                         <input type="text" autocomplete="off"   class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" readonly oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength = "10" numbersOnly>
                                     </div>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-row my-2">
                                     <div class="form-group col-md-2">
-                                        <label class="birthreg" for="dateOfRegistration" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }">{{'Date Of Reg' | translate }}</label><span class="manto"> *</span>
+                                        <label class="birthreg" for="dateOfRegistration" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }">{{'DateofReg' | translate }}</label><span class="manto"> *</span>
                                         <!--<input id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" type="text" autocomplete="off"  
                                             placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }"> -->
                                             <ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptionsDOR" placeholder="Select Date.." formControlName = "dor" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dor.invalid }" [(ngModel)]="selecteddor"></ng2-flatpickr>
@@ -98,7 +98,7 @@
                                     </div>
             
                                     <div class="form-group col-md-3">
-                                        <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">RI Point</label><span class="manto"> *</span>
+                                        <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">{{'RIPoint' | translate }}</label><span class="manto"> *</span>
                                         <input type="text" autocomplete="off"   class="form-control" id="inputSubtitle" placeholder="Subcentre" [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }" readonly>
                                     </div>
             
@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="form-row my-2">
                                         <div class="form-group col-md-2">
-                                            <label class="birthreg" for="inputdob">{{'Date Of Birth' | translate }}</label>
+                                            <label class="birthreg" for="inputdob">{{'DateOfBirth' | translate }}</label>
                                             <!--<input id="dateOfBirth" class="form-control flatpickr flatpickr-input active" type="text" autocomplete="off"  
                                                 placeholder="Select Date.." [(ngModel)]="selecteddob" formControlName = "dob" >-->
                                                 <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>

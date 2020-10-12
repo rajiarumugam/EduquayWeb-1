@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="form-group col-md-3">
-                            <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">RI Point</label><span class="manto"> *</span>
+                            <label class="birthreg" for="inputRIC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }">{{'RIPoint' | translate }}</label><span class="manto"> *</span>
                             <input type="text" autocomplete="off"class="form-control" id="inputSubtitle" placeholder="RI Point" [(ngModel)]="selectedripoint" formControlName = "ripoint" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.ripoint.invalid }" readonly>
                         </div>
 
@@ -124,7 +124,7 @@
                     </div>
                     <div class="form-row my-2">
                         <div class="form-group col-md-2">
-                            <label class="birthreg" for="inputdob">Date of Birth</label>
+                            <label class="birthreg" for="inputdob">{{'DateOfBirth' | translate }}</label>
                             <ng2-flatpickr id="dateOfRegistration" #dobPicker name="dob" class="form-control flatpickr flatpickr-input active" [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }" [(ngModel)]="selecteddob" (change)="calculateAge()"></ng2-flatpickr>
                         </div>
                         <div class="form-group col-md-3">
@@ -320,8 +320,8 @@
     <form>
         <div class="row">
             <div class="col-md-12">
-                <span style="color: #1b55e2;;font-style: italic;" id="tabWiseNote"><b>" NOTE:</b>
-                    Antenatal Woman Registration form is applicable to all pregnant women."</span>
+                <span style="color: #1b55e2;;font-style: italic;" id="tabWiseNote"><b>" {{'Note' | translate }}:</b>
+                    {{'AntenatalWomanRegistrationformisapplicabletoallpregnantwomen' | translate }}"</span>
             </div>
         </div>
     </form>

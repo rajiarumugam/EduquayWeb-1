@@ -120,7 +120,7 @@
     "PNDResults":"ପି ଏନ ଡି ଫଳାଫଳ",
     "CollectPendingDetails":"ବାକି ରହିଥିବା ବିବରଣୀ ସଂଗ୍ରହ କରନ୍ତୁ",
     "UpdateDetails":"ବିବରଣୀ ପ୍ରଦାନ କରନ୍ତୁ",
-    "DateofReg":"ପଞ୍ଜୀକରଣ ତାରିଖ",
+    "DateOfReg":"ପଞ୍ଜୀକରଣ ତାରିଖ",
     "G":"ଜି.",
     "P":"ପି.",
     "PersonalInfoUpdatedsuccessfully":"ବ୍ୟକ୍ତିଗତ ସୂଚନା ସଫଳତାର ସହିତ ଅଦ୍ୟତନ ହେଲା",
@@ -155,6 +155,7 @@
     "NOTE: ChildRegistrationformisapplicableforallsubjectsbelow18yearsofage.":"ଟିପ୍ପଣୀ:୧୮ ବର୍ଷରୁ କମ୍ ସମସ୍ତ ବ୍ୟକ୍ତିଙ୍କ ପାଇଁ ଶିଶୁ ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ",
     "Miss":"ମିସ୍",
     "DateofBirth":"ଜନ୍ମଦିନ",
+    "DateOfBirth":"ଜନ୍ମଦିନ",
     "female":"ମହିଳା",
     "others":"ଅନ୍ୟ",
     "MotherFirstName":"ମା’ଙ୍କର ପ୍ରଥମ ନାମ",
@@ -269,7 +270,14 @@
     "UpdateDiagnosis":"Update Diagnosis",
     "Married":"Married",
     "AgingofSample":"Aging of Sample (hours)",
-    "MovetoExpiry": "Move to Expiry"
+    "MovetoExpiry": "Move to Expiry",
+    "Note":"ଟିପ୍ପଣୀ",
+    "AntenatalWomanRegistrationformisapplicabletoallpregnantwomen":"ସମସ୍ତ ଗର୍ଭବତୀ ବ୍ୟକ୍ତିଙ୍କ   ପାଇଁ ପ୍ରସବ ପୂର୍ବ ମହିଳା ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ ଅଟେ।",
+    "AntenatalWomanRegistration":"ସମସ୍ତ ଗର୍ଭବତୀ ବ୍ୟକ୍ତିଙ୍କ",
+    "ChildRegistrationformisapplicableforallsubjectsbelow18yearsofage":"୧୮ ବର୍ଷରୁ କମ୍ ସମସ୍ତ ବ୍ୟକ୍ତିଙ୍କ ପାଇଁ ଶିଶୁ ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ",
+    "Pregnant":"ପ୍ରଯୁଜ୍ୟ",
+    "MarriedSpouseRegistered":"Married & Spouse Registered",
+    "OtherWalkins":"Other Walk-ins"
    
 
 }
