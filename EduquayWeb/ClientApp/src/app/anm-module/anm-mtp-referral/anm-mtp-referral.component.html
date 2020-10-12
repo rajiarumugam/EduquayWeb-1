@@ -13,27 +13,27 @@
         [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead class="tablecss">
                 <tr>
-                    <th rowspan="2" class="nt-border-right"><span>S.No</span></th>
-                    <th colspan="5" class="nt-border-right">Subject(F)</th>
-                    <th colspan="3" class="nt-border-right">Spouse(M)</th>
-                    <th colspan="2" class="nt-border-right">Date & Time</th>
-                    <th rowspan="2"><span>Notified</span></th>
-                    <th rowspan="2">More<br>Info</th>
+                    <th rowspan="2" class="nt-border-right"><span>{{'SNo' | translate }}</span></th>
+                    <th colspan="5" class="nt-border-right">{{'Subject(F)' | translate }}</th>
+                    <th colspan="3" class="nt-border-right">{{'Spouse(M)' | translate }}</th>
+                    <th colspan="2" class="nt-border-right">{{'Date&Time' | translate }}</th>
+                    <th rowspan="2"><span>{{'Notified' | translate }}</span></th>
+                    <th rowspan="2">{{'MoreInfo' | translate }}</th>
 
                 </tr>
                 <tr class="combined">
                     <!-- <th class="text-center">S.No</th> -->
-                    <th class="text-center">Name</th>
+                    <th class="text-center">{{'Name' | translate }}</th>
 
-                    <th class="text-center"> ID</th>
-                    <th class="text-center">RCH ID</th>
-                    <th class="text-center">Contact No</th>
-                    <th class="nt-border-right text-center">GA</th>
-                    <th class="text-center">Name </th>
-                    <th class="text-center"> ID </th>
-                    <th class="nt-border-right text-center">Contact No </th>
-                    <th class="text-center">Post PNDT Counselling</th>
-                    <th class="nt-border-right text-center">MTP Service</th>
+                    <th class="text-center"> {{'ID' | translate }}</th>
+                    <th class="text-center">{{'RCHID' | translate }}</th>
+                    <th class="text-center">{{'Contact No' | translate }}</th>
+                    <th class="nt-border-right text-center">{{'GA' | translate }}</th>
+                    <th class="text-center">{{'Name' | translate }} </th>
+                    <th class="text-center"> {{'ID' | translate }} </th>
+                    <th class="nt-border-right text-center">{{'ContactNo' | translate }} </th>
+                    <th class="text-center">{{'PostPNDTCounselling' | translate }}</th>
+                    <th class="nt-border-right text-center">{{'MTPService' | translate }}</th>
 
                 </tr>
             </thead>
@@ -81,7 +81,7 @@
 
                             <div class="dropdown-menu"
                                 aria-labelledby="dropdownMenuLink2">
-                                <a class="dropdown-item" (click)="openmtpReferral(mtpReferralDetail, sample)">More Info</a>
+                                <a class="dropdown-item" (click)="openmtpReferral(mtpReferralDetail, sample)">{{'MoreInfo' | translate }}</a>
                             </div>
                         </div>
                     </td>
@@ -94,13 +94,13 @@
     <div class="row">
         <div class="col-md-12">
             <a class="btn btn-primary float-right" (click)="mtpReferralUpdateStatus()"
-                role="button">Update Status</a>
+                role="button">{{'UpdateStatus' | translate }}</a>
         </div>
     </div>
 </div>
 <ng-template #mtpReferralDetail let-modal>
     <div class="modal-header">
-        <h4 class="modal-title modaltitle">Subject Details</h4>
+        <h4 class="modal-title modaltitle">{{'SubjectDetails' | translate }}</h4>
         <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -121,7 +121,7 @@
                                     <tr>
                                         <td>
                                             <span class="float-left mt-0 mr-4">
-                                                <h5><b>Subject ID</b> :
+                                                <h5><b>{{'SubjectID' | translate }}</b> :
                                                     {{anwSubjectId}}
                                                     <strong class="ml-5">Subject Info :</strong> {{anwSubjectName}}, {{anwGender}}, {{anwAge}} yrs
                                                 </h5>
@@ -153,22 +153,19 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            <span>Subject</span></th>
-                                        <th class="text-center"><span>Subject
-                                                ID</span></th>
+                                            <span>{{'Subject' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'SubjectID' | translate }}</span></th>
                                         <th class="text-center">
-                                            <span>District</span></th>
-                                        <th class="text-center"><span>CHC</span>
-                                        </th>
-                                        <th class="text-center"><span>PHC</span>
-                                        </th>
-                                        <th class="text-center"><span>SC</span>
-                                        </th>
-                                        <th class="text-center"><span>RI
-                                                Point</span></th>
-
-                                        <th class="text-center"><span>Date of
-                                                Birth</span></th>
+                                            <span>{{'District' | translate }}</span></th>
+                                            <th class="text-center"><span>{{'CHC' | translate }}</span>
+                                            </th>
+                                            <th class="text-center"><span>{{'PHC' | translate }}</span>
+                                            </th>
+                                            <th class="text-center"><span>{{'SC' | translate }}</span>
+                                            </th>
+                                            <th class="text-center"><span>{{'RIPoint' | translate }}</span></th>
+    
+                                            <th class="text-center"><span>{{'DateofBirth' | translate }}</span></th>
                                     </tr>
 
                                 </thead>
@@ -309,17 +306,16 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
-                                                    <span>Subject</span></th>
-                                                <th class="text-center"><span>EC
-                                                        Number</span></th>
+                                                    <span>{{'Subject' | translate }}</span></th>
+                                                <th class="text-center"><span>{{'ECNumber' | translate }}</span></th>
                                                 <th class="text-center"><span>
-                                                        RCH ID</span></th>
+                                                        {{'RCHID' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>LMP Date</span></th>
+                                                    <span>{{'LMPDate' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>GA</span></th>
+                                                    <span>{{'GA' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>GPLA</span></th>
+                                                    <span>{{'GPLA' | translate }}</span></th>
                                             </tr>
 
                                         </thead>
@@ -384,15 +380,16 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
-                                                    <span>Subject</span></th>
+                                                    <span>{{'Subject' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>Barcodes</span></th>
+                                                    <span>{{'Barcodes' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>CBC</span></th>
+                                                    <span>{{'CBC' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>SST</span></th>
+                                                    <span>{{'SST' | translate }}</span></th>
                                                 <th class="text-center">
-                                                    <span>HPLC</span></th>
+                                                    <span>{{'HPLC' | translate }}</span></th>
+
 
                                             </tr>
 
@@ -461,7 +458,7 @@
                                     data-target="#defaultAccordionTwo"
                                     aria-expanded="true"
                                     aria-controls="defaultAccordionTwo">
-                                    Pre-natal Diagnosis Counselling <div
+                                    {{'Pre-natalDiagnosisCounselling' | translate }} <div
                                         class="icons"><svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24"
@@ -490,12 +487,11 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="sp-sm-th th-left">
-                                                            <b>Counsellor Name</b></td>
+                                                            <b>{{'CounsellorName' | translate }}</b></td>
                                                         <td>{{pndtCounsellorName}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Counselling
-                                                            Notes/Remarks</b></td>
+                                                        <td><b>{{'CounsellingNotes/Remarks' | translate }}</b></td>
                                                         <td>{{pndtCounsellingRemarks}}</td>
                                                     </tr>
                                                 </tbody>
@@ -509,13 +505,12 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="sp-sm-th">
-                                                        <b>Counselling Status</b>
+                                                        <b>{{'CounsellingStatus' | translate }}</b>
                                                         </td>
                                                         <td>{{pndtCounsellingStatus}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Scheduled PNDT Date
-                                                            & Time</b></td>
+                                                        <td><b>{{'ScheduledPNDTDate&Time' | translate }}</b></td>
                                                         <td>{{schedulePNDTDate}} {{schedulePNDTTime}}
                                                         </td>
                                                     </tr>
@@ -550,7 +545,7 @@
                                     data-target="#defaultAccordionThree"
                                     aria-expanded="true"
                                     aria-controls="defaultAccordionThree">
-                                    Pre-natal Diagnosis Test <div class="icons">
+                                    {{'Pre-natalDiagnosisTest' | translate }} <div class="icons">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24"
                                             viewBox="0 0 24 24" fill="none"
@@ -578,26 +573,26 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="sp-sm-th">
-                                                        <b>PNDT Date & Time</b>
+                                                        <b>{{'PNDTDate&Time' | translate }}</b>
                                                         </td>
                                                         <td>{{pndtDateTime}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Obstetrician Name</b>
+                                                        <td><b>{{'ObstetricianName' | translate }}</b>
                                                         </td>
                                                         <td>{{pndtObstetricianName}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>PNDT Results</b></td>
+                                                        <td><b>{{'PNDTResults' | translate }}</b></td>
                                                         <td>{{pndtResults}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Clinical History</b>
+                                                        <td><b>{{'ClinicalHistory' | translate }}</b>
                                                         </td>
                                                         <td>{{clinicalHistory}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Procedure of Testing</b>
+                                                        <td><b>{{'ProcedureofTesting' | translate }}</b>
                                                         </td>
                                                         <td>{{pndtProcedureOfTesting}}</td>
                                                     </tr>
@@ -612,20 +607,20 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="sp-sm-th">
-                                                        <b>Counsellor Name</b></td>
+                                                        <b>{{'CounsellorName' | translate }}</b></td>
                                                         <td>{{pndtCounsellorName}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>PNDT Diagnosis</b></td>
+                                                        <td><b>{{'PNDTDiagnosis' | translate }}</b></td>
                                                         <td>{{pndtDiagnosisName}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>PNDT Side Effects</b>
+                                                        <td><b>{{'PNDTSideEffects' | translate }}</b>
                                                         </td>
                                                         <td>{{pndtSideEffects}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Examination</b></td>
+                                                        <td><b>{{'Examination' | translate }}</b></td>
                                                         <td>{{examination}}</td>
                                                     </tr>
                                                 </tbody>
@@ -640,7 +635,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
         </div>
     </div>
     <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>

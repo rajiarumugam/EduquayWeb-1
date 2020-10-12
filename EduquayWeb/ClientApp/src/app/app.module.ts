@@ -99,6 +99,8 @@ import { PositiveSubjectsComponent } from './district-coordinator/positive-subje
 import { PndtReferralComponent } from './district-coordinator/pndt-referral/pndt-referral.component';
 import { MtpReferralComponent } from './district-coordinator/mtp-referral/mtp-referral.component';
 import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-followup/post-mtp-followup.component';
+import { GetOtpComponent } from './auth/forgot-password/get-otp/get-otp.component';
+import { ResetPasswordComponent } from './auth/forgot-password/reset-password/reset-password.component';
 
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
@@ -171,7 +173,9 @@ import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-follow
     PositiveSubjectsComponent,
     PndtReferralComponent,
     MtpReferralComponent,
-    PostMtpFollowupComponent
+    PostMtpFollowupComponent,
+    GetOtpComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

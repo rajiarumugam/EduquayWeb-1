@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center">Shipment Log</h5>
+                                <h5 class="float-center">{{'Shipmentlog' | translate }}</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -87,13 +87,13 @@
                                 <table id="anmshipmentlog-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                     <thead>
                                         <tr>
-                                            <th><span>S.No</span></th>
-                                            <th><span>Shipment ID</span></th>
-                                            <th><span>Shipment Date & Time</span></th>
-                                            <th><span>ILR Point</span></th>
-                                            <th><span>AVD Name</span></th>
-                                            <th><span>Receiving Testing CHC</span></th>
-                                            <th><span>View</span></th>
+                                            <th><span>{{'SNo' | translate }}</span></th>
+                                            <th><span>{{'ShipmentID' | translate }}</span></th>
+                                            <th><span>{{'ShipmentDate&Time' | translate }}</span></th>
+                                            <th><span>{{'ILRPoint' | translate }}</span></th>
+                                            <th><span>{{'AVDName' | translate }}</span></th>
+                                            <th><span>{{'ReceivingTestingCHC' | translate }}</span></th>
+                                            <th><span>{{'View' | translate }}</span></th>
                                             <!-- <th><span>Print</span></th> -->
                                         </tr>
 
@@ -121,8 +121,7 @@
                 </div>
                <ng-template #shippedSampleDetail let-modal>
                         <div class="modal-header">
-                            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Shipment
-                                Details</h5>
+                            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ShipmentDetails' | translate }}</h5>
 
                             <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -139,10 +138,10 @@
                               
                                     <div class="row my-4">
                                         <div class="col-md-4">
-                                            <p class="float-left"><span><b>Shipment ID : </b></span><span>{{shipmentId}}</span></p>
+                                            <p class="float-left"><span><b>{{'ShipmentID' | translate }} : </b></span><span>{{shipmentId}}</span></p>
                                         </div>
                                         <div class="col-md-4">
-                                            <p class="float-left"><span><b>Shipment Date & Time : </b></span><span>{{shipmentDateTime}}</span>
+                                            <p class="float-left"><span><b>{{'ShipmentDate&Time' | translate }} : </b></span><span>{{shipmentDateTime}}</span>
                                         </div>
                                     
                                     
@@ -156,34 +155,34 @@
                                     </div>
                                     <div class="row my-4">
                                         <div class="col-md-3">
-                                            <span><b>ANM Name : </b></span><span>{{anmName}}</span>
+                                            <span><b>{{'ANMName' | translate }} : </b></span><span>{{anmName}}</span>
                                         </div>
                                         
                                         <div class="col-md-3">
-                                            <span><b>RI Point : </b></span><span>{{riPoint}}</span>
+                                            <span><b>{{'RIPoint' | translate }} : </b></span><span>{{riPoint}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>ILR Point : </b></span><span>{{ilrPoint}}</span>
+                                            <span><b>{{'ILRPoint' | translate }} : </b></span><span>{{ilrPoint}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>Receiving Testing CHC : </b></span><span>{{testingCHC}}</span>
+                                            <span><b>{{'ReceivingTestingCHC' | translate }} : </b></span><span>{{testingCHC}}</span>
                                         </div>
                                     </div>
                                     <div class="row my-4" [hidden]="alternateAVD">
                                         <div class="col-md-3">
-                                            <span><b>AVD Name : </b></span><span>{{avdName}}</span>
+                                            <span><b>{{'AVDName' | translate }} : </b></span><span>{{avdName}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
+                                            <span><b>{{'ContactNumber' | translate }} : </b></span><span>{{contactNo}}</span>
                                         </div>                                       
                                        
                                     </div>
                                     <div class="row my-4" [hidden]="!alternateAVD">
                                         <div class="col-md-3">
-                                            <span [hidden]="!alternateAVD"><b>Alternate AVD Name : </b></span><span>{{alternateAVD}}</span>
+                                            <span [hidden]="!alternateAVD"><b>{{'AlternateAVDName' | translate }} : </b></span><span>{{alternateAVD}}</span>
                                         </div>
                                         <div class="col-md-6">
-                                            <span><b>Alternate AVD Contact Number : </b></span><span>{{alternateAVDContactNo}}</span>
+                                            <span><b>{{'AlternateAVDContactNumber' | translate }} : </b></span><span>{{alternateAVDContactNo}}</span>
                                         </div>
                                     </div>
                                    
@@ -192,12 +191,12 @@
                                         <table id="zero-config" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                                    <th><span>S.No</span></th>
-                                                    <th><span>Subject Name</span></th>
-                                                    <th><span>Subject ID</span></th>
-                                                    <th class="text-center"><span>RCH ID</span></th>
-                                                    <th><span>Barcode</span></th>
-                                                    <th><span>Sample Collection Date & Time</span></th>
+                                                    <th><span>{{'SNo' | translate }}</span></th>
+                                                    <th><span>{{'SubjectName' | translate }}</span></th>
+                                                    <th><span>{{'SubjectID' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                                    <th><span>{{'Barcode' | translate }}</span></th>
+                                                    <th><span>{{'SampleCollectionDate_Time' | translate }}</span></th>
                                                     
                                                     <!-- <th><span>Select</span></th> -->
                                                 </tr>
@@ -221,7 +220,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
-                                    Close</button>
+                                    {{'Close' | translate }}</button>
                             </div>
                         </div>
                 </ng-template>

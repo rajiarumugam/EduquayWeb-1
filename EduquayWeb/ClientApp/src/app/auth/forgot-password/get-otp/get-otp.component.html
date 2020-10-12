@@ -1,0 +1,58 @@
+<div class="col-xl-5 col-lg-5 col-sm-5 offset-md-3 layout-spacing mt-5">
+  <div class="widget-content widget-content-area br-6">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="form-form">
+            <!-- <div class="col-md-12"> -->
+              <div class="form-form-wrap">
+                <!-- <div class="form-container"> -->
+                  <div class="form-content">
+                    <form class="text-left" (ngSubmit)="onSubmit(resetLoginForm)" #resetLoginForm="ngForm">
+                      <div class="form">
+        
+                        <div id="username-field" class="field-wrapper input">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-user">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                          </svg>
+                          <input id="userid" name="userid" type="text" class="form-control" placeholder="Username" ngModel
+                            #emailVal="ngModel" required>
+                          <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
+                            user id</span>
+                        </div>
+                        <div class="field-wrapper text-center">
+                          <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"> Submit
+                          </button>
+                        </div>
+                      
+        
+                      </div>
+                    </form>
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input class="form-control field" name="collection" required="" type="text"
+                        placeholder="Enter OTP">
+                        <div class="field-wrapper text-center mt-3">
+                          <span><button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"> Submit
+                          </button></span>
+                          <a class="pointer"
+                          class="forgot-pass-link d-flex justify-content-left">Resend OTP</a>
+                        </div>
+                      </div>
+                    </div>
+                   
+                  </div>
+                <!-- </div> -->
+              </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

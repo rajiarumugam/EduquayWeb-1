@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center">Shipment Log for HPLC lab </h5>
+                                <h5 class="float-center">{{'ShipmentLogforHPLClab' | translate }} </h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -55,14 +55,14 @@
                                 [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                 <thead>
                                     <tr>
-                                        <th><span>S.No</span></th>
-                                        <th><span>Shipment ID</span></th>
-                                        <th><span>Shipment Date & Time</span></th>
-                                        <th><span>Lab Technician Name</span></th>
-                                        <th><span>Delivery Executive Name</span></th>
-                                        <th><span>Receiving Central Lab</span></th>
-                                        <th><span>View</span></th>
-                                        <th><span>Print</span></th>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'ShipmentID' | translate }}</span></th>
+                                        <th><span>{{'ShipmentDate&Time' | translate }}</span></th>
+                                        <th><span>{{'LabTechnicianName' | translate }}</span></th>
+                                        <th><span>{{'DeliveryExecutiveName' | translate }}</span></th>
+                                        <th><span>{{'ReceivingCentralLab' | translate }}</span></th>
+                                        <th><span>{{'View' | translate }}</span></th>
+                                        <th><span>{{'Print' | translate }}</span></th>
                                     </tr>
 
                                 </thead>
@@ -90,8 +90,7 @@
             </div>
             <ng-template #shippedChcSampleDetail let-modal>
                 <div class="modal-header">
-                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Shipment
-                        Details</h5>
+                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ShipmentDetails' | translate }}</h5>
 
                     <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -108,10 +107,10 @@
 
                         <div class="row my-4">
                             <div class="col-md-4">
-                                <p class="float-left"><span><b>Shipment ID : </b></span><span>{{shipmentId}}</span></p>
+                                <p class="float-left"><span><b>{{'ShipmentID' | translate }} : </b></span><span>{{shipmentId}}</span></p>
                             </div>
                             <div class="col-md-4">
-                                <p class="float-left"><span><b>Shipment Date & Time :
+                                <p class="float-left"><span><b>{{'ShipmentDate&Time' | translate }} :
                                         </b></span><span>{{shipmentDateTime}}</span>
                             </div>
 
@@ -126,26 +125,26 @@
                         </div>
                         <div class="row my-4">
                             <div class="col-md-4">
-                                <span><b>Lab Technician Name : </b></span><span>{{labTechnicianName}}</span>
+                                <span><b>{{'LabTechnicianName' | translate }} : </b></span><span>{{labTechnicianName}}</span>
                             </div>
 
                             <div class="col-md-4">
-                                <span><b>Testing CHC : </b></span><span>{{testingCHC}}</span>
+                                <span><b>{{'TestingCHC' | translate }} : </b></span><span>{{testingCHC}}</span>
                             </div>
                             <div class="col-md-4">
-                                <span><b>Receiving Central Lab : </b></span><span>{{receivingCentralLab}}</span>
+                                <span><b>{{'ReceivingCentralLab' | translate }} : </b></span><span>{{receivingCentralLab}}</span>
                             </div>
 
                         </div>
                         <div class="row my-4">
                             <div class="col-md-4">
-                                <span><b>Logistics Service Provider : </b></span><span>{{logisticsProviderName}}</span>
+                                <span><b>{{'LogisticsServiceProvider' | translate }} : </b></span><span>{{logisticsProviderName}}</span>
                             </div>
                             <div class="col-md-4">
-                                <span><b>Delivery Executive Name : </b></span><span>{{deliveryExecutiveName}}</span>
+                                <span><b>{{'DeliveryExecutiveName' | translate }} : </b></span><span>{{deliveryExecutiveName}}</span>
                             </div>
                             <div class="col-md-4">
-                                <span><b>Contact Number : </b></span><span>{{contactNo}}</span>
+                                <span><b>{{'ContactNumber' | translate }} : </b></span><span>{{contactNo}}</span>
                             </div>
 
                         </div>
@@ -154,12 +153,13 @@
                             <table id="zero-config" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th><span>S.No</span></th>
-                                        <th><span>Subject Name</span></th>
-                                        <th><span>Subject ID</span></th>
-                                        <th class="text-center"><span>RCH ID</span></th>
-                                        <th><span>Barcode</span></th>
-                                        <th><span>Sample Collection Date & Time</span></th>
+                                       
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'SubjectName' | translate }}</span></th>
+                                        <th><span>{{'SubjectID' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                        <th><span>{{'Barcode' | translate }}</span></th>
+                                        <th><span>{{'SampleCollectionDate_Time' | translate }}</span></th>
 
                                     </tr>
 
@@ -186,7 +186,7 @@
                             <i class="fa fa-print" aria-hidden="true"></i>
                         </button>
                         <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
-                            Close</button>
+                            {{'Close' | translate }}</button>
                     </div>
                 </div>
             </ng-template>

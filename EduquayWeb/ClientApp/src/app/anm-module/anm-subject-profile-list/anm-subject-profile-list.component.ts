@@ -246,8 +246,14 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
 
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
-    this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
-    this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${this.subjectid}`);
+    if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
+      this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
+      this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${this.subjectid}`);
+    }
+    else if(subjectinfo.primaryDetail.registeredFrom === 'CHC'){
+      this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
+      this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
+    }
     
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {

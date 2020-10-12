@@ -19,15 +19,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
-import { DateService } from 'src/app/shared/utility/date.service';
+import { DateService } from '../../utility/date.service';
 
 
 @Component({
-  selector: 'app-chc-subject-profile',
-  templateUrl: './chc-subject-profile.component.html',
-  styleUrls: ['./chc-subject-profile.component.css']
+  selector: 'app-anm-chc-subject-profile',
+  templateUrl: './anm-chc-subject-profile.component.html',
+  styleUrls: ['./anm-chc-subject-profile.component.css']
 })
-export class ChcSubjectProfileComponent implements OnInit {
+export class AnmChcSubjectProfileComponent implements OnInit {
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChildren('dobPicker') dobPicker;
@@ -205,14 +205,14 @@ export class ChcSubjectProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "CHC - Reg & Sampling", "submodule": "Subject Profile", "page": "View Subject Profile" }));
+    this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Profile", "page": "View Subject Profile"}));
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     console.log(this.SubjectProfileService.chcsubjectprofileListApi);
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.uniqueSubjectId = params['q'];
-      this.chcSubjectProfile();
+      this.chcSubjectProfiledata();
     });
 
     this.firstFormGroup = this._formBuilder.group({
@@ -270,7 +270,7 @@ export class ChcSubjectProfileComponent implements OnInit {
 
 
  
-  chcSubjectProfile() {
+  chcSubjectProfiledata() {
     this.loaderService.display(true);
     
     this.chcsubjectProfileRequest = {

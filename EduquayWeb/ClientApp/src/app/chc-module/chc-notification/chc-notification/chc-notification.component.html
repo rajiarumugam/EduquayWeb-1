@@ -23,7 +23,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Notifications</h5>
+                <h5 class="float-center">{{'Notifications' | translate }}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -41,25 +41,25 @@
                 <a class="nav-link active" id="damagedsample-tab" data-toggle="tab" [ngClass]="{'active': currentPage == 'chc-notification' ? true : false}"
                    [routerLink]="['/app/chc-notification']" role="tab" aria-controls="home"
                    aria-selected="true">
-                  Damaged Samples<span class="badge badge-pill badge-warning shadow mx-1">{{damagedSample}}</span>
+                  {{'DamagedSamples' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{damagedSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-notification/chc-unsent']"
                 [ngClass]="{'active': currentPage == 'chc-unsent' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
-                  Unsent Samples<span class="badge badge-pill badge-warning shadow ml-1">{{unsentSample}}</span>
+                  {{'UnsentSamples' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{unsentSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="timeoutexpiry-tab" data-toggle="tab" [routerLink]="['/app/chc-notification/chc-timeout']"
                 [ngClass]="{'active': currentPage == 'chc-timeout' ? true : false}" role="tab" aria-controls="contact" aria-selected="false">
-                  Sample Timeout<span class="badge badge-pill badge-warning shadow ml-1">{{timeoutSample}}</span>
+                  {{'SampleTimeout' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{timeoutSample}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="positivesub-tab" data-toggle="tab" [routerLink]="['/app/chc-notification/chc-positive']"
                 [ngClass]="{'active': currentPage == 'chc-positive' ? true : false}" role="tab" aria-controls="contact" aria-selected="false">
-                  Positive Subjects<span class="badge badge-pill badge-warning shadow ml-1">{{positiveSample}}</span>
+                  {{'PositiveSubjects' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{positiveSample}}</span>
                 </a>
               </li>
              

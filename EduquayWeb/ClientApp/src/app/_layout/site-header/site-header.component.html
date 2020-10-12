@@ -41,13 +41,13 @@
     <div class="mx-auto order-0">
       <!-- <a class="navbar-brand mx-auto" href="#">Navbar 2</a> -->
       <h4 class="header-title mt-2 d-none d-lg-block d-xl-block">
-        Thalassemia and Sickle Cell Disease Control
+        {{'THALASSEMIATITLE' | translate }}
       </h4>
     </div>
 
     <ul class="navbar-item flex-row ml-auto mt-1">
       <li class="nav-item dropdown user-profile-dropdown mt-2">
-        <span class="user-name mr-2">Welcome {{userName}}</span>
+        <span class="user-name mr-2">{{'Welcome' | translate }} {{userName}}</span>
       </li>
       <li class="nav-item dropdown user-profile-dropdown mt-1">
         <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown"
@@ -128,7 +128,8 @@
                 <div class="page-header">
                   <nav class="breadcrumb-one" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a [routerLink]="['/app']">Home</a></li>
+                      <!-- <li class="breadcrumb-item"><a [routerLink]="['/app']">Home</a></li> -->
+                      <li class="breadcrumb-item">Home</li>
                       <li *ngIf='module !== ""' class="breadcrumb-item" aria-current="page"><span>{{module}}</span></li>
                       <li *ngIf='submodule !== ""' class="breadcrumb-item" aria-current="page"><span>{{submodule}}</span></li>
                       <li *ngIf='componentpage !== ""' class="breadcrumb-item active" aria-current="page">

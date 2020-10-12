@@ -10,14 +10,14 @@
         <table id="timeoutsample-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <thead>
             <tr>
-              <th class="text-center"><span>S.No</span></th>
-              <th class="text-center"><span>Subject Name</span></th>
-              <th class="text-center"><span>Subject ID</span></th>
-              <th class="text-center"><span>RCH ID</span></th>
-              <th class="text-center"><span>Contact</span> </th>
-              <th class="text-center w5">GA</th>
-              <th class="text-center w4">Notified </th>
-              <th class="w10"><span class="wordwrap">Sample Recollection</span></th>
+              <th><span>{{'SNo' | translate }}</span></th>
+              <th><span>{{'SubjectName' | translate }}</span></th>
+              <th><span>{{'SubjectID' | translate }}</span></th>
+              <th><span>{{'RCHID' | translate }}</span></th>
+              <th><span>{{'Contact' | translate }}</span></th>
+              <th><span>{{'GA' | translate }}</span></th>
+              <th><span>{{'Notified' | translate }}</span></th>
+              <th><span class="wordwrap">{{'SampleCollection' | translate }}</span></th>
             </tr>
           </thead>
           <tbody>
@@ -44,14 +44,14 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <a class="btn btn-primary float-right" (click)="timeoutSamplesUpdateStatus()" role="button">Update Status</a>
+          <a class="btn btn-primary float-right" (click)="timeoutSamplesUpdateStatus()" role="button">{{'UpdateStatus' | translate }}</a>
         </div>
       </div>
 </div>
 <!-- The Modal -->
 <ng-template #timeoutSamplesDetail let-modal>
     <div class="modal-header">
-      <h4 class="modal-title modaltitle">Sample Recollection</h4>
+      <h4 class="modal-title modaltitle">{{'SampleRecollection' | translate }}</h4>
       <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -66,24 +66,24 @@
         <div class="col-md-12" id="myTable" style="padding-top: 1%;">
           <div class="form-row">
             <div class="form-group col-md-3">
-              <label class="note">Subject Name </label>
+              <label class="note">{{'SubjectName' | translate }}</label>
               <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
                 [(ngModel)]="subjectName" name="sampleSubjectName" >
             </div>
 
             <div class="form-group col-md-3">
-              <label class="note">Subject ID <span class="manto"></span></label>
+              <label class="note">{{'SubjectID' | translate }}<span class="manto"></span></label>
               <input class="form-control field" name="uniqueSubjectId" type="text" placeholder="Subject ID" tabindex="6"
                 autocomplete="off" readonly="" [(ngModel)]="uniqueSubjectId">
             </div>
             <div class="form-group col-md-3">
-              <label class="note">RCH ID <span class="manto"></span></label>
+              <label class="note">{{'RCHID' | translate }}<span class="manto"></span></label>
               <input class="form-control field" name="ancnumber" type="text" placeholder="RCH ID " tabindex="6"
                 autocomplete="off" readonly="" [(ngModel)]="rchId">
             </div>
 
             <div class="form-group col-md-3">
-              <label class="note">Reason <span class="manto"></span></label>
+              <label class="note">{{'Reason' | translate }}<span class="manto"></span></label>
               <input class="form-control field" name="collection" required="" type="text"
                 placeholder="Reason" readonly="" [(ngModel)]="reason">
             </div>
@@ -92,7 +92,7 @@
 
           <div class="form-row mt-4">
             <div class="form-group col-md-3">
-              <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || timeoutSamplesForm.submitted && sampleBarcode.invalid}">Scan / Enter Barcode <span class="manto">*</span></label>
+              <label class="note" [ngClass]="{'label-border-class':!sampleBarcode.valid && sampleBarcode.touched || timeoutSamplesForm.submitted && sampleBarcode.invalid}">{{'Scan/EnterBarcode' | translate }} <span class="manto">*</span></label>
               <input class="form-control" name="sampleBarcode" type="text" placeholder="Barcode" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
               [class.is-invalid]="!sampleBarcode.valid && sampleBarcode.touched || timeoutSamplesForm.submitted && sampleBarcode.invalid"
                #sampleBarcode="ngModel" required>
@@ -102,7 +102,7 @@
               </div> 
             </div>
             <div class="form-group col-md-3" [formGroup]="popupform">
-              <label class="note">Date & Time of Collection <span class="manto">*</span></label>
+              <label class="note">{{'SampleCollectionDate_Time' | translate }} <span class="manto">*</span></label>
               <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
                 placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
               <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
@@ -125,9 +125,9 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
+          <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
           <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
-          <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+          <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
         </div>
       </form>
 
