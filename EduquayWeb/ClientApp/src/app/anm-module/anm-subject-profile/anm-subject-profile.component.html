@@ -148,7 +148,7 @@
                                                         <label for="inputdob" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }">{{'DateofBirth' | translate }}</label>
                                                       
                                                     <ng2-flatpickr id="dateOfRegistration" name="dob" class="form-control flatpickr flatpickr-input active" #dobPicker [config]="startOptions1" placeholder="Select Date.." formControlName = "dob" 
-                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (onChange)="calculateAge()"></ng2-flatpickr>
+                                                    [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.dob.invalid }"  [(ngModel)]="selecteddob"  (change)="calculateAge()"></ng2-flatpickr>
                                                     </div>
                                                   
                                                     <div class="form-group col-md-4">
