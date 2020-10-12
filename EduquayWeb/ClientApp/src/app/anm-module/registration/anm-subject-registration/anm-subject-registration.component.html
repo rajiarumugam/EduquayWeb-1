@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">Subject Registration</h5>
+                            <h5 class="float-center">{{'SubjectRegistration' | translate }}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -37,16 +37,15 @@
                         <li class="nav-item">
                             <a class="nav-link" [ngClass]="{'active': (currentPage == 'awreg' || currentPage == 'anm-subregn') ? true : false}" id="antenatal-tab" data-toggle="tab"
                                 [routerLink]="['/app/anm-subregn/awreg']" role="tab" aria-controls="home"
-                                aria-selected="true">Antenatal Woman
-                                Registration</a>
+                                aria-selected="true">{{'AntenatalWomanRegistration' | translate }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" [ngClass]="{'active': currentPage == 'spouse' ? true : false}" id="spouseregistration-tab" [routerLink]="['/app/anm-subregn/spouse']" data-toggle="tab" 
-                                role="tab" aria-controls="profile" aria-selected="true">Spouse Registration</a>
+                                role="tab" aria-controls="profile" aria-selected="true">{{'SpouseRegistration' | translate }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" [ngClass]="{'active': currentPage == 'student' ? true : false}" id="studentregistration-tab" [routerLink]="['/app/anm-subregn/student']" data-toggle="tab" 
-                                role="tab" aria-controls="contact" aria-selected="true">Age < 18</a>
+                                role="tab" aria-controls="contact" aria-selected="true">{{'Age' | translate }} < 18</a>
                         </li>
                     </ul>
                     <div class="tab-content mt-5" id="myTabContent">
