@@ -321,5 +321,14 @@
 "DISTRICTCOORDINATOR":"DISTRICT COORDINATOR",
 "CaseSheet":"Case Sheet",
 "SampleReceipt":"Sample Receipt",
-"sampleDate":"sample Date & Time"
+"sampleDate":"Sample Date & Time",
+"RDW":"RDW",
+"RDWSD":"RDW-SD",
+"Note":"Note",
+"AntenatalWomanRegistrationformisapplicabletoallpregnantwomen":"Antenatal Woman Registration form is applicable to all pregnant women",
+"AntenatalWomanRegistration":"Antenatal Woman Registration",
+"ChildRegistrationformisapplicableforallsubjectsbelow18yearsofage":"Child Registration form is applicable for all subjects below 18 years of age.",
+"Pregnant":"Pregnant",
+"MarriedSpouseRegistered":"Married & Spouse Registered",
+"OtherWalkins":"Other Walk-ins"
 }

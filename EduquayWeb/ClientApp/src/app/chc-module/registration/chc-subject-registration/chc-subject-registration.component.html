@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">Subject Registration</h5>
+                            <h5 class="float-center">{{'SubjectRegistration' | translate }}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -39,22 +39,22 @@
                         <li class="nav-item">
                             <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'awreg') ? true : false}"
                                  (click)="tabClick('awreg');" role="tab" aria-controls="home"
-                                aria-selected="true">Pregnant</a>
+                                aria-selected="true">{{'Pregnant' | translate }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'spouse') ? true : false}"
                                 (click)="tabClick('spouse');" role="tab" aria-controls="home"
-                                aria-selected="true">Married & Spouse Registered</a>
+                                aria-selected="true">{{'MarriedSpouseRegistered' | translate }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'student') ? true : false}"
                                 (click)="tabClick('student');" role="tab" aria-controls="home"
-                                aria-selected="true">Age < 18</a>
+                                aria-selected="true">{{'Age' | translate }} < 18</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="antenatal-tab" [ngClass]="{'active': (currentPage == 'chc-subregn') ? true : false}"
                                 (click)="tabClick('');" role="tab" aria-controls="home"
-                                aria-selected="true">Other Walk-ins</a>
+                                aria-selected="true">{{'OtherWalkins' | translate }}</a>
                         </li>
                     </ul>
                     <div class="tab-content mt-5" id="myTabContent">

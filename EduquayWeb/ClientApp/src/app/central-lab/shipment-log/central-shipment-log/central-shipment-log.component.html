@@ -48,10 +48,10 @@
                              <span><b>Lab Technician Name : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>Testing CHC : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</span>
+                             <span><b>Central Lab : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>Receiving Central Lab : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
+                             <span><b>Receiving Molecular Lab : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
                          </div>
                          
                      </div>
@@ -83,7 +83,7 @@
                                      <tr *ngFor="let data of centralReceiptsData[selectedShipmentLog]?.samplesDetail;let i = index;">
                                          <td class="text-center">{{i+1}}</td>
                                          <td class="text-left">{{data.subjectName}}</td>
-                                         <td class="text-center">{{data.shipmentId}}</td>
+                                         <td class="text-center">{{data.uniqueSubjectId}}</td>
                                          <td class="text-center">{{data.rchId}}</td>
                                          <td class="text-center">{{data.barcodeNo}}</td>
                                          <td class="text-center">{{data.sampleCollectionDateTime}}</td>

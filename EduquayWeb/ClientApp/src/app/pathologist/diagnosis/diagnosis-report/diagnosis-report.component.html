@@ -146,7 +146,7 @@
                                           <th class="text-left"><b>HPLC Parameters</b></th>
                                           <th class="text-center"><b>HbA0</b></th>
                                           <th class="text-center"><b>HbA2</b></th>
-                                          <th class="text-center"><b>HbC</b></th>
+                                          <!--<th class="text-center"><b>HbC</b></th>-->
                                           <th class="text-center"><b>HbD</b></th>
                                           <th class="text-center"><b>HbF</b></th>
                                           <th class="text-center"><b>HbS</b></th>
@@ -157,7 +157,7 @@
                                           <td class="text-center"></td>
                                           <td class="text-center">{{diagnosisReportData?.hbA0}}</td>
                                           <td class="text-center">{{diagnosisReportData?.hbA2}}</td>
-                                          <td class="text-center">{{diagnosisReportData?.hbC}}</td>
+                                          <!--<td class="text-center">{{diagnosisReportData?.hbC}}</td>-->
                                           <td class="text-center">{{diagnosisReportData?.hbD}}</td>
                                           <td class="text-center">{{diagnosisReportData?.hbF}}</td>
                                           <td class="text-center">{{diagnosisReportData?.hbS}}</td>
@@ -187,7 +187,7 @@
                     <div class="form-row m-1">
                        
                         <div class="form-group col-md-4">
-                            <div class="mb-2"><span class="note ml-1"><b> Swap Case</b><span class="manto"> *</span></span></div>
+                            <div class="mb-2"><span class="note ml-1"><b> Swap Case</b><span class="manto"> *</span></span> (System Diagnosis)</div>
                             <div class="row">
                                 <div class="col-sm-8">
                                     <span class="ml-1 n-chk">
@@ -297,7 +297,7 @@
                     <div class="form-row m-1">
                      
                         <div class="form-group col-md-3">
-                            <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>Diagnostic Summary</b><span class="manto"> *</span></span>
+                            <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>Diagnostic Summary</b><!--<span class="manto"> *</span>--></span>
                             <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" name="diagnosticSummary" [(ngModel)]="SelecteddiagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
                         </div>
                         
@@ -306,7 +306,7 @@
                         <div class="form-group col-md-12">
                             <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
                             <!--    Close</button>-->
-                        
+                        <p style="display:inline-block;">Note: HPLC Result Abnormal/Normal will be communicated to Subject</p>
                         <a class="btn btn-success float-right mr-3" role="button"
                             id="linktobuttonpathologist" (click)="reportSubmit('submit');">Confirm & Close</a>
                             <a class="btn btn-success float-right mr-3" role="button"

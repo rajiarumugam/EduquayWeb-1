@@ -360,7 +360,7 @@ export class ChcStudentRegistrationComponent implements OnInit {
         this.DataService.setdata({'chcCurrentPageCount':_obj});
       } 
     }
-       // this.stepper.next();
+       //this.stepper.next();
   }
 
     prevStep() {
