@@ -33,6 +33,11 @@ export class GetOtpComponent implements OnInit {
   confirmpasswordval: string;
   textPassword: string;
   isPassword: boolean = true;
+  patternHign: any = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+  selectedNewPattern: string;
+  selectedConfirmPattern: string;
+  errorMgsNewPassword: string;
+  errorMgsConfrimPassword: string;
 
 
   constructor(
@@ -52,7 +57,11 @@ export class GetOtpComponent implements OnInit {
       console.log(resetLoginForm);
       this.resetEmailInput = resetLoginForm.value.userid;
       //this.resetpasswordInput = resetLoginForm.value.password;
-
+      if (this.resetEmailInput === '' || this.resetEmailInput === undefined) {
+        this.showResponseMessage('Please fill out this field', 'e');
+        this.loaderService.display(false);
+        return false;
+      }
       this.sendotpRequest = {
         userName: this.resetEmailInput,
 
@@ -79,14 +88,15 @@ export class GetOtpComponent implements OnInit {
     }
 
     else if (this.isOtpSent === false && this.isGetOtp === true && this.isPasswordInput === false) {
-      this.loaderService.display(true);
       console.log(resetLoginForm);
       this.getEmailInput = resetLoginForm.value.userid;
       this.otpInputVal = resetLoginForm.value.otpVal;
       if (this.otpInputVal === '' || this.otpInputVal == undefined) {
         this.validateOtpResponseMessage('Please enter the OTP', 'e');
+        this.loaderService.display(false);
         return false;
       }
+      this.loaderService.display(true);
       this.validateotpRequest = {
         userName: this.getEmailInput,
         otp: this.otpInputVal,
@@ -117,7 +127,7 @@ export class GetOtpComponent implements OnInit {
     }
 
     else if (this.isOtpSent === false && this.isGetOtp === false && this.isPasswordInput === true) {
-      
+
       this.newpasswordval = '';
       this.confirmpasswordval = '';
       console.log(resetLoginForm);
@@ -125,8 +135,13 @@ export class GetOtpComponent implements OnInit {
       this.newpasswordval = resetLoginForm.value.newpassword;
       this.confirmpasswordval = resetLoginForm.value.confirmpassword;
 
+      if (this.newpasswordval === '' || this.confirmpasswordval === '') {
+        this.resetPasswordResponseMessage('Please fill out password field', 'e');
+        return false;
+      }
+
       if (this.newpasswordval != this.confirmpasswordval) {
-        this.validateOtpResponseMessage('New password & confirm password does not match', 'e');
+        this.resetPasswordResponseMessage('New Password and Confirm Password must be match.', 'e');
         return false;
       }
       this.loaderService.display(true);
@@ -136,7 +151,8 @@ export class GetOtpComponent implements OnInit {
 
       }
       //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
+      // this.showResponseMessage('testing', 's');
+      // this.loaderService.display(false);
       // return false;
       let resetpassword = this.forgotpasswordservice.resetPassword(this.resetpasswordRequest)
         .subscribe(response => {
@@ -249,7 +265,7 @@ export class GetOtpComponent implements OnInit {
       Swal.fire({ icon: 'info', title: message, confirmButtonText: 'Close', allowOutsideClick: false });
     }
     else if (type === 's') {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
+      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
         .then((result) => {
           if (result.value) {
             this.isOtpSent = false;
@@ -266,7 +282,7 @@ export class GetOtpComponent implements OnInit {
       Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false });
     }
     else if (type === 's') {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
+      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Ok', allowOutsideClick: false })
         .then((result) => {
           if (result.value) {
             this.isOtpSent = false;

@@ -102,8 +102,94 @@
                     </button>
                 </div>
                 <div class="modal-body"  id='print-area'>
+                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing" style="width: 98%;height: 27rem;border: 0px solid #ccc;">
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                        <div class="row" style="margin-top: 1rem;">
+                            <div class="col-md-4 mt-3" style="width: 100%;" nowrap='nowrap'>
+                                <b>{{'ShipmentID' | translate }}: {{shipmentId}} </b>
+                            </div>
+                            <div class="col-md-4 mt-3"  style="width: 100%;" nowrap='nowrap'>
+                                <b>{{'ShipmentDate&Time' | translate }}: {{shipmentDateTime}}
+                                        </b>
+                            </div>
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group">
+                                        <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
+                                            <img src="assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button></a>
+                                        <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                                            <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="container-fluid" style="margin-top: 3rem;">
+                            <div class="row">
+                                <div class="col-md-12 border-bottom">
+                                </div>
+                            </div>
+                        </div> -->
+                    <div id="excel-table">
+                  
+                        <div class="table-responsive my-4">
+                            <table class="table">                                
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'LabTechnicianName' | translate }} : </b></td>
+                                        <td class="sp-xs-td-15">{{labTechnicianName}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'TestingCHC' | translate }} : </b></td>
+                                        <td class="sp-xs-td-15">{{testingCHC}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'ReceivingCentralLab' | translate }} : </b></td>
+                                        <td class="sp-xs-td-15">{{receivingCentralLab}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>{{'LogisticsServiceProvider' | translate }} : </b> </td>
+                                        <td>{{logisticsProviderName}}</td>
+                                        <td><b>{{'DeliveryExecutiveName' | translate }} : </b></td>
+                                        <td>{{deliveryExecutiveName}}
+                                        </td>
+                                        <td><b>{{'ContactNumber' | translate }} : </b></td>
+                                        <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                        <td>{{contactNo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
+                            <table id="zero-config" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                       
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'SubjectName' | translate }}</span></th>
+                                        <th><span>{{'SubjectID' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                        <th><span>{{'Barcode' | translate }}</span></th>
+                                        <th><span>{{'SampleCollectionDate_Time' | translate }}</span></th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let sampleDetail of sampleDetails; index as i">
+                                        <td class="sno text-center">{{i +1}}</td>
+                                        <td class="sname">{{sampleDetail.subjectName}}</td>
+                                        <td class="sid text-center">{{sampleDetail.uniqueSubjectId}}</td>
+                                        <td class="sid text-center">{{sampleDetail.rchId}}</td>
+                                        <td class="mobile text-center">{{sampleDetail.barcodeNo}}</td>
+                                        <td class="dartetimenew text-center">{{sampleDetail.sampleCollectionDateTime}}
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    </div>
+                    <!-- <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
 
                         <div class="row my-4">
                             <div class="col-md-4">
@@ -180,7 +266,7 @@
                             </table>
                         </div>
 
-                    </div>
+                    </div> -->
                     <div class="modal-footer">
                         <button class="btn btn-outline-primary" (click)="printShipment(shippedChcSampleDetail, shipment)">
                             <i class="fa fa-print" aria-hidden="true"></i>
