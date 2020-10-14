@@ -85,7 +85,7 @@
 
                   </div>
 
-                  <div class="field-wrapper">
+                  <div class="field-wrapper mt-2">
                     <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"
                       [disabled]="!f.valid" [ngClass]="ngDisabled"> {{loginStatus}}
                       <div class="spinner-border text-white mr-2 align-self-center loader-sm" *ngIf="isProcessing"
@@ -107,19 +107,19 @@
                   </div>
                  
              
-              <div class="d-sm-flex justify-content-between">
+              <!-- <div class="d-sm-flex justify-content-center"> -->
                 <div class="field-wrapper">
                 <a class="pointer" (click)="openResetLogin(resetloginDetails)"
-                class="forgot-pass-link d-flex justify-content-left">Reset Login</a>
+                class="forgot-pass-link d-flex justify-content-center">Reset Login</a>
               </div>
                 <div class="field-wrapper">
                   <!-- <a class="pointer" (click)="forgotPassword()"
                           class="forgot-pass-link d-flex justify-content-left">Forgot Password?</a> -->
-                  <a class="pointer" [routerLink]="['/home/forgotpassword']" class="forgot-pass-link">Forgot
+                  <a class="pointer d-flex justify-content-center" [routerLink]="['/home/forgotpassword']" class="forgot-pass-link">Forgot
                     Password?</a>
 
                 </div>
-              </div>
+              <!-- </div> -->
               </div>
           </div>
           </form>
@@ -134,6 +134,7 @@
 </div>
 </div>
 <div class="clearer" ></div>
+<footer>
 <div class="container-fluid d-fiex">
 <div class="row mlmr">
   <div class="col-md-10 py-5">
@@ -163,6 +164,7 @@
   </div>
 </div>
 </div>
+</footer>
 <!-- The Modal -->
 <ng-template #resetloginDetails let-modal>
 
@@ -179,7 +181,7 @@
   <div class="modal-body">
     <div class="form-form">
       <!-- <div class="col-md-12"> -->
-      <div class="form-form-wrap">
+      <div class="form-form-wrap form-form-wrap-popup">
         <!-- <div class="form-container"> -->
         <div class="form-content">
           <form class="text-left" (ngSubmit)="onSubmit(resetLoginForm)" #resetLoginForm="ngForm">

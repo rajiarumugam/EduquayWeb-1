@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="float-right mb-4">
-                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-sample-report']"
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-report']"
                                     role="button" ngbTooltip="Report - Sample Status" placement="left"><i
                                         class="fas fa-chevron-right pNav-right"></i></a>
                             </div>
@@ -102,8 +102,7 @@
                     </button>
                 </div>
                 <div class="modal-body"  id='print-area'>
-                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing" style="width: 98%;height: 27rem;border: 0px solid #ccc;">
-
+                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                         <div class="row" style="margin-top: 1rem;">
                             <div class="col-md-4 mt-3" style="width: 100%;" nowrap='nowrap'>
                                 <b>{{'ShipmentID' | translate }}: {{shipmentId}} </b>
@@ -156,7 +155,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
+                        <div class="table-responsive" style="overflow-x: scroll;margin-top: 2rem;height: 19rem;">
                             <table id="zero-config" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
