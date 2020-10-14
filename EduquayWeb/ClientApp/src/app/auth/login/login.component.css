@@ -149,6 +149,8 @@ html {
     float: right;
 }
 
+div.clearer { clear:both; }
+
 /* .modal-header .modal-body form .form .field-wrapper .input svg {
   position: absolute !important;
   top: 16px !important;

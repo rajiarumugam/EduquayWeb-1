@@ -104,8 +104,18 @@
                                     <mat-horizontal-stepper [linear]="false" #stepper>
                                         <mat-step [stepControl]="firstFormGroup">
                                             <form [formGroup]="firstFormGroup">    
-                                                <div class="row">
-                                                    <div class="col-md-12">
+                                                <div class="row mb-4">
+                                                    <div class="col-md-4">
+                                                        <h5><b>{{'SubjectID' | translate }} :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs</h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                                            {{subjectprofileItem?.pregnancyDetail.rchId}}</h5>
+                                                    </div>
+<!-- 
                                                         <div class="table-responsive">
                                                             <table class="table">
                                                                 <tbody class="">
@@ -119,11 +129,12 @@
                                                                                 </h5>
                                                                             </span>
                                                                         </td>
+                                                                      
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                        </div>
-                                                    </div>
+                                                        </div> -->
+                                                   
         
                                                 </div>
                                                 <div class="form-row my-2">       
@@ -197,27 +208,17 @@
                                         </mat-step>
                                         <mat-step [stepControl]="secondFormGroup">
                                             <form [formGroup]="secondFormGroup">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <tbody class="">
-                                                                    <tr>
-                                                                        <td>
-                                                                            <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>{{'SubjectID' | translate }} :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                                    <strong class="ml-5">{{'SubjectInfo' | translate }} :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs
-                                                                                    <strong class="ml-5">{{'RCHID' | translate }} : </strong>
-                                                                                    {{subjectprofileItem?.pregnancyDetail.rchId}}
-                                                                                </h5>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-md-4">
+                                                        <h5><b>{{'SubjectID' | translate }} :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
                                                     </div>
-        
+                                                    <div class="col-md-4">
+                                                        <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs</h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                                            {{subjectprofileItem?.pregnancyDetail.rchId}}</h5>
+                                                    </div>
                                                 </div>
                                                 <div class="form-row my-2">
                                                     <div class="form-group col-md-2">
@@ -368,7 +369,19 @@
                 <div class="col-xl-12 col-lg-12 col-sm-12" >
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="row">
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <h5><b>{{'SubjectID' | translate }} :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                        {{subjectprofileItem?.pregnancyDetail.rchId}}</h5>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped">
@@ -389,7 +402,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
