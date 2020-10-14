@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-chc-sample-shipmentlog',
@@ -48,7 +49,7 @@ export class ChcSampleShipmentlogComponent implements OnInit {
   barcodeNo: string;
   sampleCollectionDateTime: string;
   isPrintable: boolean = false;
-
+  fileName: any;
 
   constructor(
     private ChcSampleShipmentlogService: ChcSampleShipmentlogService,
@@ -144,6 +145,7 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
   this.testingCHC = shipment.testingCHC;
   this.contactNo = shipment.contactNo;
   this.sampleDetails = shipment.samplesDetail;
+  this.fileName= shipment.shipmentId +'.xlsx';
 
   this.modalService.open(
     shippedChcSampleDetail,{
@@ -155,6 +157,21 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
       ariaLabelledBy: 'modal-basic-title'
     });
 }
+
+exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('excel-table'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
+    }
 
 openchcShipmentPrint(shippedChcSampleDetail: any, shipment: ChcSampleShipmentList){
   this.openchcSampleShipment(shippedChcSampleDetail, shipment);
