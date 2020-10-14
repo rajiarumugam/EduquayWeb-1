@@ -96,27 +96,17 @@
                                     <mat-horizontal-stepper [linear]="false" #stepper>
                                         <mat-step [stepControl]="firstFormGroup">
                                             <form [formGroup]="firstFormGroup">    
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <tbody class="">
-                                                                    <tr>
-                                                                        <td>
-                                                                            <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                                    <strong class="ml-5">{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
-                                                                                    <strong class="ml-5">{{'RCHID' | translate }} : </strong>
-                                                                                    {{chcsubjectprofileItem?.pregnancyDetail.rchId}}
-                                                                                </h5>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-md-4">
+                                                        <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
                                                     </div>
-        
+                                                    <div class="col-md-4">
+                                                        <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs</h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                                            {{chcsubjectprofileItem?.pregnancyDetail.rchId}}</h5>
+                                                    </div>
                                                 </div>
                                                 <div class="form-row my-2">       
                                                     <div class="form-group col-md-4">
@@ -194,27 +184,17 @@
                                         </mat-step>
                                         <mat-step [stepControl]="secondFormGroup">
                                             <form [formGroup]="secondFormGroup">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <tbody class="">
-                                                                    <tr>
-                                                                        <td>
-                                                                            <span class="float-left mt-0 mr-4">
-                                                                                <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}
-                                                                                    <strong class="ml-5">{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs
-                                                                                    <strong class="ml-5">{{'RCHID' | translate }} : </strong>
-                                                                                    {{chcsubjectprofileItem?.pregnancyDetail.rchId}}
-                                                                                </h5>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-md-4">
+                                                        <h5><b>{{'SubjectID' | translate }} :</b> {{chcsubjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
                                                     </div>
-        
+                                                    <div class="col-md-4">
+                                                        <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{chcsubjectprofileItem?.primaryDetail.firstName}} {{chcsubjectprofileItem?.primaryDetail.lastName}}, {{chcsubjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{chcsubjectprofileItem?.primaryDetail.age}} yrs</h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                                            {{chcsubjectprofileItem?.pregnancyDetail.rchId}}</h5>
+                                                    </div>
                                                 </div>
                                                 <div class="form-row my-2">
                                                     <div class="form-group col-md-2">

@@ -158,6 +158,21 @@ body {
     font-size: 15px;
     margin-top: 14px;
 }
+
+.card {
+  border: 1px solid #1b55e2 !important;
+}
+
+@media screen and (max-width: 468px) {
+  .card{
+    max-width: 18rem;
+  }
+}
+@media screen and (min-width: 468px) {
+  .card{
+    max-width: 24rem;
+  }
+}
   
   
   
