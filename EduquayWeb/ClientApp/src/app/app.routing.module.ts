@@ -238,6 +238,7 @@ import { PathoReportResolverService } from "./shared/pathologist/patho-report-re
 
 import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
 import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
+import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -250,7 +251,8 @@ const routes: Routes = [
       { path: 'about', component: AboutUsComponent, pathMatch: 'full'},      
       { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
       { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
-      { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'}
+      { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'},
+      { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'}
     ]
   },
 
@@ -749,7 +751,8 @@ export const RoutingComponents = [
   PathoreportSampleStatusComponent,
   PathoreportSampleStatusMainComponent,
   ViewReportPathoMainMainComponent,
-  ViewPathoReportComponent
+  ViewPathoReportComponent,
+  ResetLoginComponent
 
 ];
 

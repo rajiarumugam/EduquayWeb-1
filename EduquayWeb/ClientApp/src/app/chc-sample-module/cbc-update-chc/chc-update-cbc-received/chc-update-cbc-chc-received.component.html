@@ -1,3 +1,4 @@
+<div class="table-responsive mt-2">
 <table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead>
         <tr>
@@ -25,7 +26,8 @@
             <td style="text-align: center;">{{ person.rbc }}</td>
             <td style="text-align: center;">{{ person.sampleDateTime }}</td>
             <td style="text-align: center;">{{ person.testedDateTime }}</td>
-            <td style="text-align: center;"><button class="button-cls" *ngIf="!person.timeoutStatus" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" (click)="confirm(person,1);" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false">Confirm</button><button class="button-cls" *ngIf="!person.timeoutStatus" style="margin-left:5px;" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false" (click)="confirm(person,2);">Rerun</button><button class="button-cls" *ngIf="person.timeoutStatus" (click)="confirm(person,3);">Sample Timeout</button></td>
+            <td style="text-align: center;"><button class="button-cls mb-2" *ngIf="!person.timeoutStatus" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" (click)="confirm(person,1);" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false">Confirm</button><button class="button-cls" *ngIf="!person.timeoutStatus" style="margin-left:5px;" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false" (click)="confirm(person,2);">Rerun</button><button class="button-cls" *ngIf="person.timeoutStatus" (click)="confirm(person,3);">Sample Timeout</button></td>
         </tr>
     </tbody>
 </table>
+</div>

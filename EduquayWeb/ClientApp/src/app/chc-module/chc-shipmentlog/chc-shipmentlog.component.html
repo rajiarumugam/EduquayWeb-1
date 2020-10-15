@@ -103,7 +103,7 @@
                 </div>
                 <div class="modal-body" id='print-area' style="height: 35rem;padding:26px 5px 26px 5px">
 
-                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing" style="width: 98%;height: 27rem;border: 0px solid #ccc;">
+                    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
 
                         <div class="row" style="margin-top: 1rem;">
                             <div class="col-md-4 mt-3" style="width: 100%;" nowrap='nowrap'>
@@ -181,7 +181,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
+                        <div class="table-responsive" style="overflow-x: scroll;margin-top: 2rem;height: 19rem;">
                             <table id="zero-config" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -215,14 +215,15 @@
 
                     </div>
                     </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-primary" (click)="printShipment(shippedChcSampleDetail, shipment)">
+                            <i class="fa fa-print" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-outline-primary" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                            {{'Close' | translate }}</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-outline-primary" (click)="printShipment(shippedChcSampleDetail, shipment)">
-                        <i class="fa fa-print" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-outline-primary" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
-                        {{'Close' | translate }}</button>
-                </div>
+               
             </ng-template>
         </div>
         <!-- <div class="row mt-4">

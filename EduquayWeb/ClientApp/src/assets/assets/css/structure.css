@@ -590,6 +590,11 @@ code {
     justify-content: flex-start;
     min-height: 53px;
     width: 100%; }
+    .sub-header-container .navbar .toggle-sidebar, .sub-header-container .navbar .sidebarCollapse {
+      position: relative;
+      padding: 0 25px 0 31px;
+      margin-left: 0;
+  }
     .sub-header-container .navbar .toggle-sidebar {
       position: relative;
       padding: 0 25px 0 31px;

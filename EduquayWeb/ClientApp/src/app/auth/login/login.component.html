@@ -2,249 +2,254 @@
   <div class="row mlmr">
     <div class="col-md-9 pt-5" id="grad4">
       <div class="row center1 mlmr">
-          <div class="col-md-5 text-center">
-              <img src="assets/assets/img/odisa-family34.png" class="img-fluid">
+        <div class="col-md-5 text-center">
+          <img src="assets/assets/img/odisa-family34.png" class="img-fluid">
+        </div>
+        <div class="col-md-7">
+          <div class="py-3">
+            <h4 class="font-size:800" style="color: #e19f49">VISION</h4>
+            <h5 class="">People of Odisha will live a life, free from the burden of<br>major
+              haemoglobin disorders such as thalassemia major<br>and sickle cell disease.</h5>
           </div>
-          <div class="col-md-7">
-              <div class="py-3">
-                  <h4 class="font-size:800" style="color: #e19f49">VISION</h4>
-                  <h5 class="">People of Odisha will live a life, free from the burden of<br>major
-                      haemoglobin disorders such as thalassemia major<br>and sickle cell disease.</h5>
-              </div>
-              <div class="">
-                  <h4 class="font-size:800" style="color: #e19f49">GOAL</h4>
-                  <h5 class="">To reduce the burden of disease due to major haemoglobin<br>disorders in
-                      Odisha.</h5>
-              </div>
+          <div class="">
+            <h4 class="font-size:800" style="color: #e19f49">GOAL</h4>
+            <h5 class="">To reduce the burden of disease due to major haemoglobin<br>disorders in
+              Odisha.</h5>
+          </div>
 
 
-          </div>
+        </div>
       </div>
 
-  </div>
-  
-    <div class="col-md-3">
-      <div class="form-form">
-        <div class="col-md-12">
-          <div class="form-form-wrap">
-            <div class="form-container">
-              <div class="form-content">
-                <h4 class="text-center text-primary">Log In
-                </h4>
-                <p>&nbsp;</p>
-                <div *ngIf="isLoginError" class="alert alert-danger" role="alert">
-                  <div class="row">
-                    <div class="col-1 alert-icon-col">
-                      <span class="fa fa-info-circle fa-1x"></span>
-                    </div>
-                    <div class="col">
-                      {{loginErrorMessage}}
-                    </div>
-                  </div>
-                </div>
-                <form class="text-left" (ngSubmit)="userLogin()" #f="ngForm">
-                  <div class="form"> 
-                    <div id="username-field" class="field-wrapper input">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-user">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg>
-                      <input id="userid" name="userid" type="text" class="form-control" placeholder="Username" ngModel
-                        #emailVal="ngModel" required>
-                      <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
-                        user id</span>
-                    </div>
-  
-                    <div id="password-field" class="field-wrapper input mb-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-lock">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                      </svg>
-                      <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control" placeholder="Password"
-                        ngModel #passwordVal="ngModel" required password maxlength="8">
-                      <span class="input-error"
-                        *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
-                        password</span>
-                      <span class="input-error"
-                        *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.maxlength">Please enter at
-                        least 8 chars</span>
-                    </div>
-                    <div class="d-sm-flex justify-content-between">
-                      <div class="field-wrapper toggle-pass">
-                        <p class="d-inline-block">Show Password</p>
-                        <label class="switch s-primary">
-                          <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none" [(ngModel)]="textPassword" (change)="showPassword()">
-                          <span class="slider round"></span>
-                        </label>
-                      
-                      </div>
-                     
-                      <div class="field-wrapper">
-                        <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"
-                          [disabled]="!f.valid" [ngClass]="ngDisabled"> {{loginStatus}}
-                          <div class="spinner-border text-white mr-2 align-self-center loader-sm" *ngIf="isProcessing"
-                            style="margin-bottom: -3px;"></div>
-                        </button>
-                      </div>
-                     
-  
-                    </div>
-                    <div class="field-wrapper">
-                      <a class="pointer" (click)="openResetLogin(resetloginDetails)"
-                      class="forgot-pass-link d-flex justify-content-right">Reset Login</a>
-                    </div>
-                   
-  
-                    <div class="field-wrapper d-flex justify-content-left keep-logged-in">
-                      <div class="n-chk new-checkbox checkbox-outline-primary">
-                          <label class="new-control new-checkbox checkbox-outline-primary">
-                              <input type="checkbox" class="new-control-input mr-1">
-                              <span class="new-control-indicator"></span>Keep me logged in
-                          </label>
-                      </div>
-                  </div>
+    </div>
 
-                  <div class="field-wrapper">
-                      <!-- <a class="pointer" (click)="forgotPassword()"
-                          class="forgot-pass-link d-flex justify-content-left">Forgot Password?</a> -->
-                          <a class="pointer" [routerLink]="['/home/forgotpassword']"
-                          class="forgot-pass-link d-flex justify-content-left">Forgot Password?</a>
-                       
-                  </div>
-  
-                  </div>
-                </form>
-        
-              </div>
-            </div>
+    <div class="col-md-3">
+      <div *ngIf="isLoginError" class="alert alert-danger" role="alert">
+        <div class="row">
+          <div class="col-1 alert-icon-col">
+            <span class="fa fa-info-circle fa-1x"></span>
+          </div>
+          <div class="col">
+            {{loginErrorMessage}}
           </div>
         </div>
       </div>
-  
-    </div>
-    
-    <div class="col-md-10 py-5">
-      <div class="row">
-          <div class="col-md-3 text-center">
-              <a href="https://health.odisha.gov.in/" class="rounded bs-tooltip text-primary"
-                  target="_blank" title="Click hear to view the site" style="font-size: 15px;">GoO –
-                  Health and Family Welfare</a>
-          </div>
-          <div class="col-md-2 text-center">
-              <a href="http://www.nrhmorissa.gov.in/" class="rounded bs-tooltip text-primary"
-                  target="_blank" title="Click hear to view the site"
-                  style="color: #000; font-size: 15px;">NHM Odisha</a>
-          </div>
-          <div class="col-md-2 text-center">
-              <a href="https://www.cmch-vellore.edu/Home.aspx" class="rounded bs-tooltip text-primary"
-                  target="_blank" title="Click hear to view the site"
-                  style="color: #000; font-size: 15px;"> CMC Vellore</a>
-          </div>
-          <div class="col-md-2 text-center">
-              <a href="http://www.cscr.in/" class="rounded bs-tooltip text-primary" target="_blank"
-                  target="_blank" title="Click hear to view the site"
-                  style="color: #000;font-size: 15px;">CSCR Bagayam, Vellore</a>
-          </div>
-          <div class="col-md-3 text-center">
-              <a href="http://dbtindia.gov.in/" class="rounded bs-tooltip text-primary" target="_blank"
-                  target="_blank" title="Click hear to view the site"
-                  style="color: #000; font-size: 15px;">Dept of Biotechnology, GoI</a>
-          </div>
-      </div>
-  </div>
-     <!-- The Modal -->
-
-     <ng-template #resetloginDetails let-modal>
-
-      <div class="modal-header">
-        <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Reset Login</h5>
-        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
-          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-    <div class="modal-body">
       <div class="form-form">
         <!-- <div class="col-md-12"> -->
-          <div class="form-form-wrap">
-            <!-- <div class="form-container"> -->
-              <div class="form-content">
-                <form class="text-left" (ngSubmit)="onSubmit(resetLoginForm)" #resetLoginForm="ngForm">
-                  <div class="form">
+        <div class="form-form-wrap">
+          <!-- <div class="form-container"> -->
+          <div class="form-content">
+            <h4 class="text-center text-primary">Log In
+            </h4>
+            <p>&nbsp;</p>
 
-                    <div id="username-field" class="field-wrapper input">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-user">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg>
-                      <input id="userid" name="userid" type="text" class="form-control" placeholder="Username" ngModel
-                        #emailVal="ngModel" required>
-                      <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
-                        user id</span>
-                    </div>
+            <form class="text-left" (ngSubmit)="userLogin()" #f="ngForm">
+              <div class="form">
+                <div id="username-field" class="field-wrapper input">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-user">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <input id="userid" name="userid" type="text" class="form-control" placeholder="Username" ngModel
+                    #emailVal="ngModel" required>
+                  <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
+                    user id</span>
+                </div>
 
-                    <div id="password-field" class="field-wrapper input mb-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-lock">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                      </svg>
-                      <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control" placeholder="Password"
-                        ngModel #passwordVal="ngModel" required password minlength="5">
-                      <span class="input-error"
-                        *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
-                        password</span>
-                      <span class="input-error"
-                        *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.minlength">Please enter at
-                        least 5 chars</span>
-                    </div>
-                    <div class="d-sm-flex justify-content-between">
-                      <div class="field-wrapper toggle-pass">
-                        <p class="d-inline-block">Show Password</p>
-                        <label class="switch s-primary">
-                          <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none" [(ngModel)]="textPassword" (change)="showPassword()">
-                          <span class="slider round"></span>
-                        </label>
-                      
-                      </div>
-                    </div>
-                    <div class="modal-footer float-right">
-                      <button class="btn float-right" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
-                      <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto" name="linkto">Submit</button>
-                      <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
-                      
-                    </div>
+                <div id="password-field" class="field-wrapper input mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-lock">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control"
+                    placeholder="Password" ngModel #passwordVal="ngModel" required password minlength="5">
+                  <span class="input-error"
+                    *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
+                    password</span>
+                  <span class="input-error"
+                    *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.minlength">Please enter at
+                    least 5 chars</span>
+                </div>
+                <div class="d-sm-flex justify-content-between">
+                  <div class="field-wrapper toggle-pass">
+                    <p class="d-inline-block">Show Password</p>
+                    <label class="switch s-primary">
+                      <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none"
+                        [(ngModel)]="textPassword" (change)="showPassword()">
+                      <span class="slider round"></span>
+                    </label>
 
                   </div>
-                </form>
+
+                  <div class="field-wrapper mt-2">
+                    <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"
+                      [disabled]="!f.valid" [ngClass]="ngDisabled"> {{loginStatus}}
+                      <div class="spinner-border text-white mr-2 align-self-center loader-sm" *ngIf="isProcessing"
+                        style="margin-bottom: -3px;"></div>
+                    </button>
+                  </div>
+
+
+                </div>
+
+                <div class="field-wrapper">
+                  <div class="field-wrapper d-flex justify-content-left keep-logged-in">
+                    <div class="n-chk new-checkbox checkbox-outline-primary">
+                      <label class="new-control new-checkbox checkbox-outline-primary">
+                        <input type="checkbox" class="new-control-input mr-1">
+                        <span class="new-control-indicator"></span>Keep me logged in
+                      </label>
+                    </div>
+                  </div>
+                 
+             
+              <!-- <div class="d-sm-flex justify-content-center"> -->
+                <div class="field-wrapper">
+                <a class="pointer" [routerLink]="['/home/resetlogin']"
+                class="forgot-pass-link d-flex justify-content-center">Reset Login</a>
               </div>
-            <!-- </div> -->
+                <div class="field-wrapper">
+                  <!-- <a class="pointer" (click)="forgotPassword()"
+                          class="forgot-pass-link d-flex justify-content-left">Forgot Password?</a> -->
+                  <a class="pointer d-flex justify-content-center" [routerLink]="['/home/forgotpassword']" class="forgot-pass-link">Forgot
+                    Password?</a>
+
+                </div>
+              <!-- </div> -->
+              </div>
           </div>
+          </form>
+
+        </div>
         <!-- </div> -->
       </div>
-      
+      <!-- </div> -->
     </div>
-    <!-- <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i> -->
-    <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
-  </ng-template>
-  <!--  </div> -->
-  <!-- <div class="col-md-2">
+
+  </div>
+</div>
+</div>
+<div class="clearer" ></div>
+<footer>
+<div class="container-fluid d-fiex">
+<div class="row mlmr">
+  <div class="col-md-10 py-5">
+    <div class="row">
+      <div class="col-md-3 text-center">
+        <a href="https://health.odisha.gov.in/" class="rounded bs-tooltip text-primary" target="_blank"
+          title="Click hear to view the site" style="font-size: 15px;">GoO –
+          Health and Family Welfare</a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="http://www.nrhmorissa.gov.in/" class="rounded bs-tooltip text-primary" target="_blank"
+          title="Click hear to view the site" style="color: #000; font-size: 15px;">NHM Odisha</a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="https://www.cmch-vellore.edu/Home.aspx" class="rounded bs-tooltip text-primary" target="_blank"
+          title="Click hear to view the site" style="color: #000; font-size: 15px;"> CMC Vellore</a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="http://www.cscr.in/" class="rounded bs-tooltip text-primary" target="_blank" target="_blank"
+          title="Click hear to view the site" style="color: #000;font-size: 15px;">CSCR Bagayam, Vellore</a>
+      </div>
+      <div class="col-md-3 text-center">
+        <a href="http://dbtindia.gov.in/" class="rounded bs-tooltip text-primary" target="_blank" target="_blank"
+          title="Click hear to view the site" style="color: #000; font-size: 15px;">Dept of Biotechnology, GoI</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</footer>
+<!-- The Modal -->
+<ng-template #resetloginDetails let-modal>
+
+  <div class="modal-header">
+    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Reset Login</h5>
+    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-form">
+      <!-- <div class="col-md-12"> -->
+      <div class="form-form-wrap form-form-wrap-popup">
+        <!-- <div class="form-container"> -->
+        <div class="form-content">
+          <form class="text-left" (ngSubmit)="onSubmit(resetLoginForm)" #resetLoginForm="ngForm">
+            <div class="form">
+
+              <div id="username-field" class="field-wrapper input">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-user">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <input id="userid" name="userid" type="text" class="form-control" placeholder="Username" ngModel
+                  #emailVal="ngModel" required>
+                <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
+                  user id</span>
+              </div>
+
+              <div id="password-field" class="field-wrapper input mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-lock">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input id="password" name="password" [type]="isPassword  ? 'password' : 'text'" class="form-control"
+                  placeholder="Password" ngModel #passwordVal="ngModel" required password minlength="5">
+                <span class="input-error"
+                  *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
+                  password</span>
+                <span class="input-error"
+                  *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.minlength">Please enter at
+                  least 5 chars</span>
+              </div>
+              <div class="d-sm-flex justify-content-between">
+                <div class="field-wrapper toggle-pass">
+                  <p class="d-inline-block">Show Password</p>
+                  <label class="switch s-primary">
+                    <input type="checkbox" id="togglePassword" name="togglePassword" #togglePassword class="d-none"
+                      [(ngModel)]="textPassword" (change)="showPassword()">
+                    <span class="slider round"></span>
+                  </label>
+
+                </div>
+              </div>
+              <div class="modal-footer float-right">
+                <button class="btn float-right" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                  Close</button>
+                <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto" name="linkto">Submit</button>
+                <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+
+              </div>
+
+            </div>
+          </form>
+        </div>
+        <!-- </div> -->
+      </div>
+      <!-- </div> -->
+    </div>
+
+  </div>
+  <!-- <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i> -->
+  <i appLoadScript [script]="'assets/assets/js/anm-module/anm-sample-collection-popup.js'"></i>
+</ng-template>
+
+<!--  </div> -->
+<!-- <div class="col-md-2">
       <a href="#" class="py-5 pr-5 text-primary" style="float: right; font-weight: 900;">HELP</a>
   </div> -->
-  
-  </div>
 
-
-
-
-</div>
