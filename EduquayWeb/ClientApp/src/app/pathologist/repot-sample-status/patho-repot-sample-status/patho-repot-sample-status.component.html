@@ -1,0 +1,96 @@
+<div class="tab-pane fade show" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row ml-3 my-2">
+              <div class="form-group col-md-2" [formGroup]="dateform">
+                <label for="inputFromdate">{{'FromDate' | translate }}
+                </label>
+                <div class="form-group mb-0">
+                    <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
+                </div>
+              </div>
+              <div class="form-group col-md-2" [formGroup]="dateform">
+                <label for="inputTodate">{{'ToDate' | translate }}</label>
+                <div class="form-group mb-0">
+                  <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+                </div>
+              </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">Sample Status</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                        <option [ngValue]="null">Select Status</option>
+                        <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
+                      </select>
+                </div>
+                
+                <div class="form-group col-md-1">
+                    <label for="inputSubjectcategory">CHC</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" (ngModelChange)="chcChange()">
+                      <option [ngValue]="null">Select CHC</option>
+                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="inputSubjectcategory">PHC</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedphc" [disabled]="selectedchc == null ? true : false" (ngModelChange)="phcChange()">
+                      <option [ngValue]="null">Select PHC</option>
+                      <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="inputSubjectcategory">ANM</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedAnm" [disabled]="selectedphc == null ? true : false">
+                      <option [ngValue]="null">Select ANM</option>
+                      <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
+                    </select>
+                </div>
+                <div class="px-2 bd-highlight search-margin">
+                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                    <a (click)="refreshData()"><button type="submit" class="btn search-bu">
+                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                </div>
+            </div>
+            <div class="table-responsive my-2">
+                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th><span>S.No</span></th>
+                            <th><span>Subject Name</span></th>
+                            <th><span>Subject ID</span></th>
+                            <th><span>RCH ID</span></th>
+                            <th><span>GA</span></th>
+                            <th><span>Barcode</span></th>
+                            <th><span>CBC Result </span></th>
+                            <th><span>SST Result </span></th>
+                            <th><span>HPLC Result  </span></th>
+                            <th><span>Status </span></th>
+                            <th><span>Clinical Diagnosis </span></th>
+                            <th><span>Result</span></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pnddata of pndPendingArray; index as i">
+                            <td>{{i+1}}</td>
+                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                            <td class="text-center">{{pnddata.subjectId}}</td>
+                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                            <td style="text-align: left">{{pnddata.ga}}</td>
+                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                            <td class="text-left">{{pnddata.sstResult}}</td>
+                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                            <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+

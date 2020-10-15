@@ -92,14 +92,11 @@ export class CBCCHCReceivedSampleComponent implements OnInit {
 
   var _obj = {};
   _obj["subjectId"] = data.subjectId;
-  _obj["barcodeNo"] = data.barcodeNo;
   _obj["testingCHCId"] = this.user.chcId;
-  _obj["mcv"] = data.mcv;
-  _obj["rdw"] = data.rdw;
-  _obj["testCompleteOn"] = data.testedDateTime;
-  _obj["sampleDateTime"] = data.sampleDateTime;
   _obj["confirmStatus"] =type;
   _obj["userId"] = this.user.id;
+  _obj["testedId"] = data.testedId;
+
 
   
 if(type == 1 || type == 2)
