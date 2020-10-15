@@ -231,6 +231,7 @@ import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
 import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
 import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.component";
+import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -243,7 +244,8 @@ const routes: Routes = [
       { path: 'about', component: AboutUsComponent, pathMatch: 'full'},      
       { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
       { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
-      { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'}
+      { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'},
+      { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'}
     ]
   },
 
@@ -728,7 +730,8 @@ export const RoutingComponents = [
   DiagosisReportComponent1,
   GetOtpComponent,
   ChcSubjectProfileComponent,
-  AnmChcSubjectProfileComponent
+  AnmChcSubjectProfileComponent,
+  ResetLoginComponent
 
 ];
 
