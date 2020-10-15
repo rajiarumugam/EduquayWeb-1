@@ -192,7 +192,7 @@ export class LoginComponent implements OnInit {
       if(this.modalService.hasOpenModals){
         this.modalService.dismissAll();
         this.resetloginlErrorMessage = "";
-        window.location.reload();
+        //window.location.reload();
         //this.router.navigateByUrl(`/home/login`);
       }         
         }
