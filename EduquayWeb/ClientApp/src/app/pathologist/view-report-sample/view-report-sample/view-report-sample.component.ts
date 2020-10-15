@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener,QueryList,ElementRef,ViewChildren } from '@angular/core';
+import { Component, OnInit,HostListener,QueryList,ElementRef,ViewChildren,OnDestroy } from '@angular/core';
 import { DataService } from '../../../shared/data.service';
 import { Router } from '@angular/router';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
@@ -13,11 +13,11 @@ import {Location} from '@angular/common';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-diagnosis-report',
-  templateUrl: './diagnosis-report.component.html',
-  styleUrls: ['./diagnosis-report.component.css']
+  selector: 'app-view-report-sample',
+  templateUrl: './view-report-sample.component.html',
+  styleUrls: ['./view-report-sample.component.css']
 })
-export class DiagosisReportComponent implements OnInit {
+export class ViewPathoReportComponent implements  OnDestroy, OnInit {
   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   receivedSampleCount;
   uploadCBCCount = 0;
@@ -75,22 +75,15 @@ export class DiagosisReportComponent implements OnInit {
    this.testResultGroup = this._formBuilder.group({
     orders: new FormArray([])
    })
+   console.log(this.DataService.getdata().diagnosisHPLC);
     if(this.DataService.getdata().diagnosisHPLC === undefined)
     {
-      this.router.navigate(['/app/pathologist-hplc/abnormal']);
+      this.router.navigate(['/app/patho-report']);
     }
     this.diagnosisReportData = this.DataService.getdata().diagnosisHPLC;
     this.showConfirmEditLater = this.compareDate(this.diagnosisReportData.dateOfTest,moment().format('DD-MM-YYYY')) <= 7;
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
-    this.FormGroup = this._formBuilder.group({
-      cd: ['', Validators.required],
-      swapcase:[this.diagnosisReportData.isNormal ? 'normal' : 'abnormal'],
-      consulSeniorPatho:[this.diagnosisReportData.isConsultSeniorPathologist != undefined ? ''+this.diagnosisReportData.isConsultSeniorPathologist : 'false'],
-      diagnosticSummary:[''],
-      pathologistName:[''],
-      remarks:[''],
-      others: ['']
-   });
+   
 
    if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
         this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;

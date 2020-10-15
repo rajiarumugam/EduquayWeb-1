@@ -231,6 +231,13 @@ import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
 import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
 import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.component";
+
+import { PathoreportSampleStatusComponent } from "./pathologist/repot-sample-status/patho-repot-sample-status/patho-repot-sample-status.component";
+import { PathoreportSampleStatusMainComponent } from './pathologist/repot-sample-status/patho-repot-sample-status-main/patho-repot-sample-status-main.component';
+import { PathoReportResolverService } from "./shared/pathologist/patho-report-resolver.service";
+
+import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
+import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -408,6 +415,11 @@ const routes: Routes = [
         children:[
           {path: '', component: CHCreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CHCReportResolverService}}
         ]
+      },{
+        path: 'patho-report', component: PathoreportSampleStatusMainComponent,
+        children:[
+          {path: '', component: PathoreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportResolverService}}
+        ]
       },
       {
         path: 'central-shipment', component: CentralShipmentMainComponent,
@@ -497,6 +509,11 @@ const routes: Routes = [
         path: 'view-pndtc-summary', component: PndSummaryViewMainComponent,
         children:[
           {path: '', component: PndSummaryViewComponent, pathMatch: 'full'}
+        ]
+      },{
+        path: 'view-Patho-report', component: ViewReportPathoMainMainComponent,
+        children:[
+          {path: '', component: ViewPathoReportComponent, pathMatch: 'full'}
         ]
       },
       /*{
@@ -728,7 +745,11 @@ export const RoutingComponents = [
   DiagosisReportComponent1,
   GetOtpComponent,
   ChcSubjectProfileComponent,
-  AnmChcSubjectProfileComponent
+  AnmChcSubjectProfileComponent,
+  PathoreportSampleStatusComponent,
+  PathoreportSampleStatusMainComponent,
+  ViewReportPathoMainMainComponent,
+  ViewPathoReportComponent
 
 ];
 

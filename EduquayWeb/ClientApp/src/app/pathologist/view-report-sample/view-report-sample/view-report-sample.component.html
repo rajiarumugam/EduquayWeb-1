@@ -1,0 +1,178 @@
+      <div class="row layout-top-spacing">
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+              <div class="widget-content widget-content-area br-6">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <tbody class="">
+                                      <tr>
+                                          <td>
+                                          <span class="float-left mt-0 mr-4">				
+                                            <h5><b>Subject ID :</b> {{diagnosisReportData?.subjectId}}
+                                                  <strong class="ml-5">Subject Info :</strong> {{diagnosisReportData?.subjectName}}, {{diagnosisReportData?.gender == "Female" ? F : M}}, {{diagnosisReportData?.age}} yrs
+                                                  <strong class="ml-5">RCH ID :</strong> {{diagnosisReportData?.rchId}} 
+                                            </h5>
+                                          </span>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+              <div class="widget-content widget-content-area br-6">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped"  id="tblBasicInfo">
+                                  <thead class="tablecss">
+                                      <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                          </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="sp-xs-td-9"><b>District</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
+                                          <td class="sp-xs-td-9"><b>Testing CHC</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.chcName}}</td>
+                                          <td class="sp-xs-td-9"><b>RI Point</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                          <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.subjectId}}</td>
+                                          <td class="sp-xs-td-9"><b>Age</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.age}} yrs</td>
+                                      </tr>
+                                      <tr>
+                                          <td><b>Contact No</b></td>
+                                          <td>{{diagnosisReportData?.contactNo}}</td>
+                                          <td><b>Address</b></td>
+                                          <td>{{diagnosisReportData?.address}}</td>
+                                          <td><b>Spouse Name</b></td>
+                                          <td>{{diagnosisReportData?.spouseName}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td><b>Spouse Contact</b></td>
+                                          <td>{{diagnosisReportData?.spouseContact}}</td>
+                                          <td><b>RCH ID</b></td>
+                                          <td>{{diagnosisReportData?.rchId}}</td>
+                                          <td><b>LMP Date</b></td>
+                                          <td>{{diagnosisReportData?.lmpDate}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td><b>Gestational Age</b></td>
+                                          <td>{{diagnosisReportData?.ga}}</td>
+                                          <td><b>Obstetrics Score</b></td>
+                                          <td>{{diagnosisReportData?.obstetricsScore}}</td>
+                                          
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile">
+              <div class="widget-content widget-content-area br-6">
+                  
+                
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead class="tablecss">
+                                      <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
+                                         
+                                          </th>
+                                      </tr> 
+                                  </thead> 
+                                  <tbody>
+                                      <tr>
+                                          <td class="sp-xs-th" style="color: #1b55e2;font-weight: 700;font-size: 13px;">SST Results</td>
+                                          <td class="sp-xs-td-15" style="color:red;">{{diagnosisReportData?.sstResult}}</td>  
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                              <thead> 
+                                  <tr>
+                                      <th class="text-left"><span>CBC Results</span></th>
+                                      <th class="text-center"><span>MCV</span></th>                                             
+                                      <th class="text-center"><span>RDW</span></th>
+                                      <!-- <th class="text-left"><span>Diagnosis</span></th> -->
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td class="text-left" style="color:red;">{{diagnosisReportData?.cbcTestResult}}</td>
+                                      <td class="text-center sp-xs-th">{{diagnosisReportData?.mcv}}</td>                                                                                          
+                                      <td class="text-center">{{diagnosisReportData?.rdw}}</td>
+                                      <!-- <td class="text-left"></td> -->
+                                  </tr>
+                              </tbody> 
+                          </table>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped">
+                                  <thead class="tablecss">
+                                      <!-- <tr class="" style="background-color: #e3e8ef;">
+                                          <th colspan="14" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
+                                          </th>
+                                      </tr> -->
+                                      <tr>
+                                          <th class="text-left"><b>HPLC Parameters</b></th>
+                                          <th class="text-center"><b>HbF</b></th>
+                                          <th class="text-center"><b>HbA0</b></th>
+                                          <th class="text-center"><b>HbA2</b></th>
+                                          <!--<th class="text-center"><b>HbC</b></th>-->
+                                          <th class="text-center"><b>HbS</b></th>
+                                          <th class="text-center"><b>HbD</b></th>
+                                          
+                                         
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="text-center"></td>
+                                          <td class="text-center">{{diagnosisReportData?.hbF}}</td>
+                                          <td class="text-center">{{diagnosisReportData?.hbA0}}</td>
+                                          <td class="text-center">{{diagnosisReportData?.hbA2}}</td>
+                                          <!--<td class="text-center">{{diagnosisReportData?.hbC}}</td>-->
+                                          <td class="text-center">{{diagnosisReportData?.hbS}}</td>
+                                          <td class="text-center">{{diagnosisReportData?.hbD}}</td>
+                                          
+                                      </tr>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          
+          <a class="btn btn-primary float-right" role="button" style="margin-top:15px;"><i class="fa fa-download append-icon"></i><span class="ml-1"> HPLC Graph</span></a>
+        </div>
+    </div>
+
+
