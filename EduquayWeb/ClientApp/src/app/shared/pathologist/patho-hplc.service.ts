@@ -36,4 +36,17 @@ export class pathoHPLCService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEEDITHPLCDIAGOSIS+user.centralLabId);
     return this.http.get<any>( {url:apiUrl});
   }
+
+  getPathoSampleReport(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIEVEPATHOLOGISTREPORTS);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+  getSampleStatus() {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEDIAGNOSISSAMPLESTATUS);
+    return this.http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+  
 }

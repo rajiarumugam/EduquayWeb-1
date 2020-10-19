@@ -59,7 +59,9 @@ export const ENDPOINT = {
         "RETRIVEHPLC":"api/v1/Pathologist/RetrieveHPLCTestDetail/",
         "RETRIVEHPLCRESULTMASTER":"api/v1/Pathologist/HPLCResultMaster",
         "RETRIVEEDITHPLCDIAGOSIS":"api/v1/Pathologist/RetrieveEditHPLCDiagnosisDetail/",
-        "ADDHPLCRESULT":"api/v1/Pathologist/AddHPLCDiagnosisResult"
+        "ADDHPLCRESULT":"api/v1/Pathologist/AddHPLCDiagnosisResult",
+        "RETRIEVEPATHOLOGISTREPORTS":"api/v1/Pathologist/RetrievePathologistReports",
+        "RETRIVEDIAGNOSISSAMPLESTATUS":"api/v1/Pathologist/RetrieveDiagnosisSampleStatus"
     }
     ,
     "PNDT":
