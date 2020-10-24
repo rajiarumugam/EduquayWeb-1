@@ -14,6 +14,7 @@ import { HttpClientService } from '../../../shared/http-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
 import { LoaderService } from './../../../shared/loader/loader.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-molecular-sample-rec',
@@ -61,10 +62,13 @@ export class MolecularSampleRcptComponent implements OnInit {
     private tokenService: TokenService,
     private genericService: GenericService,
     private httpClientService:HttpClientService,
+    private dataservice: DataService,
     private MolecularLabsampleService: MolecularLabsampleService,private loaderService: LoaderService
     ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "page": "Sample Receipt"}));
     this.loaderService.display(false);
     this.form = this._formBuilder.group({
       receivedDate: ["", Validators.required]

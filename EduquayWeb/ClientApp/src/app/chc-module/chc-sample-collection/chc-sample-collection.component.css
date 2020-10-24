@@ -60,6 +60,19 @@
     box-sizing: content-box;
     padding: 4px 11px;
   }
+
+  ::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
+.swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel{
+    color: #fff;
+}
   
   
   /*END PAGE LEVEL PLUGINS/CUSTOM STYLES */

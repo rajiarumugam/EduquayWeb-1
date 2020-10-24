@@ -72,3 +72,16 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 .mr-left{
     margin-bottom: 10px;
 }
+
+::ng-deep .modal-content .modal-footer
+{
+    display: block !important;
+}
+
+::ng-deep .modal-content .modal-footer button
+{
+    float: right;
+}
+.swal2-popup.swal2-icon-warning .swal2-styled.swal2-cancel{
+    color: #fff;
+}
