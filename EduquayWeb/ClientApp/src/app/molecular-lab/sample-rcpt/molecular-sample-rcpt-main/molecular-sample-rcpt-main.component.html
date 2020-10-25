@@ -4,7 +4,7 @@
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-      <app-site-sidebar module="centrallab" subMenum="chcsam"></app-site-sidebar>
+      <app-site-sidebar module="molecularlab" subMenum="chcsam"></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
     <!--  BEGIN CONTENT AREA  -->
@@ -26,8 +26,10 @@
                     </div>
                     <div class="col-md-4">
                         <div class="float-right mb-4">
-                            <a class="btn btn-outline-primary bs-tooltip" href="collection.html" role="button"
-                                title="Sample Rcpt - Manual"><i class="fas fa-chevron-right pNav-right"></i></a>
+                            <a class="btn btn-outline-primary bs-tooltip"
+                            [routerLink]="['/app/update-molecular-result']" role="button"
+                            ngbTooltip="Update Molecular Results" placement="left"><i
+                                class="fas fa-chevron-right pNav-right"></i></a>
                         </div>
                     </div>
                 </div>

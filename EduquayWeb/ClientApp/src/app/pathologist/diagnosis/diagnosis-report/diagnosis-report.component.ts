@@ -71,6 +71,7 @@ export class DiagosisReportComponent implements OnInit {
   ngOnInit() {
     
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.DataService.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
    
    this.testResultGroup = this._formBuilder.group({
     orders: new FormArray([])

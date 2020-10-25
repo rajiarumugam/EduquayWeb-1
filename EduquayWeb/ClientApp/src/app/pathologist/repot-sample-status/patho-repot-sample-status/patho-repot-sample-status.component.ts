@@ -83,7 +83,7 @@ export class PathoreportSampleStatusComponent implements AfterViewInit, OnDestro
       console.log(this.pndPendingArray);
     }
 
-    
+    this.dataservice.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getSampleStatusData();
     this.getCHCData();
