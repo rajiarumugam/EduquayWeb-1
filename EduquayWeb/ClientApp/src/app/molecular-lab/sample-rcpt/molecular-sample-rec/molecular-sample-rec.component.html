@@ -5,7 +5,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Confirm Shipment Receipt</h5>
+            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ConfirmShipmentReceipt' | translate}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -103,8 +103,9 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                     </table>
                 </div>
                     <div class="row float-right">
-                        <input type="Submit" class="btn btn-success float-right" value="Submit" id="linktobuttonconfirmdlvry" (click)="sampleSubmit();">
-                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>Close</button>
+                        <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+ (click)="sampleSubmit();"                                       name="linkto">{{'Submit' | translate}}</button>
+                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Update SST Results</h5>
+                <h5 class="float-center">{{'UpdateSSTResults' | translate}}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -43,19 +43,19 @@
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'chc-update-sst' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/chc-update-sst']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Received Samples<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
+                   {{'ReceivedSamples' | translate}}<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'positive' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-sst/positive']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Update Positive<span class="badge badge-pill badge-warning shadow ml-1">{{positiveCount}}</span>
+                   {{'UpdatePositive' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{positiveCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'negative' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/chc-update-sst/negative']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Update Negative<span class="badge badge-pill badge-warning shadow ml-1">{{negativeCount}}</span>
+                   {{'UpdateNegative' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{negativeCount}}</span>
                 </a>
               </li>
             </ul>

@@ -3,28 +3,28 @@
         <div class="main-box-body clearfix">
             <div class="form-row ml-3 my-2">
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">District</label>
+                    <label for="inputSubjectcategory">{{'District' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedDistrict" (ngModelChange)="districtChange()">
                       <option [ngValue]="null">Select District</option>
                       <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">CHC</label>
+                    <label for="inputSubjectcategory">{{'CHC' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" [disabled]="selectedDistrict == null ? true : false" (ngModelChange)="chcChange()">
                       <option [ngValue]="null">Select CHC</option>
                       <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">PHC</label>
+                    <label for="inputSubjectcategory">{{'PHC' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedphc" [disabled]="selectedchc == null ? true : false" (ngModelChange)="phcChange()">
                       <option [ngValue]="null">Select PHC</option>
                       <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">ANM</label>
+                    <label for="inputSubjectcategory">{{'ANM' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedAnm" [disabled]="selectedphc == null ? true : false">
                       <option [ngValue]="null">Select ANM</option>
                       <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
@@ -46,11 +46,11 @@
                             <th><span>{{'RCHID' | translate}}</span></th>
                             <th><span>{{'LMPDate' | translate}}</span></th>                                    
                             <th><span>{{'GA' | translate}}</span></th>
-                            <th><span>Obs Score</span></th>
-                            <th><span>Contact Number</span></th>
-                            <th><span>Obstetrician</span></th>
-                            <th><span>PNDT Date & Time</span></th>
-                            <th><span>Update PNDT</span></th>
+                            <th><span>{{'ObsScore' | translate}}</span></th>
+                            <th><span>{{'ContactNumber' | translate}}</span></th>
+                            <th><span>{{'Obstetrician' | translate}}</span></th>
+                            <th><span>{{'PNDTDate&Time' | translate}}</span></th>
+                            <th><span>{{'UpdatePNDT' | translate}}</span></th>
                         </tr>
 
                     </thead>

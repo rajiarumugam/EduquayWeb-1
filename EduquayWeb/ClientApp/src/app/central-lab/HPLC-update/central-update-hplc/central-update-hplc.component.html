@@ -25,7 +25,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Update HPLC Results</h5>
+                <h5 class="float-center">{{'UpdateHPLCResults' | translate }}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -43,13 +43,13 @@
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'central-update-hplc' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/central-update-hplc']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Received Samples<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
+                   {{'ReceivedSamples' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'upload' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/central-update-hplc/upload']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Upload HPLC Results<span class="badge badge-pill badge-warning shadow ml-1">{{uploadCBCCount}}</span>
+                   {{'UploadHPLCResults' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{uploadCBCCount}}</span>
                 </a>
               </li>
               
