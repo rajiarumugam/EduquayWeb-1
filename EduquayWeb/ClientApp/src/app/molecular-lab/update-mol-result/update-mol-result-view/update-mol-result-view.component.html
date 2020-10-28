@@ -8,9 +8,9 @@
                             <tr>
                                 <td>
                     <span class="float-left mt-0 mr-4">				
-                        <h5><b>Subject ID :</b> {{pndSummarydata?.uniqueSubjectId}}
+                        <h5><b>{{'SubjectID' | translate}} :</b>{{pndSummarydata?.uniqueSubjectId}}
                         <strong class="ml-5">Subject Name :</strong> {{pndSummarydata?.subjectName}}, F, {{pndSummarydata?.age}} yrs 
-                        <strong class="ml-5">RCH ID :</strong> {{pndSummarydata?.rchId}}
+                        <strong class="ml-5">{{'RCHID' | translate}} :</strong>{{pndSummarydata?.rchId}}
                         </h5>
                     </span>
                     </td>
@@ -61,7 +61,7 @@
                         <span class="float-left mt-0 mr-4">				
                             <h6><b>Subject ID :</b> {{pndSummarydata?.uniqueSubjectId}}
                             <strong class="ml-5">Subject Name :</strong> {{pndSummarydata?.subjectName}}, F, {{pndSummarydata?.age}} yrs 
-                            <strong class="ml-5">RCH ID :</strong> {{pndSummarydata?.rchId}} 
+                            <strong class="ml-5">{{'RCHID' | translate}} :</strong>{{pndSummarydata?.rchId}} 
                             </h6>
                         </span>
                         </td>
@@ -85,27 +85,27 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                <td class="sp-xs-td-9"><b>{{'SubjectName' | translate}}</b></td>
                                 <td class="sp-xs-td-15">{{pndSummarydata?.subjectName}} </td>
-                                <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                <td class="sp-xs-td-9"><b>{{'SubjectID' | translate}}</b></td>
                                 <td class="sp-xs-td-15">{{pndSummarydata?.uniqueSubjectId}} </td>
                                
-                                <td class="sp-xs-td-9"><b>Age</b></td>
+                                <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
                                 <td class="sp-xs-td-15">{{pndSummarydata?.age}}  yrs</td>
-                                <td class="sp-xs-td-9"><b>Contact No</b></td>
+                                <td class="sp-xs-td-9"><b>{{'ContactNo' | translate}}</b></td>
                                 <td class="sp-xs-td-15">{{pndSummarydata?.contactNo}} </td>
                                 <td class="sp-xs-td-9"><b>LMP Date</b></td>
                                 <td class="sp-xs-td-15">{{pndSummarydata?.lmpDate}} </td>
                             </tr>
                             <tr>
                                
-                                <td><b>Gestational Age</b></td>
+                                <td><b>{{'GestationalAge' | translate}}</b></td>
                                 <td>{{pndSummarydata?.ga}} </td>
-                                <td><b>Obstetrics Score</b></td>
+                                <td><b>{{'ObstetricsScore' | translate}}</b></td>
                                 <td>{{pndSummarydata?.obstetricScore}} </td>
                                 <td><b>RCH ID</b></td>
                                 <td>{{pndSummarydata?.rchId}} </td>
-                                <td><b>EC Number</b></td>
+                                <td><b>{{'ECNumber' | translate}}</b></td>
                                 <td>{{pndSummarydata?.ecNumber}} </td>
                             </tr>
                            
@@ -122,7 +122,7 @@
         <div class="container-fluid py-2" style="background-color: #e3e8ef;">
             <div class="row">
                 <div class="col-md-12">
-                    <h6 class="mt-2"><b>Test Results Summary</b></h6>
+                    <td><b>{{'TestResultsSummary' | translate}}</b></td>
                 </div>
             </div>
         </div>
@@ -133,11 +133,11 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th class="text-center"><span>Subject Info</span></th>
+                                <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
                                 <!-- <th class="text-center"><span>Barcodes</span></th> -->
-                                <th class="text-center"><span>CBC</span></th>
-                                <th class="text-center"><span>SST</span></th>                                                           
-                                <th class="text-center"><span>HPLC</span></th>
+                                <th class="text-center"><span>{{'CBC' | translate}}</span></th>
+                                <th class="text-center"><span>{{'SST' | translate}}</span></th>                                                           
+                                <th class="text-center"><span>{{'HPLC' | translate}}</span></th>
 
                                
                             </tr>
@@ -178,7 +178,7 @@
                         <div role="menu" class="collapsed" data-toggle="collapse"
                             data-target="#defaultAccordionOne" aria-expanded="true"
                             aria-controls="defaultAccordionOne">
-                            Detailed Test Results <div class="icons"><svg
+                            Detailed {{'TestResults' | translate}} <div class="icons"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2"

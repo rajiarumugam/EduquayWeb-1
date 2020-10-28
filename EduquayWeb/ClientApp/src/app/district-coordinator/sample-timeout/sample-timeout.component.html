@@ -13,15 +13,15 @@
             [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>
-                    <th class="text-center"><span>S.No</span></th>
-                    <th class="text-center"><span>ANM Name</span></th>
-                    <th class="text-center"><span>ANM Contact</span></th>
-                    <th class="text-center"><span>CHC</span></th>
-                    <th class="text-center"><span>Subject Name</span></th>
-                    <th class="text-center"><span>Subject ID</span></th>
-                    <th class="text-center">GA</th>
-                    <th class="text-center">Follow-up Status </th>
-                    <th><span class="wordwrap">Details</span></th>
+                    <th class="text-center"><span>{{'SNo' | translate}}</span></th>>
+                    <th class="text-center"><span>{{'ANMName' | translate}}</span></th>
+                    <th class="text-center"><span>{{'ANMContact' | translate}}</span></th>
+                    <th class="text-center"><span>{{'CHC' | translate}}</span></th>
+                    <th class="text-center"><span>{{'SubjectName' | translate}}</span></th>
+                    <th class="text-center"><span>{{'SubjectID' | translate}}</span></th>
+                    <th class="text-center"><span>{{'GA' | translate}}</span></th>
+                    <th class="text-center"><span>{{'FollowupStatus' | translate}}</span></th>
+                    <th class="text-center"><span>{{'Details' | translate}}</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,8 +36,8 @@
                     <td class="dropbtn">
                         <select class="form-control field" tabindex="7" #t
                             (change)="updateNotification(sample, t.value)">
-                            <option value="0" [selected]="sample.followUpStatus === 'False'">No</option>
-                            <option value="1" [selected]="sample.followUpStatus === 'True'">Yes</option>
+                            <option value="0" [selected]="sample.followUpStatus === 'False'">{{'No' | translate}}</option>
+                            <option value="1" [selected]="sample.followUpStatus === 'True'">{{'Yes' | translate}}</option>
                         </select>
                     </td>
                     <td class="text-center">
@@ -54,8 +54,7 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-                                <a class="dropdown-item" (click)="opentimeoutSamples(timeoutSamplesDetail, sample)">More
-                                    Info</a>
+                                <a class="dropdown-item" (click)="opentimeoutSamples(timeoutSamplesDetail, sample)">{{'MoreInfo' | translate}}</a>
 
                             </div>
                         </div>
@@ -67,15 +66,14 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary float-right" (click)="timeoutSamplesUpdateStatus()" role="button">Update
-                Status</a>
+            <a class="btn btn-primary float-right" (click)="timeoutSamplesUpdateStatus()" role="button">{{'UpdateStatus' | translate}}</a>
         </div>
     </div>
 </div>
 <!-- The Modal -->
 <ng-template #timeoutSamplesDetail let-modal>
     <div class="modal-header">
-        <h4 class="modal-title modaltitle">Subject Details</h4>
+        <h4 class="modal-title modaltitle">{{'SubjectDetails' | translate}}</h4>                                                                   
         <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -96,9 +94,9 @@
                                     <tr>
                                         <td>
                                             <span class="float-left mt-0 mr-4">
-                                                <h5><b>Subject ID</b> :
+                                                <h5><b>{{'SubjectID' | translate}}</b> :                                                                   
                                                     {{subjectId}}
-                                                    <strong class="ml-5">Subject Info :</strong> {{subjectName}}, F,
+                                                    <strong class="ml-5">{{'SubjectInfo' | translate}} :</strong>{{subjectName}}, F,
                                                         {{age}} yrs
                                                 </h5>
                                             </span>
@@ -117,7 +115,7 @@
                 <div class="container-fluid py-2" style="background-color: #e3e8ef;">
                     <div class="row">
                         <div class="col-md-12">
-                            <h6 class="mt-2"><b>Basic Info</b></h6>
+                            <h6 class="mt-2"><b>{{'BasicInfo' | translate}}</b></h6>                                
                         </div>
                     </div>
                 </div>
@@ -129,22 +127,15 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            <span>Subject</span></th>
-                                        <th class="text-center"><span>Subject
-                                                ID</span></th>
-                                        <th class="text-center">
-                                            <span>District</span></th>
-                                        <th class="text-center"><span>CHC</span>
-                                        </th>
-                                        <th class="text-center"><span>PHC</span>
-                                        </th>
-                                        <th class="text-center"><span>SC</span>
-                                        </th>
-                                        <th class="text-center"><span>RI
-                                                Point</span></th>
+                                            <span>{{'Subject' | translate}}</span></th>
+                                        <th class="text-center"><span>{{'SubjectID' | translate}}                                          </span></th>                                
+                                        <th class="text-center"><span>{{'District' | translate}}                                          </span></th>                                
+                                        <th class="text-center"><span>{{'CHC' | translate}}</span></th>                                                                   
+                                        <th class="text-center"><span>{{'PHC' | translate}}</span></th>                                                                   
+                                        <th class="text-center"><span>{{'SC' | translate}}</span></th>                                                                   
+                                        <th class="text-center"><span>{{'RIPoint' | translate}}</span></th>                                                                   
 
-                                        <th class="text-center"><span>Date of
-                                                Birth</span></th>
+                                       <th class="text-center"><span>{{'DateofBirth' | translate}}</span></th>                                                                   
                                     </tr>
 
                                 </thead>
@@ -177,7 +168,7 @@
                 <div class="container-fluid py-2" style="background-color: #e3e8ef;">
                     <div class="row">
                         <div class="col-md-12">
-                            <h6 class="mt-2"><b>Socio-Demographic Info</b></h6>
+                            <h6 class="mt-2"><b>{{'SocioDemographicInfo' | translate}}</b></h6>                                
                         </div>
                     </div>
                 </div>
@@ -189,17 +180,16 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">
-                                            <span>Subject</span></th>
+                                            <span>{{'Subject' | translate}}</span></th>
                                         <th class="text-center">
-                                            <span>Religion</span></th>
+                                            <span>{{'Religion' | translate}}</span></th>                                 
                                         <th class="text-center">
-                                            <span>Caste</span></th>
+                                            <span>{{'Caste' | translate}}</span></th>                                 
                                         <th class="text-center">
-                                            <span>Community</span></th>
-                                        <th class="text-center"><span>Contact
-                                                No</span></th>
+                                            <span>{{'Community' | translate}}</span></th>                                 
+                                        <th class="text-center"><span>{{'ContactNo' | translate}}</span></th>                                 
                                         <th class="text-center">
-                                            <span>Address</span></th>
+                                            <span>{{'Address' | translate}}</span></th>                                 
                                         <!-- <th class="text-center"></th> -->
                                     </tr>
 
@@ -236,7 +226,7 @@
                                     data-target="#defaultAccordionOne"
                                     aria-expanded="true"
                                     aria-controls="defaultAccordionOne">
-                                    Personal Info <div class="icons"><svg
+                                    {{'PersonalInfo' | translate}} <div class="icons">                                                                                                      <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24" height="24"
                                             viewBox="0 0 24 24" fill="none"
@@ -262,17 +252,15 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
-                                                    <span>Subject</span></th>
-                                                <th class="text-center"><span>EC
-                                                        Number</span></th>
-                                                <th class="text-center"><span>
-                                                        RCH ID</span></th>
+                                                    <span>{{'Subject' | translate}}</span></th>
+                                                <th><span>{{'ECNumber' | translate}}</span></th>                                                                     
+                                                <th class="text-center"><span>{{'RCHID' | translate}}</span></th>                                    
                                                 <th class="text-center">
-                                                    <span>LMP Date</span></th>
+                                                    <span>{{'LMPDate' | translate}}</span></th>                                    
                                                 <th class="text-center">
-                                                    <span>GA</span></th>
+                                                    <span>{{'GA' | translate}}</span></th>                                    
                                                 <th class="text-center">
-                                                    <span>GPLA</span></th>
+                                                    <span>{{'GPLA' | translate}}</span></th>                                    
                                             </tr>
 
                                         </thead>
@@ -302,7 +290,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> {{'Close' | translate}}</button>
         </div>
     </div>
 </ng-template>

@@ -40,12 +40,12 @@
                 <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                          <th><span>S.No</span></th>
-                          <th><span>Subject Name</span></th>
-                          <th><span>Subject ID</span></th>
-                          <th><span>RCH ID</span></th>
-                          <th><span>LMP Date</span></th>
-                          <th><span>GA</span></th>
+                          <th><span>{{'SNo' | translate}}</span></th>
+                          <th><span>{{'SubjectName' | translate}}</span></th>
+                          <th><span>{{'SubjectID' | translate}}</span></th>
+                          <th><span>{{'RCHID' | translate}}</span></th>
+                          <th><span>{{'LMPDate' | translate}}</span></th>                                    
+                          <th><span>{{'GA' | translate}}</span></th>
                           <th><span>Obs Score</span></th>
                           <th><span>Contact Number</span></th>
                           <th><span>Obstetrician</span></th>
@@ -95,13 +95,13 @@
                   <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                     <div class="form-row">
                       <div class="form-group col-md-3">
-                        <label class="note">Subject Name </label>
+                        <label class="note">{{'SubjectName' | translate}} </label>
                         <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
                           [(ngModel)]="subjectName" name="sampleSubjectName" >
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label class="note">Subject ID <span class="manto"></span></label>
+                        <label class="note">{{'SubjectID' | translate}} </label>
                         <input class="form-control field" name="uniqueSubjectId" type="text" placeholder="Subject ID" tabindex="6"
                           autocomplete="off" readonly="" [(ngModel)]="uniqueSubjectId">
                       </div>
@@ -130,7 +130,7 @@
                         </div> 
                       </div>
                       <div class="form-group col-md-3" [formGroup]="popupform">
-                        <label class="note">Date & Time <span class="manto">*</span></label>
+                        <label class="note">{{'Date&Time' | translate}} <span class="manto">*</span></label>
                         <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
                          [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
                         </ng2-flatpickr>
@@ -139,8 +139,8 @@
                   </div>
 
                   <div class="modal-footer">
-                    <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">Submit</button>
-                    <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> Close</button>
+                    <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate}}</button>
+                    <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i> {{'Close' | translate}}</button>
                   </div>
                 </form>
               </div>
