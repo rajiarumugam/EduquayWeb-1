@@ -69,6 +69,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
   ) { }
 
   ngOnInit() {
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "page": "Report - Sample Status"}));
     this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.mlReport;
     console.log(pndtcTestingArr);

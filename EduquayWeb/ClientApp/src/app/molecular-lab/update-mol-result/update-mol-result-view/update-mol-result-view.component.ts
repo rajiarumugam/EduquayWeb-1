@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./update-mol-result-view.component.css']
 })
 export class UpdateMolResultViewComponent implements OnInit {
-  constructor(private DataService:DataService,private router: Router) { }
+  constructor(private DataService:DataService,private router: Router, private dataservice: DataService) { }
   @HostListener('window:scroll')
   checkScroll() {
 
@@ -28,7 +28,7 @@ export class UpdateMolResultViewComponent implements OnInit {
   }
   pndSummarydata;
   ngOnInit() {
-
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "submodule": "Update Molecular Results", "page": "View Case Sheet"}));
     if(this.DataService.getdata().updateMolResu === undefined)
     {
       this.router.navigate(['/app/update-molecular-result']);

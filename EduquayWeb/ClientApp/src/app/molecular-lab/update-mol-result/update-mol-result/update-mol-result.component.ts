@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
 import { DataService } from '../../../shared/data.service';
 import { LoaderService } from './../../../shared/loader/loader.service';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 @Component({
   selector: 'app-update-mol-result',
@@ -56,11 +57,13 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
 
 
 
-  constructor(private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
+  constructor(private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService, private dataservice:DataService
     ,private router: Router,private _formBuilder: FormBuilder,private masterService:masterService,private genericService: GenericService, private httpClientService:HttpClientService,private MolecularLabsampleService: MolecularLabsampleService,private DataService:DataService,private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "page": "Update Molecular Results"}));
     this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.mlSampleData;
     console.log(pndtcTestingArr);

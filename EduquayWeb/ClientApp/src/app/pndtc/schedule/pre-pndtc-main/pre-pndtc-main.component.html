@@ -23,7 +23,7 @@
               <!-- <h5 class="float-left">Sample Collection</h5> -->
               <div class="col-md-4">
                 <div class="headertit">
-                  <h5 class="float-center">Schedule – Pre PNDT counselling</h5>
+                  <h5 class="float-center">{{'Schedule_PrePNDTcounselling' | translate}}</h5>
                 </div>
               </div>
               <div class="col-md-4">
@@ -41,13 +41,13 @@
                   <a class="nav-link active" id="tobeScheduled-tab" data-toggle="tab"
                      [routerLink]="['/app/schedule-pre-pndtc']" role="tab" aria-controls="home"
                      [ngClass]="{'active': currentPage == 'schedule-pre-pndtc' ? true : false}" aria-selected="true">
-                     To be Scheduled<span class="badge badge-pill badge-warning shadow mx-1">{{schedulingCount}}</span>
+                     {{'TobeScheduled' | translate}}<span class="badge badge-pill badge-warning shadow mx-1">{{schedulingCount}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="scheduled-tab" data-toggle="tab" [routerLink]="['/app/schedule-pre-pndtc/scheduled']"
                   [ngClass]="{'active': currentPage == 'scheduled' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
-                     Scheduled<span class="badge badge-pill badge-warning shadow ml-1">{{scheduledCount}}</span>
+                     {{'Scheduled' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{scheduledCount}}</span>
                   </a>
                 </li>
               </ul>

@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="headertit">
-                                <h5 class="float-center"> Counselling – Pre PNDT </h5>
+                                <h5 class="float-center">{{'Counselling_PrePNDT' | translate}} </h5>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -49,9 +49,9 @@
                                             <tr>
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
-                                                        <h5><b>Subject ID :</b> {{counsellingdataItem?.anwSubjectId}}
-                                                            <strong class="ml-5">Subject Info :</strong> {{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
-                                                            <strong class="ml-5">RCH ID :</strong> {{counsellingdataItem?.rchId}} 
+                                                        <h5><b>{{'SubjectID' | translate}} :</b>{{counsellingdataItem?.anwSubjectId}}
+                                                            <strong class="ml-5">{{'SubjectInfo' | translate}} :</strong>{{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
+                                                            <strong class="ml-5">{{'RCHID' | translate}} :</strong>{{counsellingdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
                                                 </td>
@@ -83,35 +83,35 @@
                                         <thead class="tablecss">
                                             <tr class="" style="background-color: #e3e8ef;">
                                                 <th colspan="8" class="text-left"
-                                                    style="color:#3a3b3e;font-size: 15px;"><b>Subject Details</b>
+                                                    style="color:#3a3b3e;font-size: 15px;"><b>{{'SubjectDetails' | translate}}</b>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="sp-xs-td-9"><b>Subject Name</b></td>
+                                                <td class="sp-xs-td-9"><b>{{'SubjectName' | translate}}</b></td>
                                                 <td class="sp-xs-td-15">{{counsellingdataItem?.subjectName}}</td>
-                                                <td class="sp-xs-td-9"><b>Subject ID</b></td>
+                                                <td class="sp-xs-td-9"><b>{{'SubjectID' | translate}}</b></td>
                                                 <td class="sp-xs-td-15">{{counsellingdataItem?.anwSubjectId}}</td>
-                                                <td class="sp-xs-td-9"><b>Age</b></td>
+                                                <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
                                                 <td class="sp-xs-td-15">{{counsellingdataItem?.age}}</td>
-                                                <td class="sp-xs-td-9"><b>Contact No</b></td>
+                                                <td class="sp-xs-td-9"><b>{{'ContactNo' | translate}}</b></td>
                                                 <td class="sp-xs-td-15">{{counsellingdataItem?.contactNo}}</td>
                                             </tr>
                                             <tr>
-                                                <td><b>LMP Date</b></td>
+                                                <td><b>{{'LMPDate' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.lmpDate}}</td>
-                                                <td><b>Gestational Age</b></td>
+                                                <td><b>{{'GestationalAge' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.ga}}</td>
-                                                <td><b>Obstetrics Score</b></td>
+                                                <td><b>{{'ObstetricsScore' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.obstetricScore}}</td>
-                                                <td><b>RCH ID </b></td>
+                                                <td><b>{{'RCHID' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.rchId}}</td>
 
                                             </tr>
                                             <tr>
 
-                                                <td><b>EC Number</b></td>
+                                                <td><b>{{'ECNumber' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.ecNumber}}</td>
 
                                             </tr>
@@ -129,7 +129,7 @@
                         <div class="container-fluid py-2" style="background-color: #e3e8ef;">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h6 class="mt-2"><b>Test Results Summary</b></h6>
+                                    <td><b>{{'TestResultsSummary' | translate}}</b></td>
                                 </div>
                             </div>
                         </div>
@@ -140,11 +140,11 @@
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th class="text-center"><span>Subject Info</span></th>
+                                                <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
                                                 <!-- <th class="text-center"><span>Barcodes</span></th> -->
-                                                <th class="text-center"><span>CBC</span></th>
-                                                <th class="text-center"><span>SST</span></th>
-                                                <th class="text-center"><span>HPLC</span></th>
+                                                <th class="text-center"><span>{{'CBC' | translate}}</span></th>
+                                                <th class="text-center"><span>{{'SST' | translate}}</span></th>
+                                                <th class="text-center"><span>{{'HPLC' | translate}}</span></th>
 
                                             </tr>
 
@@ -182,7 +182,7 @@
                                 <thead class="tablecss">
                                     <tr class="" style="background-color: #e3e8ef;">
                                         <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
-                                            <b>Update Pre-natal Diagnosis Counselling</b>
+                                            <b>{{'UpdatePre_natalDiagnosisCounselling'| translate}}</b>
                                         </th>
                                     </tr>
 
@@ -198,7 +198,7 @@
 
                                     <tbody>
                                         <tr>
-                                            <td>Counsellor Name</td>
+                                            <td>{{'CounsellorName' | translate}}</td>
                                             <td></td>
                                             <td>
                                                 {{counsellingdataItem?.counsellorName}}
@@ -206,7 +206,7 @@
                                         </tr>
                                         
                                         <tr>
-                                            <td>Counselling Notes/Remarks</td>
+                                            <td>{{'CounsellingNotes/Remarks' | translate}}</td>
                                             <td></td>
                                             <td>
                                                 <textarea id="textarea" class="form-control textarea" maxlength="225"
@@ -220,7 +220,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>The couple has agreed for Pre-natal diagnosis test</td>
+                                            <td>{{'ThecouplehasagreedforPre_nataldiagnosistest' | translate}}</td>
                                             <td></td>
                                             <td>
                                                 <div class="col-sm-12">
@@ -229,7 +229,7 @@
                                                             <input type="radio" id="options1" [(ngModel)]="myRadio"
                                                                 value="yes"(change)="onClick('decisionyes')"
                                                                 name=decisionyes #decisionyes>
-                                                            <span class="radio-span">Yes</span>
+                                                            <span class="radio-span">{{'Yes' | translate}}</span>
                                                         </label>
                                                     </span>
                                                     <span class="ml-1 n-chk">
@@ -237,7 +237,7 @@
                                                             <input type="radio" id="options2" [(ngModel)]="myRadio"
                                                                 value="no"(change)="onClick('decisionno')"
                                                                 name=decisionno #decisionno>
-                                                            <span class="radio-span">No</span>
+                                                            <span class="radio-span">{{'No' | translate}}</span>
                                                         </label>
                                                     </span>
                                                     <span class="ml-1 n-chk">
@@ -246,8 +246,7 @@
                                                                 value="decisionpending"
                                                                (change)="onClick('decisionpending')"
                                                                 name=decisionpending #decisionpending>
-                                                            <span class="radio-span">Decision
-                                                                Pending</span>
+                                                            <span class="radio-span">{{'DecisionPending' | translate}}</span>
                                                         </label>
                                                     </span>
                                                     <div *ngIf="isDecisionYes">
@@ -263,11 +262,9 @@
                                                                     <button type="button" class="btn btn-primary btn-group-icon btn-group-divider">
                                                                         <i class="fa fa-plus-circle fa-2x text-white" aria-hidden="true"></i>
                                                                     </button>
-                                                                    <button type="button" class="btn btn-primary">
-                                                                        Upload Documents
-                                                                    </button>
+                                                                    <span class="radio-span">{{'UploadDocuments' | translate}}</span>
                                                                 </div>
-                                                                <div class="mt-3" [hidden]="!fileName"><b>Selected FileName:</b> {{fileName}}</div>
+                                                                <span class="radio-span">{{'SelectedFileName' | translate}}</span>
 
                                                             </div>
                                                         </div>
@@ -277,7 +274,7 @@
 
                                         </tr>
                                         <tr *ngIf="isDecisionYes">
-                                            <td>Obstetrician</td>
+                                            <td>{{'Obstetrician' | translate}}</td>
                                             <td></td>
                                             <td>
                                                 <select class="form-control" name=DDLobstetrician
@@ -300,7 +297,7 @@
                                             </td>
                                         </tr>
                                         <tr *ngIf="isDecisionYes">
-                                            <td>Schedule PNDT Date & Time</td>
+                                            <td>{{'SchedulePNDTDate&Time' | translate}}</td>
                                             <td></td>
                                             <td class="text-center" [formGroup]="dateform">
                                                 <ng2-flatpickr id="scToDate" name="fixPndtSchedule"
@@ -330,7 +327,7 @@
                                     class="flaticon-cancel-12"></i>
                                 Close</button> -->
                                     <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
-                                        name="linkto">Submit</button>
+                                        name="linkto">{{'Submit' | translate}}</button>
                                     <!-- <button type="button" class="btn btn-primary">Save</button> -->
                                 </div>
                             </div>

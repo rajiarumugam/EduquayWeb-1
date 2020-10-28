@@ -26,7 +26,7 @@
               <!-- <h5 class="float-left">Sample Collection</h5> -->
               <div class="col-md-4">
                 <div class="headertit">
-                  <h5 class="float-center">Counselling – Post PNDT</h5>
+                  <h5 class="float-center">{{'Counselling_PostPNDT' | translate}}</h5>
                 </div>
               </div>
               <div class="col-md-4">
@@ -44,25 +44,25 @@
                   <a class="nav-link active" id="tobeCounselled-tab" data-toggle="tab"
                      [routerLink]="['/app/counselling-post-pndt']" role="tab" aria-controls="home"
                      [ngClass]="{'active': currentPage == 'counselling-post-pndt' ? true : false}" aria-selected="true">
-                     To be Counselled<span class="badge badge-pill badge-warning shadow mx-1">{{counsellingnumber}}</span>
+                     {{'TobeCounselled' | translate}}<span class="badge badge-pill badge-warning shadow mx-1">{{counsellingnumber}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="counselledYes-tab" data-toggle="tab" [routerLink]="['/app/counselling-post-pndt/counselledyes']"
                   [ngClass]="{'active': currentPage == 'counselledyes' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
-                     Counselled, MTP Decision Yes<span class="badge badge-pill badge-warning shadow ml-1">{{counselledyesnumber}}</span>
+                     {{'CounselledMTPDecisionYes' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{counselledyesnumber}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="counselledNo-tab" data-toggle="tab" [routerLink]="['/app/counselling-post-pndt/counselledno']"
                     [ngClass]="{'active': currentPage == 'counselledno' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
-                       Counselled, MTP Decision No<span class="badge badge-pill badge-warning shadow ml-1">{{counsellednonumber}}</span>
+                       {{'CounselledMTPDecisionNo' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{counsellednonumber}}</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="counselledAwaited-tab" data-toggle="tab" [routerLink]="['/app/counselling-post-pndt/counselledawaited']"
                     [ngClass]="{'active': currentPage == 'counselledawaited' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
-                       Counselled, MTP Decision Awaited<span class="badge badge-pill badge-warning shadow ml-1">{{counselledpendingnumber}}</span>
+                       {{'CounselledMTPDecisionAwaited' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{counselledpendingnumber}}</span>
                     </a>
                   </li>
               </ul>

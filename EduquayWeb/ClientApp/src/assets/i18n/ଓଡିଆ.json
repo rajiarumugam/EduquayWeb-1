@@ -120,6 +120,7 @@
     "ThecouplehasagreedforPre-natalDiagnosisTest":"ପ୍ରସବ ପୂର୍ବ ରୋଗ ନିର୍ଣ୍ଣୟ ପାଇଁ ଏହି ଦମ୍ପତି ରାଜି ହୋଇଛନ୍ତି",
     "ScheduledPNDTDate&Time":"ଅନୁସୂଚିତ ପି ଏନ ଡି ତାରିଖ ଏବଂ ସମୟ",
     "Note:Receivedsignedconsentformfromsubjectandfiled.":"ଟିପ୍ପଣୀ:ବ୍ୟକ୍ତିଙ୍କ   ଠାରୁ ସମ୍ମତି ଫର୍ମ ଗ୍ରହଣ ଏବଂ ଦାଖଲ ହେଲା ",
+    "Receivedsignedconsentformfromsubjectandfiled.":"ବ୍ୟକ୍ତିଙ୍କ   ଠାରୁ ସମ୍ମତି ଫର୍ମ ଗ୍ରହଣ ଏବଂ ଦାଖଲ ହେଲା",
     "PNDDate&Time":"ପି ଏନ ଡି ତାରିଖ ଏବଂ ସମୟ",
     "PNDResults":"ପି ଏନ ଡି ଫଳାଫଳ",
     "CollectPendingDetails":"ବାକି ରହିଥିବା ବିବରଣୀ ସଂଗ୍ରହ କରନ୍ତୁ",
@@ -204,6 +205,7 @@
     "Positive":"ପଜିଟିଭ",
     "HPLCTestResult":"ଏଚ ପି ଏଲ ସି ପରୀକ୍ଷା ଫଳାଫଳ",
     "CounsellorName":"ପରାମର୍ଶଦାତା ନାମ",
+    "Counsellor":"ପରାମର୍ଶଦାତା",
     "CounsellingNotes/Remarks":"ପରାମର୍ଶ ବିନ୍ଦୁ /ଟିପ୍ପଣୀ",
     "ThecouplehasagreedforPND":"ପି ଏନ ଡି ପାଇଁ ଏହି ଦମ୍ପତି ରାଜି ହୋଇଛନ୍ତି",
     "PNDTesting":"ପି ଏନ ଡି ପରୀକ୍ଷା ",
@@ -240,14 +242,26 @@
     "Sat":"ଶନି",
     "Sun":"ରବି",
     "City_Village_Pincode":"ସହର / ଗ୍ରାମ, ପିନକୋଡ଼",
+    "Note":"ଟିପ୍ପଣୀ",
+    "AntenatalWomanRegistrationformisapplicabletoallpregnantwomen":"ସମସ୍ତ ଗର୍ଭବତୀ ବ୍ୟକ୍ତିଙ୍କ   ପାଇଁ ପ୍ରସବ ପୂର୍ବ ମହିଳା ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ ଅଟେ।",
+    "AntenatalWomanRegistration":"ସମସ୍ତ ଗର୍ଭବତୀ ବ୍ୟକ୍ତିଙ୍କ",
+    "ChildRegistrationformisapplicableforallsubjectsbelow18yearsofage":"୧୮ ବର୍ଷରୁ କମ୍ ସମସ୍ତ ବ୍ୟକ୍ତିଙ୍କ ପାଇଁ ଶିଶୁ ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ",
+    "Pregnant":"ପ୍ରଯୁଜ୍ୟ",    
+    "GPLA": "ଜି.ପି.ଏଲ.ଏ.",
+    "Pre-natalDiagnosisCounselling": "ପ୍ରସବ ପୂର୍ବରୁ ନିରାକରଣ ପରାମର୍ଶ",
+    "Details":"ବିବରଣୀ",
+    "DateAndTime":"ତାରିଖ ଏବଂ ସମୟ",
+    
+
+    "RBC":"RBC",
     "Lookup":"Lookup",
+    "MarriedSpouseRegistered":"Married & Spouse Registered",
     "SendingLocation":"Sending Location",
     "SenderName":"Sender Name",
     "SampleDamaged":"Sample Damaged",
     "BarcodeDamaged":"Barcode Damaged",
     "Accept":"Accept",
     "Reject":"Reject",
-    "DateAndTime":"Date & Time",
     "ILROutDateTime":"ILR Out Date & Time",
     "ILRInDateTime":"ILR In Date & Time",
     "ProcessingDateAndTime":"Processing Date & Time",
@@ -280,25 +294,14 @@
     "HbS":"HbS",
     "CHC_Shipment_Date_Time":"CHC Shipment Date & Time",
     "DistrictName":"District Name",
+    "OtherWalkins":"Other Walk-ins",
     "PT_Sample_Collection_Date_Time":"PT Sample Collection Date & Time",
     "DateofTest":"Date of Test",
     "UpdateDiagnosis":"Update Diagnosis",
     "Married":"Married",
     "AgingofSample":"Aging of Sample (hours)",
-    "MovetoExpiry": "Move to Expiry",
-    "Note":"ଟିପ୍ପଣୀ",
-    "AntenatalWomanRegistrationformisapplicabletoallpregnantwomen":"ସମସ୍ତ ଗର୍ଭବତୀ ବ୍ୟକ୍ତିଙ୍କ   ପାଇଁ ପ୍ରସବ ପୂର୍ବ ମହିଳା ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ ଅଟେ।",
-    "AntenatalWomanRegistration":"ସମସ୍ତ ଗର୍ଭବତୀ ବ୍ୟକ୍ତିଙ୍କ",
-    "ChildRegistrationformisapplicableforallsubjectsbelow18yearsofage":"୧୮ ବର୍ଷରୁ କମ୍ ସମସ୍ତ ବ୍ୟକ୍ତିଙ୍କ ପାଇଁ ଶିଶୁ ପଞ୍ଜୀକରଣ ଫର୍ମ ପ୍ରଯୁଜ୍ୟ",
-    "Pregnant":"ପ୍ରଯୁଜ୍ୟ",
-    "MarriedSpouseRegistered":"Married & Spouse Registered",
-    "OtherWalkins":"Other Walk-ins",
-    "GPLA": "ଜି.ପି.ଏଲ.ଏ.",
-    "Pre-natalDiagnosisCounselling": "ପ୍ରସବ ପୂର୍ବରୁ ନିରାକରଣ ପରାମର୍ଶ",
-    "RBC":"RBC"
+    "MovetoExpiry": "Move to Expiry"
 
-
-
-   
+ 
 
 }

@@ -10,7 +10,7 @@
               </div>
             <div class="form-row ml-3 mt-2 mb-3">
                 <div class="form-group col-md-2">
-                    <label for="inputDistrict">District</label>
+                    <label for="inputDistrict">{{'District' | translate}}</label>
                     <select id="inputDistrict" class="form-control" (change)="onChangeDistrict($event.target.value)"
                     name=DDLdistrict #DDLdistrict="ngModel" ngModel required [(ngModel)]="selectedDistrict">
                         <option value="">Select</option>
@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputCHC">CHC</label>
+                    <label for="inputCHC">{{'CHC' | translate}}</label>
                     <select id="inputCHC" class="form-control" (change)="onChangechc($event.target.value)" [disabled]="selectedDistrict === ''"
                     name=DDLchc #DDLchc="ngModel" ngModel required [(ngModel)]="selectedchc">
                         <option value="">Select</option>
@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputPHC">PHC</label>
+                    <label for="inputPHC">{{'PHC' | translate}}</label>
                     <select id="inputPHC" class="form-control" name=DDLphc #DDLphc="ngModel" (change)="onChangephc($event.target.value)" [disabled]="selectedchc === ''"
                     ngModel required [(ngModel)]="selectedphc">
                         <option value="">Select</option>
@@ -40,7 +40,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputANM">ANM</label>
+                    <label for="inputANM">{{'ANM' | translate}}</label>
                     <select id="inputANM" class="form-control" name=DDLanm #DDLanm="ngModel" ngModel required [(ngModel)]="selectedanm" [disabled]="selectedphc === ''">
                         <option value="">Select</option>
                         <option *ngFor="let anm of anmlists" [(value)]="anm.id">
@@ -58,18 +58,18 @@
                 <table id="tobepostscheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                            <th class="text-center"><span>S.No</span></th>
-                            <th class="text-left"><span>Subject Name</span></th>
-                            <th class="text-center"><span>Subject ID</span></th>
-                            <th class="text-center"><span>RCH ID</span></th>
-                            <!-- <th class="text-center"><span>LMP Date</span></th> -->
-                            <th class="text-center"><span>GA</span></th>
-                            <th class="text-center"><span>Obstetric Score</span></th>
-                            <th class="text-center"><span>Contact</span></th>
-                            <th class="text-center"><span>Spouse Name</span></th>
-                            <th class="text-center"><span>PND Testing Result</span></th>
-                            <th class="text-center pnddate"><span>Counselling Date & Time</span></th>
-                            <th class="text-center"><span>Details</span></th>
+                            <th class="text-center"><span>{{'SNo' | translate}}</span></th>>
+                            <th class="text-center"><span>{{'SubjectName' | translate}}</span></th>
+                            <th class="text-center"><span>{{'SubjectID' | translate}}</span></th>
+                            <th class="text-center"><span>{{'RCHID' | translate}}</span></th>
+                            <!-- <th class="text-center"><span>{{'LMPDate' | translate}}</span></th>                                     -->
+                            <th class="text-center"><span>{{'GA' | translate}}</span></th>
+                            <th class="text-center"><span>{{'ObstetricScore' | translate}}</span></th>
+                            <th class="text-center"><span>{{'Contact' | translate}}</span></th>
+                            <th class="text-center"><span>{{'SpouseName' | translate}}</span></th>
+                            <th class="text-center"><span>{{'PNDTestingResult' | translate}}</span></th>
+                            <th class="text-center"><span>{{'CounsellingDate&Time' | translate}}</span></th>
+                            <th class="text-center"><span>{{'Details' | translate}}</span></th>
                         </tr>
 
                     </thead>
