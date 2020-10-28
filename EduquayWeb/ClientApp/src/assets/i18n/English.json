@@ -425,6 +425,10 @@
 "UpdatePostPNDT":"Update Post PNDT",
 "UpdatePNDTesting":"Update PND Testing",
 "OthersProcedureofTesting":"Others Procedure of Testing",
-"PlanforPregnancyContinue": "Plan for Pregnancy Continue"
+"PlanforPregnancyContinue": "Plan for Pregnancy Continue",
+"Save&UpdateLater":"Save & Update Later",
+"FoetalHeartRatedocumentedinScan":"Foetal Heart Rate documented in Scan",
+"MotherVoided":"Mother Voided",
+"Mother’sVitals(Pulse & BP)Stable":"Mother’s Vitals (Pulse & BP) Stable"
 
 }

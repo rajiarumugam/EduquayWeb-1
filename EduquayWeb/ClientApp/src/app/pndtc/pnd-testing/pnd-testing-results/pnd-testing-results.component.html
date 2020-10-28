@@ -451,12 +451,12 @@
                                         </form>
                                         <form [formGroup]="secondFormGroup">
                                             <!-- Post PNDT Procedure -->
-                                            <h4 class="modal-title modaltitle py-2">{{'PostPNDTProcedure' | translate}} </label></h4>
-                                            <span class="note">{{'ConditionatDischarge' | translate}} </label></span>
+                                            <h4 class="modal-title modaltitle py-2">{{'PostPNDTProcedure' | translate}}</h4>
+                                            <span class="note">{{'ConditionatDischarge' | translate}} </span>
                                             <!-- <span class="note">Condition at Discharge</span> -->
                                             <div class="row py-2">
                                                 <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">Mother Voided</span><br>
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">{{'MotherVoided' | translate}}</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
                                                             <input type="radio" id="customRadioInline1" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="true" [required]='secondFormCheck'>
                                                             <label class="custom-control-label" for="customRadioInline1">{{'Yes' | translate}} </label>
@@ -467,25 +467,25 @@
                                                         </div> 
                                                 </div>
                                                 <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVital.invalid }">Mother’s Vitals (Pulse & BP) Stable</span><br>
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVital.invalid }">{{'Mother’sVitals(Pulse & BP)Stable' | translate}}</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline3" name="motherVital" class="custom-control-input" formControlName="motherVital" value="true" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline3">{{'Yes' | translate}} </label> </label>
+                                                        <label class="custom-control-label" for="customRadioInline3">{{'Yes' | translate}} </label>
                                                         </div>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline4" name="motherVital" class="custom-control-input" formControlName="motherVital" value="false" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline4">{{'No' | translate}} </label></label>
+                                                        <label class="custom-control-label" for="customRadioInline4">{{'No' | translate}}</label>
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.foetalHeart.invalid }">Foetal Heart Rate documented in Scan</span><br>
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.foetalHeart.invalid }">{{'FoetalHeartRatedocumentedinScan' | translate}}</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline5" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="true" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline5">{{'Yes' | translate}} </label> </label>
+                                                        <label class="custom-control-label" for="customRadioInline5">{{'Yes' | translate}} </label>
                                                         </div>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline6" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="false" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline6">{{'No' | translate}} </label></label>
+                                                        <label class="custom-control-label" for="customRadioInline6">{{'No' | translate}} </label>
                                                     </div> 
                                                 </div>
     
@@ -531,9 +531,9 @@
                                         </form>    </div>
                                     <div class="modal-footer">
                                         <a class="btn btn-success successdamaged" role="button"
-                                        id="linktopendingresult" (click)="pndSubmit('save')">Save & Update Later</a>
+                                        id="linktopendingresult" (click)="pndSubmit('save')">{{'Save&UpdateLater' | translate}}</a>
                                         <a class="btn btn-success successdamaged" role="button"
-                                            id="linktopendingresult" (click)="pndSubmit('submit')"> Confirm & Close</a>
+                                            id="linktopendingresult" (click)="pndSubmit('submit')"> {{'Confirm&Close' | translate}}<</a>
                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
                                             Close</button>
                                         <!-- <button type="button" class="btn btn-primary">Save</button> -->
