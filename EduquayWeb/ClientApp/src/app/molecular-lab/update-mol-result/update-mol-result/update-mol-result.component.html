@@ -9,10 +9,10 @@
                             <th><span>{{'SubjectName' | translate}}</span></th>
                             <th><span>{{'SubjectID' | translate}}</span></th>
                             <th><span>{{'RCHID' | translate}}</span></th>
-                            <th><span>Barcode</span></th>
-                            <th><span>District</span></th>
-                            <th><span>Update Molecular Test Result</span></th>
-                            <th><span>View Case Sheet</span></th>
+                            <th><span>{{'Barcode' | translate}}</span></th>
+                            <th><span>{{'District' | translate}}</span></th>
+                            <th><span>{{'UpdateMolecularTestResult' | translate}}</span></th>
+                            <th><span>{{'ViewCaseSheet' | translate}}</span></th>
                         </tr>
 
                     </thead>
@@ -46,7 +46,7 @@
                                 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title modaltitle">Molecular Test Results</h5>
+                                            <h5 class="modal-title modaltitle">{{'MolecularTestResults' | translate}}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -71,16 +71,15 @@
                                                                     style="width:100%">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th class="sno text-center"><span>S.No</span></th>
-                                                                            <th ><span>Subject
-                                                                                    Name</span></th>
+                                                                            <th class="sno text-center"><span>{{'SNo' | translate}}</span></th>
+                                                                            <th ><span>{{'SubjectName' | translate}}</span></th>
                                                                             <th><span>{{'SubjectID' | translate}}</span></th>
                                                                             <th><span>{{'RCHID' | translate}}</span></th>
-                                                                            <th><span>Barcode</span></th>
-                                                                            <th><span>Gender</span></th>
-                                                                            <th><span>Date</span></th>
+                                                                            <th><span>{{'Barcode' | translate}}</span></th>
+                                                                            <th><span>{{'Gender' | translate}}</span></th>
+                                                                            <th><span>{{'Date' | translate}}</span></th>
                                                                             <th>
-                                                                                <span>District</span></th>
+                                                                                <span>{{'District' | translate}}</span></th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -107,18 +106,18 @@
                                                                 <span class="note" [ngClass]="{'label-border-class': firstFormCheck && secondFormGroup.controls.processSample.invalid }">Process Sample</span><br>
                                                                 <div class="custom-control custom-radio custom-control-inline">
                                                                         <input type="radio" id="customRadioInline1" name="processSample" class="custom-control-input" formControlName="processSample" value="true" [required]='firstFormCheck' (change)="radioChange($event)">
-                                                                        <label class="custom-control-label" for="customRadioInline1">Yes </label>
+                                                                        <label class="custom-control-label" for="customRadioInline1">{{'Yes' | translate}} </label>
                                                                         </div>
                                                                     <div class="custom-control custom-radio custom-control-inline">
                                                                         <input type="radio" id="customRadioInline2" name="processSample" class="custom-control-input" formControlName="processSample" value="false" [required]='true' (change)="radioChange($event)">
-                                                                        <label class="custom-control-label" for="customRadioInline2">No</label>
+                                                                        <label class="custom-control-label" for="customRadioInline2">{{'No' | translate}}</label>
                                                                     </div> 
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4 col-sm-6" *ngIf="showRemarks"
                                                                     id="businessnew">
-                                                                    <span class="note" [ngClass]="{'label-border-class': firstFormCheck && (selectedRemarks == undefined || selectedRemarks == null)}">Remarks</span>
+                                                                    <span class="note" [ngClass]="{'label-border-class': firstFormCheck && (selectedRemarks == undefined || selectedRemarks == null)}">{{'Remarks' | translate}}</span>
                                                                     <textarea id="textarea" class="form-control textarea mb-4" 
                                                                         maxlength="225" rows="2" placeholder="" [ngClass]="{'red-border-class': firstFormCheck && (selectedRemarks == undefined || selectedRemarks == null) }" [required]="showRemarks" [(ngModel)]="selectedRemarks"></textarea>
                                                                 </div>
@@ -145,9 +144,9 @@
                                                     <br>
                                                 </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary float-right" id="linktobuttonupdateresult" (click)="submitData();">Save</button>
+                                            <button class="btn btn-primary float-right" id="linktobuttonupdateresult" (click)="submitData();">{{'Save' | translate}}</button>
                                             <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                                                Close</button>
+                                                {{'Close' | translate}}</button>
                                         </div>
                                     </div>
 

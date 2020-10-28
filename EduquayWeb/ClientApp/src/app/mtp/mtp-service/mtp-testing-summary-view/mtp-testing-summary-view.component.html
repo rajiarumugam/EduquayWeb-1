@@ -25,7 +25,7 @@
   </div>
   <div class="col-md-8">
       <h4 class="text-center text-white pt-2">{{'THALASSEMIATITLE' | translate }}</h4>
-      <h5 class="text-center text-white">MTP Discharge Summary Report</h5>
+      <h5 class="text-center text-white">{{'MTPDischargeSummaryReport' | translate }}</h5>
   </div>
   <div class="col-md-2">
       <img src="../../../../assets/assets/img/Insteam_CMC_logo.png" class="mt-1" style="width:65%;">
@@ -99,7 +99,7 @@
                                           <td class="sp-xs-td-15">{{pndSummarydata.anwSubjectId}}</td>
                                           <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
                                           <td class="sp-xs-td-15">{{pndSummarydata.age}} yrs</td>
-                                          <td class="sp-xs-td-9"><b>RCH ID</b></td>
+                                          <td class="sp-xs-td-9"><b>{{'RCHID' | translate}}</b></td>
                                           <td class="sp-xs-td-15">{{pndSummarydata.rchId}}</td>
                                       </tr>
                                       <tr>
@@ -138,27 +138,27 @@
                               <table class="table table-bordered table-striped">
                                   <thead>
                                       <tr>
-                                          <th class="text-center"><span>Test</span></th>
-                                          <th class="text-center"><span>Results</span></th>
-                                          <th class="text-center"><span>Diagnosis</span></th>
+                                          <th class="text-center"><span>{{'Test' | translate}}</span></th>
+                                          <th class="text-center"><span>{{'Results' | translate}}</span></th>
+                                          <th class="text-center"><span>{{'Diagnosis' | translate}}</span></th>
                                       </tr>
 
                                   </thead>
                                   <tbody>
                                       <tr>
-                                          <td class="text-left">CBC </td>
+                                          <td class="text-left">{{'CBC' | translate}} </td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left">{{pndSummarydata.anwCBCTestResult}}</td>
                                           <td class="text-left">{{pndSummarydata.anwCBCTestResult}}</td>
                                       </tr>
                                       <tr>
-                                          <td class="text-left">SST</td>
+                                          <td class="text-left">{{'SST' | translate}}</td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left">{{pndSummarydata.anwSSTestResult}}</td>
                                           <td class="text-left">{{pndSummarydata.anwSSTestResult}}</td>
                                       </tr>
                                       <tr>
-                                          <td class="text-left">HPLC</td>
+                                          <td class="text-left">{{'HPLC' | translate}}</td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left">{{pndSummarydata.anwHPLCTestResult}}</td>
                                           <td class="text-left">{{pndSummarydata.anwHPLCDiagnosis}}</td>
@@ -180,7 +180,7 @@
                               <table class="table table-bordered table-striped" id="tblBasicInfo">
                                   <thead class="tablecss">
                                       <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Post PNDT Counselling</b>
+                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>{{'PostPNDTCounselling' | translate}}</b>
                                           </th>
                                       </tr>
                                   </thead>
@@ -195,7 +195,7 @@
                                   </thead>
                                   <tbody>
                                       <tr>
-                                          <td class="text-left" style="width: 35%;"><b>Date & Time </b></td>
+                                          <td class="text-left" style="width: 35%;"><b>{{'Date&Time' | translate}} </b></td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left">{{pndSummarydata.postPNDTCounsellingDateTime}}</td>
                                       </tr>
@@ -212,7 +212,7 @@
                                   </thead>
                                   <tbody>
                                       <tr>
-                                          <td class="text-left" style="width: 35%;"><b> Counselling Status </b></td>
+                                          <td class="text-left" style="width: 35%;"><b> {{'CounsellingStatus' | translate}} </b></td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                       <td class="text-left">{{pndSummarydata.postPNDTCounsellingStatus}}</td>
                                          
@@ -243,7 +243,7 @@
                               <table class="table table-bordered table-striped" id="tblBasicInfo">
                                   <thead class="tablecss">
                                       <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>MTP Service</b>
+                                          <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>{{'MTPService' | translate}}</b>
                                           </th>
                                       </tr>
                                   </thead>
@@ -260,22 +260,22 @@
                                   </thead>
                                   <tbody>
                                       <tr>
-                                          <td class="text-left" style="width: 35%;"><b>Date & Time </b></td>
+                                          <td class="text-left" style="width: 35%;"><b>{{'Date&Time' | translate}} </b></td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left">{{pndSummarydata.mtpScheduleDate}} {{pndSummarydata.mtpScheduleTime}}</td>
                                       </tr>
                                       <tr>
-                                          <td class="text-left" style="width: 35%;"><b>Obstetrician Name </b></td>
+                                          <td class="text-left" style="width: 35%;"><b>{{'ObstetricianName' | translate}} </b></td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left">{{pndSummarydata.pndtObstetrician}} </td>
                                       </tr>
                                       <tr>
-                                          <td class="text-left" style="width: 35%;"><b>Examination </b></td>
+                                          <td class="text-left" style="width: 35%;"><b>{{'Examination' | translate}} </b></td>
                                           <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
                                           <td class="text-left"> {{pndSummarydata.mtpExamination}}</td>
                                       </tr>
                                       <tr>
-                                          <td class="text-left" style="width: 35%;"><b>Complications</b></td>
+                                          <td class="text-left" style="width: 35%;"><b>{{'Complications' | translate}}</b></td>
                                           
                                           <td class="text-left"> {{pndSummarydata.mtpComplecations}}</td>
                                       </tr>
@@ -300,15 +300,15 @@
                                           <td class="text-left" style="width: 35%;">{{pndSummarydata.clinicalHistory}}</td>
                                       </tr>-->
                                       <tr>
-                                          <td class="text-left" style="/* width: 35%; */"><b>Clinical History</b> </td>
+                                          <td class="text-left" style="/* width: 35%; */"><b>{{'ClinicalHistory' | translate}}</b> </td>
                                           <td class="text-left">{{pndSummarydata.mtpClinicalHistory}}</td>
                                       </tr>
                                       <tr>
-                                        <td class="text-left" style="width: 35%;"><b>Procedure of Testing</b></td>
+                                        <td class="text-left" style="width: 35%;"><b>{{'ProcedureofTesting' | translate}}</b></td>
                                         <td class="text-left"> {{pndSummarydata.mtpProcedureOfTesting}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left" style="width: 35%;"><b>Condition at Discharge</b></td>
+                                        <td class="text-left" style="width: 35%;"><b>{{'ConditionatDischarge' | translate}}</b></td>
                                         <td class="text-left"> {{pndSummarydata.mtpDischargeCondition}}</td>
                                     </tr>
                                   </tbody>

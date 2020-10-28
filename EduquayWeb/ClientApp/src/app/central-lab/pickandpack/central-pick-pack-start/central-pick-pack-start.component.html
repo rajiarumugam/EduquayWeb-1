@@ -50,7 +50,7 @@
 </table>
 </div>
 <div class="col-md-12 upload-btn-cont" *ngIf="showUploadResult">
-    <button class="mr-2 btn btn-primary hplc confirm float-right" (click)="createShipment();">Create Shipment</button>
+    <button class="mr-2 btn btn-primary hplc confirm float-right" (click)="createShipment();">{{'CreateShipment' | translate }}</button>
 </div>
 
 
@@ -59,7 +59,7 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modaltitle" id="myLargeModalLabel">Create Shipment</h5>
+            <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -84,22 +84,22 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <form [formGroup]="firstFormGroup">
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.labTechnicianName.invalid }"><b>Lab Technician Name </b></span><span class="manto">*</span>
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.labTechnicianName.invalid }"><b>{{'LabTechnicianName' | translate }} </b></span><span class="manto">*</span>
                                         <input class="form-control field" name="name" required="" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="labTechnicianName" [(ngModel)]="selectedlabTechnicianName" formControlName = "labTechnicianName" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.labTechnicianName.invalid }" [attr.disabled]="true">
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.centralLab.invalid }"><b>Central Lab & Location </b></span><span class="manto">*</span>
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.centralLab.invalid }"><b>{{'CentralLab&Location' | translate }} </b></span><span class="manto">*</span>
                                         <input class="form-control field" name="name" required="" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="inputcentralLab" [(ngModel)]="selectedcentralLab" formControlName = "centralLab" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.centralLab.invalid }" [attr.disabled]="true">
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }"><b>Receiving Molecular Lab </b></span><span class="manto">*</span>
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }"><b>{{'ReceivingMolecularLab' | translate }} </b></span><span class="manto">*</span>
                                         <select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="" name="receivingMolecularLab" [(ngModel)]="selectedreceivingMolecularLab" formControlName = "receivingMolecularLab" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }">
                                             <option [ngValue]="null">Select</option>
                                             <option [value]="m.id" *ngFor="let m of molecularLabData">{{m.molecularLabName}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.logisticsServiceProvider.invalid }"><b>Logistics Service Provider </b></span><span
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.logisticsServiceProvider.invalid }"><b>{{'LogisticsServiceProvider' | translate }} </b></span><span
                                             class="manto">*</span>
                                             <input class="form-control field" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="logisticsServiceProvider" [(ngModel)]="selectedlogisticsServiceProvider" formControlName = "logisticsServiceProvider" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.logisticsServiceProvider.invalid }">
                                     </div>
@@ -107,20 +107,20 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 </div>
                                 <div class="form-row my-2">
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.deliveryExecutiveName.invalid }"> <b>Delivery Executive Name </b></span><span
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.deliveryExecutiveName.invalid }"> <b>{{'DeliveryExecutiveName' | translate }} </b></span><span
                                             class="manto">*</span>
                                         <input class="form-control field" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="deliveryExecutiveName" [(ngModel)]="selecteddeliveryExecutiveName" formControlName = "deliveryExecutiveName" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.deliveryExecutiveName.invalid }">
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }"><b>Contact Number </b></span><span class="manto">*</span>
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }"><b>{{'ContactNumber' | translate }} </b></span><span class="manto">*</span>
                                         <input type="text" class="form-control" id="inputContact" [(ngModel)]="selectedMobile" placeholder="Mobile No" required formControlName = "contactNumber" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.contactNumber.invalid }" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.shipmentDate.invalid }"><b>Shipment Date </b></span><span class="manto">*</span>
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.shipmentDate.invalid }"><b>{{'ShipmentDate' | translate }} </b></span><span class="manto">*</span>
                                         <ng2-flatpickr id="shipmentdate" name="shipmentDate" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "shipmentDate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.shipmentDate.invalid }" [(ngModel)]="selectedshipmentDate"></ng2-flatpickr>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.shipmentTime.invalid }"><b>Shipment Time </b></span><span class="manto">*</span>
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.shipmentTime.invalid }"><b>{{'ShipmentTime' | translate }} </b></span><span class="manto">*</span>
                                         <ng2-flatpickr id="shipmentTime" name="shipmentTime" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions1" placeholder="Select Time.." formControlName = "shipmentTime" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.shipmentTime.invalid }" [(ngModel)]="selectedshipmentTime"></ng2-flatpickr>
                                     </div>
                                 </div>
@@ -129,9 +129,9 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary"
-                                    id="linktobuttoncentralpick" (click)="submitShipment()">Submit</button>
+                                    id="linktobuttoncentralpick" (click)="submitShipment()">{{'Submit' | translate }}</button>
                                     <button class="btn" data-dismiss="modal"><i
-                                            class="flaticon-cancel-12"></i> Close</button>
+                                            class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
                                 </div>
 
                         </div>

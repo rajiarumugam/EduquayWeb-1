@@ -23,7 +23,7 @@
               <!-- <h5 class="float-left">Sample Collection</h5> -->
               <div class="col-md-4">
                 <div class="headertit">
-                  <h5 class="float-center">PND Testing</h5>
+                  <h5 class="float-center">{{'PNDTesting' | translate}}</h5>
                 </div>
               </div>
               <div class="col-md-4">
@@ -41,13 +41,13 @@
                   <a class="nav-link active" id="tobeScheduled-tab" data-toggle="tab"
                      [routerLink]="['/app/pndtc-testing']" role="tab" aria-controls="home"
                      aria-selected="true">
-                     PNDT Pending<span class="badge badge-pill badge-warning shadow mx-1">{{pendingCount}}</span>
+                     {{'PNDTPending' | translate}}<span class="badge badge-pill badge-warning shadow mx-1">{{pendingCount}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="scheduled-tab" data-toggle="tab" [routerLink]="['/app/pndtc-testing/notcompleted']"
                      role="tab" aria-controls="profile" aria-selected="false">
-                     Update Post PNDT<span class="badge badge-pill badge-warning shadow ml-1">{{notcompleteCount}}</span>
+                     {{'UpdatePostPNDT' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{notcompleteCount}}</span>
                   </a>
                 </li>
               </ul>

@@ -34,7 +34,7 @@
                                             <table class="table table-bordered table-striped" id="tblBasicInfo">
                                                 <thead class="tablecss">
                                                     <tr class="" style="background-color: #e3e8ef;">
-                                                        <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Subject Details</b>
+                                                        <th colspan="8" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>{{'SubjectDetails' | translate}}</b>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -56,7 +56,7 @@
                                                         <td>{{testingPNDData?.ga}}</td>
                                                         <td><b>{{'ObstetricsScore' | translate}}</b></td>
                                                         <td>{{testingPNDData?.obstetricScore}}</td>
-                                                        <td><b>RCH ID</b></td>
+                                                        <td><b>{{'RCHID' | translate}}</b></td>
                                                         <td>{{testingPNDData?.rchId}}</td>
                                                     </tr>
 
@@ -134,7 +134,7 @@
                                                 <div role="menu" class="collapsed" data-toggle="collapse"
                                                     data-target="#defaultAccordionOne" aria-expanded="true"
                                                     aria-controls="defaultAccordionOne">
-                                                    Detailed {{'TestResults' | translate}} <div class="icons"><svg
+                                                    {{'DetailedTestResults' | translate}} <div class="icons"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none"
                                                             stroke="currentColor" stroke-width="2"
@@ -153,8 +153,8 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
-                                                                <th class="text-center"><span>SST Results</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>{{'SubjectInfo' | translate}}</span></th>
+                                                                <th class="text-center"><span>{{'SSTResults' | translate}}</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -175,8 +175,8 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
-                                                                <th class="text-center"><span>CBC Results</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>{{'SubjectInfo' | translate}}</span></th>
+                                                                <th class="text-center"><span>{{'CBCResults' | translate}}</span></th>
                                                             </tr>
                     
                                                         </thead>
@@ -197,7 +197,7 @@
                                                     <table class="table table-bordered table-hover mb-4">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width:30%;"><span>Subject Info</span></th>
+                                                                <th class="text-center" style="width:30%;"><span>{{'SubjectInfo' | translate}}</span></th>
                                                                 <th class="text-center"><span>HPLC Results & Lab Diagnosis</span></th>
                                                             </tr>
                     
@@ -231,7 +231,7 @@
                                                 <div role="menu" class="collapsed" data-toggle="collapse"
                                                     data-target="#defaultAccordionTwo" aria-expanded="true"
                                                     aria-controls="defaultAccordionTwo">
-                                                   Pre PNDT Counselling <div class="icons"><svg
+                                                   {{'PrePNDTCounselling' | translate}} <div class="icons"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none"
                                                             stroke="currentColor" stroke-width="2"
@@ -251,7 +251,7 @@
                                                             <table class="table table-bordered table-striped mb-2">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td class="sp-sm-th"><b>Date & Time</b></td>
+                                                                        <td class="sp-sm-th"><b>{{'Date&Time' | translate}}</b></td>
                                                                         <td>{{testingPNDData?.counsellingDateTime}}</td>
                                                                     </tr>
                                                                     <tr>
@@ -259,7 +259,7 @@
                                                                         <td>{{testingPNDData?.counsellorName}}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td><b>Counselling Notes/Remarks</b></td>
+                                                                        <td><b>{{'CounsellingNotes/Remarks' | translate}}</b></td>
                                                                         <td>{{testingPNDData?.counsellingRemarks}}</td>
                                                                     </tr>
                                                                 </tbody>
@@ -284,7 +284,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row my-2">
-                                                    <div class="col-md-6 ml-3"><b>Note:</b> Received signed Consent form from Subject and filed.
+                                                    <div class="col-md-6 ml-3"><b>{{'Note' | translate}}:</b> {{'Receivedsignedconsentformfromsubjectandfiled.' | translate}}
                                                     </div>
                                                 </div>
                                                 
@@ -302,7 +302,7 @@
                                     
                                     <div class="col-md-12 d-flex justify-content-end ">
                                         <a class="btn btn-primary" data-toggle="modal" 
-                                            role="button" (click)="openPopup();">Update</a>
+                                            role="button" (click)="openPopup();">{{'Update' | translate}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +348,7 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }">PNDT Date & Time </span><span
+                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }">{{'PNDTDate&Time' | translate}} </span><span
                                                     class="manto">*</span>
                                                     <input
                                                     class="form-control field" type="text" formControlName="pndtDate" [(ngModel)]="selectedpndtDate" readonly>
@@ -359,14 +359,14 @@
                                                     class="form-control field" type="text" formControlName="pndtDate" [(ngModel)]="selectedpndtDate" *ngIf = "disableDatepicker" readonly><ng2-flatpickr id="dateOfRegistration" name="dor" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "pndtDate" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pndtDate.invalid }" [(ngModel)]="selectedpndtDate" *ngIf = "!disableDatepicker"></ng2-flatpickr>--->
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <span class="note">Counsellor Name </span><span
+                                                <span class="note">{{'CounsellorName' | translate}} </span><span
                                                     class="manto">*</span>
                                                 <input class="form-control field" name="name"
                                                     required="" type="text" placeholder=""
                                                     tabindex="1" autocomplete="off" readonly formControlName="counsellorName" [(ngModel)]="selectedcounsellerName">
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.obstetricianName.invalid }">Obstetrician Name </span><span
+                                                <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.obstetricianName.invalid }">{{'ObstetricianName' | translate}} </span><span
                                                     class="manto">*</span>
                                                 <input class="form-control field" name="obstetricianName"
                                                     required="" type="text" placeholder=""
@@ -377,17 +377,17 @@
                                         <div class="form-row">
                                         
                                         <div class="form-group col-md-4">
-                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.clinicalHistory.invalid }">Clinical History </span><span
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.clinicalHistory.invalid }">{{'ClinicalHistory' | translate}} </span><span
                                                 class="manto">*</span>
                                             <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="clinicalHistory"  [(ngModel)]="selectedclinicalHistory" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.clinicalHistory.invalid }"></textarea>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.examination.invalid }">Examination </span><span
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.examination.invalid }">{{'Examination' | translate}} </span><span
                                                 class="manto">*</span>
                                             <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="examination"  [(ngModel)]="selectedexamination" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.examination.invalid }"></textarea>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }">Procedure of Testing </span><span
+                                            <span class="note" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.procedureOfTesting.invalid }">{{'ProcedureofTesting' | translate}} </span><span
                                                 class="manto">*</span>
                                                 <select id="inputChild" name="procedureOfTesting"
                                                     class="form-control field" id="occuptnid"
@@ -400,7 +400,7 @@
                                         
                                         <div class="form-row">
                                             <div class="col-md-4">
-                                                    <span class="note" [ngClass]="{'label-border-class': firstFormCheck && selectedcomplicationsItems.length==0 ? true : false }">Complications</span> <span class="manto">*</span>                        
+                                                    <span class="note" [ngClass]="{'label-border-class': firstFormCheck && selectedcomplicationsItems.length==0 ? true : false }">{{'Complications' | translate}}</span> <span class="manto">*</span>                        
                                                 <div class="form-group ">
                                                     <ng-multiselect-dropdown #multiSelect
                                                     [placeholder]="'Select'" 
@@ -420,7 +420,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4" *ngIf="selectedanyOtherComplications">
-                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">Others </span><span
+                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">{{'Others' | translate}} </span><span
                                                     class="manto">*</span>
                                                 <input class="form-control field" name="name"
                                                     required="" type="text" placeholder=""
@@ -431,7 +431,7 @@
 
 
                                             <div class="form-group col-md-4"  *ngIf="selectedprocedureOfTesting == 3 ? true : false" [ngClass]="{'col-md-offset-3':true }">
-                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.otherPOT.invalid }">Others Procedure of Testing</span><span
+                                                <span class="note"  [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.otherPOT.invalid }">{{'OthersProcedureofTesting' | translate}}</span><span
                                                     class="manto">*</span>
                                                 <input class="form-control field" name="name"
                                                     required="" type="text" placeholder=""
@@ -451,46 +451,46 @@
                                         </form>
                                         <form [formGroup]="secondFormGroup">
                                             <!-- Post PNDT Procedure -->
-                                            <h4 class="modal-title modaltitle py-2">Post PNDT Procedure</h4>
-                                            <span class="note">Condition at Discharge</span>
+                                            <h4 class="modal-title modaltitle py-2">{{'PostPNDTProcedure' | translate}}</h4>
+                                            <span class="note">{{'ConditionatDischarge' | translate}} </span>
                                             <!-- <span class="note">Condition at Discharge</span> -->
                                             <div class="row py-2">
                                                 <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">Mother Voided</span><br>
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVoided.invalid }">{{'MotherVoided' | translate}}</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
                                                             <input type="radio" id="customRadioInline1" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="true" [required]='secondFormCheck'>
-                                                            <label class="custom-control-label" for="customRadioInline1">Yes </label>
+                                                            <label class="custom-control-label" for="customRadioInline1">{{'Yes' | translate}} </label>
                                                             </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
                                                             <input type="radio" id="customRadioInline2" name="motherVoided" class="custom-control-input" formControlName="motherVoided" value="false" [required]='secondFormCheck'>
-                                                            <label class="custom-control-label" for="customRadioInline2">No</label>
+                                                            <label class="custom-control-label" for="customRadioInline2">{{'No' | translate}}</label>
                                                         </div> 
                                                 </div>
                                                 <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVital.invalid }">Mother’s Vitals (Pulse & BP) Stable</span><br>
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.motherVital.invalid }">{{'Mother’sVitals(Pulse & BP)Stable' | translate}}</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline3" name="motherVital" class="custom-control-input" formControlName="motherVital" value="true" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline3">Yes </label>
+                                                        <label class="custom-control-label" for="customRadioInline3">{{'Yes' | translate}} </label>
                                                         </div>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline4" name="motherVital" class="custom-control-input" formControlName="motherVital" value="false" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline4">No</label>
+                                                        <label class="custom-control-label" for="customRadioInline4">{{'No' | translate}}</label>
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-4">
-                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.foetalHeart.invalid }">Foetal Heart Rate documented in Scan</span><br>
+                                                   <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.foetalHeart.invalid }">{{'FoetalHeartRatedocumentedinScan' | translate}}</span><br>
                                                       <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline5" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="true" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline5">Yes </label>
+                                                        <label class="custom-control-label" for="customRadioInline5">{{'Yes' | translate}} </label>
                                                         </div>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" id="customRadioInline6" name="foetalHeart" class="custom-control-input" formControlName="foetalHeart" value="false" [required]='secondFormCheck'>
-                                                        <label class="custom-control-label" for="customRadioInline6">No</label>
+                                                        <label class="custom-control-label" for="customRadioInline6">{{'No' | translate}} </label>
                                                     </div> 
                                                 </div>
     
                                                 <div class="col-md-4 py-4">
-                                                <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">PNDT Diagnosis</span>
+                                                <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">{{'PNDTDiagnosis' | translate}} </span>
                                                 <select name="occupationoption"
                                                                 class="form-control field" id="inputSideEffects"
                                                                 tabindex="7" [(ngModel)]="selectedPNDTDiagnosis" formControlName="PNDTDiagnosis" [required]='secondFormCheck' [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">
@@ -502,7 +502,7 @@
                                                 </div>
     
                                                 <div class="col-md-4 py-4">
-                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">PNDT Results</span>
+                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">{{'PNDTResults' | translate}} </span>
                                                     <select name="occupationoption"
                                                                     class="form-control field" id="inputSideEffects"
                                                                     tabindex="7" [(ngModel)]="selectedPNDTResults" formControlName="PNDTResults" [required]='secondFormCheck'  [ngClass]="{'red-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">
@@ -513,7 +513,7 @@
                     
                                                     </div>
                                                     <div class="col-md-4 py-4">
-                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.planForPregenancy.invalid }">Plan for Pregnancy Continue</span><br>
+                                                    <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.planForPregenancy.invalid }">{{'PlanforPregnancyContinue' | translate}}</span><br>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                     <input type="radio" id="customRadioInline7" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="true" [required]='secondFormCheck'>
                                                     <label class="custom-control-label" for="customRadioInline7">Yes: OG Follow up </label>
@@ -531,9 +531,9 @@
                                         </form>    </div>
                                     <div class="modal-footer">
                                         <a class="btn btn-success successdamaged" role="button"
-                                        id="linktopendingresult" (click)="pndSubmit('save')">Save & Update Later</a>
+                                        id="linktopendingresult" (click)="pndSubmit('save')">{{'Save&UpdateLater' | translate}}</a>
                                         <a class="btn btn-success successdamaged" role="button"
-                                            id="linktopendingresult" (click)="pndSubmit('submit')"> Confirm & Close</a>
+                                            id="linktopendingresult" (click)="pndSubmit('submit')"> {{'Confirm&Close' | translate}}<</a>
                                         <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
                                             Close</button>
                                         <!-- <button type="button" class="btn btn-primary">Save</button> -->

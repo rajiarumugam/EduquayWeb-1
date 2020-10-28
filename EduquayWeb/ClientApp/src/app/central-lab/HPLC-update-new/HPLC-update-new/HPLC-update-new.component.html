@@ -25,7 +25,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Update HPLC Results</h5>
+                <h5 class="float-center">{{'UpdateHPLCResults' | translate }}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -43,7 +43,7 @@
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'chc-update-cbc' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/chc-update-cbc']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Received / unprocessed Samples<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
+                   {{'Received/unprocessedSamples' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
                 </a>
               </li>
              

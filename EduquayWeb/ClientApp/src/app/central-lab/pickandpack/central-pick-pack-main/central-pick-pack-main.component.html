@@ -25,7 +25,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Pick & Pack</h5>
+                <h5 class="float-center">{{'Pick&Pack' | translate }}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -43,13 +43,13 @@
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'central-pickpack' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/central-pickpack']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Pending for Pickup<span class="badge badge-pill badge-warning shadow mx-1">{{pendingPickupCount}}</span>
+                   {{'PendingforPickup' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{pendingPickupCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'start' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/central-pickpack/start']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Start Pick and Pack<span class="badge badge-pill badge-warning shadow ml-1">{{startPickCount}}</span>
+                   {{'StartPickandPack' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{startPickCount}}</span>
                 </a>
               </li>
               

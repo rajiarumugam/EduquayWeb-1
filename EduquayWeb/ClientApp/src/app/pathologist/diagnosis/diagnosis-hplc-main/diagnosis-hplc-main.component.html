@@ -23,7 +23,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Diagnostic - HPLC</h5>
+                <h5 class="float-center">{{'Diagnostic_HPLC' | translate}}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -41,19 +41,19 @@
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'abnormal' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/pathologist-hplc/abnormal']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Abnormal<span class="badge badge-pill badge-warning shadow mx-1">{{abnormalCount}}</span>
+                   {{'Abnormal' | translate}}<span class="badge badge-pill badge-warning shadow mx-1">{{abnormalCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'normal' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/pathologist-hplc/normal']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Normal<span class="badge badge-pill badge-warning shadow ml-1">{{normalCount}}</span>
+                   {{'Normal' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{normalCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'edit' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/pathologist-hplc/edit']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Edit Diagnosis Results<span class="badge badge-pill badge-warning shadow ml-1">{{editCount}}</span>
+                   {{'EditDiagnosisResults' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{editCount}}</span>
                 </a>
               </li>
               

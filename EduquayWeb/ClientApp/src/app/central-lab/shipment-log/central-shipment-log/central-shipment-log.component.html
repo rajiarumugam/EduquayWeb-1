@@ -5,8 +5,7 @@
  <div id="print-area" class="modal-dialog modal-xl modal-dialog-centered" role="document">
      <div class="modal-content">
          <div class="modal-header">
-                 <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Shipment
-                 Details</h5>
+                 <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ShipmentDetails' | translate}}</h5>
 
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -21,10 +20,10 @@
              <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                  <div class="row my-4">
                     <div class="col-md-4">
-                        <p class="float-left"><span><b>Shipment ID : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentId}}</span></p>
+                        <p class="float-left"><span><b>{{'ShipmentID' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentId}}</span></p>
                     </div>
                     <div class="col-md-4">
-                        <p class="float-left"><span><b>Shipment Date & Time : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentDateTime}}</span>
+                        <p class="float-left"><span><b>{{'ShipmentDateAndTime' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentDateTime}}</span>
                     </div>
                     <div class="col-md-4 d-flex justify-content-end">
                         <div class="btn-toolbar mb-2 mb-md-0">
@@ -45,25 +44,25 @@
                      </div>
                      <div class="row my-4">
                          <div class="col-md-4">
-                             <span><b>Lab Technician Name : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</span>
+                             <span><b>{{'LabTechnicianName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>Central Lab : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</span>
+                             <span><b>{{'CentralLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>Receiving Molecular Lab : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
+                             <span><b>{{'ReceivingMolecularLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
                          </div>
                          
                      </div>
                      <div class="row my-4">
                          <div class="col-md-4">
-                             <span><b>Logistics Service Provider : </b></span>{{centralReceiptsData[selectedShipmentLog]?.logisticsProviderName}}<span></span>
+                             <span><b>{{'LogisticsServiceProvider' | translate}} : </b></span>{{centralReceiptsData[selectedShipmentLog]?.logisticsProviderName}}<span></span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>Delivery Executive Name : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.deliveryExecutiveName}}</span>
+                             <span><b>{{'DeliveryExecutiveName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.deliveryExecutiveName}}</span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>Contact Number : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.contactNo}}</span>
+                             <span><b>{{'ContactNumber' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.contactNo}}</span>
                          </div>
                      </div>
                          <div class="table-responsive" style="overflow-x: scroll;">
@@ -99,7 +98,7 @@
      <!--</div>-->
              <div class="modal-footer">
                  <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                     Close</button>
+                     {{'Close' | translate}}</button>
              </div>
               </div>
          </div>

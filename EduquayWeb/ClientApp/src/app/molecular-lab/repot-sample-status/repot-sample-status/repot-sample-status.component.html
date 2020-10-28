@@ -16,35 +16,35 @@
                 </div>
               </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">Sample Status</label>
+                    <label for="inputSubjectcategory">{{'SampleStatus' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
                       <option [ngValue]="null">Select Status</option>
                       <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">District</label>
+                    <label for="inputSubjectcategory">{{'District' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedDistrict" (ngModelChange)="districtChange()">
                       <option [ngValue]="null">Select District</option>
                       <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-1">
-                    <label for="inputSubjectcategory">CHC</label>
+                    <label for="inputSubjectcategory">{{'CHC' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" [disabled]="selectedDistrict == null ? true : false" (ngModelChange)="chcChange()">
                       <option [ngValue]="null">Select CHC</option>
                       <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-1">
-                    <label for="inputSubjectcategory">PHC</label>
+                    <label for="inputSubjectcategory">{{'PHC' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedphc" [disabled]="selectedchc == null ? true : false" (ngModelChange)="phcChange()">
                       <option [ngValue]="null">Select PHC</option>
                       <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-1">
-                    <label for="inputSubjectcategory">ANM</label>
+                    <label for="inputSubjectcategory">{{'ANM' | translate}}</label>
                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedAnm" [disabled]="selectedphc == null ? true : false">
                       <option [ngValue]="null">Select ANM</option>
                       <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
@@ -64,12 +64,12 @@
                             <th><span>{{'SubjectName' | translate}}</span></th>
                             <th><span>{{'SubjectID' | translate}}</span></th>
                             <th><span>{{'RCHID' | translate}}</span></th>
-                            <th><span>Barcode</span></th>
-                            <th><span>Shipment Date</span></th>
-                            <th><span>Sample Status</span></th>
-                            <th><span>Clinical Diagnosis</span></th>
-                            <th><span>View</span></th>
-                            <th><span>Print</span></th>
+                            <th><span>{{'Barcode' | translate}}</span></th>
+                            <th><span>{{'ShipmentDate' | translate}}</span></th>
+                            <th><span>{{'SampleStatus' | translate}}</span></th>
+                            <th><span>{{'ClinicalDiagnosis' | translate}}</span></th>
+                            <th><span>{{'View' | translate}}</span></th>
+                            <th><span>{{'Print' | translate}}</span></th>
                         </tr>
 
                     </thead>
@@ -105,7 +105,7 @@
                   <!-- Modal content-->
                   <div class="modal-content" id="exampleModalLabel">
                       <div class="modal-header">
-                          <h5 class="modal-title modaltitle text-center">Report - Sample Status</h5>
+                          <h5 class="modal-title modaltitle text-center">{{'ReportSampleStatus' | translate}}</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                   height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -121,7 +121,7 @@
                           
                           <div class="row my-2">
                               <div class="col-md-4">
-                                  <h5 class="float-left"><b>Subject ID</b> : {{selectedData?.uniqueSubjectId}}</h5>
+                                  <h5 class="float-left"><b>{{'SubjectID' | translate}}</b> : {{selectedData?.uniqueSubjectId}}</h5>
                               </div>
                               <div class="col-md-4">
                                   <!-- <h5 class="float-center"><b>Infant ID</b> : OD001202032110</h5> -->
@@ -144,35 +144,35 @@
                                           <thead class="tablecss">
                                               <tr class="" style="background-color: #e3e8ef;">
                                                   <th colspan="8" class="text-left"
-                                                      style="color:#3a3b3e;font-size: 15px;"><b>Basic Info</b>
+                                                      style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate}}</b>
                                                   </th>
                                               </tr>
                                           </thead>
                                           <tbody>
                                               <tr>
-                                                  <td class="sp-xs-td-9 text-left"><b>Subject Name</b></td>
+                                                  <td class="sp-xs-td-9 text-left"><b>{{'SubjectName' | translate}}</b></td>
                                                   <td class="sp-xs-td-15 text-left">{{selectedData?.subjectName}}</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>Subject ID</b></td>
+                                                  <td class="sp-xs-td-9 text-left"><b>{{'SubjectID' | translate}}</b></td>
                                                   <td class="sp-xs-td-15 text-left">{{selectedData?.uniqueSubjectId}}</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>Age</b></td>
+                                                  <td class="sp-xs-td-9 text-left"><b>{{'Age' | translate}}</b></td>
                                                   <td class="sp-xs-td-15 text-left">{{selectedData?.age}} yrs</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>Contact No</b></td>
+                                                  <td class="sp-xs-td-9 text-left"><b>{{'ContactNo' | translate}}</b></td>
                                                   <td class="sp-xs-td-15 text-left">{{selectedData?.contactNo}}</td>
                                               </tr>
                                               <tr>
-                                                  <td class="text-left"><b>LMP Date</b></td>
+                                                  <td class="text-left"><b>{{'LMPDate' | translate}}</b></td>
                                                   <td class="text-left">{{selectedData?.lmpDate}}</td>
-                                                  <td class="text-left"><b>Gestational Age</b></td>
+                                                  <td class="text-left"><b>{{'GestationalAge' | translate}}</b></td>
                                                   <td class="text-left">{{selectedData?.ga}}</td>
-                                                  <td class="text-left"><b>RCH ID</b></td>
+                                                  <td class="text-left"><b>{{'RCHID' | translate}}</b></td>
                                                   <td class="text-left">{{selectedData?.rchId}}</td>
-                                                  <td class="text-left"><b>Obstetrics Score</b></td>
+                                                  <td class="text-left"><b>{{'ObstetricsScore' | translate}}</b></td>
                                                   <td class="text-left">{{selectedData?.obstetricScore}}</td>
                                                   
                                                   
                                               </tr>
                                               <tr>
-                                                  <td class="text-left"><b>EC Number</b></td>
+                                                  <td class="text-left"><b>{{'ECNumber' | translate}}</b></td>
                                                   <td class="text-left">{{selectedData?.ecNumber}}</td>
                                               </tr>
                                           </tbody>
@@ -185,15 +185,15 @@
                                   <thead class="tablecss">
                                       <tr class="" style="background-color: #e3e8ef;">
                                           <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>
-                                                  Result</b>
+                                                  {{'Result' | translate}}</b>
                                           </th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                       <tr>
-                                          <td class="sp-xs-td-9 text-left"><b>Clinical Diagnosis</b></td>
+                                          <td class="sp-xs-td-9 text-left"><b>{{'ClinicalDiagnosis' | translate}}</b></td>
                                           <td class="sp-xs-td-15 text-left"> {{selectedData?.diagnosis}}</td>
-                                          <td class="sp-xs-td-9 text-left"><b>Molecular Test Result</b></td>
+                                          <td class="sp-xs-td-9 text-left"><b>{{'MolecularTestResult' | translate}}</b></td>
                                           <td class="sp-xs-td-15 text-left"> {{selectedData?.molecularResult}}</td>
   
                                       </tr>
@@ -203,7 +203,7 @@
                           </div>
                           <div class="modal-footer">
                               <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                                  Close</button>
+                                  {{'Close' | translate}}</button>
                               <!-- <button type="button" class="btn btn-primary">Save</button> -->
                           </div>
                   </div>
