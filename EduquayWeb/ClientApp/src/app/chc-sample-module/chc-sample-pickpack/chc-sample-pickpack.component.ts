@@ -374,7 +374,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       createdBy: this.user.id,
       source: 'N'
     }
-   // return false;
+    // this.showResponseMessage('testing', 's');
+    //return false;
     let addshipment = this.chcsamplePickpackService.chcSampleAddShipment(this.chcsampleAddShipmentRequest)
       .subscribe(response => {
         this.chcsampleAddShipmentResponse = response;

@@ -429,6 +429,7 @@
 "Save&UpdateLater":"Save & Update Later",
 "FoetalHeartRatedocumentedinScan":"Foetal Heart Rate documented in Scan",
 "MotherVoided":"Mother Voided",
-"Mother’sVitals(Pulse & BP)Stable":"Mother’s Vitals (Pulse & BP) Stable"
+"Mother’sVitals(Pulse & BP)Stable":"Mother’s Vitals (Pulse & BP) Stable",
+"SSTPending": "SST Pending"
 
 }
