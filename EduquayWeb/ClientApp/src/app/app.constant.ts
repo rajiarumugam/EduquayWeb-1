@@ -37,7 +37,8 @@ export const ENDPOINT = {
         "RETRIVECHCSAMPLESTATUS":"api/v1/CHCReceiptProcessing/RetrieveCHCSampleStatus",
         "RETRIVECHCBYTESTINGCHC":"api/v1/WebMaster/RetrieveCHCByTestingCHC/",
         "RETRIVECBCTEST":"api/v1/CHCReceiptProcessing/RetrieveCBCTest/",
-        "ADDCHCTESTRESULT":"api/v1/CHCReceiptProcessing/AddCBCTestResults"
+        "ADDCHCTESTRESULT":"api/v1/CHCReceiptProcessing/AddCBCTestResults",
+        "RETRIVEPICKANDPACK":"api/v1/CHCReceiptProcessing/RetrievePickandPack/"
     },
     "CENTRALLAB":
     {

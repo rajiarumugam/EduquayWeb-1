@@ -403,6 +403,7 @@ export class CHCSampleRcptComponent implements OnInit {
                       .then((result) => {
                         if (result.value) {
                           $('#fadeinModal').modal('hide');
+                          this.dataservice.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
                           this.chcsampleService.retriveCHCReceipt().subscribe(response => {
                             if(response.status === "true")
                             {

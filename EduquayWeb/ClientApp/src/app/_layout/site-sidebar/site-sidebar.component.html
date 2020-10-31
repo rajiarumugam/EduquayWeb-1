@@ -108,6 +108,9 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chcsam'}" id="chcsam" data-parent="#accordionExample">
                 <li routerLinkActive="active">
+                    <a [routerLink]="['/app/chcmodule-notification']">  {{'Notifications' | translate }} </a>
+                </li>
+                <li routerLinkActive="active">
                     <a [routerLink]="['/app/chc-sample']"> {{'SampleRcpt' | translate }} </a>
                 </li>
                 <!-- <li routerLinkActive="active">
