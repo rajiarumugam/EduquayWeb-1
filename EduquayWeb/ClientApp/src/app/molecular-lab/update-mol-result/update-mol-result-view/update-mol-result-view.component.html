@@ -216,9 +216,10 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center"><span>{{'CBCResults' | translate}}</span></th>                                                                
-                                        <th class="text-center"><span>MCV</span></th>
-                                        <th class="text-center"><span>RDW</span></th>
-                                        <th class="text-center"><span>Diagnosis</span></th>
+                                        <th class="text-center"><span>{{'MCV' | translate}}</span></th>
+                                        <th class="text-center"><span>{{'RDW' | translate}}</span></th>
+                                        <th class="text-center"><span>{{'RBC' | translate}}</span></th>
+                                        <th class="text-center"><span>{{'Diagnosis' | translate}}</span></th>
                                     </tr>
 
                                 </thead>
@@ -227,6 +228,7 @@
                                         <td class="text-left">{{pndSummarydata?.subjectName}}, F, {{pndSummarydata?.age}} yrs </td>
                                         <td class="text-center">{{pndSummarydata?.mcv}}</td>
                                         <td class="text-center">{{pndSummarydata?.rdw}}</td>
+                                        <td class="text-center">{{pndSummarydata?.rbc}}</td>
                                         <td class="text-left">{{pndSummarydata?.cbcResult}}</td>
                                     </tr>
                                     <!-- <tr>
@@ -253,7 +255,7 @@
                                         <!-- <th class="text-center"><b>HbA1c</b></th> -->
                                         <th class="text-center"><b>hbS</b></th>
                                        
-                                        <th class="text-center"><b>Diagnosis</b></th>
+                                        <th class="text-center"><b>{{'Diagnosis' | translate}}</b></th>
                                     </tr>
 
                                 </thead>
