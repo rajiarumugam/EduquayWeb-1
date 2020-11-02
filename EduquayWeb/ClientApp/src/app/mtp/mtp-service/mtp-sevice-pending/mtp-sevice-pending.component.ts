@@ -42,6 +42,7 @@ export class MTPPendingComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     this.loaderService.display(false);
+    
     var mtpTestingArr = this.route.snapshot.data.MTPTesting;
     console.log(mtpTestingArr);
     if(mtpTestingArr !== undefined && mtpTestingArr.status.toString() === "true"){
@@ -58,7 +59,7 @@ export class MTPPendingComponent implements AfterViewInit, OnDestroy, OnInit {
     this.MTPService.getnotCompleteDetails(_subjectObj) .subscribe(response => {
       console.log(response);
       this.mtpCompleteArray = response.data;
-      this.dataservice.sendData(JSON.stringify({"screen": "MTP","pendingCount":this.mtpPendingArray.length,"notcompleteCount":this.mtpCompleteArray.length}));
+      this.dataservice.sendData(JSON.stringify({"screen": "MTP","pendingCount":this.mtpPendingArray.length,"notcompleteCount":this.mtpCompleteArray.length, "module": "MTP services Obstetrician", "submodule": "MTP services"}));
     },
     (err: HttpErrorResponse) =>{
      

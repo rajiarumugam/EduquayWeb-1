@@ -133,6 +133,7 @@
 "ScheduledPNDTDate&Time":"Scheduled PNDT Date & Time",
 "Note:Receivedsignedconsentformfromsubjectandfiled.":"Note: Received signed Consent form from Subject and filed.",
 "Receivedsignedconsentformfromsubjectandfiled.": "Received signed Consent form from Subject and filed.",
+"Receivedsignedconsentformfromsubjectandfiled": "Received signed Consent form from Subject and filed",
 "PNDDate&Time":"PND Date & Time",
 "ObstetricianName":"Obstetrician Name",
 "PNDResults":"PND Results",
@@ -430,6 +431,7 @@
 "FoetalHeartRatedocumentedinScan":"Foetal Heart Rate documented in Scan",
 "MotherVoided":"Mother Voided",
 "Mother’sVitals(Pulse & BP)Stable":"Mother’s Vitals (Pulse & BP) Stable",
-"SSTPending": "SST Pending"
+"SSTPending": "SST Pending",
+"SubjectInfo": "Subject Info"
 
 }
