@@ -38,6 +38,22 @@ export interface PostCounsellingList {
     postPNDTCounsellingDateTime: string;
     postPNDTCounsellorId: number;
     postPNDTSchedulingId: number;
+    anwMCV: string;
+    anwRDW: string;
+    anwRBC: string;
+    anwHbA0: string;
+    anwHbA2: string;
+    anwHbF: string;
+    anwHbS: string;
+    anwHbD: string;
+    spouseMCV: string;
+    spouseRDW: string;
+    spouseRBC: string;
+    spouseHbA0: string;
+    spouseHbA2: string;
+    spouseHbF: string;
+    spouseHbS: string;
+    spouseHbD: string;
 }
 
 export interface AddPostPndtcCounsellingResponse{
@@ -101,6 +117,22 @@ export interface PostCounselledList {
     isMTPAgreeYes: boolean;
     isMTPAgreeNo: boolean;
     isMTPAgreePending: boolean;
+    anwMCV: string;
+    anwRDW: string;
+    anwRBC: string;
+    anwHbA0: string;
+    anwHbA2: string;
+    anwHbF: string;
+    anwHbS: string;
+    anwHbD: string;
+    spouseMCV: string;
+    spouseRDW: string;
+    spouseRBC: string;
+    spouseHbA0: string;
+    spouseHbA2: string;
+    spouseHbF: string;
+    spouseHbS: string;
+    spouseHbD: string;
 }
 
 export interface postPndtFileUploadResponse{

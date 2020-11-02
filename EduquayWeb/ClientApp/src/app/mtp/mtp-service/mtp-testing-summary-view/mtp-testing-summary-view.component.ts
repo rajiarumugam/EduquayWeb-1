@@ -13,6 +13,7 @@ export class MtpSummaryViewComponent implements OnInit {
   pndSummarydata;
   ngOnInit() {
 
+    this.DataService.sendData(JSON.stringify({"module": "MTP services Obstetrician", "submodule": "MTP Summary Report"}));
     if(this.DataService.getdata().mtptestingSummary === undefined)
     {
       this.router.navigate(['/app/mtp-summary']);

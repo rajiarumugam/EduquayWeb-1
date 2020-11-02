@@ -49,6 +49,7 @@ export class pndTestingSummaryComponent implements AfterViewInit, OnDestroy, OnI
 
 
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.dataservice.sendData(JSON.stringify({"module": "PNDTC Obstetrician", "submodule": "PND Summary Report"}));
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
       pagingType: 'simple_numbers',

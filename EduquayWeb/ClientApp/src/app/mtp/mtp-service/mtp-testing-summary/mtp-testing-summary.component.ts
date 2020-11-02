@@ -39,6 +39,8 @@ export class mtpTestingSummaryComponent implements AfterViewInit, OnDestroy, OnI
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "MTP services Obstetrician", "submodule": "MTP Summary Report"}));
     var mtpTestingArr = this.route.snapshot.data.mtpTestingData;
     console.log(mtpTestingArr);
     if(mtpTestingArr !== undefined && mtpTestingArr.status.toString() === "true"){

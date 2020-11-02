@@ -172,6 +172,91 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                    <thead> 
+                                        <tr>
+                                            <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                            <th class="text-left"><span>{{'CBCResults' | translate}}</span></th>
+                                            <th class="text-center"><span>{{'MCV' | translate}}</span></th>                                             
+                                            <th class="text-center"><span>{{'RDW' | translate}}</span></th>
+                                            <th class="text-center"><span>{{'RBC' | translate}}</span></th>
+                                            <!-- <th class="text-left"><span>Diagnosis</span></th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>
+                                            <td class="text-left">{{counsellingdataItem?.anwCBCTestResult}}</td>
+                                            <td class="text-center sp-xs-th">{{counsellingdataItem?.anwMCV}}</td>                                                                                          
+                                            <td class="text-center">{{counsellingdataItem?.anwRDW}}</td>
+                                            <td class="text-center">{{counsellingdataItem?.anwRBC}}</td>
+                                            <!-- <td class="text-left"></td> -->
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>
+                                            <td class="text-left">{{counsellingdataItem?.spouseCBCTestResult}}</td>
+                                            <td class="text-center sp-xs-th">{{counsellingdataItem?.spouseMCV}}</td>                                                                                          
+                                            <td class="text-center">{{counsellingdataItem?.spouseRDW}}</td>
+                                            <td class="text-center">{{counsellingdataItem?.spouseRBC}}</td>
+                                            <!-- <td class="text-left"></td> -->
+                                        </tr>
+                                    </tbody> 
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped row-combined">
+                                        <thead class="tablecss">
+                                            <!-- <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="14" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
+                                                </th>
+                                            </tr> -->
+                                            <tr>
+                                                <th rowspan="2" class="nt-border-right text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                                <th colspan="5" class="nt-border-right text-center"><b>{{'HPLCParameters' | translate}}</b></th>
+                                               
+                                            </tr>
+                                            <tr class="combined">
+                                                <th class="text-center"><b>{{'HbA0' | translate}}</b></th>
+                                                <th class="text-center"><b>{{'HbA2' | translate}}</b></th>
+                                                <!--<th class="text-center"><b>HbC</b></th>-->
+                                                <th class="text-center"><b>{{'HbD' | translate}}</b></th>
+                                                <th class="text-center"><b>{{'HbF' | translate}}</b></th>
+                                                <th class="text-center"><b>{{'HbS' | translate}}</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>
+                                                
+                                                <td class="text-center">{{counsellingdataItem?.anwHbA0}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.anwHbA2}}</td>
+                                                <!--<td class="text-center">{{counsellingdataItem?.hbC}}</td>-->
+                                                <td class="text-center">{{counsellingdataItem?.anwHbD}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.anwHbF}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.anwHbS}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>
+                                                
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbA0}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbA2}}</td>
+                                                <!--<td class="text-center">{{counsellingdataItem?.hbC}}</td>-->
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbD}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbF}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbS}}</td>
+                                            </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
@@ -260,11 +345,10 @@
                                                                 </span>
                                                                 <div class="btn-group" (click)="fileInput.click()">
                                                                     <button type="button" class="btn btn-primary btn-group-icon btn-group-divider">
-                                                                        <i class="fa fa-plus-circle fa-2x text-white" aria-hidden="true"></i>
-                                                                    </button>
-                                                                    <span class="radio-span">{{'UploadDocuments' | translate}}</span>
+                                                                        <i class="fa fa-plus-circle fa-2x text-white" aria-hidden="true"></i>                                   
+                                                                    <span class="radio-span">{{'UploadDocuments' | translate}}</span></button>
                                                                 </div>
-                                                                <span class="radio-span">{{'SelectedFileName' | translate}}</span>
+                                                                <span class="radio-span" *ngIf="fileName"><b>{{'SelectedFileName' | translate}} :</b> {{fileName}}</span>
 
                                                             </div>
                                                         </div>
