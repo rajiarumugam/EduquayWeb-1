@@ -129,77 +129,79 @@
                               <div class="col-md-4 d-flex justify-content-end">
                                   <div class="btn-toolbar mb-2 mb-md-0">
                                       <div class="btn-group">
-                                          <button type="button" class="btn btn-sm btn-outline-light">
-                                              <img src="assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as Excel"></button>
-                                          <button type="button" class="btn btn-sm btn-outline-light">
-                                              <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button>
+                                          <button type="button" class="btn btn-sm btn-outline-light" (click)="exportexcel()">
+                                              <img src="assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button>
+                                          <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                                              <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
                                       </div>
                                   </div>
                               </div>
                           </div>
-                          <div class="row my-2">
-                              <div class="col-md-12">
-                                  <div class="table-responsive" style="overflow-x: scroll;">
-                                      <table class="table table-bordered table-striped">
-                                          <thead class="tablecss">
-                                              <tr class="" style="background-color: #e3e8ef;">
-                                                  <th colspan="8" class="text-left"
-                                                      style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate}}</b>
-                                                  </th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              <tr>
-                                                  <td class="sp-xs-td-9 text-left"><b>{{'SubjectName' | translate}}</b></td>
-                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.subjectName}}</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>{{'SubjectID' | translate}}</b></td>
-                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.uniqueSubjectId}}</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>{{'Age' | translate}}</b></td>
-                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.age}} yrs</td>
-                                                  <td class="sp-xs-td-9 text-left"><b>{{'ContactNo' | translate}}</b></td>
-                                                  <td class="sp-xs-td-15 text-left">{{selectedData?.contactNo}}</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-left"><b>{{'LMPDate' | translate}}</b></td>
-                                                  <td class="text-left">{{selectedData?.lmpDate}}</td>
-                                                  <td class="text-left"><b>{{'GestationalAge' | translate}}</b></td>
-                                                  <td class="text-left">{{selectedData?.ga}}</td>
-                                                  <td class="text-left"><b>{{'RCHID' | translate}}</b></td>
-                                                  <td class="text-left">{{selectedData?.rchId}}</td>
-                                                  <td class="text-left"><b>{{'ObstetricsScore' | translate}}</b></td>
-                                                  <td class="text-left">{{selectedData?.obstetricScore}}</td>
-                                                  
-                                                  
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-left"><b>{{'ECNumber' | translate}}</b></td>
-                                                  <td class="text-left">{{selectedData?.ecNumber}}</td>
-                                              </tr>
-                                          </tbody>
-                                      </table>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="table-responsive my-3">
-                              <table class="table table-bordered table-striped">
-                                  <thead class="tablecss">
-                                      <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>
-                                                  {{'Result' | translate}}</b>
-                                          </th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <tr>
-                                          <td class="sp-xs-td-9 text-left"><b>{{'ClinicalDiagnosis' | translate}}</b></td>
-                                          <td class="sp-xs-td-15 text-left"> {{selectedData?.diagnosis}}</td>
-                                          <td class="sp-xs-td-9 text-left"><b>{{'MolecularTestResult' | translate}}</b></td>
-                                          <td class="sp-xs-td-15 text-left"> {{selectedData?.molecularResult}}</td>
-  
-                                      </tr>
-  
-                                  </tbody>
-                              </table>
+                          <div id="ML-report-samples">
+                            <div class="row my-2">
+                                <div class="col-md-12">
+                                    <div class="table-responsive" style="overflow-x: scroll;">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="8" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate}}</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sp-xs-td-9 text-left"><b>{{'SubjectName' | translate}}</b></td>
+                                                    <td class="sp-xs-td-15 text-left">{{selectedData?.subjectName}}</td>
+                                                    <td class="sp-xs-td-9 text-left"><b>{{'SubjectID' | translate}}</b></td>
+                                                    <td class="sp-xs-td-15 text-left">{{selectedData?.uniqueSubjectId}}</td>
+                                                    <td class="sp-xs-td-9 text-left"><b>{{'Age' | translate}}</b></td>
+                                                    <td class="sp-xs-td-15 text-left">{{selectedData?.age}} yrs</td>
+                                                    <td class="sp-xs-td-9 text-left"><b>{{'ContactNo' | translate}}</b></td>
+                                                    <td class="sp-xs-td-15 text-left">{{selectedData?.contactNo}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left"><b>{{'LMPDate' | translate}}</b></td>
+                                                    <td class="text-left">{{selectedData?.lmpDate}}</td>
+                                                    <td class="text-left"><b>{{'GestationalAge' | translate}}</b></td>
+                                                    <td class="text-left">{{selectedData?.ga}}</td>
+                                                    <td class="text-left"><b>{{'RCHID' | translate}}</b></td>
+                                                    <td class="text-left">{{selectedData?.rchId}}</td>
+                                                    <td class="text-left"><b>{{'ObstetricsScore' | translate}}</b></td>
+                                                    <td class="text-left">{{selectedData?.obstetricScore}}</td>
+                                                    
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left"><b>{{'ECNumber' | translate}}</b></td>
+                                                    <td class="text-left">{{selectedData?.ecNumber}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive my-3">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="tablecss">
+                                        <tr class="" style="background-color: #e3e8ef;">
+                                            <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>
+                                                    {{'Result' | translate}}</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="sp-xs-td-9 text-left"><b>{{'ClinicalDiagnosis' | translate}}</b></td>
+                                            <td class="sp-xs-td-15 text-left"> {{selectedData?.diagnosis}}</td>
+                                            <td class="sp-xs-td-9 text-left"><b>{{'MolecularTestResult' | translate}}</b></td>
+                                            <td class="sp-xs-td-15 text-left"> {{selectedData?.molecularResult}}</td>
+    
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div>
                           </div>
                           <div class="modal-footer">
                               <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>

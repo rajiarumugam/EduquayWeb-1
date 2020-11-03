@@ -15,6 +15,7 @@ declare var $: any;
 import * as moment from 'moment';
 import { centralsampleService } from "./../../../shared/centrallab/central-sample.service";
 import { LoaderService } from './../../../shared/loader/loader.service';
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-repot-sample-status',
@@ -44,6 +45,7 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   pndNotCompleteArray = [];
   fromDate = "";
   toDate = "";
+  fileName: string;
 
   sampleStatusData = [];
   selectedSampleStatus = null;
@@ -69,6 +71,8 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   ) { }
 
   ngOnInit() {
+
+    this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Report - Sample Status"}));
     this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
     console.log(pndtcTestingArr);
@@ -214,6 +218,22 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
   {
     console.log(data);
     $('#fadeinModal').modal('show');
+  }
+
+  exportexcel(): void 
+  {
+    this.fileName = "Cl-Report-samples.xlsx"
+     /* table id is passed over here */   
+     let element = document.getElementById('cl-report-samples'); 
+     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+     /* generate workbook and add the worksheet */
+     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+     /* save to file */
+     XLSX.writeFile(wb, this.fileName);
+    
   }
   
   rerender(): void {
