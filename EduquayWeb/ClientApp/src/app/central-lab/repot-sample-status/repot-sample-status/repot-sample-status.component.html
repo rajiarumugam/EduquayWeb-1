@@ -75,6 +75,7 @@
                                 <th><span>{{'ShipmentDate' | translate}}</span></th>
                                 <th><span>{{'SampleStatus' | translate}}</span></th>
                                 <th><span>{{'Result' | translate}}</span></th>
+                                <th><span>{{'ViewAndPrint' | translate}}</span></th>
                             </tr>
 
                         </thead>
@@ -90,6 +91,8 @@
                                 <td class="text-left">{{pnddata.shipmentDate}}</td>
                                 <td class="text-left">{{pnddata.sampleStatus}}</td>
                                 <td class="text-left">{{pnddata.hplcResult}}</td>
+                                <td class="text-center"><a (click)="openViewPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true"
+                                    data-target=".bd-example-modal-xl"></i></a></td>
                             </tr>
                         </tbody>
                     </table>

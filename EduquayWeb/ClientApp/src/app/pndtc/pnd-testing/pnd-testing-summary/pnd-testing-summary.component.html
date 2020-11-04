@@ -10,8 +10,8 @@
                             <th><span>{{'SubjectID' | translate}}</span></th>
                             <th><span>{{'RCHID' | translate}}</span></th>
                             <th><span>{{'PNDTResults' | translate}}</span></th>
-                            <th><span>{{'View' | translate}}</span></th>
-                            <th><span>{{'Print' | translate}}</span></th>
+                            <th><span>{{'ViewAndPrint' | translate}}</span></th>
+                            <!--<th><span>{{'Print' | translate}}</span></th>-->
                         </tr>
 
                     </thead>
@@ -24,8 +24,8 @@
                             <td class="text-center">{{pnddata.pndtResult}}</td>
                             <td class="text-center"><a (click)="openViewPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" data-toggle="modal"
                               data-target=".bd-example-modal-xl"></i></a></td>
-                            <td class="text-center"><a (click)="printThePage(pnddata);"><i class="fa fa-print text-primary" aria-hidden="true" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl"></i></a></td>
+                            <!--<td class="text-center"><a (click)="printThePage(pnddata);"><i class="fa fa-print text-primary" aria-hidden="true" data-toggle="modal"
+                                        data-target=".bd-example-modal-xl"></i></a></td>-->
 
                         </tr>
                     </tbody>
