@@ -239,6 +239,9 @@ import { PathoReportResolverService } from "./shared/pathologist/patho-report-re
 import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
 import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
 import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
+
+import { CHCNotificationMainComponent } from "./chc-sample-module/chc-notification/chc-notification-main/chc-notification-main.component";
+import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-profile-tracking/anm-subject-profile-tracking.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -310,6 +313,15 @@ const routes: Routes = [
         path: 'chc-sample', component: CHCSampleRcptProComponent,
         children:[
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}
+        ]
+      },
+
+      {
+        path: 'chcmodule-notification', component: CHCNotificationMainComponent,
+        children:[
+          {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
+          {path: 'notiication-cbc-update', component: CBCCHCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCCBCupdateReceivedService}},
+          /*{path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}*/
         ]
       },
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
@@ -564,6 +576,7 @@ const routes: Routes = [
       { path: 'chc-reg-viewsubjectprofile', component: AnmChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
+      {path: 'anm-profiletracking', component: AnmSubjectProfileTrackingComponent},
       { path: 'dc-notification', component: DistrictCoordinatorMainComponent,
       children:[
         {path: '', component: DamagedSamplesComponent, pathMatch: 'full'},
@@ -752,7 +765,9 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainComponent,
   ViewReportPathoMainMainComponent,
   ViewPathoReportComponent,
-  ResetLoginComponent
+  ResetLoginComponent,
+  CHCNotificationMainComponent,
+  AnmSubjectProfileTrackingComponent
 
 ];
 

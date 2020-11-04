@@ -1,0 +1,224 @@
+
+
+
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="Subject-Profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+             <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                                [routerLink]="['/app/anm-subprofile']" role="button" ngbTooltip="Subject Profile" placement="right"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">{{'ViewSubjectProfile' | translate }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-sm-12" >
+
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row mt-0 mb-2">
+                                <div class="col-md-12">
+                                    <div *ngIf="subjectProfileErrorMessage" class="alert mt-3 mb-2"
+                                        [ngClass]="{'alert-warning': subjectProfileErrorMessage ==='No Subject found', 'alert-danger': subjectProfileErrorMessage !== 'No Subject found'}">
+                                        <span class="fa fa-info-circle mr-2"
+                                            style="font-size: 16px;"></span><strong>Oops!</strong>
+                                        {{subjectProfileErrorMessage}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <!-- <a class="btn btn-primary float-right mb-2" *ngIf="subjectprofileItem.primaryDetail.registeredFrom === 'CHC'" 
+                                    (click)="anmchcsubjectprofile.chcSubjectProfiledata()"
+                                    role="button"> <i class="fa fa-pencil append-icon mr-1"></i>{{'Edit' | translate }}</a> -->
+                                    <div class="content-title-cont">
+                                      <div class="content-title-cont-child">
+                                          <div class="content-title-left">
+                                              <p>Preg Woman</p>
+                                          </div>
+                                          <div class="content-title-right">
+                                            <p>Spouse</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <section id="conference-timeline">
+                                     
+                                        <div class="conference-center-line"></div>
+                                        <div class="conference-timeline-content">
+                                          <!-- Article -->
+                                          
+                                          <div class="timeline-article">
+                                            <div class="content-left-container">
+                                              <div class="content-left">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                             
+                                            </div>
+                                            <div class="content-right-container">
+                                              <div class="content-right">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                             
+                                            </div>
+                                            <div class="meta-date">
+                                              <span class="month">REGISTRATION</span>
+                                            </div>
+                                          </div>
+                                          <!-- // Article -->
+                                          
+                                          <!-- Article -->
+                                          <div class="timeline-article">
+                                            <div class="content-left-container">
+                                              <div class="content-left">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                           
+                                            </div>
+                                            <div class="content-right-container">
+                                              <div class="content-right">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="meta-date">
+                                              
+                                              <span class="month">SAMPLING</span>
+                                            </div>
+                                          </div>
+                                          <!-- // Article -->
+                                          
+                                          <!-- Article -->
+                                          <div class="timeline-article">
+                                            <div class="content-left-container">
+                                              <div class="content-left">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                            
+                                            </div>
+                                            <div class="content-right-container">
+                                              <div class="content-right">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="meta-date">
+                                              
+                                              <span class="month">SHIPMENT</span>
+                                            </div>
+                                          </div>
+                                          <!-- // Article -->
+
+
+                                          <!-- Article -->
+                                          <div class="timeline-article">
+                                            <div class="content-left-container">
+                                              <div class="content-left">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="content-right-container">
+                                              <div class="content-right">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="meta-date">
+                                              
+                                              <span class="month">CBC TESTING</span>
+                                            </div>
+                                          </div>
+                                          <!-- // Article -->
+
+
+                                          <!-- Article -->
+                                          <div class="timeline-article">
+                                            <div class="content-left-container">
+                                              <div class="content-left">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="content-right-container">
+                                              <div class="content-right">
+                                                <p> <span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="meta-date">
+                                              
+                                              <span class="month">SHIPMENT</span>
+                                            </div>
+                                          </div>
+                                          <!-- // Article -->
+
+
+                                          <!-- Article -->
+                                          <div class="timeline-article">
+                                            <div class="content-left-container">
+                                              <div class="content-left">
+                                                <p> <span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="content-right-container">
+                                              <div class="content-right">
+                                                <p><span class="article-number">02/10/1985 20:20</span></p>
+                                              </div>
+                                              
+                                            </div>
+                                            <div class="meta-date">
+                                              
+                                              <span class="month">CENTRAL LAB</span>
+                                            </div>
+                                          </div>
+                                          <!-- // Article -->
+                                        </div>
+                                      
+                                      </section>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                   
+                    <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+                    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+                </div>
+                
+            </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+</div>
+<!--  END MAIN CONTAINER  -->

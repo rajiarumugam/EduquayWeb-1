@@ -21,7 +21,8 @@ export class SubjectProfileService {
   chcsubjectprofileListApi: string = "api/v1/Subject/RetrieveCHCSubjectList";
   chcparticularSubProfile: string = "api/v1/Subject/RetrieveParticularCHCSubjectList";
   anmparticularSubProfile: string = "api/v1/Subject/RetrieveParticularSubjectList";
-  addSubjectProfileApi: string = "api/v1/Subject/Add"
+  addSubjectProfileApi: string = "api/v1/Subject/Add";
+  trackingANWSubject:string = "api/v1/Reports/TrackingANWSubject";
 
   userId: number;
 
@@ -75,6 +76,11 @@ export class SubjectProfileService {
   addSubjectProfile(chcaddsubProfile: AddSubjectprofileRequest){
     let apiUrl = this.genericService.buildApiUrl(this.addSubjectProfileApi);
     return this.http.post<AddSubjectProfileResponse>({url: apiUrl, body: chcaddsubProfile});
+  }
+
+  getTrackingANWSubject(data){
+    let apiUrl = this.genericService.buildApiUrl(this.trackingANWSubject);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: data});
   }
 
 }
