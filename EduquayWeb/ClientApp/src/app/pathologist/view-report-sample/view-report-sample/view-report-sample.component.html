@@ -127,16 +127,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-left">{{diagnosisReportData?.subjectName}}, F</td>
-                                    <td class="text-left">{{diagnosisReportData?.anwSSTestResult}}</td>
-                                    <td class="text-left">{{diagnosisReportData?.anwCBCTestResult}}</td>
-                                    <td class="text-center sp-xs-th">{{diagnosisReportData?.anwMCV}}</td>                                                                                          
-                                    <td class="text-center">{{diagnosisReportData?.anwRDW}}</td>
-                                    <td class="text-center">{{diagnosisReportData?.anwRBC}}</td>
+                                    <td class="text-left">{{diagnosisReportData?.subjectName}}, F, {{diagnosisReportData?.age}} yrs</td>
+                                    <td class="text-left">{{diagnosisReportData?.sstResult}}</td>
+                                    <td class="text-left">{{diagnosisReportData?.cbcTestResult}}</td>
+                                    <td class="text-center sp-xs-th">{{diagnosisReportData?.mcv}}</td>                                                                                          
+                                    <td class="text-center">{{diagnosisReportData?.rdw}}</td>
+                                    <td class="text-center">{{diagnosisReportData?.rbc}}</td>
                                     
                                     <!-- <td class="text-left"></td> -->
                                 </tr>
-                                <tr>
+                               <!-- <tr>
                                     <td class="text-left">{{diagnosisReportData?.spouseName}}, M</td>
                                     <td class="text-left">{{diagnosisReportData?.spouseSSTestResult}}</td>
                                     <td class="text-left">{{diagnosisReportData?.spouseCBCTestResult}}</td>
@@ -144,8 +144,8 @@
                                     <td class="text-center">{{diagnosisReportData?.spouseRDW}}</td>
                                     <td class="text-center">{{diagnosisReportData?.spouseRBC}}</td>
                                     
-                                    <!-- <td class="text-left"></td> -->
-                                </tr>
+                                    
+                                </tr>-->
                             </tbody> 
                         </table>
                         </div>
@@ -180,29 +180,34 @@
                                 <tbody>
                                     
                                     <tr>
-                                        <td class="text-left">{{diagnosisReportData?.subjectName}}, F</td>                                
-                                        <td class="text-center">{{diagnosisReportData?.anwHbA0}}</td>
-                                        <td class="text-center">{{diagnosisReportData?.anwHbA2}}</td>
+                                        <td class="text-left">{{diagnosisReportData?.subjectName}}, F, {{diagnosisReportData?.age}} yrs</td>                                
+                                        <td class="text-center">{{diagnosisReportData?.hbA0}}</td>
+                                        <td class="text-center">{{diagnosisReportData?.hbA2}}</td>
                                         <!--<td class="text-center">{{diagnosisReportData?.hbC}}</td>-->
-                                        <td class="text-center">{{diagnosisReportData?.anwHbD}}</td>
-                                        <td class="text-center">{{diagnosisReportData?.anwHbF}}</td>
-                                        <td class="text-center">{{diagnosisReportData?.anwHbS}}</td>
-                                        <td class="text-left">{{diagnosisReportData?.anwHPLCTestResult}}</td>
-                                        <td class="text-left">{{diagnosisReportData?.anwHPLCDiagnosis}}</td>
-                                        <td class="text-left">{{diagnosisReportData?.anwHPLCDiagnosis}}</td>
+                                        <td class="text-center">{{diagnosisReportData?.hbD}}</td>
+                                        <td class="text-center">{{diagnosisReportData?.hbF}}</td>
+                                        <td class="text-center">{{diagnosisReportData?.hbS}}</td>
+                                        <td class="text-left">{{diagnosisReportData?.hplcResult}}</td>
+                                        <td class="text-left">{{diagnosisReportData?.diagnosis}}</td>
+                                        <td class="text-left">{{diagnosisReportData?.seniorPathologistRemarks}}</td>
                                     </tr>
                                     <tr>
+                                        <td class="text-left">{{'DiagnosticSummary' | translate}}</td>                                
+                                        <td class="text-left" colspan="8">{{diagnosisReportData?.diagnosisSummary}}</td>
+                                       
+                                    </tr>
+                                   <!-- <tr>
                                         <td class="text-left">{{diagnosisReportData?.spouseName}}, M</td>                                        
                                         <td class="text-center">{{diagnosisReportData?.spouseHbA0}}</td>
                                         <td class="text-center">{{diagnosisReportData?.spouseHbA2}}</td>
-                                        <!--<td class="text-center">{{diagnosisReportData?.hbC}}</td>-->
+                                       
                                         <td class="text-center">{{diagnosisReportData?.spouseHbD}}</td>
                                         <td class="text-center">{{diagnosisReportData?.spouseHbF}}</td>
                                         <td class="text-center">{{diagnosisReportData?.spouseHbS}}</td>
                                         <td class="text-left">{{diagnosisReportData?.spouseHPLCTestResult}}</td>
                                         <td class="text-left">{{diagnosisReportData?.spouseHPLCDiagnosis}}</td>
                                         <td class="text-left">{{diagnosisReportData?.anwHPLCDiagnosis}}</td>
-                                    </tr>
+                                    </tr>-->
                             </table>
                         </div>
                     </div>

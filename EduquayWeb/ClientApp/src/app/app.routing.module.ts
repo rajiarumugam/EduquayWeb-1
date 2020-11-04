@@ -241,6 +241,7 @@ import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-samp
 import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
 
 import { CHCNotificationMainComponent } from "./chc-sample-module/chc-notification/chc-notification-main/chc-notification-main.component";
+import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-profile-tracking/anm-subject-profile-tracking.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -575,6 +576,7 @@ const routes: Routes = [
       { path: 'chc-reg-viewsubjectprofile', component: AnmChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
+      {path: 'anm-profiletracking', component: AnmSubjectProfileTrackingComponent},
       { path: 'dc-notification', component: DistrictCoordinatorMainComponent,
       children:[
         {path: '', component: DamagedSamplesComponent, pathMatch: 'full'},
@@ -764,7 +766,8 @@ export const RoutingComponents = [
   ViewReportPathoMainMainComponent,
   ViewPathoReportComponent,
   ResetLoginComponent,
-  CHCNotificationMainComponent
+  CHCNotificationMainComponent,
+  AnmSubjectProfileTrackingComponent
 
 ];
 

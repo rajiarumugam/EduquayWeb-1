@@ -103,6 +103,8 @@ import { GetOtpComponent } from './auth/forgot-password/get-otp/get-otp.componen
 import { ResetPasswordComponent } from './auth/forgot-password/reset-password/reset-password.component';
 import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.component';
 
+import {NgxPrintModule} from 'ngx-print';
+
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
 // };
@@ -204,7 +206,8 @@ import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.
     ReactiveFormsModule,
     Ng2FlatpickrModule,
     NgMultiSelectDropDownModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    NgxPrintModule
    
   ],
   providers: [
