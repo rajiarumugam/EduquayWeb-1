@@ -4,12 +4,34 @@
     <div class="search-overlay"></div>
     <!--  BEGIN SIDEBAR  -->
     <div class="sidebar-wrapper sidebar-theme">
-      <app-site-sidebar module="centrallab" subMenum="chcsam"></app-site-sidebar>
+      <app-site-sidebar module="pndtc" subMenum="chcsam"></app-site-sidebar>
     </div>
     <!--  END SIDEBAR  -->
     <!--  BEGIN CONTENT AREA  -->
     <div id="content" class="main-content">
       <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Back" placement="right" [routerLink]="['/app/pndtc-summary']"
+                      role="button" ><i class="fas fa-chevron-left pNav-left"></i></a></div>
+          </div>
+            <!-- <h5 class="float-left">Sample Collection</h5> -->
+            <div class="col-md-4">
+              <div class="headertit">
+                <h5 class="float-center"></h5>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <!-- <div class="float-right mb-4">
+                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-update-sst']" role="button"
+                ngbTooltip="Update SST Results"><i class="fas fa-chevron-right pNav-right"></i></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        </div>
           <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
               <div class="tab-content mt-5" id="myTabContent">
                 <router-outlet></router-outlet>

@@ -114,6 +114,7 @@ export class PNDTestingResultsComponent implements OnInit {
 
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.DataService.sendData(JSON.stringify({"module": "PNDTC Obstetrician", "submodule": "PND testing"}));
    
    this.testResultGroup = this._formBuilder.group({
     orders: new FormArray([])

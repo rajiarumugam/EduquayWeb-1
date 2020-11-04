@@ -13,6 +13,7 @@ export class PndSummaryViewComponent implements OnInit {
   pndSummarydata;
   ngOnInit() {
 
+    this.DataService.sendData(JSON.stringify({"module": "PNDTC Obstetrician", "submodule": "PND Summary Report"}));
     if(this.DataService.getdata().pndtestingSummary === undefined)
     {
       this.router.navigate(['/app/pndtc-summary']);

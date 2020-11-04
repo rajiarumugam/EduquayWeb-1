@@ -133,6 +133,7 @@
 "ScheduledPNDTDate&Time":"Scheduled PNDT Date & Time",
 "Note:Receivedsignedconsentformfromsubjectandfiled.":"Note: Received signed Consent form from Subject and filed.",
 "Receivedsignedconsentformfromsubjectandfiled.": "Received signed Consent form from Subject and filed.",
+"Receivedsignedconsentformfromsubjectandfiled": "Received signed Consent form from Subject and filed",
 "PNDDate&Time":"PND Date & Time",
 "ObstetricianName":"Obstetrician Name",
 "PNDResults":"PND Results",
@@ -380,6 +381,7 @@
 "DiagnosticSummary":"Diagnostic Summary",
 "Note:HPLCResultAbnormal/NormalwillbecommunicatedtoSubject": "Note: HPLC Result Abnormal/Normal will be communicated to Subject",
 "Remarks":"Remarks",
+"PathologistRemarks":"Pathologist Remarks",
 "ConsultSeniorPathologist":"Consult Senior Pathologist",
 "Others": "Others",
 "LabDiagnosis":"Lab Diagnosis",
@@ -387,11 +389,14 @@
 "SwapCase":"Swap Case",
 "UpdateHPLCDiagnosis":"Update HPLC Diagnosis",
 "HPLCParameters":"HPLC Parameters",
+"HPLCResult": "HPLC Result",
 "CBCResults":"CBC Results",
 "SSTResults":"SST Results",
+"CBCResult":"CBC Result",
+"HPLCResults":"HPLC Results",
 "TestResultSummary":"Test Result Summary",
-"SampleStatus":"SampleStatus",
-"ClinicalDiagnosis":"Clinica lDiagnosis",
+"SampleStatus":"Sample Status",
+"ClinicalDiagnosis":"Clinical Diagnosis",
 "HPLCGraph":"HPLC Graph",
 "Result":"Result",
 "ConfirmShipmentReceipt":"Confirm Shipment Receipt",
@@ -430,6 +435,7 @@
 "FoetalHeartRatedocumentedinScan":"Foetal Heart Rate documented in Scan",
 "MotherVoided":"Mother Voided",
 "Mother’sVitals(Pulse & BP)Stable":"Mother’s Vitals (Pulse & BP) Stable",
-"SSTPending": "SST Pending"
+"SSTPending": "SST Pending",
+"SubjectInfo": "Subject Info"
 
 }

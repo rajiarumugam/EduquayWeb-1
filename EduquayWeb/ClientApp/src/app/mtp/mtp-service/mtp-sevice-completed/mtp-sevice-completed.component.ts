@@ -61,7 +61,7 @@ export class MTPServiceCompletedComponent implements AfterViewInit, OnDestroy, O
     this.MTPService.getPedingDetails(_subjectObj) .subscribe(response => {
       console.log(response);
       this.mtpPendingArray = response.data;
-      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.mtpPendingArray.length,"notcompleteCount":this.mtpCompletedArray.length}));
+      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.mtpPendingArray.length,"notcompleteCount":this.mtpCompletedArray.length, "module": "MTP services Obstetrician", "submodule": "MTP services"}));
     },
     (err: HttpErrorResponse) =>{
      

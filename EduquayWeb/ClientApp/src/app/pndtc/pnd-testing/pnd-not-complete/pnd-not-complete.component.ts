@@ -60,7 +60,7 @@ export class pndNotCompleteComponent implements AfterViewInit, OnDestroy, OnInit
     this.PNDCService.getPedingDetails(_subjectObj) .subscribe(response => {
       console.log(response);
       this.pndPendingArray = response.data;
-      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length}));
+      this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length,"notcompleteCount":this.pndNotCompleteArray.length, "module": "PNDTC Obstetrician", "submodule": "PND testing"}));
     },
     (err: HttpErrorResponse) =>{
      

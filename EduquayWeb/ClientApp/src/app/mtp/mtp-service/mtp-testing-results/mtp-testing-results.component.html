@@ -90,43 +90,103 @@
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-striped">
-                                                <thead>
+                                            <thead> 
+                                                <tr>
+                                                    <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                                    <th class="text-center"><span>{{'SSTResults' | translate}}</span></th>
+                                                    <th class="text-center"><span>{{'CBCResults' | translate}}</span></th>
+                                                    <th class="text-center"><span>{{'MCV' | translate}}</span></th>                                             
+                                                    <th class="text-center"><span>{{'RDW' | translate}}</span></th>
+                                                    <th class="text-center"><span>{{'RBC' | translate}}</span></th>
+                                                    
+                                                    <!-- <th class="text-left"><span>Diagnosis</span></th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-left">{{testingPNDData?.subjectName}}, F</td>
+                                                    <td class="text-left">{{testingPNDData?.anwSSTestResult}}</td>
+                                                    <td class="text-left">{{testingPNDData?.anwCBCTestResult}}</td>
+                                                    <td class="text-center sp-xs-th">{{testingPNDData?.anwMCV}}</td>                                                                                          
+                                                    <td class="text-center">{{testingPNDData?.anwRDW}}</td>
+                                                    <td class="text-center">{{testingPNDData?.anwRBC}}</td>
+                                                    
+                                                    <!-- <td class="text-left"></td> -->
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{testingPNDData?.spouseName}}, M</td>
+                                                    <td class="text-left">{{testingPNDData?.spouseSSTestResult}}</td>
+                                                    <td class="text-left">{{testingPNDData?.spouseCBCTestResult}}</td>
+                                                    <td class="text-center sp-xs-th">{{testingPNDData?.spouseMCV}}</td>                                                                                          
+                                                    <td class="text-center">{{testingPNDData?.spouseRDW}}</td>
+                                                    <td class="text-center">{{testingPNDData?.spouseRBC}}</td>
+                                                    
+                                                    <!-- <td class="text-left"></td> -->
+                                                </tr>
+                                            </tbody> 
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped row-combined">
+                                                <thead class="tablecss">
+                                                    <!-- <tr class="" style="background-color: #e3e8ef;">
+                                                        <th colspan="14" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
+                                                        </th>
+                                                    </tr> -->
                                                     <tr>
-                                                       <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
-                                                        <!-- <th class="text-center"><span>Barcodes</span></th> -->
-                                                       <th class="text-center"><span>{{'CBC' | translate}}</span></th>
-                                                       <th class="text-center"><span>{{'SST' | translate}}</span></th>
-                                                       <th class="text-center"><span>{{'HPLC' | translate}}</span></th>
+                                                        <th rowspan="2" class="nt-border-right text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                                        <th colspan="5" class="nt-border-right text-center"><b>{{'HPLCParameters' | translate}}</b></th>
+                                                        <th rowspan="2" class="nt-border-right text-center"><span>{{'HPLCResults' | translate}}</span></th>
+                                                        <th rowspan="2" class="nt-border-right text-center"><span>{{'LabDiagnosis' | translate}}</span></th>
+                                                        <th rowspan="2" class="nt-border-right text-center"><span>{{'PathologistRemarks' | translate}}</span></th>
                                                        
                                                     </tr>
-            
+                                                    <tr class="combined">
+                                                        <th class="text-center"><b>{{'HbA0' | translate}}</b></th>
+                                                        <th class="text-center"><b>{{'HbA2' | translate}}</b></th>
+                                                        <!--<th class="text-center"><b>HbC</b></th>-->
+                                                        <th class="text-center"><b>{{'HbD' | translate}}</b></th>
+                                                        <th class="text-center"><b>{{'HbF' | translate}}</b></th>
+                                                        <th class="text-center"><b>{{'HbS' | translate}}</b></th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
+                                                    
                                                     <tr>
-                                                        <td class="text-left">{{testingPNDData?.subjectName}}, F </td>
-                                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                        <td class="text-left">{{testingPNDData?.anwCBCTestResult}}</td>
-                                                        <td class="text-left">{{testingPNDData?.anwSSTestResult}}</td>
+                                                        <td class="text-left">{{testingPNDData?.subjectName}}, F</td>                                
+                                                        <td class="text-center">{{testingPNDData?.anwHbA0}}</td>
+                                                        <td class="text-center">{{testingPNDData?.anwHbA2}}</td>
+                                                        <!--<td class="text-center">{{testingPNDData?.hbC}}</td>-->
+                                                        <td class="text-center">{{testingPNDData?.anwHbD}}</td>
+                                                        <td class="text-center">{{testingPNDData?.anwHbF}}</td>
+                                                        <td class="text-center">{{testingPNDData?.anwHbS}}</td>
                                                         <td class="text-left">{{testingPNDData?.anwHPLCTestResult}}</td>
-                                               
+                                                        <td class="text-left">{{testingPNDData?.anwHPLCDiagnosis}}</td>
+                                                        <td class="text-left">{{testingPNDData?.anwHPLCDiagnosis}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-left">{{testingPNDData?.spouseName}}, M </td>
-                                                        <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                        <td class="text-left">{{testingPNDData?.spouseCBCTestResult}}</td>
-                                                        <td class="text-left">{{testingPNDData?.spouseSSTestResult}}</td>
+                                                        <td class="text-left">{{testingPNDData?.spouseName}}, M</td>                                        
+                                                        <td class="text-center">{{testingPNDData?.spouseHbA0}}</td>
+                                                        <td class="text-center">{{testingPNDData?.spouseHbA2}}</td>
+                                                        <!--<td class="text-center">{{testingPNDData?.hbC}}</td>-->
+                                                        <td class="text-center">{{testingPNDData?.spouseHbD}}</td>
+                                                        <td class="text-center">{{testingPNDData?.spouseHbF}}</td>
+                                                        <td class="text-center">{{testingPNDData?.spouseHbS}}</td>
                                                         <td class="text-left">{{testingPNDData?.spouseHPLCTestResult}}</td>
-                                                       
+                                                        <td class="text-left">{{testingPNDData?.spouseHPLCDiagnosis}}</td>
+                                                        <td class="text-left">{{testingPNDData?.anwHPLCDiagnosis}}</td>
                                                     </tr>
-                                                </tbody>
-                                                </table>
-    
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                        <!-- <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
                             <div class="widget-content widget-content-area br-6">
                                 <div id="toggleAccordion">
                                     <div class="card">
@@ -224,7 +284,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
                             <div class="widget-content widget-content-area br-6">
                                 <div id="toggleAccordion">

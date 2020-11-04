@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-diagnosis-report',
@@ -41,6 +42,7 @@ export class DiagosisReportComponent implements OnInit {
   SelecteddiagnosticSummary = "";
   selectedpathologistName = "";
   selectedOthers;
+  fileName: string;
 
   settings = {};
   selectedcomplicationsItems = [];
@@ -446,6 +448,21 @@ export class DiagosisReportComponent implements OnInit {
     }
     public onDeSelectAll(items: any) {
       
+    }
+    exportexcel(): void 
+    {
+      this.fileName = "Report-samples.xlsx"
+       /* table id is passed over here */   
+       let element = document.getElementById('diagnosis-report'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
     }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

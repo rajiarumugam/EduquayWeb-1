@@ -115,6 +115,7 @@ export class MTPTestingResultsComponent implements OnInit {
   ngOnInit() {
 
     this.loaderService.display(false);
+    this.DataService.sendData(JSON.stringify({"module": "MTP services Obstetrician", "submodule": "MTP Services"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
    
    this.testResultGroup = this._formBuilder.group({

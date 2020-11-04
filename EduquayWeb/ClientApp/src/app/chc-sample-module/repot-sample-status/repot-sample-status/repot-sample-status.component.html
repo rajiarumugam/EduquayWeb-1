@@ -49,41 +49,52 @@
                     <a (click)="refreshData()"><button type="submit" class="btn search-bu">
                             <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
                 </div>
+                <div class="col-md-2 mt-3 d-flex justify-content-end">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                      <div class="btn-group">
+                          <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
+                              <img src="assets/assets/img/excelimage.png" width="30px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button></a>
+                          <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                              <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
+                      </div>
+                  </div>
+              </div>
             </div>
-            <div class="table-responsive my-2">
-                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                    <thead>
-                        <tr>
-                            <th><span>{{'SNo' | translate}}</span></th>
-                            <th><span>{{'SubjectName' | translate}}</span></th>
-                            <th><span>{{'SubjectID' | translate}}</span></th>
-                            <th><span>{{'RCHID' | translate}}</span></th>
-                            <th><span>{{'ANMName' | translate}}</span></th>
-                            <th><span>{{'RIPoint' | translate}}</span></th>
-                            <th><span>{{'Barcode' | translate}}</span></th>
-                            <th><span>{{'ShipmentDate' | translate}}</span></th>
-                            <th><span>{{'SampleStatus' | translate}}</span></th>
-                            <th><span>{{'Result' | translate}}</span></th>
-                        </tr>
+            <div id="report-samples">
+              <div class="table-responsive my-2">
+                  <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                      <thead>
+                          <tr>
+                              <th><span>{{'SNo' | translate}}</span></th>
+                              <th><span>{{'SubjectName' | translate}}</span></th>
+                              <th><span>{{'SubjectID' | translate}}</span></th>
+                              <th><span>{{'RCHID' | translate}}</span></th>
+                              <th><span>{{'ANMName' | translate}}</span></th>
+                              <th><span>{{'RIPoint' | translate}}</span></th>
+                              <th><span>{{'Barcode' | translate}}</span></th>
+                              <th><span>{{'ShipmentDate' | translate}}</span></th>
+                              <th><span>{{'SampleStatus' | translate}}</span></th>
+                              <th><span>{{'Result' | translate}}</span></th>
+                          </tr>
 
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let pnddata of pndPendingArray; index as i">
-                            <td>{{i+1}}</td>
-                            <td style="text-align: left">{{pnddata.subjectName}}</td>
-                            <td class="text-center">{{pnddata.uniqueSubjectId}}</td>
-                            <td class="sid text-center">{{pnddata.rchId}}</td>
-                            <td style="text-align: left">{{pnddata.anmName}}</td>
-                            <td class="text-center">{{pnddata.riPoint}}</td>
-                            <td class="text-center">{{pnddata.barcodeNo}}</td>
-                            <td class="text-left">{{pnddata.shipmentDate}}</td>
-                            <td class="text-left">{{pnddata.sampleStatus}}</td>
-                            <td class="text-left">{{pnddata.cbcResult}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let pnddata of pndPendingArray; index as i">
+                              <td>{{i+1}}</td>
+                              <td style="text-align: left">{{pnddata.subjectName}}</td>
+                              <td class="text-center">{{pnddata.uniqueSubjectId}}</td>
+                              <td class="sid text-center">{{pnddata.rchId}}</td>
+                              <td style="text-align: left">{{pnddata.anmName}}</td>
+                              <td class="text-center">{{pnddata.riPoint}}</td>
+                              <td class="text-center">{{pnddata.barcodeNo}}</td>
+                              <td class="text-left">{{pnddata.shipmentDate}}</td>
+                              <td class="text-left">{{pnddata.sampleStatus}}</td>
+                              <td class="text-left">{{pnddata.cbcResult}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
             </div>
-            
         </div>
     </div>
 </div>

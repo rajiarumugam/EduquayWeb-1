@@ -24,300 +24,321 @@
                   </div>
               </div>
           </div>
-
-          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
-              <div class="widget-content widget-content-area br-6">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="table-responsive">
-                              <table class="table table-bordered table-striped"  id="tblBasicInfo">
-                                  <thead class="tablecss">
-                                      <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate}}</b>
-                                          </th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <tr>
-                                          <td class="sp-xs-td-9"><b>{{'District' | translate}}</b></td>
-                                          <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
-                                          <td class="sp-xs-td-9"><b>{{'TestingCHC' | translate}}</b></td>
-                                          <td class="sp-xs-td-15">{{diagnosisReportData?.testingCHC}}</td>
-                                          <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}}</b></td>
-                                          <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td class="sp-xs-td-9"><b>{{'SubjectName' | translate}}</b></td>
-                                          <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
-                                          <td class="sp-xs-td-9"><b>{{'SubjectID' | translate}}</b></td>
-                                          <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
-                                          <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
-                                          <td class="sp-xs-td-15">{{diagnosisReportData?.age}} yrs</td>
-                                      </tr>
-                                      <tr>
-                                          <td><b>{{'ContactNo' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.contactNo}}</td>
-                                          <td><b>{{'Address' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.address}}</td>
-                                          <td><b>{{'SpouseName' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.spouseName}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td><b>{{'SpouseContact' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.spouseContact}}</td>
-                                          <td><b>{{'RCHID' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.rchId}}</td>
-                                          <td><b>{{'LMPDate' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.lmpDate}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td><b>{{'GestationalAge' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.ga}}</td>
-                                          <td><b>{{'ObstetricsScore' | translate}}</b></td>
-                                          <td>{{diagnosisReportData?.obstetricsScore}}</td>
-                                          
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile">
-              <div class="widget-content widget-content-area br-6">
-                  
+          <div class="col-xl-12 col-lg-12 col-sm-12 mr-3">
+           <!--  <div class="widget-content widget-content-area br-6"> -->
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-end">
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group">
+                            <!-- <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
+                                <img src="assets/assets/img/excelimage.png" width="20px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button></a> -->
+                            <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                                <img src="assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </div>-->
+        </div> 
+          <div id="diagnosis-report">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                <div class="widget-content widget-content-area br-6">
+                    
                 
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="table-responsive">
-                              <table class="table table-bordered table-striped">
-                                  <thead class="tablecss">
-                                      <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'TestResultSummary' | translate}}</b>
-                                          <a class="btn btn-primary float-right" role="button"><i class="fa fa-download append-icon"></i><span class="ml-1"> {{'HPLCGraph' | translate}}</span></a>
-                                          </th>
-                                      </tr> 
-                                  </thead> 
-                                  <tbody>
-                                      <tr>
-                                          <td class="sp-xs-th" style="color: #1b55e2;font-weight: 700;font-size: 13px;">{{'SSTResults' | translate}}</td>
-                                          <td class="sp-xs-td-15" style="color:red;">{{diagnosisReportData?.sstResult}}</td>  
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="table-responsive">
-                              <table class="table table-bordered table-striped">
-                              <thead> 
-                                  <tr>
-                                      <th class="text-left"><span>{{'CBCResults' | translate}}</span></th>
-                                      <th class="text-center"><span>{{'MCV' | translate}}</span></th>                                             
-                                      <th class="text-center"><span>{{'RDW' | translate}}</span></th>
-                                      <!-- <th class="text-left"><span>Diagnosis</span></th> -->
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <td class="text-left" style="color:red;">{{diagnosisReportData?.cbcResult}}</td>
-                                      <td class="text-center sp-xs-th">{{diagnosisReportData?.mcv}}</td>                                                                                          
-                                      <td class="text-center">{{diagnosisReportData?.rdw}}</td>
-                                      <!-- <td class="text-left"></td> -->
-                                  </tr>
-                              </tbody> 
-                          </table>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="table-responsive">
-                              <table class="table table-bordered table-striped">
-                                  <thead class="tablecss">
-                                      <!-- <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="14" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
-                                          </th>
-                                      </tr> -->
-                                      <tr>
-                                          <th class="text-left"><b>{{'HPLCParameters' | translate}}</b></th>
-                                          <th class="text-center"><b>{{'HbA0' | translate}}</b></th>
-                                          <th class="text-center"><b>{{'HbA2' | translate}}</b></th>
-                                          <!--<th class="text-center"><b>HbC</b></th>-->
-                                          <th class="text-center"><b>{{'HbD' | translate}}</b></th>
-                                          <th class="text-center"><b>{{'HbF' | translate}}</b></th>
-                                          <th class="text-center"><b>{{'HbS' | translate}}</b></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      <tr>
-                                          <td class="text-center"></td>
-                                          <td class="text-center">{{diagnosisReportData?.hbA0}}</td>
-                                          <td class="text-center">{{diagnosisReportData?.hbA2}}</td>
-                                          <!--<td class="text-center">{{diagnosisReportData?.hbC}}</td>-->
-                                          <td class="text-center">{{diagnosisReportData?.hbD}}</td>
-                                          <td class="text-center">{{diagnosisReportData?.hbF}}</td>
-                                          <td class="text-center">{{diagnosisReportData?.hbS}}</td>
-                                      </tr>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile">
-              <div class="widget-content widget-content-area br-6">
-                        
-                          <div class="table-responsive">
-                              <table class="table table-bordered table-striped">
-                                  <thead class="tablecss">
-                                      <tr class="" style="background-color: #e3e8ef;">
-                                          <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;width:1276px;"><b>{{'UpdateHPLCDiagnosis' | translate}}</b>
-                                          </th>
-                                      </tr> 
-                                     
-                                  </thead> 
-                                  
-                              </table>
-                          </div>
-                <form [formGroup]="FormGroup">
-                    <div class="form-row m-1">
-                       
-                        <div class="form-group col-md-4">
-                            <div class="mb-2"><span class="note ml-1"><b> {{'SystemDiagnosis' | translate}} : </b></span> {{diagnosisReportData.isNormal ? 'Normal' : 'Abnormal'}}</div>
-                            <div class="mb-2"><span class="note ml-1"><b> {{'SwapCase' | translate}}</b><span class="manto"> *</span></span></div>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <span class="ml-1 n-chk">
-                                        <label class="maritalstatus-radio-cont">
-                                            <input type="radio" value="abnormal" formControlName="swapcase">
-                                              <span class="radio-span">{{'Abnormal' | translate}}</span>
-                                          </label>
-                                       </span>
-                                    <span class="n-chk">
-                                        <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
-                                            <input type="radio" value="normal" formControlName="swapcase">
-                                            <span class="radio-span">{{'Normal' | translate}}</span>
-                                          </label>
-                                        </span>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped"  id="tblBasicInfo">
+                                    <thead class="tablecss">
+                                        <tr class="" style="background-color: #e3e8ef;">
+                                            <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate}}</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="sp-xs-td-9"><b>{{'District' | translate}}</b></td>
+                                            <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
+                                            <td class="sp-xs-td-9"><b>{{'TestingCHC' | translate}}</b></td>
+                                            <td class="sp-xs-td-15">{{diagnosisReportData?.testingCHC}}</td>
+                                            <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}}</b></td>
+                                            <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sp-xs-td-9"><b>{{'SubjectName' | translate}}</b></td>
+                                            <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                            <td class="sp-xs-td-9"><b>{{'SubjectID' | translate}}</b></td>
+                                            <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                            <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
+                                            <td class="sp-xs-td-15">{{diagnosisReportData?.age}} yrs</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>{{'ContactNo' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.contactNo}}</td>
+                                            <td><b>{{'Address' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.address}}</td>
+                                            <td><b>{{'SpouseName' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.spouseName}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>{{'SpouseContact' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.spouseContact}}</td>
+                                            <td><b>{{'RCHID' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.rchId}}</td>
+                                            <td><b>{{'LMPDate' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.lmpDate}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>{{'GestationalAge' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.ga}}</td>
+                                            <td><b>{{'ObstetricsScore' | translate}}</b></td>
+                                            <td>{{diagnosisReportData?.obstetricsScore}}</td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                            <div class="form-group col-md-4">
-                                <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> {{'LabDiagnosis' | translate}}</b><span class="manto"> *</span></span>
-                                <!--<select name="occupationoption" class="form-control field" id="occuptnid"
-                                            tabindex="7" [(ngModel)]="selectedDiagnosis" formControlName = "cd" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.cd.invalid }">
-                                            <option [ngValue]="null">Select Diagnosis</option>
-                                            <option *ngFor="let clinical of clinicalDiagnosisData" [value]="clinical.id">
-                                            {{ clinical.diagnosisName }}</option>
-                                        </select>-->
-
-                                        <ng-multiselect-dropdown #multiSelect
-                                                    [placeholder]="'Select'" 
-                                                    [data]="clinicalDiagnosisData" 
-                                                    [(ngModel)]="selectedDiagnosis"
-                                                    [formControl]="f.cd" 
-                                                    [settings]="settings"
-                                                    [disabled]="false"
-                                                    (onFilterChange)="onFilterChange($event)"
-                                                     (onDropDownClose)="onDropDownClose($event)"
-                                                    (onSelect)="onItemSelect($event)" 
-                                                    (onDeSelect)="onDeSelect($event)"
-                                                    (onSelectAll)="onSelectAll($event)"
-                                                    (onDeSelectAll)="onDeSelectAll($event)"
-                                                    >
-                                                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile">
+                <div class="widget-content widget-content-area br-6">
+                    
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="tablecss">
+                                        <tr class="" style="background-color: #e3e8ef;">
+                                            <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'TestResultSummary' | translate}}</b>
+                                            <a class="btn btn-primary float-right" role="button"><i class="fa fa-download append-icon"></i><span class="ml-1"> {{'HPLCGraph' | translate}}</span></a>
+                                            </th>
+                                        </tr> 
+                                    </thead> 
+                                    <tbody>
+                                        <tr>
+                                            <td class="sp-xs-th" style="color: #1b55e2;font-weight: 700;font-size: 13px;">{{'SSTResults' | translate}}</td>
+                                            <td class="sp-xs-td-15" style="color:red;">{{diagnosisReportData?.sstResult}}</td>  
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        
-                            <div class="form-group col-md-8">
-                                <div class="mb-2"><span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && this.tempHPLCmasterChecked == ''}"><b> {{'HPLCTestResults' | translate}}</b><span class="manto"> *</span></span></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <thead> 
+                                    <tr>
+                                        <th class="text-left"><span>{{'CBCResults' | translate}}</span></th>
+                                        <th class="text-center"><span>{{'MCV' | translate}}</span></th>                                             
+                                        <th class="text-center"><span>{{'RDW' | translate}}</span></th>
+                                        <th class="text-center"><span>{{'RBC' | translate}}</span></th>
+                                        <!-- <th class="text-left"><span>Diagnosis</span></th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="color:red;">{{diagnosisReportData?.cbcResult}}</td>
+                                        <td class="text-center sp-xs-th">{{diagnosisReportData?.mcv}}</td>                                                                                          
+                                        <td class="text-center">{{diagnosisReportData?.rdw}}</td>
+                                        <td class="text-center">{{diagnosisReportData?.rbc}}</td>
+                                        <!-- <td class="text-left"></td> -->
+                                    </tr>
+                                </tbody> 
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="tablecss">
+                                        <!-- <tr class="" style="background-color: #e3e8ef;">
+                                            <th colspan="14" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
+                                            </th>
+                                        </tr> -->
+                                        <tr>
+                                            <th class="text-left"><b>{{'HPLCParameters' | translate}}</b></th>
+                                            <th class="text-center"><b>{{'HbA0' | translate}}</b></th>
+                                            <th class="text-center"><b>{{'HbA2' | translate}}</b></th>
+                                            <!--<th class="text-center"><b>HbC</b></th>-->
+                                            <th class="text-center"><b>{{'HbD' | translate}}</b></th>
+                                            <th class="text-center"><b>{{'HbF' | translate}}</b></th>
+                                            <th class="text-center"><b>{{'HbS' | translate}}</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{diagnosisReportData?.hbA0}}</td>
+                                            <td class="text-center">{{diagnosisReportData?.hbA2}}</td>
+                                            <!--<td class="text-center">{{diagnosisReportData?.hbC}}</td>-->
+                                            <td class="text-center">{{diagnosisReportData?.hbD}}</td>
+                                            <td class="text-center">{{diagnosisReportData?.hbF}}</td>
+                                            <td class="text-center">{{diagnosisReportData?.hbS}}</td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile">
+                <div class="widget-content widget-content-area br-6">
                             
-                                <div class="form-row m-1">
-                                    <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData; let i = index">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="tablecss">
+                                        <tr class="" style="background-color: #e3e8ef;">
+                                            <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;width:1276px;"><b>{{'UpdateHPLCDiagnosis' | translate}}</b>
+                                            </th>
+                                        </tr> 
+                                        
+                                    </thead> 
+                                    
+                                </table>
+                            </div>
+                    <form [formGroup]="FormGroup">
+                        <div class="form-row m-1">
+                        
+                            <div class="form-group col-md-4">
+                                <div class="mb-2"><span class="note ml-1"><b> {{'SystemDiagnosis' | translate}} : </b></span> {{diagnosisReportData.isNormal ? 'Normal' : 'Abnormal'}}</div>
+                                <div class="mb-2"><span class="note ml-1"><b> {{'SwapCase' | translate}}</b><span class="manto"> *</span></span></div>
+                                <div class="row">
+                                    <div class="col-sm-8">
                                         <span class="ml-1 n-chk">
-                                            <label class="new-control new-checkbox checkbox-outline-primary">
-                                                <input #checkboxes type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked">
-                                                  <span class="radio-span">{{hplc.hplcResultName}}</span>
-                                              </label>
-                                           </span>
+                                            <label class="maritalstatus-radio-cont">
+                                                <input type="radio" value="abnormal" formControlName="swapcase">
+                                                <span class="radio-span">{{'Abnormal' | translate}}</span>
+                                            </label>
+                                        </span>
+                                        <span class="n-chk">
+                                            <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
+                                                <input type="radio" value="normal" formControlName="swapcase">
+                                                <span class="radio-span">{{'Normal' | translate}}</span>
+                                            </label>
+                                            </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-4" *ngIf="showOthersTextbox">
-                                <label for="inputpathname">
-                                    <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.others.invalid }"><b>{{'Others' | translate}}</b><span class="manto"> *</span></span>
-                                </label>
-                                <input class="form-control field" name="others" required="" id="inputpathname" type="text"
-                                    placeholder="Others" tabindex="1" autocomplete="off" formControlName="others"  [(ngModel)]="selectedOthers" [required]="showOthersTextbox ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.others.invalid }">
-                            </div>
-                    </div>
-                    <div class="form-row m-1">
-                        <div class="form-group col-md-4">
-                            <div class="mb-2"><span class="note ml-1"><b> {{'ConsultSeniorPathologist' | translate}}</b><span class="manto"> *</span></span></div>
-                            <div class="row">
-                                <div class="form-group col-md-5">
-                                    <span class="ml-1 n-chk">
-                                        <label class="maritalstatus-radio-cont">
-                                            <input type="radio" value="true" formControlName="consulSeniorPatho" (change)="pathologistChange($event)">
-                                              <span class="radio-span">{{'Yes' | translate}}</span>
-                                          </label>
-                                       </span>
-                                    <span class="n-chk">
-                                        <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
-                                            <input type="radio" value="false" formControlName="consulSeniorPatho" (change)="pathologistChange($event)">
-                                            <span class="radio-span">{{'No' | translate}}</span>
-                                          </label>
-                                        </span>
-                                     </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-8">
-                            <div class="form-row mb-3" id="gallery-box" *ngIf="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false">
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-md-4">
+                                    <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> {{'LabDiagnosis' | translate}}</b><span class="manto"> *</span></span>
+                                    <!--<select name="occupationoption" class="form-control field" id="occuptnid"
+                                                tabindex="7" [(ngModel)]="selectedDiagnosis" formControlName = "cd" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.cd.invalid }">
+                                                <option [ngValue]="null">Select Diagnosis</option>
+                                                <option *ngFor="let clinical of clinicalDiagnosisData" [value]="clinical.id">
+                                                {{ clinical.diagnosisName }}</option>
+                                            </select>-->
+
+                                            <ng-multiselect-dropdown #multiSelect
+                                                        [placeholder]="'Select'" 
+                                                        [data]="clinicalDiagnosisData" 
+                                                        [(ngModel)]="selectedDiagnosis"
+                                                        [formControl]="f.cd" 
+                                                        [settings]="settings"
+                                                        [disabled]="false"
+                                                        (onFilterChange)="onFilterChange($event)"
+                                                        (onDropDownClose)="onDropDownClose($event)"
+                                                        (onSelect)="onItemSelect($event)" 
+                                                        (onDeSelect)="onDeSelect($event)"
+                                                        (onSelectAll)="onSelectAll($event)"
+                                                        (onDeSelectAll)="onDeSelectAll($event)"
+                                                        >
+                                                            </ng-multiselect-dropdown>
+                                </div>
+                            
+                                <div class="form-group col-md-8">
+                                    <div class="mb-2"><span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && this.tempHPLCmasterChecked == ''}"><b> {{'HPLCTestResults' | translate}}</b><span class="manto"> *</span></span></div>
+                                
+                                    <div class="form-row m-1">
+                                        <div class="form-group col-md-4" *ngFor="let hplc of HPLCmasterData; let i = index">
+                                            <span class="ml-1 n-chk">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input #checkboxes type="checkbox" class="checkbox" [value]="hplc.id" (change)="hplcChange(i)" [checked]="hplc.checked">
+                                                    <span class="radio-span">{{hplc.hplcResultName}}</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-4" *ngIf="showOthersTextbox">
                                     <label for="inputpathname">
-                                        <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }"><b>{{'Sr.PathologistName' | translate}}</b><span class="manto"> *</span></span>
+                                        <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.others.invalid }"><b>{{'Others' | translate}}</b><span class="manto"> *</span></span>
                                     </label>
-                                    <input class="form-control field" name="pathologistName" required="" id="inputpathname" type="text"
-                                        placeholder="Pathologist Name" tabindex="1" autocomplete="off" formControlName="pathologistName" [(ngModel)]="selectedpathologistName"
-                                        [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }">
+                                    <input class="form-control field" name="others" required="" id="inputpathname" type="text"
+                                        placeholder="Others" tabindex="1" autocomplete="off" formControlName="others"  [(ngModel)]="selectedOthers" [required]="showOthersTextbox ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.others.invalid }">
                                 </div>
-                                <div class="from-group col-md-5">
-                                    <label for="inputremarks">
-                                        <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"><b>{{'Remarks' | translate}}</b><span class="manto"> *</span></span>
-                                    </label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" name="remarks" formControlName="remarks" [(ngModel)]="selectedRemarks"  [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false"  [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"></textarea>
+                        </div>
+                        <div class="form-row m-1">
+                            <div class="form-group col-md-4">
+                                <div class="mb-2"><span class="note ml-1"><b> {{'ConsultSeniorPathologist' | translate}}</b><span class="manto"> *</span></span></div>
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <span class="ml-1 n-chk">
+                                            <label class="maritalstatus-radio-cont">
+                                                <input type="radio" value="true" formControlName="consulSeniorPatho" (change)="pathologistChange($event)">
+                                                <span class="radio-span">{{'Yes' | translate}}</span>
+                                            </label>
+                                        </span>
+                                        <span class="n-chk">
+                                            <label class="maritalstatus-radio-cont maritalstatus-radio-cont-2">
+                                                <input type="radio" value="false" formControlName="consulSeniorPatho" (change)="pathologistChange($event)">
+                                                <span class="radio-span">{{'No' | translate}}</span>
+                                            </label>
+                                            </span>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <div class="form-row mb-3" id="gallery-box" *ngIf="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false">
+                                    <div class="form-group col-md-5">
+                                        <label for="inputpathname">
+                                            <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }"><b>{{'Sr.PathologistName' | translate}}</b><span class="manto"> *</span></span>
+                                        </label>
+                                        <input class="form-control field" name="pathologistName" required="" id="inputpathname" type="text"
+                                            placeholder="Pathologist Name" tabindex="1" autocomplete="off" formControlName="pathologistName" [(ngModel)]="selectedpathologistName"
+                                            [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.pathologistName.invalid }">
+                                    </div>
+                                    <div class="from-group col-md-5">
+                                        <label for="inputremarks">
+                                            <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"><b>{{'Remarks' | translate}}</b><span class="manto"> *</span></span>
+                                        </label>
+                                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" name="remarks" formControlName="remarks" [(ngModel)]="selectedRemarks"  [required]="FormGroup.get('consulSeniorPatho').value === 'true' ? true : false"  [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.remarks.invalid }"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row m-1">
-                     
-                        <div class="form-group col-md-3">
-                            <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>{{'DiagnosticSummary' | translate}}</b><!--<span class="manto"> *</span>--></span>
-                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" name="diagnosticSummary" [(ngModel)]="SelecteddiagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
-                        </div>
+                        <div class="form-row m-1">
                         
-                    </div>
-                    <div class="form-row m-1">
-                        <div class="form-group col-md-12">
-                            <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
-                            <!--    Close</button>-->
-                        <p style="display:inline-block;">{{'Note:HPLCResultAbnormal/NormalwillbecommunicatedtoSubject' | translate}}</p>
-                        <a class="btn btn-success float-right mr-3" role="button"
-                            id="linktobuttonpathologist" (click)="reportSubmit('submit');">{{'Confirm&Close' | translate}}</a>
+                            <div class="form-group col-md-3">
+                                <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>{{'DiagnosticSummary' | translate}}</b><!--<span class="manto"> *</span>--></span>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" name="diagnosticSummary" [(ngModel)]="SelecteddiagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
+                            </div>
+                            
+                        </div>
+                        <div class="form-row m-1">
+                            <div class="form-group col-md-12">
+                                <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
+                                <!--    Close</button>-->
+                            <p style="display:inline-block;">{{'Note:HPLCResultAbnormal/NormalwillbecommunicatedtoSubject' | translate}}</p>
                             <a class="btn btn-success float-right mr-3" role="button"
-                            id="linktobuttonpathologist" (click)="reportSubmit('save');"      *ngIf="showConfirmEditLater">{{'Confim-EditLater' | translate}}</a>
-                        <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                id="linktobuttonpathologist" (click)="reportSubmit('submit');">{{'Confirm&Close' | translate}}</a>
+                                <a class="btn btn-success float-right mr-3" role="button"
+                                id="linktobuttonpathologist" (click)="reportSubmit('save');"      *ngIf="showConfirmEditLater">{{'Confim-EditLater' | translate}}</a>
+                            <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                        </div>
+                        </div>
+                    </form>
                     </div>
-                    </div>
-                </form>
-                  </div>
-          </div>
+            </div>
+    </div>
     </div>
 
 

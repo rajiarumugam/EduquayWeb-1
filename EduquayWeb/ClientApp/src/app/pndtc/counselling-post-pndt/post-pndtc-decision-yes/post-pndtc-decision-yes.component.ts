@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, EventEmitter } from '@angular/core';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { CounsellPostPndtRequest, AddPostPndtCounsellingRequest } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-request';
 import { CounselledpostpndtResponse, PostCounselledList, AddPostPndtcCounsellingResponse, postPndtFileUploadResponse, PostFileDetails } from 'src/app/shared/pndtc/counsell-post-pndt/counsell-post-pndt-response';
@@ -15,6 +15,7 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-post-pndtc-decision-yes',
@@ -158,6 +159,30 @@ export class PostPndtcDecisionYesComponent implements OnInit {
 
     this.ddlmtpobstetricianName();
     //this.onClick('decisionyes');
+
+  }
+
+  public uploader: FileUploader = new FileUploader({
+    //url: URL,
+    disableMultipart: false,
+    autoUpload: true,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['pdf', 'xls', 'application'],
+    allowedMimeType: ['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  });
+  // allowedFileType: ['image', 'pdf', 'xls', 'application', 'doc', 'docx'],
+  // allowedMimeType: ['image/jpg',
+  //   'image/jpeg', 'text/plain','text/xml',
+  //   'image/png', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'],
+  // });
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    //this.loaderService.display(true);
+    this.consentForm = event[0];
+    this.fileName = this.consentForm.name;
+    //this.loaderService.display(false);
+    console.log(this.consentForm);
 
   }
 
