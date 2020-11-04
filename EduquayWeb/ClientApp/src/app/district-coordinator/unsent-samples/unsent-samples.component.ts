@@ -196,6 +196,7 @@ export class UnsentSamplesComponent implements AfterViewInit, OnDestroy, OnInit 
       this.address = sample.address;
       this.lmpDate = sample.lmpDate;
       this.gpla = sample.gpla;
+      this.phcName = sample.phcName;
      
   
       this.modalService.open(

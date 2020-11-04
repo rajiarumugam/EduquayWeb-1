@@ -70,6 +70,7 @@ export class SampleTimeoutComponent implements AfterViewInit, OnDestroy, OnInit 
     gpla: string;
     followUpStatus: string;
     notifySamples: string;
+
     @HostListener('window:scroll')
       checkScroll() {
     
@@ -200,6 +201,7 @@ export class SampleTimeoutComponent implements AfterViewInit, OnDestroy, OnInit 
       this.address = sample.address;
       this.lmpDate = sample.lmpDate;
       this.gpla = sample.gpla;
+      this.phcName = sample.phcName;
      
   
       this.modalService.open(
