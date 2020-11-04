@@ -42,6 +42,8 @@ export interface CounsellingList {
     spouseHbF: string;
     spouseHbS: string;
     spouseHbD: string;
+    anwHPLCDiagnosis:string;
+    spouseHPLCDiagnosis:string;
 }
 
 export interface CounselledprepndtResponse {
