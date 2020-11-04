@@ -90,6 +90,8 @@ export class PndtReferralComponent implements AfterViewInit, OnDestroy, OnInit {
     pndtReferalId: number;
     followUpStatus: string;
     notifySamples: string;
+    anwPhcName: string;
+    spousePhcName: string;
   
     @HostListener('window:scroll')
     checkScroll() {
@@ -234,6 +236,8 @@ export class PndtReferralComponent implements AfterViewInit, OnDestroy, OnInit {
       this.spouseCBCTestResult = sample.spouseCBCTestResult;
       this.spouseSSTestResult = sample.spouseSSTestResult;
       this.spouseHPLCTestResult = sample.spouseHPLCTestResult;
+      this.anwPhcName = sample.anwPHCName;
+      this.spousePhcName = sample.spousePHCName
      
   
       this.modalService.open(
