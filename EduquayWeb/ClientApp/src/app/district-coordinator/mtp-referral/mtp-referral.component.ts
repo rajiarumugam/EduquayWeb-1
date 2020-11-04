@@ -102,6 +102,8 @@ export class MtpReferralComponent implements AfterViewInit, OnDestroy, OnInit {
     mtpReferalId: number;
     followUpStatus: string
     notifySamples: string;
+    anwPhcName: string;
+    spousePhcName: string;
   
     @HostListener('window:beforeunload', ['$event'])
     checkScroll() {
@@ -260,6 +262,8 @@ export class MtpReferralComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pndtProcedureOfTesting = sample.pndtProcedureOfTesting;
       this.pndtSideEffects = sample.pndtSideEffects;
       this.postPNDTCounsellingDate = sample.postPNDTCounsellingDate;
+      this.anwPhcName = sample.anwPHCName;
+      this.spousePhcName = sample.spousePHCName;
      
   
       this.modalService.open(

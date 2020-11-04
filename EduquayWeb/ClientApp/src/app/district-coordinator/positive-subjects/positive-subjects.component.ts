@@ -72,6 +72,7 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
     ssTestResult: string;
     hplcTestResult: string;
     notifySamples: string;
+    
   
     @HostListener('window:scroll')
     checkScroll() {
@@ -202,6 +203,7 @@ export class PositiveSubjectsComponent implements AfterViewInit, OnDestroy, OnIn
       this.cbcTestResult = sample.cbcTestResult;
       this.ssTestResult = sample.ssTestResult;
       this.hplcTestResult = sample.hplcTestResult;
+      this.phcName = sample.phcName;
        
       this.modalService.open(
         positivSubjectsDetail, {
