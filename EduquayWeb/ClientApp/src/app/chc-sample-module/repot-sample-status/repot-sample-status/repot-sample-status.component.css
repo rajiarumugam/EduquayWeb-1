@@ -1,0 +1,13 @@
+.custom-btn {
+    cursor: pointer;
+    margin-right: 5px;
+    
+  }
+
+.dt-buttons .dt-button {
+    color: #fff !important;
+     background-color: #fff !important; 
+     border-color: #fff !important; 
+    margin-top: 22px !important; 
+    
+}

@@ -28,7 +28,9 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
   @ViewChild('startPicker1', { static: false }) pickerStart;
   @ViewChild('endPicker', { static: false }) pickerEnd;
   loadDataTable: boolean = false;
-  dtOptions: DataTables.Settings = {};
+  //dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
+
   dtTrigger: Subject<any> = new Subject();
 
   districts = [];
@@ -92,11 +94,12 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
     this.getCHCData();
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
+        
       pagingType: 'simple_numbers',
       pageLength: 5,
       processing: true,
       stripeClasses: [],
-      lengthMenu: [5, 10, 20, 50],
+      lengthMenu: [5, 10, 20, 50],     
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
@@ -107,7 +110,52 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         }, 
-      }   
+       
+      },
+      // Declare the use of the extension in the dom parameter
+      dom: 'Bfrtip',
+      // Configure the buttons
+        buttons: [
+          {
+            titleAttr: 'Download as Excel',     
+            extend: 'excelHtml5',
+            title: 'Report - Sample Status',
+            className: 'custom-btn',
+            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+          },
+        {
+          titleAttr: 'Download as PDF',
+          extend: 'pdfHtml5',
+          title: 'Report - Sample Status',
+          orientation: 'landscape',
+          pageSize: 'LEGAL',
+          className: 'custom-btn',
+          margin: [5,5,5,5],
+          //filename: 'dt_custom_pdf',
+          exportOptions: {
+						columns: ':visible',
+						search: 'applied',
+						order: 'applied'
+					},
+          text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
+        },
+        
+        // {
+        //   titleAttr: 'Download as CSV',     
+        //   extend: 'csvHtml5',
+        //   className: 'custom-btn fa fa-file-text-o',
+        //   text: ''
+        // },
+        // {
+        // titleAttr: 'Print',     
+        // extend: 'print',
+        // className: 'custom-btn fa fa-print',
+        // text: ''
+        // }
+
+        ], 
+     // }
+       
     };
 
     this.dateform.controls.toDate.valueChanges.subscribe(changes => {

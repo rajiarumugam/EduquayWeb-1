@@ -22,10 +22,17 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/assets"],
             "styles": [
-             
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"
               
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js"
+            ]
           },
           "configurations": {
             "production": {
