@@ -242,6 +242,9 @@ import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.
 
 import { CHCNotificationMainComponent } from "./chc-sample-module/chc-notification/chc-notification-main/chc-notification-main.component";
 import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-profile-tracking/anm-subject-profile-tracking.component";
+
+import { ViewCLReportComponent } from "./central-lab/view-report-sample/cl-view-report-sample/cl-view-report-sample.component";
+import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/cl-view-report-sample-main/cl-view-report-sample-main.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -529,7 +532,13 @@ const routes: Routes = [
         children:[
           {path: '', component: ViewPathoReportComponent, pathMatch: 'full'}
         ]
+      },{
+        path: 'view-CL-report', component: ViewReportCLMainMainComponent,
+        children:[
+          {path: '', component: ViewCLReportComponent, pathMatch: 'full'}
+        ]
       },
+      
       /*{
         path: 'view-pndtc-summary', component: PndSummaryViewComponent,
       },*/
@@ -767,7 +776,9 @@ export const RoutingComponents = [
   ViewPathoReportComponent,
   ResetLoginComponent,
   CHCNotificationMainComponent,
-  AnmSubjectProfileTrackingComponent
+  AnmSubjectProfileTrackingComponent,
+  ViewCLReportComponent,
+  ViewReportCLMainMainComponent
 
 ];
 

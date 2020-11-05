@@ -288,7 +288,12 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
       this.dtTrigger.next();
     });
   }   
-
+  openViewPage(data)
+  {
+    console.log(data);
+    this.dataservice.setdata({'CltestingSummary':data});
+    this.router.navigate(['/app/view-CL-report']);
+  }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }   
