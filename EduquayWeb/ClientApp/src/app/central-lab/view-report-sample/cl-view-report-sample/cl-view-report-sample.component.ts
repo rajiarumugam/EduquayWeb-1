@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 declare var $: any;
 import { HttpErrorResponse } from '@angular/common/http';
-import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
+import { pathoHPLCService } from "../../../shared/pathologist/patho-hplc.service";
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
@@ -13,11 +13,11 @@ import {Location} from '@angular/common';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-view-report-sample',
-  templateUrl: './view-report-sample.component.html',
-  styleUrls: ['./view-report-sample.component.css']
+  selector: 'app-cl-view-report-sample',
+  templateUrl: './cl-view-report-sample.component.html',
+  styleUrls: ['./cl-view-report-sample.component.css']
 })
-export class ViewPathoReportComponent implements  OnDestroy, OnInit {
+export class ViewCLReportComponent implements  OnDestroy, OnInit {
   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   receivedSampleCount;
   uploadCBCCount = 0;
@@ -75,12 +75,12 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
    this.testResultGroup = this._formBuilder.group({
     orders: new FormArray([])
    })
-   console.log(this.DataService.getdata().diagnosisHPLC);
-    if(this.DataService.getdata().diagnosisHPLC === undefined)
+   console.log(this.DataService.getdata().CltestingSummary);
+    if(this.DataService.getdata().CltestingSummary === undefined)
     {
-      this.router.navigate(['/app/patho-report']);
+      this.router.navigate(['/app/centrallab-report']);
     }
-    this.diagnosisReportData = this.DataService.getdata().diagnosisHPLC;
+    this.diagnosisReportData = this.DataService.getdata().CltestingSummary;
     this.showConfirmEditLater = this.compareDate(this.diagnosisReportData.dateOfTest,moment().format('DD-MM-YYYY')) <= 7;
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
    

@@ -300,8 +300,6 @@
     "UpdateDiagnosis":"Update Diagnosis",
     "Married":"Married",
     "AgingofSample":"Aging of Sample (hours)",
-    "MovetoExpiry": "Move to Expiry"
-
- 
-
+    "MovetoExpiry": "Move to Expiry",
+    "ViewAndPrint":"ଦେଖନ୍ତୁ ଏବଂ ମୁଦ୍ରଣ"
 }
