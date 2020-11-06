@@ -113,7 +113,9 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
        
       },
       // Declare the use of the extension in the dom parameter
-      dom: 'Bfrtip',
+      dom: "<'row mt-3'<'col-sm-4 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-4 float right'B>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
       // Configure the buttons
         buttons: [
           {

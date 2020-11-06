@@ -19,7 +19,8 @@ export class pndTestingSummaryComponent implements AfterViewInit, OnDestroy, OnI
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   loadDataTable: boolean = false;
-  dtOptions: DataTables.Settings = {};
+  //dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
 
   districts = [];
@@ -57,6 +58,49 @@ export class pndTestingSummaryComponent implements AfterViewInit, OnDestroy, OnI
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
+      dom: "<'row mt-3'<'col-sm-4 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-4 float right'B>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+      // Configure the buttons
+        buttons: [
+          {
+            titleAttr: 'Download as Excel',     
+            extend: 'excelHtml5',
+            title: 'PND Summary Report',
+            className: 'custom-btn',
+            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+          },
+        {
+          titleAttr: 'Download as PDF',
+          extend: 'pdfHtml5',
+          title: 'PND Summary Report',
+          orientation: 'landscape',
+          pageSize: 'LEGAL',
+          className: 'custom-btn',
+          margin: [5,5,5,5],
+          //filename: 'dt_custom_pdf',
+          exportOptions: {
+            columns: ':visible',
+            search: 'applied',
+            order: 'applied'
+          },
+          text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
+        },
+        
+        // {
+        //   titleAttr: 'Download as CSV',     
+        //   extend: 'csvHtml5',
+        //   className: 'custom-btn fa fa-file-text-o',
+        //   text: ''
+        // },
+        // {
+        // titleAttr: 'Print',     
+        // extend: 'print',
+        // className: 'custom-btn fa fa-print',
+        // text: ''
+        // }
+
+        ], 
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",

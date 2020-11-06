@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { MolecularLabsampleService } from "./../../../shared/molecularlab/ml-sample.service";
 import { LoaderService } from './../../../shared/loader/loader.service';
 import * as XLSX from 'xlsx'; 
+import { Button } from 'protractor';
 
 @Component({
   selector: 'app-repot-sample-status',
@@ -93,7 +94,9 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
        // Declare the use of the extension in the dom parameter
-       dom: 'Bfrtip',
+       dom: "<'row mt-3'<'col-sm-4 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-4 float right'B>>" +
+       "<'row'<'col-sm-12'tr>>" +
+       "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
          buttons: [
            {
@@ -110,8 +113,6 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
            orientation: 'landscape',
            pageSize: 'LEGAL',
            className: 'custom-btn',
-           //margin: [5,5,5,5],
-           //filename: 'dt_custom_pdf',
            exportOptions: {
              columns: ':visible',
              search: 'applied',
@@ -119,20 +120,6 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
            },
            text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
          },
-         
-         // {
-         //   titleAttr: 'Download as CSV',     
-         //   extend: 'csvHtml5',
-         //   className: 'custom-btn fa fa-file-text-o',
-         //   text: ''
-         // },
-         // {
-         // titleAttr: 'Print',     
-         // extend: 'print',
-         // className: 'custom-btn fa fa-print',
-         // text: ''
-         // }
- 
          ], 
       pagingType: 'simple_numbers',
       pageLength: 5,
@@ -150,7 +137,8 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         }, 
-      }   
+      } 
+      
     };
 
     this.dateform.controls.toDate.valueChanges.subscribe(changes => {
