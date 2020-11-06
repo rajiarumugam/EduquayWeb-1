@@ -94,7 +94,9 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
        // Declare the use of the extension in the dom parameter
-       dom: 'Bfrtip',
+       dom: "<'row mt-3'<'col-sm-4 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-4 float right'B>>" +
+       "<'row'<'col-sm-12'tr>>" +
+       "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
          buttons: [
            {
@@ -113,11 +115,79 @@ export class CentralLabreportSampleStatusComponent implements AfterViewInit, OnD
            className: 'custom-btn',
            margin: [5,5,5,5],
            //filename: 'dt_custom_pdf',
-           exportOptions: {
-             columns: ':visible',
-             search: 'applied',
-             order: 'applied'
-           },
+           customize: function(doc) {doc.styles.tableHeader.vertical = 'middle'
+            //Remove the title created by datatTables
+            
+         doc.content.splice(0,1);
+         //Create a date string that we use in the footer. Format is dd-mm-yyyy
+         var now = new Date();
+         var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
+         doc.pageMargins = [20,60,20,30];
+         // Set the font size fot the entire document
+         doc.defaultStyle.fontSize = 10;
+         // Set the fontsize for the table header
+         doc.styles.tableHeader.fontSize = 11;
+         doc.styles.tableHeader.alignment = 'center'
+         // Create a header object with 3 columns
+         // Left side: Logo
+         // Middle: brandname
+         // Right side: A document title
+         doc['header']=(function() {
+           return {
+             columns: [
+               // {
+               // 	//image: logo,
+               // 	width: 24
+               // },
+               // {
+               // 	alignment: 'left',
+               // 	italics: true,
+               // 	text: 'dataTables',
+               // 	fontSize: 18,
+               // 	margin: [10,0]
+               // },
+               // {
+               // 	alignment: 'right',
+               // 	fontSize: 14,
+               // 	text: 'Custom PDF export with dataTables'
+               // }
+             ],
+             margin: 20
+           }
+         });
+         // Create a footer object with 2 columns
+         // Left side: report creation date
+         // Right side: current page and total pages
+         doc['footer']=(function(page, pages) {
+           return {
+             columns: [
+               {
+                 alignment: 'left',
+                 text: ['Created on: ', { text: jsDate.toString() }]
+               },
+               {
+                 alignment: 'right',
+                 text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
+               }
+             ],
+             margin: 20
+           }
+         });
+         // Change dataTable layout (Table styling)
+         // To use predefined layouts uncomment the line below and comment the custom lines below
+         // doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+         var objLayout = {};
+         objLayout['hLineWidth'] = function(i) { return .5; };
+         objLayout['vLineWidth'] = function(i) { return .5; };
+         objLayout['hLineColor'] = function(i) { return '#aaa'; };
+         objLayout['vLineColor'] = function(i) { return '#aaa'; };
+         objLayout['paddingLeft'] = function(i) { return 4; };
+         objLayout['paddingRight'] = function(i) { return 4; };
+         doc.content[0].layout = objLayout;
+     },				
+       exportOptions: {
+           columns: ':visible'
+       },
            text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
          },
          
