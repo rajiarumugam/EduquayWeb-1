@@ -245,6 +245,7 @@ import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-pro
 
 import { ViewCLReportComponent } from "./central-lab/view-report-sample/cl-view-report-sample/cl-view-report-sample.component";
 import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/cl-view-report-sample-main/cl-view-report-sample-main.component";
+import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -311,6 +312,7 @@ const routes: Routes = [
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
       { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
+      { path: 'anm-subjecttracker', component: SubjectTrackerComponent},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -778,7 +780,8 @@ export const RoutingComponents = [
   CHCNotificationMainComponent,
   AnmSubjectProfileTrackingComponent,
   ViewCLReportComponent,
-  ViewReportCLMainMainComponent
+  ViewReportCLMainMainComponent,
+  SubjectTrackerComponent
 
 ];
 

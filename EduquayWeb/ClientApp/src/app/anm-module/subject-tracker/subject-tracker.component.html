@@ -1,0 +1,130 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="view-sub-profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                            [routerLink]="['/app/anm-shipment']" role="button" ngbTooltip="Shipment log" placement="right"><i
+                                    class="fas fa-chevron-left pNav-left"></i></a></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">Subject Tracker</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+            <!-- <app-anm-chc-subject-profile #anmchcsubjectprofile></app-anm-chc-subject-profile> -->
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6"> 
+                        <div style="text-align: center"><a
+                            (click)="openchcSampleShipment(shippedChcSampleDetail)">
+                            <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="step-menu">
+                                      <li role="button" class="complete">Registration</li>
+                                      <li role="button" class="current">Collection</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                      <li role="button">Shipment <br>T.CHC</li>
+                                </ul>
+                            </div>
+                        </div>   
+                                                           
+                    </div>
+                </div>
+
+                <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ConfirmShipmentReceipt' | translate}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" style="overflow-x: scroll;">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="step-menu">
+                                  <li role="button" class="complete">Registration</li>
+                                  <li role="button" class="current">Collection</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                                  <li role="button">Shipment <br>T.CHC</li>
+                            </ul>
+                        </div>
+                    </div>    
+                    <div class="row float-right">
+                      
+                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+               
+            </div>
+          
+
+        </div>
+
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+
+
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

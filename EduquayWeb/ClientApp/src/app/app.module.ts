@@ -104,6 +104,7 @@ import { ResetPasswordComponent } from './auth/forgot-password/reset-password/re
 import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.component';
 
 import {NgxPrintModule} from 'ngx-print';
+import { SubjectTrackerComponent } from './anm-module/subject-tracker/subject-tracker.component';
 
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
@@ -179,7 +180,8 @@ import {NgxPrintModule} from 'ngx-print';
     PostMtpFollowupComponent,
     GetOtpComponent,
     ResetPasswordComponent,
-    ResetLoginComponent
+    ResetLoginComponent,
+    SubjectTrackerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
