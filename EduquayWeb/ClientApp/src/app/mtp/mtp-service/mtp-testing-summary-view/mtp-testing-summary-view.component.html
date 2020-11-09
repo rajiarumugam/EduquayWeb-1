@@ -11,8 +11,11 @@
                               <div class="btn-group">
                                   <!--<button type="button" class="btn btn-sm btn-outline-light">-->
                                   <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-ngbTooltip="Download as Excel"></button>-->
-                                  <button type="button" class="btn btn-sm btn-outline-light">
-                                      <img src="../../../../assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
+                                  <button type="button" class="btn btn-sm btn-outline-primary print-btn" (click)="printPdf();" >
+                                    <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
+                                    <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                                            aria-hidden="true"></i>
+                                        </button> 
                               </div>
                           </div>
                       </div>

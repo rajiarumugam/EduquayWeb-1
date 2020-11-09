@@ -31,16 +31,18 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4 d-flex justify-content-end">
-                            <div class="btn-toolbar mb-2 mb-md-0">
-                                <div class="btn-group">
-                                    <a class="btn btn-primary float-right print-btn" role="button" style="margin-right:10px;"><i class="fa fa-download append-icon"></i><span class="ml-1"> {{'HPLCGraph' | translate}}</span></a>
-                                    <!--<button type="button" class="btn btn-sm btn-outline-light">-->
-                                    <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as Excel"></button>-->
-                                    <button type="button" class="btn btn-sm btn-outline-light print-btn" (click)="printPdf();">
-                                        <img src="../../../../assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
-                                </div>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group">
+                                <!--<button type="button" class="btn btn-sm btn-outline-light">-->
+                                <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as Excel"></button>-->
+                                <button type="button" class="btn btn-sm btn-outline-primary print-btn" (click)="printPdf();" >
+                                    <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
+                                    <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                                            aria-hidden="true"></i>
+                                        </button> 
                             </div>
                         </div>
+                    </div>
                 </div>
                 <div class="row py-2 my-2 print-header" style="background-color: #1B55E2;">
                     <div class="col-md-2 left-logo-cont">
