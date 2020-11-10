@@ -70,8 +70,16 @@
                                       <tr>
                                           <td class="sp-xs-td-9"><b>{{'District' | translate}}</b></td>
                                           <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
-                                          <td class="sp-xs-td-9"><b>{{'TestingCHC' | translate}}</b></td>
+                                          <td class="sp-xs-td-9"><b>{{'Block' | translate}}</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.blockName}}</td>
+                                          <td class="sp-xs-td-9"><b>{{'CHC' | translate}}</b></td>
                                           <td class="sp-xs-td-15">{{diagnosisReportData?.chcName}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="sp-xs-td-9"><b>{{'SC' | translate}}</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.scName}}</td>
+                                          <td class="sp-xs-td-9"><b>{{'PHC' | translate}}</b></td>
+                                          <td class="sp-xs-td-15">{{diagnosisReportData?.phcName}}</td>
                                           <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}}</b></td>
                                           <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
                                       </tr>
@@ -194,7 +202,7 @@
                                         <th colspan="5" class="nt-border-right text-center"><b>{{'HPLCParameters' | translate}}</b></th>
                                         <th rowspan="2" class="nt-border-right text-center"><span>{{'HPLCResults' | translate}}</span></th>
                                         <th rowspan="2" class="nt-border-right text-center"><span>{{'LabDiagnosis' | translate}}</span></th>
-                                        <th rowspan="2" class="nt-border-right text-center"><span>{{'PathologistRemarks' | translate}}</span></th>
+                                        <th rowspan="2" class="nt-border-right text-center"><span>{{'SrPathologistRemarks' | translate}}</span></th>
                                        
                                     </tr>
                                     <tr class="combined">
@@ -221,8 +229,10 @@
                                         <td class="text-left">{{diagnosisReportData?.seniorPathologistRemarks}}</td>
                                     </tr>
                                     <tr>
+                                        <td class="text-left">{{'DiagnosisDateTime' | translate}}</td>                                
+                                        <td class="text-left" colspan="2">{{diagnosisReportData?.diagnosisDateTime}}</td>
                                         <td class="text-left">{{'DiagnosticSummary' | translate}}</td>                                
-                                        <td class="text-left" colspan="8">{{diagnosisReportData?.diagnosisSummary}}</td>
+                                        <td class="text-left" colspan="5">{{diagnosisReportData?.diagnosisSummary}}</td>
                                        
                                     </tr>
                                    <!-- <tr>
