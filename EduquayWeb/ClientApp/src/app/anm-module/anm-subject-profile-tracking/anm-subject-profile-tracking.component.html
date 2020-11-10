@@ -56,151 +56,133 @@
                                     <!-- <a class="btn btn-primary float-right mb-2" *ngIf="subjectprofileItem.primaryDetail.registeredFrom === 'CHC'" 
                                     (click)="anmchcsubjectprofile.chcSubjectProfiledata()"
                                     role="button"> <i class="fa fa-pencil append-icon mr-1"></i>{{'Edit' | translate }}</a> -->
-                                    <div class="content-title-cont">
-                                      <div class="content-title-cont-child">
-                                          <div class="content-title-left">
-                                              <p>Preg Woman</p>
-                                          </div>
-                                          <div class="content-title-right">
-                                            <p>Spouse</p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <section id="conference-timeline">
+        <div class="page-title">
+          <p>Preg Woman</p>
+          <p>Spouse</p>
+        </div>
+                                    
+                                    <ul class="cbp_tmtimeline">
                                      
-                                        <div class="conference-center-line"></div>
-                                        <div class="conference-timeline-content">
-                                          <!-- Article -->
-                                          
-                                          <div class="timeline-article">
-                                            <div class="content-left-container">
-                                              <div class="content-left">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                             
-                                            </div>
-                                            <div class="content-right-container">
-                                              <div class="content-right">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                             
-                                            </div>
-                                            <div class="meta-date">
-                                              <span class="month">REGISTRATION</span>
-                                            </div>
-                                          </div>
-                                          <!-- // Article -->
-                                          
-                                          <!-- Article -->
-                                          <div class="timeline-article">
-                                            <div class="content-left-container">
-                                              <div class="content-left">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                           
-                                            </div>
-                                            <div class="content-right-container">
-                                              <div class="content-right">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="meta-date">
-                                              
-                                              <span class="month">SAMPLING</span>
-                                            </div>
-                                          </div>
-                                          <!-- // Article -->
-                                          
-                                          <!-- Article -->
-                                          <div class="timeline-article">
-                                            <div class="content-left-container">
-                                              <div class="content-left">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                            
-                                            </div>
-                                            <div class="content-right-container">
-                                              <div class="content-right">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="meta-date">
-                                              
-                                              <span class="month">SHIPMENT</span>
-                                            </div>
-                                          </div>
-                                          <!-- // Article -->
-
-
-                                          <!-- Article -->
-                                          <div class="timeline-article">
-                                            <div class="content-left-container">
-                                              <div class="content-left">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="content-right-container">
-                                              <div class="content-right">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="meta-date">
-                                              
-                                              <span class="month">CBC TESTING</span>
-                                            </div>
-                                          </div>
-                                          <!-- // Article -->
-
-
-                                          <!-- Article -->
-                                          <div class="timeline-article">
-                                            <div class="content-left-container">
-                                              <div class="content-left">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="content-right-container">
-                                              <div class="content-right">
-                                                <p> <span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="meta-date">
-                                              
-                                              <span class="month">SHIPMENT</span>
-                                            </div>
-                                          </div>
-                                          <!-- // Article -->
-
-
-                                          <!-- Article -->
-                                          <div class="timeline-article">
-                                            <div class="content-left-container">
-                                              <div class="content-left">
-                                                <p> <span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="content-right-container">
-                                              <div class="content-right">
-                                                <p><span class="article-number">02/10/1985 20:20</span></p>
-                                              </div>
-                                              
-                                            </div>
-                                            <div class="meta-date">
-                                              
-                                              <span class="month">CENTRAL LAB</span>
-                                            </div>
-                                          </div>
-                                          <!-- // Article -->
+                                      <li>
+                                        <time class="cbp_tmtime" datetime="2013-04-10 18:30"><span>{{anmsubjectProfileTrackingResponse?.dateofRegistration}}</span> <span>00:00</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-phone"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Registration</h2>
                                         </div>
-                                      
-                                      </section>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.samplingStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-11T12:04"><span>{{returnDate(anmsubjectProfileTrackingResponse?.sampleCollectionDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.sampleCollectionDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-screen"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Sampling</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.shipmentToTestingCHCStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-13 05:36"><span>{{returnDate(anmsubjectProfileTrackingResponse?.shipmentToTestingCHCDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.shipmentToTestingCHCDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-mail"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Shipment</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.cbcStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-15 13:15"><span>{{returnDate(anmsubjectProfileTrackingResponse?.cbcDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.cbcDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-phone"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>CBC Testing</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.shipmentToCentralLabStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectProfileTrackingResponse?.chcShipmentDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.chcShipmentDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Shipping</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.hplcTestStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectProfileTrackingResponse?.hplcTestedDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.hplcTestedDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Central Lab</h2>
+                                        </div>
+                                      </li>
+
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.pndTestStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectProfileTrackingResponse?.postPNDTCounsellingDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.postPNDTCounsellingDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>PNDT</h2>
+                                        </div>
+                                      </li>
+
+                                      <li [ngClass]="{'greyed': !anmsubjectProfileTrackingResponse?.mtpStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectProfileTrackingResponse?.mtpDateTime)}}</span> <span>{{returnTime(anmsubjectProfileTrackingResponse?.mtpDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>MTP</h2>
+                                        </div>
+                                      </li>
+                                    </ul>
+
+                                    <ul class="cbp_tmtimeline">
+                                      <li>
+                                        <time class="cbp_tmtime" datetime="2013-04-10 18:30"><span>{{anmsubjectSpouseProfileTrackingResponse?.dateofRegistration}}</span> <span>00:00</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-phone"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Registration</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.samplingStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-11T12:04"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.sampleCollectionDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.sampleCollectionDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-screen"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Sampling</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.shipmentToTestingCHCStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-13 05:36"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.shipmentToTestingCHCDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.shipmentToTestingCHCDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-mail"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Shipment</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.cbcStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-15 13:15"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.cbcDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.cbcDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-phone"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>CBC Testing</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.shipmentToCentralLabStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.chcShipmentDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.chcShipmentDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Shipping</h2>
+                                        </div>
+                                      </li>
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.hplcTestStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.hplcTestedDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.hplcTestedDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>Central Lab</h2>
+                                        </div>
+                                      </li>
+
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.pndTestStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.postPNDTCounsellingDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.postPNDTCounsellingDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>PNDT</h2>
+                                        </div>
+                                      </li>
+
+                                      <li [ngClass]="{'greyed': !anmsubjectSpouseProfileTrackingResponse?.mtpStatus}">
+                                        <time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>{{returnDate(anmsubjectSpouseProfileTrackingResponse?.mtpDateTime)}}</span> <span>{{returnTime(anmsubjectSpouseProfileTrackingResponse?.mtpDateTime)}}</span></time>
+                                        <div class="cbp_tmicon cbp_tmicon-earth"></div>
+                                        <div class="cbp_tmlabel">
+                                          <h2>MTP</h2>
+                                        </div>
+                                      </li>
+                                    </ul>
                                    
                                 </div>
                             </div>

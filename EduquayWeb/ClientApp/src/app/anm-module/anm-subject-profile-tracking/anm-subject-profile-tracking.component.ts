@@ -28,13 +28,12 @@ export class AnmSubjectProfileTrackingComponent implements OnInit {
   @ViewChildren('dobPicker') dobPicker;
     
   subjectProfileErrorMessage: string;
-  
-  subjectProfileRequest: SubjectProfileRequest;
-  anmsubjectProfileResponse: RetrieveSubjectProfileList;
-  addanmsubjectProfileRequest: AddSubjectprofileRequest;
-  addanmsubjectProfileResponse: AddSubjectProfileResponse;
+
   religionResponse: ReligionResponse;
   user: user;
+  anmsubjectProfileTrackingResponse;
+  anmsubjectSpouseProfileTrackingResponse;
+  uniqueSubjectId;
 
   /*Date Range configuration starts*/
   dateform: FormGroup;
@@ -44,122 +43,7 @@ export class AnmSubjectProfileTrackingComponent implements OnInit {
   anmSPFromDate: string ="";
   anmSPToDate: string = "";
   
-  religions: Religion[] = [];
-  selectedreligion = '';
-  govtIdTypeResponse: GovtIDTypeResponse;
-  govtIdTypes: GovIdType[] = [];
-  selectedgovtidtype = '';
-  casteResponse: CasteResponse;
-  castes: CasteList[] = [];
-  selectedcaste = '';
-  communityResponse: CommunityeResponse;
-  communities: CommunityList[] = [];
-  selectedcommunity = '';
-  basicInfo: PrimaryDetail;
-  socioDemographicInfo: AddressDetail;
-  parentInfo: ParentDetail;
-  personalInfo: PregnancyDetail;
-  prePndtCounselling: prePndtCounselling;
-  pndtTesting: pndtTesting;
-  postPndtCounselling: postPndtCounselling;
-  mtpService: mtpService;
-  subjectprofileLists: SubjectProfileList[]=[];
-  subjectprofileItem: SubjectProfileList;
-
-  searchsubjectid: string;
-  subjectId: string;
-  uniqueSubjectId: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  religionId: number;
-  religionName: string;
-  casteId: number;
-  casteName: string;
-  communityId: number;
-  communityName: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  stateName: string;
-  pincode: string;
-  districtName: string;
-  chcName: string;
-  phcName: string;
-  scName: string;
-  riSite: string;
-  dob: string;
-  age: number;
-  gender: string;
-  mobileNo: string;
-  emailId: string;
-  spouseSubjectId: string;
-  spouseFirstName: string;
-  spouseMiddleName: string;
-  spouseLastName: string;
-  spouseContactNo: string;
-  govIdTypeId: number;
-  govIdType: string;
-  govIdDetail: string;
-  rchId: string;
-  ecNumber: string;
-  lmpDate: string;
-  gestationalperiod: number;
-  g: number;
-  p: number;
-  l: number;
-  a: number;
-  motherFirstName: string;
-  motherMiddleName: string;
-  motherLastName: string;
-  motherContactNo: string;
-  fatherFirstName: string;
-  fatherMiddleName: string;
-  fatherLastName: string;
-  fatherContactNo: string;
-  gaurdianFirstName: string;
-  gaurdianMiddleName: string;
-  gaurdianLastName: string;
-  gaurdianContactNo: string;
-  rbskId: string;
-  schoolName: string;
-  schoolAddress1: string;
-  schoolAddress2: string;
-  schoolAddress3: string;
-  schoolPincode: string;
-  schoolCity: string;
-  schoolState: string;
-  standard: string;
-  section: string;
-  rollNo: string
-  barcodes: string;
-  Glists: number[];
-  selectedG: number = 0;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  firstFormCheck = false;
-  secondFormCheck = false;
-  selecteda = null;
-  selectedl = null;
-  selectedp = null;
-  selectedg = null;
-  Ldisabled = true;
-  Pdisabled = true;
-  Adisabled = true;
-  selecteddob;
-  selectedage;
-  createdSubjectId = "";
-  disableDatepicker = false;
-  ageValidate = false;
-  GPLADATA = [{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'},{id:'10',value:'10'}];
-  GPLAADATA = [{id:'0',value:'0'},{id:'1',value:'1'},{id:'2',value:'2'},{id:'3',value:'3'},{id:'4',value:'4'},{id:'5',value:'5'},{id:'6',value:'6'},{id:'7',value:'7'},{id:'8',value:'8'},{id:'9',value:'9'}];
-
-  startOptions1: FlatpickrOptions = {
-    mode: 'single',
-    dateFormat: 'd/m/Y',
-    defaultDate: new Date(Date.now()),
-    maxDate: new Date(Date.now()),
-  };
+  
 
   @HostListener('window:scroll')
   checkScroll() {
@@ -195,35 +79,41 @@ export class AnmSubjectProfileTrackingComponent implements OnInit {
   ngOnInit() {
 
     this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Profile", "page": "View Subject Profile"}));
-    this.loaderService.display(true);
+    //this.loaderService.display(true);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     console.log(this.SubjectProfileService.subjectProfileApi);
     this.activatedRoute.queryParams.subscribe(params => {
       this.uniqueSubjectId = params['q'];
       console.log(this.uniqueSubjectId);
-      this.anmSubjectProfile();
+      this.anmSubjectProfile(this.uniqueSubjectId,"AW");
     });
   }
 
-  anmSubjectProfile() {
+  anmSubjectProfile(subjectId,subject) {
 
     var   _obj = {
-      uniqueSubjectId: this.anmSubjectProfile()
+      uniqueSubjectId: subjectId
     }
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getTrackingANWSubject(_obj)
       .subscribe(response => {
         console.log(response);
-        this.anmsubjectProfileResponse = response;
+        if(subject === "AW")
+        {
+            this.anmsubjectProfileTrackingResponse = response['data'];
+            if(this.anmsubjectProfileTrackingResponse.spouseSubjectId != null)
+            {
+              this.anmSubjectProfile(this.anmsubjectProfileTrackingResponse.spouseSubjectId,"spouse");
+            }
+        }  
+        else
+        {
+          this.anmsubjectSpouseProfileTrackingResponse = response['data'];
+        }
+            
         this.loaderService.display(false);
-        if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
-          
-        }
         
-        else {
-          this.subjectProfileErrorMessage = response.message;
-        }
       },
         (err: HttpErrorResponse) => {
           this.subjectProfileErrorMessage = err.toString();
@@ -245,4 +135,14 @@ export class AnmSubjectProfileTrackingComponent implements OnInit {
         });
     }
   }  
+
+  returnDate(a)
+  {
+      return (a != "" && a != null)  ? a.split(' ')[0] : "";
+  }
+
+  returnTime(a)
+  {
+    return (a != "" && a != null) ?  a.split(' ')[1] : "";
+  }
 }
