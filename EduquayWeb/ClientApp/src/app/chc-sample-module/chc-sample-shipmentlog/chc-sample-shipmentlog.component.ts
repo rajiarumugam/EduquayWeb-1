@@ -12,6 +12,7 @@ import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import * as XLSX from 'xlsx'; 
+import { ExcelService } from 'src/app/shared/excel.service';
 
 @Component({
   selector: 'app-chc-sample-shipmentlog',
@@ -57,7 +58,8 @@ export class ChcSampleShipmentlogComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private dataservice: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private excelService:ExcelService
   ) { }
 
   ngOnInit() {
@@ -156,6 +158,14 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
       keyboard: false,
       ariaLabelledBy: 'modal-basic-title'
     });
+}
+
+exportAsXLSX():void {
+  this.excelService.exportAsExcelFile(this.shipmentList, 'sample');
+}
+printPdf()
+{
+  window.print();
 }
 
 exportexcel(): void 
