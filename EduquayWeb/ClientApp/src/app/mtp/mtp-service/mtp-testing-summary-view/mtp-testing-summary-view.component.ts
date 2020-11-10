@@ -22,4 +22,9 @@ export class MtpSummaryViewComponent implements OnInit {
 
   }
 
+  printPdf()
+  {
+    window.print();
+  }
+
 }

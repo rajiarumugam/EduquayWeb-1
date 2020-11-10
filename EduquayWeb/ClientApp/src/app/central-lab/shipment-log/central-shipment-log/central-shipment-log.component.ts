@@ -130,6 +130,11 @@ export class CentralCentralShipmentComponent implements OnInit {
     console.log(this.selectedShipmentLog );
     $('#fadeinModal').modal('show');
   }
+
+  // printPdf()
+  // {
+  //   window.print();
+  // }
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first      

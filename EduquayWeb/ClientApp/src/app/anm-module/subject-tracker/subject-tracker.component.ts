@@ -16,7 +16,7 @@ export class SubjectTrackerComponent implements OnInit {
   ngOnInit() {
   }
 
-  openchcSampleShipment(shippedChcSampleDetail){
+  openchcSampleShipment(){
     $('#fadeinModal').modal('show');
   
     // this.modalService.open(
