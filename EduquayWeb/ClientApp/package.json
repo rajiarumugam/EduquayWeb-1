@@ -47,6 +47,7 @@
     "ng2-file-upload": "^1.4.0",
     "ng2-flatpickr": "^9.0.0",
     "ngx-cookie-service": "^10.0.1",
+    "ngx-export-as": "^1.5.0",
     "ngx-print": "^1.2.0-beta.5",
     "oidc-client": "^1.10.1",
     "popper.js": "^1.16.1",
