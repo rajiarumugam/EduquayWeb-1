@@ -301,5 +301,8 @@
     "Married":"Married",
     "AgingofSample":"Aging of Sample (hours)",
     "MovetoExpiry": "Move to Expiry",
-    "ViewAndPrint":"ଦେଖନ୍ତୁ ଏବଂ ମୁଦ୍ରଣ"
+    "ViewAndPrint":"ଦେଖନ୍ତୁ ଏବଂ ମୁଦ୍ରଣ",
+    "Block":"Block",
+    "SrPathologistRemarks":"Sr. Pathologist Remarks",
+    "DiagnosisDateTime":"Diagnosis Date & Time"
 }

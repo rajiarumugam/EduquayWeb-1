@@ -437,6 +437,9 @@
 "Mother’sVitals(Pulse & BP)Stable":"Mother’s Vitals (Pulse & BP) Stable",
 "SSTPending": "SST Pending",
 "SubjectInfo": "Subject Info",
-"ViewAndPrint":"View & Print"
+"ViewAndPrint":"View & Print",
+"Block":"Block",
+"SrPathologistRemarks":"Sr. Pathologist Remarks",
+"DiagnosisDateTime":"Diagnosis Date & Time"
 
 }
