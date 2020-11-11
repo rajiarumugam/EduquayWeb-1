@@ -36,6 +36,7 @@
     "datatables.net-buttons": "^1.6.5",
     "datatables.net-buttons-dt": "^1.6.5",
     "datatables.net-dt": "^1.10.21",
+    "exceljs": "^4.2.0",
     "file-saver": "^2.0.2",
     "flatpickr": "^4.6.3",
     "jquery": "^3.5.1",

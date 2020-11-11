@@ -31,6 +31,7 @@ export class ChcSampleShipmentlogComponent implements OnInit {
   chcSampleShipmentLogErrorMessage: string;
   chcshipmentlogResponse: ChcSampleShipmentlogResponse;
   chcsampleshipmentLogInitResponse: any; 
+  rchIdValue: number;
 
   shipmentList: ChcSampleShipmentList[]=[];
   id: number;
@@ -147,6 +148,9 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
   this.testingCHC = shipment.testingCHC;
   this.contactNo = shipment.contactNo;
   this.sampleDetails = shipment.samplesDetail;
+  // shipment.samplesDetail.forEach(element => {
+  //  this.rchIdValue = +element.rchId;
+  // });
   this.fileName= shipment.shipmentId +'.xlsx';
 
   this.modalService.open(
@@ -160,9 +164,11 @@ openchcSampleShipment(shippedChcSampleDetail, shipment: ChcSampleShipmentList){
     });
 }
 
-exportAsXLSX():void {
-  this.excelService.exportAsExcelFile(this.shipmentList, 'sample');
-}
+
+
+// exportAsXLSX():void {
+//   this.excelService.exportAsExcelFile(this.shipmentList, 'sample');
+// }
 printPdf()
 {
   window.print();
