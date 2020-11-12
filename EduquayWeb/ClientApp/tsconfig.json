@@ -20,8 +20,12 @@
     "paths": {
       "@angular/*": [
         "../node_modules/@angular/*"
+      ],
+      "exceljs": [
+        "node_modules/exceljs/dist/exceljs.min"
       ]
     },
+    "skipLibCheck": true,
   //   "compilerOptions": {
   //     "experimentalDecorators": true,
   //     "allowJs": true
