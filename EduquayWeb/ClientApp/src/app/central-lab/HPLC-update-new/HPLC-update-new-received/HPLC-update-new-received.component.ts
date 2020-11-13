@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { HttpErrorResponse } from '@angular/common/http';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+declare var $: any 
 
 @Component({
   selector: 'app-HPLC-update-new-received',
@@ -23,8 +25,16 @@ export class HPLCReceivedNewComponent implements OnInit {
   errorSpouseMessage: string;
   sampleTimeOut = false;
   user;
-
+  firstFormGroup: FormGroup;
+  selectedHBA0;
+  selectedHbA2;
+  selectedsHbD;
+  selectedHbF;
+  selectedHbS;
+  secondFormCheck = false;
   chcReceiptsData: any[] = [];
+
+  selectedData;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -34,11 +44,18 @@ export class HPLCReceivedNewComponent implements OnInit {
     private DataService:DataService,
     private tokenService: TokenService, 
     private centralsampleService: centralsampleService,
+    private _formBuilder: FormBuilder
     ) { }
 
   ngOnInit() {
 
-   
+    this.firstFormGroup = this._formBuilder.group({
+      HbA0: ['', Validators.required],
+      HbA2: ['', Validators.required],
+      HbD: ['', Validators.required],
+      HbF: ['', Validators.required],
+      HbS: ['', Validators.required]
+   });
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     //this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Update CBC Results"}));
     this.dtOptions = {
@@ -91,11 +108,11 @@ export class HPLCReceivedNewComponent implements OnInit {
         console.log(data);
         console.log(type);
 
-  var _obj = {};
-  _obj["subjectId"] = data.subjectId;
-  _obj["userId"] = this.user.id;
-  _obj["centralLabId"] = this.user.centralLabId;
-  _obj["testId"] = data.testId;
+        var _obj = {};
+        _obj["subjectId"] = data.subjectId;
+        _obj["userId"] = this.user.id;
+        _obj["centralLabId"] = this.user.centralLabId;
+        _obj["testId"] = data.testId;
 
 
     
@@ -116,6 +133,34 @@ export class HPLCReceivedNewComponent implements OnInit {
   console.log(_obj);
     }
 
+    sampleSubmit()
+    {
+        this.secondFormCheck = true;
+
+        var _obj = {};
+        _obj["hbF"] = this.selectedHbF;
+        _obj["hbA0"] = this.selectedHBA0;
+        _obj["hbA2"] = this.selectedHbA2;
+        _obj["hbD"] = this.selectedsHbD;
+        _obj["hbS"] = this.selectedHbS;
+        _obj["userId"] = this.user.id;
+        _obj["testId"] = this.selectedData.testId;
+
+    
+  Swal.fire({
+    icon: 'success', title:  "HbA0: "+this.selectedHBA0+" HbA2: "+this.selectedHbA2+" HbD: "+this.selectedsHbD+" HbF: "+this.selectedHbF+" HbS: "+this.selectedHbS+" Do you want to Update?",
+    showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false
+  })
+    .then((result) => {
+      if (result.value) {
+       //this.postData(_obj);
+       this.updateData(_obj);
+      }
+      else {
+        console.log('hitting no');
+      }
+    });
+    }
     postData(_obj)
     {
 
@@ -127,6 +172,32 @@ export class HPLCReceivedNewComponent implements OnInit {
               text: _response.message,
               icon: 'success'
             }).then((result) => {
+              this.refreshdata();
+            });
+            
+        } else {
+          
+          this.errorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
+    }
+
+    updateData(_obj)
+    {
+
+      this.centralsampleService.updateHSBCtest(_obj)
+      .subscribe(response => {
+        var _response = response;
+        if (_response !== null && _response.status === "true") {
+            Swal.fire({ allowOutsideClick: false,
+              text: _response.message,
+              icon: 'success'
+            }).then((result) => {
+              $('#fadeinModal').modal('hide');
               this.refreshdata();
             });
             
@@ -153,6 +224,20 @@ export class HPLCReceivedNewComponent implements OnInit {
       (err: HttpErrorResponse) =>{
         console.log(err);
       });
+    }
+
+    hplcEdit(data,type)
+    {
+      console.log(data);
+      this.selectedData = data;
+     
+
+     this.selectedHBA0 = data.hbA0;
+     this.selectedHbA2 = data.hbA2;
+     this.selectedsHbD = data.hbD;
+     this.selectedHbF = data.hbF;
+     this.selectedHbS = data.hbS;
+      $('#fadeinModal').modal('show');
     }
     
     rerender(): void {

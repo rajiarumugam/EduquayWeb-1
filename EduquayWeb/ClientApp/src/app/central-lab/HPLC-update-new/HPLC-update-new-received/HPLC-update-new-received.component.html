@@ -30,8 +30,70 @@
             <td style="text-align: center;">{{ person.hbF }}</td>
             <td style="text-align: center;">{{ person.hbS }}</td>
             <td style="text-align: center;">{{ person.testedDate }}</td>
-            <td style="text-align: center;"><button class="button-cls" [ngClass]="{'rerun-btn-disabled': (person.testId == 0) ? true : false}" (click)="confirm(person,1);" [disabled]="(person.testId == 0) ? true : false">Confirm</button></td>
+            <td style="text-align: center;"><button class="button-cls" [ngClass]="{'rerun-btn-disabled': (person.testId == 0) ? true : false}" (click)="confirm(person,1);" [disabled]="(person.testId == 0) ? true : false">Confirm</button>
+            <button class="button-cls" [ngClass]="{'rerun-btn-disabled': (person.testId == 0) ? true : false}" (click)="hplcEdit(person,1);" [disabled]="(person.testId == 0) ? true : false" style="margin-left:5px;">Edit</button></td>
         </tr>
     </tbody>
 </table>
+</div>
+
+
+<div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ConfirmShipmentReceipt' | translate}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                       
+                            <div class="form-row my-2" [formGroup]="firstFormGroup">
+
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA0.invalid }">{{'HbA0' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbA0" [(ngModel)]="selectedHBA0" formControlName = "HbA0" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA0.invalid }">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">{{'HbA2' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbA2" [(ngModel)]="selectedHbA2" formControlName = "HbA2" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">{{'HbD' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbD" [(ngModel)]="selectedsHbD" formControlName = "HbD" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">{{'HbF' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbF" [(ngModel)]="selectedHbF" formControlName = "HbF" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbS.invalid }">{{'HbS' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbS" [(ngModel)]="selectedHbS" formControlName = "HbS" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbS.invalid }">
+                                </div>
+                            </div>
+                       
+                    </div>
+               
+                    <div class="row float-right">
+                        <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+ (click)="sampleSubmit();" name="linkto">{{'Update' | translate}}</button>
+                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
