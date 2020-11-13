@@ -246,6 +246,8 @@ import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-pro
 import { ViewCLReportComponent } from "./central-lab/view-report-sample/cl-view-report-sample/cl-view-report-sample.component";
 import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/cl-view-report-sample-main/cl-view-report-sample-main.component";
 import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
+
+import { CentralNotificationMainComponent } from "./central-lab/central-notification/central-notification-main/central-notification-main.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -325,6 +327,15 @@ const routes: Routes = [
         path: 'chcmodule-notification', component: CHCNotificationMainComponent,
         children:[
           {path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}},
+          {path: 'notiication-cbc-update', component: CBCCHCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCCBCupdateReceivedService}},
+          /*{path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}*/
+        ]
+      },
+      {
+        path: 'central-notification', component: CentralNotificationMainComponent,
+        children:[
+          {path: '', component: CentralSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleResolverService}},
+          {path: 'notification-hplc-update', component: HPLCReceivedNewComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCNewService}},
           {path: 'notiication-cbc-update', component: CBCCHCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCCBCupdateReceivedService}},
           /*{path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}*/
         ]
@@ -781,7 +792,8 @@ export const RoutingComponents = [
   AnmSubjectProfileTrackingComponent,
   ViewCLReportComponent,
   ViewReportCLMainMainComponent,
-  SubjectTrackerComponent
+  SubjectTrackerComponent,
+  CentralNotificationMainComponent
 
 ];
 
