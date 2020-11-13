@@ -229,3 +229,85 @@ export interface AddSubjectProfileResponse{
     message: string;
     uniqueSubjectId: string;
 }
+
+export interface trackingANWSubjectResponse{
+    status: string;
+    message: string;
+    data: ANMSubject;
+}
+
+export interface ANMSubject{
+    subjectId: string;
+    spouseSubjectId: string;
+    dateofRegistration: string;
+    samplingStatus: boolean;
+    barcodeNo: string;
+    sampleCollectionDateTime: string;
+    shipmentToTestingCHCStatus: boolean;
+    shipmentID: string;
+    shipmentToTestingCHCDateTime: string;
+    receivedAtTestingCHCStatus: boolean;
+    receivedAtTestingCHCDateTime: string;
+    cbcStatus: boolean;
+    cbcResult: string;
+    cbcDateTime: string;
+    sstStatus: boolean;
+    sstResult: string;
+    sstDateTime: string;
+    shipmentToCentralLabStatus: boolean;
+    chcShipmentID: string;
+    chcShipmentDateTime: string;
+    receivedAtCentralLabStatus: boolean;
+    receivedAtCentralLabDateTime: string;
+    hplcTestStatus: boolean;
+    hplcTestedDateTime: string;
+    hplcPathoTestStatus: boolean;
+    hplcResult: string;
+    hplcDiagnosisDateTime: string;
+    prePNDTCounsellingStatus: boolean;
+    prePNDTCounsellingDateTime: string;
+    pndTestStatus: boolean;
+    pndtStatus: string;
+    pndtDateTime: string;
+    postPNDTCounsellingStatus: boolean;
+    postPNDTCounsellingDateTime: string;
+    mtpStatus: boolean;
+    mtpDateTime: string;
+}
+
+export interface trackingSubjectResponse{
+    status: string;
+    message: string;
+    data: SubjectTrack;
+}
+
+export interface SubjectTrack{
+    subjectId: string;
+    spouseSubjectId: string;
+    dateofRegistration: string;
+    samplingStatus: boolean;
+    barcodeNo: string;
+    sampleCollectionDateTime: string;
+    shipmentToTestingCHCStatus: boolean;
+    shipmentID: string;
+    shipmentToTestingCHCDateTime: string;
+    receivedAtTestingCHCStatus: boolean;
+    receivedAtTestingCHCDateTime: string;
+    cbcStatus: boolean;
+    cbcResult: string;
+    cbcDateTime: string;
+    sstStatus: boolean;
+    sstResult: string;
+    sstDateTime: string;
+    shipmentToCentralLabStatus: boolean;
+    chcShipmentID: string;
+    chcShipmentDateTime: string;
+    receivedAtCentralLabStatus: boolean;
+    receivedAtCentralLabDateTime: string;
+    hplcTestStatus: boolean;
+    hplcTestedDateTime: string;
+    hplcPathoTestStatus: boolean;
+    hplcResult: string;
+    hplcDiagnosisDateTime: string;
+}
+

@@ -109,3 +109,13 @@ export class subjectParentRequest {
     updatedBy: number;
 }
 
+export class anmSubjectTrackerRequest {
+    uniqueSubjectId: string;
+}
+
+export class subjectTrackerRequest {
+    uniqueSubjectId: string;
+}
+
+
+

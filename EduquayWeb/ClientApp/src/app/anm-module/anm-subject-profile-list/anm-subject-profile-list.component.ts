@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { SubjectProfileRequest, ParticularSubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
-import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
+import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrackerRequest, subjectTrackerRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
+import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -13,6 +13,7 @@ import { user } from 'src/app/shared/auth-response';
 import { Router } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
+declare var $: any;
 
 @Component({
   selector: 'app-anm-subject-profile-list',
@@ -34,6 +35,13 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   subjectProfileRequest: SubjectProfileRequest;
   particularanmSubProfile: ParticularSubjectProfileRequest;
   anmsubjectProfileResponse: RetrieveSubjectProfileList;
+  trackingAnmSubjectTrackerRequest: anmSubjectTrackerRequest;
+  trackingAnmSubjectTrackerResponse: trackingANWSubjectResponse;
+  trackingSubjectRequest: subjectTrackerRequest;
+  trackingSubjectResponse: trackingSubjectResponse;
+  anmSubjectTrackerDetail: ANMSubject;
+  anmSubjectTrackerItem: ANMSubject;
+  subjectTrackerDetail: SubjectTrack;
 
   subjectprofileLists: SubjectProfileList[]=[];
   subjectprofileItem: SubjectProfileList;
@@ -68,6 +76,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     maxDate: new Date(Date.now())
   };
 
+  spouseSubjectIdValue: string;
   uniqueSubjectId: string;
   firstName: string;
   middleName: string;
@@ -243,7 +252,38 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
         });
    }
 
+  //  openpopup(index, subjectinfo: SubjectProfileList){
 
+  //   this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+  //   this.trackingAnmSubjectTrackerRequest = {
+  //     uniqueSubjectId: this.uniqueSubjectId
+  //   }
+
+  //   let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+  //     .subscribe(response => {
+  //       this.trackingAnmSubjectTrackerResponse = response;
+  //       this.loaderService.display(false);
+  //       if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+  //         // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+  //         //   this.subjectprofilelistErrorMessage = response.message;
+  //         // }
+  //         // else {
+  //           this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+  //           this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+  //           //this.rerender();
+  //         }
+  //       //}
+  //       else {
+  //         this.subjectprofilelistErrorMessage = response.message;
+  //       }
+  //     },
+  //       (err: HttpErrorResponse) => {
+  //         this.subjectprofilelistErrorMessage = err.toString();
+  //       });
+
+  //   $('#fadeinModal').modal('show');
+  
+  // }
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
     if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){

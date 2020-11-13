@@ -312,7 +312,7 @@ const routes: Routes = [
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
       { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
-      // { path: 'anm-subjecttracker', component: SubjectTrackerComponent},
+      { path: 'anm-subjecttracker', component: SubjectTrackerComponent},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,

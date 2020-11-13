@@ -114,6 +114,7 @@
                                         <th><span>{{'SubjectRegDate' | translate }}</span></th>
                                         <th><span>{{'RegisterBy' | translate }}</span></th>
                                         <th><span >{{'View' | translate }}</span></th>
+                                        <!-- <th><span >{{'Tracker' | translate }}</span></th> -->
                                       </tr>
 
                                 </thead>
@@ -131,9 +132,8 @@
                                         <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
-                                        <!-- <td style="text-align: center"><a *ngIf="subjectinfo.primaryDetail.registeredFrom === 'CHC'" 
-                                            (click)="anmchcsubjectprofile.chcSubjectProfiledata()">
-                                            <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i>
+                                        <!-- <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                                            <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
                                          </a></td> -->
                                     </tr>
 
@@ -142,6 +142,8 @@
                         </div>
                     </div>
                 </div>
+
+               
             </div>
           
 
