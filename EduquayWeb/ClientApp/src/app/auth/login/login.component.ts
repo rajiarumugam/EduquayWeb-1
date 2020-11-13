@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           else if(this.authResult.userDetail.userRole === "CHCLTLEVEL2")
               this.router.navigate(['/app/chc-sample'], { relativeTo: this.route });
           else  if(this.authResult.userDetail.userRole === "HPLCLT")
-              this.router.navigate(['/app/centrallab'], { relativeTo: this.route });
+              this.router.navigate(['/app/central-notification'], { relativeTo: this.route });
           else  if(this.authResult.userDetail.userRole === "PATHO")
               this.router.navigate(['/app/pathologist-hplc/abnormal'], { relativeTo: this.route });
           else  if(this.authResult.userDetail.userRole === "MOLECULARLT")

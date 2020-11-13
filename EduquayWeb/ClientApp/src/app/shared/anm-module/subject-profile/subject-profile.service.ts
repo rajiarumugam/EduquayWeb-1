@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
-import { SubjectProfileResponse, ReligionResponse, GovtIDTypeResponse, CasteResponse, CommunityeResponse, RetrieveSubjectProfileList, AddSubjectProfileResponse } from './subject-profile-response';
-import { SubjectProfileRequest, ParticularSubjectProfileRequest, AddSubjectprofileRequest } from './subject-profile-request';
+import { SubjectProfileResponse, ReligionResponse, GovtIDTypeResponse, CasteResponse, CommunityeResponse, RetrieveSubjectProfileList, AddSubjectProfileResponse, trackingANWSubjectResponse } from './subject-profile-response';
+import { SubjectProfileRequest, ParticularSubjectProfileRequest, AddSubjectprofileRequest, anmSubjectTrackerRequest } from './subject-profile-request';
 import { TokenService } from '../../token.service';
 
 
@@ -23,6 +23,7 @@ export class SubjectProfileService {
   anmparticularSubProfile: string = "api/v1/Subject/RetrieveParticularSubjectList";
   addSubjectProfileApi: string = "api/v1/Subject/Add";
   trackingANWSubject:string = "api/v1/Reports/TrackingANWSubject";
+  trackingSubject: string = "api/v1/Reports/TrackingSubject"
 
   userId: number;
 
@@ -78,9 +79,9 @@ export class SubjectProfileService {
     return this.http.post<AddSubjectProfileResponse>({url: apiUrl, body: chcaddsubProfile});
   }
 
-  getTrackingANWSubject(data){
+  getTrackingANWSubject(anwTracker: anmSubjectTrackerRequest){
     let apiUrl = this.genericService.buildApiUrl(this.trackingANWSubject);
-    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: data});
+    return this.http.post<trackingANWSubjectResponse>({url: apiUrl, body: anwTracker});
   }
 
 }

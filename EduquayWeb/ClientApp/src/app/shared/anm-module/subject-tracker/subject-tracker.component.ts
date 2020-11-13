@@ -19,6 +19,16 @@ export class SubjectTrackerComponent implements OnInit {
   openpopup(){
     $('#fadeinModal').modal('show');
   
+    // this.modalService.open(
+    //   shippedChcSampleDetail,{
+    //     centered: true,
+    //     size: 'xl',
+    //     //windowClass: 'modal-xl',
+    //     scrollable: true,
+    //     backdrop:'static',
+    //     keyboard: false,
+    //     ariaLabelledBy: 'modal-basic-title'
+    //   });
   }
 
 }
