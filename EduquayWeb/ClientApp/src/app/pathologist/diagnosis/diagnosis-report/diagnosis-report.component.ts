@@ -350,7 +350,7 @@ export class DiagosisReportComponent implements OnInit {
         _obj['barcodeNo'] = this.diagnosisReportData.barcodeNo ;
         _obj['centralLabId'] = this.user.centralLabId ;
         _obj['hplcTestResultId'] = this.diagnosisReportData.hplcTestResultId;
-        _obj['clinicalDiagnosisId'] = _tempComplectionData;
+        _obj['clinicalDiagnosisId'] = ""+_tempComplectionData;
         _obj['hplcResultMasterId'] = ""+this.tempHPLCmasterChecked;
         _obj['isNormal'] = this.FormGroup.get('swapcase').value === "normal" ? true : false;
         _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value != undefined ? this.FormGroup.get('diagnosticSummary').value : ""; 

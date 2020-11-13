@@ -30,6 +30,7 @@ export class CentralNotificationMainComponent implements OnInit {
   ngOnInit() {
 
     this.refreshData();
+    this.DataService.sendData(JSON.stringify({"module": "Central Lab", "page": "Notification"}));
     this.router.events
     .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
     .subscribe((events: RoutesRecognized[]) => {
