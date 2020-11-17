@@ -139,69 +139,37 @@
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
-                                                <!-- <th class="text-center"><span>Barcodes</span></th> -->
-                                                <th class="text-center"><span>{{'CBC' | translate}}</span></th>
-                                                <th class="text-center"><span>{{'SST' | translate}}</span></th>
-                                                <th class="text-center"><span>{{'HPLC' | translate}}</span></th>
-
-                                            </tr>
-
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-left">{{counselledYesdataItem?.subjectName}}, F</td>
-                                                <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                <td class="text-left">{{counselledYesdataItem?.anwCBCTestResult}}</td>
-                                                <td class="text-left">{{counselledYesdataItem?.anwSSTestResult}}</td>
-                                                <td class="text-left">{{counselledYesdataItem?.anwHPLCTestResult}}</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left">{{counselledYesdataItem?.spouseName}}, M</td>
-                                                <!-- <td class="text-center"><b>3423422</b>|3423434|3423442</td> -->
-                                                <td class="text-left">{{counselledYesdataItem?.spouseCBCTestResult}}</td>
-                                                <td class="text-left">{{counselledYesdataItem?.spouseSSTestResult}}</td>
-                                                <td class="text-left">{{counselledYesdataItem?.spouseHPLCTestResult}}</td>
-
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
                                     <thead> 
                                         <tr>
                                             <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                            <th class="text-center"><span>{{'SSTResults' | translate}}</span></th>
                                             <th class="text-left"><span>{{'CBCResults' | translate}}</span></th>
                                             <th class="text-center"><span>{{'MCV' | translate}}</span></th>                                             
                                             <th class="text-center"><span>{{'RDW' | translate}}</span></th>
                                             <th class="text-center"><span>{{'RBC' | translate}}</span></th>
+                                            
                                             <!-- <th class="text-left"><span>Diagnosis</span></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="text-left">{{counselledYesdataItem?.subjectName}}, F</td>
+                                            <td class="text-left">{{counselledYesdataItem?.anwSSTestResult}}</td>
                                             <td class="text-left">{{counselledYesdataItem?.anwCBCTestResult}}</td>
                                             <td class="text-center sp-xs-th">{{counselledYesdataItem?.anwMCV}}</td>                                                                                          
                                             <td class="text-center">{{counselledYesdataItem?.anwRDW}}</td>
                                             <td class="text-center">{{counselledYesdataItem?.anwRBC}}</td>
+                                            
                                             <!-- <td class="text-left"></td> -->
                                         </tr>
                                         <tr>
                                             <td class="text-left">{{counselledYesdataItem?.spouseName}}, M</td>
+                                            <td class="text-left">{{counselledYesdataItem?.spouseSSTestResult}}</td>
                                             <td class="text-left">{{counselledYesdataItem?.spouseCBCTestResult}}</td>
                                             <td class="text-center sp-xs-th">{{counselledYesdataItem?.spouseMCV}}</td>                                                                                          
                                             <td class="text-center">{{counselledYesdataItem?.spouseRDW}}</td>
                                             <td class="text-center">{{counselledYesdataItem?.spouseRBC}}</td>
+                                            
                                             <!-- <td class="text-left"></td> -->
                                         </tr>
                                     </tbody> 
@@ -221,6 +189,9 @@
                                             <tr>
                                                 <th rowspan="2" class="nt-border-right text-center"><span>{{'SubjectInfo' | translate}}</span></th>
                                                 <th colspan="5" class="nt-border-right text-center"><b>{{'HPLCParameters' | translate}}</b></th>
+                                                <th rowspan="2" class="nt-border-right text-center"><span>{{'HPLCResults' | translate}}</span></th>
+                                                <!-- <th rowspan="2" class="nt-border-right text-center"><span>{{'LabDiagnosis' | translate}}</span></th>
+                                                <th rowspan="2" class="nt-border-right text-center"><span>{{'PathologistRemarks' | translate}}</span></th> -->
                                                
                                             </tr>
                                             <tr class="combined">
@@ -235,24 +206,28 @@
                                         <tbody>
                                             
                                             <tr>
-                                                <td class="text-left">{{counselledYesdataItem?.subjectName}}, F</td>
-                                                
+                                                <td class="text-left">{{counselledYesdataItem?.subjectName}}, F</td>                                
                                                 <td class="text-center">{{counselledYesdataItem?.anwHbA0}}</td>
                                                 <td class="text-center">{{counselledYesdataItem?.anwHbA2}}</td>
                                                 <!--<td class="text-center">{{counselledYesdataItem?.hbC}}</td>-->
                                                 <td class="text-center">{{counselledYesdataItem?.anwHbD}}</td>
                                                 <td class="text-center">{{counselledYesdataItem?.anwHbF}}</td>
                                                 <td class="text-center">{{counselledYesdataItem?.anwHbS}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwHPLCTestResult}}</td>
+                                                <!-- <td class="text-left">{{counselledYesdataItem?.anwHPLCDiagnosis}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwHPLCDiagnosis}}</td> -->
                                             </tr>
                                             <tr>
-                                                <td class="text-left">{{counselledYesdataItem?.spouseName}}, M</td>
-                                                
+                                                <td class="text-left">{{counselledYesdataItem?.spouseName}}, M</td>                                        
                                                 <td class="text-center">{{counselledYesdataItem?.spouseHbA0}}</td>
                                                 <td class="text-center">{{counselledYesdataItem?.spouseHbA2}}</td>
                                                 <!--<td class="text-center">{{counselledYesdataItem?.hbC}}</td>-->
                                                 <td class="text-center">{{counselledYesdataItem?.spouseHbD}}</td>
                                                 <td class="text-center">{{counselledYesdataItem?.spouseHbF}}</td>
                                                 <td class="text-center">{{counselledYesdataItem?.spouseHbS}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.spouseHPLCTestResult}}</td>
+                                                <!-- <td class="text-left">{{counselledYesdataItem?.spouseHPLCDiagnosis}}</td>
+                                                <td class="text-left">{{counselledYesdataItem?.anwHPLCDiagnosis}}</td> -->
                                             </tr>
                                     </table>
                                 </div>

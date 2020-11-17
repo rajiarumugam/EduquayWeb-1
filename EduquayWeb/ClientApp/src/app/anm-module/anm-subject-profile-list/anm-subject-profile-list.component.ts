@@ -41,7 +41,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   trackingSubjectResponse: trackingSubjectResponse;
   anmSubjectTrackerDetail: ANMSubject;
   anmSubjectTrackerItem: ANMSubject;
-  subjectTrackerDetail: SubjectTrack;
+  subjectTrackerItem: SubjectTrack;
 
   subjectprofileLists: SubjectProfileList[]=[];
   subjectprofileItem: SubjectProfileList;
@@ -76,7 +76,9 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     maxDate: new Date(Date.now())
   };
 
+  
   spouseSubjectIdValue: string;
+  spouseSamplingStatus: boolean;
   uniqueSubjectId: string;
   firstName: string;
   middleName: string;
@@ -114,6 +116,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   ecNumber: string;
   lmpDate: string;
   gestationalperiod: number;
+  childSubjectTypeId: number;
   g: number;
   p: number;
   l: number;
@@ -252,38 +255,136 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
         });
    }
 
-  //  openpopup(index, subjectinfo: SubjectProfileList){
+   openpopup(index, subjectinfo: SubjectProfileList){
 
-  //   this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
-  //   this.trackingAnmSubjectTrackerRequest = {
-  //     uniqueSubjectId: this.uniqueSubjectId
-  //   }
+    this.childSubjectTypeId = subjectinfo.primaryDetail.childSubjectTypeId;
+    this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+    this.firstName = subjectinfo.primaryDetail.firstName;
+    this.lastName = subjectinfo.primaryDetail.lastName;
+    this.gender = subjectinfo.primaryDetail.gender;
+    this.age = subjectinfo.primaryDetail.age;
+    this.rchId = subjectinfo.pregnancyDetail.rchId;
+    this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+    this.spouseFirstName = subjectinfo.primaryDetail.spouseFirstName;
+    this.spouseLastName = subjectinfo.primaryDetail.spouseLastName;
 
-  //   let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
-  //     .subscribe(response => {
-  //       this.trackingAnmSubjectTrackerResponse = response;
-  //       this.loaderService.display(false);
-  //       if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
-  //         // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
-  //         //   this.subjectprofilelistErrorMessage = response.message;
-  //         // }
-  //         // else {
-  //           this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
-  //           this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
-  //           //this.rerender();
-  //         }
-  //       //}
-  //       else {
-  //         this.subjectprofilelistErrorMessage = response.message;
-  //       }
-  //     },
-  //       (err: HttpErrorResponse) => {
-  //         this.subjectprofilelistErrorMessage = err.toString();
-  //       });
+    if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId === ''){
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
 
-  //   $('#fadeinModal').modal('show');
+    let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+        if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+          //   this.subjectprofilelistErrorMessage = response.message;
+          // }
+          // else {
+            this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+            this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+            //this.rerender();
+          }
+        //}
+        else {
+          this.subjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
+
+
+    }
+    else if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== null){
+    this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+    this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+
+    this.trackingSubjectRequest = {
+      uniqueSubjectId: this.spouseSubjectId
+    }
+    this.trackingAnmSubjectTrackerRequest = {
+      uniqueSubjectId: this.uniqueSubjectId
+    }
+    let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+    let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+        this.trackingSubjectResponse = response;
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+        if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+          //   this.subjectprofilelistErrorMessage = response.message;
+          // }
+          // else {
+            this.subjectTrackerItem = this.trackingSubjectResponse.data;
+            this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+            if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+              this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+
+            }
+            else{
+              this.subjectprofilelistErrorMessage = response.message;
+            }
+          }
+        //}
+        else {
+          this.subjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
+
+
+    }
+    else if(subjectinfo.primaryDetail.childSubjectTypeId === 2){
+      this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
   
-  // }
+      this.trackingSubjectRequest = {
+        uniqueSubjectId: this.spouseSubjectId
+      }
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+      let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+  
+              }
+              else{
+                this.subjectprofilelistErrorMessage = response.message;
+              }
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+        $('#fadeinModal').modal('show');
+  
+  }
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
     if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
