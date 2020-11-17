@@ -397,3 +397,12 @@
   {
       margin:0 !important;
   }
+  
+  div.b {
+    width: 84px;
+    height: 57px;
+    /* background-color: yellow; */
+    transform: rotate(-51deg);
+    -ms-transform: rotate(51deg); /* IE 9 */
+    
+  }

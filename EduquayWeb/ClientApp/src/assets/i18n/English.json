@@ -440,6 +440,7 @@
 "ViewAndPrint":"View & Print",
 "Block":"Block",
 "SrPathologistRemarks":"Sr. Pathologist Remarks",
-"DiagnosisDateTime":"Diagnosis Date & Time"
+"DiagnosisDateTime":"Diagnosis Date & Time",
+"UpdateMolecularResults": "Update Molecular Results"
 
 }
