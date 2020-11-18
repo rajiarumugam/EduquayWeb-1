@@ -114,7 +114,7 @@
                                         <th><span>{{'SubjectRegDate' | translate }}</span></th>
                                         <th><span>{{'RegisterBy' | translate }}</span></th>
                                         <th><span >{{'View' | translate }}</span></th>
-                                        <!-- <th><span >{{'Tracker' | translate }}</span></th> -->
+                                        <th><span >{{'Tracker' | translate }}</span></th>
                                       </tr>
 
                                 </thead>
@@ -132,9 +132,9 @@
                                         <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
-                                        <!-- <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                                        <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
                                             <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
-                                         </a></td> -->
+                                         </a></td>
                                     </tr>
 
                                 </tbody>
@@ -142,7 +142,375 @@
                         </div>
                     </div>
                 </div>
+                 <!---Tracker Popup-->
+                 <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">Subject Tracker</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="feather feather-x">
+                                     <line x1="18" y1="6" x2="6" y2="18"></line>
+                                     <line x1="6" y1="6" x2="18" y2="18"></line>
+                                 </svg>
+                             </button>
+                         </div>
+                         <div class="modal-body" style="overflow-x: scroll;">
+                            <div class="row mb-4" *ngIf="childSubjectTypeId === 1">
+                                <div class="col-md-4">
+                                    <h5><b>{{'SubjectID' | translate }} :</b> {{uniqueSubjectId}}</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{firstName}} {{lastName}}, {{gender | slice:0:1}}, {{age}} yrs</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                        {{rchId}}</h5>
+                                </div>
+                            </div>
+                            <div class="row mb-4" *ngIf="childSubjectTypeId === 2">
+                                <div class="col-md-4">
+                                    <h5><b>{{'SubjectID' | translate }} :</b> {{uniqueSubjectId}}</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5><strong>{{'SubjectName' | translate }} :</strong> {{firstName}} {{lastName}}</h5>
+                                </div>
+                              
+                            </div>
+                             <div class="col-lg-12 mt-3">
+                                 <div class="main-box no-header clearfix"> 
+                                     <!-- <div class="d-flex flex-row mt-3">
+                                        <div></div>
+                                        <div class="b">Date: {{anmSubjectTrackerItem?.dateofRegistration}}</div>
+                                        <div class="b">Hello World!</div>
+                                        <div class="b">Hello World!</div>
+                                        <div class="b">Hello World!</div>
+                                        <div class="b">Hello World!</div>
+                                     </div>                                   -->
+                                     <div class="d-flex flex-row">
+                                         <div>
+                                             <div class="d-flex flex-column">
+                                                 
+                                                 <div>
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRldyV1lr6X3UgB1nlGB3qrKIZ-NUELxLW4ZiAo6J6KWCdCfo44ELm3aZnmv-Ru7-QzcG6JNFK7tZvn/pub?w=40&h=100">
+                                                 </div>
+                                                 <div class="mt-5">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTtZnEx92wBVTNPMqZqW-Ebd0TOwjnLXWJrSWJpcDAfi5Uw-AJuXzqeJw4WcQVFoE29tmuELyca5WlD/pub?w=40&h=100">
+                                                 </div>
+                                                 
+                                             </div>
+                                         </div>
+                                         <div>
+                                             <!--Registration-->
+                                             <div class="d-flex flex-column">
+                                                 
+                                                 <div>                                                    
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div>
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vQRDXv4V8QXbN-HwxemLDKNGUhvBiJk-VkUilHADQGFy9tzfqtQvl-h4S520WuIqfIgAzxbALXuKY2q/pub?w=110&h=50">
+                                                 </div>
+                                                 <!-- <div>
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSufuL4VZvu_kqwnwGl18yHAxeDha1nRO12PCkLx2HBH5y-Uy_54GykkNKFTLXSHmdo1T0ViWBPyLIy/pub?w=110&h=50">
+                                                 </div> -->
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null) || (subjectTrackerItem?.spouseSubjectId !== null  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--Collection-->
+                                             <div class="d-flex flex-column">
+                                                
 
+                                                 <div *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.samplingStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vQbnx4R05rV_9UBaI0JoPzoOn1N03tNwTJDanUqwadXbqroX36NHs1Dj0umy7Vzb2f-cQScq1Yev7Uk/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.samplingStatus === false">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vRS_HMagMdc8ducXJ6DyTu5tbzu1A_6iColOBXMAd2U4zNX6zOB5-zVNQlMyBkWaj93cwzOVc4dClqK/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true) 
+                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") 
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--ShipmentT.chc-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSZ6sNJz7bg-B0WgcMt_bXycU6QHcNw4-2NHbEthFH-4TqUpvCfBrSYWkVrmTtu3pflMj5tqPzOxSCu/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === false">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vRjTmUPlRxDdfWTafxdpXUf30iyN1uwbhLltmYyOCbHKRLvtIg_N41qhR-Ud07MMYdEatAxUGvBteqN/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true)
+                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--ReceivedT.chc-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vRa2UZgRgUhIksJPF2_HRTN_h9V2Dq4oZw_32Q7wnHErcEDuHwGCmZK3M9G6ol4hzmHK9ZB-xtbQfG2/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vS-ue0x75nspbNiPhzsJSH-mReFdHpcpV2EzZbWp4r3wcVODUxQx-urfKMhZ0NY-GlKXgk2lvaI4tU-/pub?w=110&h=50">
+                                                 </div>
+                                                <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true)
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--cbc/sst-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.cbcStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.cbcStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.sstStatus === false">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTL5xb-tAH8Y8uuoNLwS8F4XV2-y9f8cSbTiKs3ImxTP3bamieh_8yrqW6OJ3HaU-VsOPrnwVbqjE-l/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.cbcStatus === false">
+                                                    <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTiJ2iweEtIT5ebcOqXE4-T1hX9Rjl8SEjE8hrfMxD6oeYl-gBPDLulOX2BhsQR3-mje-4uN8JRABtA/pub?w=110&h=50">
+                                                </div>
+                                                <div *ngIf="anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.cbcStatus === true">
+                                                    <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTWqIpIVGByRFg1UkWVBYWVjRGmWV436MxnUUv7cyhvnlfvBI9S8Fjv9lNxYOhVhRTXeQknftZJLm60/pub?w=110&h=50">
+                                                </div>
+                                                 <div *ngIf="(anmSubjectTrackerItem?.cbcStatus === false && anmSubjectTrackerItem?.sstStatus === false) || (subjectTrackerItem?.cbcStatus === false && subjectTrackerItem?.sstStatus === false   && childSubjectTypeId === 2)">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ8_Pa1tNCG4vlTo9mVgPOeZ4e1GHbyqLDoYS2DcYqBvonLxCSjQGUyLjOCUdF8fSsPr0oddyiGC87o/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === true)
+                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--ShipmentC.lab-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTUWq3jBz1tJdGIxkBDdTZe-MygDucMQ96xKsWFA87C4zoCSJwvYRIaTn5kYFyYGK7Mir9VajWxq87r/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vSBESC7hZkuH1EYFvDa6oIMXZx3pM7A2DoB9Sxkql6zNMsnZYlwNy7dVZoisoA4WMlJdgS03iu5W9YA/pub?w=110&h=50">
+                                                 </div>
+ 
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true)
+                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                             </div> 
+                                             
+                                         </div>
+                                         <div>   
+                                             <!--receivedC.lab-->                       
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vRIBcqUC_MVbRM1Ka_Naf2DD3D2kpW9kY7H16QoMv8JFZDB3zWvxBLN_pb3bGVbyq9l1xLtAp7YFTDG/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTWj0r3iP-75_5UkD3_hcMFdxpajq22OoW66vOmLt27rbJ0t6-qLlb9tohRvlZnod9KXG0ho9XOq88z/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true)
+                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--PathoSubjectstatus-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vT73cpEp1o6H5WdSelZ7e9fl0BUfmhPLbtifxdsv2yZ4M-jhpeMkvv2U5bcK66kYV6q16SA-o8POO2k/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTkGXY24JmvmjrXp7C5L9ab2XjARaXFcarlfFkGsayFPWuh6jxsTpz4ZuJA-AMttiIxWIM_fUfcZfXL/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true)
+                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true  && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                </div>
+                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === false  && childSubjectTypeId === 2)'>
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                </div>
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--Pre-PNDTC-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vStSjTAMZEly9oCJCeO1Mtm8jiLisO2utsg5EVsJy9srXSfCHwxEwbcYA6yUv95X4m4VFvQrVq3ZCEc/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRtQaH-7Gk_VLwLX99UOTTQEltIqNxRan7pENrUEItqTkrcKKHHAvuba5hLIHTuRmcPBsTLS791qpfp/pub?w=110&h=50">
+                                                 </div>
+                                                 <!-- <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true"> 
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
+                                                 </div> -->
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <!--PNDT-->
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSGt_CHr4Qcsx-QKMpiajOdn7er2p8trxJunib21d6L-VBYVo_Dam2gE1OtIm5B_MWJ1rCnN4klH5T9/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === false">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSGt_CHr4Qcsx-QKMpiajOdn7er2p8trxJunib21d6L-VBYVo_Dam2gE1OtIm5B_MWJ1rCnN4klH5T9/pub?w=110&h=50">
+                                                 </div>
+                                                
+                                                
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === true">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vQO2DNJuQMApsJPqa1-EEcWCSLFM99tOUqVnD0H7AoDbEFgk0RShVNNs5KIDU55_jZRtoiI2kudZxFs/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === false">
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSzu7wgF2m1nohBglxwAuenWjlE8Y7Hh10WscEOUneOylgScy27YBonY8y6zBBK1R6QqSBzRAoeVIFm/pub?w=110&h=50">
+                                                 </div>
+                                                
+                                             </div>
+                                             
+                                         </div>
+                                         <div>
+                                             <div class="d-flex flex-column">
+                                                 <div *ngIf="anmSubjectTrackerItem?.mtpStatus === true">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.mtpStatus === false">
+                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.mtpStatus === true"> 
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTEUkrCB7FK7_l8NlLjEfFh0FG74mwbWBO3n_zmlA7lmaUBfSDxjAdeGw2uI8xlH7ZV_u-Yt8l9zqQd/pub?w=110&h=50">
+                                                 </div>
+                                                 <div *ngIf="anmSubjectTrackerItem?.mtpStatus === false"> 
+                                                     <img  src="https://docs.google.com/drawings/d/e/2PACX-1vQLueRsoFvh6rsX1xhKBz7lW9Nb7r7J_tRkQrNavJifdBGvQvU5mEGWEcn795SMn27ucwEXNLrrsj_k/pub?w=110&h=50">
+                                                 </div>
+                                             </div>
+                                             
+                                         </div>
+                                     </div>    
+                                     <div class="row float-right">
+                                       
+                                         <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 </div>
                 
                  
             
