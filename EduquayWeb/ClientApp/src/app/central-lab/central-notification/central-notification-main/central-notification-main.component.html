@@ -25,7 +25,7 @@
             <!-- <h5 class="float-left">Sample Collection</h5> -->
             <div class="col-md-4">
               <div class="headertit">
-                <h5 class="float-center">Central Lab Notification</h5>
+                <h5 class="float-center">{{'CentralLabNotification' | translate }}</h5>
               </div>
             </div>
             <div class="col-md-4">
@@ -42,20 +42,20 @@
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'central-notification' ? true : false}" id="damagedsample-tab" data-toggle="tab"
                    [routerLink]="['/app/central-notification']" role="tab" aria-controls="home"
                    aria-selected="true">
-                   Sample Receipt<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
+                   {{'SampleReceipt' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{receivedSampleCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'notification-hplc-update' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/central-notification/notification-hplc-update']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Update HPLC Results<span class="badge badge-pill badge-warning shadow ml-1">{{CBCCount}}</span>
+                   {{'UpdateHPLCResults' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{CBCCount}}</span>
                 </a>
               </li>
              
               <li class="nav-item">
                 <a class="nav-link" [ngClass]="{'active': currentPage == 'negative' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/central-pickpack']"
                    role="tab" aria-controls="profile" aria-selected="false">
-                   Pick & Pack<span class="badge badge-pill badge-warning shadow ml-1">{{pickandPackCount}}</span>
+                   {{'Pick&Pack' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{pickandPackCount}}</span>
                 </a>
               </li>
             </ul>
