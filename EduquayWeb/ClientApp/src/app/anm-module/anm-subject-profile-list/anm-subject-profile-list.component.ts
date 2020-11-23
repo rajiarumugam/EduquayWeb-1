@@ -122,6 +122,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   l: number;
   a: number;
   barcodes: string;
+  ga: number;
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -263,7 +264,9 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     this.lastName = subjectinfo.primaryDetail.lastName;
     this.gender = subjectinfo.primaryDetail.gender;
     this.age = subjectinfo.primaryDetail.age;
-    this.rchId = subjectinfo.pregnancyDetail.rchId;
+    this.barcodes = subjectinfo.pregnancyDetail.barcodes;
+    this.lmpDate = subjectinfo.pregnancyDetail.lmpDate;
+    this.ga = subjectinfo.pregnancyDetail.gestationalperiod
     this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
     this.spouseFirstName = subjectinfo.primaryDetail.spouseFirstName;
     this.spouseLastName = subjectinfo.primaryDetail.spouseLastName;
@@ -345,10 +348,10 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
       this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
   
       this.trackingSubjectRequest = {
-        uniqueSubjectId: this.spouseSubjectId
+        uniqueSubjectId: this.uniqueSubjectId
       }
       this.trackingAnmSubjectTrackerRequest = {
-        uniqueSubjectId: this.uniqueSubjectId
+        uniqueSubjectId: this.spouseSubjectId
       }
       let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
       let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
