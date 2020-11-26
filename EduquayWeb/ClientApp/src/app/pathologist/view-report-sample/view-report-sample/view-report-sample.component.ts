@@ -45,6 +45,7 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
   settings = {};
   selectedcomplicationsItems = [];
   selectedanyOtherComplications = false;
+  currentDate;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -69,7 +70,7 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
    }
 
   ngOnInit() {
-    
+    this.currentDate = moment(new Date()).format("DD-MM-YYYY");
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.DataService.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Diagnosis"}));
    this.testResultGroup = this._formBuilder.group({
