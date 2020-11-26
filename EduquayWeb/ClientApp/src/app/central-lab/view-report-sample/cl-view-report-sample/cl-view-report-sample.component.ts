@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
+import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 
 @Component({
   selector: 'app-cl-view-report-sample',
@@ -31,6 +32,7 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
   ordersData = [];
   user;
   diagnosisReportResponse;
+  secondFormCheck = false;
 
   selectedDiagnosis = null;
   firstFormCheck = false;
@@ -41,6 +43,14 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
   SelecteddiagnosticSummary = "";
   selectedpathologistName = "";
   selectedOthers;
+  selectedData;
+  selectedHBA0;
+  selectedHbA2;
+  selectedsHbD;
+  selectedHbF;
+  selectedHbS;
+  firstFormGroup: FormGroup;
+  errorMessage;
 
   settings = {};
   selectedcomplicationsItems = [];
@@ -63,13 +73,19 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private centralsampleService: centralsampleService) {
 
    
    }
 
   ngOnInit() {
-    
+    this.firstFormGroup = this._formBuilder.group({
+      HbA0: ['', Validators.required],
+      HbA2: ['', Validators.required],
+      HbD: ['', Validators.required],
+      HbF: ['', Validators.required],
+      HbS: ['', Validators.required]
+   });
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.DataService.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Diagnosis"}));
    this.testResultGroup = this._formBuilder.group({
@@ -439,10 +455,112 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
     public onDeSelectAll(items: any) {
       
     }
+    hplcEdit(data,type)
+    {
+      console.log(data);
+      this.selectedData = data;
+     
 
+     this.selectedHBA0 = data.hbA0;
+     this.selectedHbA2 = data.hbA2;
+     this.selectedsHbD = data.hbD;
+     this.selectedHbF = data.hbF;
+     this.selectedHbS = data.hbS;
+      $('#fadeinModal').modal('show');
+    }
     printPdf()
     {
       window.print();
+    }
+
+    sampleSubmit()
+    {
+        this.secondFormCheck = true;
+
+        var _obj = {};
+        _obj["hbF"] = this.selectedHbF;
+        _obj["hbA0"] = this.selectedHBA0;
+        _obj["hbA2"] = this.selectedHbA2;
+        _obj["hbD"] = this.selectedsHbD;
+        _obj["hbS"] = this.selectedHbS;
+        _obj["userId"] = this.user.id;
+        _obj["barcodeNo"] = this.selectedData.barcodeNo;
+
+    
+  Swal.fire({
+    icon: 'success', title:  "HbA0: "+this.selectedHBA0+" HbA2: "+this.selectedHbA2+" HbD: "+this.selectedsHbD+" HbF: "+this.selectedHbF+" HbS: "+this.selectedHbS+" Do you want to Update?",
+    showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false
+  })
+    .then((result) => {
+      if (result.value) {
+       //this.postData(_obj);
+       this.updateData(_obj);
+      }
+      else {
+        console.log('hitting no');
+      }
+    });
+    }
+    updateData(_obj)
+    {
+      this.centralsampleService.updateHSBCtestInCLReport(_obj)
+      .subscribe(response => {
+        var _response = response;
+        if (_response !== null && _response.status === "true") {
+            Swal.fire({ allowOutsideClick: false,
+              text: _response.message,
+              icon: 'success'
+            }).then((result) => {
+              $('#fadeinModal').modal('hide');
+              this.diagnosisReportData.hbA0 = this.selectedHBA0;
+              this.diagnosisReportData.hbA2 = this.selectedHbA2;
+              this.diagnosisReportData.hbD = this.selectedsHbD;
+              this.diagnosisReportData.hbF = this.selectedHbF;
+              this.diagnosisReportData.hbS = this.selectedHbS;
+            });
+        } else {
+          this.errorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
+    }
+
+    downloadGraph()
+    {
+      if(this.diagnosisReportData.graphFileName != null)
+      {
+        var _obj = {'file':this.diagnosisReportData.graphFileName};
+        this.centralsampleService.downloadHPLCGraph(_obj)
+        .subscribe(response => {
+          var _response = response;
+          if (_response !== null && _response.status === "true") {
+              Swal.fire({ allowOutsideClick: false,
+                text: _response.message,
+                icon: 'success'
+              }).then((result) => {
+               
+              });
+          } else {
+            this.errorMessage = response.message;
+          }
+  
+        },
+          (err: HttpErrorResponse) => {
+            //this.showResponseMessage(err.toString(), 'e');
+          });
+      }
+      else{
+        Swal.fire({ allowOutsideClick: false,
+          text: "No File name avilable!",
+          icon: 'success'
+        }).then((result) => {
+         
+        });
+      }
+     
     }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

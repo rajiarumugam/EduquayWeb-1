@@ -94,7 +94,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
        // Declare the use of the extension in the dom parameter
-       dom: "<'row mt-3'<'col-sm-4 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-4 float right'B>>" +
+       dom: "<'row mt-3'<'col-sm-6 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-2 float right'B>>" +
        "<'row'<'col-sm-12'tr>>" +
        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
@@ -190,7 +190,7 @@ export class ReportSampleStatusComponent implements AfterViewInit, OnDestroy, On
          },
          ], 
       pagingType: 'simple_numbers',
-      pageLength: 5,
+      pageLength: 20,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],

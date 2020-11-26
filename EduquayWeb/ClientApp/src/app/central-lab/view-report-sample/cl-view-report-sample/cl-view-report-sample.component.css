@@ -123,9 +123,64 @@ div.dataTables_wrapper div.dataTables_filter svg {
 {
     /*display: none;*/
 }
+.print-show
+{
+    display:none;
+}
+.margin-top-30
+{
+    margin-top:30px !important;
+}
+.print-none
+    {
+        display:block;
+    }
+    .watermark {
+       visibility: hidden;
+      }
+    @media all {
+        .watermark {
+          /*display: none;*/
+          background-image: url("../../../../assets/assets/img/NRHM_GovOdishA_logo.png");
+          /*float: right;*/
+          width: 100%;
+    height: 100vh;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    opacity: 0.2;
+    background-attachment: fixed;
+    background-position: center;
+    z-index: 1; 
+    background-repeat: no-repeat;
+    
+
+        }
+      }
+    
 @media print {
+    * {
+        -webkit-print-color-adjust: exact;
+    }
     /* invert the display (show/hide) properties of the main */
     /* aplication component and the printing component       */
+    .watermark {
+        display: block;
+        -webkit-print-color-adjust: exact;
+        visibility: visible;
+      }
+    .print-none
+    {
+        display:none;
+    }
+    .print-show
+{
+    display:block;
+}
   .print-header
   {
       /*display: block;*/
@@ -189,4 +244,34 @@ div.dataTables_wrapper div.dataTables_filter svg {
     {
         
     }
+
+    .table-bordered tbody tr:nth-of-type(odd)
+    {
+        background-color: #ffffff !important;
+    }
+    .table-bordered td
+    {
+        border:none !important;
+    }
+    .table > tbody tr
+    {
+        border:none !important;
+        height:auto;
+    }
+    .table-bordered.table-custom-border td,.table.table-custom-border > tbody tr
+    {
+        border:1px solid #000000 !important;
+    }
+    .table td, .table th{
+        padding: 5px !important;
+    }
+  }
+
+  .button-cls
+  {
+    background:#0177ff !important;
+    color:#ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display:inline-block;
   }

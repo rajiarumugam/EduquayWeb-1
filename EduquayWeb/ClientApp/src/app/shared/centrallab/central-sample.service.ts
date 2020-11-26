@@ -55,6 +55,18 @@ export class centralsampleService {
     return this.http.post<any>({url:apiUrl, body: obj });
   }
 
+  updateHSBCtestInCLReport(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.UPDATEPROCESSEDHPLCTESTRESULT);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+  downloadHPLCGraph(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
   retriveHPLCtestData()
   {
     var user = JSON.parse(this.tokenService.getUser('lu'));
