@@ -167,3 +167,9 @@ a.article:hover {
         display: none;
     }
 }
+
+::ng-deep div.dt-buttons
+    {
+        float:right !important;
+    }
+

@@ -124,7 +124,7 @@ export class CHCSampleRcptComponent implements OnInit {
     });
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 5,
+      pageLength: 20,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],

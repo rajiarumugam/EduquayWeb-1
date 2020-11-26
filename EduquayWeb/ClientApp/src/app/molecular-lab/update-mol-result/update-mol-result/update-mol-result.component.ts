@@ -85,7 +85,7 @@ export class UpdateMolResultComponent implements AfterViewInit, OnDestroy, OnIni
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 5,
+      pageLength: 20,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],

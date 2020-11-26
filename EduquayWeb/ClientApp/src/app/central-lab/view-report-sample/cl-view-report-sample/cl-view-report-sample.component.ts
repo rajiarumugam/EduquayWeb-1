@@ -527,6 +527,41 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
           //this.showResponseMessage(err.toString(), 'e');
         });
     }
+
+    downloadGraph()
+    {
+      if(this.diagnosisReportData.graphFileName != null)
+      {
+        var _obj = {'file':this.diagnosisReportData.graphFileName};
+        this.centralsampleService.downloadHPLCGraph(_obj)
+        .subscribe(response => {
+          var _response = response;
+          if (_response !== null && _response.status === "true") {
+              Swal.fire({ allowOutsideClick: false,
+                text: _response.message,
+                icon: 'success'
+              }).then((result) => {
+               
+              });
+          } else {
+            this.errorMessage = response.message;
+          }
+  
+        },
+          (err: HttpErrorResponse) => {
+            //this.showResponseMessage(err.toString(), 'e');
+          });
+      }
+      else{
+        Swal.fire({ allowOutsideClick: false,
+          text: "No File name avilable!",
+          icon: 'success'
+        }).then((result) => {
+         
+        });
+      }
+     
+    }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     

@@ -63,7 +63,7 @@ export class ToBePostPndtCounselledComponent implements AfterViewInit, OnDestroy
     this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Post PNDT", "page": "To be Counselled"}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 5,
+      pageLength: 20,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],

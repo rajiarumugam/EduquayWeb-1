@@ -25,7 +25,7 @@
               </div>
           </div>
 
-          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile print-none">
               <div class="widget-content widget-content-area br-6">
                 <div class="row">
                     <div class="col-md-4"></div>
@@ -38,6 +38,8 @@
                                     <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as Excel"></button>-->
                                     <button type="button" class="btn btn-sm btn-outline-light print-btn" (click)="printPdf();">
                                         <img src="../../../../assets/assets/img/pdfimage.webp" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
+                                    <button type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();">
+                                            <img src="../../../../assets/assets/img/downloadIcon.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +55,7 @@
                     <div class="col-md-2 right-logo-cont">
                         <img class="logo-right" src="../../../../assets/assets/img/Insteam_CMC_logo.png" class="mt-1" >
                     </div>
-            </div>
+                </div>
                   <div class="row">
                       <div class="col-md-12">
                           <div class="table-responsive">
@@ -111,7 +113,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile">
+          <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile print-none">
               <div class="widget-content widget-content-area br-6">
                   
 
@@ -238,66 +240,354 @@
           
           
         </div>
-    </div>
 
-    <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
-aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ConfirmShipmentReceipt' | translate}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-x">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="col-lg-12">
-                <div class="main-box no-header clearfix">
-                    <div class="main-box-body clearfix">
-                       
-                            <div class="form-row my-2" [formGroup]="firstFormGroup">
-
-                                <div class="form-group col-md-3">
-                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA0.invalid }">{{'HbA0' | translate }}</label>
-                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbA0" [(ngModel)]="selectedHBA0" formControlName = "HbA0" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA0.invalid }">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">{{'HbA2' | translate }}</label>
-                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbA2" [(ngModel)]="selectedHbA2" formControlName = "HbA2" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">{{'HbD' | translate }}</label>
-                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbD" [(ngModel)]="selectedsHbD" formControlName = "HbD" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">{{'HbF' | translate }}</label>
-                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbF" [(ngModel)]="selectedHbF" formControlName = "HbF" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbS.invalid }">{{'HbS' | translate }}</label>
-                                    <input type="text" class="form-control" id="inputPincode1" placeholder="HbS" [(ngModel)]="selectedHbS" formControlName = "HbS" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbS.invalid }">
-                                </div>
-                            </div>
-                       
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile print-show">
+            <div class="widget-content widget-content-area br-6">
+              <div class="row py-2 my-2 print-header" style="background-color: #1B55E2;">
+                  <div class="col-md-2 left-logo-cont">
+                      <img class="logo-left" src="../../../../assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1">
+                  </div>
+                  <div class="col-md-8 col-mid">
+                      <h4 class="text-center text-white pt-2 header-text">THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA</h4>
+                      <h5 class="text-center text-white header-text">HPLC Summary Report – SCB MEDICAL COLLEGE, CUTTACK</h5>
+                  </div>
+                  <div class="col-md-2 right-logo-cont">
+                      <img class="logo-right" src="../../../../assets/assets/img/Insteam_CMC_logo.png" class="mt-1" >
+                  </div>
+              </div>
+                <!--<div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped"  id="tblBasicInfo">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="6" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate}}</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'District' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'TestingCHC' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.chc}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'SubjectName' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'SubjectID' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.age}} yrs</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>{{'ContactNo' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.contactNo}}</td>
+                                        <td><b>{{'Address' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.address}}</td>
+                                        <td><b>{{'SpouseName' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.spouseName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>{{'SpouseContact' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.spouseContact}}</td>
+                                        <td><b>{{'RCHID' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.rchId}}</td>
+                                        <td><b>{{'LMPDate' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.lmpDate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>{{'GestationalAge' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.ga}}</td>
+                                        <td><b>{{'ObstetricsScore' | translate}}</b></td>
+                                        <td>{{diagnosisReportData?.obstetricScore}}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-               
-                    <div class="row float-right">
-                        <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
- (click)="sampleSubmit();" name="linkto">{{'Update' | translate}}</button>
-                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                </div>-->
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile print-show">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4 d-flex justify-content-end">
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group">
+                                
+                                Report Issued : 24-11-2020
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile print-show margin-top-30">
+            <div class="watermark"></div>
+            <div class="widget-content widget-content-area br-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION A: PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                                       
+                                        </th>
+                                    </tr> 
+                                </thead> 
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'District' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Block' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.chc}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'CHC' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.chc}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'PHC' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.phc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'SC' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.sc}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'ANM' | translate}} :</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.anmName}}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION B: SUBJECT DETAILS' | translate}}</b>
+                                       
+                                        </th>
+                                    </tr> 
+                                </thead> 
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Name' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Age/Sex' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.age}} Years / Female</td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'MCTS/RCH ID' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.rchId}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Contact Number' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.contactNo}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Regn ID' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Registration Date' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Lab Accession ID/Barcode' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.barcodeNo}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Sample Collection Date' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Spouse Name' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Address' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'LMP Date' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.lmpDate}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'GA' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.ga}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Referring Department' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'Ordering Physician' | translate}}</b></td>
+                                        <td class="sp-xs-td-15">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                        
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-custom-border">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
+                                        </th>
+                                    </tr> 
+                                </thead> 
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
+                                        <td class="sp-xs-td-9"><b>{{'MCV' | translate}} : </b> {{diagnosisReportData?.mcv}} fL</td>
+                                        <td class="sp-xs-td-9"><b>{{'RDW – CV' | translate}} : </b>{{diagnosisReportData?.rdw}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'RBC' | translate}} : </b>{{diagnosisReportData?.rbc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'SST Results' | translate}} : </b>{{diagnosisReportData?.sstResult}}</td>
+                                        <td class="sp-xs-td-9" colspan="3"><b>{{'CBC Test Results' | translate}} : </b>{{diagnosisReportData?.cbcResult}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-custom-border">
+                                <thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
+                                        </th>
+                                    </tr> 
+                                </thead> 
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
+                                        <td class="sp-xs-td-9"><b>{{'HbAo' | translate}} : </b> {{diagnosisReportData?.hbA0}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'HbA2' | translate}} : </b>{{diagnosisReportData?.HbA2}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'HbD' | translate}} : </b>{{diagnosisReportData?.hbD}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'HbF' | translate}} : </b>{{diagnosisReportData?.hbF}}</td>
+                                        <td class="sp-xs-td-9"><b>{{'HbS' | translate}} : </b>{{diagnosisReportData?.hbS}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Lab Diagnosis' | translate}} </b></td>
+                                        <td class="sp-xs-td-9" colspan="5">{{diagnosisReportData?.hplcDiagnosis}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'HPLC Result' | translate}} </b></td>
+                                        <td class="sp-xs-td-9" colspan="5">{{diagnosisReportData?.hplcResult}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Interpretation' | translate}} </b></td>
+                                        <td class="sp-xs-td-9" colspan="5">{{diagnosisReportData?.uniqueSubjectId}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} :</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Lab Technician Name' | translate}} : {{diagnosisReportData?.district}}</b></td>
+                                        <td class="sp-xs-td-9"><b>{{'Pathologist Name' | translate}} : {{diagnosisReportData?.chc}}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Enclosed' | translate}} : </b>{{diagnosisReportData?.district}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+      </div>
+    </div>
+    
+    <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ConfirmShipmentReceipt' | translate}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="main-box no-header clearfix">
+                            <div class="main-box-body clearfix">
+                            
+                                    <div class="form-row my-2" [formGroup]="firstFormGroup">
+
+                                        <div class="form-group col-md-3">
+                                            <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA0.invalid }">{{'HbA0' | translate }}</label>
+                                            <input type="text" class="form-control" id="inputPincode1" placeholder="HbA0" [(ngModel)]="selectedHBA0" formControlName = "HbA0" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA0.invalid }">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">{{'HbA2' | translate }}</label>
+                                            <input type="text" class="form-control" id="inputPincode1" placeholder="HbA2" [(ngModel)]="selectedHbA2" formControlName = "HbA2" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">{{'HbD' | translate }}</label>
+                                            <input type="text" class="form-control" id="inputPincode1" placeholder="HbD" [(ngModel)]="selectedsHbD" formControlName = "HbD" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">{{'HbF' | translate }}</label>
+                                            <input type="text" class="form-control" id="inputPincode1" placeholder="HbF" [(ngModel)]="selectedHbF" formControlName = "HbF" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbS.invalid }">{{'HbS' | translate }}</label>
+                                            <input type="text" class="form-control" id="inputPincode1" placeholder="HbS" [(ngModel)]="selectedHbS" formControlName = "HbS" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbS.invalid }">
+                                        </div>
+                                    </div>
+                            
+                            </div>
+                    
+                            <div class="row float-right">
+                                <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+        (click)="sampleSubmit();" name="linkto">{{'Update' | translate}}</button>
+                                <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-</div>
-
 </div>
 
 

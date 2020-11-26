@@ -11,3 +11,8 @@
     margin-top: 22px !important; 
     
 }
+
+::ng-deep .dt-buttons
+    {
+        float:right !important;
+    }
