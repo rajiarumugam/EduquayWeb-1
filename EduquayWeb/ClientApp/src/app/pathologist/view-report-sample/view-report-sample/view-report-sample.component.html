@@ -289,16 +289,16 @@
         <div class="widget-content widget-content-area br-6">
           <div class="row py-2 my-2 print-header">
               <div class="col-md-2 left-logo-cont">
-                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="width: 50px;">
-                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="width: 50px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="width: 70px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="width: 70px;margin-left:5px;">
               </div>
               <div class="col-md-8 col-mid">
-                  <h4 class="text-center pt-2 header-text">THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA</h4>
-                  <h5 class="text-center header-text">HPLC Summary Report – SCB MEDICAL COLLEGE, CUTTACK</h5>
+                  <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
+                  <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
               </div>
-              <div class="col-md-2 right-logo-cont">
-                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="width: 50px;">
-                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="width: 50px;">
+              <div class="col-md-2 right-logo-cont" style="float:right;">
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="width: 70px;">
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="width: 70px;margin-left:5px;">
               </div>
           </div>
             
@@ -306,7 +306,9 @@
     </div>
 
     <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile print-show margin-top-30">
-        <div class="watermark"></div>
+        <div class="watermark">
+            <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+        </div>
         <div class="widget-content widget-content-area br-6">
             <div class="row">
                 <div class="col-md-12">
@@ -332,31 +334,31 @@
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
-                            <thead class="tablecss" style="background-color: #aaaaaa;">
-                                <tr class="" style="background-color: #aaaaaa;">
-                                    <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION A: PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                            <thead class="tablecss" style="background-color: #aaaaaa !important;">
+                                <tr class="" style="background-color: #aaaaaa !important;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION A : PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
                                    
                                     </th>
                                 </tr> 
                             </thead> 
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'District' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.district}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Block' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.blockName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'CHC' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.chcName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'PHC' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.phcName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'District' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.district}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'Block' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.blockName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'CHC' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.chcName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'PHC' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.phcName}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'SC' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.scName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.riPoint}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'ANM' | translate}} :</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.anmName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'SC' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.scName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.riPoint}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'ANM' | translate}}</b></td>
+                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.anmName}}</td>
                                 </tr>
                                
                             </tbody>
@@ -370,7 +372,7 @@
                         <table class="table table-bordered table-striped">
                             <thead class="tablecss" style="background-color: #aaaaaa;">
                                 <tr class="" style="background-color: #aaaaaa;">
-                                    <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION B: SUBJECT DETAILS' | translate}}</b>
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
                                    
                                     </th>
                                 </tr> 
@@ -437,7 +439,7 @@
                         <table class="table table-bordered table-striped table-custom-border">
                             <thead class="tablecss">
                                 <tr class="" style="background-color: #e3e8ef;">
-                                    <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
                                     </th>
                                 </tr> 
                             </thead> 
@@ -463,7 +465,7 @@
                         <table class="table table-bordered table-striped table-custom-border">
                             <thead class="tablecss">
                                 <tr class="" style="background-color: #e3e8ef;">
-                                    <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
                                     </th>
                                 </tr> 
                             </thead> 

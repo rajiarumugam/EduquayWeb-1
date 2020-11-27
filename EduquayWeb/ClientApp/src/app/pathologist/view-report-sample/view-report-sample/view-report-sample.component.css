@@ -137,22 +137,29 @@ div.dataTables_wrapper div.dataTables_filter svg {
         display:block;
     }
     .watermark {
-       visibility: hidden;
+       /*visibility: hidden;*/
+      }
+      .watermark img{
+          /*position: relative;*/
+          top: 40%;
+        left: 3%;
+        /*transform: translate(-50%, -50%);*/
+        position: relative;
       }
     @media all {
         .watermark {
           /*display: none;*/
-          background-image: url("../../../../assets/assets/img/NRHM_GovOdishA_logo.png");
+         /* background-image: url("../../../../assets/assets/img/NRHM_GovOdishA_logo.png");*/
           /*float: right;*/
           width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 0;
+    z-index: 1000;
     opacity: 0.2;
     background-attachment: fixed;
     background-position: center;
@@ -174,6 +181,7 @@ div.dataTables_wrapper div.dataTables_filter svg {
         display: block;
         -webkit-print-color-adjust: exact;
         visibility: visible;
+       /* background-image: url("../../../../assets/assets/img/NRHM_GovOdishA_logo.png");*/
       }
     .print-none
     {
