@@ -289,16 +289,17 @@
         <div class="widget-content widget-content-area br-6">
           <div class="row py-2 my-2 print-header">
               <div class="col-md-2 left-logo-cont">
-                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="width: 70px;">
-                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="width: 70px;margin-left:5px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 70px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 70px;margin-left:10px;">
               </div>
               <div class="col-md-8 col-mid">
                   <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
                   <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
               </div>
               <div class="col-md-2 right-logo-cont" style="float:right;">
-                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="width: 70px;">
-                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="width: 70px;margin-left:5px;">
+                  
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 70px;margin-left:10px;float:right;">
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 70px;float:right;margin-left:10px;">
               </div>
           </div>
             
@@ -343,22 +344,22 @@
                             </thead> 
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'District' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.district}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Block' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.blockName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'CHC' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.chcName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'PHC' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.phcName}}</td>
+                                    <td class="sp-xs-td-9">{{'District' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.district}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.blockName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.chcName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.phcName}}</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'SC' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.scName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'RIPoint' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.riPoint}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'ANM' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">: {{diagnosisReportData?.anmName}}</td>
+                                    <td class="sp-xs-td-9">{{'SC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.scName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'RIPoint' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.riPoint}}</b></td>
+                                    <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{diagnosisReportData?.anmName}}</b></td>
                                 </tr>
                                
                             </tbody>
@@ -379,52 +380,52 @@
                             </thead> 
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Name' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.subjectName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Age/Sex' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.age}} Years / {{diagnosisReportData?.gender}}</td>
+                                    <td class="sp-xs-td-9">{{'Name' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.subjectName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.age}} Years / {{diagnosisReportData?.gender}}</b></td>
                                    
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'MCTS/RCH ID' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.rchId}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Contact Number' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.contactNo}}</td>
+                                    <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.rchId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.contactNo}}</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Regn ID' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.subjectId}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Registration Date' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.dateOfRegister}}</td>
+                                    <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.subjectId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.dateOfRegister}}</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Lab Accession ID/Barcode' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.barcodeNo}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Sample Collection Date' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.sampleCollectionDate}}</td>
+                                    <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.barcodeNo}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.sampleCollectionDate}}</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Spouse Name' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.spouseName}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Address' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.address}}</td>
+                                    <td class="sp-xs-td-9">{{'Spouse Name' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.spouseName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Address' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.address}}</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'LMP Date' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.lmpDate}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'GA' | translate}} (as of {{currentDate}})</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.ga}}</td>
+                                    <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.lmpDate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'GA' | translate}} (as of {{currentDate}})</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.ga}}</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Referring Department' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.referringDepartment}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Ordering Physician' | translate}}</b></td>
-                                    <td class="sp-xs-td-15">{{diagnosisReportData?.orderingPhysician}}</td>
+                                    <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.referringDepartment}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{diagnosisReportData?.orderingPhysician}}</b></td>
                                     
                                 </tr>
                                
@@ -443,16 +444,26 @@
                                     </th>
                                 </tr> 
                             </thead> 
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
-                                    <td class="sp-xs-td-9"><b>{{'MCV' | translate}} : </b> {{diagnosisReportData?.mcv}} fL</td>
-                                    <td class="sp-xs-td-9"><b>{{'RDW – CV' | translate}} : </b>{{diagnosisReportData?.rdw}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'RBC' | translate}} : </b>{{diagnosisReportData?.rbc}}</td>
+                                    <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{diagnosisReportData?.mcv}} fL</b></td>
+                                    <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{diagnosisReportData?.rdw}}</b></td>
+                                    
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'SST Results' | translate}} : </b>{{diagnosisReportData?.sstResult}}</td>
-                                    <td class="sp-xs-td-9" colspan="3"><b>{{'CBC Test Results' | translate}} : </b>{{diagnosisReportData?.cbcResult}}</td>
+                                    <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{diagnosisReportData?.sstResult}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{diagnosisReportData?.cbcResult}}</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -469,26 +480,38 @@
                                     </th>
                                 </tr> 
                             </thead> 
+                            
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
+                            
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
-                                    <td class="sp-xs-td-9"><b>{{'HbAo' | translate}} : </b> {{diagnosisReportData?.hbA0}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'HbA2' | translate}} : </b>{{diagnosisReportData?.HbA2}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'HbD' | translate}} : </b>{{diagnosisReportData?.hbD}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'HbF' | translate}} : </b>{{diagnosisReportData?.hbF}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'HbS' | translate}} : </b>{{diagnosisReportData?.hbS}}</td>
+                                    <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{diagnosisReportData?.hbA0}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{diagnosisReportData?.hbA2}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{diagnosisReportData?.hbD}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{diagnosisReportData?.hbF}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{diagnosisReportData?.hbS}}</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Lab Diagnosis' | translate}} </b></td>
-                                    <td class="sp-xs-td-9" colspan="5">{{diagnosisReportData?.diagnosis}}</td>
+                                    <td class="sp-xs-td-9">{{'Lab Diagnosis' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{diagnosisReportData?.diagnosis}}</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'HPLC Result' | translate}} </b></td>
-                                    <td class="sp-xs-td-9" colspan="5">{{diagnosisReportData?.hplcResult}}</td>
+                                    <td class="sp-xs-td-9">{{'HPLC Result' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{diagnosisReportData?.hplcResult}}</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Interpretation' | translate}} </b></td>
-                                    <td class="sp-xs-td-9" colspan="5">{{diagnosisReportData?.diagnosisSummary}}</td>
+                                    <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{diagnosisReportData?.diagnosisSummary}}</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -504,8 +527,16 @@
                                     <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} :</b></td>
                                 </tr>
                                 <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
                                     <td class="sp-xs-td-9"><b>{{'Lab Technician Name' | translate}} : {{diagnosisReportData?.labTechnicianName}}</b></td>
-                                    <td class="sp-xs-td-9"><b>{{'Pathologist Name' | translate}} : {{diagnosisReportData?.pathologistName}}</b></td>
+                                    <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{diagnosisReportData?.pathologistName}}</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -519,6 +550,27 @@
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'Enclosed' | translate}} : </b>HPLC Chromatograph</td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>

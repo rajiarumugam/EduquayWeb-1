@@ -125,7 +125,7 @@ div.dataTables_wrapper div.dataTables_filter svg {
 }
 .print-show
 {
-    display:none;
+    display:block;
 }
 .margin-top-30
 {
@@ -133,7 +133,7 @@ div.dataTables_wrapper div.dataTables_filter svg {
 }
 .print-none
     {
-        display:block;
+        display:none;
     }
     .watermark {
        visibility: hidden;
@@ -152,7 +152,7 @@ div.dataTables_wrapper div.dataTables_filter svg {
     right: 0;
     bottom: 0;
     z-index: 0;
-    opacity: 0.2;
+    opacity: 0.1;
     background-attachment: fixed;
     background-position: center;
     z-index: 1; 
