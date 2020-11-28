@@ -63,7 +63,7 @@ export class CounselledDecisionAwaitedComponent implements AfterViewInit, OnDest
     this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "Counselled, PNDT Decision Awaited"}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 5,
+      pageLength: 20,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],

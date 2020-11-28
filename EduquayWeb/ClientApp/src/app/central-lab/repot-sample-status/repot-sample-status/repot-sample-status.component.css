@@ -1,0 +1,9 @@
+div.dt-buttons
+{
+    float:right !important;
+}
+
+::ng-deep .dt-buttons
+    {
+        float:right !important;
+    }

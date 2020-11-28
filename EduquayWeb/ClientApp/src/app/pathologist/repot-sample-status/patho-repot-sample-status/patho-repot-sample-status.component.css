@@ -1,0 +1,4 @@
+::ng-deep .dt-buttons
+    {
+        float:right !important;
+    }

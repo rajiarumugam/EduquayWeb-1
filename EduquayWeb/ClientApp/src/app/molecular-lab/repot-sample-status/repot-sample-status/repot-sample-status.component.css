@@ -6,3 +6,8 @@
     right: 0;
     text-align: center;
 }
+
+::ng-deep .dt-buttons
+    {
+        float:right !important;
+    }

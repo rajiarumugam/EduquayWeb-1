@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { GenericService } from '../generic.service';
 import { HttpClientService } from '../http-client.service';
 import { ENDPOINT } from 'src/app/app.constant';
@@ -53,6 +53,26 @@ export class centralsampleService {
   {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.UPDATEHPLCTESTRESULT);
     return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+  updateHSBCtestInCLReport(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.UPDATEPROCESSEDHPLCTESTRESULT);
+    return this.http.post<any>({url:apiUrl, body: obj});
+  }
+
+  downloadHPLCGraph(obj)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json;charset=utf-8',
+      })
+    };
+    const HttpUploadOptions = {
+      headers: new HttpHeaders({ "Accept": "application/json" })
+    }
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH);
+    return this.http.post<any>({url:apiUrl, body: obj,header: HttpUploadOptions });
   }
 
   retriveHPLCtestData()
