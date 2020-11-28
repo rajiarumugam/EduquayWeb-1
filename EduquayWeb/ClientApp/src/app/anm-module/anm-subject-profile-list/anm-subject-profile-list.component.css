@@ -456,3 +456,17 @@
     opacity: 0;
   }
 }
+
+.rotatetransfrm{
+  transform: rotate(-90deg);
+  margin-right: -71px;
+  margin-top: 13px;
+  font-size: 12px;
+}
+
+.rotatetransfrmspouse{
+  transform: rotate(-90deg);
+  margin-right: -28px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
