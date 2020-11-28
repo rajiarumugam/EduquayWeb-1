@@ -160,7 +160,7 @@ div.dataTables_wrapper div.dataTables_filter svg {
     right: 0;
     bottom: 0;
     z-index: 1000;
-    opacity: 0.2;
+    opacity: 0.1;
     background-attachment: fixed;
     background-position: center;
     z-index: 1; 
