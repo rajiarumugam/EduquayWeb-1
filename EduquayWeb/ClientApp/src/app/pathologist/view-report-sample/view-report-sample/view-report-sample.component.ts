@@ -90,7 +90,7 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
    
     
 
-    this.downloadGraphLink = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+this.DataService.getdata().CltestingSummary.graphFileName);
+    this.downloadGraphLink = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+this.DataService.getdata().CltestingSummary.graphFileName);  
    if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
         this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;
     if(this.diagnosisReportData.diagnosisSummary)
