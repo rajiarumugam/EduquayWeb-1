@@ -305,32 +305,39 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
     this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
 
-    this.trackingSubjectRequest = {
-      uniqueSubjectId: this.spouseSubjectId
-    }
+   
     this.trackingAnmSubjectTrackerRequest = {
       uniqueSubjectId: this.uniqueSubjectId
     }
-    let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+   
     let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
       .subscribe(response => {
-        this.trackingSubjectResponse = response;
+       
         this.trackingAnmSubjectTrackerResponse = response;
         this.loaderService.display(false);
-        if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
-          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
-          //   this.subjectprofilelistErrorMessage = response.message;
-          // }
-          // else {
-            this.subjectTrackerItem = this.trackingSubjectResponse.data;
-            this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+     
             if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
               this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
-
+            this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+            this.trackingSubjectRequest = {
+              uniqueSubjectId: this.spouseSubjectId
             }
-            else{
-              this.subjectprofilelistErrorMessage = response.message;
-            }
+            let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+            .subscribe(response => {
+              this.trackingSubjectResponse = response;
+              if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+                // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+                //   this.subjectprofilelistErrorMessage = response.message;
+                // }
+                // else {
+                  this.subjectTrackerItem = this.trackingSubjectResponse.data;
+  
+              }
+              else{
+                this.subjectprofilelistErrorMessage = response.message;
+              }
+            })
+            
           }
         //}
         else {
@@ -350,14 +357,12 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
       this.trackingSubjectRequest = {
         uniqueSubjectId: this.uniqueSubjectId
       }
-      this.trackingAnmSubjectTrackerRequest = {
-        uniqueSubjectId: this.spouseSubjectId
-      }
+      
       let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
-      let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      
         .subscribe(response => {
           this.trackingSubjectResponse = response;
-          this.trackingAnmSubjectTrackerResponse = response;
+         
           this.loaderService.display(false);
           if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
             // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
@@ -366,13 +371,21 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
             // else {
               this.subjectTrackerItem = this.trackingSubjectResponse.data;
               this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
-              if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
-                this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
-  
+              this.trackingAnmSubjectTrackerRequest = {
+                uniqueSubjectId: this.spouseSubjectId
               }
-              else{
-                this.subjectprofilelistErrorMessage = response.message;
-              }
+              let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+              .subscribe(response => {
+                this.trackingAnmSubjectTrackerResponse = response;
+                if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                  this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              });
+              
             }
           //}
           else {
@@ -385,6 +398,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   
   
       }
+    
         $('#fadeinModal').modal('show');
   
   }

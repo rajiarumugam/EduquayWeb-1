@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { CasteList, CasteResponse, CommunityeResponse, CommunityList, GovIdType, GovtIDTypeResponse, Religion, ReligionResponse, RetrieveSubjectProfileList, SubjectProfileList, PrimaryDetail, AddressDetail, PregnancyDetail, ParentDetail } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
+import { CasteList, CasteResponse, CommunityeResponse, CommunityList, GovIdType, GovtIDTypeResponse, Religion, ReligionResponse, RetrieveSubjectProfileList, SubjectProfileList, PrimaryDetail, AddressDetail, PregnancyDetail, ParentDetail, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -12,9 +12,10 @@ import { Router } from '@angular/router';
 import { user } from 'src/app/shared/auth-response';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
-import { SubjectProfileRequest, ParticularSubjectProfileRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
+import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrackerRequest, subjectTrackerRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatStepper } from '@angular/material/stepper';
+declare var $: any;
 
 @Component({
   selector: 'app-chc-subject-profile-list',
@@ -39,6 +40,14 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   chcsubjectProfileRequest: SubjectProfileRequest;
   particularchcSubProfile: ParticularSubjectProfileRequest;
   chcsubjectProfileResponse: RetrieveSubjectProfileList;
+  trackingAnmSubjectTrackerRequest: anmSubjectTrackerRequest;
+  trackingAnmSubjectTrackerResponse: trackingANWSubjectResponse;
+  trackingSubjectRequest: subjectTrackerRequest;
+  trackingSubjectResponse: trackingSubjectResponse;
+  anmSubjectTrackerDetail: ANMSubject;
+  anmSubjectTrackerItem: ANMSubject;
+  subjectTrackerItem: SubjectTrack;
+  childsubjectTrackerItem: SubjectTrack;
   primaryDetail: PrimaryDetail;
   addressDetail: AddressDetail;
   pregnancyDetail: PregnancyDetail;
@@ -86,6 +95,54 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     minDate: new Date(moment().add(-1, 'day').format()),
     maxDate: new Date(Date.now())
   };
+
+  
+  spouseSubjectIdValue: string;
+  spouseSamplingStatus: boolean;
+  uniqueSubjectId: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  religionId: number;
+  religionName: string;
+  casteId: number;
+  casteName: string;
+  communityId: number;
+  communityName: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  stateName: string;
+  pincode: string;
+  districtName: string;
+  chcName: string;
+  phcName: string;
+  scName: string;
+  riSite: string;
+  dob: string;
+  age: number;
+  gender: string;
+  mobileNo: string;
+  emailId: string;
+  spouseSubjectId: string;
+  spouseFirstName: string;
+  spouseMiddleName: string;
+  spouseLastName: string;
+  spouseContactNo: string;
+  govIdTypeId: number;
+  govIdType: string;
+  govIdDetail: string;
+  rchId: string;
+  ecNumber: string;
+  lmpDate: string;
+  gestationalperiod: number;
+  childSubjectTypeId: number;
+  g: number;
+  p: number;
+  l: number;
+  a: number;
+  barcodes: string;
+  ga: number
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -358,6 +415,152 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
     this.router.navigateByUrl(`/app/chc-viewsubjectprofile?q=${this.subjectid}`);
     
+  }
+  openpopup(index, subjectinfo: SubjectProfileList){
+
+    this.childSubjectTypeId = subjectinfo.primaryDetail.childSubjectTypeId;
+    this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+    this.firstName = subjectinfo.primaryDetail.firstName;
+    this.lastName = subjectinfo.primaryDetail.lastName;
+    this.gender = subjectinfo.primaryDetail.gender;
+    this.age = subjectinfo.primaryDetail.age;
+    this.barcodes = subjectinfo.pregnancyDetail.barcodes;
+    this.lmpDate = subjectinfo.pregnancyDetail.lmpDate;
+    this.ga = subjectinfo.pregnancyDetail.gestationalperiod
+    this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+    this.spouseFirstName = subjectinfo.primaryDetail.spouseFirstName;
+    this.spouseLastName = subjectinfo.primaryDetail.spouseLastName;
+
+    if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId === ''){
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+
+    let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+        if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+          //   this.subjectprofilelistErrorMessage = response.message;
+          // }
+          // else {
+            this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+            this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+            //this.rerender();
+          }
+        //}
+        else {
+          this.chcsubjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.chcsubjectprofilelistErrorMessage = err.toString();
+        });
+
+
+    }
+    else if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== null){
+    this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+    this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+
+   
+    this.trackingAnmSubjectTrackerRequest = {
+      uniqueSubjectId: this.uniqueSubjectId
+    }
+   
+    let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+       
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+     
+            if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+              this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+            this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+            this.trackingSubjectRequest = {
+              uniqueSubjectId: this.spouseSubjectId
+            }
+            let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+            .subscribe(response => {
+              this.trackingSubjectResponse = response;
+              if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+                // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+                //   this.subjectprofilelistErrorMessage = response.message;
+                // }
+                // else {
+                  this.subjectTrackerItem = this.trackingSubjectResponse.data;
+  
+              }
+              else{
+                this.chcsubjectprofilelistErrorMessage = response.message;
+              }
+            })
+            
+          }
+        //}
+        else {
+          this.chcsubjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.chcsubjectprofilelistErrorMessage = err.toString();
+        });
+
+
+    }
+    else if(subjectinfo.primaryDetail.childSubjectTypeId === 2){
+      this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+  
+      this.trackingSubjectRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+      
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+      
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;
+         
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingAnmSubjectTrackerRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+              .subscribe(response => {
+                this.trackingAnmSubjectTrackerResponse = response;
+                if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                  this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+    
+                }
+                else{
+                  this.chcsubjectprofilelistErrorMessage = response.message;
+                }
+              });
+              
+            }
+          //}
+          else {
+            this.chcsubjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.chcsubjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+    
+        $('#fadeinModal').modal('show');
+  
   }
 
   SubprofileInitializeDateRange() {
