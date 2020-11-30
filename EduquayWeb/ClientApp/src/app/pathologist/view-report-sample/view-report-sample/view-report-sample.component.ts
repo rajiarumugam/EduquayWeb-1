@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
+import { GenericService } from '../../../shared/generic.service';
+import { ENDPOINT } from 'src/app/app.constant';
 
 @Component({
   selector: 'app-view-report-sample',
@@ -46,6 +48,7 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
   selectedcomplicationsItems = [];
   selectedanyOtherComplications = false;
   currentDate;
+  downloadGraphLink;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -64,7 +67,7 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private genericService: GenericService) {
 
    
    }
@@ -85,7 +88,9 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
     this.showConfirmEditLater = this.compareDate(this.diagnosisReportData.dateOfTest,moment().format('DD-MM-YYYY')) <= 7;
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
    
+    
 
+    this.downloadGraphLink = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+this.DataService.getdata().CltestingSummary.graphFileName);
    if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
         this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;
     if(this.diagnosisReportData.diagnosisSummary)
@@ -444,6 +449,24 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
     printPdf()
     {
       window.print();
+    }
+    downloadGraph()
+    {
+
+    if(this.diagnosisReportData.graphFileName != null && this.diagnosisReportData.graphFileName != "") 
+    {
+      
+    }
+    else{
+      
+      Swal.fire({ allowOutsideClick: false,
+        text: "No File name avilable!",
+        icon: 'success'
+      }).then((result) => {
+       
+      });
+    }
+      
     }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
