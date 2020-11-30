@@ -143,7 +143,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
 
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 20,
+      pageLength: 5,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],

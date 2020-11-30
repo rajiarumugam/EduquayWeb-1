@@ -457,6 +457,8 @@
   }
 }
 
+
+
 .rotatetransfrm{
   transform: rotate(-90deg);
   margin-right: -71px;
@@ -469,4 +471,33 @@
   margin-right: -28px;
   margin-bottom: 16px;
   font-size: 12px;
+}
+
+div .two {
+  height:100px;
+  margin-bottom:2em;
+  border:1px solid #aaa;
+  width:25%;
+}
+
+.one {width:100px}
+.two {width:25%}
+
+#hr {
+  -moz-transform: rotate(45deg);  
+    -o-transform: rotate(45deg);  
+-webkit-transform: rotate(45deg);  
+   -ms-transform: rotate(45deg);  
+       transform: rotate(45deg); 
+}
+
+.transform-anw{
+  transform: rotate(-23deg);
+}
+.transform-spouse{
+  transform: rotate(26deg);
+}
+
+hr {
+  transform: rotate(90deg);
 }
