@@ -12,6 +12,8 @@ import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
+import { ENDPOINT } from 'src/app/app.constant';
+import { GenericService } from '../../../shared/generic.service';
 
 @Component({
   selector: 'app-cl-view-report-sample',
@@ -55,6 +57,7 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
   settings = {};
   selectedcomplicationsItems = [];
   selectedanyOtherComplications = false;
+  downloadGraphLink;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -73,12 +76,14 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private centralsampleService: centralsampleService) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private centralsampleService: centralsampleService,private genericService: GenericService) {
 
    
    }
 
   ngOnInit() {
+
+    
     this.firstFormGroup = this._formBuilder.group({
       HbA0: ['', Validators.required],
       HbA2: ['', Validators.required],
@@ -99,8 +104,9 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
     this.diagnosisReportData = this.DataService.getdata().CltestingSummary;
     this.showConfirmEditLater = this.compareDate(this.diagnosisReportData.dateOfTest,moment().format('DD-MM-YYYY')) <= 7;
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
-   
-
+   this.downloadGraphLink = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+this.DataService.getdata().CltestingSummary.graphFileName);
+    
+    
    if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
         this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;
     if(this.diagnosisReportData.diagnosisSummary)
@@ -530,37 +536,21 @@ export class ViewCLReportComponent implements  OnDestroy, OnInit {
 
     downloadGraph()
     {
-      if(this.diagnosisReportData.graphFileName != null)
-      {
-        var _obj = {'file':this.diagnosisReportData.graphFileName};
-        this.centralsampleService.downloadHPLCGraph(_obj)
-        .subscribe(response => {
-          var _response = response;
-          if (_response !== null && _response.status === "true") {
-              Swal.fire({ allowOutsideClick: false,
-                text: _response.message,
-                icon: 'success'
-              }).then((result) => {
-               
-              });
-          } else {
-            this.errorMessage = response.message;
-          }
-  
-        },
-          (err: HttpErrorResponse) => {
-            //this.showResponseMessage(err.toString(), 'e');
-          });
-      }
-      else{
-        Swal.fire({ allowOutsideClick: false,
-          text: "No File name avilable!",
-          icon: 'success'
-        }).then((result) => {
-         
-        });
-      }
-     
+
+    if(this.diagnosisReportData.graphFileName != null && this.diagnosisReportData.graphFileName != "") 
+    {
+      
+    }
+    else{
+
+      Swal.fire({ allowOutsideClick: false,
+        text: "No File name avilable!",
+        icon: 'success'
+      }).then((result) => {
+       
+      });
+    }
+      
     }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

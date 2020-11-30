@@ -45,6 +45,10 @@
                                 <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
                                     aria-hidden="true"></i>
                             </button>
+                            <button *ngIf="diagnosisReportData?.graphFileName == null ||diagnosisReportData?.graphFileName == ''" type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();">
+                                <img src="../../../../assets/assets/img/downloadIcon.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF" style="margin-right: 5px;"> HPLC Graph</button>
+                                <button *ngIf="diagnosisReportData?.graphFileName != null && diagnosisReportData?.graphFileName != ''" type="button" class="btn btn-sm btn-outline-light print-btn" >
+                                 <a href="{{downloadGraphLink}}" download> <img src="../../../../assets/assets/img/downloadIcon.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF" style="margin-right: 5px;"> HPLC Graph</a></button>
                         </div>
                     </div>
                 </div>

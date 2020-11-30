@@ -63,16 +63,12 @@ export class centralsampleService {
 
   downloadHPLCGraph(obj)
   {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json;charset=utf-8',
-      })
-    };
-    const HttpUploadOptions = {
-      headers: new HttpHeaders({ "Accept": "application/json" })
-    }
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH);
-    return this.http.post<any>({url:apiUrl, body: obj,header: HttpUploadOptions });
+
+   
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+obj.fileName);
+   return this.http.get<any>({url:apiUrl});
+    /*return this.httpClient.post(apiUrl, obj, options);*/
+    
   }
 
   retriveHPLCtestData()

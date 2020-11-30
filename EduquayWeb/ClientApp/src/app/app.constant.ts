@@ -56,7 +56,7 @@ export const ENDPOINT = {
         "ADDHPLCTETRESULT":"api/v1/CentralLab/AddHPLCTestResult",
         "UPDATEHPLCTESTRESULT":"api/v1/CentralLab/UpdateHPLCTestResult",
         "UPDATEPROCESSEDHPLCTESTRESULT":"api/v1/CentralLab/UpdateProcessedHPLCTestResult",
-        "DOWNLOADHPLCGRAPH":"api/v1/CentralLab/DownloadHPLCGraph"
+        "DOWNLOADHPLCGRAPH":"api/v1/CentralLab/DownloadHPLCGraph?fileName="
     },
     "PATHOLOGIST":
     {
