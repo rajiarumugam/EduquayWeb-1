@@ -196,15 +196,30 @@
                                  <div class="main-box no-header clearfix"> 
                                                                
                                      <div class="d-flex flex-row">
+                                        <!-- <div>
+                                            <div class="d-flex flex-column">                                                 
+                                                <div class="mt-2">
+                                                    <b>ANW</b>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <b>Spouse</b>
+                                                </div>
+                                            </div> 
+                                        </div> -->
                                          <div>
-                                             <div class="d-flex flex-column">                                                 
-                                                 <div class="mt-2">
+                                             <div class="d-flex flex-column">
+                                                <div class="">
+                                                    <b>ANW</b>
+                                                </div>                                                 
+                                                 <div class="">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRldyV1lr6X3UgB1nlGB3qrKIZ-NUELxLW4ZiAo6J6KWCdCfo44ELm3aZnmv-Ru7-QzcG6JNFK7tZvn/pub?w=40&h=100">                                       
                                                     </div>
-                                                 <div class="mt-5">
+                                                 <div class="">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTtZnEx92wBVTNPMqZqW-Ebd0TOwjnLXWJrSWJpcDAfi5Uw-AJuXzqeJw4WcQVFoE29tmuELyca5WlD/pub?w=40&h=100">
                                                  </div>
-                                                 
+                                                 <div class="mt-1">
+                                                    <b>Spouse</b>
+                                                </div>
                                              </div>
                                          </div>
                                          <div>
@@ -225,7 +240,7 @@
                                                             <div id="hr" style="border-top:1px solid #ff00ff; height:100px; margin-left:-140px;">   </div>
                                                         </div> -->
                                                         
-                                                        <div class="rotatetransfrm"><div>{{anmSubjectTrackerItem?.dateofRegistration}}</div></div>
+                                                        <div class="rotatetransfrm">{{anmSubjectTrackerItem?.dateofRegistration}}</div>
                                                     <!-- </div> -->
                                                     </div>                                                                                                       
                                                 </div>
@@ -248,8 +263,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) ||
-                                                (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 2)'>
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === ""  && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
                                                 <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null) || (subjectTrackerItem?.spouseSubjectId !== null  && childSubjectTypeId === 2)">{{subjectTrackerItem?.dateofRegistration}}</div> -->
@@ -492,9 +506,12 @@
                                                  && anmSubjectTrackerItem?.cbcResult === 'Positive'">
                                                      <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTL5xb-tAH8Y8uuoNLwS8F4XV2-y9f8cSbTiKs3ImxTP3bamieh_8yrqW6OJ3HaU-VsOPrnwVbqjE-l/pub?w=110&h=50">
                                                  </div>
-                                                 <div *ngIf="(anmSubjectTrackerItem?.cbcStatus === false && anmSubjectTrackerItem?.sstStatus === false) || (subjectTrackerItem?.cbcStatus === false && subjectTrackerItem?.sstStatus === false   && childSubjectTypeId === 2)">
+                                                 <div *ngIf="anmSubjectTrackerItem?.cbcStatus === false && anmSubjectTrackerItem?.sstStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ8_Pa1tNCG4vlTo9mVgPOeZ4e1GHbyqLDoYS2DcYqBvonLxCSjQGUyLjOCUdF8fSsPr0oddyiGC87o/pub?w=110&h=50">
                                                  </div>
+                                                 <!-- <div *ngIf="(anmSubjectTrackerItem?.cbcStatus === false && anmSubjectTrackerItem?.sstStatus === false) || (subjectTrackerItem?.cbcStatus === false && subjectTrackerItem?.sstStatus === false   && childSubjectTypeId === 2)">
+                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ8_Pa1tNCG4vlTo9mVgPOeZ4e1GHbyqLDoYS2DcYqBvonLxCSjQGUyLjOCUdF8fSsPr0oddyiGC87o/pub?w=110&h=50">
+                                                </div> -->
                                                  <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === true)
                                                  || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === true  && childSubjectTypeId === 2)">
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
@@ -666,7 +683,7 @@
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS5u3SgXBBbaBNecL6FrfzMMpRRRj3R8IJLZ2jQt6SFmcrnPamm2-vtE6S9YFxe1L83ZUNHjezz01fn/pub?w=70&h=100">
                                                          </div>
                                                          <div class="rotatetransfrm">
-                                                            <div class="" [hidden]="!anmSubjectTrackerItem?.hplcDiagnosisDateTime">{{anmSubjectTrackerItem?.hplcDiagnosisDateTime | slice:0:10}}</div>
+                                                            <div class="" [hidden]="!anmSubjectTrackerItem?.hplcTestedDateTime">{{anmSubjectTrackerItem?.hplcTestedDateTime | slice:0:10}}</div>
                                                         </div>
                                                      </div>
                                                 </div>
@@ -699,7 +716,7 @@
                                                         </div>
                                                         <div class="rotatetransfrmspouse">
                                                             <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true)
-                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.hplcDiagnosisDateTime | slice:0:10}}
+                                                || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.hplcTestedDateTime | slice:0:10}}
                                             </div>
                                                         </div>
                                                     </div>                                                                                                       
