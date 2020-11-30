@@ -39,12 +39,18 @@
                         <div class="btn-group">
                             <!--<button type="button" class="btn btn-sm btn-outline-light">-->
                             <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as Excel"></button>-->
-                            <button type="button" class="btn btn-sm btn-outline-primary print-btn"
+                            <button type="button" class="btn btn-sm btn-outline-light print-btn"
                                 (click)="printPdf();">
                                 <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
                                 <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
                                     aria-hidden="true"></i>
                             </button>
+                            <button *ngIf="diagnosisReportData?.graphFileName == null ||diagnosisReportData?.graphFileName == ''" type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();">
+                                <i class="fa fa-download  ml-1 downloadimg bs-tooltip" ngbTooltip="Download"
+                                        aria-hidden="true"></i> HPLC Graph</button>
+                                <button *ngIf="diagnosisReportData?.graphFileName != null && diagnosisReportData?.graphFileName != ''" type="button" class="btn btn-sm btn-outline-light print-btn" >
+                                    <a href="{{downloadGraphLink}}" download style="color:#1b55e2 !important;"> <i class="fa fa-download  ml-1 downloadimg bs-tooltip" ngbTooltip="Download"
+                                        aria-hidden="true"></i> HPLC Graph</a></button>
                         </div>
                     </div>
                 </div>

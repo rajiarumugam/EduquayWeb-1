@@ -37,9 +37,16 @@
                                     <!--<button type="button" class="btn btn-sm btn-outline-light">-->
                                     <!--    <img src="assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as Excel"></button>-->
                                     <button type="button" class="btn btn-sm btn-outline-light print-btn" (click)="printPdf();">
-                                        <img src="../../../../assets/assets/img/pdfimage.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
-                                    <button type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();">
-                                            <img src="../../../../assets/assets/img/downloadIcon.png" width="23px" class="downloadimg bs-tooltip" title="" data-original-title="Download as PDF"></button>
+                                        <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                                    aria-hidden="true"></i></button>
+
+                                    <button *ngIf="diagnosisReportData?.graphFileName == null ||diagnosisReportData?.graphFileName == ''" type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();">
+                                        <i class="fa fa-download  ml-1 downloadimg bs-tooltip" ngbTooltip="Download"
+                                        aria-hidden="true"></i> HPLC Graph
+                                          </button>
+                                           <button *ngIf="diagnosisReportData?.graphFileName != null && diagnosisReportData?.graphFileName != ''" type="button" class="btn btn-sm btn-outline-light print-btn" >
+                                            <a href="{{downloadGraphLink}}" download style="color:#1b55e2 !important;"> <i class="fa fa-download  ml-1 downloadimg bs-tooltip" ngbTooltip="Download"
+                                                aria-hidden="true"></i> HPLC Graph</a></button>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +200,7 @@
                                         <th rowspan="2" class="nt-border-right text-center"><span>{{'SubjectInfo' | translate}}</span></th>
                                         <th colspan="5" class="nt-border-right text-center"><b>{{'HPLCParameters' | translate}}</b></th>
                                         <th rowspan="2" class="nt-border-right text-center"><span>{{'HPLCResults' | translate}}</span></th>
-                                        <th rowspan="2"  class="nt-border-right text-center"><span>{{'Update' | translate}}</span></th>
+                                        <th rowspan="2"  class="nt-border-right text-center edit-btn"><span>{{'Update' | translate}}</span></th>
                                        
                                     </tr>
                                     <tr class="combined">
@@ -217,7 +224,7 @@
                                         <td class="text-center">{{diagnosisReportData?.hbF}}</td>
                                         <td class="text-center">{{diagnosisReportData?.hbS}}</td>
                                         <td class="text-left">{{diagnosisReportData?.hplcResult}}</td>
-                                        <td class="text-center"><button class="button-cls" (click)="hplcEdit(diagnosisReportData,1);"  style="margin-left:5px;">Edit</button></td>
+                                        <td class="text-center edit-btn"><button class="button-cls edit-btn" (click)="hplcEdit(diagnosisReportData,1);"  style="margin-left:5px;">Edit</button></td>
                                     </tr>
  
                                    <!-- <tr>
