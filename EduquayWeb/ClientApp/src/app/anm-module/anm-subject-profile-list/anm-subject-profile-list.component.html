@@ -215,12 +215,18 @@
                                                     <div>{{anmSubjectTrackerItem?.dateofRegistration}}</div>
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row">
+                                                    <div class="d-flex flex-row  transform-anw">
+                                                        <!-- <div class="transform"> -->
                                                         <div> 
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.samplingStatus === false && anmSubjectTrackerItem?.spouseSubjectId !== null}"
                                                             src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
+                                                        <!-- <div style="border: 1px solid #000; width:100px; height:100px;">
+                                                            <div id="hr" style="border-top:1px solid #ff00ff; height:100px; margin-left:-140px;">   </div>
+                                                        </div> -->
+                                                        
                                                         <div class="rotatetransfrm"><div>{{anmSubjectTrackerItem?.dateofRegistration}}</div></div>
+                                                    <!-- </div> -->
                                                     </div>                                                                                                       
                                                 </div>
                                                  <div>
@@ -233,7 +239,7 @@
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === false && subjectTrackerItem?.spouseSubjectId !== null}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== null  && childSubjectTypeId === 2)">
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== null  && childSubjectTypeId === 2)">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== nul && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== null  && childSubjectTypeId === 2)">
                                                             <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === false && subjectTrackerItem?.spouseSubjectId !== null}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                         </div>
@@ -242,7 +248,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) ||
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) ||
                                                 (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -256,7 +262,7 @@
                                                 <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.sampleCollectionDateTime">&nbsp;&nbsp;</div>
                                                 <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.sampleCollectionDateTime">{{anmSubjectTrackerItem?.sampleCollectionDateTime | slice:0:10}} </div> -->
                                                 <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.samplingStatus === true && anmSubjectTrackerItem?.shipmentToTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -275,7 +281,7 @@
                                                         </div>
                                                     </div> 
                                                 </div> -->
-                                                 <div *ngIf="anmSubjectTrackerItem?.samplingStatus === false">
+                                                 <div class=" transform-anw" *ngIf="anmSubjectTrackerItem?.samplingStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
@@ -289,7 +295,7 @@
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === true && subjectTrackerItem?.shipmentToTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true) 
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true) 
                                                     || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true) 
                                                         || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)">
@@ -302,7 +308,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") 
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") 
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.samplingStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -316,7 +322,7 @@
                                                 <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.shipmentToTestingCHCDateTime">&nbsp;&nbsp;</div>
                                                 <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.shipmentToTestingCHCDateTime">{{anmSubjectTrackerItem?.shipmentToTestingCHCDateTime | slice:0:10}}</div> -->
                                                 <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true && anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -328,7 +334,7 @@
                                                 <!-- <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true && anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === false">
+                                                 <div  class=" transform-anw" *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
@@ -342,7 +348,7 @@
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === true && subjectTrackerItem?.shipmentToTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true)
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true)
                                                     || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true  && childSubjectTypeId === 2)">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true)
                                                         || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === true  && childSubjectTypeId === 2)">
@@ -355,7 +361,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToTestingCHCStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -370,7 +376,7 @@
                                                 <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.receivedAtTestingCHCDateTime">{{anmSubjectTrackerItem?.receivedAtTestingCHCDateTime | slice:0:10}}</div>
                                                  -->
                                                 <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.samplingStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true && anmSubjectTrackerItem?.cbcStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -382,7 +388,7 @@
                                                 <!-- <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true && anmSubjectTrackerItem?.cbcStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false">
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
@@ -396,7 +402,7 @@
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.receivedAtTestingCHCStatus === true && subjectTrackerItem?.cbcStatus === false}"src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true)
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true)
                                                     || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true  && childSubjectTypeId === 2)">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true)
                                                         || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === true  && childSubjectTypeId === 2)">
@@ -409,7 +415,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtTestingCHCStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -423,18 +429,18 @@
                                                 <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.cbcDateTime">&nbsp;&nbsp;</div>
                                                 <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.cbcDateTime">{{anmSubjectTrackerItem?.cbcDateTime | slice:0:10}}</div> -->
                                                 
-                                                 <div *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult !== 'Positive') && (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult !== 'Positive')">
+                                                 <div class="transform-anw" *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult !== 'Positive') && (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult !== 'Positive')">
                                                     <!-- <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100"> -->
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
                                                 </div>
-                                                <div *ngIf="anmSubjectTrackerItem?.cbcStatus === false || anmSubjectTrackerItem?.sstStatus === false">
+                                                <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.cbcStatus === false || anmSubjectTrackerItem?.sstStatus === false">
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                 </div>
                                                 <!-- <div *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult === 'Positive')  || (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult === 'Positive')">
                                                    <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS5u3SgXBBbaBNecL6FrfzMMpRRRj3R8IJLZ2jQt6SFmcrnPamm2-vtE6S9YFxe1L83ZUNHjezz01fn/pub?w=70&h=100">
                                                 </div> -->
                                                 <div>
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult === 'Positive')  || (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult === 'Positive')">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult === 'Positive')  || (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult === 'Positive')">
                                                         <div *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult === 'Positive')  || (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult === 'Positive')">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS5u3SgXBBbaBNecL6FrfzMMpRRRj3R8IJLZ2jQt6SFmcrnPamm2-vtE6S9YFxe1L83ZUNHjezz01fn/pub?w=70&h=100">
                                                         </div>
@@ -497,12 +503,12 @@
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div> -->
-                                                <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === true  && subjectTrackerItem?.cbcStatus === 'Negative'  && subjectTrackerItem?.sstStatus === true  && subjectTrackerItem?.sstStatus === 'Negative')
+                                                <div class="transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === true  && subjectTrackerItem?.cbcStatus === 'Negative'  && subjectTrackerItem?.sstStatus === true  && subjectTrackerItem?.sstStatus === 'Negative')
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && childSubjectTypeId === 2 && subjectTrackerItem?.cbcStatus === true  && subjectTrackerItem?.cbcStatus === 'Negative'  && subjectTrackerItem?.sstStatus === true  && subjectTrackerItem?.sstStatus === 'Negative')">
                                                     <!-- <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100"> -->
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQvvoOB25hmNqA_XvmeJL-Uq9KPDI_bs1Ytw-rHxv5rwe45-FpW6xBtX_DluVIY1WuZE236Vc-1K5SX/pub?w=70&h=100">
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.cbcStatus === false  && childSubjectTypeId === 2 && subjectTrackerItem?.cbcStatus === false && subjectTrackerItem?.sstStatus === false)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -511,7 +517,7 @@
                                                    <img [ngClass]="{'blink_me': subjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vSnv3X7UZksDRJ9q1Icy5JTxDsyByCZ0C3UgaBG3-3Q25TndJkTo4tKrQ7BpLlLgbT817q8-al10LIO/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null) && (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )  
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null) && (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )  
                                                     || (subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive'  && childSubjectTypeId === 2 )">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null) && (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )  
                                                             || (subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive'  && childSubjectTypeId === 2 )">
@@ -535,7 +541,7 @@
                                                 <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.chcShipmentDateTime">&nbsp;&nbsp;</div>
                                                 <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.chcShipmentDateTime">{{anmSubjectTrackerItem?.chcShipmentDateTime | slice:0:10}}</div> -->
                                                 <div>
-                                                    <div class="d-flex flex-row"  *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
+                                                    <div class="d-flex flex-row transform-anw"  *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.shipmentToCentralLabStatus === true && anmSubjectTrackerItem?.receivedAtCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -547,7 +553,7 @@
                                                 <!-- <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.shipmentToCentralLabStatus === true && anmSubjectTrackerItem?.receivedAtCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === false">
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
@@ -562,7 +568,7 @@
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.shipmentToCentralLabStatus === true && subjectTrackerItem?.receivedAtCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true)
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true)
                                                     || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true)
                                                         || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">
@@ -575,7 +581,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
                                                 || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.shipmentToCentralLabStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -593,7 +599,7 @@
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.receivedAtCentralLabStatus === true && anmSubjectTrackerItem?.hplcPathoTestStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
                                                  <div>
-                                                    <div class="d-flex flex-row"  *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === true">
+                                                    <div class="d-flex flex-row transform-anw"  *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.receivedAtCentralLabStatus === true && anmSubjectTrackerItem?.hplcPathoTestStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -602,7 +608,7 @@
                                                         </div>
                                                     </div> 
                                                 </div>
-                                                 <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === false">
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === true">
@@ -616,7 +622,7 @@
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.receivedAtCentralLabStatus === true && subjectTrackerItem?.hplcPathoTestStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true)
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true)
                                                     || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true)
                                                         || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">
@@ -628,7 +634,7 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
                                                 (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.receivedAtCentralLabStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
@@ -645,22 +651,27 @@
                                                  <!-- <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.hplcResult !== 'Positive'">
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.hplcResult !== 'Positive'">
+                                                
                                                         <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.hplcResult !== 'Positive'">
-                                                            <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vSnv3X7UZksDRJ9q1Icy5JTxDsyByCZ0C3UgaBG3-3Q25TndJkTo4tKrQ7BpLlLgbT817q8-al10LIO/pub?w=70&h=100">
+                                                            <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=50&h=100">
                                                         </div>
-                                                        <div class="rotatetransfrm">
-                                                            <div class="" [hidden]="!anmSubjectTrackerItem?.hplcDiagnosisDateTime">{{anmSubjectTrackerItem?.hplcDiagnosisDateTime | slice:0:10}}</div>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                 <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === false">
+                                                       
+                                                    
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
-                                                   <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.hplcResult === 'Positive'">
-                                                    <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS5u3SgXBBbaBNecL6FrfzMMpRRRj3R8IJLZ2jQt6SFmcrnPamm2-vtE6S9YFxe1L83ZUNHjezz01fn/pub?w=70&h=100">
-                                                 </div>
+                                                 <div>
+                                                     <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.hplcResult === 'Positive'">
+                                                        <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.hplcResult === 'Positive'">
+                                                            <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcPathoTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS5u3SgXBBbaBNecL6FrfzMMpRRRj3R8IJLZ2jQt6SFmcrnPamm2-vtE6S9YFxe1L83ZUNHjezz01fn/pub?w=70&h=100">
+                                                         </div>
+                                                         <div class="rotatetransfrm">
+                                                            <div class="" [hidden]="!anmSubjectTrackerItem?.hplcDiagnosisDateTime">{{anmSubjectTrackerItem?.hplcDiagnosisDateTime | slice:0:10}}</div>
+                                                        </div>
+                                                     </div>
+                                                </div>
+                                               
+                                                   
                                                  <div *ngIf="anmSubjectTrackerItem?.hplcPathoTestStatus === true">
                                                      <img  src="https://docs.google.com/drawings/d/e/2PACX-1vT73cpEp1o6H5WdSelZ7e9fl0BUfmhPLbtifxdsv2yZ4M-jhpeMkvv2U5bcK66kYV6q16SA-o8POO2k/pub?w=110&h=50">
                                                  </div>
@@ -680,11 +691,11 @@
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vQaT5CdISWGcTDp-w63fD9UGXDk20srFw7osQDKU_CC5pR-KaOmSD8iCCB9aQaAB1G4knw5ppKc9A8i/pub?w=70&h=100">
                                                 </div> -->
                                                 <div> 
-                                                    <div class="d-flex flex-row" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true)
+                                                    <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true)
                                                     || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true  && childSubjectTypeId === 2)"> 
                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true)
                                                         || (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true  && childSubjectTypeId === 2)">
-                                                            <img src="https://docs.google.com/drawings/d/e/2PACX-1vQaT5CdISWGcTDp-w63fD9UGXDk20srFw7osQDKU_CC5pR-KaOmSD8iCCB9aQaAB1G4knw5ppKc9A8i/pub?w=70&h=100">
+                                                            <img src="https://docs.google.com/drawings/d/e/2PACX-1vSnv3X7UZksDRJ9q1Icy5JTxDsyByCZ0C3UgaBG3-3Q25TndJkTo4tKrQ7BpLlLgbT817q8-al10LIO/pub?w=70&h=100">
                                                         </div>
                                                         <div class="rotatetransfrmspouse">
                                                             <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true)
@@ -693,11 +704,11 @@
                                                         </div>
                                                     </div>                                                                                                       
                                                 </div>
-                                                <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
                                                 (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === false  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                 </div>
-                                                  <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") && 
+                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") && 
                                                   (subjectTrackerItem?.spouseSubjectId !== null && subjectTrackerItem?.hplcPathoTestStatus === true  && childSubjectTypeId === 2)'>
                                                    <img src="https://docs.google.com/drawings/d/e/2PACX-1vTA2kS8XsZZ_6mMcWtpGxvxWumLBetki_F9NcV2f8bfr_x7ZPOI3pZHtiWOyM5-1vuSfsELerIaGzQy/pub?w=70&h=100">
                                                 </div>
@@ -716,7 +727,7 @@
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.prePNDTCounsellingStatus === true && anmSubjectTrackerItem?.pndTestStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
                                                  <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.prePNDTCounsellingStatus === true && anmSubjectTrackerItem?.pndTestStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -725,7 +736,7 @@
                                                         </div>
                                                     </div> 
                                                 </div>
-                                                 <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
@@ -753,7 +764,7 @@
                                                     <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.postPNDTCounsellingStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
                                                 </div> -->
                                                 <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.pndtStatus !== 'Positive'">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.pndtStatus !== 'Positive'">
                                                         <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.pndtStatus !== 'Positive'">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.postPNDTCounsellingStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
                                                         </div>
@@ -762,7 +773,7 @@
                                                         </div>
                                                     </div> 
                                                 </div>
-                                                <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === false">
+                                                <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.pndTestStatus === false">
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                 </div>
                                                   <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.pndtStatus === 'Positive'">
@@ -787,7 +798,7 @@
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.postPNDTCounsellingStatus === true && anmSubjectTrackerItem?.mtpStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
                                                  <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === true">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === true">
                                                             <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.postPNDTCounsellingStatus === true && anmSubjectTrackerItem?.mtpStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -796,7 +807,7 @@
                                                         </div>
                                                     </div> 
                                                 </div>
-                                                 <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === false">
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === true">
@@ -817,7 +828,7 @@
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                  </div> -->
                                                  <div>
-                                                    <div class="d-flex flex-row" *ngIf="anmSubjectTrackerItem?.mtpStatus === true">
+                                                    <div class="d-flex flex-row transform-anw" *ngIf="anmSubjectTrackerItem?.mtpStatus === true">
                                                         <div *ngIf="anmSubjectTrackerItem?.mtpStatus === true">
                                                             <img src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                         </div>
@@ -826,7 +837,7 @@
                                                         </div>
                                                     </div> 
                                                 </div>
-                                                 <div *ngIf="anmSubjectTrackerItem?.mtpStatus === false">
+                                                 <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.mtpStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                  </div>
                                                  <div *ngIf="anmSubjectTrackerItem?.mtpStatus === true"> 
