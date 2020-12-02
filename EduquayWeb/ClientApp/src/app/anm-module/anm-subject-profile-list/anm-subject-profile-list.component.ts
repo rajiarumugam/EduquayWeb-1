@@ -42,6 +42,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   anmSubjectTrackerDetail: ANMSubject;
   anmSubjectTrackerItem: ANMSubject;
   subjectTrackerItem: SubjectTrack;
+  childsubjectTrackerItem: SubjectTrack;
 
   subjectprofileLists: SubjectProfileList[]=[];
   subjectprofileItem: SubjectProfileList;

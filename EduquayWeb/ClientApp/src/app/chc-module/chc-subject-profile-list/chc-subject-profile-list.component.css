@@ -446,10 +446,17 @@
 .img__wrap:hover .img__description {
   transform: translateY(0);
 }
-
 .blink_me {
+    animation: blinker 1s linear infinite;
+  }
+
+.blink_me-1 {
   animation: blinker 1s linear infinite;
 }
+
+.blink_me-2 {
+    animation: blinker 1s linear infinite;
+  }
 
 @keyframes blinker {
   50% {
