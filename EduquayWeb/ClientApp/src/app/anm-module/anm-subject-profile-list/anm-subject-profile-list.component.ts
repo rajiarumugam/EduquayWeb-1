@@ -301,7 +301,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
 
 
     }
-    else if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== null){
+    else if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== ''){
     this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
     this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
 
@@ -318,7 +318,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
      
             if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
               this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
-            this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+            //this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
             this.trackingSubjectRequest = {
               uniqueSubjectId: this.spouseSubjectId
             }
@@ -386,6 +386,36 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
                 }
               });
               
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(subjectinfo.primaryDetail.childSubjectTypeId === 3){
+        this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+        this.trackingAnmSubjectTrackerRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+              //this.rerender();
             }
           //}
           else {
