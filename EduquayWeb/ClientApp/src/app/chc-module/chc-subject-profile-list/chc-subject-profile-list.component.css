@@ -460,16 +460,16 @@
 
 
 .rotatetransfrm{
-  transform: rotate(-90deg);
-  margin-right: -71px;
-  margin-top: 13px;
+  transform: rotate(89deg);
+  margin-left: -67px;
+  margin-top: 23px;
   font-size: 12px;
 }
 
 .rotatetransfrmspouse{
   transform: rotate(-90deg);
   margin-right: -28px;
-  margin-bottom: 16px;
+  margin-bottom: 11px;
   font-size: 12px;
 }
 
@@ -492,12 +492,19 @@ div .two {
 }
 
 .transform-anw{
-  transform: rotate(-23deg);
+  transform: rotate(-45deg);
 }
 .transform-spouse{
-  transform: rotate(26deg);
+  transform: rotate(48deg);
 }
 
 hr {
   transform: rotate(90deg);
+}
+
+.child-reg {
+    font-size: 76px !important;
+    margin-right: 20px;
+    margin-top: 10px;
+    color: #f177b4ff;
 }
