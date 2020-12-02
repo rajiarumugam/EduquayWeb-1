@@ -40,7 +40,7 @@
                                         <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
                                     aria-hidden="true"></i></button>
 
-                                    <button *ngIf="diagnosisReportData?.graphFileName == null ||diagnosisReportData?.graphFileName == ''" type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();">
+                                    <button *ngIf="diagnosisReportData?.graphFileName == null ||diagnosisReportData?.graphFileName == ''" type="button" class="btn btn-sm btn-outline-light print-btn" (click)="downloadGraph();" [disabled]='true' style="color: #000000;">
                                         <i class="fa fa-download  ml-1 downloadimg bs-tooltip" ngbTooltip="Download"
                                         aria-hidden="true"></i> HPLC Graph
                                           </button>

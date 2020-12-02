@@ -448,7 +448,10 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
 
     printPdf()
     {
+      document.title=this.diagnosisReportData.subjectName+"_"+this.diagnosisReportData.barcodeNo+"_Patho Report";
       window.print();
+      document.title='CMC - Thalassemia & Sickle cell';
+      
     }
     downloadGraph()
     {
@@ -460,7 +463,7 @@ export class ViewPathoReportComponent implements  OnDestroy, OnInit {
     else{
       
       Swal.fire({ allowOutsideClick: false,
-        text: "No File name avilable!",
+        text: "File not uploaded.  Please ask HPLC Lab Technician to upload !!!",
         icon: 'success'
       }).then((result) => {
        
