@@ -12,6 +12,8 @@ import 'sweetalert2/src/sweetalert2.scss';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
 import * as XLSX from 'xlsx'; 
+import { ENDPOINT } from 'src/app/app.constant';
+import { GenericService } from '../../../shared/generic.service';
 
 @Component({
   selector: 'app-diagnosis-report',
@@ -47,6 +49,7 @@ export class DiagosisReportComponent implements OnInit {
   settings = {};
   selectedcomplicationsItems = [];
   selectedanyOtherComplications = false;
+  downloadGraphLink;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -65,7 +68,7 @@ export class DiagosisReportComponent implements OnInit {
       $('#showhidediv').hide();
     
   }
-  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location) {
+  constructor(private DataService:DataService,private router: Router,private masterService: masterService,private pathoHPLCService:pathoHPLCService,private _formBuilder: FormBuilder,private tokenService: TokenService,private _location: Location,private genericService: GenericService) {
 
    
    }
@@ -95,6 +98,9 @@ export class DiagosisReportComponent implements OnInit {
       others: ['']
    });
 
+   console.log(this.diagnosisReportData);
+   this.downloadGraphLink = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+this.diagnosisReportData.graphFileName);
+   console.log(this.downloadGraphLink);
    if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
         this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;
     if(this.diagnosisReportData.diagnosisSummary)

@@ -113,7 +113,9 @@
                                     <thead class="tablecss">
                                         <tr class="" style="background-color: #e3e8ef;">
                                             <th colspan="8" class="text-left mt-3" style="color:#3a3b3e;font-size: 15px;"><b>{{'TestResultSummary' | translate}}</b>
-                                            <a class="btn btn-primary float-right" role="button"><i class="fa fa-download append-icon"></i><span class="ml-1"> {{'HPLCGraph' | translate}}</span></a>
+                                            <a *ngIf="diagnosisReportData?.graphFileName != null && diagnosisReportData?.graphFileName != ''" class="btn btn-primary float-right" role="button" href="{{downloadGraphLink}}" download><i class="fa fa-download append-icon"></i><span class="ml-1"> {{'HPLCGraph' | translate}}</span></a>
+                                            <a *ngIf="diagnosisReportData?.graphFileName == null && diagnosisReportData?.graphFileName == ''" class="btn btn-primary float-right" role="button" style="background-color: #eeeeee !important;
+                                            border-color: #eeeeee !important;"><i style="color:#000000;" class="fa fa-download append-icon"></i><span class="ml-1" style="color:#000000;"> {{'HPLCGraph' | translate}}</span></a>
                                             </th>
                                         </tr> 
                                     </thead> 
