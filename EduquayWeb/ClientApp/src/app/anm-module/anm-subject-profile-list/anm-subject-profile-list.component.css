@@ -451,6 +451,14 @@
   animation: blinker 1s linear infinite;
 }
 
+.blink_me-1 {
+animation: blinker 1s linear infinite;
+}
+
+.blink_me-2 {
+  animation: blinker 1s linear infinite;
+}
+
 @keyframes blinker {
   50% {
     opacity: 0;
