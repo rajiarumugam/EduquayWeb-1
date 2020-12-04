@@ -431,7 +431,7 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
     this.spouseFirstName = subjectinfo.primaryDetail.spouseFirstName;
     this.spouseLastName = subjectinfo.primaryDetail.spouseLastName;
 
-    if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId === ''){
+    if((subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId === '') ||(subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.spouseSubjectId === '' && subjectinfo.primaryDetail.gender === "Female")){
       this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
       this.trackingAnmSubjectTrackerRequest = {
         uniqueSubjectId: this.uniqueSubjectId
@@ -461,7 +461,7 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
 
 
     }
-    else if(subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== ''){
+    else if((subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== '' ) || (subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.spouseSubjectId !== '' && subjectinfo.primaryDetail.gender === "Female")){
       this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
       this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
   
@@ -510,7 +510,7 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   
   
       }
-    else if(subjectinfo.primaryDetail.childSubjectTypeId === 2){
+    else if((subjectinfo.primaryDetail.childSubjectTypeId === 2 ) || (subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.gender === "Male" && subjectinfo.primaryDetail.spouseSubjectId !== '')){
       this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
       this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
   
@@ -543,6 +543,36 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
                 }
               });
               
+            }
+          //}
+          else {
+            this.chcsubjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.chcsubjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.gender === "Male" && subjectinfo.primaryDetail.spouseSubjectId === ''){
+        this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+        this.trackingSubjectRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingSubjectRequest)
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+              //this.rerender();
             }
           //}
           else {
