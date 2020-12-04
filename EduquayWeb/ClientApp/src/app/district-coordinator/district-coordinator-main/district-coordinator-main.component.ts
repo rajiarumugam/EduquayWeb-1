@@ -20,7 +20,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
   positiveSample: number = 0;
   pndReferralSample: number = 0;
   mtpReferralSample: number = 0;
-  updateChcSample: number = 0;
+ // updateChcSample: number = 0;
   postmtpfollowup: number = 0;
   currentPage = "";
 
@@ -44,7 +44,7 @@ export class DistrictCoordinatorMainComponent implements OnInit {
       this.positiveSample = this.DcNotificationModel.positive;
       this.pndReferralSample = this.DcNotificationModel.pndreferral;
       this.mtpReferralSample = this.DcNotificationModel.mtpreferral;
-      this.updateChcSample = this.DcNotificationModel.chcupdate;
+     // this.updateChcSample = this.DcNotificationModel.chcupdate;
       this.postmtpfollowup = this.DcNotificationModel.postmtp;
     });
   }
@@ -68,9 +68,9 @@ export class DistrictCoordinatorMainComponent implements OnInit {
       else if (this.router.url.indexOf('mtp-referral') >= 0) {
         this.mtpReferralSample = data;
       }
-      else if (this.router.url.indexOf('updatechc') >= 0) {
-        this.updateChcSample = data;
-      }
+      // else if (this.router.url.indexOf('updatechc') >= 0) {
+      //   this.updateChcSample = data;
+      // }
       else if (this.router.url.indexOf('postmtp-follow-up') >= 0) {
         this.postmtpfollowup = data;
       }
