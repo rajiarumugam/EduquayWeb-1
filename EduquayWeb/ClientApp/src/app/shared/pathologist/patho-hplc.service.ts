@@ -37,6 +37,14 @@ export class pathoHPLCService {
     return this.http.get<any>( {url:apiUrl});
   }
 
+
+  retrivePathoHPLCDiagnosis()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    console.log(user);
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVESRPATHOHPLCDIAGNOSISDETAILS+user.centralLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
   getPathoSampleReport(obj)
   {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIEVEPATHOLOGISTREPORTS);
