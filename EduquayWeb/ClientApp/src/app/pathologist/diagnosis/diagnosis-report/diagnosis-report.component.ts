@@ -116,7 +116,11 @@ export class DiagosisReportComponent implements OnInit {
       this.selectedOthers = this.diagnosisReportData.othersResult;
 
   if(this.diagnosisReportData.othersDiagnosis)
-      this.selectedothersDiagnosis = this.diagnosisReportData.othersDiagnosis;
+  {
+    this.showOthersDiagnosisTextbox = true;
+    this.selectedothersDiagnosis = this.diagnosisReportData.othersDiagnosis;
+  }
+      
       
    
    
