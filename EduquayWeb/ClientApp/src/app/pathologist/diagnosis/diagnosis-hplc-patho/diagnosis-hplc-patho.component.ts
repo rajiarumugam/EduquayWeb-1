@@ -4,15 +4,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 
 import { DataService } from '../../../shared/data.service';
-import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
+import { pathoHPLCService } from "../../../shared/pathologist/patho-hplc.service";
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-diagnosis-hplc-edit',
-  templateUrl: './diagnosis-hplc-edit.component.html',
-  styleUrls: ['./diagnosis-hplc-edit.component.css']
+  selector: 'app-diagnosis-hplc-patho',
+  templateUrl: './diagnosis-hplc-patho.component.html',
+  styleUrls: ['./diagnosis-hplc-patho.component.css']
 })
-export class DiagnosisHPLCAbEditComponent implements OnInit {
+export class DiagnosisHPLCPathoComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
@@ -71,16 +71,29 @@ export class DiagnosisHPLCAbEditComponent implements OnInit {
       else
         this.centralReceiptsData = tempNormalArray;*/
 
-        this.pathoHPLCService.retriveEditHPLCDiagnosis()
+       /* this.pathoHPLCService.retriveEditHPLCDiagnosis()
         .subscribe(response => {
           console.log(response);
           this.centralReceiptsData = response.subjectDetails;
-          this.pathoHPLCService.retrivePathoHPLCDiagnosis()
+          this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":this.centralReceiptsData.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
+        console.log(tempNormalArray);
+
+          this.rerender();
+        },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });*/
+
+        this.pathoHPLCService.retrivePathoHPLCDiagnosis()
+        .subscribe(response => {
+          console.log(response);
+          this.centralReceiptsData = response.subjectDetails;
+          this.pathoHPLCService.retriveEditHPLCDiagnosis()
           .subscribe(response => {
             console.log(response);
             var _pathoArray  = response.subjectDetails;
   
-            this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":this.centralReceiptsData.length,"pathocount":_pathoArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
+            this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":_pathoArray.length,"pathocount":this.centralReceiptsData.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
             
           console.log(tempNormalArray);
   

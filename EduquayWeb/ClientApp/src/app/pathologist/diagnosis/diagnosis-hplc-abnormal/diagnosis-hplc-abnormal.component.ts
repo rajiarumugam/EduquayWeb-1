@@ -80,8 +80,22 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
         .subscribe(response => {
           console.log(response);
           var _editArray  = response.subjectDetails;
-          this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":_editArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
-        console.log(tempNormalArray);
+          this.pathoHPLCService.retrivePathoHPLCDiagnosis()
+          .subscribe(response => {
+            console.log(response);
+            var _pathoArray  = response.subjectDetails;
+  
+            
+            this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":_editArray.length,"pathocount":_pathoArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
+          console.log(tempNormalArray);
+  
+           
+          },
+          (err: HttpErrorResponse) => {
+            //this.showResponseMessage(err.toString(), 'e');
+          });
+
+          
 
          
         },
