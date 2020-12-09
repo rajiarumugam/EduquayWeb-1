@@ -113,7 +113,11 @@ export class DiagosisReportComponent implements OnInit {
   if(this.diagnosisReportData.seniorPathologistRemarks)
       this.selectedRemarks = this.diagnosisReportData.seniorPathologistRemarks;
   if(this.diagnosisReportData.othersResult)
-      this.selectedOthers = this.diagnosisReportData.othersResult;
+  {
+    this.showOthersTextbox = true;
+    this.selectedOthers = this.diagnosisReportData.othersResult;
+  }
+      
 
   if(this.diagnosisReportData.othersDiagnosis)
   {
@@ -280,7 +284,8 @@ export class DiagosisReportComponent implements OnInit {
       if(this.HPLCmasterData[i].hplcResultName === "Others" && this.HPLCmasterData[i].checked)
       {
         this.showOthersTextbox = true;
-        this.checkboxes.forEach((element) => {
+        //val.checked = true;
+       /* this.checkboxes.forEach((element) => {
           element.nativeElement.checked = false;
         });
         if(val.hplcResultName != "Others")
@@ -290,23 +295,23 @@ export class DiagosisReportComponent implements OnInit {
         }else
         val.checked = true;
 
-            
+            */
       }
-      if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
+    if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
       {
         this.showOthersTextbox = false;
        
-        if(val.hplcResultName === "Normal")
+        /*if(val.hplcResultName === "Normal")
             val.disable = true;
         else
         {
           val.checked = false;
           val.disable = false;
-        }
+        }*/
             
       }
 
-      if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
+     /* if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
       {
         if(val.hplcResultName === "Normal" || val.hplcResultName === "Others")
             val.disable = true;
@@ -328,7 +333,7 @@ export class DiagosisReportComponent implements OnInit {
         }
         
             
-      }
+      }*/
     },this);
     
   }
@@ -382,7 +387,7 @@ export class DiagosisReportComponent implements OnInit {
 
         if(type === "save")
         {
-            Swal.fire({icon:'success', title: 'You will be able to edit the diagnosis within 7 days of aging, after which the current Diagnosis will be auto confirmed.  Please confirm ',
+            Swal.fire({icon:'success', title: 'Please confirm',
             showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
               .then((result) => {
                 if (result.value) {
