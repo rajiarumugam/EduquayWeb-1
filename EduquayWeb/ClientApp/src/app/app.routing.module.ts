@@ -249,15 +249,12 @@ import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/
 import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
 
 import { CentralNotificationMainComponent } from "./central-lab/central-notification/central-notification-main/central-notification-main.component";
-<<<<<<< HEAD
 import { StateComponent } from "./admin/state/state.component";
 import { DistrictComponent } from "./admin/district/district.component";
 import { BlockComponent } from "./admin/block/block.component";
 import { ChcComponent } from "./admin/chc/chc.component";
 import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
-=======
-import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
->>>>>>> b906dfdeb191091f2cabca879988af386a7decf8
+//import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
