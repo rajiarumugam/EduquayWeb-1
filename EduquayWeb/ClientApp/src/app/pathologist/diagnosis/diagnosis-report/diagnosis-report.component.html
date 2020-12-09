@@ -230,7 +230,7 @@
                             </div>
 
                                 <div class="form-group col-md-4">
-                                    <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> {{'LabDiagnosis' | translate}}</b><span class="manto"> *</span></span>
+                                    <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.cd.invalid }"><b> {{'LaboratoryDiagnosis' | translate}}</b><span class="manto"> *</span></span>
                                     <!--<select name="occupationoption" class="form-control field" id="occuptnid"
                                                 tabindex="7" [(ngModel)]="selectedDiagnosis" formControlName = "cd" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.cd.invalid }">
                                                 <option [ngValue]="null">Select Diagnosis</option>
@@ -254,6 +254,16 @@
                                                         >
                                                             </ng-multiselect-dropdown>
                                 </div>
+
+                                <div class="form-group col-md-4" *ngIf="showOthersDiagnosisTextbox">
+                                    <label for="inputpathname">
+                                        <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.othersDiagnosis.invalid }"><b>{{'Others' | translate}}</b><span class="manto"> *</span></span>
+                                    </label>
+                                    <input class="form-control field" name="others" required="" id="inputpathname" type="text"
+                                        placeholder="Others" tabindex="1" autocomplete="off" formControlName="othersDiagnosis"  [(ngModel)]="selectedothersDiagnosis" [required]="showOthersDiagnosisTextbox ? true : false" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.othersDiagnosis.invalid }">
+                                 
+
+                                </div>
                             
                                 <div class="form-group col-md-8">
                                     <div class="mb-2"><span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && this.tempHPLCmasterChecked == ''}"><b> {{'HPLCTestResults' | translate}}</b><span class="manto"> *</span></span></div>
@@ -271,7 +281,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4" *ngIf="showOthersTextbox">
-                                    <label for="inputpathname">
+                                    <label for="inputpathname" class="hplctestresult-others">
                                         <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.others.invalid }"><b>{{'Others' | translate}}</b><span class="manto"> *</span></span>
                                     </label>
                                     <input class="form-control field" name="others" required="" id="inputpathname" type="text"
@@ -317,14 +327,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row m-1">
+                       <!-- <div class="form-row m-1">
                         
                             <div class="form-group col-md-3">
-                                <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>{{'DiagnosticSummary' | translate}}</b><!--<span class="manto"> *</span>--></span>
+                                <span class="note ml-1" [ngClass]="{'label-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"><b>{{'DiagnosticSummary' | translate}}</b></span>
                                 <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="diagnosticSummary" name="diagnosticSummary" [(ngModel)]="SelecteddiagnosticSummary" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.diagnosticSummary.invalid }"></textarea>
                             </div>
                             
-                        </div>
+                        </div>-->
                         <div class="form-row m-1">
                             <div class="form-group col-md-12">
                                 <!--<button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i class="flaticon-cancel-12"></i>-->
@@ -332,8 +342,10 @@
                             <p style="display:inline-block;">{{'Note:HPLCResultAbnormal/NormalwillbecommunicatedtoSubject' | translate}}</p>
                             <a class="btn btn-success float-right mr-3" role="button"
                                 id="linktobuttonpathologist" (click)="reportSubmit('submit');">{{'Confirm&Close' | translate}}</a>
+                                <!--<a class="btn btn-success float-right mr-3" role="button"
+                                id="linktobuttonpathologist" (click)="reportSubmit('save');"      *ngIf="showConfirmEditLater">{{'Confim-EditLater' | translate}}</a>-->
                                 <a class="btn btn-success float-right mr-3" role="button"
-                                id="linktobuttonpathologist" (click)="reportSubmit('save');"      *ngIf="showConfirmEditLater">{{'Confim-EditLater' | translate}}</a>
+                                id="linktobuttonpathologist" (click)="reportSubmit('save');">{{'Confim-EditLater' | translate}}</a>
                             <!-- <button type="button" class="btn btn-primary">Save</button> -->
                         </div>
                         </div>

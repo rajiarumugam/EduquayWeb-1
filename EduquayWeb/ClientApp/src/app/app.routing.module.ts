@@ -94,6 +94,7 @@ import { CentrallabSampleResolverService } from "./shared/centrallab/central-sam
 import { CentrallabShipmentResolverService } from "./shared/centrallab/central-shipment-resolver.service";
 import { CentralupdateHPLCService } from "./shared/centrallab/central-update-hplc-resolver.service";
 import { CentralupdateHPLCNewService } from "./shared/centrallab/central-update-hplc-new-resolver.service";
+import { PathoHPLCsrpathoService } from "./shared/centrallab/central-update-hplc-patho-resolver.service";
 
 import { CentralSampleRcptMainComponent } from "./central-lab/sample-rcpt/central-sample-rcpt-main/central-sample-rcpt-main.component";
 import { CentralSampleRcptComponent } from "./central-lab/sample-rcpt/central-sample-rec/central-sample-rec.component";
@@ -248,10 +249,15 @@ import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/
 import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
 
 import { CentralNotificationMainComponent } from "./central-lab/central-notification/central-notification-main/central-notification-main.component";
+<<<<<<< HEAD
 import { StateComponent } from "./admin/state/state.component";
 import { DistrictComponent } from "./admin/district/district.component";
 import { BlockComponent } from "./admin/block/block.component";
 import { ChcComponent } from "./admin/chc/chc.component";
+import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
+=======
+import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
+>>>>>>> b906dfdeb191091f2cabca879988af386a7decf8
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -408,7 +414,8 @@ const routes: Routes = [
           {path: 'normal', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
           {path: 'abnormal', component: DiagnosisHPLCAbnormaComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
           {path: 'edit', component: DiagnosisHPLCAbEditComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
-          {path: 'report', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
+          {path: 'report', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}},
+          {path: 'patho', component: DiagnosisHPLCPathoComponent, pathMatch: 'full', resolve: {positiveSubjects: PathoHPLCService}},
         ]
       },
       {
@@ -805,7 +812,8 @@ export const RoutingComponents = [
   StateComponent,
   DistrictComponent,
   BlockComponent,
-  ChcComponent
+  ChcComponent,
+  DiagnosisHPLCPathoComponent
 
 ];
 

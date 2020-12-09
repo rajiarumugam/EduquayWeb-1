@@ -57,7 +57,9 @@
             </div>
             <div class="row py-2 my-2 print-header" style="background-color: #1B55E2;">
                 <div class="col-md-2 left-logo-cont">
-                    <img class="logo-left" src="../../../../assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1">
+                    <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 60px;">
+                    <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 60px;margin-left:10px;">
+                    <!--<img class="logo-left" src="../../../../assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1">-->
                 </div>
                 <div class="col-md-8 col-mid">
                     <h4 class="text-center text-white pt-2 header-text">THALASSEMIA AND SICKLE CELL DISEASE CONTROL
@@ -65,7 +67,9 @@
                     <h5 class="text-center text-white header-text">Pathologist Summary Report</h5>
                 </div>
                 <div class="col-md-2 right-logo-cont">
-                    <img class="logo-right" src="../../../../assets/assets/img/Insteam_CMC_logo.png" class="mt-1">
+                    <!--<img class="logo-right" src="../../../../assets/assets/img/Insteam_CMC_logo.png" class="mt-1">-->
+                    <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 63px;margin-left:10px;float:right;">
+                    <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 60px;float:right;margin-left:10px;">
                 </div>
             </div>
             <div class="row">
@@ -224,7 +228,7 @@
                                     <th rowspan="2" class="nt-border-right text-center">
                                         <span>{{'HPLCResults' | translate}}</span></th>
                                     <th rowspan="2" class="nt-border-right text-center">
-                                        <span>{{'LabDiagnosis' | translate}}</span></th>
+                                        <span>{{'LaboratoryDiagnosis' | translate}}</span></th>
                                     <th rowspan="2" class="nt-border-right text-center">
                                         <span>{{'SrPathologistRemarks' | translate}}</span></th>
 
@@ -255,9 +259,9 @@
                                 </tr>
                                 <tr>
                                     <td class="text-center"><b>{{'DiagnosisDateTime' | translate}}</b></td>
-                                    <td class="text-left" colspan="2">{{diagnosisReportData?.diagnosisDateTime}}</td>
-                                    <td class="text-center" colspan="3"><b>{{'DiagnosticSummary' | translate}}</b></td>
-                                    <td class="text-left" colspan="3">{{diagnosisReportData?.diagnosisSummary}}</td>
+                                    <td class="text-left" colspan="8">{{diagnosisReportData?.diagnosisDateTime}}</td>
+                                    <!--<td class="text-center" colspan="3"><b>{{'DiagnosticSummary' | translate}}</b></td>
+                                    <td class="text-left" colspan="3">{{diagnosisReportData?.diagnosisSummary}}</td>-->
 
                                 </tr>
                                 <!-- <tr>
@@ -276,16 +280,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3 mb-5">
-                <div class="col-md-12">
-                    <span class="float-right"><b>Signature of the Pathologist</b></span>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <span class=""><b>Disclaimer:</b>  This is a computer generated report. It does not require a physical signature.</span>
-                </div>
-            </div>
+           
         </div>
 
 
@@ -508,14 +503,17 @@
                                     <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{diagnosisReportData?.hbS}}</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{'Lab Diagnosis' | translate}} </td>
+                                    <td class="sp-xs-td-9">{{'LaboratoryDiagnosis' | translate}} </td>
                                     <td class="sp-xs-td-9" colspan="5"><b>{{diagnosisReportData?.diagnosis}}</b></td>
                                 </tr>
-                                
                                 <tr>
+                                    <td class="sp-xs-td-9">{{'HPLCResult' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{diagnosisReportData?.hplcResult}}</b></td>
+                                </tr>
+                               <!-- <tr>
                                     <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
                                     <td class="sp-xs-td-9" colspan="5"><b>{{diagnosisReportData?.diagnosisSummary}}</b></td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                         </table>
                     </div>

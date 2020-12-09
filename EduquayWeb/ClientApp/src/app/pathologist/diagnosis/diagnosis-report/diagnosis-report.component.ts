@@ -50,6 +50,8 @@ export class DiagosisReportComponent implements OnInit {
   selectedcomplicationsItems = [];
   selectedanyOtherComplications = false;
   downloadGraphLink;
+  selectedothersDiagnosis;
+  showOthersDiagnosisTextbox = false;
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -95,7 +97,8 @@ export class DiagosisReportComponent implements OnInit {
       diagnosticSummary:[''],
       pathologistName:[''],
       remarks:[''],
-      others: ['']
+      others: [''],
+      othersDiagnosis:['']
    });
 
    console.log(this.diagnosisReportData);
@@ -110,7 +113,18 @@ export class DiagosisReportComponent implements OnInit {
   if(this.diagnosisReportData.seniorPathologistRemarks)
       this.selectedRemarks = this.diagnosisReportData.seniorPathologistRemarks;
   if(this.diagnosisReportData.othersResult)
-      this.selectedOthers = this.diagnosisReportData.othersResult;
+  {
+    this.showOthersTextbox = true;
+    this.selectedOthers = this.diagnosisReportData.othersResult;
+  }
+      
+
+  if(this.diagnosisReportData.othersDiagnosis)
+  {
+    this.showOthersDiagnosisTextbox = true;
+    this.selectedothersDiagnosis = this.diagnosisReportData.othersDiagnosis;
+  }
+      
       
    
    
@@ -270,7 +284,8 @@ export class DiagosisReportComponent implements OnInit {
       if(this.HPLCmasterData[i].hplcResultName === "Others" && this.HPLCmasterData[i].checked)
       {
         this.showOthersTextbox = true;
-        this.checkboxes.forEach((element) => {
+        //val.checked = true;
+       /* this.checkboxes.forEach((element) => {
           element.nativeElement.checked = false;
         });
         if(val.hplcResultName != "Others")
@@ -280,23 +295,23 @@ export class DiagosisReportComponent implements OnInit {
         }else
         val.checked = true;
 
-            
+            */
       }
-      if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
+    if(this.HPLCmasterData[i].hplcResultName === "Others" && !this.HPLCmasterData[i].checked)
       {
         this.showOthersTextbox = false;
        
-        if(val.hplcResultName === "Normal")
+        /*if(val.hplcResultName === "Normal")
             val.disable = true;
         else
         {
           val.checked = false;
           val.disable = false;
-        }
+        }*/
             
       }
 
-      if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
+     /* if((this.HPLCmasterData[i].hplcResultName === "Beta Thalassemia" || this.HPLCmasterData[i].hplcResultName === "Sickle Cell Disease") && this.HPLCmasterData[i].checked)
       {
         if(val.hplcResultName === "Normal" || val.hplcResultName === "Others")
             val.disable = true;
@@ -318,7 +333,7 @@ export class DiagosisReportComponent implements OnInit {
         }
         
             
-      }
+      }*/
     },this);
     
   }
@@ -359,7 +374,8 @@ export class DiagosisReportComponent implements OnInit {
         _obj['clinicalDiagnosisId'] = ""+_tempComplectionData;
         _obj['hplcResultMasterId'] = ""+this.tempHPLCmasterChecked;
         _obj['isNormal'] = this.FormGroup.get('swapcase').value === "normal" ? true : false;
-        _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value != undefined ? this.FormGroup.get('diagnosticSummary').value : ""; 
+       // _obj['diagnosisSummary'] = this.FormGroup.get('diagnosticSummary').value != undefined ? this.FormGroup.get('diagnosticSummary').value : ""; 
+       _obj['diagnosisSummary'] = ""; 
         _obj['isConsultSeniorPathologist'] = this.FormGroup.get('consulSeniorPatho').value === 'true' ? true : false;
         _obj['seniorPathologistName'] = this.FormGroup.get('pathologistName').value != undefined ? this.FormGroup.get('pathologistName').value : "";
         _obj['seniorPathologistRemarks'] = this.FormGroup.get('remarks').value != undefined ? this.FormGroup.get('remarks').value : ""; 
@@ -367,10 +383,11 @@ export class DiagosisReportComponent implements OnInit {
        
         _obj['othersResult'] = this.FormGroup.get('others').value != undefined ? this.FormGroup.get('others').value : "";
         _obj['isDiagnosisComplete'] = (type === "save") ? false : true;
+        _obj['othersDiagnosis'] = this.FormGroup.get('othersDiagnosis').value != undefined ? this.FormGroup.get('othersDiagnosis').value : "";
 
         if(type === "save")
         {
-            Swal.fire({icon:'success', title: 'You will be able to edit the diagnosis within 7 days of aging, after which the current Diagnosis will be auto confirmed.  Please confirm ',
+            Swal.fire({icon:'success', title: 'Please confirm',
             showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
               .then((result) => {
                 if (result.value) {
@@ -439,21 +456,29 @@ export class DiagosisReportComponent implements OnInit {
     }
   
     public onItemSelect(item: any) {
+      console.log(item);
       this.selectedcomplicationsItems.push(item);
       
       if(item.id == 7)
         this.selectedanyOtherComplications = true;
+
+      if(item.name == "Others")
+          this.showOthersDiagnosisTextbox = true;
     }
     public onDeSelect(item: any) {
+      if(item.name == "Others")
+          this.showOthersDiagnosisTextbox = false;
+
       var _index = this.selectedcomplicationsItems.findIndex(com => com.id === item.id);
       this.selectedcomplicationsItems.splice(_index,1);
+
     }
   
     public onSelectAll(items: any) {
-      
+      this.showOthersDiagnosisTextbox = true;
     }
     public onDeSelectAll(items: any) {
-      
+      this.showOthersDiagnosisTextbox = false;
     }
     exportexcel(): void 
     {

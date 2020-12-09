@@ -442,6 +442,8 @@
 "SrPathologistRemarks":"Sr. Pathologist Remarks",
 "DiagnosisDateTime":"Diagnosis Date & Time",
 "UpdateMolecularResults": "Update Molecular Results",
-"CentralLabNotification":"Central Lab Notification"
+"CentralLabNotification":"Central Lab Notification",
+"LaboratoryDiagnosis":"Laboratory Diagnosis",
+"SrPathologistReferredDiagnosis":"Sr.Pathologist Referred Diagnosis"
 
 }
