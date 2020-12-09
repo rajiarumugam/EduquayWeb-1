@@ -105,6 +105,15 @@ import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.
 
 import {NgxPrintModule} from 'ngx-print';
 import { SubjectTrackerComponent } from './anm-module/subject-tracker/subject-tracker.component';
+import { StateComponent } from './admin/state/state.component';
+import { DistrictComponent } from './admin/district/district.component';
+import { BlockComponent } from './admin/block/block.component';
+import { ChcComponent } from './admin/chc/chc.component';
+import { PhcComponent } from './admin/phc/phc.component';
+import { ScComponent } from './admin/sc/sc.component';
+import { RiPointComponent } from './admin/ri-point/ri-point.component';
+import { FacilityTypeComponent } from './admin/facility-type/facility-type.component';
+import { HNINComponent } from './admin/hnin/hnin.component';
 
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
@@ -181,7 +190,16 @@ import { SubjectTrackerComponent } from './anm-module/subject-tracker/subject-tr
     GetOtpComponent,
     ResetPasswordComponent,
     ResetLoginComponent,
-    SubjectTrackerComponent
+    SubjectTrackerComponent,
+    StateComponent,
+    DistrictComponent,
+    BlockComponent,
+    ChcComponent,
+    PhcComponent,
+    ScComponent,
+    RiPointComponent,
+    FacilityTypeComponent,
+    HNINComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

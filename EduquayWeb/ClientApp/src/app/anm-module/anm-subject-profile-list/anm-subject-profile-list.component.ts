@@ -460,6 +460,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
         $('#fadeinModal').modal('show');
   
   }
+
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
     if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
