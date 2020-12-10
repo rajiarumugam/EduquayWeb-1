@@ -34,7 +34,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chclistErrorMessage: string;
     user: user;
   
-    confirmationSelected: boolean = true;
+    confirmationSelected: boolean ;
     chcListResponse: AddChcResponse;
     chclists: ChcList[];
     chcListRequest: AddChcRequest;
@@ -46,7 +46,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
    
     selectedDistrict: string;
     getstate: string;
-    selectedEditDistrict: string;
+    selectedEditDistrict: string = '';
   
     districtGovCode: string;
     stateName: string;
@@ -64,7 +64,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     getdistrict: string;
     getblock: string;
     blockCodedata: string;
-    selectedBlock: string;
+    selectedBlock: string = '';
     chcCode: string;
     chcName: string;
     pincode: string;
@@ -252,6 +252,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       //this.blockCodedata = sample.blockGovCode;
       //this.selectedEditDistrict = sample.districtId;
       this.commentsdata = sample.comments;
+      this.confirmationSelected = Boolean(sample.isActive);
   
       this.modalService.open(
         editBlockDetail, {

@@ -35,7 +35,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     districtlistErrorMessage: string;
     user: user;
   
-    confirmationSelected: boolean = true;
+    confirmationSelected: boolean ;
     districtListResponse: AddDistrictResponse;
     districtlists: DistrictList[];
     addDistrictRequest: AddDistrictRequest;
@@ -186,6 +186,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       this.districtcodedata = sample.districtGovCode;
       this.selectedEditState = sample.stateId;
       this.commentsdata = sample.comments;
+      this.confirmationSelected = Boolean(sample.isActive);
   
       this.modalService.open(
         editDistrictDetail, {

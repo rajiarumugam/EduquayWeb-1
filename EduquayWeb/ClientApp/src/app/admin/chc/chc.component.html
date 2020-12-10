@@ -142,7 +142,7 @@
                                         class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
                                         name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || addChcForm.submitted && ddlBlock.invalid"
-                                        required [(ngModel)]="selectedBlock">
+                                        required [(ngModel)]="selectedBlock" disabled]="selectedDistrict === ''">
                                             <option value="">Select</option>
                                             <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
                                                 {{blockdata.blockName}}
