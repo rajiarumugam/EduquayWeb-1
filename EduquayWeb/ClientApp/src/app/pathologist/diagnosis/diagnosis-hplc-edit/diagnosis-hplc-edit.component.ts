@@ -6,6 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { DataService } from '../../../shared/data.service';
 import { pathoHPLCService } from "./../../../shared/pathologist/patho-hplc.service";
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-diagnosis-hplc-edit',
@@ -123,6 +124,15 @@ export class DiagnosisHPLCAbEditComponent implements OnInit {
       this.dtTrigger.next();
     }   
   
+    returncompareDate(date1)
+    {
+          var startDate = moment(date1, "DD/MM/YYYY");
+          var endDate = moment(moment(), "DD-MM-YYYY");
+          var result = endDate.diff(startDate, 'days');
+          //console.log(result > 7);
+          /*return result > 7;*/
+          return result > 7;
+      }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
