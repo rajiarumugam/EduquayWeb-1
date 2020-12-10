@@ -33,7 +33,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     blocklistErrorMessage: string;
     user: user;
   
-    confirmationSelected: boolean = true;
+    confirmationSelected: string;
     blockListResponse: AddBlockResponse;
     blocklists: BlockList[];
     blockListRequest: AddBlockRequest;
@@ -169,6 +169,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddBlock(addBlockDetail) {
       
       this.ddlDistrict();
+      this.confirmationSelected = "true";
       this.modalService.open(
         addBlockDetail, {
         centered: true,
@@ -180,6 +181,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       });
   
     }
+    
   
     openEditBlock(editBlockDetail, sample: BlockList) {
   
@@ -188,6 +190,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       this.blockCodedata = sample.blockGovCode;
       //this.selectedEditDistrict = sample.districtId;
       this.commentsdata = sample.comments;
+      this.confirmationSelected = sample.isActive;
   
       this.modalService.open(
         editBlockDetail, {
@@ -214,7 +217,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         blockGovCode: this.blockcodedata,
         blockName: this.blocknamedata,
         districtId: +(this.selectedDistrict),
-        isActive: ""+this.confirmationSelected,
+        isActive: this.confirmationSelected,
         comments: this.comments,
         createdBy: this.user.id,
         updatedBy: this.user.id,
@@ -256,7 +259,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         blockGovCode: this.blockcodedata,
         blockName: this.blocknamedata,
         districtId: +(this.selectedEditDistrict),
-        isActive: ""+this.confirmationSelected,
+        isActive: this.confirmationSelected,
         comments: this.commentsdata,
         createdBy: this.user.id,
         updatedBy: this.user.id,
