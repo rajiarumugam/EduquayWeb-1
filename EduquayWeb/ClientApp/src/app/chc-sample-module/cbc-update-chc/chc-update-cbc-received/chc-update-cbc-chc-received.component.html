@@ -7,8 +7,8 @@
             <th><span>{{'RCHID' | translate }}</span></th>
             <th><span>{{'Barcode' | translate }}</span></th>
             <th><b>{{'MCV' | translate }} (fL)</b></th>
-            <th><b>{{'RDWSD' | translate }} (%)</b></th>
-            <th><b>{{'RBC' | translate }}</b></th>
+            <th><b>{{'RDWSD' | translate }} - CV (%)</b></th>
+            <th><b>{{'RBC' | translate }} (millions/mcl)</b></th>
             <th><span>{{'sampleDate' | translate }}</span></th>
             <th><span>{{'TestedTime' | translate }}</span></th>
             <th><span>{{'validateResult' | translate }}</span></th>
@@ -26,7 +26,7 @@
             <td style="text-align: center;">{{ person.rbc }}</td>
             <td style="text-align: center;">{{ person.sampleDateTime }}</td>
             <td style="text-align: center;">{{ person.testedDateTime }}</td>
-            <td style="text-align: center;"><button class="button-cls mb-2" *ngIf="!person.timeoutStatus" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" (click)="confirm(person,1);" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false">Confirm</button><button class="button-cls" *ngIf="!person.timeoutStatus" style="margin-left:5px;" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false" (click)="confirm(person,2);">Rerun</button><button class="button-cls" *ngIf="person.timeoutStatus" (click)="confirm(person,3);">Sample Timeout</button></td>
+            <td style="text-align: center;"><button class="button-cls mb-2" *ngIf="!person.timeoutStatus" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" (click)="confirm(person,1);" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false">Confirm</button><button class="button-cls" *ngIf="!person.timeoutStatus" style="margin-left:5px;" [ngClass]="{'rerun-btn-disabled': (person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false}" [disabled]="(person.mcv == '--' && person.rdw == '--'  && person.testedDateTime == '--') ? true : false" (click)="confirm(person,2);">Reject</button><button class="button-cls" *ngIf="person.timeoutStatus" (click)="confirm(person,3);">Sample Timeout</button></td>
         </tr>
     </tbody>
 </table>

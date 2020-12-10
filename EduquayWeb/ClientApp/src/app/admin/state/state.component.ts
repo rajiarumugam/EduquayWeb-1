@@ -32,7 +32,7 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
   statelistErrorMessage: string;
   user: user;
 
-  confirmationSelected: boolean ;
+  confirmationSelected: string;
   stateListResponse: StateResponse;
   statelists: StateList[];
   addStateRequest: StateRequest;
@@ -117,9 +117,9 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  openAddState(addStateDetail, sample: StateList) {
+  openAddState(addStateDetail) {
 
-    this.confirmationSelected = Boolean(sample.isActive);
+    this.confirmationSelected = "True";
     this.modalService.open(
       addStateDetail, {
       centered: true,
@@ -138,7 +138,7 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
     this.statetcodedata = sample.stateGovCode;
     this.statetnamedata = sample.stateName;
     this.commentsdata = sample.comments;
-    this.confirmationSelected = Boolean(sample.isActive);
+    this.confirmationSelected = sample.isActive;
 
     this.modalService.open(
       editStateDetail, {
