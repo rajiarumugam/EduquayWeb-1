@@ -26,9 +26,6 @@ export class DiagosisHPLCmainComponent implements OnInit {
     this.router.events
     .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
     .subscribe((events: RoutesRecognized[]) => {
-      
-      //console.log('previous url', events[0].urlAfterRedirects.indexOf('chc-update-cbc'));
-      //console.log('current url', events[1].urlAfterRedirects);
       if(events[0].urlAfterRedirects.indexOf('central-update-hplc') == -1)
       {
           this.DataService.deleteProp('centraluploaddata');
