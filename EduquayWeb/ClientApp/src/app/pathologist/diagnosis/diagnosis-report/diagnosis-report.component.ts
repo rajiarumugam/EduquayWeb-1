@@ -1,6 +1,6 @@
 import { Component, OnInit,HostListener,QueryList,ElementRef,ViewChildren } from '@angular/core';
 import { DataService } from '../../../shared/data.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 declare var $: any;
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,6 +14,8 @@ import * as moment from 'moment';
 import * as XLSX from 'xlsx'; 
 import { ENDPOINT } from 'src/app/app.constant';
 import { GenericService } from '../../../shared/generic.service';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-diagnosis-report',
@@ -52,6 +54,10 @@ export class DiagosisReportComponent implements OnInit {
   downloadGraphLink;
   selectedothersDiagnosis;
   showOthersDiagnosisTextbox = false;
+
+  previousUrl: string = null;
+  currentUrl: string = null;
+
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -77,6 +83,7 @@ export class DiagosisReportComponent implements OnInit {
 
   ngOnInit() {
     
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.DataService.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
    
@@ -100,10 +107,7 @@ export class DiagosisReportComponent implements OnInit {
       others: [''],
       othersDiagnosis:['']
    });
-
-   console.log(this.diagnosisReportData);
    this.downloadGraphLink = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.DOWNLOADHPLCGRAPH+this.diagnosisReportData.graphFileName);
-   console.log(this.downloadGraphLink);
    if(this.diagnosisReportData.clinicalDiagnosisId != undefined)
         this.selectedDiagnosis = this.diagnosisReportData.clinicalDiagnosisId;
     if(this.diagnosisReportData.diagnosisSummary)
@@ -456,7 +460,6 @@ export class DiagosisReportComponent implements OnInit {
     }
   
     public onItemSelect(item: any) {
-      console.log(item);
       this.selectedcomplicationsItems.push(item);
       
       if(item.id == 7)

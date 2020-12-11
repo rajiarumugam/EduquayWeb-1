@@ -423,7 +423,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'pathologist-hplc-report', component: DiagosisReportmainComponent,
+        path: 'pathologist-hplc-report/:pagename', component: DiagosisReportmainComponent,
         children:[
           {path: '', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
