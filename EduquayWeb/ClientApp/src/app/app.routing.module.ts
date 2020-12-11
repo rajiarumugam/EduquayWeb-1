@@ -249,7 +249,12 @@ import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/
 import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
 
 import { CentralNotificationMainComponent } from "./central-lab/central-notification/central-notification-main/central-notification-main.component";
+import { StateComponent } from "./admin/state/state.component";
+import { DistrictComponent } from "./admin/district/district.component";
+import { BlockComponent } from "./admin/block/block.component";
+import { ChcComponent } from "./admin/chc/chc.component";
 import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
+//import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -317,6 +322,10 @@ const routes: Routes = [
       { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
       { path: 'anm-subjecttracker', component: SubjectTrackerComponent},
+      { path: 'add-state', component: StateComponent, pathMatch: 'full'},
+      { path: 'add-district', component: DistrictComponent, pathMatch: 'full'},
+      { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
+      { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -797,6 +806,10 @@ export const RoutingComponents = [
   ViewReportCLMainMainComponent,
   SubjectTrackerComponent,
   CentralNotificationMainComponent,
+  StateComponent,
+  DistrictComponent,
+  BlockComponent,
+  ChcComponent,
   DiagnosisHPLCPathoComponent
 
 ];
