@@ -255,6 +255,9 @@ import { BlockComponent } from "./admin/block/block.component";
 import { ChcComponent } from "./admin/chc/chc.component";
 import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
+
+import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -596,6 +599,10 @@ const routes: Routes = [
           {path: 'counselledawaited', component: PostCounsellingDecisionPendingComponent, pathMatch: 'full'}
         ]
       },
+      {
+        path: 'nhm-report', component: NHMreportListComponent,
+       
+      },
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
       { path: 'update-post-pndtc-awaited', component: PostPndtcDecisionAwaitedComponent },
@@ -810,7 +817,8 @@ export const RoutingComponents = [
   DistrictComponent,
   BlockComponent,
   ChcComponent,
-  DiagnosisHPLCPathoComponent
+  DiagnosisHPLCPathoComponent,
+  NHMreportListComponent
 
 ];
 

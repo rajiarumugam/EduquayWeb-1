@@ -87,7 +87,10 @@ export const ENDPOINT = {
         "RETRIVEPNDTCDIAGNOSIS":"api/v1/PNDTMTPMaster/RetrievePNDTDiagnosis",
         "RETRIVEPNDTRESULT":"api/v1/PNDTMTPMaster/RetrievePNDTResult",
         "RETRIVEMTPCOMPLICATIONS":"api/v1/PNDTMTPMaster/RetrieveMTPComplications",
-        "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions"
+        "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions",
+        "RETRIVEBLOCKBYDISTRICT":"api/v1/WebMaster/RetrieveBlockByDistrict/",
+        "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
+        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/"
     },
     "MTP":
     {
@@ -105,6 +108,9 @@ export const ENDPOINT = {
         "RETRIVEMOLECULARREPORTS":"api/v1/MolecularLab/RetrieveMolecularReports",
         "RETRIVEMOLECULARSAMPLESTATUS":"api/v1/MolecularLab/RetrieveMolecularSampleStatus",
         "RETRIVEMOLECULARREPORTS1":"api/v1/MolecularLab/RetrieveMolecularReports",
+    },
+    "NHM":{
+        "GETNHMREPORTS":"api/v1/Reports/NHMReports"
     }
 
 }
