@@ -444,6 +444,19 @@
 "UpdateMolecularResults": "Update Molecular Results",
 "CentralLabNotification":"Central Lab Notification",
 "LaboratoryDiagnosis":"Laboratory Diagnosis",
-"SrPathologistReferredDiagnosis":"Sr.Pathologist Referred Diagnosis"
-
+"SrPathologistReferredDiagnosis":"Sr.Pathologist Referred Diagnosis",
+"nhmreport":"NHM Report",
+"ANMId":"ANMId",
+"DateofRegister":"Date of Register",
+"Mobile":"Mobile",
+"Village":"Village",
+"SampleCollected":"Sample Collected",
+"SampleCollectionDateTime":"SampleCollection Date & Time",
+"SampleTestedDateTime":"SampleTested Date & Time",
+"HPLCTestedDateTime":"HPLCT ested Date & Time",
+"HPLCPathoLabDiagnosis":"HPLC Patho Lab Diagnosis",
+"HPLCPathoLabResult":"HPLC Patho Lab Result",
+"SpouseRegistrationStatus":"Spouse Registration Status",
+"PNDTTestResult":"PNDT Test Result",
+"NHM":"NHM"
 }

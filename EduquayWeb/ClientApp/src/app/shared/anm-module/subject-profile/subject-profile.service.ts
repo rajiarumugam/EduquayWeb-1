@@ -5,6 +5,7 @@ import { HttpClientService } from '../../http-client.service';
 import { SubjectProfileResponse, ReligionResponse, GovtIDTypeResponse, CasteResponse, CommunityeResponse, RetrieveSubjectProfileList, AddSubjectProfileResponse, trackingANWSubjectResponse, trackingSubjectResponse } from './subject-profile-response';
 import { SubjectProfileRequest, ParticularSubjectProfileRequest, AddSubjectprofileRequest, anmSubjectTrackerRequest, subjectTrackerRequest } from './subject-profile-request';
 import { TokenService } from '../../token.service';
+import { ENDPOINT } from '../../../app.constant';
 
 
 @Injectable({
@@ -87,6 +88,12 @@ export class SubjectProfileService {
   getTrackingSubject(subjectTracker: subjectTrackerRequest){
     let apiUrl = this.genericService.buildApiUrl(this.trackingSubject);
     return this.http.post<trackingSubjectResponse>({url: apiUrl, body: subjectTracker});
+  }
+
+
+  getNHMReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.NHM.GETNHMREPORTS);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
 
 }
