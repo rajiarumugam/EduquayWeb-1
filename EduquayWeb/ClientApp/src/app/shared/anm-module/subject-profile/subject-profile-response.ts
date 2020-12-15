@@ -237,6 +237,14 @@ export interface trackingANWSubjectResponse{
 }
 
 export interface ANMSubject{
+
+    subjectName: string;
+    spouseName: string;
+    age: string;
+    ga: string;
+    gender: string;
+    lmpDate: string;
+    childSubjectTypeId: number;	
     subjectId: string;
     spouseSubjectId: string;
     dateofRegistration: string;

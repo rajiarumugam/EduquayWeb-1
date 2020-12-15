@@ -114,6 +114,8 @@ import { ScComponent } from './admin/sc/sc.component';
 import { RiPointComponent } from './admin/ri-point/ri-point.component';
 import { FacilityTypeComponent } from './admin/facility-type/facility-type.component';
 import { HNINComponent } from './admin/hnin/hnin.component';
+import { GvtIdTypeComponent } from './admin/gvt-id-type/gvt-id-type.component';
+import { UserTypeComponent } from './admin/user-type/user-type.component';
 
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
@@ -199,7 +201,9 @@ import { HNINComponent } from './admin/hnin/hnin.component';
     ScComponent,
     RiPointComponent,
     FacilityTypeComponent,
-    HNINComponent
+    HNINComponent,
+    GvtIdTypeComponent,
+    UserTypeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

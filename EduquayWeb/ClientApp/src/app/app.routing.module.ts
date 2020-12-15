@@ -254,6 +254,10 @@ import { DistrictComponent } from "./admin/district/district.component";
 import { BlockComponent } from "./admin/block/block.component";
 import { ChcComponent } from "./admin/chc/chc.component";
 import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
+import { PhcComponent } from "./admin/phc/phc.component";
+import { ScComponent } from "./admin/sc/sc.component";
+import { RiPointComponent } from "./admin/ri-point/ri-point.component";
+import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -326,6 +330,10 @@ const routes: Routes = [
       { path: 'add-district', component: DistrictComponent, pathMatch: 'full'},
       { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
       { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
+      { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
+      { path: 'add-sc', component: ScComponent, pathMatch: 'full'},
+      { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
+      { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -810,7 +818,11 @@ export const RoutingComponents = [
   DistrictComponent,
   BlockComponent,
   ChcComponent,
-  DiagnosisHPLCPathoComponent
+  DiagnosisHPLCPathoComponent,
+  PhcComponent,
+  ScComponent,
+  RiPointComponent,
+  GvtIdTypeComponent
 
 ];
 
