@@ -396,7 +396,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
   getANMData(){
     this.loaderService.display(true);
-    this.PNDTCmasterService.getANMByCHC(this.selectedBlock)
+    this.PNDTCmasterService.getANMByCHC(this.selectedchc)
     .subscribe(response => {
       console.log(response);
       this.ANMdata = response['data'];
