@@ -131,8 +131,6 @@ export class DiagosisReportComponent1 implements OnInit {
       this.clinicalDiagnosisData = this.clinicalDiagnosisMasterData.filter(report => report.diagnosisName != "Normal");
 
       this.HPLCmasterData.forEach(function(val,index){
-        console.log(event.currentTarget.value);
-        console.log(val);
         if(event.currentTarget.value === "normal" && val.hplcResultName === "Normal")
             val.disable = false;
        else if(event.currentTarget.value === "abnormal" && val.hplcResultName != "Normal")
@@ -142,15 +140,12 @@ export class DiagosisReportComponent1 implements OnInit {
 
         val.checked = false;
       },this);
-    console.log(event.currentTarget.value);
   }
   getHPLCmaster()
   {
     this.pathoHPLCService.retriveHPLCResultMaster().subscribe(response => {
       this.HPLCmasterData = response.hplcResults;
       this.HPLCmasterData.forEach(function(val,index){
-        console.log(this.diagnosisReportData.isNormal);
-        console.log(val.hplcResultName);
        /* if(this.diagnosisReportData.isNormal && val.hplcResultName === 'Normal')
             val.disable = true;*/
         if(this.diagnosisReportData.isNormal)
@@ -175,8 +170,6 @@ export class DiagosisReportComponent1 implements OnInit {
         {
               var _tempHplcResultMaster = this.diagnosisReportData.hplcResultMasterId.split(',');
               _tempHplcResultMaster.forEach(element => {
-                console.log(element);
-                console.log(val);
                 if(element == val.id)
                 {
                   val.checked = true;
@@ -205,8 +198,6 @@ export class DiagosisReportComponent1 implements OnInit {
         this.HPLCmasterData[0].disable = true;
         this.HPLCmasterData[3].disable = true;
       }
-
-      console.log(this.HPLCmasterData);
     },
     (err: HttpErrorResponse) =>{
       this.HPLCmasterData = [];
@@ -214,8 +205,6 @@ export class DiagosisReportComponent1 implements OnInit {
   }
   pathologistChange(event)
   {
-      /*console.log(event.target.value);
-      console.log(this.FormGroup.get('consulSeniorPatho').value)*/
   }
 
   hplcChange(i)
@@ -225,7 +214,6 @@ export class DiagosisReportComponent1 implements OnInit {
     this.HPLCmasterData.forEach(function(val,index){
       if(this.HPLCmasterData[i].hplcResultName === "Others" && this.HPLCmasterData[i].checked)
       {
-        console.log('hitting 1');
         this.showOthersTextbox = true;
         this.checkboxes.forEach((element) => {
           element.nativeElement.checked = false;
@@ -316,9 +304,6 @@ export class DiagosisReportComponent1 implements OnInit {
        
         _obj['othersResult'] = this.FormGroup.get('others').value != undefined ? this.FormGroup.get('others').value : "";
         _obj['isDiagnosisComplete'] = (type === "save") ? false : true;
-
-        console.log(_obj);
-
         if(type === "save")
         {
             Swal.fire({icon:'success', title: 'You will be able to edit the diagnosis within 7 days of aging, after which the current Diagnosis will be auto confirmed.  Please confirm ',

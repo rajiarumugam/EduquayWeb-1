@@ -175,6 +175,14 @@ div.dataTables_wrapper div.dataTables_filter svg {
     * {
         -webkit-print-color-adjust: exact;
     }
+    @page{size:auto; margin:5mm;}
+    @page :footer { 
+        display: none
+    } 
+  
+    @page :header { 
+        display: none
+    } 
     /* invert the display (show/hide) properties of the main */
     /* aplication component and the printing component       */
     .watermark {

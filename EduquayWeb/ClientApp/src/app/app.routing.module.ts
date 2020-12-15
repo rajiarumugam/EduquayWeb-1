@@ -259,6 +259,9 @@ import { ScComponent } from "./admin/sc/sc.component";
 import { RiPointComponent } from "./admin/ri-point/ri-point.component";
 import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
+
+import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -431,7 +434,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'pathologist-hplc-report', component: DiagosisReportmainComponent,
+        path: 'pathologist-hplc-report/:pagename', component: DiagosisReportmainComponent,
         children:[
           {path: '', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
@@ -603,6 +606,10 @@ const routes: Routes = [
           {path: 'counselledno', component: PostCounsellingDecisionNoComponent, pathMatch: 'full'},
           {path: 'counselledawaited', component: PostCounsellingDecisionPendingComponent, pathMatch: 'full'}
         ]
+      },
+      {
+        path: 'nhm-report', component: NHMreportListComponent,
+       
       },
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
@@ -822,7 +829,8 @@ export const RoutingComponents = [
   PhcComponent,
   ScComponent,
   RiPointComponent,
-  GvtIdTypeComponent
+  GvtIdTypeComponent,
+  NHMreportListComponent
 
 ];
 

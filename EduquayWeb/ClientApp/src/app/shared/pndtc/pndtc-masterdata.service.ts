@@ -96,5 +96,20 @@ export class PNDTCmasterService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
   
-  
+  getBlockByDistrict(did): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEBLOCKBYDISTRICT+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+  getCHCByBlock(did): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBYBLOCK+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getANMByCHC(did): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEANMBYCHC+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }

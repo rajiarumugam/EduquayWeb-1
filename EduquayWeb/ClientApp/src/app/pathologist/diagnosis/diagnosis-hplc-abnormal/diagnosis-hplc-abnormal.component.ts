@@ -59,7 +59,6 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
       var _tempData = centralReceiptsArr.subjectDetails;
       var tempNormalArray;
       var tempAbnormalArray;
-      console.log(_tempData);
         tempAbnormalArray = _tempData.filter(function(item) {
           return !item.isNormal;
         });
@@ -68,28 +67,21 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
           return item.isNormal;
         });
         /*this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));*/
-        console.log(tempNormalArray);
 
       if(this.currentPage === "abnormal")
         this.centralReceiptsData = tempAbnormalArray;
       else
         this.centralReceiptsData = tempNormalArray;
 
-        console.log(this.centralReceiptsData);
         this.pathoHPLCService.retriveEditHPLCDiagnosis()
         .subscribe(response => {
-          console.log(response);
           var _editArray  = response.subjectDetails;
           this.pathoHPLCService.retrivePathoHPLCDiagnosis()
           .subscribe(response => {
-            console.log(response);
             var _pathoArray  = response.subjectDetails;
   
             
             this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":_editArray.length,"pathocount":_pathoArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
-          console.log(tempNormalArray);
-  
-           
           },
           (err: HttpErrorResponse) => {
             //this.showResponseMessage(err.toString(), 'e');
@@ -111,9 +103,8 @@ export class DiagnosisHPLCAbnormaComponent implements OnInit {
 
   openReportComponent(data)
   {
-    console.log(data);
     this.DataService.setdata({'diagnosisHPLC':data});
-    this.router.navigate(['/app/pathologist-hplc-report']);
+    this.router.navigate(['/app/pathologist-hplc-report/'+this.currentPage]);
   }
   //returncompareDate(date1,date2)
   returncompareDate(date1)

@@ -58,7 +58,6 @@ export class DiagnosisHPLCAbEditComponent implements OnInit {
       var _tempData = centralReceiptsArr.subjectDetails;
       var tempNormalArray;
       var tempAbnormalArray;
-      console.log(_tempData);
         tempAbnormalArray = _tempData.filter(function(item) {
           return !item.isNormal;
         });
@@ -74,25 +73,16 @@ export class DiagnosisHPLCAbEditComponent implements OnInit {
 
         this.pathoHPLCService.retriveEditHPLCDiagnosis()
         .subscribe(response => {
-          console.log(response);
           this.centralReceiptsData = response.subjectDetails;
           this.pathoHPLCService.retrivePathoHPLCDiagnosis()
           .subscribe(response => {
-            console.log(response);
             var _pathoArray  = response.subjectDetails;
   
             this.DataService.sendData(JSON.stringify({'screen':'PATHOLOGIST','page':"received","normalcount":tempNormalArray.length,"abnormalcount":tempAbnormalArray.length,"editcount":this.centralReceiptsData.length,"pathocount":_pathoArray.length, "module": "Pathologist - HPLC", "pagealter": "Diagnostic - HPLC"}));
-            
-          console.log(tempNormalArray);
-  
-           
           },
           (err: HttpErrorResponse) => {
             //this.showResponseMessage(err.toString(), 'e');
           });
-          
-        console.log(tempNormalArray);
-
           this.rerender();
         },
         (err: HttpErrorResponse) => {
@@ -115,9 +105,8 @@ export class DiagnosisHPLCAbEditComponent implements OnInit {
   }
   openReportComponent(data)
   {
-    console.log(data);
     this.DataService.setdata({'diagnosisHPLC':data});
-    this.router.navigate(['/app/pathologist-hplc-report']);
+    this.router.navigate(['/app/pathologist-hplc-report/edit']);
   }
   
     ngAfterViewInit(): void {
