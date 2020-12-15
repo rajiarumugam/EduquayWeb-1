@@ -174,7 +174,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     if(this.selectedBlock != null)
     {
       this.showBlock = false;
-      this.getBlockData();
+      this.getCHCData();
     } 
     else
         this.showBlock = true;
@@ -368,6 +368,8 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
   getBlockData(){
     this.loaderService.display(true);
+    this.ANMdata = [];
+    this.selectedAnm = null;
     this.PNDTCmasterService.getBlockByDistrict(this.selectedDistrict)
     .subscribe(response => {
       console.log(response);
@@ -382,6 +384,8 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
   getCHCData(){
     this.loaderService.display(true);
+    this.ANMdata = [];
+    this.selectedAnm = null;
     this.PNDTCmasterService.getCHCByBlock(this.selectedBlock)
     .subscribe(response => {
       console.log(response);
