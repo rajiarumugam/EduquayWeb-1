@@ -5,10 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { AddBlockRequest } from 'src/app/shared/admin/add-block/add-block-request';
-import { AddBlockDataresponse, AddBlockResponse, BlockList } from 'src/app/shared/admin/add-block/add-block-response';
-import { AddBlockService } from 'src/app/shared/admin/add-block/add-block.service';
-import { AddDistrictResponse, DistrictList } from 'src/app/shared/admin/add-district/add-district-response';
+import { AddGvtIdTypeRequest } from 'src/app/shared/admin/add-masters-request';
+import { AddGvtIdTypeResponse, GvtIdTypes, RetrieveGvtIdTypeResponse } from 'src/app/shared/admin/add-masters-response';
+import { AddMastersService } from 'src/app/shared/admin/add-masters.service';
 import { user } from 'src/app/shared/auth-response';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
@@ -16,11 +15,11 @@ import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-block',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.css']
+  selector: 'app-gvt-id-type',
+  templateUrl: './gvt-id-type.component.html',
+  styleUrls: ['./gvt-id-type.component.css']
 })
-export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
+export class GvtIdTypeComponent implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
@@ -30,39 +29,30 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
   
-    blocklistErrorMessage: string;
+    gvtidlistErrorMessage: string;
     user: user;
   
     confirmationSelected: string;
-    blockListResponse: AddBlockResponse;
-    blocklists: BlockList[];
-    blockListRequest: AddBlockRequest;
-    addBlockResponse: AddBlockDataresponse;
-    districtListResponse: AddDistrictResponse;
-    districtlists: DistrictList[];
-    selectedDistrict: string;
-    getstate: string;
-    selectedEditDistrict: string;
+    gvtIdTypeListResponse: RetrieveGvtIdTypeResponse;
+    gvtidtypeLists: GvtIdTypes[];
+    addGvtIdTypeRequest: AddGvtIdTypeRequest;
+    addGvtIdTypeResponse: AddGvtIdTypeResponse;
   
-    districtGovCode: string;
-    stateName: string;
-
-    districtName: string;
+    stateGovCode: string;
+    gvtidname: string;
+    gvtidnamedata: string;
     isActive: string;
     comments: string;
     createdBy: number;
     updatedBy: number;
     stateCode: string;
-    blocknamedata: string;
-    blockcodedata: string;
-    districtnamedata: string;
+    statetnamedata: string;
+    statetcodedata: string;
+    shortnamedata: string;
     commentsdata: string;
-    getdistrict: string;
-    blockCodedata: string;
-   
   
     constructor(
-      private BlockService: AddBlockService,
+      private GvtIdTypeService: AddMastersService,
       private modalService: NgbModal,
       private httpService: HttpClient,
       private _formBuilder: FormBuilder,
@@ -73,7 +63,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     ) { }
   
     ngOnInit() {
-      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "Block"}));
+      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "Government ID Type"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = { 
@@ -95,83 +85,43 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirveBlocklist();
+      this.retrirveStatelist();
     }
   
-    retrirveBlocklist(){
+    retrirveStatelist(){
       this.loaderService.display(true);
-      this.blocklists = [];
-      this.blocklistErrorMessage ='';
-      let samplesList = this.BlockService.getBlockList()
+      this.gvtidtypeLists = [];
+      this.gvtidlistErrorMessage ='';
+      let samplesList = this.GvtIdTypeService.getGvtIdTypeList()
       .subscribe(response => {
-        this.blockListResponse = response;
+        this.gvtIdTypeListResponse = response;
         this.loaderService.display(false);
-        if(this.blockListResponse !== null){
-          if(this.blockListResponse.blocks.length <= 0){
-            this.blocklistErrorMessage = response.message;
-            
+        if(this.gvtIdTypeListResponse !== null && this.gvtIdTypeListResponse.status === "true"){
+          if(this.gvtIdTypeListResponse.govIDTypes.length <= 0){
+            this.gvtidlistErrorMessage = response.message;
           }
           else{
-            this.blocklists = this.blockListResponse.blocks;
-            this.blocklists.forEach(element => {
-              this.getdistrict = element.districtId;
-            });
-            //this.getstate = this.
+            this.gvtidtypeLists = this.gvtIdTypeListResponse.govIDTypes;
             this.rerender();
             
           }
         }
         else{
-          this.blocklistErrorMessage = response.message;
+          this.gvtidlistErrorMessage = response.message;
         }
        
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
-        this.blocklistErrorMessage = err.toString();
+        this.gvtidlistErrorMessage = err.toString();
       });
     }
-
-    ddlDistrict() {
-      let district = this.BlockService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.districts;
-          this.selectedDistrict = "";
-        }
-        else {
-          this.blocklistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.blocklistErrorMessage = err.toString();
   
-        });
-    }
-
-    ddlEditDistrict() {
-      let district = this.BlockService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.districts;
-          this.selectedEditDistrict = this.getdistrict;
-        }
-        else {
-          this.blocklistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.blocklistErrorMessage = err.toString();
+    openAddGvtId(addGvtIdDetail) {
   
-        });
-    }
-  
-    openAddBlock(addBlockDetail) {
-      
-      this.ddlDistrict();
-      this.confirmationSelected = "true";
+      this.confirmationSelected = "True";
       this.modalService.open(
-        addBlockDetail, {
+        addGvtIdDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -181,19 +131,15 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       });
   
     }
-    
   
-    openEditBlock(editBlockDetail, sample: BlockList) {
+    editAddGvtIdType(editStateDetail, sample: GvtIdTypes) {
   
-      this.ddlEditDistrict();
-      this.blocknamedata = sample.blockName;
-      this.blockCodedata = sample.blockGovCode;
-      //this.selectedEditDistrict = sample.districtId;
+      this.gvtidname = sample.govIdTypeName;
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive;
   
       this.modalService.open(
-        editBlockDetail, {
+        editStateDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -204,86 +150,79 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    onSubmit(addBlockForm: NgForm){
+    onSubmit(addGvtIdForm: NgForm){
   
-      console.log(addBlockForm.value);
-      this.blocknamedata = addBlockForm.value.blockname;
-      this.blockcodedata = addBlockForm.value.blockCode;
-      this.districtName = addBlockForm.value.districtname;
-      this.comments = addBlockForm.value.Comments;
-      this.selectedDistrict = addBlockForm.value.ddlDistrict;
+      console.log(addGvtIdForm.value);
+      this.gvtidname = addGvtIdForm.value.gvtidname;
+      this.comments = addGvtIdForm.value.Comments;
   
-      this.blockListRequest = {
-        blockGovCode: this.blockcodedata,
-        blockName: this.blocknamedata,
-        districtId: +(this.selectedDistrict),
+      this.addGvtIdTypeRequest = {
+        govIdTypeName: this.gvtidname,
         isActive: this.confirmationSelected,
         comments: this.comments,
         createdBy: this.user.id,
-        updatedBy: this.user.id,
+        updatedBy: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.BlockService.addBlock(this.blockListRequest)
+      let damagedsampleCollection = this.GvtIdTypeService.addGvtType(this.addGvtIdTypeRequest)
       .subscribe(response => {
-        this.addBlockResponse = response;
-        if(this.addBlockResponse !== null){
-          this.showResponseMessage(this.addBlockResponse.message, 's')
-           this.retrirveBlocklist();
-        }else{
-          this.showResponseMessage(this.addBlockResponse.message, 'e');
-                  this.blocklistErrorMessage = response.message;
+        this.addGvtIdTypeResponse = response;
+        if(this.addGvtIdTypeResponse !== null){
+          this.showResponseMessage(this.addGvtIdTypeResponse.message, 's')
+           this.retrirveStatelist();
+        }
+        else{
+          this.showResponseMessage(this.addGvtIdTypeResponse.message, 'e');
+                  this.gvtidlistErrorMessage = response.message;
         }
   
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
-        this.blocklistErrorMessage = err.toString();
+        this.gvtidlistErrorMessage = err.toString();
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
   
-    editSubmit(editDistrictForm: NgForm){
+    editSubmit(editGvtidForm: NgForm){
   
-      console.log(editDistrictForm.value);
-      this.blocknamedata = editDistrictForm.value.editBlockName;
-      this.blockcodedata = editDistrictForm.value.editblockCode;
-      this.districtnamedata = editDistrictForm.value.editDistirctName;
-      this.commentsdata = editDistrictForm.value.editComments;
-      this.selectedEditDistrict = editDistrictForm.value.ddlEditDistrict;
+      console.log(editGvtidForm.value);
+      this.statetnamedata = editGvtidForm.value.editstatename;
+      this.statetcodedata = editGvtidForm.value.editStateCode;
+      this.shortnamedata = editGvtidForm.value.editshortName;
+      this.commentsdata = editGvtidForm.value.editComments;
   
-      this.blockListRequest = {
-        blockGovCode: this.blockcodedata,
-        blockName: this.blocknamedata,
-        districtId: +(this.selectedEditDistrict),
+      this.addGvtIdTypeRequest = {
+        govIdTypeName: this.gvtidname,
         isActive: this.confirmationSelected,
-        comments: this.commentsdata,
+        comments: this.comments,
         createdBy: this.user.id,
-        updatedBy: this.user.id,
+        updatedBy: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.BlockService.addBlock(this.blockListRequest)
+      let damagedsampleCollection = this.GvtIdTypeService.addGvtType(this.addGvtIdTypeRequest)
       .subscribe(response => {
-        this.addBlockResponse = response;
-        if(this.addBlockResponse !== null){
-          this.showResponseMessage(this.addBlockResponse.message, 's')
-           this.retrirveBlocklist();
+        this.addGvtIdTypeResponse = response;
+        if(this.addGvtIdTypeResponse !== null){
+          this.showResponseMessage(this.addGvtIdTypeResponse.message, 's')
+           this.retrirveStatelist();
         }else{
-          this.showResponseMessage(this.addBlockResponse.message, 'e');
-                  this.blocklistErrorMessage = response.message;
+          this.showResponseMessage(this.addGvtIdTypeResponse.message, 'e');
+                  this.gvtidlistErrorMessage = response.message;
         }
   
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
-        this.blocklistErrorMessage = err.toString();
+        this.gvtidlistErrorMessage = err.toString();
       });
       //swal ("Here's the title!", "...and here's the text!");
     }

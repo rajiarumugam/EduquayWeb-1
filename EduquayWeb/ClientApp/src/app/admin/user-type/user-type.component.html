@@ -18,23 +18,23 @@
                 <h5 class="">ANM Name - PHC Name</h5>
             </div> -->
             <div class="col-md-12">
-                <div class="justify-between">
+                  <div class="justify-between">
                     <div class="col-md-4">
                         <div class="float-left mb-4">
-                            <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-district']" role="button"
-                            ngbTooltip="District" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                            <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-gvt-id-type']" role="button"
+                            ngbTooltip="Government ID Type" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
                           </div>
                     </div>
                     <!-- <h5 class="float-left">Sample Collection</h5> -->
                     <div class="col-md-4">
                       <div class="headertit">
-                        <h5 class="float-center">{{'Block' | translate }}</h5>
+                        <h5 class="float-center">{{'User Type' | translate }}</h5>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="float-right mb-4">
-                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-chc']" role="button"
-                        ngbTooltip="CHC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-userrole']" role="button"
+                        ngbTooltip="User Role" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
                       </div>
                     </div>
                   </div>
@@ -43,43 +43,45 @@
                 <div class="widget-content widget-content-area br-6">
                     <div class="form-row">
                         <div class="col-md-12">
-                            <div *ngIf="blocklistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': blocklistErrorMessage ==='No sample data  found', 'alert-danger': blocklistErrorMessage !== 'No sample data  found'}">
-                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{blocklistErrorMessage}}
+                            <div *ngIf="userTypelistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': userTypelistErrorMessage ==='No sample data  found', 'alert-danger': userTypelistErrorMessage !== 'No sample data  found'}">
+                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{userTypelistErrorMessage}}
                             </div>  
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="col-md-12">
-                            <a class="float-right mr-5" (click)="openAddBlock(addBlockDetail)"
+                            <a class="float-right mr-5" (click)="openAddUserType(adduserTypeDetail)"
                             role="button">
                                 <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
-                            </a>
+                              </a>
                         </div>
                       </div>
                       <div class="table-responsive mb-4">
-                        <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <table id="userTypelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                           <thead>
                             <tr>
                               <th><span>{{'SNo' | translate }}</span></th>
-                              <th><span>{{'Block Name' | translate }}</span></th>
-                              <th><span>{{'Block Code' | translate }}</span></th>
-                              <th><span>{{'District Name' | translate }}</span></th>
+                              <th><span>{{'User Type Name' | translate }}</span></th>
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Add' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let sample of blocklists; index as i">
+                            <tr *ngFor="let sample of usertypeLists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.blockName}}</td>
-                              <td class="sid text-center">{{sample.blockGovCode}}</td>
-                              <td class="sid text-center">{{sample.districtName}}</td>
+                              <td class="sname text-left">{{sample.userTypeName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center">{{sample.isActive}}</td>
-                             
+                              <!-- <td class="text-center">
+                                <a class="" (click)="openAddState(addStateDetail, sample)"
+                                role="button">
+                                    <i class="fas fa-plus-square" aria-hidden="true"></i>
+                                  </a>
+                              </td> -->
                               <td class="text-center">
-                                <a class="" (click)="openEditBlock(editBlockDetail, sample)"
+                                <a class="" (click)="editAddUserType(editUsertypeDetail, sample)"
                                 role="button">
                                     <i class="fas fa-pencil-square" aria-hidden="true"></i>
                                   </a>
@@ -92,9 +94,9 @@
                      
                   
                     <!-- The Modal -->
-                    <ng-template #addBlockDetail let-modal>
+                    <ng-template #adduserTypeDetail let-modal>
                           <div class="modal-header">
-                            <h4 class="modal-title modaltitle">{{'Add Block' | translate }}</h4>
+                            <h4 class="modal-title modaltitle">{{'Add User Type' | translate }}</h4>
                             <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -105,59 +107,20 @@
                             </button>
                           </div>
                           <div class="modal-body form-body">
-                            <form class="text-left" (ngSubmit)="addBlockForm.form.valid && onSubmit(addBlockForm)" #addBlockForm="ngForm" novalidate>
+                            <form class="text-left" (ngSubmit)="addUserTypeForm.form.valid && onSubmit(addUserTypeForm)" #addUserTypeForm="ngForm" novalidate>
                               <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
                                   <div class="form-group col-md-3">
-                                       
-                                        <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addBlockForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
-                                            class="manto"> *</span></label>
-                                            <select id="inputilrPoint" class="form-control"
-                                            name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addBlockForm.submitted && ddlDistrict.invalid"
-                                            required [(ngModel)]="selectedDistrict">
-                                                <option value="">Select</option>
-                                                <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                                    {{districtdata.districtName}}
-                                                </option>
-                                            </select>
-                                              <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
-                                              <div *ngIf="addBlockForm.submitted && ddlDistrict.invalid">  
-                                                <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>  
-                                              </div>  
+                                        <label class="note" [ngClass]="{'label-border-class':!usertypeName.valid && usertypeName.touched || addUserTypeForm.submitted && usertypeName.invalid}">{{'User Type Name' | translate }} <span class="manto">*</span></label>
+                                        <input class="form-control" name="usertypeName" type="text" placeholder="User Type Name" ngModel
+                                        [class.is-invalid]="!usertypeName.valid && usertypeName.touched || addUserTypeForm.submitted && usertypeName.invalid"
+                                         #usertypeName="ngModel" required>
+                                        <small class="text-danger ml-2" *ngIf="!usertypeName.valid && usertypeName.touched ">Enter User Type Name</small> 
+                                        <div *ngIf="addUserTypeForm.submitted && usertypeName.invalid">     
+                                          <small *ngIf="usertypeName.untouched" class=" ml-2 text-danger">User Type Name is required</small>  
+                                        </div> 
                                      
                                   </div>
-                                  <div class="form-group col-md-3">
-                                    <label class="note" [ngClass]="{'label-border-class':!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid}">{{'Block Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel
-                                    [class.is-invalid]="!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid"
-                                     #blockname="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!blockname.valid && blockname.touched ">Enter Block Name</small> 
-                                    <div *ngIf="addBlockForm.submitted && blockname.invalid">     
-                                      <small *ngIf="blockname.untouched" class=" ml-2 text-danger">Block Name is required</small>  
-                                    </div> 
-                                 
-                              </div>
-                    
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addBlockForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small> 
-                                    <div *ngIf="addBlockForm.submitted && StateCode.invalid">     
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>  
-                                    </div> 
-                                  </div> -->
-                                  <div class="form-group col-md-3">
-                                    <label class="note">{{'Block Code' | translate }}<span class="manto"> *</span></label>
-                                    <input class="form-control" name="blockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$" required          
-                                    #blockCode ="ngModel" [class.is-invalid]="!blockCode.valid && blockCode.touched || addBlockForm.submitted && blockCode.invalid">
-                                    <small class="text-danger ml-2" *ngIf="!blockCode.valid && blockCode.touched ">Enter Block Code</small> 
-                                    <div *ngIf="addBlockForm.submitted && blockCode.invalid">     
-                                    <small *ngIf="blockCode.untouched" class=" ml-2 text-danger">Block Code is required</small>  
-                                    </div> 
-                                  </div>
-                                 
                     
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
@@ -193,9 +156,9 @@
                         
                        </ng-template> 
 
-                       <ng-template #editBlockDetail let-modal>
+                       <ng-template #editUsertypeDetail let-modal>
                         <div class="modal-header">
-                          <h4 class="modal-title modaltitle">{{'Edit Block' | translate }}</h4>
+                          <h4 class="modal-title modaltitle">{{'Edit User Type' | translate }}</h4>
                           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -206,36 +169,20 @@
                           </button>
                         </div>
                         <div class="modal-body form-body">
-                          <form class="text-left" (ngSubmit)="editBlockForm.form.valid && editSubmit(editBlockForm)" #editBlockForm="ngForm" novalidate>
+                          <form class="text-left" (ngSubmit)="editUsertypeForm.form.valid && editSubmit(editUsertypeForm)" #editUsertypeForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                <!-- <div class="form-group col-md-3">
-                                      <label class="note">{{'State' | translate }} <span class="manto">*</span></label>
-                                      <input class="form-control" name="editdistrictname" type="text" placeholder="State Name" ngModel                                      
-                                       #editdistrictname="ngModel" [(ngModel)]="statetnamedata">                                              
-                                </div> -->
                                 <div class="form-group col-md-3">
-                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
-                                    <select id="inputilrPoint" class="form-control"
-                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict">
-                                        <option value="">Select</option>
-                                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                            {{districtdata.districtName}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="note">{{'Block Name' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control field" name="editBlockName" type="text" placeholder="Block Name" 
-                                      autocomplete="off" #editBlockName="ngModel" ngModel [(ngModel)]="blocknamedata">
-                                  </div>
-                                <div class="form-group col-md-3">
-                                  <label class="note">{{'Block Code' | translate }}<span class="manto"></span></label>
-                                  <input class="form-control" name="editblockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$"           
-                                  #editblockCode="ngModel" [(ngModel)]="blockCodedata">
-                                  
-                                </div>
-                               
+                                    <label class="note" [ngClass]="{'label-border-class':!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid}">{{'Government Id Type Name' | translate }} <span class="manto"> </span></label>
+                                    <input class="form-control" name="usertypeNamedata" type="text" placeholder="Government Id Type Name" ngModel
+                                    [class.is-invalid]="!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid"
+                                     #usertypeNamedata="ngModel" required>
+                                    <small class="text-danger ml-2" *ngIf="!usertypeNamedata.valid && usertypeNamedata.touched ">Enter Gvt Id Type Name</small> 
+                                    <div *ngIf="editUsertypeForm.submitted && usertypeNamedata.invalid">     
+                                      <small *ngIf="usertypeNamedata.untouched" class=" ml-2 text-danger">User Type Name is required</small>  
+                                    </div> 
+                                 
+                              </div>
                   
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
