@@ -73,7 +73,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     ) { }
   
     ngOnInit() {
-      this.dataservice.sendData(JSON.stringify({"module": "ANM", "submodule": "Subject Profile", "page": "View Subject Profile"}));
+      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "District"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = { 

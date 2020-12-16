@@ -448,6 +448,8 @@
 "nhmreport":"NHM Report",
 "ANMId":"ANM ID",
 "DateofRegister":"Date of Register",
+"DateofRegistration":"Date of Registration",
+"Village/District":"Village / District",
 "Mobile":"Mobile",
 "Village":"Village",
 "SampleCollected":"Sample Collected",

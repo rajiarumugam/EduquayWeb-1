@@ -13,8 +13,8 @@
                 </div>
             </a>
         </li>-->
-        <!-- <li class="menu" *ngIf="user.userRole === 'ANM'">
-            <a href="#anm" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+        <!-- <li class="menu" *ngIf="user.userRole === 'CHCLTLEVEL1' || user.userRole === 'CHCSRLT'">
+            <a href="#admin" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
                 <div class="">
                     <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -30,7 +30,7 @@
                     </svg>
                 </div>
             </a>
-            <ul class="submenu list-unstyled collapse show" id="anm" data-parent="#accordionExample">
+            <ul class="submenu list-unstyled collapse show" id="admin" data-parent="#accordionExample">
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/add-state']"> {{'State' | translate }} </a>
                 </li>
@@ -46,14 +46,14 @@
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/add-phc']"> {{'PHC' | translate }} </a>
                 </li>
-                <li routerLinkActive="active">
+               <li routerLinkActive="active">
                     <a [routerLink]="['/app/add-sc']"> {{'SC' | translate }} </a>
                 </li>
-                <li routerLinkActive="active">
+                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/add-ri-point']"> {{'RI Point' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/add-facilitytype']"> {{'Facility Type' | translate }} </a>
+                    <a [routerLink]="['/app/add-gvt-id-type']"> {{'Government ID Type' | translate }} </a>
                 </li>
                
                
