@@ -428,7 +428,13 @@ export class CHCSampleRcptComponent implements OnInit {
 
          
     }
-  
+    returnTimeStamp(da)
+  {
+    var _date = da.split('/')[0];
+    var _month = da.split('/')[1];
+    var _year = da.split('/')[2];
+    return moment(_month+"/"+_date+"/"+_year).unix();
+  }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
