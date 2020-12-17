@@ -121,7 +121,7 @@
         <tr *ngFor="let person of centralReceiptsData;index as i">
             <td style="text-align: center;">{{ i + 1}}</td>
             <td style="text-align: center;">{{ person.shipmentId }}</td>
-            <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
+            <td style="text-align: center;"><span style="display: none;">{{person.shipmentDateTime | convertimestamp}}</span>{{ person.shipmentDateTime }}</td>
             <td>{{ person.labTechnicianName }}</td>
             <td>{{ person.deliveryExecutiveName }}</td>
             <td>{{ person.centralLabName }}</td>

@@ -20,7 +20,7 @@
             <td style="text-align: center;">{{ person.rchId }}</td>
             <td style="text-align: center;">{{ person.ga }}</td>
             <td style="text-align: center;">{{ person.barcodeNo }}</td>
-            <td style="text-align: center;">{{ person.dateOfTest }}</td>
+            <td style="text-align: center;"><span style="display: none;">{{person.dateOfTest | convertimestamp}}</span>{{ person.dateOfTest }}</td>
             <td class="user-plus" (click)="openReportComponent(person);"><i class="fas fa-reply fa-2x arrow" aria-hidden="true" style="font-size: 18px;" ></i></td>
             
         </tr>
