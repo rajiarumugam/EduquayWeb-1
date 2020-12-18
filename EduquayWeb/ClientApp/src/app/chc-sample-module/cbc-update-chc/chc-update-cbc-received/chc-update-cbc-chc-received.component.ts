@@ -9,6 +9,7 @@ import { chcsampleService } from '../../../shared/chc-sample/chc-sample.service'
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-chc-update-cbc-chc-received',
@@ -161,7 +162,13 @@ if(type == 1 || type == 2)
         console.log(err);
       });
     }
-    
+    returnTimeStamp(da)
+    {
+      var _date = da.split('/')[0];
+      var _month = da.split('/')[1];
+      var _year = da.split('/')[2];
+      return moment(_month+"/"+_date+"/"+_year).unix();
+    }
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first      

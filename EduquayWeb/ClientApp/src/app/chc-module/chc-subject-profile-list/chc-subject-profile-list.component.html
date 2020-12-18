@@ -135,7 +135,7 @@
                                             <td style="text-align: center">{{subjectinfo.pregnancyDetail.rchId}}</td>
                                             <td style="text-align: center">{{subjectinfo.primaryDetail.mobileNo}}</td>
                                             <td class="text-left sname">{{subjectinfo.primaryDetail.subjectType}}</td>
-                                            <td style="text-align: center">{{subjectinfo.primaryDetail.dateOfRegister}}</td>
+                                            <td style="text-align: center"><span style="display: none;">{{returnTimeStamp(subjectinfo.primaryDetail.dateOfRegister)}}</span>{{subjectinfo.primaryDetail.dateOfRegister}}</td>
                                             <td style="text-align: left">{{subjectinfo.primaryDetail.registeredFrom}}</td>
                                             <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>

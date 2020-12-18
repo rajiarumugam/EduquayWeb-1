@@ -12,6 +12,7 @@ import { user } from 'src/app/shared/auth-response';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { DataService } from 'src/app/shared/data.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -174,6 +175,13 @@ export class AnmShipmentComponent implements  AfterViewInit, OnDestroy, OnInit {
     });
   }   
 
+  returnTimeStamp(da)
+  {
+    var _date = da.split('/')[0];
+    var _month = da.split('/')[1];
+    var _year = da.split('/')[2];
+    return moment(_month+"/"+_date+"/"+_year).unix();
+  }
      
 
   ngAfterViewInit(): void {

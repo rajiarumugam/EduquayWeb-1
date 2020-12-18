@@ -657,7 +657,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.dtTrigger1.next();   
     
   }
-
+  returnTimeStamp(da)
+  {
+    var _date = da.split('/')[0];
+    var _month = da.split('/')[1];
+    var _year = da.split('/')[2];
+    return moment(_month+"/"+_date+"/"+_year).unix();
+  }
   ngAfterViewInit(): void {
     this.dtTrigger.next(); 
     this.dtTrigger1.next();
