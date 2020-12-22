@@ -236,6 +236,7 @@ import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subje
 import { PathoreportSampleStatusComponent } from "./pathologist/repot-sample-status/patho-repot-sample-status/patho-repot-sample-status.component";
 import { PathoreportSampleStatusMainComponent } from './pathologist/repot-sample-status/patho-repot-sample-status-main/patho-repot-sample-status-main.component';
 import { PathoReportResolverService } from "./shared/pathologist/patho-report-resolver.service";
+import { PathoReportPrintResolverService } from "./shared/pathologist/patho-report-print-resolver.service";
 
 import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
 import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
@@ -261,6 +262,10 @@ import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 
 import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
+
+import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -473,6 +478,11 @@ const routes: Routes = [
         children:[
           {path: '', component: PathoreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportResolverService}}
         ]
+      },{
+        path: 'patho-report-print', component: PathoreportSampleStatusMainPrintComponent,
+        children:[
+          {path: '', component: PathoreportSampleStatusPrintComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportPrintResolverService}}
+        ]
       },
       {
         path: 'central-shipment', component: CentralShipmentMainComponent,
@@ -611,6 +621,7 @@ const routes: Routes = [
         path: 'nhm-report', component: NHMreportListComponent,
        
       },
+      
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
       { path: 'update-post-pndtc-awaited', component: PostPndtcDecisionAwaitedComponent },
@@ -830,7 +841,9 @@ export const RoutingComponents = [
   ScComponent,
   RiPointComponent,
   GvtIdTypeComponent,
-  NHMreportListComponent
+  NHMreportListComponent,
+  PathoreportSampleStatusMainPrintComponent,
+  PathoreportSampleStatusPrintComponent
 
 ];
 

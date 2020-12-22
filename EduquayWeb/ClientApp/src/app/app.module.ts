@@ -119,6 +119,7 @@ import { UserTypeComponent } from './admin/user-type/user-type.component';
 
 import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
 
+
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
 // };
