@@ -460,5 +460,6 @@
 "HPLCPathoLabResult":"HPLC Patho Lab Result",
 "SpouseRegistrationStatus":"Spouse Registration Status",
 "PNDTTestResult":"PNDT Test Result",
-"NHM":"NHM"
+"NHM":"NHM",
+"SPC":"SPC"
 }

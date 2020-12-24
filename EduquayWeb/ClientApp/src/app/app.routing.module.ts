@@ -656,7 +656,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
   { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
-  { path: '**', redirectTo: '/pageunderconstruction' },
+  { path: '**', redirectTo: '/home/login' },
 ];
 
 
