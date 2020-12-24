@@ -64,7 +64,7 @@
                     <thead>
                         <tr>
                             <th><span>{{'SNo' | translate}}</span></th>
-                            <th></th>
+                           
                             <th><span>{{'SubjectName' | translate}}</span></th>
                             <th><span>{{'SubjectID' | translate}}</span></th>
                             <th><span>{{'RCHID' | translate}}</span></th>
@@ -75,6 +75,7 @@
                             <th><span>{{'HPLCResult' | translate }}  </span></th>
                             <th><span>{{'Status' | translate }} </span></th>
                             <th><span>{{'ClinicalDiagnosis' | translate }} </span></th>
+                            <th (change)="checkAllSelected()"><input type="checkbox" class="checkbox" [checked]="checkdAllEnabled"></th>
                             <!--<th><span>{{'Results' | translate }}</span></th>-->
                         </tr>
 
@@ -82,8 +83,7 @@
                     <tbody>
                         <tr *ngFor="let pnddata of pndPendingArray; index as i">
                             <td>{{i+1}}</td>
-                              <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
-                                (change)="checkIfSelected(i)"></td>
+                             
                             <td style="text-align: left">{{pnddata.subjectName}}</td>
                             <td class="text-center">{{pnddata.subjectId}}</td>
                             <td class="sid text-center">{{pnddata.rchId}}</td>
@@ -94,6 +94,8 @@
                             <td class="text-left">{{pnddata.hplcResult}}</td>
                             <td class="text-left">{{pnddata.sampleStatus}}</td>
                             <td class="text-left">{{pnddata.diagnosis}}</td>
+                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                (change)="checkIfSelected(i)"></td>
                            <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
                             
                         </tr>
@@ -105,7 +107,14 @@
     </div>
 </div>
 
-<div class="col-xl-12 col-lg-12 col-sm-12 print-show" style="min-height:98vh;" *ngFor="let data of printArray">
+<div class="col-md-2 left-logo-cont">
+    <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 0px;">
+    <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 0px;">
+    <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 0px;">
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" style="min-height:99vh;" *ngFor="let data of printArray">
   <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
       <div class="widget-content widget-content-area br-6">
         <div class="row py-2 my-2 print-header">
