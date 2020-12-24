@@ -140,6 +140,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   selectedAnm = null;
   showDistrict = true;
   showBlock = true;
+  globalTimeout = null;
   
 
   constructor(
@@ -191,6 +192,16 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
+      columns: [{
+        title: 'ID',
+        data: 'id'
+      }, {
+        title: 'First name',
+        data: 'anmId'
+      }, {
+        title: 'Last name',
+        data: 'anmName'
+      }],
        // Declare the use of the extension in the dom parameter
        dom: "<'row mt-3'<'col-sm-6 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-2 float right'B>>" +
        "<'row'<'col-sm-12'tr>>" +
@@ -601,11 +612,26 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       this.getBlockData();
   }
 
+  /*ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }   */
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
-  }   
-
-
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (that.search() !== this['value']) {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+ 
+  }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

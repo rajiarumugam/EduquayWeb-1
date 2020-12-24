@@ -1,6 +1,15 @@
 html {
   min-height: 100%;
 }
+@media print {
+  @page { margin: 40px 0 0 0 !important; }
+  @page :footer { 
+    display: none
+} 
+@page :header { 
+    display: none
+} 
+  }
 
 body {
   color: #888ea8;
@@ -2855,3 +2864,4 @@ table {
 .position-relative {
   position: relative;
 }
+

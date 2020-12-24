@@ -1,0 +1,26 @@
+@media print {
+    .bs-tooltip
+    {
+        display:none;
+    }
+    #content
+    {
+        margin-top:0;
+    }
+    .layout-spacing
+    {
+        padding:0 !important;
+    }
+    .print-none
+    {
+        display: none;
+    }
+    .widget-content-area
+    {
+        padding:0 !important;
+    }
+    .mt-5, .my-5
+    {
+        margin:0 !important;
+    }
+    }

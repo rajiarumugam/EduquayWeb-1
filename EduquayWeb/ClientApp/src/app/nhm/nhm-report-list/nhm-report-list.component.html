@@ -144,6 +144,13 @@
                         <div class="table-responsive mt-4">
                             <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
                                 [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <tfoot>
+                                    <tr>
+                                      <th><input type="text" placeholder="Search ID" name="search-id" id="0"/></th>
+                                      <th><input type="text" placeholder="Search first name" name="search-first-name" id="1"/></th>
+                                      <th><input type="text" placeholder="Search last name" name="search-last-name" id="2"/></th>
+                                    </tr>
+                                    </tfoot>
                                 <thead>
                                     <tr>
                                         <th><span>{{'SNo' | translate }}</span></th>

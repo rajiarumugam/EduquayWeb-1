@@ -1,134 +1,9 @@
-
-  @media print {
-    @page { margin: 40px 0 0 0 !important; }
-    
+::ng-deep .dt-buttons
+    {
+        float:right !important;
     }
-#formValidate .wizard>.content {
-    min-height: 25em;
-}
 
-#example-vertical.wizard>.content {
-    min-height: 24.5em;
-}
-
-.layout-px-spacing {
-    min-height: calc(100vh - 166px) !important;
-}
-
-h5.float-left {
-    color: #1b55e2;
-    font-weight: 600;
-    text-shadow: 1px 0px #125879;
-    font-size: 25px;
-}
-.modaltitle {
-    color: #1b55e2;
-    font-weight: 600;
-    text-shadow: 1px 0px #125879;
-    font-size: 20px;
-    /* text-align: center; */
-}
-
-.table>tbody>tr>td {
-    text-align: left;
-    vertical-align: middle;
-    color: #141415;
-    font-size: 13px;
-    letter-spacing: 1px;
-}
-.table>tbody {
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    border-top: none;
-}
-/* .note{
-    font-size: 15px;
-    font-weight: 600;
-    color: #575858;
-} */
- .table td,
-.table th {
-    padding: .75rem;
-    vertical-align: middle;
-    border-top: none;
-}
-div.dataTables_wrapper div.dataTables_filter svg {
-    top: 30px !important;
-}
-
-.none{
-    display: none;
-}
-
-@media (min-width: 576px) {
-    .form-inline .form-control {
-    display: inline-block;
-    width: auto;
-    vertical-align: middle;
-    }
-    }
-    
-    
-    ::ng-deep .mat-horizontal-stepper-header-container {
-        display: none !important;
-      }
-    
-      ::ng-deep .mat-horizontal-content-container
-      {
-          padding:0 !important;
-      }
-    
-      .reges-form-main-container
-      {
-        background: #f6f6f6;
-        padding: 5px;
-      }
-    
-      .reges-form-main-container:hover
-      {
-        background: #f3f3f3;
-        display: block;
-        -webkit-box-shadow: 2px 2px 2px 2px #1b55e26b;
-        -moz-box-shadow: 2px 2px 2px 2px #1b55e26b;
-        box-shadow: 2px 2px 4px 4px #1b55e26b;
-      }
-      .float-right
-      {
-        float:right;
-      }
-      .reges-form-bottom-btns
-      {
-          margin-top:15px;
-          margin-bottom: 10px;
-      }
-    
-      .reg-btn-disable
-      {
-          color:#888ea8;
-          background: #ebedf2;
-      }
-      .reg-btn-enable
-      {
-          color:#ffffff;
-          background: #1b55e2;
-      }
-
-      /* validation style */
-      .red-border-class
-{
-    border: 1px solid red;
-}
-.label-border-class
-{
-    color: red !important;
-}
-.print-header
-{
-    /*display: none;*/
-}
-
-.print-show
+    .print-show
 {
     display:none;
 }
@@ -274,7 +149,7 @@ div.dataTables_wrapper div.dataTables_filter svg {
     {
         border:none !important;
     }
-    .table > tbody tr
+    .table > tbody tr,.table
     {
         border:none !important;
         height:auto;
@@ -285,5 +160,9 @@ div.dataTables_wrapper div.dataTables_filter svg {
     }
     .table td, .table th{
         padding: 5px !important;
+    }
+    .table,tbody
+    {
+        border: none !important;
     }
   }

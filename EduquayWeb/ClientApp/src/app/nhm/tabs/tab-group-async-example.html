@@ -1,0 +1,48 @@
+<ng-container *ngIf="(asyncTabs | async) === null">
+    Loading tabs...
+  </ng-container>
+  
+  <mat-tab-group>
+  
+        <mat-tab label="Customer Preferences"> 
+              <ng-template matTabContent> 
+                  <h2> Here are your preferences... </h2>
+              </ng-template>
+   
+        </mat-tab> 
+  
+        <mat-tab label="Dynamic Preferences">
+              <ng-template matTabContent>
+            <mat-tab-group>            
+              <mat-tab *ngFor="let tab of prefTabs" label="{{tab.label}}">
+  
+                <div *ngIf="tab.label === 'First'">
+                      Here's your FIRST option:  {{tab.content}}
+                </div>
+               <div *ngIf="tab.label === 'Second'">
+                      Here's your Second option:  {{tab.content}}
+                </div>
+                <div *ngIf="tab.label === 'Third'">
+                      Here's your Third option:  {{tab.content}}
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </ng-template>
+        </mat-tab>
+  
+        <mat-tab label="More Dynamic Preferences">
+              <ng-template matTabContent> 
+            <mat-tab-group>
+              <mat-tab *ngFor="let tab of asyncTabs | async" label="{{tab.label}}">
+                {{tab.content}}
+              </mat-tab>
+            </mat-tab-group>          
+          </ng-template>
+        </mat-tab>
+  
+  </mat-tab-group>    
+  
+  
+  <!-- Copyright 2018 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->

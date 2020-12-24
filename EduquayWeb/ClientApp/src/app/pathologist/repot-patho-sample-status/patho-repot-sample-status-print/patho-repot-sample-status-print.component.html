@@ -1,0 +1,487 @@
+<div class="tab-pane fade show print-none" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row ml-3 my-2">
+              <div class="form-group col-md-2" [formGroup]="dateform">
+                <label for="inputFromdate">{{'FromDate' | translate }}
+                </label>
+                <div class="form-group mb-0">
+                    <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
+                </div>
+              </div>
+              <div class="form-group col-md-2" [formGroup]="dateform">
+                <label for="inputTodate">{{'ToDate' | translate }}</label>
+                <div class="form-group mb-0">
+                  <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+                </div>
+              </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">{{'SampleStatus' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                        <option [ngValue]="null">Select Status</option>
+                        <option [value]="district.id" *ngFor="let district of sampleStatusData1">{{district.statusName}}</option>
+                      </select>
+                </div>
+                
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">{{'CHC' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedchc" (ngModelChange)="chcChange()">
+                      <option [ngValue]="null">Select CHC</option>
+                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">{{'PHC' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedphc" [disabled]="selectedchc == null ? true : false" (ngModelChange)="phcChange()">
+                      <option [ngValue]="null">Select PHC</option>
+                      <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="inputSubjectcategory">{{'ANM' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedAnm" [disabled]="selectedphc == null ? true : false">
+                      <option [ngValue]="null">Select ANM</option>
+                      <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
+                    </select>
+                </div>
+                <div class="px-2 bd-highlight search-margin">
+                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                    <a (click)="refreshData()"><button type="submit" class="btn search-bu">
+                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                </div>
+            </div>
+            <div>
+              <button type="button" class="btn btn-sm btn-outline-light print-btn"
+              (click)="printPdf();" style="float:right;margin-right:20px;">
+              <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
+              <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                  aria-hidden="true"></i>
+          </button>
+            </div>
+            <div class="table-responsive my-2">
+             
+                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th><span>{{'SNo' | translate}}</span></th>
+                            <th></th>
+                            <th><span>{{'SubjectName' | translate}}</span></th>
+                            <th><span>{{'SubjectID' | translate}}</span></th>
+                            <th><span>{{'RCHID' | translate}}</span></th>
+                            <th><span>{{'GA' | translate}}</span></th>
+                            <th><span>{{'Barcode' | translate }}</span></th>
+                            <th><span>{{'CBCResult' | translate }} </span></th>
+                            <th><span>{{'SSTResult' | translate }} </span></th>
+                            <th><span>{{'HPLCResult' | translate }}  </span></th>
+                            <th><span>{{'Status' | translate }} </span></th>
+                            <th><span>{{'ClinicalDiagnosis' | translate }} </span></th>
+                            <!--<th><span>{{'Results' | translate }}</span></th>-->
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pnddata of pndPendingArray; index as i">
+                            <td>{{i+1}}</td>
+                              <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                (change)="checkIfSelected(i)"></td>
+                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                            <td class="text-center">{{pnddata.subjectId}}</td>
+                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                            <td style="text-align: left">{{pnddata.ga}}</td>
+                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                            <td class="text-left">{{pnddata.sstResult}}</td>
+                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" style="min-height:98vh;" *ngFor="let data of printArray">
+  <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
+      <div class="widget-content widget-content-area br-6">
+        <div class="row py-2 my-2 print-header">
+            <div class="col-md-2 left-logo-cont">
+                <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 70px;">
+                <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 70px;margin-left:10px;">
+            </div>
+            <div class="col-md-8 col-mid">
+                <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
+                <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
+            </div>
+            <div class="col-md-2 right-logo-cont" style="float:right;">
+                
+                <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 70px;margin-left:10px;float:right;">
+                <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 70px;float:right;margin-left:10px;">
+            </div>
+        </div>
+          
+      </div>
+  </div>
+
+  <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
+      <div class="watermark">
+          <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+      </div>
+      <div class="widget-content widget-content-area br-6">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <thead class="tablecss">
+                              
+                          </thead> 
+                          <tbody>
+                              <tr> 
+                                  <td class="sp-xs-td-9" style="width: 70%;"></td>
+                                  <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}}</td>
+                                  
+                              </tr>
+                              
+                             
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <thead class="tablecss" style="background-color: #aaaaaa !important;">
+                              <tr class="" style="background-color: #aaaaaa !important;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION A : PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                                 
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'District' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.blockName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.chcName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.phcName}}</b></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'SC' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.scName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'RIPoint' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.riPoint}}</b></td>
+                                  <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.anmName}}</b></td>
+                              </tr>
+                             
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <thead class="tablecss" style="background-color: #aaaaaa;">
+                              <tr class="" style="background-color: #aaaaaa;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
+                                 
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Name' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.subjectName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.age}} Years / {{data.gender}}</b></td>
+                                 
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.rchId}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.contactNo}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.subjectId}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.dateOfRegister}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.barcodeNo}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.sampleCollectionDate}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Spouse Name' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Address' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.lmpDate}}</b></td>
+                                  <td class="sp-xs-td-9">{{'GA' | translate}} (as of {{currentDate}})</td>
+                                  <td class="sp-xs-td-15"><b>{{data.ga}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.referringDepartment}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
+                                  
+                              </tr>
+                             
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                          <thead class="tablecss">
+                              <tr class="" style="background-color: #e3e8ef;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                         
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
+                                  <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{data.mcv}} fL</b></td>
+                                  <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{data.rdw}} %</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{data.sstResult}}</b></td>
+                                  <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{data.cbcTestResult}}</b></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                          <thead class="tablecss">
+                              <tr class="" style="background-color: #e3e8ef;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          
+                          
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                         
+                          
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{data.hbA0}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{data.hbA2}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{data.hbD}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{data.hbF}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{data.hbS}}</b></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'LaboratoryDiagnosis' | translate}} </td>
+                                  <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosis}}</b></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'HPLCResult' | translate}} </td>
+                                  <td class="sp-xs-td-9" colspan="5"><b>{{data.hplcResult}}</b></td>
+                              </tr>
+                             <!-- <tr>
+                                  <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
+                                  <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosisSummary}}</b></td>
+                              </tr>-->
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{data.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
+                                  <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{data.pathologistName}}</b></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table">
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>  
+      </div>
+</div>
+</div>
+
+
