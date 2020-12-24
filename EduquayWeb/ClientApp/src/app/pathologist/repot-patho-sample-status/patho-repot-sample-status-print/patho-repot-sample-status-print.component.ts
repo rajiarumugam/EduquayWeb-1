@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { chcsampleService } from "../../../shared/chc-sample/chc-sample.service";
 import { LoaderService } from '../../../shared/loader/loader.service';
 import { pathoHPLCService } from "../../../shared/pathologist/patho-hplc.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patho-repot-sample-status-print',
@@ -44,26 +45,27 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   selectedAnm = null;
   pndPendingArray = [];  
   pndNotCompleteArray = [];
-  fromDate = "";
-  toDate = "";
+  fromDate ;
+  toDate;
 
   sampleStatusData = [];
   selectedSampleStatus = null;
   sampleStatusData1 = [];
+  checkdAllEnabled = true;
 
   DAY = 86400000;
   dateform:FormGroup;
   startOptions1: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: "",
+    defaultDate: new Date(Date.now()- (this.DAY*7)),
     maxDate: new Date(Date.now()),
   };
 
   startOptions2: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y',
-    defaultDate: '',
+    defaultDate: new Date(Date.now()),
     maxDate: new Date(Date.now())
   };
   currentDate;
@@ -82,7 +84,8 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       toDate: ['']
     });
 
-    this.fromDate = moment().format("DD/MM/YYYY");
+    this.fromDate = new Date(Date.now()- (this.DAY*7));
+    this.toDate = new Date(Date.now());
     
     
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
@@ -90,7 +93,7 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       this.pndPendingArray = pndtcTestingArr.subjects;
       console.log(this.pndPendingArray);
       this.pndPendingArray.forEach(function(val,ind){
-        val.checked = false;
+        val.checked = true;
       })
     }
 
@@ -328,6 +331,7 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   refreshData()
   {
     this.loaderService.display(true);
+    console.log(this.fromDate);
     var _subjectObj = {
       "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "centrelLabId": this.user.centralLabId,
@@ -341,7 +345,7 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       console.log(response);
       this.pndPendingArray = response.subjects;
       this.pndPendingArray.forEach(function(val,ind){
-        val.checked = false;
+        val.checked = true;
       })
       this.rerender();
       this.loaderService.display(false);
@@ -395,7 +399,10 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       }, 1);
     }
     else
-      alert('Please select atleast one data!');
+    {
+      Swal.fire({icon:'error', title: "Please select atleast one data!", confirmButtonText: 'Close', allowOutsideClick: false})
+    }
+      //alert('Please select atleast one data!');
     //document.title='CMC - Thalassemia & Sickle cell';
     
   }
@@ -404,10 +411,34 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       console.log(i);
       console.log(this.pndPendingArray[i].checked);
       if(this.pndPendingArray[i].checked == true)
-          this.pndPendingArray[i].checked = false;
+      {
+        this.pndPendingArray[i].checked = false;
+        this.checkdAllEnabled = false;
+      }
       else
         this.pndPendingArray[i].checked = true;
       console.log(this.pndPendingArray[i].checked);
+  }
+  checkAllSelected()
+  {
+    if(this.checkdAllEnabled == true)
+      this.checkdAllEnabled = false;
+    else
+      this.checkdAllEnabled = true;
+
+        console.log(this.checkdAllEnabled);
+        if(this.checkdAllEnabled)
+        {
+          this.pndPendingArray.forEach(function(val,ind){
+            val.checked = true;
+          })
+        }
+        else
+        {
+          this.pndPendingArray.forEach(function(val,ind){
+            val.checked = false;
+          })
+        }
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
