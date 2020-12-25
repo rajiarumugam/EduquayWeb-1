@@ -16,6 +16,7 @@
                 <!-- <div class="col-md-12 text-center">
                 <h5 class="">ANM Name - PHC Name</h5>
             </div> -->
+
             <div class="col-md-12">
                 <div class="justify-between">
                     <div class="col-md-4">
@@ -141,16 +142,140 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="custm-tab">
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
+                                    <p>{{'ANM' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);"> 
+                                <p>{{'CHC' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);"> 
+                                <p>{{'HPLCPathologist' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);"> 
+                                <p>{{'SpouseRegistration' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);"> 
+                                <p>{{'PrePNDCounselling' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);"> 
+                                <p>{{'PNDT' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);"> 
+                                <p>{{'PostPNDCounselling' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);"> 
+                                <p>{{'MTP' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
+                                    <p>{{'samplingstatus' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(1,2);"> 
+                                <p>{{'sampled' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(1,3);"> 
+                                <p>{{'notsampled' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);"> 
+                                    <p>{{'CBCResults' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);"> 
+                                <p>{{'CBCPositive' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(2,3);"> 
+                                <p>{{'CBCPositive' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(2,4);"> 
+                                <p>{{'SSTResult' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(2,5);"> 
+                                <p>{{'SSTPositive' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 6 ? true : false}" (click)="custumTabClick(2,6);"> 
+                                <p>{{'SSTNegative' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);"> 
+                                    <p>{{'HPLCResult' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);"> 
+                                <p>{{'Abnormal' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);"> 
+                                <p>{{'Normal' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 4 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(4,1);"> 
+                                    <p>{{'registered' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(4,2);"> 
+                                <p>{{'notregistered' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 5 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(5,1);"> 
+                                    <p>{{'counsellingpending' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(5,2);"> 
+                                <p>{{'CounselledPNDTAgreed' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(5,3);"> 
+                                <p>{{'CounselledPNDTDisagreed' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 6 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(6,1);"> 
+                                    <p>{{'pending' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(6,2);"> 
+                                <p>{{'completed' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(6,3);"> 
+                                <p>{{'Normal' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(6,4);"> 
+                                <p>{{'Affected' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(6,5);"> 
+                                <p>{{'carrier' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 7 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(7,1);"> 
+                                    <p>{{'counsellingpending' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(7,2);"> 
+                                <p>{{'CounsellingMTPAgreed' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(7,3);"> 
+                                <p>{{'CounsellingMTPDecisionPending' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="custm-tab" *ngIf="maintabSelected == 8 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(8,1);"> 
+                                    <p>{{'pending' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,2);"> 
+                                <p>{{'completed' | translate }}</p>
+                            </div>
+                        </div>
                         <div class="table-responsive mt-4">
                             <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
                                 [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                                <tfoot>
+                                <!--<tfoot>
                                     <tr>
                                       <th><input type="text" placeholder="Search ID" name="search-id" id="0"/></th>
                                       <th><input type="text" placeholder="Search first name" name="search-first-name" id="1"/></th>
                                       <th><input type="text" placeholder="Search last name" name="search-last-name" id="2"/></th>
                                     </tr>
-                                    </tfoot>
+                                    </tfoot>-->
                                 <thead>
                                     <tr>
                                         <th><span>{{'SNo' | translate }}</span></th>

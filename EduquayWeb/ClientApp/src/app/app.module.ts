@@ -120,6 +120,10 @@ import { UserTypeComponent } from './admin/user-type/user-type.component';
 import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
 
 
+import { TabsComponent } from './nhm/tabs/tabs.component';
+import { TabComponent } from './nhm/tabs/tab.component';
+
+
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
 // };
@@ -207,7 +211,9 @@ import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
     HNINComponent,
     GvtIdTypeComponent,
     UserTypeComponent,
-    timeStampPipe
+    timeStampPipe,
+    TabsComponent,
+    TabComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
