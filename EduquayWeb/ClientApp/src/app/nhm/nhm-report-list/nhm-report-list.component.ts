@@ -141,6 +141,8 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   showDistrict = true;
   showBlock = true;
   globalTimeout = null;
+  maintabSelected = 1;
+  mainsubtabSelected = 1;
   
 
   constructor(
@@ -192,18 +194,8 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'anmId'
-      }, {
-        title: 'Last name',
-        data: 'anmName'
-      }],
        // Declare the use of the extension in the dom parameter
-       dom: "<'row mt-3'<'col-sm-6 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-2 float right'B>>" +
+       /*dom: "<'row mt-3'<'col-sm-6 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-2 float right'B>>" +
        "<'row'<'col-sm-12'tr>>" +
        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
@@ -211,94 +203,94 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
            {
              titleAttr: 'Download as Excel',     
              extend: 'excelHtml5',
-             title: 'Report - NHM',
+             title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
            },
-        //  {
-        //    titleAttr: 'Download as PDF',
-        //    extend: 'pdfHtml5',
-        //    title: 'Report - NHM',
-        //    orientation: 'landscape',
-        //    pageSize: 'LEGAL',
-        //    className: 'custom-btn',
-        //    margin: [5,5,5,5],
-        //    //filename: 'dt_custom_pdf',
-        //   customize: function(doc) {doc.styles.tableHeader.vertical = 'middle'
-        //        //Remove the title created by datatTables
+         {
+           titleAttr: 'Download as PDF',
+           extend: 'pdfHtml5',
+           title: 'Report - Sample Status',
+           orientation: 'landscape',
+           pageSize: 'LEGAL',
+           className: 'custom-btn',
+           margin: [5,5,5,5],
+           //filename: 'dt_custom_pdf',
+          customize: function(doc) {doc.styles.tableHeader.vertical = 'middle'
+               //Remove the title created by datatTables
                
-				// 		doc.content.splice(0,1);
-				// 		//Create a date string that we use in the footer. Format is dd-mm-yyyy
-				// 		var now = new Date();
-        //     var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
-        //     doc.pageMargins = [20,60,20,30];
-				// 		// Set the font size fot the entire document
-				// 		doc.defaultStyle.fontSize = 10;
-				// 		// Set the fontsize for the table header
-        //     doc.styles.tableHeader.fontSize = 11;
-        //     doc.styles.tableHeader.alignment = 'center'
-				// 		// Create a header object with 3 columns
-				// 		// Left side: Logo
-				// 		// Middle: brandname
-				// 		// Right side: A document title
-				// 		doc['header']=(function() {
-				// 			return {
-				// 				columns: [
-				// 					// {
-				// 					// 	//image: logo,
-				// 					// 	width: 24
-				// 					// },
-				// 					// {
-				// 					// 	alignment: 'left',
-				// 					// 	italics: true,
-				// 					// 	text: 'dataTables',
-				// 					// 	fontSize: 18,
-				// 					// 	margin: [10,0]
-				// 					// },
-				// 					// {
-				// 					// 	alignment: 'right',
-				// 					// 	fontSize: 14,
-				// 					// 	text: 'Custom PDF export with dataTables'
-				// 					// }
-				// 				],
-				// 				margin: 20
-				// 			}
-				// 		});
-				// 		// Create a footer object with 2 columns
-				// 		// Left side: report creation date
-				// 		// Right side: current page and total pages
-				// 		doc['footer']=(function(page, pages) {
-				// 			return {
-				// 				columns: [
-				// 					{
-				// 						alignment: 'left',
-				// 						text: ['Created on: ', { text: jsDate.toString() }]
-				// 					},
-				// 					{
-				// 						alignment: 'right',
-				// 						text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
-				// 					}
-				// 				],
-				// 				margin: 20
-				// 			}
-				// 		});
-				// 		// Change dataTable layout (Table styling)
-				// 		// To use predefined layouts uncomment the line below and comment the custom lines below
-				// 		// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
-				// 		var objLayout = {};
-				// 		objLayout['hLineWidth'] = function(i) { return .5; };
-				// 		objLayout['vLineWidth'] = function(i) { return .5; };
-				// 		objLayout['hLineColor'] = function(i) { return '#aaa'; };
-				// 		objLayout['vLineColor'] = function(i) { return '#aaa'; };
-				// 		objLayout['paddingLeft'] = function(i) { return 4; };
-				// 		objLayout['paddingRight'] = function(i) { return 4; };
-				// 		doc.content[0].layout = objLayout;
-				// },				
-        //   exportOptions: {
-        //       columns: ':visible'
-        //   },
-        //    text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
-        //  },
+						doc.content.splice(0,1);
+						//Create a date string that we use in the footer. Format is dd-mm-yyyy
+						var now = new Date();
+            var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
+            doc.pageMargins = [20,60,20,30];
+						// Set the font size fot the entire document
+						doc.defaultStyle.fontSize = 10;
+						// Set the fontsize for the table header
+            doc.styles.tableHeader.fontSize = 11;
+            doc.styles.tableHeader.alignment = 'center'
+						// Create a header object with 3 columns
+						// Left side: Logo
+						// Middle: brandname
+						// Right side: A document title
+						doc['header']=(function() {
+							return {
+								columns: [
+									// {
+									// 	//image: logo,
+									// 	width: 24
+									// },
+									// {
+									// 	alignment: 'left',
+									// 	italics: true,
+									// 	text: 'dataTables',
+									// 	fontSize: 18,
+									// 	margin: [10,0]
+									// },
+									// {
+									// 	alignment: 'right',
+									// 	fontSize: 14,
+									// 	text: 'Custom PDF export with dataTables'
+									// }
+								],
+								margin: 20
+							}
+						});
+						// Create a footer object with 2 columns
+						// Left side: report creation date
+						// Right side: current page and total pages
+						doc['footer']=(function(page, pages) {
+							return {
+								columns: [
+									{
+										alignment: 'left',
+										text: ['Created on: ', { text: jsDate.toString() }]
+									},
+									{
+										alignment: 'right',
+										text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
+									}
+								],
+								margin: 20
+							}
+						});
+						// Change dataTable layout (Table styling)
+						// To use predefined layouts uncomment the line below and comment the custom lines below
+						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+						var objLayout = {};
+						objLayout['hLineWidth'] = function(i) { return .5; };
+						objLayout['vLineWidth'] = function(i) { return .5; };
+						objLayout['hLineColor'] = function(i) { return '#aaa'; };
+						objLayout['vLineColor'] = function(i) { return '#aaa'; };
+						objLayout['paddingLeft'] = function(i) { return 4; };
+						objLayout['paddingRight'] = function(i) { return 4; };
+						doc.content[0].layout = objLayout;
+				},				
+          exportOptions: {
+              columns: ':visible'
+          },
+           text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
+         },
          
          // {
          //   titleAttr: 'Download as CSV',     
@@ -313,7 +305,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
          // text: ''
          // }
  
-         ], 
+         ], */
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
@@ -335,8 +327,10 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       blockId:this.user.blockId === 0 ? 0 : this.user.blockId,
       chcId:0,
       anmId:0,
-      userInput:"",
-      searchType:1
+      /*userInput:"",
+      searchType:1*/
+      "searchSection":this.maintabSelected,
+      "status":1
     }
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
@@ -443,7 +437,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     });
   }
 
-  anmSubjectProfileList(id) {
+  anmSubjectProfileList(id,maintab,subtab) {
      
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
@@ -456,7 +450,9 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
       anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
       userInput:"",
-      searchType:id
+      searchType:id,
+      "searchSection":maintab,
+      "status":subtab
     }
    
     //this.subjectprofileItem = new SubjectProfileList();
@@ -500,7 +496,9 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           chcId: 0,
           anmId: 0,
           userInput:this.searchsubjectid,
-          searchType:id
+          searchType:id,
+          "searchSection":0,
+          "status":0
         }
       
         //this.subjectprofileItem = new SubjectProfileList();
@@ -631,6 +629,13 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       });
     });
  
+  }
+
+  custumTabClick(i,j)
+  {
+      this.maintabSelected = i;
+      this.mainsubtabSelected = j;
+      this.anmSubjectProfileList(1,i,j);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

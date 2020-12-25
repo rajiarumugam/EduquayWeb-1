@@ -509,3 +509,28 @@ div .two {
 hr {
   transform: rotate(90deg);
 }
+
+
+.custum-tab-one,.custum-tab-two
+{
+  display: inline-block;
+  padding: 10px 10px;
+    font-size: 16px;
+    margin-right: 0px;
+    cursor:pointer;
+   
+}
+
+.custum-tab-one.tabselected,.custum-tab-one:hover
+{
+  border-top: 3px solid #1b55e2;
+  color:#1b55e2 !important;
+}
+.custum-tab-two.tabselected,.custum-tab-two:hover
+{
+  border-bottom: 3px solid #1b55e2;
+  color:#1b55e2 !important;
+}
+.custum-tab-one.tabselected p{
+  color:#1b55e2 !important;
+}
