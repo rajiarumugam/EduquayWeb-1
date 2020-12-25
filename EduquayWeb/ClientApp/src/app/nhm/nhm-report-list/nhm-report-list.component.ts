@@ -481,7 +481,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
   }
 
-  anmSubjectProfileList1(id) {
+  anmSubjectProfileList1(id,maintab,subtab) {
      
     if(this.searchsubjectid != null || this.searchsubjectid != undefined)
     {
