@@ -47,7 +47,7 @@ export class pathoHPLCService {
   }
   getPathoSampleReport(obj)
   {
-    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIEVEPATHOLOGISTREPORTS);
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIEVEDIAGNOSISREPORTS);
     return this.http.post<any>({url:apiUrl, body: obj });
   }
 

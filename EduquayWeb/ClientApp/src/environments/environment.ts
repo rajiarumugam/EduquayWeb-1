@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: 'http://api.eduquay.com',
+  apiUrl: 'http://tscodapi.cscr.in',
   production: false
 };
 

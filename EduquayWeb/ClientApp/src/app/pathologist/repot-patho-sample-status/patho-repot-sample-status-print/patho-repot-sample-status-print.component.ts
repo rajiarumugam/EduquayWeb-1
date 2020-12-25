@@ -52,7 +52,8 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   selectedSampleStatus = null;
   sampleStatusData1 = [];
   checkdAllEnabled = true;
-
+  blocklists = [];
+  selectedBlock = null;
   DAY = 86400000;
   dateform:FormGroup;
   startOptions1: FlatpickrOptions = {
@@ -81,11 +82,18 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
     console.log(pndtcTestingArr);
     this.dateform = this._formBuilder.group({
       fromDate: [''],
-      toDate: ['']
+      toDate: [''],
+      block: [''],
+      district: [''],
+      chc: [''],
+      anm: [''],
     });
 
     this.fromDate = new Date(Date.now()- (this.DAY*7));
     this.toDate = new Date(Date.now());
+    this.selectedDistrict = null;
+
+    this.getDistrictData();
     
     
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
@@ -100,7 +108,7 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
     this.dataservice.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getSampleStatusData();
-    this.getCHCData();
+    //this.getCHCData();
     //this.dataservice.sendData(JSON.stringify({"screen": "PNDTCTESTING","pendingCount":this.pndPendingArray.length}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -287,61 +295,145 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       //this.erroMessage = err.toString();
     });
   }
-  getCHCData(){
-    this.loaderService.display(true);
-    this.PNDTCmasterService.getCHCbyCentrallab()
-    .subscribe(response => {
-      this.loaderService.display(false);
-      this.CHCdata = response['chc'];
-    },
-    (err: HttpErrorResponse) =>{
+  getBlockData(){
+    if(this.selectedDistrict != null)
+    {
+        this.loaderService.display(true);
+        this.ANMdata = [];
+        this.selectedAnm = null;
+        this.PNDTCmasterService.getBlockByDistrict(this.selectedDistrict)
+        .subscribe(response => {
+          console.log(response);
+          this.blocklists = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.blocklists = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else
+    {
+      this.blocklists = [];
       this.CHCdata = [];
-      this.erroMessage = err.toString();
-    });
+      this.selectedBlock = null;
+      this.selectedAnm = null
+      this.selectedchc = null;
+      this.ANMdata = [];
+    }
+    
+    
+  }
+  getCHCData(){
+    if(this.selectedBlock != null)
+    {
+        this.loaderService.display(true);
+        this.ANMdata = [];
+        this.selectedAnm = null;
+        this.PNDTCmasterService.getCHCByBlock(this.selectedBlock)
+        .subscribe(response => {
+          console.log(response);
+          this.CHCdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.CHCdata = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else
+    {
+      this.CHCdata = [];
+      this.PHCdata = [];
+      this.ANMdata = [];
+      this.selectedchc = null;
+      this.selectedBlock = null;
+      this.selectedAnm = null
+    }
+     
+
   }
   chcChange(){
-    this.loaderService.display(true);
-    this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
-    .subscribe(response => {
-      this.PHCdata = response['data'];
-      this.loaderService.display(false);
-    },
-    (err: HttpErrorResponse) =>{
-      this.PHCdata = [];
-      this.erroMessage = err.toString();
-      this.loaderService.display(false);
-    });
-  }
+    if(this.selectedchc != null)
+    {
+        this.loaderService.display(true);
+        this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
+        .subscribe(response => {
+          this.PHCdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.PHCdata = [];
+          this.erroMessage = err.toString();
+          this.loaderService.display(false);
+        });
+      }
+      else
+        this.PHCdata = [];
 
+  }
+  getANMData(){
+    if(this.selectedchc != null)
+    {
+        this.loaderService.display(true);
+        this.PNDTCmasterService.getANMByCHC(this.selectedchc)
+        .subscribe(response => {
+          console.log(response);
+          this.ANMdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.ANMdata = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else
+        this.ANMdata = [];
+    
+  }
   phcChange(){
-    this.loaderService.display(true);
-    this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
-    .subscribe(response => {
-      console.log(response);
-      this.ANMdata = response['data'];
-      this.loaderService.display(false);
-    },
-    (err: HttpErrorResponse) =>{
+    if(this.selectedphc != null)
+    {
+        this.loaderService.display(true);
+        this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
+        .subscribe(response => {
+          console.log(response);
+          this.ANMdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.ANMdata = [];
+          this.erroMessage = err.toString();
+          this.loaderService.display(false);
+        });
+    }
+    else
       this.ANMdata = [];
-      this.erroMessage = err.toString();
-      this.loaderService.display(false);
-    });
+    
   }
 
+  districtselected(event)
+  {
+      this.getBlockData();
+  }
+  blockselected(event)
+  {
+    this.getCHCData();
+  }
   refreshData()
   {
     this.loaderService.display(true);
     console.log(this.fromDate);
     var _subjectObj = {
       "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
-      "centrelLabId": this.user.centralLabId,
+      "districtId": this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
+      "blockId":this.selectedBlock != null ? Number(this.selectedBlock) : 0,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
-      "phcId":this.selectedphc != null ? Number(this.selectedphc) : 0,
       "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0,
       "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
       "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
     }
-    this.pathoHPLCService.getPathoSampleReport(_subjectObj) .subscribe(response => {
+    this.pathoHPLCService.getPathoSampleReport(_subjectObj).subscribe(response => {
       console.log(response);
       this.pndPendingArray = response.subjects;
       this.pndPendingArray.forEach(function(val,ind){
@@ -408,8 +500,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   }
   checkIfSelected(i)
   {
-      console.log(i);
-      console.log(this.pndPendingArray[i].checked);
       if(this.pndPendingArray[i].checked == true)
       {
         this.pndPendingArray[i].checked = false;
@@ -417,7 +507,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       }
       else
         this.pndPendingArray[i].checked = true;
-      console.log(this.pndPendingArray[i].checked);
   }
   checkAllSelected()
   {
@@ -426,7 +515,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
     else
       this.checkdAllEnabled = true;
 
-        console.log(this.checkdAllEnabled);
         if(this.checkdAllEnabled)
         {
           this.pndPendingArray.forEach(function(val,ind){
