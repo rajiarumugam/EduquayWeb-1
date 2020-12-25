@@ -111,7 +111,7 @@
                                         </select>
                                     </div>
 
-                                    <a (click)="anmSubjectProfileList(1)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
+                                    <a (click)="anmSubjectProfileList(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
                                         <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
                                 </div>    
                             </div>
@@ -128,7 +128,7 @@
                                             <input type="text" class="w-100 form-control product-search br-30"
                                             name="searchsubjectid" type="text" placeholder="Search"
                                             [(ngModel)]="searchsubjectid" autocomplete="off">
-                                        <a (click)="anmSubjectProfileList1(2)"><button class="btn btn-primary" type="submit">
+                                        <a (click)="anmSubjectProfileList1(2,maintabSelected,mainsubtabSelected)"><button class="btn btn-primary" type="submit">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
