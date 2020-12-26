@@ -115,7 +115,7 @@
                                         <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
                                 </div>    
                             </div>
-                            <div class="row" style="width:100%;">
+                            <!--<div class="row" style="width:100%;">
                                 <div class="form-group col-md-12 mt-12 ml-12" style="text-align: center !important;padding: 0;margin: 0 !important;">
                                     <b>(or)</b>
                                 </div>
@@ -140,7 +140,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="custm-tab">
@@ -171,99 +171,99 @@
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
-                                    <p>{{'samplingstatus' | translate }}</p>
+                                    <p>{{'samplingstatus' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcsamplingstatusCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(1,2);"> 
-                                <p>{{'sampled' | translate }}</p>
+                                <p>{{'sampled' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcsampledCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(1,3);"> 
-                                <p>{{'notsampled' | translate }}</p>
+                                <p>{{'notsampled' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcnotsampledount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);"> 
-                                    <p>{{'CBCResults' | translate }}</p>
+                                    <p>{{'CBCResults' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcsCBCResultsCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);"> 
-                                <p>{{'CBCPositive' | translate }}</p>
+                                <p>{{'CBCPositive' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcCBCPositiveCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(2,3);"> 
-                                <p>{{'CBCPositive' | translate }}</p>
+                                <p>{{'CBCNegative' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcCBCNegativeCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(2,4);"> 
-                                <p>{{'SSTResult' | translate }}</p>
+                                <p>{{'SSTResult' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcSSTResultCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(2,5);"> 
-                                <p>{{'SSTPositive' | translate }}</p>
+                                <p>{{'SSTPositive' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcSSTPositiveCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 6 ? true : false}" (click)="custumTabClick(2,6);"> 
-                                <p>{{'SSTNegative' | translate }}</p>
+                                <p>{{'SSTNegative' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcSSTNegativeCount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);"> 
-                                    <p>{{'HPLCResult' | translate }}</p>
+                                    <p>{{'HPLCResult' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{HPLCResultCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);"> 
-                                <p>{{'Abnormal' | translate }}</p>
+                                <p>{{'Abnormal' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{HPLCAbnormalCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);"> 
-                                <p>{{'Normal' | translate }}</p>
+                                <p>{{'Normal' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{HPLCNormalCount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 4 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(4,1);"> 
-                                    <p>{{'registered' | translate }}</p>
+                                    <p>{{'registered' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{registeredCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(4,2);"> 
-                                <p>{{'notregistered' | translate }}</p>
+                                <p>{{'notregistered' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{notregisteredCount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 5 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(5,1);"> 
-                                    <p>{{'counsellingpending' | translate }}</p>
+                                    <p>{{'counsellingpending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{counsellingpendingCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(5,2);"> 
-                                <p>{{'CounselledPNDTAgreed' | translate }}</p>
+                                <p>{{'CounselledPNDTAgreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{counselledPNDTAgreedCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(5,3);"> 
-                                <p>{{'CounselledPNDTDisagreed' | translate }}</p>
+                                <p>{{'CounselledPNDTDisagreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{counselledPNDTDisagreedCount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 6 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(6,1);"> 
-                                    <p>{{'pending' | translate }}</p>
+                                    <p>{{'pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDTpendingCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(6,2);"> 
-                                <p>{{'completed' | translate }}</p>
+                                <p>{{'completed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDTcompletedCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(6,3);"> 
-                                <p>{{'Normal' | translate }}</p>
+                                <p>{{'Normal' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDTNormalCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(6,4);"> 
-                                <p>{{'Affected' | translate }}</p>
+                                <p>{{'Affected' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDTAffectedCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(6,5);"> 
-                                <p>{{'carrier' | translate }}</p>
+                                <p>{{'carrier' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDTcarrierCount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 7 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(7,1);"> 
-                                    <p>{{'counsellingpending' | translate }}</p>
+                                    <p>{{'counsellingpending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingpendingCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(7,2);"> 
-                                <p>{{'CounsellingMTPAgreed' | translate }}</p>
+                                <p>{{'CounsellingMTPAgreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingMTPAgreedCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(7,3);"> 
-                                <p>{{'CounsellingMTPDecisionPending' | translate }}</p>
+                                <p>{{'CounsellingMTPDecisionPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingMTPDecisionPendingCount}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 8 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(8,1);"> 
-                                    <p>{{'pending' | translate }}</p>
+                                    <p>{{'pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{MTPpendingCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,2);"> 
-                                <p>{{'completed' | translate }}</p>
+                                <p>{{'completed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{MTPcompletedCount}}</span></p>
                             </div>
                         </div>
                         <div class="table-responsive mt-4">
