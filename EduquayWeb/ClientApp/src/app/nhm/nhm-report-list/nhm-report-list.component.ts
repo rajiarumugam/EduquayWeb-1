@@ -165,6 +165,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   counselledPNDTDisagreedCount = "0";
   counselledPNDTAgreedCount = "0";
   counsellingpendingCount = "0";
+  counselledPNDTDecisionPendingCount = "0";
 
   PNDTpendingCount = "0";
   PNDTcompletedCount = "0";
@@ -175,6 +176,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   PNDcounsellingpendingCount = "0";
   PNDcounsellingMTPAgreedCount = "0";
   PNDcounsellingMTPDecisionPendingCount = "0";
+  PNDCounselledMTPDisagreedCount = "0";
 
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
@@ -551,6 +553,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           this.anmSubjectBadgeProfileListCount(1,5,1);
           this.anmSubjectBadgeProfileListCount(1,5,2);
           this.anmSubjectBadgeProfileListCount(1,5,3);
+          this.anmSubjectBadgeProfileListCount(1,5,4);
         }
         if(maintab === 6)
         {
@@ -560,6 +563,20 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           this.anmSubjectBadgeProfileListCount(1,6,4);
           this.anmSubjectBadgeProfileListCount(1,6,5);
         }
+        if(maintab === 7)
+        {
+          this.anmSubjectBadgeProfileListCount(1,7,1);
+          this.anmSubjectBadgeProfileListCount(1,7,2);
+          this.anmSubjectBadgeProfileListCount(1,7,3);
+          this.anmSubjectBadgeProfileListCount(1,7,4);
+        }
+        if(maintab === 8)
+        {
+          this.anmSubjectBadgeProfileListCount(1,8,1);
+          this.anmSubjectBadgeProfileListCount(1,8,2);
+         
+        }
+
 
   }
 
@@ -635,8 +652,10 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
                   this.counsellingpendingCount = response['data'].length;
             if(subtab === 2)
                   this.counselledPNDTAgreedCount = response['data'].length;
-            if(subtab === 2)
+            if(subtab === 3)
                   this.counselledPNDTDisagreedCount = response['data'].length;
+            if(subtab === 4)
+                  this.counselledPNDTDecisionPendingCount = response['data'].length;
        }
        if(maintab ===6)
        {
@@ -658,6 +677,8 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
             if(subtab === 2)
                   this.PNDcounsellingMTPAgreedCount = response['data'].length;
             if(subtab === 3)
+                  this.PNDCounselledMTPDisagreedCount = response['data'].length;      
+            if(subtab === 4)
                   this.PNDcounsellingMTPDecisionPendingCount = response['data'].length;
        }
        if(maintab ===8)
