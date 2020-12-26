@@ -105,7 +105,7 @@
 "ID":"ID",
 "Spouse(M)":"Spouse (M)",
 "DateAndTime":"Date & Time",
-"PrePNDCounselling":"Pre PND Counselling",
+"PrePNDCounselling":"Pre PNDT Counselling",
 "PNDTesting":"PND Testing",
 "MoreInfo":"More Info",
 "SubjectDetails":"Subject Details",
@@ -123,7 +123,7 @@
 "SSTPositive":"SST Positive",
 "Thalassemia":"Thalassemia",
 "Date&Time":"Date & Time",
-"PostPNDCounselling":"Post PND Counselling",
+"PostPNDCounselling":"Post PNDT Counselling",
 "MTPService":"MTP Service",
 "Notified:":"Notified:",
 "CounsellorName":"Counsellor Name",
@@ -481,5 +481,7 @@
 "CounselledPNDTAgreed":"Counselled, PNDT Agreed",
 "CounselledPNDTDisagreed":"Counselled, PNDT Disagreed",
 "Affected":"Affected",
-"carrier":"Carrier"
+"carrier":"Carrier",
+"CounselledPNDTDecisionPending":"Counselled, PNDT Decision Pending",
+"CounselledMTPDisagreed":"Counselled, MTP Disagreed"
 }

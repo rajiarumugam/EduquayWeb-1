@@ -229,6 +229,9 @@
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(5,3);"> 
                                 <p>{{'CounselledPNDTDisagreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{counselledPNDTDisagreedCount}}</span></p>
                             </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(5,4);"> 
+                                <p>{{'CounselledPNDTDecisionPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{counselledPNDTDecisionPendingCount}}</span></p>
+                            </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 6 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(6,1);"> 
@@ -255,6 +258,9 @@
                                 <p>{{'CounsellingMTPAgreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingMTPAgreedCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(7,3);"> 
+                                <p>{{'CounselledMTPDisagreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDCounselledMTPDisagreedCount}}</span></p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(7,3);"> 
                                 <p>{{'CounsellingMTPDecisionPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingMTPDecisionPendingCount}}</span></p>
                             </div>
                         </div>

@@ -542,6 +542,6 @@ hr {
 .custum-tab-one p,.custum-tab-two p{
   margin:0;
 }
-.custum-tab-one.tabselected p{
+.custum-tab-one.tabselected p,.custum-tab-two.tabselected p{
   color:#1b55e2 !important;
 }
