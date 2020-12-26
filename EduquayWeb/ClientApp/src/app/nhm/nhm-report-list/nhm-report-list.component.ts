@@ -143,6 +143,42 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   globalTimeout = null;
   maintabSelected = 1;
   mainsubtabSelected = 1;
+
+  chcsamplingstatusCount = '0';
+  chcsampledCount = '0';
+  chcnotsampledount = '0';
+
+  chcsCBCResultsCount = '0';
+  chcCBCPositiveCount = '0';
+  chcCBCNegativeCount = "0";
+  chcSSTResultCount = "0";
+  chcSSTPositiveCount = "0";
+  chcSSTNegativeCount = "0";
+
+  HPLCResultCount = "0";
+  HPLCAbnormalCount = "0";
+  HPLCNormalCount = "0";
+
+  registeredCount = "0";
+  notregisteredCount = "0";
+
+  counselledPNDTDisagreedCount = "0";
+  counselledPNDTAgreedCount = "0";
+  counsellingpendingCount = "0";
+
+  PNDTpendingCount = "0";
+  PNDTcompletedCount = "0";
+  PNDTNormalCount = "0";
+  PNDTAffectedCount = "0";
+  PNDTcarrierCount = "0";
+
+  PNDcounsellingpendingCount = "0";
+  PNDcounsellingMTPAgreedCount = "0";
+  PNDcounsellingMTPDecisionPendingCount = "0";
+
+  MTPpendingCount = 0;
+  MTPcompletedCount = 0;
+
   
 
   constructor(
@@ -355,6 +391,10 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           this.subjectprofilelistErrorMessage = err.toString();
         });
 
+         
+        this.anmSubjectBadgeProfileListCount(1,1,1);
+        this.anmSubjectBadgeProfileListCount(1,1,2);
+        this.anmSubjectBadgeProfileListCount(1,1,3);
        
         //this.phcChange();
   }
@@ -474,6 +514,161 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         else {
           this.subjectprofilelistErrorMessage = response.message;
         }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
+        console.log(maintab);
+        if(maintab === 1)
+        {
+          this.anmSubjectBadgeProfileListCount(1,1,1);
+          this.anmSubjectBadgeProfileListCount(1,1,2);
+          this.anmSubjectBadgeProfileListCount(1,1,3);
+        }
+        if(maintab === 2)
+        {
+          this.anmSubjectBadgeProfileListCount(1,2,1);
+          this.anmSubjectBadgeProfileListCount(1,2,2);
+          this.anmSubjectBadgeProfileListCount(1,2,3);
+          this.anmSubjectBadgeProfileListCount(1,2,4);
+          this.anmSubjectBadgeProfileListCount(1,2,5);
+          this.anmSubjectBadgeProfileListCount(1,2,6);
+        }
+        if(maintab === 3)
+        {
+          this.anmSubjectBadgeProfileListCount(1,3,1);
+          this.anmSubjectBadgeProfileListCount(1,3,2);
+          this.anmSubjectBadgeProfileListCount(1,3,3);
+         
+        }
+        if(maintab === 4)
+        {
+          this.anmSubjectBadgeProfileListCount(1,4,1);
+          this.anmSubjectBadgeProfileListCount(1,4,2);
+        }
+        if(maintab === 5)
+        {
+          this.anmSubjectBadgeProfileListCount(1,5,1);
+          this.anmSubjectBadgeProfileListCount(1,5,2);
+          this.anmSubjectBadgeProfileListCount(1,5,3);
+        }
+        if(maintab === 6)
+        {
+          this.anmSubjectBadgeProfileListCount(1,6,1);
+          this.anmSubjectBadgeProfileListCount(1,6,2);
+          this.anmSubjectBadgeProfileListCount(1,6,3);
+          this.anmSubjectBadgeProfileListCount(1,6,4);
+          this.anmSubjectBadgeProfileListCount(1,6,5);
+        }
+
+  }
+
+  anmSubjectBadgeProfileListCount(id,maintab,subtab) {
+     
+    this.loaderService.display(true);
+    this.subjectprofilelistErrorMessage = '';
+    this.subjectprofileLists=[];
+    var _obj = {
+      fromDate: this.anmSPFromDate !== '' ? this.anmSPFromDate : '',
+      toDate: this.anmSPToDate !== '' ? this.anmSPToDate : '',
+      districtId: this.selectedDistrict === null ? 0 : Number(this.selectedDistrict),
+      blockId: this.selectedBlock === null ? 0 : Number(this.selectedBlock),
+      chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
+      anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
+      userInput:"",
+      searchType:id,
+      "searchSection":maintab,
+      "status":subtab
+    }
+   
+    //this.subjectprofileItem = new SubjectProfileList();
+    let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
+      .subscribe(response => {
+        
+       console.log(response['data'].length);
+       if(maintab ===1)
+       {
+            if(subtab === 1)
+                  this.chcsamplingstatusCount = response['data'].length;
+
+            if(subtab === 2)
+                  this.chcsampledCount = response['data'].length;
+            if(subtab === 3)
+                  this.chcnotsampledount = response['data'].length;
+       }
+       if(maintab ===2)
+       {
+            if(subtab === 1)
+                  this.chcsCBCResultsCount = response['data'].length;
+            if(subtab === 2)
+                  this.chcCBCPositiveCount = response['data'].length;
+            if(subtab === 3)
+                  this.chcCBCNegativeCount = response['data'].length;
+            if(subtab === 4)
+                  this.chcSSTResultCount = response['data'].length;
+            if(subtab === 5)
+                  this.chcSSTPositiveCount = response['data'].length;
+            if(subtab === 6)
+                  this.chcSSTNegativeCount = response['data'].length;
+       }
+       if(maintab ===3)
+       {
+            if(subtab === 1)
+                  this.HPLCResultCount = response['data'].length;
+            if(subtab === 2)
+                  this.HPLCAbnormalCount = response['data'].length;
+            if(subtab === 3)
+                  this.HPLCNormalCount = response['data'].length;
+       }
+
+       if(maintab ===4)
+       {
+            if(subtab === 1)
+                  this.registeredCount = response['data'].length;
+            if(subtab === 2)
+                  this.notregisteredCount = response['data'].length;
+       }
+
+       if(maintab ===5)
+       {
+            if(subtab === 1)
+                  this.counsellingpendingCount = response['data'].length;
+            if(subtab === 2)
+                  this.counselledPNDTAgreedCount = response['data'].length;
+            if(subtab === 2)
+                  this.counselledPNDTDisagreedCount = response['data'].length;
+       }
+       if(maintab ===6)
+       {
+            if(subtab === 1)
+                  this.PNDTpendingCount = response['data'].length;
+            if(subtab === 2)
+                  this.PNDTcompletedCount = response['data'].length;
+            if(subtab === 3)
+                  this.PNDTNormalCount = response['data'].length;
+            if(subtab === 4)
+                  this.PNDTAffectedCount = response['data'].length;
+            if(subtab === 5)
+                  this.PNDTcarrierCount = response['data'].length;
+       }
+       if(maintab ===7)
+       {
+            if(subtab === 1)
+                  this.PNDcounsellingpendingCount = response['data'].length;
+            if(subtab === 2)
+                  this.PNDcounsellingMTPAgreedCount = response['data'].length;
+            if(subtab === 3)
+                  this.PNDcounsellingMTPDecisionPendingCount = response['data'].length;
+       }
+       if(maintab ===8)
+       {
+            if(subtab === 1)
+                  this.MTPpendingCount = response['data'].length;
+            if(subtab === 2)
+                  this.MTPcompletedCount = response['data'].length;
+           
+       }
+       this.loaderService.display(false);
       },
         (err: HttpErrorResponse) => {
           this.subjectprofilelistErrorMessage = err.toString();
