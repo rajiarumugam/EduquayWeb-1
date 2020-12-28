@@ -228,12 +228,12 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
     this.dtOptions = {
       pagingType: 'simple_numbers',
-      pageLength: 20,
+      pageLength: 5,
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
        // Declare the use of the extension in the dom parameter
-       dom: "<'row mt-3'<'col-sm-6 float left'f><'col-sm-4 mb-2 float right'l><'col-sm-2 float right'B>>" +
+       dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
        "<'row'<'col-sm-12'tr>>" +
        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
@@ -244,7 +244,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
              title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-           },
+           }/*,
          {
            titleAttr: 'Download as PDF',
            extend: 'pdfHtml5',
@@ -328,7 +328,7 @@ export class NHMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
               columns: ':visible'
           },
            text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
-         },
+         },*/
          
          // {
          //   titleAttr: 'Download as CSV',     

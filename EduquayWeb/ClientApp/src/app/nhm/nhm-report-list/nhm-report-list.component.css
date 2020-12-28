@@ -545,3 +545,8 @@ hr {
 .custum-tab-one.tabselected p,.custum-tab-two.tabselected p{
   color:#1b55e2 !important;
 }
+
+::ng-deep .dt-buttons
+    {
+        float:right !important;
+    }

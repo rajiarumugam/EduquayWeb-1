@@ -130,9 +130,11 @@
     <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 0px;">
     <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 0px;">
     <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1" style="height: 0px;">
 </div>
 
-<div class="col-xl-12 col-lg-12 col-sm-12 print-show" style="min-height:99.9vh;" *ngFor="let data of printArray">
+<span *ngIf="printArray.length > 1">
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngFor="let data of printArray" >
   <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
       <div class="widget-content widget-content-area br-6">
         <div class="row py-2 my-2 print-header">
@@ -402,6 +404,45 @@
                                   <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{data.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
                                   <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{data.pathologistName}}</b></td>
                               </tr>
+                              <tr>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+
                           </tbody>
                       </table>
                   </div>
@@ -502,6 +543,35 @@
                               <tr>
                                   <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>
                               </tr>
+                              <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"><p></p></td>
+                            </tr>
                           </tbody>
                       </table>
                   </div>
@@ -509,6 +579,460 @@
           </div>  
       </div>
 </div>
+
+<div class="pagebreak"> </div>
 </div>
+</span>
+
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngIf="printArray.length == 1">
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
+        <div class="widget-content widget-content-area br-6">
+          <div class="row py-2 my-2 print-header">
+              <div class="col-md-2 left-logo-cont">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 70px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 70px;margin-left:10px;">
+              </div>
+              <div class="col-md-8 col-mid">
+                  <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
+                  <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
+              </div>
+              <div class="col-md-2 right-logo-cont" style="float:right;">
+                  
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 70px;margin-left:10px;float:right;">
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 70px;float:right;margin-left:10px;">
+              </div>
+          </div>
+            
+        </div>
+    </div>
+    <div class="watermark">
+        <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+    </div>
+    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
+        <div class="watermark">
+            <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+        </div>
+        <div class="widget-content widget-content-area br-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss">
+                                
+                            </thead> 
+                            <tbody>
+                                <tr> 
+                                    <td class="sp-xs-td-9" style="width: 70%;"></td>
+                                    <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}}</td>
+                                    
+                                </tr>
+                                
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss" style="background-color: #aaaaaa !important;">
+                                <tr class="" style="background-color: #aaaaaa !important;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION A : PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                                   
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'District' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].district}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].blockName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].chcName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].phcName}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'SC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].scName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'RIPoint' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].riPoint}}</b></td>
+                                    <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{printArray[0].anmName}}</b></td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss" style="background-color: #aaaaaa;">
+                                <tr class="" style="background-color: #aaaaaa;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
+                                   
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Name' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].subjectName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].age}} Years / {{printArray[0].gender}}</b></td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].rchId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].contactNo}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].subjectId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].dateOfRegister}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].barcodeNo}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].sampleCollectionDate}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Spouse Name' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].spouseName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Address' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].address}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].lmpDate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'GA' | translate}} (as of {{currentDate}})</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].ga}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].referringDepartment}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{printArray[0].orderingPhysician}}</b></td>
+                                    
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                            <thead class="tablecss">
+                                <tr class="" style="background-color: #e3e8ef;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{printArray[0].mcv}} fL</b></td>
+                                    <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{printArray[0].rdw}} %</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{printArray[0].sstResult}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{printArray[0].cbcTestResult}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                            <thead class="tablecss">
+                                <tr class="" style="background-color: #e3e8ef;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
+                            
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{printArray[0].hbA0}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{printArray[0].hbA2}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{printArray[0].hbD}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{printArray[0].hbF}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{printArray[0].hbS}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'LaboratoryDiagnosis' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{printArray[0].diagnosis}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'HPLCResult' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{printArray[0].hplcResult}}</b></td>
+                                </tr>
+                               <!-- <tr>
+                                    <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{printArray[0].diagnosisSummary}}</b></td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{printArray[0].labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
+                                    <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{printArray[0].pathologistName}}</b></td>
+                                </tr>
+                                <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>
+                                </tr>
+                                <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+  
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"><p></p></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>  
+        </div>
+  </div>
+  
+  <div class="pagebreak"> </div>
+  </div>
 
 
