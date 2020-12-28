@@ -79,7 +79,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
     this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
-    console.log(pndtcTestingArr);
     this.dateform = this._formBuilder.group({
       fromDate: [''],
       toDate: [''],
@@ -99,7 +98,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
       //var _tempData = centralReceiptsArr.hplcDetail;
       this.pndPendingArray = pndtcTestingArr.subjects;
-      console.log(this.pndPendingArray);
       this.pndPendingArray.forEach(function(val,ind){
         val.checked = true;
       })
@@ -270,7 +268,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   getSampleStatusData(){
     this.pathoHPLCService.getSampleStatus()
     .subscribe(response => {
-      console.log(response);
       this.sampleStatusData = response['sampleStatus'];
       this.sampleStatusData.forEach(function(val,i){
           if(val.id != 1 && val.id != 2 && val.id != 6)
@@ -303,7 +300,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
         this.selectedAnm = null;
         this.PNDTCmasterService.getBlockByDistrict(this.selectedDistrict)
         .subscribe(response => {
-          console.log(response);
           this.blocklists = response['data'];
           this.loaderService.display(false);
         },
@@ -332,7 +328,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
         this.selectedAnm = null;
         this.PNDTCmasterService.getCHCByBlock(this.selectedBlock)
         .subscribe(response => {
-          console.log(response);
           this.CHCdata = response['data'];
           this.loaderService.display(false);
         },
@@ -378,7 +373,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
         this.loaderService.display(true);
         this.PNDTCmasterService.getANMByCHC(this.selectedchc)
         .subscribe(response => {
-          console.log(response);
           this.ANMdata = response['data'];
           this.loaderService.display(false);
         },
@@ -397,7 +391,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
         this.loaderService.display(true);
         this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
         .subscribe(response => {
-          console.log(response);
           this.ANMdata = response['data'];
           this.loaderService.display(false);
         },
@@ -423,7 +416,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   refreshData()
   {
     this.loaderService.display(true);
-    console.log(this.fromDate);
     var _subjectObj = {
       "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "districtId": this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
@@ -434,7 +426,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
     }
     this.pathoHPLCService.getPathoSampleReport(_subjectObj).subscribe(response => {
-      console.log(response);
       this.pndPendingArray = response.subjects;
       this.pndPendingArray.forEach(function(val,ind){
         val.checked = true;
@@ -450,7 +441,6 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
 
   openResultPage(data)
   {
-    console.log(data);
     $('#fadeinModal').modal('show');
   }
   
@@ -464,9 +454,7 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
     });
   }   
   openReportPage(data)
-  {
-
-    console.log(data);  
+  { 
     this.dataservice.setdata({'diagnosisHPLC':data});
     this.router.navigate(['/app/view-Patho-report']);
   }
@@ -477,12 +465,10 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
   {
     var _tempArray = [];
     this.pndPendingArray.forEach(function(val,index){
-      console.log(val);
       if(val.checked)
             _tempArray.push(val);
     });
     this.printArray = _tempArray;
-    console.log(_tempArray);
     //document.title=this.diagnosisReportData.subjectName+"_"+this.diagnosisReportData.barcodeNo+"_Patho Report";
     if(this.printArray.length > 0)
     {
