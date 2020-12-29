@@ -483,5 +483,11 @@
 "Affected":"Affected",
 "carrier":"Carrier",
 "CounselledPNDTDecisionPending":"Counselled, PNDT Decision Pending",
-"CounselledMTPDisagreed":"Counselled, MTP Disagreed"
+"CounselledMTPDisagreed":"Counselled, MTP Disagreed",
+"DateofRegn":"Date of Regn",
+"SampleCollectedDt":"Sample Collected Dt",
+"CBCTestedDt":"CBC Tested Dt",
+"HPLCTestedDt":"HPLC Tested Dt",
+"SpouseRegn":"Spouse Regn",
+"PNDTResult":"PNDT Result"
 }

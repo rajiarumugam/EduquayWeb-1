@@ -131,9 +131,10 @@
     <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 0px;">
     <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 0px;">
     <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/logo-bg1.jpg" class="mt-1" style="height: 0px;">
 </div>
 
-<span *ngIf="printArray.length > 1">
+<span *ngIf="printArray.length > 5">
 <div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngFor="let data of printArray" >
   <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
       <div class="widget-content widget-content-area br-6">
@@ -158,7 +159,7 @@
 
   <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
       <div class="watermark">
-          <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+          <img class="logo-left" src="../../../../assets/assets/img/logo-bg1.jpg" class="mt-1">
       </div>
       <div class="widget-content widget-content-area br-6">
           <div class="row">
@@ -166,16 +167,12 @@
                   <div class="table-responsive">
                       <table class="table table-bordered table-striped">
                           <thead class="tablecss">
-                              
                           </thead> 
                           <tbody>
                               <tr> 
                                   <td class="sp-xs-td-9" style="width: 70%;"></td>
                                   <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}}</td>
-                                  
                               </tr>
-                              
-                             
                           </tbody>
                       </table>
                   </div>
@@ -584,7 +581,8 @@
 </div>
 </span>
 
-<div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngIf="printArray.length == 1">
+<span *ngIf="printArray.length <=5">
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngFor="let data of printArray">
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
         <div class="widget-content widget-content-area br-6">
           <div class="row py-2 my-2 print-header">
@@ -605,11 +603,8 @@
             
         </div>
     </div>
-    <div class="watermark">
-        <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
-    </div>
     <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
-        <div class="watermark">
+        <div class="watermark1">
             <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
         </div>
         <div class="widget-content widget-content-area br-6">
@@ -623,11 +618,8 @@
                             <tbody>
                                 <tr> 
                                     <td class="sp-xs-td-9" style="width: 70%;"></td>
-                                    <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}}</td>
-                                    
+                                    <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}} 123</td>
                                 </tr>
-                                
-                               
                             </tbody>
                         </table>
                     </div>
@@ -647,21 +639,21 @@
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'District' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].district}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
                                     <td class="sp-xs-td-9">{{'Block' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].blockName}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.blockName}}</b></td>
                                     <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].chcName}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.chcName}}</b></td>
                                     <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].phcName}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.phcName}}</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'SC' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].scName}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.scName}}</b></td>
                                     <td class="sp-xs-td-9">{{'RIPoint' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].riPoint}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.riPoint}}</b></td>
                                     <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{printArray[0].anmName}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.anmName}}</b></td>
                                 </tr>
                                
                             </tbody>
@@ -683,51 +675,51 @@
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Name' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].subjectName}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.subjectName}}</b></td>
                                     <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].age}} Years / {{printArray[0].gender}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.age}} Years / {{data.gender}}</b></td>
                                    
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].rchId}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.rchId}}</b></td>
                                     <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].contactNo}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.contactNo}}</b></td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].subjectId}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.subjectId}}</b></td>
                                     <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].dateOfRegister}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.dateOfRegister}}</b></td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].barcodeNo}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.barcodeNo}}</b></td>
                                     <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].sampleCollectionDate}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.sampleCollectionDate}}</b></td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Spouse Name' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].spouseName}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
                                     <td class="sp-xs-td-9">{{'Address' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].address}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].lmpDate}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.lmpDate}}</b></td>
                                     <td class="sp-xs-td-9">{{'GA' | translate}} (as of {{currentDate}})</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].ga}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.ga}}</b></td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].referringDepartment}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.referringDepartment}}</b></td>
                                     <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{printArray[0].orderingPhysician}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
                                     
                                 </tr>
                                
@@ -759,13 +751,13 @@
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
-                                    <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{printArray[0].mcv}} fL</b></td>
-                                    <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{printArray[0].rdw}} %</b></td>
+                                    <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{data.mcv}} fL</b></td>
+                                    <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{data.rdw}} %</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{printArray[0].sstResult}}</b></td>
-                                    <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{printArray[0].cbcTestResult}}</b></td>
+                                    <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{data.sstResult}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{data.cbcTestResult}}</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -797,23 +789,23 @@
                             <tbody>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
-                                    <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{printArray[0].hbA0}}</b></td>
-                                    <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{printArray[0].hbA2}}</b></td>
-                                    <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{printArray[0].hbD}}</b></td>
-                                    <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{printArray[0].hbF}}</b></td>
-                                    <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{printArray[0].hbS}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{data.hbA0}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{data.hbA2}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{data.hbD}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{data.hbF}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{data.hbS}}</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'LaboratoryDiagnosis' | translate}} </td>
-                                    <td class="sp-xs-td-9" colspan="5"><b>{{printArray[0].diagnosis}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosis}}</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'HPLCResult' | translate}} </td>
-                                    <td class="sp-xs-td-9" colspan="5"><b>{{printArray[0].hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.hplcResult}}</b></td>
                                 </tr>
                                <!-- <tr>
                                     <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
-                                    <td class="sp-xs-td-9" colspan="5"><b>{{printArray[0].diagnosisSummary}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosisSummary}}</b></td>
                                 </tr>-->
                             </tbody>
                         </table>
@@ -853,8 +845,8 @@
                                     <td class="sp-xs-td-9"></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{printArray[0].labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
-                                    <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{printArray[0].pathologistName}}</b></td>
+                                    <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{data.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
+                                    <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{data.pathologistName}}</b></td>
                                 </tr>
                                 <tr>
                                   <td class="sp-xs-td-9"></td>
@@ -1034,5 +1026,6 @@
   
   <div class="pagebreak"> </div>
   </div>
+</span>
 
 
