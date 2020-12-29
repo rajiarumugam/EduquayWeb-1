@@ -530,6 +530,7 @@ hr {
   border-top: 1px solid #eeeeee;
   border-left: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
+  background: #1b55e2 !important;
 }
 .custum-tab-two.tabselected,.custum-tab-two:hover
 {
@@ -538,12 +539,13 @@ hr {
   border-top: 1px solid #eeeeee;
   border-left: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
+  background: #1b55e2 !important;
 }
 .custum-tab-one p,.custum-tab-two p{
   margin:0;
 }
 .custum-tab-one.tabselected p,.custum-tab-two.tabselected p{
-  color:#1b55e2 !important;
+  color:#ffffff !important;
 }
 
 ::ng-deep .dt-buttons
