@@ -40,7 +40,7 @@ export class AddMastersService {
   }
 
   addUserType(gvtIdType: AddUserTypeRequest){
-    let apiUrl=this.genericService.buildApiUrl(this.addGvtIdTypeApi);
+    let apiUrl=this.genericService.buildApiUrl(this.addUserTypeApi);
     return this.http.post<AddGvtIdTypeResponse>({url: apiUrl, body: gvtIdType});
   }
 }
