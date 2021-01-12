@@ -134,7 +134,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
   
     editAddUserType(editUsertypeDetail, sample: UserTypes) {
   
-      this.usertypeName = sample.userTypeName;
+      this.usertypeNamedata = sample.userTypeName;
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive;
   
@@ -153,7 +153,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
     onSubmit(addUserTypeForm: NgForm){
   
       console.log(addUserTypeForm.value);
-      this.usertypeName = addUserTypeForm.value.gvtidname;
+      this.usertypeName = addUserTypeForm.value.usertypeName;
       this.comments = addUserTypeForm.value.Comments;
   
       this.addUserTypeRequest = {
@@ -188,42 +188,42 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
       //swal ("Here's the title!", "...and here's the text!");
     }
   
-    // editSubmit(editGvtidForm: NgForm){
+    editSubmit(editUsertypeForm: NgForm){
   
-    //   console.log(editGvtidForm.value);
-    //   this.usertypeNamedata = editGvtidForm.value.usertypeNamedata;
-    //   this.commentsdata = editGvtidForm.value.editComments;
+      console.log(editUsertypeForm.value);
+      this.usertypeNamedata = editUsertypeForm.value.usertypeNamedata;
+      this.commentsdata = editUsertypeForm.value.editComments;
   
-    //   this.addUserTypeRequest = {
-    //     govIdTypeName: this.gvtidname,
-    //     isActive: this.confirmationSelected,
-    //     comments: this.comments,
-    //     createdBy: this.user.id,
-    //     updatedBy: this.user.id
-    //   };
+      this.addUserTypeRequest = {
+        userTypeName: this.usertypeNamedata,
+        isActive: ""+this.confirmationSelected,
+        comments: this.commentsdata,
+        createdBy: this.user.id,
+        updatedBy: this.user.id
+      };
   
-    //   //Remove below 2 lines after successfully tested
-    //   // this.showResponseMessage('Successfully registered', 's');
-    //   // return false;
+      //Remove below 2 lines after successfully tested
+      // this.showResponseMessage('Successfully registered', 's');
+      // return false;
   
-    //   let damagedsampleCollection = this.UserTypeService.addGvtType(this.addUserTypeRequest)
-    //   .subscribe(response => {
-    //     this.addUserTypeResponse = response;
-    //     if(this.addUserTypeResponse !== null){
-    //       this.showResponseMessage(this.addUserTypeResponse.message, 's')
-    //        this.retrirveUserTypelist();
-    //     }else{
-    //       this.showResponseMessage(this.addUserTypeResponse.message, 'e');
-    //               this.userTypelistErrorMessage = response.message;
-    //     }
+      let damagedsampleCollection = this.UserTypeService.addUserType(this.addUserTypeRequest)
+      .subscribe(response => {
+        this.addUserTypeResponse = response;
+        if(this.addUserTypeResponse !== null){
+          this.showResponseMessage(this.addUserTypeResponse.message, 's')
+           this.retrirveUserTypelist();
+        }else{
+          this.showResponseMessage(this.addUserTypeResponse.message, 'e');
+                  this.userTypelistErrorMessage = response.message;
+        }
   
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     this.showResponseMessage(err.toString(), 'e');
-    //     this.userTypelistErrorMessage = err.toString();
-    //   });
-    //   //swal ("Here's the title!", "...and here's the text!");
-    // }
+      },
+      (err: HttpErrorResponse) => {
+        this.showResponseMessage(err.toString(), 'e');
+        this.userTypelistErrorMessage = err.toString();
+      });
+      //swal ("Here's the title!", "...and here's the text!");
+    }
   
     showResponseMessage(message: string, type: string){
       var messageType = '';

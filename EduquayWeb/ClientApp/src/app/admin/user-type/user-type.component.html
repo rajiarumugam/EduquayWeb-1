@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-4">
                       <div class="float-right mb-4">
-                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-userrole']" role="button"
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-user-role']" role="button"
                         ngbTooltip="User Role" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
                       </div>
                     </div>
@@ -173,11 +173,11 @@
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label class="note" [ngClass]="{'label-border-class':!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid}">{{'Government Id Type Name' | translate }} <span class="manto"> </span></label>
-                                    <input class="form-control" name="usertypeNamedata" type="text" placeholder="Government Id Type Name" ngModel
+                                    <label class="note" [ngClass]="{'label-border-class':!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid}">{{'User Type Name' | translate }} <span class="manto"> </span></label>
+                                    <input class="form-control" name="usertypeNamedata" type="text" placeholder="Government Id Type Name"
                                     [class.is-invalid]="!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid"
-                                     #usertypeNamedata="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!usertypeNamedata.valid && usertypeNamedata.touched ">Enter Gvt Id Type Name</small> 
+                                     [(ngModel)]="usertypeNamedata" required>
+                                    <small class="text-danger ml-2" *ngIf="!usertypeNamedata.valid && usertypeNamedata.touched ">Enter User Type Name</small> 
                                     <div *ngIf="editUsertypeForm.submitted && usertypeNamedata.invalid">     
                                       <small *ngIf="usertypeNamedata.untouched" class=" ml-2 text-danger">User Type Name is required</small>  
                                     </div> 

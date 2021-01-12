@@ -261,6 +261,7 @@ import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 
 import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
+import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -337,6 +338,7 @@ const routes: Routes = [
       { path: 'add-sc', component: ScComponent, pathMatch: 'full'},
       { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
+      { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -830,7 +832,8 @@ export const RoutingComponents = [
   ScComponent,
   RiPointComponent,
   GvtIdTypeComponent,
-  NHMreportListComponent
+  NHMreportListComponent,
+  UserTypeComponent
 
 ];
 
