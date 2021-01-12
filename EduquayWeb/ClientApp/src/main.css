@@ -1754,3 +1754,8 @@ table .badge-info, table .badge-secondary, table .badge-dark  {
 {
     vertical-align: middle !important;
 }
+
+@media print {
+    @page { margin: 40px 0 0 0 !important; }
+    
+    }

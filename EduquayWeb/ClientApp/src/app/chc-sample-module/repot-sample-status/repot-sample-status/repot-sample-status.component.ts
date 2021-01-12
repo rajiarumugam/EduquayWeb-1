@@ -356,6 +356,14 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
        XLSX.writeFile(wb, this.fileName);
 			
     }
+
+returnTimeStamp(da)
+{
+  var _date = da.split('/')[0];
+  var _month = da.split('/')[1];
+  var _year = da.split('/')[2];
+  return moment(_month+"/"+_date+"/"+_year).unix();
+}
   
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -13,6 +13,7 @@ import * as printJS from "print-js";
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import * as XLSX from 'xlsx'; 
+import * as moment from 'moment';
 
 
 @Component({
@@ -237,6 +238,13 @@ rerender(): void {
 }   
 
    
+  returnTimeStamp(da)
+  {
+    var _date = da.split('/')[0];
+    var _month = da.split('/')[1];
+    var _year = da.split('/')[2];
+    return moment(_month+"/"+_date+"/"+_year).unix();
+  }
 
 ngAfterViewInit(): void {
   this.dtTrigger.next();

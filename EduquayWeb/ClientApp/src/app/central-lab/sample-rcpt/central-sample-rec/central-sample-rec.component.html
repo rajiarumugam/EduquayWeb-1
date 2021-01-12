@@ -153,7 +153,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
             <td style="text-align: center;">{{ person.shipmentId }}</td>
             <td>{{ person.labTechnicianName }}</td>
             <td>{{ person.testingCHC }}</td>
-            <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
+            <td style="text-align: center;"><span style="display: none;">{{person.shipmentDateTime | convertimestamp}}</span>{{ person.shipmentDateTime }}</td>
             <td class="user-plus" (click)="openPopup(person);"><i class="fas fa-search fa-2x" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>
     </tbody>

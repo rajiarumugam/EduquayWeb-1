@@ -509,3 +509,46 @@ div .two {
 hr {
   transform: rotate(90deg);
 }
+
+
+.custum-tab-one,.custum-tab-two
+{
+  display: inline-block;
+  padding: 10px 10px;
+    font-size: 16px;
+    margin-right: 0px;
+    cursor:pointer;
+    border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+   
+}
+
+.custum-tab-one.tabselected,.custum-tab-one:hover
+{
+  /*border-top: 3px solid #1b55e2;
+  color:#1b55e2 !important;*/
+  border-top: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  background: #1b55e2 !important;
+}
+.custum-tab-two.tabselected,.custum-tab-two:hover
+{
+  /*border-bottom: 3px solid #1b55e2;
+  color:#1b55e2 !important;*/
+  border-top: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  background: #1b55e2 !important;
+}
+.custum-tab-one p,.custum-tab-two p{
+  margin:0;
+}
+.custum-tab-one.tabselected p,.custum-tab-two.tabselected p{
+  color:#ffffff !important;
+}
+
+::ng-deep .dt-buttons
+    {
+        float:right !important;
+    }

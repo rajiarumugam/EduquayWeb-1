@@ -117,6 +117,13 @@ import { HNINComponent } from './admin/hnin/hnin.component';
 import { GvtIdTypeComponent } from './admin/gvt-id-type/gvt-id-type.component';
 import { UserTypeComponent } from './admin/user-type/user-type.component';
 
+import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
+
+
+import { TabsComponent } from './nhm/tabs/tabs.component';
+import { TabComponent } from './nhm/tabs/tab.component';
+
+
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
 // };
@@ -203,7 +210,10 @@ import { UserTypeComponent } from './admin/user-type/user-type.component';
     FacilityTypeComponent,
     HNINComponent,
     GvtIdTypeComponent,
-    UserTypeComponent
+    UserTypeComponent,
+    timeStampPipe,
+    TabsComponent,
+    TabComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

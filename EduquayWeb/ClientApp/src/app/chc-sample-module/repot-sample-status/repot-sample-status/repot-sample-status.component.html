@@ -87,7 +87,7 @@
                               <td style="text-align: left">{{pnddata.anmName}}</td>
                               <td class="text-center">{{pnddata.riPoint}}</td>
                               <td class="text-center">{{pnddata.barcodeNo}}</td>
-                              <td class="text-left">{{pnddata.shipmentDate}}</td>
+                              <td class="text-left"><span style="display: none;">{{returnTimeStamp(pnddata.shipmentDate)}}</span>{{pnddata.shipmentDate}}</td>
                               <td class="text-left">{{pnddata.sampleStatus}}</td>
                               <td class="text-left">{{pnddata.cbcResult}}</td>
                           </tr>

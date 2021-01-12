@@ -170,7 +170,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
             <td style="text-align: center;">{{ person.shipmentId }}</td>
             <td>{{ person.senderName }}</td>
             <td>{{ person.sendingLocation }}</td>
-            <td style="text-align: center;">{{ person.shipmentDateTime }}</td>
+            <td style="text-align: center;"><span style="display: none;">{{returnTimeStamp(person.shipmentDateTime)}}</span>{{ person.shipmentDateTime }}</td>
             <td class="user-plus" (click)="openPopup(person);"><i class="fas fa-search fa-2x" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>
     </tbody>

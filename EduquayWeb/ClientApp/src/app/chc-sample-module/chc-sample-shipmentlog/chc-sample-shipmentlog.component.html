@@ -70,7 +70,7 @@
                                     <tr *ngFor="let shipment of shipmentList; index as i">
                                         <td style="text-align: center">{{i +1}}</td>
                                         <td style="text-align: center">{{shipment.shipmentId}}</td>
-                                        <td style="text-align: center">{{shipment.shipmentDateTime}}</td>
+                                        <td style="text-align: center"><span style="display: none;">{{returnTimeStamp(shipment.shipmentDateTime)}}</span>{{shipment.shipmentDateTime}}</td>
                                         <td style="text-align: left">{{shipment.labTechnicianName}}</td>
                                         <td style="text-align: left">{{shipment.deliveryExecutiveName}}</td>
                                         <td style="text-align: left">{{shipment.testingCHC}}</td>

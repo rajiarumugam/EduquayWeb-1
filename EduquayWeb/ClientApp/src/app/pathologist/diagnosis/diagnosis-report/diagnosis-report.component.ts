@@ -116,6 +116,7 @@ export class DiagosisReportComponent implements OnInit {
       this.selectedpathologistName = this.diagnosisReportData.seniorPathologistName;
   if(this.diagnosisReportData.seniorPathologistRemarks)
       this.selectedRemarks = this.diagnosisReportData.seniorPathologistRemarks;
+
   if(this.diagnosisReportData.othersResult)
   {
     this.showOthersTextbox = true;
@@ -249,7 +250,7 @@ export class DiagosisReportComponent implements OnInit {
               });
         }
       },this);
-      if(this.HPLCmasterData[0].checked)
+     /* if(this.HPLCmasterData[0].checked)
       {
         this.HPLCmasterData[1].disable = true;
         this.HPLCmasterData[2].disable = true;
@@ -268,7 +269,7 @@ export class DiagosisReportComponent implements OnInit {
       {
         this.HPLCmasterData[0].disable = true;
         this.HPLCmasterData[3].disable = true;
-      }
+      }*/
     },
     (err: HttpErrorResponse) =>{
       this.HPLCmasterData = [];

@@ -88,7 +88,7 @@
                                 <td style="text-align: left">{{pnddata.anmName}}</td>
                                 <td class="text-center">{{pnddata.riPoint}}</td>
                                 <td class="text-center">{{pnddata.barcodeNo}}</td>
-                                <td class="text-left">{{pnddata.shipmentDate}}</td>
+                                <td class="text-left"><span style="display: none;">{{pnddata.shipmentDate | convertimestamp}}</span>{{pnddata.shipmentDate}}</td>
                                 <td class="text-left">{{pnddata.sampleStatus}}</td>
                                 <td class="text-left">{{pnddata.hplcResult}}</td>
                                 <td class="text-center"><a (click)="openViewPage(pnddata);"><i class="fa fa-file-text-o text-primary" aria-hidden="true"

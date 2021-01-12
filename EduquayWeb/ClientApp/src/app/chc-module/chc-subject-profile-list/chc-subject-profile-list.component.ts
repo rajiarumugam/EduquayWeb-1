@@ -741,5 +741,12 @@ export class ChcSubjectProfileListComponent implements AfterViewInit, OnDestroy,
   }
 
 
+  returnTimeStamp(da)
+  {
+    var _date = da.split('/')[0];
+    var _month = da.split('/')[1];
+    var _year = da.split('/')[2];
+    return moment(_month+"/"+_date+"/"+_year).unix();
+  }
 
 }
