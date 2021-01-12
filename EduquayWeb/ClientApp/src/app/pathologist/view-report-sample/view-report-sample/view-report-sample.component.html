@@ -129,7 +129,7 @@
                                 <tr>
                                     <td><b>{{'LMPDate' | translate}}</b></td>
                                     <td>{{diagnosisReportData?.lmpDate}}</td>
-                                    <td><b>{{'GestationalAge' | translate}}</b></td>
+                                    <td><b>{{'GA (as of HPLC Tested Date)' | translate}}</b></td>
                                     <td>{{diagnosisReportData?.ga}}</td>
                                     <td><b>{{'ObstetricsScore' | translate}}</b></td>
                                     <td>{{diagnosisReportData?.obstetricScore}}</td>
@@ -418,7 +418,7 @@
                                 <tr>
                                     <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{diagnosisReportData?.lmpDate}}</b></td>
-                                    <td class="sp-xs-td-9">{{'GA' | translate}} (as of {{currentDate}})</td>
+                                    <td class="sp-xs-td-9">{{'GA (as of HPLC Tested Date)' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{diagnosisReportData?.ga}}</b></td>
                                     
                                 </tr>
@@ -552,7 +552,7 @@
                                     <td class="sp-xs-td-9"></td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{diagnosisReportData?.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
+                                    <td class="sp-xs-td-9"><b>{{'Sample processed by' | translate}} {{diagnosisReportData?.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
                                     <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{diagnosisReportData?.pathologistName}}</b></td>
                                 </tr>
                             </tbody>
