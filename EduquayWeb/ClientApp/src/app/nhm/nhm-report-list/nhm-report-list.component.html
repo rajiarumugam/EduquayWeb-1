@@ -213,7 +213,7 @@
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 4 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(4,1);"> 
-                                    <p>{{'registered' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{registeredCount}}</span></p>
+                                    <p>{{'registered' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{registeredCount/2}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(4,2);"> 
                                 <p>{{'notregistered' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{notregisteredCount}}</span></p>

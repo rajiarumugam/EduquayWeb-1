@@ -531,6 +531,7 @@ hr {
   border-left: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
   background: #1b55e2 !important;
+  color:#ffffff;
 }
 .custum-tab-two.tabselected,.custum-tab-two:hover
 {
@@ -540,11 +541,12 @@ hr {
   border-left: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
   background: #1b55e2 !important;
+  color:#ffffff;
 }
 .custum-tab-one p,.custum-tab-two p{
   margin:0;
 }
-.custum-tab-one.tabselected p,.custum-tab-two.tabselected p{
+.custum-tab-one.tabselected p,.custum-tab-two.tabselected p,.custum-tab-one:hover p,.custum-tab-two:hover p{
   color:#ffffff !important;
 }
 
