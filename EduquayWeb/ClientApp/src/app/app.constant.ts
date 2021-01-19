@@ -112,6 +112,10 @@ export const ENDPOINT = {
     },
     "NHM":{
         "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail"
+    },
+    "REPORTS":
+    {
+        "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail"
     }
 
 }
