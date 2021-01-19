@@ -266,7 +266,7 @@ import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
-
+import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -622,7 +622,11 @@ const routes: Routes = [
       {
         path: 'nhm-report', component: NHMreportListComponent,
        
+      },{
+        path: 'anm-report', component: ANMreportListComponent,
+       
       },
+      
       
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
@@ -846,7 +850,8 @@ export const RoutingComponents = [
   NHMreportListComponent,
   UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
-  PathoreportSampleStatusPrintComponent
+  PathoreportSampleStatusPrintComponent,
+  ANMreportListComponent
 
 ];
 

@@ -96,4 +96,10 @@ export class SubjectProfileService {
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
 
+  getANMReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.ANMREPORTDETAIL);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+
+  
 }
