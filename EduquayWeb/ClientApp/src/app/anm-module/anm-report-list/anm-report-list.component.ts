@@ -836,11 +836,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     });
   }   
 
-  districtselected(event)
-  {
-      this.getBlockData();
-  }
-
   /*ngAfterViewInit(): void {
     this.dtTrigger.next();
   }   */
