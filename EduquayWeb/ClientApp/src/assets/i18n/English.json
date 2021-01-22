@@ -508,5 +508,17 @@
 "YettoSchedule":"Yet to Schedule",
 "Agreed":"Agreed",
 "Disagreed":"Disagreed",
-"DecAwaited":"Dec Awaited"
+"DecAwaited":"Dec Awaited",
+"RCH":"RCH",
+"SampleCollectedDT":"Sample Collected/DT",
+"FirstTimeRecollected":"First Time/Recollected",
+"CurrentStatus":"Current Status",
+"Track":"Track",
+"Profile":"Profile",
+"ShipmentDT":"Shipment DT",
+"ShipmentNumber":"Shipment Number",
+"TimeoutDamaged":"Timeout / Damaged",
+"RecollectionDt":"Recollection Dt",
+"ShipmentDTTM":"Shipment DT / TM",
+"PathologistDiagnosis":"Pathologist Diagnosis"
 }
