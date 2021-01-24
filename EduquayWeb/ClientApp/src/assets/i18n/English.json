@@ -520,5 +520,14 @@
 "TimeoutDamaged":"Timeout / Damaged",
 "RecollectionDt":"Recollection Dt",
 "ShipmentDTTM":"Shipment DT / TM",
-"PathologistDiagnosis":"Pathologist Diagnosis"
+"PathologistDiagnosis":"Pathologist Diagnosis",
+"SamplesReceipt":"Samples Receipt",
+"CBCPending":"CBC Pending",
+"CBCorSSTPositive":"CBC or SST Positive",
+"CBCAndSSTNegative":"CBC And SST Negative",
+"ShipmentStatus":"Shipment Status",
+"Received":"Received",
+"Timeout":"Timeout",
+"Damaged":"Damaged",
+"ShippedtoCL":"Shipped to CL"
 }

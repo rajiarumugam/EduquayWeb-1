@@ -268,6 +268,7 @@ import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-p
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
 import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
+import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -588,6 +589,7 @@ const routes: Routes = [
         ]
       },
       { path: 'view-anm-report', component: AnmReportProfileComponent, pathMatch: 'full'},
+      { path: 'chc-main-report', component: CHCreportListComponent, pathMatch: 'full'},
       
       /*{
         path: 'view-pndtc-summary', component: PndSummaryViewComponent,
@@ -854,7 +856,8 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainPrintComponent,
   PathoreportSampleStatusPrintComponent,
   ANMreportListComponent,
-  AnmReportProfileComponent
+  AnmReportProfileComponent,
+  CHCreportListComponent
 
 ];
 
