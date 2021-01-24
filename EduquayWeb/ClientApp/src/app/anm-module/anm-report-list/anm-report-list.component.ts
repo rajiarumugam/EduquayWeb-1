@@ -17,6 +17,7 @@ declare var $: any;
 import { PNDTCmasterService } from "../../shared/pndtc/pndtc-masterdata.service";
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
+import { DateService } from 'src/app/shared/utility/date.service';
 
 
 @Component({
@@ -236,7 +237,8 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     private router: Router,
     private PNDTCmasterService: PNDTCmasterService,
     private masterService: masterService,
-    private sampleCollectionService: SampleCollectionService
+    private sampleCollectionService: SampleCollectionService,
+    private DataService:DataService
   ) { }
 
   ngOnInit() {
@@ -764,16 +766,20 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
   
 
-  opensubjectdetail(subjectinfo: SubjectProfileList ){
+  opensubjectdetail(subjectinfo ){
+    console.log(subjectinfo);
+    this.DataService.setdata({'anmreportData':subjectinfo});
+    this.subjectid = subjectinfo.subjectId;
+      this.router.navigateByUrl(`/app/view-anm-report?q=${this.subjectid}`);
 
-    if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
+    /*if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${this.subjectid}`);
     }
     else if(subjectinfo.primaryDetail.registeredFrom === 'CHC'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
-    }
+    }*/
     
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {
@@ -856,6 +862,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     });
  
   }
+
 
   custumTabClick(i,j)
   {

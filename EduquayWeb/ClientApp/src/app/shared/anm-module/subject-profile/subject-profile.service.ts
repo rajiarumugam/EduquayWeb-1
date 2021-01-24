@@ -35,7 +35,7 @@ export class SubjectProfileService {
     private tokenService: TokenService
   ) { }
 
-  getparticularanmSubjectProfileList(anmparticularsubProfile: ParticularSubjectProfileRequest){
+  getparticularanmSubjectProfileList(anmparticularsubProfile){
     let apiUrl = this.genericService.buildApiUrl(this.anmparticularSubProfile);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: anmparticularsubProfile});
   }

@@ -249,13 +249,13 @@
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,2);"> 
                                 <p>{{'counsellingpending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(8,3);"> 
                                 <p>{{'Agreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub3}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,4);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(8,4);"> 
                                 <p>{{'Disagreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub4}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,5);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(8,5);"> 
                                 <p>{{'DecAwaited' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub5}}</span></p>
                             </div>
                         </div>
@@ -573,9 +573,9 @@
                                         <td style="text-align: left" >{{subjectinfo.testResult}}</td>
                                         <td class="text-left sname">{{subjectinfo.pndt}}</td>
                                         <td style="text-align: center">{{subjectinfo.currentStatus}}</td>
-                                        <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
-                                            <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
-                                         </a></td>
+                                        <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                            <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                                        </td>
                                         <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
                                         </td>
@@ -620,9 +620,9 @@
                                         <td class="text-left sname">{{subjectinfo.pndt}}</td>
                                         <td class="text-left sname">{{subjectinfo.mtp}}</td>
                                         <td style="text-align: center">{{subjectinfo.currentStatus}}</td>
-                                        <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
-                                            <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
-                                         </a></td>
+                                        <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                            <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                                        </td>
                                         <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
                                         </td>
