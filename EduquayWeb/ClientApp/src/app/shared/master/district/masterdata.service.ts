@@ -127,4 +127,10 @@ export class masterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+  getCHCBasedRI(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVERIBYCHC+this.user.chcId);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }

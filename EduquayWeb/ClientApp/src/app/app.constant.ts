@@ -12,12 +12,11 @@ export const ENDPOINT = {
         "RETRIEVE_GOV_ID_TYPE":"api/v1/WebMaster/RetrieveGovIdType",
         "RETRIEVE_ASSOCIATED_ANM":"api/v1/WebMaster/RetrieveAssociatedANM/",
         "RETRIVESTATE":"api/v1/State/Retrieve",
-
         "RETRIVECLINICALDIAGNOSIS":"api/v1/ClinicalDiagnosis/Retrieve",
-
         "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/",
         "RETRIVEANM":"api/v1/WebMaster/RetrieveANM/",
-        "RETRIVEMOLECULARRESULT":"api/v1/WebMaster/RetrieveMolecularResult"
+        "RETRIVEMOLECULARRESULT":"api/v1/WebMaster/RetrieveMolecularResult",
+        "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/"
     },
     "SUBJECT":
     {
@@ -115,7 +114,8 @@ export const ENDPOINT = {
     },
     "REPORTS":
     {
-        "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail"
+        "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
+        "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail"
     }
 
 }
