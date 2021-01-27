@@ -228,6 +228,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
   sampleStatusData=[];
   selectedSampleStatus = null;
+  PHCdata = [];
 
   
 
