@@ -18,7 +18,6 @@ import { PNDTCmasterService } from "../../shared/pndtc/pndtc-masterdata.service"
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
 import { DateService } from 'src/app/shared/utility/date.service';
-import { chcsampleService } from "./../../shared/chc-sample/chc-sample.service";
 
 
 @Component({
@@ -226,10 +225,6 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
 
-  sampleStatusData=[];
-  selectedSampleStatus = null;
-  PHCdata = [];
-
   
 
   constructor(
@@ -243,8 +238,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     private PNDTCmasterService: PNDTCmasterService,
     private masterService: masterService,
     private sampleCollectionService: SampleCollectionService,
-    private DataService:DataService,
-    private chcsampleService:chcsampleService
+    private DataService:DataService
   ) { }
 
   ngOnInit() {
@@ -255,9 +249,8 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.loaderService.display(true);
     this.SubprofileInitializeDateRange();
 
-    //this.getRIpointData();
-    //this.getSubjectData();
-    this.getSampleStatusData();
+    this.getRIpointData();
+    this.getSubjectData();
     //this.getCHCData();
 
     this.dtOptions = {
@@ -399,10 +392,10 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       subjectTypeId:0,
       "searchSection":this.maintabSelected,
       "status":1,
-      "userId": this.user.id,
+      "chcId": this.user.chcId
     }
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+    let subProfile = this.SubjectProfileService.getCHCReportList(_obj)
       .subscribe(response => {
         console.log(response);
         this.anmsubjectProfileResponse = response;
@@ -433,9 +426,9 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   getRIpointData(){
-    this.masterService.getuserBasedRI()
+    this.masterService.getCHCBasedRI()
     .subscribe(response => {
-      this.RIData = response['ri'];
+      this.RIData = response['data'];
     },
     (err: HttpErrorResponse) =>{
       this.RIData = [];
@@ -456,16 +449,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       this.erroMessage = err.toString();
     });
   }
-  getSampleStatusData(){
-    this.chcsampleService.getSampleStatus()
-    .subscribe(response => {
-      console.log(response);
-      this.sampleStatusData = response['sampleStatus'];
-    },
-    (err: HttpErrorResponse) =>{
-      this.sampleStatusData = [];
-    });
-  }
+
   getCHCData(){
     this.loaderService.display(true);
     this.ANMdata = [];
@@ -523,11 +507,12 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       subjectTypeId: this.selectedBlock === null ? 0 : Number(this.selectedBlock),
       "searchSection":maintab,
       "status":subtab,
-      "userId": this.user.id
+      "chcId": this.user.chcId
     }
-   
+
+      
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+    let subProfile = this.SubjectProfileService.getCHCReportList(_obj)
       .subscribe(response => {
         this.anmsubjectProfileResponse = response;
         this.loaderService.display(false);
@@ -623,11 +608,11 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       subjectTypeId: this.selectedBlock === null ? 0 : Number(this.selectedBlock),
       searchSection:maintab,
       status:subtab,
-      userId: this.user.id
+      "chcId": this.user.chcId
     }
    
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+    let subProfile = this.SubjectProfileService.getCHCReportList(_obj)
       .subscribe(response => {
         
        console.log(response['data'].length);
@@ -743,7 +728,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         var _obj = {
           riId: 0,
           subjectTypeId: 0,
-          userId: this.user.id,
+          "chcId": this.user.chcId,
           userInput:this.searchsubjectid,
           searchType:id,
           "searchSection":1,
@@ -751,7 +736,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         }
       
         //this.subjectprofileItem = new SubjectProfileList();
-        let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+        let subProfile = this.SubjectProfileService.getCHCReportList(_obj)
           .subscribe(response => {
             this.anmsubjectProfileResponse = response;
             this.loaderService.display(false);
@@ -891,5 +876,231 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.dtTrigger.unsubscribe();
   }
 
+  openpopup(index, subjectinfo){
+
+    console.log(subjectinfo);
+    this.loaderService.display(true);
+    var _obj = {
+      "userid":this.user.id,
+      "userInput":subjectinfo.subjectId
+    }
+    let subProfile = this.SubjectProfileService.getparticularanmSubjectProfileList(_obj)
+      .subscribe(response => {
+        var _response = response.subjectsDetail[0];
+
+        console.log(this.SubjectProfileService.subjectProfileApi);
+    this.childSubjectTypeId = _response.primaryDetail.childSubjectTypeId;
+    this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+    this.firstName = _response.primaryDetail.firstName;
+    this.lastName = _response.primaryDetail.lastName;
+    this.gender = _response.primaryDetail.gender;
+    this.age = _response.primaryDetail.age;
+    this.barcodes = _response.pregnancyDetail.barcodes;
+    this.lmpDate = _response.pregnancyDetail.lmpDate;
+    this.ga = _response.pregnancyDetail.gestationalperiod
+    this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
+    this.spouseFirstName = _response.primaryDetail.spouseFirstName;
+    this.spouseLastName = _response.primaryDetail.spouseLastName;
+
+    if((_response.primaryDetail.childSubjectTypeId === 1 && _response.primaryDetail.spouseSubjectId === '') ||(_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.spouseSubjectId === '' && _response.primaryDetail.gender === "Female")){
+      this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+
+    let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+        if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+          //   this.subjectprofilelistErrorMessage = response.message;
+          // }
+          // else {
+            this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+            this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+            //this.rerender();
+          }
+        //}
+        else {
+          this.subjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
+
+
+    }
+    else if((_response.primaryDetail.childSubjectTypeId === 1 && _response.primaryDetail.spouseSubjectId !== '' ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.spouseSubjectId !== '' && _response.primaryDetail.gender === "Female")){
+      this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+  
+     
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+     
+      let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+         
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+       
+              if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              //this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingSubjectRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+              .subscribe(response => {
+                this.trackingSubjectResponse = response;
+                if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+                  // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+                  //   this.subjectprofilelistErrorMessage = response.message;
+                  // }
+                  // else {
+                    this.subjectTrackerItem = this.trackingSubjectResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              })
+              
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+    else if((_response.primaryDetail.childSubjectTypeId === 2 ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId !== '')){
+      this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+  
+      this.trackingSubjectRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }      
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)      
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;        
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingAnmSubjectTrackerRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+              .subscribe(response => {
+                this.trackingAnmSubjectTrackerResponse = response;
+                if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                  this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              });
+              
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId === ''){
+        this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+        this.trackingSubjectRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingSubjectRequest)
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+              //this.rerender();
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(_response.primaryDetail.childSubjectTypeId === 3){
+        this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+        this.trackingAnmSubjectTrackerRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+
+              this.loaderService.display(false);
+              
+              //this.rerender();
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+        
+      },
+      (err: HttpErrorResponse) => {
+        this.subjectprofilelistErrorMessage = err.toString();
+      });      
+   
+   
+    
+    
+      $('#fadeinModal').modal('show');
+       
+  
+  }
 }
 

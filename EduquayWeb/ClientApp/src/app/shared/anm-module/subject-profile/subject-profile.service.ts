@@ -101,5 +101,10 @@ export class SubjectProfileService {
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
 
-  
+  getCHCReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.CHCREPORTSDETAIL);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+
+ 
 }
