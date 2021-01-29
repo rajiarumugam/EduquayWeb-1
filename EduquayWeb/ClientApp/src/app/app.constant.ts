@@ -115,7 +115,8 @@ export const ENDPOINT = {
     "REPORTS":
     {
         "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
-        "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail"
+        "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail",
+        "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList"
     }
 
 }

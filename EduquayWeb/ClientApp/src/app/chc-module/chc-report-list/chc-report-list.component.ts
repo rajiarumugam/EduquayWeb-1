@@ -770,6 +770,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   opensubjectdetail(subjectinfo ){
     console.log(subjectinfo);
     this.DataService.setdata({'anmreportData':subjectinfo});
+    this.DataService.setdata({'reportPreviouspage':"CHC"});
     this.subjectid = subjectinfo.subjectId;
       this.router.navigateByUrl(`/app/view-anm-report?q=${this.subjectid}`);
 

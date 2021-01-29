@@ -197,26 +197,45 @@ export class AnmReportProfileComponent implements OnInit {
 
   ngOnInit() {
 
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     console.log(this.dataservice.getdata().anmreportData);
-    if(this.dataservice.getdata().anmreportData === undefined)
+    if(this.dataservice.getdata().reportPreviouspage === undefined || this.dataservice.getdata().anmreportData === undefined)
     {
+      if(this.user.userRole === "ANM")
         this.router.navigateByUrl(`app/anm-report`);
+      if(this.user.userRole === "CHCLTLEVEL1" || this.user.userRole === "CHCSRLT")
+        this.router.navigateByUrl(`app/chc-main-report`);
       
     }
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    
     this.loaderService.display(true);
     var _obj = {
       "userid":this.user.id,
       "userInput":this.dataservice.getdata().anmreportData.subjectId
     }
-    let subProfile = this.SubjectProfileService.getparticularanmSubjectProfileList(_obj)
-      .subscribe(response => {
-        this.subjectprofileItem = response.subjectsDetail[0];
-        this.loaderService.display(false);
-      },
-      (err: HttpErrorResponse) => {
-        this.subjectprofilelistErrorMessage = err.toString();
-      });      
+    if(this.dataservice.getdata().reportPreviouspage === "CHC")
+    {
+        let subProfile = this.SubjectProfileService.getparticularanmSCHC(_obj)
+        .subscribe(response => {
+          this.subjectprofileItem = response.subjectsDetail[0];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });   
+    }
+    else
+    {
+        let subProfile = this.SubjectProfileService.getparticularanmSubjectProfileList(_obj)
+        .subscribe(response => {
+          this.subjectprofileItem = response.subjectsDetail[0];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });      
+    }
+   
    
    
     
