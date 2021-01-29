@@ -286,7 +286,7 @@ vertical-align: middle;
     border-radius: 5px;
     display:inline-block;
   }
-  .rerun-btn-disabled
+  .button-cls.rerun-btn-disabled
 {
     background:#aaaaaa !important;
     cursor: not-allowed;    
