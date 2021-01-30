@@ -885,7 +885,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       "userid":this.user.id,
       "userInput":subjectinfo.subjectId
     }
-    let subProfile = this.SubjectProfileService.getparticularanmSubjectProfileList(_obj)
+    let subProfile = this.SubjectProfileService.getparticularanmSCHC(_obj)
       .subscribe(response => {
         var _response = response.subjectsDetail[0];
 
