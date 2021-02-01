@@ -124,6 +124,9 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
             title: 'Report - Sample Status',
             className: 'custom-btn',
             text: '<img src="assets/assets/img/excelimage.png" width="23px" />',
+            exportOptions: {
+              columns: [0,1,2,3,4,5,6,8,9,10]
+          }
             //autoFilter: true,
             
           },
@@ -206,7 +209,7 @@ export class CHCreportSampleStatusComponent implements AfterViewInit, OnDestroy,
 						doc.content[0].layout = objLayout;
 				},				
           exportOptions: {
-              columns: ':visible'
+            columns: [0,1,2,3,4,5,6,8,9,10]
           }
         },
         
