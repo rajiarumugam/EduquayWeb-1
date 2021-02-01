@@ -73,6 +73,7 @@
                               <th><span>{{'RIPoint' | translate}}</span></th>
                               <th><span>{{'Barcode' | translate}}</span></th>
                               <th><span>{{'ShipmentDate' | translate}}</span></th>
+                              <th style="display: none;"><span>{{'ShipmentDate' | translate}}</span></th>
                               <th><span>{{'SampleStatus' | translate}}</span></th>
                               <th><span>{{'Result' | translate}}</span></th>
                           </tr>
@@ -87,7 +88,9 @@
                               <td style="text-align: left">{{pnddata.anmName}}</td>
                               <td class="text-center">{{pnddata.riPoint}}</td>
                               <td class="text-center">{{pnddata.barcodeNo}}</td>
-                              <td class="text-left"><span style="display: none;">{{returnTimeStamp(pnddata.shipmentDate)}}</span>{{pnddata.shipmentDate}}</td>
+                              <td class="text-left"><div style="display: none;" >{{returnTimeStamp(pnddata.shipmentDate)}}</div>{{pnddata.shipmentDate}}</td>
+                              <td class="text-left" style="display: none;">{{pnddata.shipmentDate}}</td>
+                              
                               <td class="text-left">{{pnddata.sampleStatus}}</td>
                               <td class="text-left">{{pnddata.cbcResult}}</td>
                           </tr>
