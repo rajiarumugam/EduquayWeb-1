@@ -488,7 +488,7 @@
                                                     tabindex="1" autocomplete="off" formControlName="anyOtherComplications" [(ngModel)]="selectedothercomp" [required]="selectedanyOtherComplications" [ngClass]="{'red-border-class': firstFormCheck && FormGroup.controls.anyOtherComplications.invalid }">
                                             </div>
                                             <!-- test3 -->
-                                            <div class="form-group col-md-4" *ngIf="selectedprocedureOfTesting == 3 && !selectedanyOtherComplications  ? 'true' : 'flase'"></div>
+                                            <div class="form-group col-md-4" *ngIf="selectedprocedureOfTesting == 3 && !selectedanyOtherComplications  ? true : flase"></div>
 
 
                                             <div class="form-group col-md-4"  *ngIf="selectedprocedureOfTesting == 3 ? true : false" [ngClass]="{'col-md-offset-3':true }">
@@ -592,7 +592,7 @@
                                                     </div> 
                                                 </div>
     
-                                                <div class="col-md-4 py-4">
+                                                <!--<div class="col-md-4 py-4">
                                                 <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTDiagnosis.invalid }">{{'PNDTDiagnosis' | translate}} </span>
                                                 <select name="occupationoption"
                                                                 class="form-control field" id="inputSideEffects"
@@ -602,9 +602,9 @@
                                                                 
                                                             </select>
                 
-                                                </div>
+                                                </div>-->
     
-                                                <div class="col-md-4 py-4">
+                                                <!--<div class="col-md-4 py-4">
                                                     <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.PNDTResults.invalid }">{{'PNDTResults' | translate}} </span>
                                                     <select name="occupationoption"
                                                                     class="form-control field" id="inputSideEffects"
@@ -614,8 +614,8 @@
                                                                 
                                                                 </select>
                     
-                                                    </div>
-                                                    <div class="col-md-4 py-4">
+                                                    </div>-->
+                                                    <!--<div class="col-md-4 py-4">
                                                     <span class="note" [ngClass]="{'label-border-class': secondFormCheck && secondFormGroup.controls.planForPregenancy.invalid }">{{'PlanforPregnancyContinue' | translate}}</span><br>
                                                     <div class="custom-control custom-radio custom-control-inline">
                                                     <input type="radio" id="customRadioInline7" name="planForPregenancy" class="custom-control-input" formControlName="planForPregenancy" value="true" [required]='secondFormCheck'>
@@ -626,7 +626,7 @@
                                                     <label class="custom-control-label" for="customRadioInline8">No: Plan for MTP</label>
                                                 </div> 
     
-                                     </div>
+                                     </div>-->
     
                                             </div>
                                     
