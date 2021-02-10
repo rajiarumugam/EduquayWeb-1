@@ -72,7 +72,7 @@ export const ENDPOINT = {
     "PNDT":
     {
         "RETRIVEPNDTPENDING":"api/v1/PNDTObstetrician/RetrievePNDTPending",
-        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDTest",
+        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDT",
         "RETRIVEPNDTCOMPLETEDSUMMARY":"api/v1/PNDTObstetrician/RetrievePNDTCompletedSummary",
         "RETRIVEPNDTNOTCOMPLETED":"api/v1/PNDTObstetrician/RetrievePostPNDTNotCompleted"
     },
@@ -90,7 +90,8 @@ export const ENDPOINT = {
         "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions",
         "RETRIVEBLOCKBYDISTRICT":"api/v1/WebMaster/RetrieveBlockByDistrict/",
         "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
-        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/"
+        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/",
+        "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/"
     },
     "MTP":
     {
