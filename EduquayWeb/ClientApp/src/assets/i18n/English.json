@@ -530,5 +530,10 @@
 "Timeout":"Timeout",
 "Damaged":"Damaged",
 "ShippedtoCL":"Shipped to CL",
-"Report":"Report"
+"Report":"Report",
+"Selectnumberoffoetus":"Select number of foetus",
+"SampleRefID":"Sample Ref ID",
+"NameofFoetus":"Name of Foetus",
+"CVSSampleRefID":"CVS Sample Ref ID",
+"AssisstedBy":"Assissted By"
 }
