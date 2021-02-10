@@ -535,5 +535,6 @@
 "SampleRefID":"Sample Ref ID",
 "NameofFoetus":"Name of Foetus",
 "CVSSampleRefID":"CVS Sample Ref ID",
-"AssisstedBy":"Assissted By"
+"AssisstedBy":"Assissted By",
+"PostPNDTProcedure":"Post PNDT Procedure"
 }
