@@ -29,7 +29,8 @@
       width: 17px;
       color: #acb0c3; }
   .modal-content .modal-body {
-    padding: 26px 26px; }
+    padding: 26px 26px;  max-height: 80vh;
+    overflow-y: scroll;}
     .modal-content .modal-body a:not(.btn) {
       color: #fff;
       font-weight: 600; }
