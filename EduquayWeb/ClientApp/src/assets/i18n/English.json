@@ -536,5 +536,13 @@
 "NameofFoetus":"Name of Foetus",
 "CVSSampleRefID":"CVS Sample Ref ID",
 "AssisstedBy":"Assissted By",
-"PostPNDTProcedure":"Post PNDT Procedure"
+"PostPNDTProcedure":"Post PNDT Procedure",
+"CVSSpecimen":"CVS Specimen Pick & Pack",
+"pendingforPickup":"Pending for Pickup",
+"startPickandpack":"Start Pick and Pack",
+"FoetusName":"Foetus Name",
+"CVSSpecimenRefID":"CVS Specimen Ref ID",
+"SpecimenCollectionDate":"Specimen Collection Date",
+"SenderContact":"Sender Contact",
+"shipmentlog":"Shipment log"
 }

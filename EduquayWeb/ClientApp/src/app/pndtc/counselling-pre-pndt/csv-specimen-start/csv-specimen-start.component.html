@@ -1,0 +1,155 @@
+
+<div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+    <form class="form-inline my-2 my-lg-0" style="margin-top:30px !important;">
+        <div class="w-100">
+            <input type="text" class="w-100 form-control product-search br-30"
+                name="searchbarcode" type="text" placeholder="Scan / Enter RCH ID"
+                [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()">
+            <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button></a>
+        </div>
+    </form>
+</div>
+<div class="tab-pane fade show active" id="tobeCounselled" role="tabpanel" aria-labelledby="tobeCounselled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row mt-4">
+                <div class="col-sm-12">
+                  <div *ngIf="prepndtcounsellingErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': prepndtcounsellingErrorMessage ==='No subjects found', 'alert-danger': prepndtcounsellingErrorMessage !== 'No subjects found'}">
+                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{prepndtcounsellingErrorMessage}}
+                  </div>
+                </div>
+              </div>
+                 <div class="table-responsive">
+                <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span>{{'SNo' | translate}}</span></th>
+                            <th class="text-center"><span>{{'SubjectName' | translate}}</span></th>
+                            <th class="text-center"><span>{{'RCHID' | translate}}</span></th>
+                            <!-- <th class="text-center"><span>{{'LMPDate' | translate}}</span></th>                                     -->
+                            <th class="text-center"><span>{{'FoetusName' | translate}}</span></th>
+                            <th class="text-center"><span>{{'SampleRefID' | translate}}</span></th>
+                            <th class="text-center"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
+                            <th class="text-center"><span>{{'SpecimenCollectionDate' | translate}}</span></th>
+                            <th><input type="checkbox" [(ngModel)]="checkAllEnabled" (change)="selectAll($event)"></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let counsellingdata of counsellingStartlist; index as i">
+                            <td class="sno text-center">{{i +1}}</td>
+                            <td class="text-left">{{counsellingdata.subjectName}}</td>
+                            <td class="sid">{{counsellingdata.rchId}}</td>
+                            <!-- <td class="text-center">18/05/2020</td> -->
+                            <td class="text-center">{{counsellingdata.foetusName}}</td>
+                            <td class="text-center">{{counsellingdata.sampleRefId}}</td>
+                            <td class="text-center">{{counsellingdata.cvsSampleRefId}}</td>
+                            <td class="text-center">{{counsellingdata.specimenCollectionDate}}</td>
+                            <td style="text-align: center;;"><input type="checkbox" [checked]="counsellingdata.checked" (change)="removeCounsellingData(i,$event)"></td>
+                    </tbody>
+                </table>
+
+                <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
+                <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+            </div>
+            <div class="row" *ngIf="counsellingStartlist.length >0">
+                <div class="col-md-12">
+                    <a class="btn btn-primary float-right" data-toggle="modal"
+                        data-target=".bd-example-modal-xl" role="button">Create Shipment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="fadeinModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12" id="text">
+                        <input type="radio" name="tabs blue" id="tab2" checked=""
+                            style="visibility:hidden;">
+                       
+                        <div id="tab-content1" class="tab-content">
+                            <div id="namefoo" style="color: #000;">
+                                <p style="margin-bottom: 7px;"> </p>
+                            </div>
+                            <form [formGroup]="firstFormGroup">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sendingLocation.invalid }"><b>{{'SendingLocation' | translate }} </b></span><span
+                                            class="manto">*</span>
+                                            <input class="form-control field" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="logisticsServiceProvider" [(ngModel)]="selectedSendingLocation" formControlName = "sendingLocation" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.sendingLocation.invalid }">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }"><b>{{'ReceivingMolecularLab' | translate }} </b></span><span class="manto">*</span>
+                                        <select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="" name="receivingMolecularLab" [(ngModel)]="selectedreceivingMolecularLab" formControlName = "receivingMolecularLab" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }">
+                                            <option [ngValue]="null">Select</option>
+                                            <option [value]="m.id" *ngFor="let m of molecularLabData">{{m.molecularLabName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.senderName.invalid }"> <b>{{'SenderName' | translate }} </b></span><span
+                                            class="manto">*</span>
+                                        <input class="form-control field" type="text" placeholder="Name" tabindex="1" autocomplete="off" name="senderName" [(ngModel)]="selectedsenderName" formControlName = "senderName" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.senderName.invalid }">
+                                    </div>
+
+                                  
+                                    <div class="form-group col-md-3">
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.senderContact.invalid }"><b>{{'SenderContact' | translate }} </b></span><span class="manto">*</span>
+                                        <input type="text" class="form-control" id="inputContact" [(ngModel)]="selectedsenderContact" placeholder="Mobile No" required formControlName = "senderContact" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.senderContact.invalid }" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly>
+                                    </div>
+                                </div>
+                                <div class="form-row my-2">
+                                   
+                                    
+                                    <div class="form-group col-md-3">
+                                        <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.shipmentDate.invalid }"><b>{{'ShipmentDateAndTime' | translate }} </b></span><span class="manto">*</span>
+                                        <ng2-flatpickr id="shipmentdate" name="shipmentDate" class="form-control flatpickr flatpickr-input active" #dorPicker [config]="startOptions" placeholder="Select Date.." formControlName = "shipmentDate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.shipmentDate.invalid }" [(ngModel)]="selectedshipmentDate"></ng2-flatpickr>
+                                    </div>
+                                   
+                                </div>
+                            </form>
+                                <br>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"
+                                    id="linktobuttoncentralpick" (click)="submitShipment()">{{'Submit' | translate }}</button>
+                                    <button class="btn" data-dismiss="modal"><i
+                                            class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
+                                </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

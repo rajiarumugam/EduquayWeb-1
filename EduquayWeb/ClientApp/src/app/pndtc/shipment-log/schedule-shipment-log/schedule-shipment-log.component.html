@@ -1,0 +1,132 @@
+
+
+ <div id="fadeinModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+ <div id="print-area" class="modal-dialog modal-xl modal-dialog-centered" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+                 <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ShipmentDetails' | translate}}</h5>
+
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                     <line x1="18" y1="6" x2="6" y2="18"></line>
+                     <line x1="6" y1="6" x2="18" y2="18"></line>
+                 </svg>
+             </button>
+         </div>
+         <div class="modal-body">
+             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                 <div class="row my-4">
+                    <div class="col-md-4">
+                        <p class="float-left"><span><b>{{'ShipmentID' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentId}}</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="float-left"><span><b>{{'ShipmentDateAndTime' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentDateTime}}</span>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end">
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-light">
+                                    <img src="../../../../assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button>
+                                <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                                    <img src="../../../../assets/assets/img/pdfimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                     <div class="container-fluid">
+                         <div class="row">
+                             <div class="col-md-12 border-bottom">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row my-4">
+                         <div class="col-md-4">
+                             <span><b>{{'LabTechnicianName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</span>
+                         </div>
+                         <div class="col-md-4">
+                             <span><b>{{'CentralLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</span>
+                         </div>
+                         <div class="col-md-4">
+                             <span><b>{{'ReceivingMolecularLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
+                         </div>
+                         
+                     </div>
+                     <div class="row my-4">
+                         <div class="col-md-4">
+                             <span><b>{{'LogisticsServiceProvider' | translate}} : </b></span>{{centralReceiptsData[selectedShipmentLog]?.logisticsProviderName}}<span></span>
+                         </div>
+                         <div class="col-md-4">
+                             <span><b>{{'DeliveryExecutiveName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.deliveryExecutiveName}}</span>
+                         </div>
+                         <div class="col-md-4">
+                             <span><b>{{'ContactNumber' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.contactNo}}</span>
+                         </div>
+                     </div>
+                         <div class="table-responsive" style="overflow-x: scroll;">
+                             <table class="table table-bordered">
+                                 <thead>
+                                     <tr>
+                                         <th class="text-center"><span>{{'SNo' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'SubjectName' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'SubjectID' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'RCHID' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'Barcode' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'SampleCollectionDate_Time' | translate}}</span></th>
+                                     </tr>
+
+                                 </thead>
+                                 <tbody>
+                                     <tr *ngFor="let data of centralReceiptsData[selectedShipmentLog]?.samplesDetail;let i = index;">
+                                         <td class="text-center">{{i+1}}</td>
+                                         <td class="text-left">{{data.subjectName}}</td>
+                                         <td class="text-center">{{data.uniqueSubjectId}}</td>
+                                         <td class="text-center">{{data.rchId}}</td>
+                                         <td class="text-center">{{data.barcodeNo}}</td>
+                                         <td class="text-center">{{data.sampleCollectionDateTime}}</td>
+
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                     </div>
+                 <!-- </div> -->
+             </div>
+        
+     <!--</div>-->
+             <div class="modal-footer">
+                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
+                     {{'Close' | translate}}</button>
+             </div>
+              </div>
+         </div>
+     </div>
+
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th>{{'SNo' | translate }}</th>
+            <th>{{'ShipmentID' | translate }}</th>
+            <th>{{'ShipmentDateAndTime' | translate }}</th>
+            <th>{{'LabTechnicianName' | translate }}</th>
+            <th>{{'DeliveryExecutiveName' | translate }}</th>
+            <th>{{'ReceivingCentralLab' | translate }}</th>
+            <th>{{'View' | translate }}</th>
+            <th>{{'Print' | translate }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of centralReceiptsData;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.shipmentId }}</td>
+            <td style="text-align: center;"><span style="display: none;">{{person.shipmentDateTime | convertimestamp}}</span>{{ person.shipmentDateTime }}</td>
+            <td>{{ person.labTechnicianName }}</td>
+            <td>{{ person.deliveryExecutiveName }}</td>
+            <td>{{ person.centralLabName }}</td>
+            <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
+            <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
+        </tr>
+    </tbody>
+</table>
