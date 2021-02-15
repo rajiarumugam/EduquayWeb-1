@@ -16,11 +16,11 @@ import { Router } from '@angular/router';
 import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
 
 @Component({
-  selector: 'app-to-be-counselled',
-  templateUrl: './to-be-counselled.component.html',
-  styleUrls: ['./to-be-counselled.component.css']
+  selector: 'app-csv-specimen',
+  templateUrl: './csv-specimen.component.html',
+  styleUrls: ['./csv-specimen.component.css']
 })
-export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit  {
+export class CSVspecimenComponent implements AfterViewInit, OnDestroy, OnInit  {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
@@ -63,7 +63,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     this.loaderService.display(true);
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "To be Counselled"}));
+   // this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "To be Counselled"}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 20,
@@ -89,8 +89,9 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
       phcId: 0,
       anmId: 0
     };
-    let counsellingdata = this.counsellingprepndtService.getcounsellingLists(this.counsellingprepndtRequest)
+    let counsellingdata = this.counsellingprepndtService.retrievePNDTPickAndPack()
       .subscribe(response => {
+        console.log(response);
         this.counsellingprepndtResponse = response;
         this.loaderService.display(false);
         if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
@@ -99,13 +100,31 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
           }
           else {
             this.counsellinglists = this.counsellingprepndtResponse.data;
+            console.log(this.dataservice.getdata().csvspecimenstartdata);
+            var _tempCSVStartData = this.dataservice.getdata().csvspecimenstartdata;
+            if(_tempCSVStartData != undefined)
+            {
+                _tempCSVStartData.forEach(function(element,index) {
+                  this.counsellinglists.forEach(function(val,ind) 
+                  {
+                      console.log(element);
+                      console.log(val);
+                      if(element.rchId === val.rchId)
+                      {
+                        this.counsellinglists.splice(ind,1);
+                      }
+                  },this);
+              },this);
+            }
+
+            var _presentLength = (_tempCSVStartData != undefined) ? _tempCSVStartData.length : 0;
+            this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length,"start":_presentLength}));
             this.rerender();
           }
         }
         else {
           this.prepndtcounsellingErrorMessage = response.message;
         }
-        
       },
         (err: HttpErrorResponse) => {
           this.prepndtcounsellingErrorMessage = err.toString();

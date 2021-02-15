@@ -44,6 +44,7 @@ export interface user {
   registeredFrom: number,
   sampleCollectionFrom: number,
   shipmentFrom: number,
+  pndtLocationId:number
 }
 
 export interface resetLoginResponse {

@@ -270,6 +270,14 @@ import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-
 import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
 import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
 
+import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
+import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
+import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";
+
+import { ScheduleShipmentMainComponent } from "./pndtc/shipment-log/schedule-shipment-log-main/schedule-shipment-log-main.component";
+import { ScheduleShipmentComponent } from "./pndtc/shipment-log/schedule-shipment-log/schedule-shipment-log.component";
+import { pndtcShipmentResolverService } from  "./shared/pndtc/shipment-resolver.service";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -495,6 +503,12 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'schedule-shipment', component: ScheduleShipmentMainComponent,
+        children:[
+          {path: '', component: ScheduleShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: pndtcShipmentResolverService}}
+        ]
+      },
+      {
         path: 'molecularlab', component: MolecularSampleRcptMainComponent,
         children:[
           {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
@@ -603,6 +617,15 @@ const routes: Routes = [
           {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
         ]
       },
+      {
+        path: 'csv-specimen', component: CSVSpecimenMainComponent,
+        children:[
+          {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
+          {path: 'csvstart', component: CSVspecimenStartComponent, pathMatch: 'full'}
+          
+        ]
+      },
+      
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
@@ -857,7 +880,12 @@ export const RoutingComponents = [
   PathoreportSampleStatusPrintComponent,
   ANMreportListComponent,
   AnmReportProfileComponent,
-  CHCreportListComponent
+  CHCreportListComponent,
+  CSVspecimenComponent,
+  CSVSpecimenMainComponent,
+  CSVspecimenStartComponent,
+  ScheduleShipmentMainComponent,
+  ScheduleShipmentComponent
 
 ];
 

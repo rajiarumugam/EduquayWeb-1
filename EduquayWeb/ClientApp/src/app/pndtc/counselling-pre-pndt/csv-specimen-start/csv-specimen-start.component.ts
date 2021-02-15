@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { DataService } from 'src/app/shared/data.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
-import { FormBuilder } from '@angular/forms';
 import { user } from 'src/app/shared/auth-response';
 import { PndtMtpMasterResponse, dataModel } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,13 +13,21 @@ import { CounsellPrePndtResquest } from 'src/app/shared/pndtc/counsell-pre-pndt/
 import { CounsellPrePndtResponse, CounsellingList } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
 import { Router } from '@angular/router';
 import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
+import { chcshipmentService } from 'src/app/shared/centrallab/central-shipment.service';
+import Swal from 'sweetalert2';
+declare var $: any
+
 
 @Component({
-  selector: 'app-to-be-counselled',
-  templateUrl: './to-be-counselled.component.html',
-  styleUrls: ['./to-be-counselled.component.css']
+  selector: 'app-csv-specimen-start',
+  templateUrl: './csv-specimen-start.component.html',
+  styleUrls: ['./csv-specimen-start.component.css']
 })
-export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit  {
+export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnInit  {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
@@ -30,12 +37,14 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
 
   prepndtcounsellingErrorMessage: string;
   masterdataErrorMessage: string;
+  searchbarcode;
  
   user: user;
   pndtmtpMasterResponse: PndtMtpMasterResponse;
   counsellingprepndtRequest: CounsellPrePndtResquest;
   counsellingprepndtResponse: CounsellPrePndtResponse;
   counsellinglists: CounsellingList[] = [];
+  counsellingTemplists;
   districts: dataModel[] = [];
   selectedDistrict: string = '';
   chclists: dataModel[] = [];
@@ -46,6 +55,35 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
   selectedanm: string = '';
   anwSubjectId: string;
   recordCount: number;
+  checkAllEnabled = true;
+  firstFormCheck = false;
+
+  counsellingStartlist= [];
+  molecularLabData = [];
+  firstFormGroup: FormGroup;
+  selectedSendingLocation;
+  selectedsenderContact;
+  selectedsenderName;
+  selectedreceivingMolecularLab = null;
+  selectedshipmentDate = new Date(Date.now());
+  errorMessage;
+  chcUploadResponse;
+
+  startOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y H:i',
+    enableTime: true,
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
+  startOptions1: FlatpickrOptions = {
+    mode: 'single',
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    defaultDate: new Date(Date.now()),
+    maxDate: new Date(Date.now())
+  };
 
   constructor(
     private dataservice: DataService,
@@ -55,15 +93,18 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     private loaderService: LoaderService,
     private _formBuilder: FormBuilder,
     private router: Router,
-    private PNDTCmasterService: PNDTCmasterService
+    private PNDTCmasterService: PNDTCmasterService,
+    private ref: ChangeDetectorRef,
+    private masterService: masterService,
+    private chcshipmentService: chcshipmentService
   ) { }
 
   ngOnInit() {
-
     this.loaderService.display(true);
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "To be Counselled"}));
+   // this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "To be Counselled"}));
+  
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 20,
@@ -82,6 +123,8 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
         }, 
       }   
     };
+    
+    this.getMolecularLab();
     this.ddlDistrict(this.user.id);
     this.counsellingprepndtRequest = {
       userId: this.user.id, districtId: 0,
@@ -89,8 +132,11 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
       phcId: 0,
       anmId: 0
     };
-    let counsellingdata = this.counsellingprepndtService.getcounsellingLists(this.counsellingprepndtRequest)
+    console.log(this.dataservice.getdata().csvspecimenstartdata);
+   
+    let counsellingdata = this.counsellingprepndtService.retrievePNDTPickAndPack()
       .subscribe(response => {
+        console.log(response);
         this.counsellingprepndtResponse = response;
         this.loaderService.display(false);
         if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
@@ -99,20 +145,57 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
           }
           else {
             this.counsellinglists = this.counsellingprepndtResponse.data;
-            this.rerender();
+            this.counsellingTemplists = this.counsellingprepndtResponse.data;
+            this.counsellingStartlist = this.dataservice.getdata().csvspecimenstartdata;
+            this.counsellingStartlist = this.counsellingStartlist != undefined ? this.counsellingStartlist : [];
+            if(this.counsellingStartlist != undefined)
+            {
+              this.counsellingStartlist.forEach(function(element,index) {
+                  this.counsellingTemplists.forEach(function(val,ind) 
+                  {
+                      console.log(element);
+                      console.log(val);
+                      if(element.rchId === val.rchId)
+                      {
+                        this.counsellingTemplists.splice(ind,1);
+                      }
+                  },this);
+              },this);
+            }
+            var _tempStartLength = this.counsellingStartlist != undefined ? this.counsellingStartlist.length : 0;
+            this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellingTemplists.length,"start":_tempStartLength}));
+            
+            //this.rerender();
           }
         }
         else {
           this.prepndtcounsellingErrorMessage = response.message;
         }
-        
       },
         (err: HttpErrorResponse) => {
           this.prepndtcounsellingErrorMessage = err.toString();
         });
+
+
+        this.firstFormGroup = this._formBuilder.group({
+          sendingLocation : ['', Validators.required],
+          senderName: ['', Validators.required],
+          receivingMolecularLab: ['', Validators.required],
+          senderContact: ['', [Validators.required,Validators.min(1000000000), Validators.max(9999999999)]],
+          shipmentDate: ['', Validators.required],
+       });
   }
 
-  
+  getMolecularLab()
+  {
+    this.masterService.retriveReceivingMocularLab()
+    .subscribe(response => {
+      console.log(response);
+      this.molecularLabData = response.molecularLab;
+    },
+    (err: HttpErrorResponse) =>{
+    });
+  }
   ddlDistrict(userId) {
     let district = this.PNDTCmasterService.retrieveDistrictByPNDTLocation().subscribe(response => {
       this.pndtmtpMasterResponse = response;
@@ -282,17 +365,165 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first   
-      dtInstance.clear();   
+      //dtInstance.clear();   
       dtInstance.destroy();
       // Call the dtTrigger to rerender again       
+
       this.dtTrigger.next();
     });
   }   
 
+  clicksearchBarcode()
+  {
+    let term = this.searchbarcode;
+    console.log(term);
+    console.log(this.counsellinglists);
+    var _index = this.counsellinglists.findIndex(com => com.rchId === term);
+    if(_index >= 0)
+    {
+      this.counsellingStartlist.push(this.counsellinglists[_index]);
+    }
+  }
+  searchBarCodetype()
+  {
+    let term = this.searchbarcode;
+    var _tempSliceArr = [];
+    var _tempRemainingArray = [];
+    
+    var _tempCounsellingList = JSON.parse(JSON.stringify(this.counsellinglists));
+    for(var i=0;i<this.counsellingTemplists.length;i++)
+    {
+        if(term === this.counsellingTemplists[i].rchId)
+        {
+          this.checkAllEnabled = true;
+          this.counsellinglists[i]['checked'] = true;
+          this.counsellingStartlist.push(this.counsellinglists[i]);
+          _tempSliceArr.push(i);
+         // _tempCounsellingList.splice(i,1); 
+        }
+    }
+      _tempCounsellingList.forEach(function(element,k) {
+        var _keepGoing = true;
+        for(var j=0;j<_tempSliceArr.length;j++)
+        {
+              if(_tempSliceArr[j] == k)
+              {
+                _keepGoing = false;
+              }
+        }
+      if(_keepGoing)
+          _tempRemainingArray.push(element);
+      });
+      
+    
+    console.log(_tempRemainingArray);
+    this.rerender();
+    
+    this.searchbarcode = ""; 
+    this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
+         
+          this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
+          //this.counsellingTemplists = JSON.parse(JSON.stringify(_tempRemainingArray));
+
+
+  }
+  selectAll(event)
+  {
+      this.counsellingStartlist = [];
+      this.counsellingTemplists = JSON.parse(JSON.stringify(this.counsellinglists));
+      this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
+      this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellingTemplists.length,"start":this.counsellingStartlist.length}));
+      setTimeout(() => {
+        this.rerender();
+        
+      },100);
+  }
+  removeCounsellingData(i, event)
+  {
+    var _tempRCHID = this.counsellingStartlist[i].rchId;
+    var _rchMatchArray = [];
+    for(var k =0;k<this.counsellingStartlist.length;k++)
+    {
+          if(this.counsellingStartlist[k].rchId == _tempRCHID)
+          {
+            _rchMatchArray.push(this.counsellingStartlist[k]);
+          }
+    }
+    for( var l=this.counsellingStartlist.length - 1; l>=0; l--){
+      for( var j=0; j<_rchMatchArray.length; j++){
+          if(this.counsellingStartlist[l] && (this.counsellingStartlist[l].rchId === _rchMatchArray[j].rchId)){
+            this.counsellingStartlist.splice(l, 1);
+          }
+      }
+  }
+    this.rerender();
+    this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
+    this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellingTemplists.length,"start":this.counsellingStartlist.length}));
+   
+  }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }   
 
+  submitShipment()
+  {
+      this.firstFormCheck = true;
+      console.log(this.firstFormGroup.valid);
+
+  if(this.firstFormGroup.valid)
+  {
+      var _tempBarcode;
+      this.counsellingStartlist.forEach(function(val,index){
+          if(index===0)
+              _tempBarcode = val.pndtFoetusId;
+          else
+              _tempBarcode += ","+val.pndtFoetusId;
+      });
+      var _obj = {};
+      _obj['pndtFoetusId'] = _tempBarcode;
+      _obj['senderName'] = this.firstFormGroup.get('senderName').value;
+      _obj['senderContact'] = this.firstFormGroup.get('senderContact').value;
+      _obj['sendingLocation'] = this.firstFormGroup.get('sendingLocation').value;
+      _obj['receivingMolecularLabId'] = Number(this.firstFormGroup.get('receivingMolecularLab').value);
+      _obj['shipmentDateTime'] = moment(new Date(this.firstFormGroup.get('shipmentDate').value)).format("DD/MM/YYYY HH:MM"),
+      _obj['pndtLocationId'] = this.user.pndtLocationId;
+      _obj['userId'] = this.user.id;
+      
+      console.log(_obj);
+
+      this.chcshipmentService.addPNDTShipment(_obj)
+      .subscribe(response => {
+        this.chcUploadResponse = response;
+        if (this.chcUploadResponse !== null && this.chcUploadResponse.status === "true") {
+          Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment ID is '+this.chcUploadResponse.shipment.shipmentId,
+          showCancelButton: true, confirmButtonText: 'Shipment Log', cancelButtonText: 'Close' })
+             .then((result) => {
+                $('#fadeinModal').modal('hide');
+               if (result.value) {
+                this.dataservice.deleteProp('csvspecimenstartdata');
+                this.counsellingStartlist = [];
+                this.router.navigateByUrl(`app/csv-specimen`);
+               }
+               else{
+                this.firstFormGroup.reset();
+               
+                this.dataservice.deleteProp('csvspecimenstartdata');
+                this.counsellingStartlist = [];
+                this.router.navigateByUrl(`app/csv-specimen`);
+               }
+     
+            });
+        } else {
+          this.errorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
+    }
+  
+  }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
