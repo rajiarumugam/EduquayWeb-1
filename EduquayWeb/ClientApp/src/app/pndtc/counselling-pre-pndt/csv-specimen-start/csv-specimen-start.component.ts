@@ -57,6 +57,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   recordCount: number;
   checkAllEnabled = true;
   firstFormCheck = false;
+  showDatatable = true;
 
   counsellingStartlist= [];
   molecularLabData = [];
@@ -144,7 +145,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
             this.prepndtcounsellingErrorMessage = response.message;
           }
           else {
-            this.counsellinglists = this.counsellingprepndtResponse.data;
+            this.counsellinglists = JSON.parse(JSON.stringify(this.counsellingprepndtResponse.data));
             this.counsellingTemplists = this.counsellingprepndtResponse.data;
             this.counsellingStartlist = this.dataservice.getdata().csvspecimenstartdata;
             this.counsellingStartlist = this.counsellingStartlist != undefined ? this.counsellingStartlist : [];
@@ -316,44 +317,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
         });
   }
 
-  retrivecounselledlists(){
 
-    this.loaderService.display(true);
-    this.recordCount = 0;
-    this.counsellinglists=[];
-    this.prepndtcounsellingErrorMessage='';
-    this.counsellingprepndtRequest = {
-      userId: this.user.id, districtId: +(this.selectedDistrict),
-      chcId: +(this.selectedchc),
-      phcId: +(this.selectedphc),
-      anmId: +(this.selectedanm)
-    };
-    let counsellingdata = this.counsellingprepndtService.getcounsellingLists(this.counsellingprepndtRequest)
-      .subscribe(response => {
-        this.counsellingprepndtResponse = response;
-        this.loaderService.display(false);
-        if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
-          if (this.counsellingprepndtResponse.data.length <= 0) {
-            this.prepndtcounsellingErrorMessage = response.message;
-          }
-          else {
-            this.counsellinglists = this.counsellingprepndtResponse.data;
-            this.recordCount = this.counsellinglists.length;
-          }
-        }
-        else {
-          this.prepndtcounsellingErrorMessage = response.message;
-        }
-        this.onLoadSubject.emit(this.recordCount);    //step 5
-        this.rerender();
-        this.loadDataTable = true;
-        
-      },
-        (err: HttpErrorResponse) => {
-          if (this.loadDataTable) this.rerender();
-          this.prepndtcounsellingErrorMessage = err.toString();
-        });
-  }
 
   openpndtdetail(counsellingdata: CounsellingList ){
 
@@ -363,14 +327,22 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first   
-      //dtInstance.clear();   
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again       
-
+    if(this.dtElement.dtInstance != undefined)
+    {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          // Destroy the table first   
+          //dtInstance.clear();   
+          dtInstance.destroy();
+          // Call the dtTrigger to rerender again       
+    
+          this.dtTrigger.next();
+        });
+    }
+    else
+    {
       this.dtTrigger.next();
-    });
+    }
+   
   }   
 
   clicksearchBarcode()
@@ -390,7 +362,15 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
     var _tempSliceArr = [];
     var _tempRemainingArray = [];
     
+    var _index = this.counsellingStartlist.findIndex(com => com.rchId === term);
+    console.log(_index);
+    if(_index >= 0)
+    {
+      this.searchbarcode = ""; 
+      return;
+    }
     var _tempCounsellingList = JSON.parse(JSON.stringify(this.counsellinglists));
+
     for(var i=0;i<this.counsellingTemplists.length;i++)
     {
         if(term === this.counsellingTemplists[i].rchId)
@@ -415,14 +395,12 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
           _tempRemainingArray.push(element);
       });
       
-    
-    console.log(_tempRemainingArray);
     this.rerender();
     
     this.searchbarcode = ""; 
     this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
          
-          this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
+    this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
           //this.counsellingTemplists = JSON.parse(JSON.stringify(_tempRemainingArray));
 
 
@@ -462,7 +440,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
    
   }
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    //this.dtTrigger.next();
   }   
 
   submitShipment()
