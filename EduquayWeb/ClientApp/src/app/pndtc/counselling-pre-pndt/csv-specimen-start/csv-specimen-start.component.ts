@@ -345,6 +345,18 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
    
   }   
 
+  rerender1(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first   
+      dtInstance.clear();   
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again       
+
+      this.dtTrigger.next();
+    });
+   
+  }   
+
   clicksearchBarcode()
   {
     let term = this.searchbarcode;
@@ -371,9 +383,9 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
     }
     var _tempCounsellingList = JSON.parse(JSON.stringify(this.counsellinglists));
 
-    for(var i=0;i<this.counsellingTemplists.length;i++)
+    for(var i=0;i<this.counsellinglists.length;i++)
     {
-        if(term === this.counsellingTemplists[i].rchId)
+        if(term === this.counsellinglists[i].rchId)
         {
           this.checkAllEnabled = true;
           this.counsellinglists[i]['checked'] = true;
@@ -407,14 +419,12 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   }
   selectAll(event)
   {
+      console.log(event);
       this.counsellingStartlist = [];
-      this.counsellingTemplists = JSON.parse(JSON.stringify(this.counsellinglists));
       this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
       this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellingTemplists.length,"start":this.counsellingStartlist.length}));
-      setTimeout(() => {
-        this.rerender();
-        
-      },100);
+      this.rerender();
+      
   }
   removeCounsellingData(i, event)
   {
@@ -436,7 +446,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   }
     this.rerender();
     this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
-    this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellingTemplists.length,"start":this.counsellingStartlist.length}));
+    this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
    
   }
   ngAfterViewInit(): void {

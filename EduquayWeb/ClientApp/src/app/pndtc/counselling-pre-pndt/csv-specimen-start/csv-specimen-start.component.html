@@ -43,7 +43,7 @@
                         </tr>
 
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="counsellingStartlist.length > 0">
                         <tr *ngFor="let counsellingdata of counsellingStartlist; index as i">
                             <td class="sno text-center">{{i +1}}</td>
                             <td class="text-left">{{counsellingdata.subjectName}}</td>
