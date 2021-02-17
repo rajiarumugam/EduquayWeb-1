@@ -110,7 +110,7 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                         <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }"><b>{{'ReceivingMolecularLab' | translate }} </b></span><span class="manto">*</span>
                                         <select name="occupationoption" class="form-control field" id="occuptnid" tabindex="7" required="" name="receivingMolecularLab" [(ngModel)]="selectedreceivingMolecularLab" formControlName = "receivingMolecularLab" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.receivingMolecularLab.invalid }">
                                             <option [ngValue]="null">Select</option>
-                                            <option [value]="m.id" *ngFor="let m of molecularLabData">{{m.molecularLabName}}</option>
+                                            <option [value]="m.id" *ngFor="let m of molecularLabData">{{m.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">

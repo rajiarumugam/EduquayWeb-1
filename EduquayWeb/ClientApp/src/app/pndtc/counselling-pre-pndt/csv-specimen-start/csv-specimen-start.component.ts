@@ -192,7 +192,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
     this.masterService.retriveReceivingMocularLab()
     .subscribe(response => {
       console.log(response);
-      this.molecularLabData = response.molecularLab;
+      this.molecularLabData = response.data;
     },
     (err: HttpErrorResponse) =>{
     });
