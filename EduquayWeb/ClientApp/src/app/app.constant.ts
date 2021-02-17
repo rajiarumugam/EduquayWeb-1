@@ -16,7 +16,8 @@ export const ENDPOINT = {
         "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/",
         "RETRIVEANM":"api/v1/WebMaster/RetrieveANM/",
         "RETRIVEMOLECULARRESULT":"api/v1/WebMaster/RetrieveMolecularResult",
-        "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/"
+        "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/",
+        "RETRIVEALLPNDTLOCATION":"api/v1/WebMaster/RetrieveAllPNDTLocation"
     },
     "SUBJECT":
     {
