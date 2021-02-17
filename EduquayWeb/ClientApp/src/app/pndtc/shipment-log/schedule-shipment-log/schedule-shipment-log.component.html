@@ -44,37 +44,28 @@
                      </div>
                      <div class="row my-4">
                          <div class="col-md-4">
-                             <span><b>{{'LabTechnicianName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</span>
+                             <span><b>{{'NurseCounsellor' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.senderName}}</span>
                          </div>
                          <div class="col-md-4">
-                             <span><b>{{'CentralLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</span>
+                             <span><b>{{'CollectionPNDTC' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.pndtLocation}}</span>
                          </div>
                          <div class="col-md-4">
                              <span><b>{{'ReceivingMolecularLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
                          </div>
                          
                      </div>
-                     <div class="row my-4">
-                         <div class="col-md-4">
-                             <span><b>{{'LogisticsServiceProvider' | translate}} : </b></span>{{centralReceiptsData[selectedShipmentLog]?.logisticsProviderName}}<span></span>
-                         </div>
-                         <div class="col-md-4">
-                             <span><b>{{'DeliveryExecutiveName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.deliveryExecutiveName}}</span>
-                         </div>
-                         <div class="col-md-4">
-                             <span><b>{{'ContactNumber' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.contactNo}}</span>
-                         </div>
-                     </div>
+                   
                          <div class="table-responsive" style="overflow-x: scroll;">
                              <table class="table table-bordered">
                                  <thead>
                                      <tr>
                                          <th class="text-center"><span>{{'SNo' | translate}}</span></th>
                                          <th class="text-center"><span>{{'SubjectName' | translate}}</span></th>
-                                         <th class="text-center"><span>{{'SubjectID' | translate}}</span></th>
                                          <th class="text-center"><span>{{'RCHID' | translate}}</span></th>
-                                         <th class="text-center"><span>{{'Barcode' | translate}}</span></th>
-                                         <th class="text-center"><span>{{'SampleCollectionDate_Time' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'FoetusName' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'samplerefid' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
+                                         <th class="text-center"><span>{{'SpecimenCollectionDate' | translate}}</span></th>
                                      </tr>
 
                                  </thead>
@@ -82,11 +73,11 @@
                                      <tr *ngFor="let data of centralReceiptsData[selectedShipmentLog]?.samplesDetail;let i = index;">
                                          <td class="text-center">{{i+1}}</td>
                                          <td class="text-left">{{data.subjectName}}</td>
-                                         <td class="text-center">{{data.uniqueSubjectId}}</td>
                                          <td class="text-center">{{data.rchId}}</td>
-                                         <td class="text-center">{{data.barcodeNo}}</td>
-                                         <td class="text-center">{{data.sampleCollectionDateTime}}</td>
-
+                                         <td class="text-center">{{data.foetusName}}</td>
+                                         <td class="text-center">{{data.sampleRefId}}</td>
+                                         <td class="text-center">{{data.cvsSampleRefId}}</td>
+                                         <td class="text-center">{{data.specimenCollectionDate}}</td>
                                      </tr>
                                  </tbody>
                              </table>
@@ -110,9 +101,8 @@
             <th>{{'SNo' | translate }}</th>
             <th>{{'ShipmentID' | translate }}</th>
             <th>{{'ShipmentDateAndTime' | translate }}</th>
-            <th>{{'LabTechnicianName' | translate }}</th>
-            <th>{{'DeliveryExecutiveName' | translate }}</th>
-            <th>{{'ReceivingCentralLab' | translate }}</th>
+            <th>{{'NurseCounsellorName' | translate }}</th>
+            <th>{{'Shippedto' | translate }}</th>
             <th>{{'View' | translate }}</th>
             <th>{{'Print' | translate }}</th>
         </tr>
@@ -122,11 +112,10 @@
             <td style="text-align: center;">{{ i + 1}}</td>
             <td style="text-align: center;">{{ person.shipmentId }}</td>
             <td style="text-align: center;"><span style="display: none;">{{person.shipmentDateTime | convertimestamp}}</span>{{ person.shipmentDateTime }}</td>
-            <td>{{ person.labTechnicianName }}</td>
-            <td>{{ person.deliveryExecutiveName }}</td>
-            <td>{{ person.centralLabName }}</td>
-            <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
-            <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
+            <td>{{ person.senderName }}</td>
+            <td>{{ person.receivingMolecularLab }}</td>
+            <td class="user-plus" style="text-align: center;" (click)="openPopup(person,i);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
+            <td class="user-plus" style="text-align: center;" (click)="openPopup(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>
     </tbody>
 </table>

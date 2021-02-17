@@ -544,5 +544,10 @@
 "CVSSpecimenRefID":"CVS Specimen Ref ID",
 "SpecimenCollectionDate":"Specimen Collection Date",
 "SenderContact":"Sender Contact",
-"shipmentlog":"Shipment log"
+"shipmentlog":"Shipment log",
+"Shippedto":"Shipped to",
+"NurseCounsellorName":"Nurse Counsellor Name",
+"NurseCounsellor":"Nurse Counsellor",
+"CollectionPNDTC":"Collection NDTC",
+"samplerefid":"Sample Ref ID"
 }

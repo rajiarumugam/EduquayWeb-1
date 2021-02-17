@@ -28,7 +28,7 @@
                 </div>
               </div>
                  <div class="table-responsive">
-                <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" *ngIf="showDatatable">
                     <thead>
                         <tr>
                             <th class="text-center"><span>{{'SNo' | translate}}</span></th>
