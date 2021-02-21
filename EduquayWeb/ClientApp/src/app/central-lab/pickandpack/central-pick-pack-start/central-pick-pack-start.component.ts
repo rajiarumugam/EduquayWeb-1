@@ -157,8 +157,20 @@ export class CentralPickPackStartComponent implements OnInit {
     let term = this.searchbarcode;
     console.log(term);
     var _index = this.tempCHCData.findIndex(com => com.barcodeNo === term);
+    var _index1 = this.tempCHCData.findIndex(com => com.spouseBarcodeNo === term);
+    console.log(this.tempCHCData);
     console.log(_index);
     if(_index >= 0)
+    {
+      this.pickpackStartList.push(this.tempCHCData[_index]);
+      this.tempCHCData.splice(_index,1);
+      this.searchbarcode = ""; 
+      this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
+      this.showUploadResult = true;
+      this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
+     
+    } 
+    if(_index1 >= 0)
     {
       this.pickpackStartList.push(this.tempCHCData[_index]);
       this.tempCHCData.splice(_index,1);
@@ -175,13 +187,18 @@ export class CentralPickPackStartComponent implements OnInit {
     console.log(this.searchbarcode);
   }
 
-  removeItem(index)
+  removeItem(index,barcode)
   {
     this.tempCHCData.push(this.pickpackStartList[index]);
     this.pickpackStartList.splice(index,1);
-    this.rerender();
-    this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
-    this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
+    var _index1 = this.pickpackStartList.findIndex(com => com.spouseBarcodeNo === barcode);
+    if(_index1 >= 0)
+    {
+      this.tempCHCData.push(this.pickpackStartList[_index1]);
+      this.pickpackStartList.splice(_index1,1);
+     
+    } 
+    
     Swal.fire({ allowOutsideClick: false,
       position: 'top-end',
       icon: 'success',
@@ -189,6 +206,9 @@ export class CentralPickPackStartComponent implements OnInit {
       showConfirmButton: false,
       timer: 2000
     })
+    this.rerender();
+    this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
+    this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
     if(this.pickpackStartList.length == 0)
         this.showUploadResult = false;
   }
