@@ -25,6 +25,7 @@
             <th><span>{{'SubjectID' | translate }}</span></th>
             <th><span>{{'RCHID' | translate }}</span></th>
             <th><span>{{'Barcode' | translate }}</span></th>
+            <th><span>{{'SpouseBarcode' | translate }}</span></th>
             <th><span>{{'Sample_Collection_Date_Time' | translate }}</span></th>
             <th><span>{{'HPLCTestResults' | translate }}</span></th>
             <th><span>{{'AddtoShipment' | translate }}</span></th>
@@ -37,9 +38,10 @@
             <td style="text-align: center;">{{ person.uniqueSubjectId }}</td>
             <td style="text-align: center;">{{ person.rchId }}</td>
             <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.spouseBarcodeNo }}</td>
             <td style="text-align: center;">{{ person.sampleDateTime }}</td>
             <td>{{ person.hplcTestResult }}</td>
-            <td style="text-align: center;" (click)="removeItem(i);"><div class="n-chk">
+            <td style="text-align: center;" (click)="removeItem(i,person.barcodeNo);"><div class="n-chk">
                 <label class="new-control new-checkbox checkbox-outline-primary">
                   <input type="checkbox" class="new-control-input checkbox" value="020153" checked="">
                   <span class="new-control-indicator"></span>&nbsp;
