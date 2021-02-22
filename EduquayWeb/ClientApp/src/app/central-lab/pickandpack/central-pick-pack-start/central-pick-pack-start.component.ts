@@ -157,9 +157,7 @@ export class CentralPickPackStartComponent implements OnInit {
     let term = this.searchbarcode;
     console.log(term);
     var _index = this.tempCHCData.findIndex(com => com.barcodeNo === term);
-    var _index1 = this.tempCHCData.findIndex(com => com.spouseBarcodeNo === term);
-    console.log(this.tempCHCData);
-    console.log(_index);
+    
     if(_index >= 0)
     {
       this.pickpackStartList.push(this.tempCHCData[_index]);
@@ -170,10 +168,11 @@ export class CentralPickPackStartComponent implements OnInit {
       this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.tempCHCData.length,"startpickCount":this.pickpackStartList.length, "module": "Central Lab", "pagealter": "Pick & Pack"}));
      
     } 
+    var _index1 = this.tempCHCData.findIndex(com => com.spouseBarcodeNo === term);
     if(_index1 >= 0)
     {
-      this.pickpackStartList.push(this.tempCHCData[_index]);
-      this.tempCHCData.splice(_index,1);
+      this.pickpackStartList.push(this.tempCHCData[_index1]);
+      this.tempCHCData.splice(_index1,1);
       this.searchbarcode = ""; 
       this.DataService.setdata({'centralpickpackstart':this.pickpackStartList});
       this.showUploadResult = true;

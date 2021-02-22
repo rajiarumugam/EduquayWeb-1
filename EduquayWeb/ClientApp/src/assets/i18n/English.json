@@ -550,5 +550,6 @@
 "NurseCounsellor":"Nurse Counsellor",
 "CollectionPNDTC":"Collection NDTC",
 "samplerefid":"Sample Ref ID",
-"SpouseBarcode":"Spouse Barcode"
+"SpouseBarcode":"Spouse Barcode",
+"SubjectType":"Subject Type"
 }
