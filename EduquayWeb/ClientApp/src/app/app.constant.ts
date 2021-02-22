@@ -113,6 +113,8 @@ export const ENDPOINT = {
         "RETRIVEMOLECULARREPORTS":"api/v1/MolecularLab/RetrieveMolecularReports",
         "RETRIVEMOLECULARSAMPLESTATUS":"api/v1/MolecularLab/RetrieveMolecularSampleStatus",
         "RETRIVEMOLECULARREPORTS1":"api/v1/MolecularLab/RetrieveMolecularReports",
+        "RETRIVEMOBPNDTRECEIPT":"api/v1/MolecularLab/RetrieveMolPNDTReceipt/",
+        "ADDRECEIVEDSPECIMENTSHIPMENT":"api/v1/MolecularLab/AddReceivedSpecimenShipments"
     },
     "NHM":{
         "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail"

@@ -278,6 +278,10 @@ import { ScheduleShipmentMainComponent } from "./pndtc/shipment-log/schedule-shi
 import { ScheduleShipmentComponent } from "./pndtc/shipment-log/schedule-shipment-log/schedule-shipment-log.component";
 import { pndtcShipmentResolverService } from  "./shared/pndtc/shipment-resolver.service";
 
+import { MolecularSampleRcptCVCComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rec-cvc/molecular-sample-rec-cvc.component";
+import { MolecularSampleRcptCVCMainComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rcpt-cvc-main/molecular-sample-rcpt-cvc-main.component";
+import { MLSampleRcptCSVResolverService } from "./shared/molecularlab/ml-sample-rcpt-csv-resolver.servic";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -512,6 +516,12 @@ const routes: Routes = [
         path: 'molecularlab', component: MolecularSampleRcptMainComponent,
         children:[
           {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
+        ]
+      },
+      {
+        path: 'molecularlab-cvs', component: MolecularSampleRcptCVCMainComponent,
+        children:[
+          {path: '', component: MolecularSampleRcptCVCComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptCSVResolverService}}
         ]
       },
       {
@@ -885,7 +895,9 @@ export const RoutingComponents = [
   CSVSpecimenMainComponent,
   CSVspecimenStartComponent,
   ScheduleShipmentMainComponent,
-  ScheduleShipmentComponent
+  ScheduleShipmentComponent,
+  MolecularSampleRcptCVCComponent,
+  MolecularSampleRcptCVCMainComponent
 
 ];
 

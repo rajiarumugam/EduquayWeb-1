@@ -310,6 +310,7 @@
                                         <th><span >{{'PNDTResult' | translate }}</span></th>
                                         <th><span >{{'PostPNDTCounselling' | translate }}</span></th>
                                         <th><span >{{'MTPService' | translate }}</span></th>
+                                        <th><span >{{'Track' | translate }}</span></th>
                                       </tr>
 
                                 </thead>
@@ -341,6 +342,9 @@
                                         <td class="text-left sname">{{subjectinfo.pndtResult}}</td>
                                         <td style="text-align: center">{{subjectinfo.postPNDTCounselling}}</td>
                                         <td style="text-align: left">{{subjectinfo.mtpService}}</td>
+                                        <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                                            <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+                                         </a></td>
                                         <!--<td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
