@@ -122,6 +122,15 @@ import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
 
 import { TabsComponent } from './nhm/tabs/tabs.component';
 import { TabComponent } from './nhm/tabs/tab.component';
+import { UpdateResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component';
+import { EditResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component';
+import { ConfirmedResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component';
+import { MlrNotificationComponent } from './molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component';
+import { CvsNotificationComponent } from './molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component';
+import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component';
+import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
+import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
+
 
 
 // const ngWizardConfig: NgWizardConfig = {
@@ -213,7 +222,15 @@ import { TabComponent } from './nhm/tabs/tab.component';
     UserTypeComponent,
     timeStampPipe,
     TabsComponent,
-    TabComponent
+    TabComponent,
+    UpdateResultsComponent,
+    EditResultsComponent,
+    ConfirmedResultsComponent,
+    MlrNotificationComponent,
+    CvsNotificationComponent,
+    CvsUpdateresultComponent,
+    CvsEditresultComponent,
+    CvsConfirmedresultComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

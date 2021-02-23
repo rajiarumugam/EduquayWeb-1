@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://api.eduquay.com',
+  apiUrl: 'http://tscodtrainingapi.cscr.in',
   production: true
 };

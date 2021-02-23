@@ -33,6 +33,8 @@ export interface user {
   chcName: string;
   centralLabId: number;
   centralLabName: string;
+  molecularLabId: number;
+  molecularLabName: string;
   phcId: number,
   scId: number,
   riId: string,
