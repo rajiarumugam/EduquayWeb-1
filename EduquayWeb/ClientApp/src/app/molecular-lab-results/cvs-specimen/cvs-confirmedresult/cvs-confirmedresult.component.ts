@@ -48,7 +48,7 @@ export class CvsConfirmedresultComponent implements AfterViewInit, OnDestroy, On
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "submodule":"Update Molecular Test Results – CVS Specimen", "page": "Confirmed Results"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Update Molecular Test Results", "submodule":"CVS Specimen", "page": "Confirmed Results"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
