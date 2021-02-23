@@ -39,11 +39,13 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <thead>
                             <tr>
                                 <th><span>{{'SNo' | translate }}</span></th>
-                                <th><span>{{'SubjectName' | translate }}</span></th>
-                                <th><span>{{'SubjectID' | translate }}</span></th>
+                                <th><span>{{'ANWName' | translate }}</span></th>
+                                <!--<th><span>{{'SubjectID' | translate }}</span></th>-->
                                 <th><span>{{'RCHID' | translate }}</span></th>
-                                <th><span>{{'Barcode' | translate }}</span></th>
-                                <th class="datetimenewchc wordwrap"><span>{{'HPLCTestingDateTime' | translate }} </span></th>
+                                <th><span>{{'FoetusName' | translate }}</span></th>
+                                <th class="datetimenewchc wordwrap"><span>{{'SampleRefID' | translate }} </span></th>
+                                <th class="datetimenewchc wordwrap"><span>{{'CVSSpecimenRefID' | translate }} </span></th>
+                                <th class="datetimenewchc wordwrap"><span>{{'PNDTTestedDateTime' | translate }} </span></th>
                                 <!-- <th class="text-center"><span>ILR In Time</span></th>
                                 <th class="text-center"><span>ILR Out Time</span></th> -->
                                 <th><span>{{'BarcodeDamaged' | translate }}</span>
@@ -58,10 +60,12 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <tr *ngFor="let receipt of popupData?.receiptDetail;index as i">
                                 <td class="sno">{{i+1}}</td>
                                 <td class="sname text-left">{{receipt.subjectName}}</td>
-                                <td>{{receipt.subjectId}}</td>
+                                <!--<td>{{receipt.subjectId}}</td>-->
                                 <td class="">{{receipt.rchId}}</td>
-                                <td>{{receipt.barcodeNo}}</td>
-                                <td>{{receipt.hplcTestDateTime}}</td>
+                                <td>{{receipt.foetusName}}</td>
+                                <td>{{receipt.sampleRefId}}</td>
+                                <td>{{receipt.cvsSampleRefId}}</td>
+                                <td>{{receipt.specimenCollectionDate}}</td>
                                 <!-- <td class="text-center"></td>
                                 <td class="text-center"></td> -->
                                 
@@ -131,8 +135,8 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
             <td style="text-align: center;">{{ i + 1}}</td>
             <td style="text-align: center;">{{ person.shipmentId }}</td>
             <td>{{ person.shipmentDateTime }}</td>
-            <td>{{ person.labTechnicianName }}</td>
-            <td style="text-align: center;">{{ person.centralLabName }}</td>
+            <td>{{ person.senderName }}</td>
+            <td style="text-align: center;">{{ person.senderLocation }}</td>
             <td class="user-plus" (click)="openPopup(person);"><i class="fas fa-search fa-2x" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>
     </tbody>
