@@ -314,7 +314,7 @@
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <image href="./assets/assets/img/menu/gene.svg" x="0" y="0" height="18px" width="18px" />
                 </svg>
-                        <span>{{'MOLECULARLAB' | translate }}</span>
+                        <span>{{'MOLECULARLABRECPT' | translate }}</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -322,20 +322,23 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'molecularlab'}" id="molecularlab" data-parent="#accordionExample">
                 <li routerLinkActive="active">
-                    <a [routerLink]="['/app/molecularlab']"> {{'SampleRcpt' | translate }} </a>
+                    <a [routerLink]="['/app/molecularlab']"> {{'SampleReceiptHPLCPositiveBloodSample' | translate }} </a>
+                </li>
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/molecularlab-cvs']"> {{'SampleReceiptCVSSpecimen' | translate }} </a>
                 </li>
                 <!--<li>
                     <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>
                 </li>-->
-                <li routerLinkActive="active">
+                <!--<li routerLinkActive="active">
                     <a [routerLink]="['/app/update-molecular-result']"> {{'UpdateMolResults' | translate }} </a>
                 </li>
-                <!--<li routerLinkActive="active">
+                <li routerLinkActive="active">
                     <a [routerLink]="['/app/view-case-sheet']"> View Case Sheet </a>
-                </li>-->
+                </li>
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/molecular-report']"> {{'ReportSampleStatus' | translate }} </a>
-                </li>
+                </li>-->
             </ul>
         </li>
         <li class="menu" *ngIf="user.userRole === 'COUNSELLOR'">
