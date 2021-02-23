@@ -376,7 +376,32 @@
                 </li>-->
                 
             </ul>
+        </li>
+        <li class="menu" *ngIf="user.userRole === 'MOLECULARLT'">
+            <a href="#pndtc" data-toggle="collapse" attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
+                <div class="">
+                    <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <image href="./assets/assets/img/menu/enrollment.svg" x="0" y="0" height="18px" width="18px" />
+            </svg>
+                    <span>{{'HAEMATOLOGIST' | translate }}</span>
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </a>
+            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc'}"  id="pndtc"
+            data-parent="#accordionExample">
+
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/schedule-post-pndtc']"> {{'SchedulePostPNDTcounselling' | translate }}</a>
             </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/counselling-post-pndt']"> {{'CounsellingPostPNDT' | translate }}</a>
+            </li>
+            
+        </ul>
+    </li>
             <li class="menu" *ngIf="user.userRole === 'PNDTOBSTETRICIAN'"><!--*ngIf="user.userRole === 'PNDTOBSTETRICIAN'"-->
                 <a href="#pndtc" data-toggle="collapse"  attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
                     <div class="">
