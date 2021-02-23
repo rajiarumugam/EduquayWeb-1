@@ -1,0 +1,78 @@
+<!--<link rel="stylesheet" href="../../../assets/assets/css/components/tabs-accordian/custom-tabs.css" type="text/css">-->
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="mlr" subMenum="chcsam"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+          <!-- <div class="col-md-12 text-center">
+                    <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+          <div class="col-md-12">
+            <div class="justify-between">
+              <div class="col-md-4">
+                <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" 
+                ngbTooltip="Update Molecular Test Results - HPLC Positive Blood Sample" placement="right" [routerLink]="['/app/molecular-lab-result']"
+                role="button" ><i class="fas fa-chevron-left pNav-left"></i></a></div>
+              </div>
+              <!-- <h5 class="float-left">Sample Collection</h5> -->
+              <div class="col-md-4">
+                <div class="headertit">
+                  <h5 class="float-center">{{'Update Molecular Test Results – CVS Specimen' | translate }}</h5>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="float-right">
+                <!-- <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/pageunderconstruction']"
+                role="button" ngbTooltip="Update Mol Results – CVS Specimen" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" [ngClass]="{'active': currentPage == 'cvs-specimen' ? true : false}" id="updateresult-tab" data-toggle="tab"
+                     [routerLink]="['/app/cvs-specimen']" role="tab" aria-controls="home"
+                     aria-selected="true">
+                     {{'Update Result' | translate }}<span class="badge badge-pill badge-warning shadow mx-1"></span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': currentPage == 'cvs-edit-result' ? true : false}" id="editresultsample-tab" data-toggle="tab" [routerLink]="['/app/cvs-specimen/cvs-edit-result']"
+                     role="tab" aria-controls="profile" aria-selected="false">
+                     {{'Edit Result' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
+                  </a>
+                </li>
+               
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': currentPage == 'cvs-confirmed-result' ? true : false}" id="confirmresultsample-tab" data-toggle="tab" [routerLink]="['/app/cvs-specimen/cvs-confirmed-result']"
+                     role="tab" aria-controls="profile" aria-selected="false">
+                     {{'Confirmed Results' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content mt-5" id="myTabContent">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+  </div>
+  <!--  END MAIN CONTAINER  -->
+  
+  <!--<i appLoadScript [script]="''"></i>-->
+  <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+  
