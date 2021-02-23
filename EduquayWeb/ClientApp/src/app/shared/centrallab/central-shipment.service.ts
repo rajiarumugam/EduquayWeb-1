@@ -23,4 +23,10 @@ export class chcshipmentService {
     return this.http.post<any>({url:apiUrl, body: obj });
 
   }
+
+  addPNDTShipment(obj){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDT.ADDPNDTSHIPMENT);
+    return this.http.post<any>({url:apiUrl, body: obj });
+
+  }
 }

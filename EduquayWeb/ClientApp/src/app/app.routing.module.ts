@@ -274,7 +274,17 @@ import { CvsNotificationComponent } from "./molecular-lab-results/cvs-specimen/c
 import { CvsUpdateresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component";
 import { CvsEditresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component";
 import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component";
+import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
+import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
+import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
 
+import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
+import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
+import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";
+
+import { ScheduleShipmentMainComponent } from "./pndtc/shipment-log/schedule-shipment-log-main/schedule-shipment-log-main.component";
+import { ScheduleShipmentComponent } from "./pndtc/shipment-log/schedule-shipment-log/schedule-shipment-log.component";
+import { pndtcShipmentResolverService } from  "./shared/pndtc/shipment-resolver.service";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -519,6 +529,12 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'schedule-shipment', component: ScheduleShipmentMainComponent,
+        children:[
+          {path: '', component: ScheduleShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: pndtcShipmentResolverService}}
+        ]
+      },
+      {
         path: 'molecularlab', component: MolecularSampleRcptMainComponent,
         children:[
           {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
@@ -612,6 +628,8 @@ const routes: Routes = [
           {path: '', component: ViewCLReportComponent, pathMatch: 'full'}
         ]
       },
+      { path: 'view-anm-report', component: AnmReportProfileComponent, pathMatch: 'full'},
+      { path: 'chc-main-report', component: CHCreportListComponent, pathMatch: 'full'},
       
       /*{
         path: 'view-pndtc-summary', component: PndSummaryViewComponent,
@@ -625,6 +643,15 @@ const routes: Routes = [
           {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
         ]
       },
+      {
+        path: 'csv-specimen', component: CSVSpecimenMainComponent,
+        children:[
+          {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
+          {path: 'csvstart', component: CSVspecimenStartComponent, pathMatch: 'full'}
+          
+        ]
+      },
+      
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
@@ -648,7 +675,11 @@ const routes: Routes = [
       {
         path: 'nhm-report', component: NHMreportListComponent,
        
+      },{
+        path: 'anm-report', component: ANMreportListComponent,
+       
       },
+      
       
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
@@ -881,7 +912,16 @@ export const RoutingComponents = [
   CvsNotificationComponent,
   CvsUpdateresultComponent,
   CvsEditresultComponent,
-  CvsConfirmedresultComponent
+  CvsConfirmedresultComponent,
+  ANMreportListComponent,
+  AnmReportProfileComponent,
+  CHCreportListComponent,
+  CSVspecimenComponent,
+  CSVSpecimenMainComponent,
+  CSVspecimenStartComponent,
+  ScheduleShipmentMainComponent,
+  ScheduleShipmentComponent
+
 ];
 
 

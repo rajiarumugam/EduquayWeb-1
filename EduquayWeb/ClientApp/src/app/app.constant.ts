@@ -12,12 +12,12 @@ export const ENDPOINT = {
         "RETRIEVE_GOV_ID_TYPE":"api/v1/WebMaster/RetrieveGovIdType",
         "RETRIEVE_ASSOCIATED_ANM":"api/v1/WebMaster/RetrieveAssociatedANM/",
         "RETRIVESTATE":"api/v1/State/Retrieve",
-
         "RETRIVECLINICALDIAGNOSIS":"api/v1/ClinicalDiagnosis/Retrieve",
-
         "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/",
         "RETRIVEANM":"api/v1/WebMaster/RetrieveANM/",
-        "RETRIVEMOLECULARRESULT":"api/v1/WebMaster/RetrieveMolecularResult"
+        "RETRIVEMOLECULARRESULT":"api/v1/WebMaster/RetrieveMolecularResult",
+        "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/",
+        "RETRIVEALLPNDTLOCATION":"api/v1/WebMaster/RetrieveAllPNDTLocation"
     },
     "SUBJECT":
     {
@@ -73,9 +73,12 @@ export const ENDPOINT = {
     "PNDT":
     {
         "RETRIVEPNDTPENDING":"api/v1/PNDTObstetrician/RetrievePNDTPending",
-        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDTest",
+        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDT",
         "RETRIVEPNDTCOMPLETEDSUMMARY":"api/v1/PNDTObstetrician/RetrievePNDTCompletedSummary",
-        "RETRIVEPNDTNOTCOMPLETED":"api/v1/PNDTObstetrician/RetrievePostPNDTNotCompleted"
+        "RETRIVEPNDTNOTCOMPLETED":"api/v1/PNDTObstetrician/RetrievePostPNDTNotCompleted",
+        "RETRIVEPNDTPICKANDPACK":"api/v1/PNDTC/RetrievePNDTPickAndPack/",
+        "ADDPNDTSHIPMENT":"api/v1/PNDTC/AddPNDTShipment",
+        "RETRIVEPNDTCSHIPMENTLOG":"api/v1/PNDTC/RetrievePNDTShipmentLog/"
     },
     "PNDTMASTER":
     {
@@ -91,7 +94,8 @@ export const ENDPOINT = {
         "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions",
         "RETRIVEBLOCKBYDISTRICT":"api/v1/WebMaster/RetrieveBlockByDistrict/",
         "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
-        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/"
+        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/",
+        "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/"
     },
     "MTP":
     {
@@ -112,6 +116,12 @@ export const ENDPOINT = {
     },
     "NHM":{
         "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail"
+    },
+    "REPORTS":
+    {
+        "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
+        "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail",
+        "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList"
     }
 
 }

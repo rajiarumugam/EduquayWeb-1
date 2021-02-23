@@ -277,29 +277,3 @@ vertical-align: middle;
     align-items: center;
     height: 100%;
   }
-
-  .button-cls
-  {
-    background:#0177ff !important;
-    color:#ffffff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display:inline-block;
-  }
-  .button-cls.rerun-btn-disabled
-{
-    background:#aaaaaa !important;
-    cursor: not-allowed;    
-    color:#ffffff;
-}
-
-
-.button-cls
-{
-  background:#0177ff !important;
-  color:#ffffff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display:inline-block;
-}
-      

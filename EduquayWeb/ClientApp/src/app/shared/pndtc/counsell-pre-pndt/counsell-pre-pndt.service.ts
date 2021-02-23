@@ -18,6 +18,7 @@ export class CounsellPrePndtService {
   retrieveprepndtCounselledYesApi: string ="api/v1/PNDTC/RetrievePrePNDTCounselledYes";
   retrieveprepndtCounselledNoApi: string ="api/v1/PNDTC/RetrievePrePNDTCounselledNo";
   retrieveprepndtCounselledPendingApi: string ="api/v1/PNDTC/RetrievePrePNDTCounselledPending";
+  retrieveprepndtPickandPackApi: string ="api/v1/PNDTC/RetrievePNDTPickAndPack/";
 
   //formData: any;
 
@@ -66,5 +67,16 @@ export class CounsellPrePndtService {
     let apiUrl = this.genericServices.buildApiUrl(this.prePndtcFileUploadApi);
     return this.http.post<prePndtFileUploadResponse>({url: apiUrl, header: headoptions, body: formData});
   }
+
+  add(addCounselling: AddPrePndtCounsellingRequest){
+    let apiUrl=this.genericServices.buildApiUrl(this.addprepndtCounsellingeApi);
+    return this.http.post<AddPrePndtcCounsellingResponse>({url: apiUrl, body: addCounselling});
+  }
  
+  retrievePNDTPickAndPack()
+  {
+    let user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl=this.genericServices.buildApiUrl(this.retrieveprepndtPickandPackApi+user.pndtLocationId);
+    return this.http.get<any>({url: apiUrl});
+  }
 }

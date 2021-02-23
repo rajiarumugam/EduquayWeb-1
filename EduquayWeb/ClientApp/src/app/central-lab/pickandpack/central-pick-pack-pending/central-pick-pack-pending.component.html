@@ -6,7 +6,9 @@
             <th><span>{{'SubjectName' | translate }}</span></th>
             <th><span>{{'SubjectID' | translate }}</span></th>
             <th><span>{{'RCHID' | translate }}</span></th>
+           
             <th><span>{{'Barcode' | translate }}</span></th>
+            <th><span>{{'SpouseBarcode' | translate }}</span></th>
             <th><span>{{'Sample_Collection_Date_Time' | translate }}</span></th>
             <th><span>{{'HPLCTestResults' | translate }}</span></th>
         </tr>
@@ -17,7 +19,9 @@
             <td>{{ person.subjectName }}</td>
             <td style="text-align: center;">{{ person.uniqueSubjectId }}</td>
             <td style="text-align: center;">{{ person.rchId }}</td>
+            
             <td style="text-align: center;">{{ person.barcodeNo }}</td>
+            <td style="text-align: center;">{{ person.spouseBarcodeNo }}</td>
             <td style="text-align: center;"><span style="display: none;">{{person.sampleDateTime | convertimestamp}}</span>{{ person.sampleDateTime }}</td>
             <td>{{ person.hplcTestResult }}</td>
         </tr>

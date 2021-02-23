@@ -35,7 +35,7 @@ export class SubjectProfileService {
     private tokenService: TokenService
   ) { }
 
-  getparticularanmSubjectProfileList(anmparticularsubProfile: ParticularSubjectProfileRequest){
+  getparticularanmSubjectProfileList(anmparticularsubProfile){
     let apiUrl = this.genericService.buildApiUrl(this.anmparticularSubProfile);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: anmparticularsubProfile});
   }
@@ -96,4 +96,18 @@ export class SubjectProfileService {
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
 
+  getANMReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.ANMREPORTDETAIL);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+
+  getCHCReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.CHCREPORTSDETAIL);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+  getparticularanmSCHC(anmparticularsubProfile){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.RETRIVEPARTICULARCHC);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: anmparticularsubProfile});
+  }
+ 
 }

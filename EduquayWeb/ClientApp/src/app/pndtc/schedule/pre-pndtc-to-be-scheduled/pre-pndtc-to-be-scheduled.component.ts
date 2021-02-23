@@ -17,6 +17,7 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
 
 @Component({
   selector: 'app-pre-pndtc-to-be-scheduled',
@@ -101,7 +102,8 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
     private modalService: NgbModal,
     private _formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private PNDTCmasterService: PNDTCmasterService
 
   ) { }
 
@@ -203,7 +205,7 @@ export class PrePndtcToBeScheduledComponent implements AfterViewInit, OnDestroy,
   }
 
   ddlDistrict(userId) {
-    let district = this.pndtmtpMasterService.getDistrict(userId).subscribe(response => {
+    let district = this.PNDTCmasterService.retrieveDistrictByPNDTLocation().subscribe(response => {
       this.pndtmtpMasterResponse = response;
       if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
         this.districts = this.pndtmtpMasterResponse.data;

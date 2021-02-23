@@ -76,6 +76,7 @@ export class PNDTestingResultsComponent implements OnInit {
   selectedOthers;
   fselectedMotherVoided;
   disableDatepicker = false;
+  selectedAssisstedBy;
 
   selectedItems = [];
   minPndtDate;
@@ -86,7 +87,9 @@ export class PNDTestingResultsComponent implements OnInit {
     minDate: new Date(Date.now()),
     enableTime: true,
   };
-
+  selectedselectnumberoffoetus = null;
+  numberoffoetusArray = [{'id':1,'label':"One"},{'id':2,'label':"Two"},{'id':3,'label':"Three"},{'id':4,'label':"Four"}];
+  foutesArray = [];
   @HostListener('window:scroll')
   checkScroll() {
       
@@ -148,7 +151,9 @@ export class PNDTestingResultsComponent implements OnInit {
         [Validators.required]
       )],
       otherPOT: [''],
-      anyOtherComplications: [""]
+      anyOtherComplications: [""],
+      selectnumberoffoetus:[""],
+      assisstedBy:["", Validators.required]
    });
 
    if(this.testingPNDData.pndTestId != undefined)
@@ -175,16 +180,16 @@ export class PNDTestingResultsComponent implements OnInit {
     if(this.testingPNDData.pndtDiagnosisId != undefined)
         this.selectedPNDTDiagnosis = this.testingPNDData.pndtDiagnosisId === 0 ? null : this.testingPNDData.pndtDiagnosisId;
       
-    if(this.testingPNDData.pndtResultId != undefined)
-        this.selectedPNDTResults = this.testingPNDData.pndtResultId === 0 ? null : this.testingPNDData.pndtResultId;
+    /*if(this.testingPNDData.pndtResultId != undefined)
+        this.selectedPNDTResults = this.testingPNDData.pndtResultId === 0 ? null : this.testingPNDData.pndtResultId;*/
 
    this.secondFormGroup = this._formBuilder.group({
     motherVoided: [_tempMotherVoided, Validators.required],
     motherVital: [_tempmotherVital, Validators.required],
-    foetalHeart: [_foetalHeart, Validators.required],
-    PNDTDiagnosis: ['', Validators.required],
-    PNDTResults: ['', Validators.required],
-    planForPregenancy: [_planForPregnencyContinue, Validators.required],
+    foetalHeart: [_foetalHeart, Validators.required]
+    /*PNDTDiagnosis: ['', Validators.required],*/
+    /*PNDTResults: ['', Validators.required],*/
+    /*planForPregenancy: [_planForPregnencyContinue, Validators.required],*/
    
  });
       
@@ -332,6 +337,7 @@ export class PNDTestingResultsComponent implements OnInit {
 
   pndSubmit(type)
   {
+  
    var _obj = {};
    _obj['anwsubjectId'] = this.testingPNDData.anwSubjectId;
    _obj['spouseSubjectId'] = this.testingPNDData.spouseSubjectId;
@@ -341,7 +347,10 @@ export class PNDTestingResultsComponent implements OnInit {
   
    _obj['userId'] = this.user.id;
    _obj['prePNDTCounsellingId'] = this.testingPNDData.prePNDTCounsellingId;
+   _obj['pndtLocationId'] = this.user.pndtLocationId;
     this.firstFormCheck = true;
+    console.log(this.foutesArray);
+
     if(type === "save")
     {
         if(this.FormGroup.valid && this.selectedcomplicationsItems.length > 0) 
@@ -367,12 +376,12 @@ export class PNDTestingResultsComponent implements OnInit {
            _obj['othersComplecations'] = this.FormGroup.get('anyOtherComplications').value != undefined ? this.FormGroup.get('anyOtherComplications').value : "";
 
 
-           _obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
-          _obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : 0;
+           //_obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
+          //_obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : 0;
           _obj['motherVoided'] = this.secondFormGroup.get('motherVoided').value != undefined ? this.secondFormGroup.get('motherVoided').value : "";
           _obj['motherVitalStable'] = this.secondFormGroup.get('motherVital').value != undefined ? this.secondFormGroup.get('motherVital').value : "";
           _obj['foetalHeartRateDocumentScan'] = this.secondFormGroup.get('foetalHeart').value != undefined ? this.secondFormGroup.get('foetalHeart').value : "";
-          _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
+          //_obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
            console.log(_obj);
 
           this.sendDataToService(_obj,'PNDT details saved and Post PNDT Procedure to be updated');
@@ -382,6 +391,9 @@ export class PNDTestingResultsComponent implements OnInit {
     {
       this.secondFormCheck = true;
      
+      console.log(this.FormGroup.valid);
+      console.log(this.secondFormGroup.valid);
+      console.log(this.selectedcomplicationsItems);
       if(this.FormGroup.valid && this.secondFormGroup.valid && this.selectedcomplicationsItems.length > 0)
         {
           var _tempComplectionData;
@@ -401,19 +413,61 @@ export class PNDTestingResultsComponent implements OnInit {
            _obj['pndtComplecationsId'] = ""+_tempComplectionData;
            _obj['othersProcedureofTesting'] = this.FormGroup.get('otherPOT').value != undefined ? this.FormGroup.get('otherPOT').value : "";
            _obj['othersComplecations'] = this.FormGroup.get('anyOtherComplications').value != undefined ? this.FormGroup.get('anyOtherComplications').value : "";
-          _obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
-          _obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : 0;
-          _obj['motherVoided'] = this.secondFormGroup.get('motherVoided').value != undefined ? this.secondFormGroup.get('motherVoided').value : "";
-          _obj['motherVitalStable'] = this.secondFormGroup.get('motherVital').value != undefined ? this.secondFormGroup.get('motherVital').value : "";
-          _obj['foetalHeartRateDocumentScan'] = this.secondFormGroup.get('foetalHeart').value != undefined ? this.secondFormGroup.get('foetalHeart').value : "";
-          _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
-       
+          //_obj['pndtDiagnosisId'] = this.secondFormGroup.get('PNDTDiagnosis').value != undefined ? Number(this.secondFormGroup.get('PNDTDiagnosis').value) : 0;
+          //_obj['pndtResultId'] = this.secondFormGroup.get('PNDTResults').value != undefined ? Number(this.secondFormGroup.get('PNDTResults').value) : 0;
+          _obj['motherVoided'] = this.secondFormGroup.get('motherVoided').value != undefined ? (this.secondFormGroup.get('motherVoided').value === "true" ? true : false) : "";
+          _obj['motherVitalStable'] = this.secondFormGroup.get('motherVital').value != undefined ? (this.secondFormGroup.get('motherVital').value == "true" ? true : false) : "";
+          _obj['foetalHeartRateDocumentScan'] = this.secondFormGroup.get('foetalHeart').value != undefined ? (this.secondFormGroup.get('foetalHeart').value == "true" ? true : false) : "";
+         // _obj['planForPregnencyContinue'] = this.secondFormGroup.get('planForPregenancy').value != undefined ? this.secondFormGroup.get('planForPregenancy').value : "";
+
+          _obj['pregnancyType'] = Number(this.selectedselectnumberoffoetus);
+          _obj['assistedBy'] = this.FormGroup.get('assisstedBy').value;
+          
+          
+          var _tempsampleRefId = "";
+          var _tempfoetusName = "";
+          var _cvsSampleRefId = "";
+          for(var i=0;i<this.foutesArray.length;i++)
+          {
+            if(_tempsampleRefId === "")
+              _tempsampleRefId = this.foutesArray[i].sampleRefId;
+            else
+              _tempsampleRefId += ','+this.foutesArray[i].sampleRefId;
+          
+              if(_tempfoetusName === "")
+              _tempfoetusName = this.foutesArray[i].foetusname;
+              else
+              _tempfoetusName += ','+this.foutesArray[i].foetusname;
+
+              if(this.foutesArray[i].CSV === "")
+              {
+                return;
+              }
+              if(_cvsSampleRefId === "")
+                _cvsSampleRefId = this.foutesArray[i].CSV;
+              else
+                _cvsSampleRefId += ','+this.foutesArray[i].CSV;
+          }
             _obj['isCompletePNDT'] = true;
+            _obj['sampleRefId'] = _tempsampleRefId;
+            _obj['foetusName'] = _tempfoetusName;
+            _obj['cvsSampleRefId'] = _cvsSampleRefId;
 
             console.log(_obj);
 
-            this.sendDataToService(_obj,'PNDT Updated Successfully.');
-        }
+            Swal.fire({icon:'success', title: 'Are you sure you want to confirm?',
+            showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+              .then((result) => {
+                if (result.value) {
+                    this.sendDataToService(_obj,'PNDT Updated Successfully.');
+                }
+                else{
+                
+                }
+              });
+          }
+            //this.sendDataToService(_obj,'PNDT Updated Successfully.');
+
     }
       
   }
@@ -538,6 +592,16 @@ export class PNDTestingResultsComponent implements OnInit {
         return result;
     }
    
+    numberoffoetuschange()
+    {
+      this.foutesArray = [];
+        console.log(this.selectedselectnumberoffoetus);
+        for(var i=0;i<this.selectedselectnumberoffoetus;i++)
+        {
+          var _obj = {"sampleRefId":this.testingPNDData.anwBarcodeNo+"-C"+(i+1),"foetusname":"Foetus "+(i+1)+" of "+this.testingPNDData.subjectName,"CSV":""};
+          this.foutesArray.push(_obj);
+        }
+    }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     
