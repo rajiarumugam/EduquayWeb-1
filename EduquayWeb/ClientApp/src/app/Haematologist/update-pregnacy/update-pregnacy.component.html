@@ -1,0 +1,47 @@
+<div class="tab-pane fade show active" id="tobeCounselled" role="tabpanel" aria-labelledby="tobeCounselled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row mt-4">
+                <div class="col-sm-12">
+                  <div *ngIf="prepndtcounsellingErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': prepndtcounsellingErrorMessage ==='No subjects found', 'alert-danger': prepndtcounsellingErrorMessage !== 'No subjects found'}">
+                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{prepndtcounsellingErrorMessage}}
+                  </div>
+                </div>
+              </div>
+                 <div class="table-responsive mt-5">
+                <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th class="text-center"><span>{{'SNo' | translate}}</span></th>>
+                            <th class="text-center"><span>{{'SubjectName' | translate}}</span></th>
+                            <th class="text-center"><span>{{'SubjectID' | translate}}</span></th>
+                            <th class="text-center"><span>{{'RCHID' | translate}}</span></th>
+                            <!-- <th class="text-center"><span>{{'LMPDate' | translate}}</span></th>                                     -->
+                            <th class="text-center"><span>{{'GA' | translate}}</span></th>
+                            <th class="text-center"><span>{{'View' | translate}}</span></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let counsellingdata of counsellinglists; index as i">
+                            <td class="sno text-center">{{i +1}}</td>
+                            <td class="text-left">{{counsellingdata.subjectName}}</td>
+                            <td class="text-center">{{counsellingdata.anwSubjectId}}</td>
+                            <td class="sid">{{counsellingdata.rchId}}</td>
+                            <td class="sid">{{counsellingdata.ga}}</td>
+                            <!-- <td class="text-center">18/05/2020</td> -->
+                            <td class="text-center"><a (click)="openpndtdetail(counsellingdata)"><i
+                                        class="fas fa-edit fa-2x"
+                                        aria-hidden="true"></i></a></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
+                <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+            </div>
+           
+        </div>
+    </div>
+</div>

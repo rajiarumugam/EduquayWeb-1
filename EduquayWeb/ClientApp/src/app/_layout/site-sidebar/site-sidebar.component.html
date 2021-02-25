@@ -377,7 +377,7 @@
                 
             </ul>
         </li>
-        <li class="menu" *ngIf="user.userRole === 'MOLECULARLT'">
+        <li class="menu" *ngIf="user.userRole === 'HAEMATOLOGIST'">
             <a href="#pndtc" data-toggle="collapse" attr.data-active="{{module === 'pndtc'}}" attr.aria-expanded="{{module === 'pndtc'}}" class="dropdown-toggle">
                 <div class="">
                     <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -392,7 +392,10 @@
             </a>
             <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'pndtc'}"  id="pndtc"
             data-parent="#accordionExample">
-
+            
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/update-pregnancy']"> {{'UpdatePregnancyContinue' | translate }}</a>
+            </li>
             <li routerLinkActive="active">
                 <a [routerLink]="['/app/schedule-post-pndtc']"> {{'SchedulePostPNDTcounselling' | translate }}</a>
             </li>

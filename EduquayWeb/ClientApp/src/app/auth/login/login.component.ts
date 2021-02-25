@@ -93,6 +93,8 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/app/patho-report-print'], { relativeTo: this.route });
               else  if(this.authResult.userDetail.userRole === "MOLECULARDR")
               this.router.navigate(['/app/molecular-lab-result'], { relativeTo: this.route });
+              else  if(this.authResult.userDetail.userRole === "HAEMATOLOGIST")
+              this.router.navigate(['/app/update-pregnancy'], { relativeTo: this.route });
 
 
         } else if ((this.authResult && (!this.authResult.status))) {
