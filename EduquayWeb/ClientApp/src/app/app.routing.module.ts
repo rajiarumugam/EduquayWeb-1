@@ -290,6 +290,9 @@ import { MolecularSampleRcptCVCComponent } from "./molecular-lab/sample-rcpt-cvs
 import { MolecularSampleRcptCVCMainComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rcpt-cvc-main/molecular-sample-rcpt-cvc-main.component";
 import { MLSampleRcptCSVResolverService } from "./shared/molecularlab/ml-sample-rcpt-csv-resolver.servic";
 
+import { UpdatePregnacyMainComponent } from "./Haematologist/update-pregnacy-main/update-pregnacy-main.component";
+import { UpdatePregnacyComponent } from "./Haematologist/update-pregnacy/update-pregnacy.component";
+import { UpdatePregnacyTestresultsComponent } from "./Haematologist/update-pregnacy-testresults/update-pregnacy-testresults.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -654,6 +657,12 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'update-pregnancy', component: UpdatePregnacyMainComponent,
+        children:[
+          {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'} 
+        ]
+      },
+      {
         path: 'csv-specimen', component: CSVSpecimenMainComponent,
         children:[
           {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
@@ -663,6 +672,8 @@ const routes: Routes = [
       },
       
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
+      { path: 'update-pregnancy-details', component: UpdatePregnacyTestresultsComponent },
+      
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
       { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
@@ -932,7 +943,10 @@ export const RoutingComponents = [
   ScheduleShipmentMainComponent,
   ScheduleShipmentComponent,
   MolecularSampleRcptCVCComponent,
-  MolecularSampleRcptCVCMainComponent
+  MolecularSampleRcptCVCMainComponent,
+  UpdatePregnacyMainComponent,
+  UpdatePregnacyComponent,
+  UpdatePregnacyTestresultsComponent
 
 ];
 

@@ -558,5 +558,9 @@
 "Shippedfrom":"Shipped from",
 "ANWName":"ANW Name",
 "PNDTTestedDateTime":"PNDT Tested Date & Time",
-"HAEMATOLOGIST":"HAEMATOLOGIST"
+"HAEMATOLOGIST":"HAEMATOLOGIST",
+"UpdatePregnancyContinue":"Update Pregnancy Continue",
+"PNDTProcedure":"PNDT Procedure",
+"MolecularLabTestResult":"Molecular Lab Test Result",
+"PregnancyContinue":"Pregnancy Continue"
 }

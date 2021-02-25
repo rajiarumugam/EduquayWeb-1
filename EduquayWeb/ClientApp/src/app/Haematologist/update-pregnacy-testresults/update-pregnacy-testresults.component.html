@@ -1,0 +1,370 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="pndtc" subMenum="Update-Detail-TestResults"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" placement="right" [routerLink]="['/app/counselling-pre-pndt']"
+                                role="button" ngbTooltip="Back"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">{{'Counselling_PrePNDT' | translate}} </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- <div class="float-right mb-4">
+                  <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-pickandpack']" role="button" placement="left" ngbTooltip="Pick & Pack to Screening Center"><i
+                      class="fas fa-chevron-right pNav-right"></i></a>
+                </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="form-row mt-4">
+                            <div class="col-sm-12">
+                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <tbody class="">
+                                            <tr>
+                                                <td>
+                                                    <span class="float-left mt-0 mr-4">
+                                                        <h5><b>{{'SubjectID' | translate}} :</b>{{counsellingdataItem?.anwSubjectId}}
+                                                            <strong class="ml-5">{{'SubjectInfo' | translate}} :</strong>{{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
+                                                            <strong class="ml-5">{{'RCHID' | translate}} :</strong>{{counsellingdataItem?.rchId}} 
+                                                      </h5>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="form-row mt-4">
+                            <div class="col-sm-12">
+                                <div *ngIf="updatepndtcErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': updatepndtcErrorMessage ==='No subjects found', 'alert-danger': updatepndtcErrorMessage !== 'No subjects found'}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{updatepndtcErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="8" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;"><b>{{'SubjectDetails' | translate}}</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>{{'SubjectName' | translate}}</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.subjectName}}</td>
+                                                <td class="sp-xs-td-9"><b>{{'SubjectID' | translate}}</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.anwSubjectId}}</td>
+                                                <td class="sp-xs-td-9"><b>{{'Age' | translate}}</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.age}}</td>
+                                                <td class="sp-xs-td-9"><b>{{'ContactNo' | translate}}</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.contactNo}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>{{'LMPDate' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.lmpDate}}</td>
+                                                <td><b>{{'GestationalAge' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.ga}}</td>
+                                                <td><b>{{'ObstetricsScore' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.obstetricScore}}</td>
+                                                <td><b>{{'RCHID' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.rchId}}</td>
+
+                                            </tr>
+                                            <tr>
+
+                                                <td><b>{{'ECNumber' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.ecNumber}}</td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing mt-3">
+                    <div class="widget-content widget-content-area br-6">
+
+                        <div class="container-fluid py-2" style="background-color: #e3e8ef;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <td><b>{{'TestResultsSummary' | translate}}</b></td>
+                                </div>
+                            </div>
+                        </div>
+                     
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                    <thead> 
+                                        <tr>
+                                            <th class="text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                            <th class="text-center"><span>{{'SSTResults' | translate}}</span></th>
+                                            <th class="text-left"><span>{{'CBCResults' | translate}}</span></th>
+                                            <th class="text-center"><span>{{'MCV' | translate}}</span></th>                                             
+                                            <th class="text-center"><span>{{'RDW' | translate}}</span></th>
+                                            <th class="text-center"><span>{{'RBC' | translate}}</span></th>
+                                            
+                                            <!-- <th class="text-left"><span>Diagnosis</span></th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>
+                                            <td class="text-left">{{counsellingdataItem?.anwSSTestResult}}</td>
+                                            <td class="text-left">{{counsellingdataItem?.anwCBCTestResult}}</td>
+                                            <td class="text-center sp-xs-th">{{counsellingdataItem?.anwMCV}}</td>                                                                                          
+                                            <td class="text-center">{{counsellingdataItem?.anwRDW}}</td>
+                                            <td class="text-center">{{counsellingdataItem?.anwRBC}}</td>
+                                            
+                                            <!-- <td class="text-left"></td> -->
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>
+                                            <td class="text-left">{{counsellingdataItem?.spouseSSTestResult}}</td>
+                                            <td class="text-left">{{counsellingdataItem?.spouseCBCTestResult}}</td>
+                                            <td class="text-center sp-xs-th">{{counsellingdataItem?.spouseMCV}}</td>                                                                                          
+                                            <td class="text-center">{{counsellingdataItem?.spouseRDW}}</td>
+                                            <td class="text-center">{{counsellingdataItem?.spouseRBC}}</td>
+                                            
+                                            <!-- <td class="text-left"></td> -->
+                                        </tr>
+                                    </tbody> 
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped row-combined">
+                                        <thead class="tablecss">
+                                            <!-- <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="14" class="text-left" style="color:#3a3b3e;font-size: 15px;"><b>Test Result Summary</b>
+                                                </th>
+                                            </tr> -->
+                                            <tr>
+                                                <th rowspan="2" class="nt-border-right text-center"><span>{{'SubjectInfo' | translate}}</span></th>
+                                                <th colspan="5" class="nt-border-right text-center"><b>{{'HPLCParameters' | translate}}</b></th>
+                                                <th rowspan="2" class="nt-border-right text-center"><span>{{'HPLCResults' | translate}}</span></th>
+                                                <!-- <th rowspan="2" class="nt-border-right text-center"><span>{{'LabDiagnosis' | translate}}</span></th>
+                                                <th rowspan="2" class="nt-border-right text-center"><span>{{'PathologistRemarks' | translate}}</span></th> -->
+                                               
+                                            </tr>
+                                            <tr class="combined">
+                                                <th class="text-center"><b>{{'HbA0' | translate}}</b></th>
+                                                <th class="text-center"><b>{{'HbA2' | translate}}</b></th>
+                                                <!--<th class="text-center"><b>HbC</b></th>-->
+                                                <th class="text-center"><b>{{'HbD' | translate}}</b></th>
+                                                <th class="text-center"><b>{{'HbF' | translate}}</b></th>
+                                                <th class="text-center"><b>{{'HbS' | translate}}</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>                                
+                                                <td class="text-center">{{counsellingdataItem?.anwHbA0}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.anwHbA2}}</td>
+                                                <!--<td class="text-center">{{counsellingdataItem?.hbC}}</td>-->
+                                                <td class="text-center">{{counsellingdataItem?.anwHbD}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.anwHbF}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.anwHbS}}</td>
+                                                <td class="text-left">{{counsellingdataItem?.anwHPLCTestResult}}</td>
+                                                <!-- <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td>
+                                                <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>                                        
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbA0}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbA2}}</td>
+                                                <!--<td class="text-center">{{counsellingdataItem?.hbC}}</td>-->
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbD}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbF}}</td>
+                                                <td class="text-center">{{counsellingdataItem?.spouseHbS}}</td>
+                                                <td class="text-left">{{counsellingdataItem?.spouseHPLCTestResult}}</td>
+                                                <!-- <td class="text-left">{{counsellingdataItem?.spouseHPLCDiagnosis}}</td>
+                                                <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td> -->
+                                            </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblBasicInfo">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="8" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;"><b>{{'PNDTProcedure' | translate}}</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="sp-xs-td-9"><b>{{'DateAndTime' | translate}}</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.counsellingDateTime}}</td>
+                                                <td class="sp-xs-td-9"><b>{{'ClinicalHistory' | translate}}</b></td>
+                                                <td class="sp-xs-td-15">{{counsellingdataItem?.clinicalHistory}}</td>
+                                               
+                                            </tr>
+                                            <tr>
+                                                <td><b>{{'ObstetricianName' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.obstetricianName}}</td>
+                                                <td><b>{{'ProcedureofTesting' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.procedureofTesting}}</td>
+                                            </tr>
+                                            <tr>
+
+                                                <td><b>{{'Examination' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.examination}}</td>
+                                                <td><b>{{'Complications' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.pndtComplecations}}</td>
+
+                                            </tr>
+                                            <tr>
+
+                                                <td><b>{{'ConditionatDischarge' | translate}}</b></td>
+                                                <td>{{counsellingdataItem?.motherVoided}}<br>{{counsellingdataItem?.motherVitalStable}}<br>{{counsellingdataItem?.foetalHeartRateDocumentScan}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <!--<thead class="tablecss">
+                                    <tr class="" style="background-color: #e3e8ef;">
+                                        <th colspan="12" class="text-left" style="color:#3a3b3e;font-size: 15px;">
+                                            <b>{{'UpdatePre_natalDiagnosisCounselling'| translate}}</b>
+                                        </th>
+                                    </tr>
+
+                                </thead>-->
+
+                            </table>
+                        </div>
+
+
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                        <thead> 
+                                            <tr>
+                                                <th class="text-center"><span>{{'SNo' | translate}}</span></th>
+                                                <th class="text-center"><span>{{'SampleRefID' | translate}}</span></th>
+                                                <th class="text-center"><span>{{'NameofFoetus' | translate}}</span></th>
+                                                <th class="text-left"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
+                                                <th class="text-center"><span>{{'MolecularLabTestResult' | translate}}</span></th>                                             
+                                                <th class="text-center"><span>{{'PregnancyContinue' | translate}}</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let person of counsellingdataItem?.foetusDetail;index as i">
+                                                <td class="text-left">{{i+1}}</td>
+                                                <td class="text-left">{{person?.sampleRefId}}</td>
+                                                <td class="text-left">{{person?.foetusName}}</td>
+                                                <td class="text-center sp-xs-th">{{person?.cvsSampleRefId}}</td>                                                                                          
+                                                <td class="text-center">{{person?.molResult}}</td>
+                                                <td class="text-center">
+
+                                                    <select class="selectpicker form-control-sm mt-2 mr-3 ml-2" [(ngModel)]="person.pregnancyContinue">
+                                                        <option [ngValue]="null">Select</option>
+                                                        <option *ngFor="let blockdata of pregnacyArray" [(value)]="blockdata.id">
+                                                            {{blockdata.name}}
+                                                        </option>
+                                                      </select>
+                                                </td>
+                                                
+                                                <!-- <td class="text-left"></td> -->
+                                            </tr>
+                                           
+                                        </tbody> 
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="form-row m-1" *ngIf="this.counsellingdataItem?.foetusDetail.length > 0">
+                                <div class="form-group col-md-12">
+                                    <!-- <button class="btn float-right" data-dismiss="modal" onclick="myDefinition()"><i
+                                    class="flaticon-cancel-12"></i>
+                                Close</button> -->
+                                    <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+                                        name="linkto" (click)="submitData();">{{'Submit' | translate}}</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<i appLoadScript [script]="'assets/assets/js/pndtc/update-testresults.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<!--<i appLoadScript [script]="''"></i>-->
+
+<!--  END MAIN CONTAINER  -->
