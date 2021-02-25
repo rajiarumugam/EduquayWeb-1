@@ -204,7 +204,7 @@ export class MolecularSampleRcptCVCComponent implements OnInit {
           console.log(this.form.valid);
           if(this.form.valid)
           {
-            this.loaderService.display(true);
+            //this.loaderService.display(true);
               var user = JSON.parse(this.tokenService.getUser('lu'));
               var _sampleResult = [];
 
@@ -223,41 +223,58 @@ export class MolecularSampleRcptCVCComponent implements OnInit {
                   _sampleResult.push(_obj);
               }
 
-              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.ADDRECEIVEDSPECIMENTSHIPMENT);
-              this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
-                this.createdSubjectId = response.uniqueSubjectId;
-                this.loaderService.display(false);
-                if(response.status === "true")
-                {
-                  Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
-                    showCancelButton: false, confirmButtonText: 'OK'})
-                      .then((result) => {
-                        if (result.value) {
-                          $('#fadeinModal').modal('hide');
-                          this.MolecularLabsampleService.retriveMLCSVSampleReceipt().subscribe(response => {
-                            if(response.status === "true")
-                            {
-                              this.chcReceiptsData = response.molecularLabReceipts;
-                              this.rerender();
-                            }         
-                          },
-                          (err: HttpErrorResponse) =>{
-                            console.log(err);
-                            this.loaderService.display(false);
+              Swal.fire({ allowOutsideClick: false,
+                title: 'Are you sure?',
+                text: "You want to confirm?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#ffffff'
+              }).then((result) => {
+                if (result.value) {
+                  this.loaderService.display(true);
+                  var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.ADDRECEIVEDSPECIMENTSHIPMENT);
+                  this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
+                    this.createdSubjectId = response.uniqueSubjectId;
+                    this.loaderService.display(false);
+                    if(response.status === "true")
+                    {
+                      Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
+                        showCancelButton: false, confirmButtonText: 'OK'})
+                          .then((result) => {
+                            if (result.value) {
+                              $('#fadeinModal').modal('hide');
+                              this.MolecularLabsampleService.retriveMLCSVSampleReceiptList().subscribe(response => {
+                                if(response.status === "true")
+                                {
+                                  this.chcReceiptsData = response.molecularLabReceipts;
+                                  this.rerender();
+                                }         
+                              },
+                              (err: HttpErrorResponse) =>{
+                                console.log(err);
+                                this.loaderService.display(false);
+                              });
+                              
+                            }
+                            
                           });
-                          
-                        }
-                        
-                      });
-                }else{
-                    this.errorMessage = response.message;
+                    }else{
+                        this.errorMessage = response.message;
+                    }
+                    
+                        },
+                        (err: HttpErrorResponse) =>{
+                          console.log(err);
+                          this.loaderService.display(false);
+                        });
                 }
-                
-                    },
-                    (err: HttpErrorResponse) =>{
-                      console.log(err);
-                      this.loaderService.display(false);
-                    });
+
+              })
+          
+   
+             
           }
 
          

@@ -41,4 +41,10 @@ export class MolecularLabsampleService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.ADDRECEIVEDSPECIMENTSHIPMENT+user.molecularLabId);
     return this.http.get<any>( {url:apiUrl});
   }
+  retriveMLCSVSampleReceiptList()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.RETRIVEMOBPNDTRECEIPT+user.molecularLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
 }
