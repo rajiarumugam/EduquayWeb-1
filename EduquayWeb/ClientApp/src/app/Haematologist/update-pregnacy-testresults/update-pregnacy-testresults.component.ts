@@ -139,6 +139,7 @@ export class UpdatePregnacyTestresultsComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.anwSubjectId = params['q'];
       this.retrivecounselledlists();
+      this.dataservice.sendData(JSON.stringify({"screen": "Haematologist","module": " Update Pregnancy Continue" }));
     });
 
     
@@ -190,18 +191,29 @@ export class UpdatePregnacyTestresultsComponent implements OnInit {
     var _tempArr = [];
     if(this.counsellingdataItem.foetusDetail.length > 0)
     {
-      this.loaderService.display(true);
+     
+      console.log(this.counsellingdataItem.foetusDetail);
       this.counsellingdataItem.foetusDetail.forEach(element => {
         _obj = {};
         _obj['pndTestId'] = element.pndTestId;
         _obj['pndtFoetusId'] = element.pndtFoetusId;
-        _obj['planForPregnencyContinue'] = element.pregnancyContinue == 'true' ?  true : false;
+        _obj['planForPregnencyContinue'] = element.pregnancyContinue == true ?  true : false;
         _obj['userId'] = this.user.id;
           _tempArr.push(_obj);
       });
-
-      
-     this.updatePregnacyService.updatePregnacyDetails({'updateRequest':_tempArr})
+console.log(_tempArr);
+      Swal.fire({ allowOutsideClick: false,
+        title: 'Are you sure?',
+        text: "You want to confirm?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#ffffff'
+      }).then((result) => {
+        if (result.value) {
+          this.loaderService.display(true);
+          this.updatePregnacyService.updatePregnacyDetails({'updateRequest':_tempArr})
       .subscribe(response => {
         this.loaderService.display(false);
         Swal.fire({
@@ -210,10 +222,8 @@ export class UpdatePregnacyTestresultsComponent implements OnInit {
         })
           .then((result) => {
             if (result.value) {
-              
               //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
               this.router.navigateByUrl(`/app/update-pregnancy`);
-    
             }
             else {
               this.router.navigateByUrl(`/app/update-pregnancy`);
@@ -223,6 +233,10 @@ export class UpdatePregnacyTestresultsComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.loaderService.display(false);
           this.updatepndtcErrorMessage = err.toString();
+        });
+  
+        }
+          
         });
     }
     
