@@ -562,5 +562,9 @@
 "UpdatePregnancyContinue":"Update Pregnancy Continue",
 "PNDTProcedure":"PNDT Procedure",
 "MolecularLabTestResult":"Molecular Lab Test Result",
-"PregnancyContinue":"Pregnancy Continue"
+"PregnancyContinue":"Pregnancy Continue",
+"Zygosity":"Zygosity",
+"Mutation":"Mutation",
+"ConfirmResult":"Confirm Result",
+"SaveEditLater":"Save & Edit Later"
 }

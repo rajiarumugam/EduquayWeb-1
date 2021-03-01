@@ -13,6 +13,9 @@ export class HplcPosBloodsamplesService {
   retrieveBloodSamplesApi: string = "api/v1/MLResultProcess/RetrieveBloodSamples";
   retrieveBloodSampleseditApi: string = "api/v1/MLResultProcess/RetrieveBloodTestEdit";
   retrieveBloodSamplesCompleteApi: string = "api/v1/MLResultProcess/RetrieveBloodTestComplete";
+  retrieveAllZygosity="api/v1/WebMaster/RetrieveAllZygosity";
+  RetrieveAllMutuation= "api/v1/WebMaster/RetrieveAllMutuation";
+  addMolecularBloodTestResult="/api/v1/MLResultProcess/AddMolecularBloodTestResult";
 
   constructor(
     private httpClient: HttpClient,
@@ -36,4 +39,15 @@ export class HplcPosBloodsamplesService {
     let apiUrl = this.genericServices.buildApiUrl(`${this.retrieveBloodSamplesCompleteApi}/${user.molecularLabId}`);
     return this.http.get<HplcPosBloodsamplesConfirmedResponse>({url: apiUrl });
   }
+  retrieveAllZygositylist(){
+    let apiUrl = this.genericServices.buildApiUrl(`${this.retrieveAllZygosity}`);
+    return this.http.get<any>({url: apiUrl });
+  }
+  retrieveAllMutuationList(){
+    let apiUrl = this.genericServices.buildApiUrl(`${this.RetrieveAllMutuation}`);
+    return this.http.get<any>({url: apiUrl });
+  }
+  
+
+
 }
