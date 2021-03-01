@@ -151,8 +151,8 @@ export class MolecularSampleRcptComponent implements OnInit {
 
   sampleDamageChange(index)
   {
-    /*this.popupData['receiptDetail'][index].sampleDamaged = !this.popupData['receiptDetail'][index].sampleDamaged;
-    if(this.popupData['receiptDetail'][index].sampleDamaged)
+    this.popupData['receiptDetail'][index].sampleDamaged = !this.popupData['receiptDetail'][index].sampleDamaged;
+    /*if(this.popupData['receiptDetail'][index].sampleDamaged)
       this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
     else{
       if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
@@ -211,6 +211,7 @@ export class MolecularSampleRcptComponent implements OnInit {
               for(var i=0;i<this.popupData['receiptDetail'].length;i++)
               {
                   var _obj = {};
+                  console.log(this.popupData['receiptDetail'][i].sampleDamaged);
                   _obj['shipmentId'] = this.popupData.shipmentId;
                   _obj['receivedDate'] = this.form.get('receivedDate').value != undefined ? moment(new Date(this.form.get('receivedDate').value)).format("DD/MM/YYYY") : '';
                     _obj['sampleDamaged'] = this.popupData['receiptDetail'][i].sampleDamaged;
@@ -225,6 +226,7 @@ export class MolecularSampleRcptComponent implements OnInit {
               var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MOLECULARLAB.ADDRECEIVEDSHIPMENT);
               this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
+                this.loaderService.display(false);
                 if(response.status === "true")
                 {
                   Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
@@ -237,7 +239,7 @@ export class MolecularSampleRcptComponent implements OnInit {
                             {
                               this.chcReceiptsData = response.molecularLabReceipts;
                               this.rerender();
-                              this.loaderService.display(false);
+                              
                             }
                                       
                           },

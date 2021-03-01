@@ -1,4 +1,129 @@
 
+<div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'ConfirmShipmentReceipt' | translate}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+
+                       
+                            <div class="form-row my-2" [formGroup]="firstFormGroup">
+                                <div class="col-md-3">
+                                    <h6 class="ml-2"><b>{{'SubjectName' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.subjectName}} </span></h6>
+                                </div>
+                                <div class="col-md-3">
+                                  <h6 class="ml-2"><b>{{'SubjectID' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.uniqueSubjectId}} </span></h6>
+                              </div>
+                              <div class="col-md-3">
+                                <h6 class="ml-2"><b>{{'RCHID' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.rchId}} </span></h6>
+                            </div>
+                            <div class="col-md-3">
+                              <h6 class="ml-2"><b>{{'Barcode' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.barcodeNo}} </span></h6>
+                          </div>
+
+                          <div class="form-row" *ngIf="popupData?.sampleDamaged ? true : false" style="width: 100%;margin:20px 0;"> 
+                            <div class="form-group col-md-12">
+                                <label class="birthreg maritalStatus-label" for="inputPincode" >{{'Your Sample is Damaged.' | translate }}</label>
+                                <label class="maritalstatus-radio-cont" style="width: 100px;">
+                                    <input type="radio" value="true" formControlName="maritalStatus" (change)="sampleDamagedChange(true);" style="margin-right:10px;">
+                                      <span>Proceed</span>
+                                  </label>
+                                  <label class="maritalstatus-radio-cont" style="width: 200px;">
+                                    <input type="radio" value="false" formControlName="maritalStatus" (change)="sampleDamagedChange(false);" style="margin-right:10px;">
+                                    <span>Not Proceed</span>
+                                  </label>
+                            </div>   
+                        </div>
+                        <div class="col-md-3" [formGroup]="firstFormGroup">
+                         
+                            <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.testDate.invalid }">{{'Test Date' | translate}}</label>
+                              <ng2-flatpickr id="scFromDate" name="testDate" formControlName="testDate" class="form-control flatpickr flatpickr-input active" #receivedPicker [config]="receiveddateOptions" placeholder="Select Date.." [(ngModel)]="selectedTestDate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.testDate.value == undefined }"></ng2-flatpickr>
+                      </div>
+                          <div class="form-group col-md-3" *ngIf="showZygosity">
+                            <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && selectedZygosityValue === null }">{{'Zygosity' | translate}}</label>
+                            <select id="inputDistrict" class="form-control"  [(ngModel)]="selectedZygosityValue" (ngModelChange)="zygosityChange(selectedZygosityValue);" formControlName = "zygosity" [ngClass]="{'red-border-class': firstFormCheck && selectedZygosityValue === null }">
+                                <option [ngValue]="null">Select</option>
+                                <option [value]="district.id" *ngFor="let district of zygositylist">{{district.name}}</option>
+                              </select>
+                        </div>
+                        <div class="form-group col-md-12" *ngIf="showReason">
+                          <span class="note" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.reasonforClose.invalid }">{{'Reason for Close' | translate}} </span><span
+                              class="manto">*</span>
+                          <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder="" formControlName="reasonforClose"  [(ngModel)]="selectedreasonforClose" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.reasonforClose.invalid }" [required]="firstFormGroup.controls.reasonforClose.value ? false : true"></textarea>
+                      </div>
+
+                      
+                        <div class="form-group col-md-3" *ngIf="showMutation">
+                          <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.mutation1.invalid }">{{mutationText}}</label>
+                          <select id="inputDistrict" class="form-control" [required]="showMutation" [(ngModel)]="selectemutuation" (ngModelChange)="mutationChange(selectemutuation);" formControlName = "mutation1" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.mutation1.invalid }">
+                              <option [ngValue]="null">Select</option>
+                              <option [value]="district.id" *ngFor="let district of mutuationList">{{district.name}}</option>
+                            </select>
+                      </div>
+
+                      <div class="form-group col-md-3" *ngIf="showMutation2">
+                        <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.mutation2.invalid }">{{'Mutation 2' | translate}}</label>
+                        <select id="inputDistrict" class="form-control" [required]="showMutation2" [(ngModel)]="selectedmutuation2" (ngModelChange)="mutationChange1(selectedmutuation2);" formControlName = "mutation2" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.mutation2.invalid }">
+                            <option [ngValue]="null">Select</option>
+                            <option [value]="district.id" *ngFor="let district of mutuationList">{{district.name}}</option>
+                          </select>
+                    </div>
+
+
+                    <div class="form-group col-md-3" *ngIf="showMutation2">
+                            <label class="birthreg" for="danwname">{{'Mutation 3' | translate }}</label><span class="manto"> *</span>
+                            <input type="Text" class="form-control" id="danwname" placeholder="Name"  [(ngModel)]="mutation3" formControlName = "mutation3" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.mutation3.invalid }">
+                        </div>
+                                <!---->
+                            </div>
+                    </div>
+              
+                    <div class="molecular-lab-test-result">
+                      <div class="col-lg-12">
+                      <h5>{{'MolecularLabTestResult' | translate }} </h5>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h6 class="ml-2"><b>{{'SubjectName' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.subjectName}} </span></h6>
+                        </div>
+                        <div class="col-md-6">
+                          <h6 class="ml-2"><b>{{'SubjectID' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.uniqueSubjectId}}  </span></h6>
+                      </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-md-3">
+                          <h6 class="ml-2"><b>{{'Result' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{selectedZygosityValueText}} <span  *ngIf="selectemutuation != null">for</span> {{selectemutuationText}} <span  *ngIf="selectedmutuation2 != null">and </span>{{selectedmutuation2Text}}</span></h6>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="row float-right">
+                      <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+                      (click)="sampleSubmit('1');"  name="linkto">{{'SaveEditLater' | translate}}</button>
+                        <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+ (click)="sampleSubmit('2');"  name="linkto">{{'ConfirmResult' | translate}}</button>
+                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
 <div class="tab-pane fade show active" id="damagedsample" role="tabpanel" aria-labelledby="updateresult-tab">
     <div class="form-row">
       <div class="col-md-12">
@@ -31,7 +156,7 @@
             <td class="sid text-center">{{sample.rchId}}</td>
             <td class="number text-center">{{sample.district}}</td>
             <td class="text-center"><a><i class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
-                ></i></a></td>  
+                (click)="showPopup(sample);"></i></a></td>  
                 <td style="text-align: center"><a>
                     <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                 </td>        

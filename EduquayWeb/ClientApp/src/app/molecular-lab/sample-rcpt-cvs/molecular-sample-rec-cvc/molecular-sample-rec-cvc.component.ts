@@ -151,8 +151,8 @@ export class MolecularSampleRcptCVCComponent implements OnInit {
 
   sampleDamageChange(index)
   {
-    /*this.popupData['receiptDetail'][index].sampleDamaged = !this.popupData['receiptDetail'][index].sampleDamaged;
-    if(this.popupData['receiptDetail'][index].sampleDamaged)
+    this.popupData['receiptDetail'][index].sampleDamaged = !this.popupData['receiptDetail'][index].sampleDamaged;
+    /*if(this.popupData['receiptDetail'][index].sampleDamaged)
       this.resettingTableEvents(this.popupData['receiptDetail'][index],false,false,true,true,false);
     else{
       if(this.compareDate(this.form.get('processingDate').value,moment(this.popupData['receiptDetail'][index].sampleCollectionDateTime).format('DD/MM/YYYY HH:MM')) > 24)
