@@ -268,7 +268,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
     
     this.firstFormCheck = true;
 
-    var _testResult = this.selectedreasonforClose;
+    var _testResult = this.selectedZygosityValueText;
     if(this.selectemutuation != null)
     {
       _testResult += "for "+this.selectemutuationText;
@@ -291,13 +291,24 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
         _obj['testResult'] = _testResult ;
         _obj['sampleDamaged'] = this.popupData.sampleDamaged;
         _obj['sampleProcessed'] =  this.firstFormGroup.controls.maritalStatus.value === "true" ? true : false;
-        _obj['completeStatus'] = index === 1 ? false : true;
+        _obj['completeStatus'] = index == '1' ? false : true;
         _obj['reasonForClose'] = this.selectedreasonforClose != undefined ? this.selectedreasonforClose : "";
         _obj['testDate'] = moment(new Date(this.firstFormGroup.controls.testDate.value)).format("DD/MM/YYYY");
         _obj['userId'] = this.user.id;
         _obj['molecularLabId'] = this.user.molecularLabId;
         console.log(_obj);
-        this.submitData(_obj);
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Confirm Update Molecular Test Results",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#ffffff', allowOutsideClick: false
+        }).then((result) => {
+          
+              this.submitData(_obj);
+          })
       }
       
     }
@@ -314,13 +325,24 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
         _obj['testResult'] = _testResult ;
         _obj['sampleDamaged'] = this.popupData.sampleDamaged;
         _obj['sampleProcessed'] =  this.firstFormGroup.controls.maritalStatus.value === "true" ? true : false;
-        _obj['completeStatus'] = index === 1 ? false : true;
+        _obj['completeStatus'] = index == '1' ? false : true;
         _obj['reasonForClose'] = this.selectedreasonforClose != undefined ? this.selectedreasonforClose : "";
         _obj['testDate'] = moment(new Date(this.firstFormGroup.controls.testDate.value)).format("DD/MM/YYYY");
         _obj['userId'] = this.user.id;
         _obj['molecularLabId'] = this.user.molecularLabId;
         console.log(_obj);
-        this.submitData(_obj);
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Confirm Update Molecular Test Results",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#ffffff', allowOutsideClick: false
+        }).then((result) => {
+          
+              this.submitData(_obj);
+          })
       }
     }
     
