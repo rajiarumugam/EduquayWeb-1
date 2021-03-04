@@ -271,6 +271,12 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.showMutation2 = true;
       this.mutationText = "Mutation 1";
     }
+    if(val == 4)
+    {
+      this.showMutation = false;
+      this.showMutation2 = false;
+      this.mutationText = "Mutation 1";
+    }
   }
   mutationChange(val)
   {

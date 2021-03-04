@@ -24,7 +24,8 @@ export const ENDPOINT = {
         "ADD":"api/v1/Subject/Add",
         "RETRIVE":"api/v1/Subject/RetrieveANWSubjects",
         "RETRIVECHCANWPOSITIVESUBJECTS":"api/v1/Subject/RetrieveCHCANWPositiveSubjects",
-        "AddMOLECULARBLOODTESTRESULT":"api/v1/MLResultProcess/AddMolecularBloodTestResult"
+        "AddMOLECULARBLOODTESTRESULT":"api/v1/MLResultProcess/AddMolecularBloodTestResult",
+        "ADDMOLECULARSPECIMENTESTRESULT":"api/v1/MLResultProcess/AddMolecularSpecimenTestResult"
     },
     "CHC_SAMPLE_REC":
     {

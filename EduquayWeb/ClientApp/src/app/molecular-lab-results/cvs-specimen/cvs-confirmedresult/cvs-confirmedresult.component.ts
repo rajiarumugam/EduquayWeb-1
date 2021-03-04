@@ -13,6 +13,15 @@ import { confirmSpecimenSamples, CvsSpecimenConfirmResponse } from 'src/app/shar
 import { CVSSpecimenService } from 'src/app/shared/molecularlab-results/CVS-specimen/cvs-specimen.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+declare var $: any 
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import * as moment from 'moment';
+import { ENDPOINT } from 'src/app/app.constant';
+import { GenericService } from 'src/app/shared/generic.service';
+import { HttpClientService } from 'src/app/shared/http-client.service';
+import Swal from 'sweetalert2';
+import { HplcPosBloodsamplesService } from 'src/app/shared/molecularlab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples.service';
 
 @Component({
   selector: 'app-cvs-confirmedresult',
@@ -30,6 +39,33 @@ export class CvsConfirmedresultComponent implements AfterViewInit, OnDestroy, On
   user: user;
   confirmSamplesErrorMessage;
 
+  popupData;
+  zygositylist;
+  mutuationList;
+  selecteZygosity = null;
+  selectemutuation = null;
+  selectedZygosityValue = null;
+  showMutation = false;
+  mutationText = "Mutation";
+  selectedZygosityValueText =  "";
+  selectemutuationText = "";
+  showMutation2 = false;
+  mutation3 = "";
+  selectedmutuation2 = null;
+  selectedmutuation2Text = "";
+  firstFormGroup: FormGroup;
+  firstFormCheck = false;
+  showZygosity = false;
+  showReason = false;
+  selectedreasonforClose = "";
+  receiveddateOptions: FlatpickrOptions = {
+    mode: 'single',
+    dateFormat: 'd/m/Y',
+    defaultDate: "",
+    maxDate: new Date(Date.now())
+  };
+  selectedTestDate;
+
   retrieveSpecimenConfSamplesResponse: CvsSpecimenConfirmResponse;
   testedConfirmSamples: confirmSpecimenSamples[];
 
@@ -43,7 +79,10 @@ export class CvsConfirmedresultComponent implements AfterViewInit, OnDestroy, On
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
     private loaderService: LoaderService,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private updateSamplesServiceService: HplcPosBloodsamplesService,
+    private genericService: GenericService,
+    private httpClientService:HttpClientService
   ) { }
 
   ngOnInit() {
@@ -70,14 +109,67 @@ export class CvsConfirmedresultComponent implements AfterViewInit, OnDestroy, On
       }
     };
 
+    this.firstFormGroup = this._formBuilder.group({
+      zygosity:[''],
+      maritalStatus:['true'],
+      reasonforClose:[""],
+      mutation1: [""],
+      mutation2:[""],
+      mutation3:[""],
+      testDate:[""]
+      
+   });
     // this.dateOfShipment = this.dateService.getDate();
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.confirmSamplesService.retrieveSpecimenSamplesCompleteApi);
     this.updateResultSamples(this.user.molecularLabId);
 
+    this.getZygosityList();
+    this.getAllMutuationList();
+
   }
 
-  updateResultSamples(molecularLabId) {
+  getZygosityList(){
+    this.updateSamplesServiceService.retrieveAllZygositylist()
+      .subscribe(response => { 
+
+        console.log(response);
+        this.zygositylist = response.data;
+      },
+        (err: HttpErrorResponse) => {
+          this.confirmSamplesErrorMessage = err.toString();
+        });
+
+  }
+  getAllMutuationList(){
+    this.updateSamplesServiceService.retrieveAllMutuationList()
+      .subscribe(response => { 
+
+        console.log(response);
+        this.mutuationList = response.data;
+      },
+        (err: HttpErrorResponse) => {
+          this.confirmSamplesErrorMessage = err.toString();
+        });
+
+  }
+  showPopup(data)
+  {
+      console.log(data);
+      this.popupData = data;
+      if(this.popupData.sampleDamaged)
+      {
+        this.showZygosity = true;
+        //this.showReason = false;
+      }
+      else
+      {
+        this.showZygosity = true;
+        //this.showReason = true;
+      }
+      $('#fadeinModal').modal('show');
+  }
+    updateResultSamples(molecularLabId) {
     this.loaderService.display(true);
     this.testedConfirmSamples = [];
     this.confirmSamplesService.getconfirmspecimenSampleList(molecularLabId)
@@ -117,6 +209,118 @@ export class CvsConfirmedresultComponent implements AfterViewInit, OnDestroy, On
       // Call the dtTrigger to rerender again       
       this.dtTrigger.next();
     });
+  }
+
+  sampleSubmit(index)
+  {
+    
+    this.firstFormCheck = true;
+
+    var _testResult = this.selectedZygosityValueText;
+    if(this.selectemutuation != null)
+    {
+      _testResult += "for "+this.selectemutuationText;
+    }
+    if(this.selectedmutuation2 != null)
+    {
+      _testResult += "and "+this.selectedmutuation2Text;
+    }
+    var _obj = {};
+    if(this.firstFormGroup.controls.maritalStatus.value === "true")
+    {
+      if(this.firstFormGroup.controls.testDate.value != undefined && this.firstFormGroup.valid && this.firstFormGroup.controls.zygosity.value != null) 
+      {
+        _obj['uniqueSubjectId'] = this.popupData.uniqueSubjectId;
+        _obj['barcodeNo'] = this.popupData.barcodeNo;
+        _obj['zygosityId'] = Number(this.firstFormGroup.controls.zygosity.value);
+        _obj['mutation1Id'] = Number(this.selectemutuation);
+        _obj['mutation2Id'] = this.selectedmutuation2 ? Number(this.selectedmutuation2) : 0;
+        _obj['mutation3'] = this.mutation3 != undefined ? this.mutation3 : "";
+        _obj['testResult'] = _testResult ;
+        _obj['sampleDamaged'] = this.popupData.sampleDamaged;
+        _obj['sampleProcessed'] =  this.firstFormGroup.controls.maritalStatus.value === "true" ? true : false;
+        _obj['completeStatus'] = index == '1' ? false : true;
+        _obj['reasonForClose'] = this.selectedreasonforClose != undefined ? this.selectedreasonforClose : "";
+        _obj['testDate'] = moment(new Date(this.firstFormGroup.controls.testDate.value)).format("DD/MM/YYYY");
+        _obj['userId'] = this.user.id;
+        _obj['molecularLabId'] = this.user.molecularLabId;
+        console.log(_obj);
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Confirm Update Molecular Test Results",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#ffffff', allowOutsideClick: false
+        }).then((result) => {
+          
+              this.submitData(_obj);
+          })
+      }
+      
+    }
+    else
+    {
+      if(this.firstFormGroup.controls.testDate.value != undefined && this.firstFormGroup.valid)
+      {
+        _obj['uniqueSubjectId'] = this.popupData.uniqueSubjectId;
+        _obj['barcodeNo'] = this.popupData.barcodeNo;
+        _obj['zygosityId'] = this.selectedZygosityValue;
+        _obj['mutation1Id'] = Number(this.selectemutuation);
+        _obj['mutation2Id'] = this.selectedmutuation2 ? Number(this.selectedmutuation2) : 0;
+        _obj['mutation3'] = this.mutation3 != undefined ? this.mutation3 : "";
+        _obj['testResult'] = _testResult ;
+        _obj['sampleDamaged'] = this.popupData.sampleDamaged;
+        _obj['sampleProcessed'] =  this.firstFormGroup.controls.maritalStatus.value === "true" ? true : false;
+        _obj['completeStatus'] = index == '1' ? false : true;
+        _obj['reasonForClose'] = this.selectedreasonforClose != undefined ? this.selectedreasonforClose : "";
+        _obj['testDate'] = moment(new Date(this.firstFormGroup.controls.testDate.value)).format("DD/MM/YYYY");
+        _obj['userId'] = this.user.id;
+        _obj['molecularLabId'] = this.user.molecularLabId;
+        console.log(_obj);
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Confirm Update Molecular Test Results",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#ffffff', allowOutsideClick: false
+        }).then((result) => {
+          
+              this.submitData(_obj);
+          })
+      }
+    }
+    
+  }
+  submitData(obj)
+  {
+      console.log(obj);
+      var apiUrl = this.genericService.buildApiUrl(ENDPOINT.SUBJECT.AddMOLECULARBLOODTESTRESULT);
+      this.httpClientService.post<any>({url:apiUrl, body: obj }).subscribe(response => {
+       console.log(response);
+if(response.status == "true")
+{
+      Swal.fire({icon:'success', title: response.message,
+      showCancelButton: false, cancelButtonText: 'Ok', allowOutsideClick: false })
+    .then((result) => {
+    if (result.value) {
+      $('#fadeinModal').modal('hide');
+      this.firstFormCheck = false;
+      this.firstFormGroup.reset();
+      //this.getpositiveSubjectList(this.user.id);
+      this.updateResultSamples(this.user.molecularLabId);
+      if(this.modalService.hasOpenModals){
+        this.modalService.dismissAll();
+      }
+    // this.router.navigateByUrl("app/anm-sample-collection");
+    
+    }
+    })
+}
+});     
   }
 
   ngAfterViewInit(): void {
