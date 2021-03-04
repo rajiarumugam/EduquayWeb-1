@@ -40,9 +40,9 @@ export class ViewResultMLComponent implements OnInit {
   addCounsellingResponse: AddPrePndtcCounsellingResponse;
   prePndtFileUploadResponse: prePndtFileUploadResponse;
   prePNDTCFileDetails: FileDetails;
-  counsellinglists: CounsellingList[] = [];
+  counsellinglists = [];
   anwSubjectId: string;
-  counsellingdataItem: CounsellingList;
+  counsellingdataItem;
   selectedobstetrician: string = '';
   obstetricianlists: dataModel[] = [];
   user: user;
