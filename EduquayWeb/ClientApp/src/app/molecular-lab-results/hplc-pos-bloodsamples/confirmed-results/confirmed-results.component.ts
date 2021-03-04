@@ -122,7 +122,11 @@ export class ConfirmedResultsComponent implements AfterViewInit, OnDestroy, OnIn
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }
-
+  showViewScrren(data)
+  {
+        console.log(data);
+        this.router.navigateByUrl(`/app/view-ml-result?q=${data.uniqueSubjectId}&sc=confirm`);
+  }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
