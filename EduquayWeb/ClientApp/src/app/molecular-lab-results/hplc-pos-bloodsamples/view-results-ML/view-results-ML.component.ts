@@ -33,7 +33,7 @@ export class ViewResultMLComponent implements OnInit {
   updatepndtcErrorMessage: string;
   //masterdataErrorMessage: string;
 
-  pndtmtpMasterResponse: PndtMtpMasterResponse;
+  pndtmtpMasterResponse;
   counsellingprepndtRequest: CounsellPrePndtResquest;
   counsellingprepndtResponse;
   addCounsellingRequest: AddPrePndtCounsellingRequest;
