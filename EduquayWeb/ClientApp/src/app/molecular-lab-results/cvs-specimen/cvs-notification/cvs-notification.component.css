@@ -1,0 +1,15 @@
+.molecular-lab-test-result
+{
+    border: 1px solid #000;
+    padding: 10px;
+    margin:20px 0;
+}
+
+.red-border-class
+{
+    border: 1px solid red;
+}
+.label-border-class
+{
+    color: red !important;
+}
