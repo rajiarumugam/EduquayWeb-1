@@ -391,6 +391,12 @@ if(response.status == "true")
         this.showMutation2 = false;
       }
   }
+
+  showViewScrren(data)
+  {
+        console.log(data);
+        this.router.navigateByUrl(`/app/view-ml-result?q=${data.uniqueSubjectId}&sc=update`);
+  }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

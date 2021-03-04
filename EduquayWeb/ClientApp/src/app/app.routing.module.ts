@@ -289,6 +289,7 @@ import { pndtcShipmentResolverService } from  "./shared/pndtc/shipment-resolver.
 import { MolecularSampleRcptCVCComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rec-cvc/molecular-sample-rec-cvc.component";
 import { MolecularSampleRcptCVCMainComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rcpt-cvc-main/molecular-sample-rcpt-cvc-main.component";
 import { MLSampleRcptCSVResolverService } from "./shared/molecularlab/ml-sample-rcpt-csv-resolver.servic";
+import { ViewResultMLComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/view-results-ML/view-results-ML.component";
 
 import { UpdatePregnacyMainComponent } from "./Haematologist/update-pregnacy-main/update-pregnacy-main.component";
 import { UpdatePregnacyComponent } from "./Haematologist/update-pregnacy/update-pregnacy.component";
@@ -670,7 +671,7 @@ const routes: Routes = [
           
         ]
       },
-      
+      { path: 'view-ml-result', component: ViewResultMLComponent },
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
       { path: 'update-pregnancy-details', component: UpdatePregnacyTestresultsComponent },
       
@@ -946,7 +947,8 @@ export const RoutingComponents = [
   MolecularSampleRcptCVCMainComponent,
   UpdatePregnacyMainComponent,
   UpdatePregnacyComponent,
-  UpdatePregnacyTestresultsComponent
+  UpdatePregnacyTestresultsComponent,
+  ViewResultMLComponent
 
 ];
 
