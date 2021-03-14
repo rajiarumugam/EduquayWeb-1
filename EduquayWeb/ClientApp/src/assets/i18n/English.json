@@ -298,7 +298,6 @@
 "Father'sContact":"Father's Contact",
 "Guardian’sContact":"Guardian’s Contact",
 "ViewSubjectProfile": "View Subject Profile",
-
 "SampleRcpt":"Sample Rcpt",
 "Update_CBC_Results":"Update CBC Results",
 "ReportSampleStatus":"Report - Sample Status",
@@ -566,5 +565,20 @@
 "Mutation":"Mutation",
 "ConfirmResult":"Confirm Result",
 "SaveEditLater":"Save & Edit Later",
-"Update Molecular Test Results - HPLC Positive Blood Sample":"Update Molecular Test Results - HPLC Positive Blood Sample"
+"Update Molecular Test Results - HPLC Positive Blood Sample":"Update Molecular Test Results - HPLC Positive Blood Sample",
+"Error Correction":"Error Correction",
+"BARCODEMENUBAR":"BARCODE",
+"RCHMENUBAR":"RCH",
+"LMPMENUBAR":"LMP",
+"Barcode Correction":"Barcode Correction",
+"Pending Barcode Errors":"Pending Barcode Errors",
+"ANMContact":"ANM Contact",
+"DCName":"DC Name",
+"DCContact":"DC Contact",
+"ANMLoginStatus":"ANM - Login Status",
+"DCContact":"DC Contact",
+"DCID":"DC ID",
+"OldBarcode":"OLD BARCODE",
+"REVISEDBARCODE":"REVISED BARCODE",
+"Update Barcode":"Update Barcode"
 }
