@@ -133,11 +133,9 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
       phcId: 0,
       anmId: 0
     };
-    console.log(this.dataservice.getdata().csvspecimenstartdata);
    
     let counsellingdata = this.counsellingprepndtService.retrievePNDTPickAndPack()
       .subscribe(response => {
-        console.log(response);
         this.counsellingprepndtResponse = response;
         this.loaderService.display(false);
         if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
@@ -154,8 +152,6 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
               this.counsellingStartlist.forEach(function(element,index) {
                   this.counsellingTemplists.forEach(function(val,ind) 
                   {
-                      console.log(element);
-                      console.log(val);
                       if(element.rchId === val.rchId)
                       {
                         this.counsellingTemplists.splice(ind,1);
@@ -191,7 +187,6 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   {
     this.masterService.retriveReceivingMocularLab()
     .subscribe(response => {
-      console.log(response);
       this.molecularLabData = response.data;
     },
     (err: HttpErrorResponse) =>{
@@ -360,8 +355,6 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   clicksearchBarcode()
   {
     let term = this.searchbarcode;
-    console.log(term);
-    console.log(this.counsellinglists);
     var _index = this.counsellinglists.findIndex(com => com.rchId === term);
     if(_index >= 0)
     {
@@ -374,52 +367,54 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
     var _tempSliceArr = [];
     var _tempRemainingArray = [];
     
-    var _index = this.counsellingStartlist.findIndex(com => com.rchId === term);
-    console.log(_index);
-    if(_index >= 0)
+    if(term.length === 12)
     {
-      this.searchbarcode = ""; 
-      return;
-    }
-    var _tempCounsellingList = JSON.parse(JSON.stringify(this.counsellinglists));
-
-    for(var i=0;i<this.counsellinglists.length;i++)
-    {
-        if(term === this.counsellinglists[i].rchId)
-        {
-          this.checkAllEnabled = true;
-          this.counsellinglists[i]['checked'] = true;
-          this.counsellingStartlist.push(this.counsellinglists[i]);
-          _tempSliceArr.push(i);
-         // _tempCounsellingList.splice(i,1); 
-        }
-    }
-      _tempCounsellingList.forEach(function(element,k) {
-        var _keepGoing = true;
-        for(var j=0;j<_tempSliceArr.length;j++)
-        {
-              if(_tempSliceArr[j] == k)
-              {
-                _keepGoing = false;
-              }
-        }
-      if(_keepGoing)
-          _tempRemainingArray.push(element);
-      });
+      var _index = this.counsellingStartlist.findIndex(com => com.rchId === term);
+      if(_index >= 0)
+      {
+        this.searchbarcode = ""; 
+        return;
+      }
+      var _tempCounsellingList = JSON.parse(JSON.stringify(this.counsellinglists));
+  
+      for(var i=0;i<this.counsellinglists.length;i++)
+      {
+          if(term === this.counsellinglists[i].rchId)
+          {
+            this.checkAllEnabled = true;
+            this.counsellinglists[i]['checked'] = true;
+            this.counsellingStartlist.push(this.counsellinglists[i]);
+            _tempSliceArr.push(i);
+           // _tempCounsellingList.splice(i,1); 
+          }
+      }
+        _tempCounsellingList.forEach(function(element,k) {
+          var _keepGoing = true;
+          for(var j=0;j<_tempSliceArr.length;j++)
+          {
+                if(_tempSliceArr[j] == k)
+                {
+                  _keepGoing = false;
+                }
+          }
+        if(_keepGoing)
+            _tempRemainingArray.push(element);
+        });
+        
+      this.rerender();
       
-    this.rerender();
+      this.searchbarcode = ""; 
+      this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
+           
+      this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
+    }
     
-    this.searchbarcode = ""; 
-    this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
-         
-    this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
           //this.counsellingTemplists = JSON.parse(JSON.stringify(_tempRemainingArray));
 
 
   }
   selectAll(event)
   {
-      console.log(event);
       this.counsellingStartlist = [];
       this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
       this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellingTemplists.length,"start":this.counsellingStartlist.length}));
@@ -456,7 +451,6 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   submitShipment()
   {
       this.firstFormCheck = true;
-      console.log(this.firstFormGroup.valid);
 
   if(this.firstFormGroup.valid)
   {
@@ -477,7 +471,6 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
       _obj['pndtLocationId'] = this.user.pndtLocationId;
       _obj['userId'] = this.user.id;
       
-      console.log(_obj);
 
       this.chcshipmentService.addPNDTShipment(_obj)
       .subscribe(response => {

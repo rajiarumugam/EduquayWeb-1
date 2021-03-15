@@ -580,5 +580,6 @@
 "DCID":"DC ID",
 "OldBarcode":"OLD BARCODE",
 "REVISEDBARCODE":"REVISED BARCODE",
-"Update Barcode":"Update Barcode"
+"Update Barcode":"Update Barcode",
+"Molecular Lab Test Date":"Molecular Lab Test Date"
 }

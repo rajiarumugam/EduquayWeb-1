@@ -87,7 +87,7 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "submodule":"Update Molecular Test Results – CVS Specimen", "page": "Update Result"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab - Receipt", "submodule":"Sample Receipt - CVS Specimen", "page": ""}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',

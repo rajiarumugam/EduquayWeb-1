@@ -83,7 +83,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "submodule":"Update Molecular Test Results - HPLC Positive Blood Sample", "page": "Update Result"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab - Receipt", "submodule":"Sample Receipt - HPLC Positive Blood Sample", "page": ""}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -276,6 +276,10 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
     if(this.selectedmutuation2 != null)
     {
       _testResult += "and "+this.selectedmutuation2Text;
+    }
+    if(this.mutation3 != null)
+    {
+      _testResult += "and "+this.mutation3;
     }
     var _obj = {};
     if(this.firstFormGroup.controls.maritalStatus.value === "true")
