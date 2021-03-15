@@ -90,7 +90,7 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "submodule":"Update Molecular Test Results - HPLC Positive Blood Sample", "page": "Edit Result"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Update Molecular Test Results", "submodule":"HPLC Positive Blood Sample", "page": "Edit Result"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dtOptions = {
       pagingType: 'simple_numbers',
