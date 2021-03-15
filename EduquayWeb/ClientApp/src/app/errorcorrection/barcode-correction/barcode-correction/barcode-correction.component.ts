@@ -118,10 +118,7 @@ export class BarcodeCorrectionComponent implements OnInit {
         console.log(String(this.secondFormGroup.get('barcode').value).length)
         if(String(this.secondFormGroup.get('barcode').value).length === 6)
         {
-        Swal.fire({icon:'success', title: 'Do you want to update?',
-              showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-           .then((result) => {
-             if (result.value) {
+      
               
              
               this.errorCorrectionService.checkBarcodeExist(this.secondFormGroup.get('barcode').value)
@@ -129,7 +126,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                 console.log(response);
                 if(response.barcodeExist)
                 {
-                  Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+this.popupData.subjectId+', Subject Name : '+this.popupData.subjectName+', ANM ID : '+this.popupData.anmCode+', ANM Name : '+this.popupData.anmName+', DC ID : '+this.popupData.dcContact+', DC Name : '+this.popupData.dcName+', Contact number : '+this.popupData.anmContact+'. DO YOU WANT to OVERWRITE ?',
+                  Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC ID : '+response.data.dcContact+', DC Name : '+response.data.dcName+', Contact number : '+response.data.anmContact+'. DO YOU WANT to OVERWRITE ?',
                   showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                .then((result) => {
                  if (result.value) {
@@ -145,19 +142,24 @@ export class BarcodeCorrectionComponent implements OnInit {
                 }
                 else
                 {
+                  Swal.fire({icon:'success', title: 'Do you want to update?',
+                  showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+               .then((result) => {
+                 if (result.value) {
                   this.updateBarcode();
                 }
+                else{
+              
+                }
+               
               },
                 (err: HttpErrorResponse) => {
                   //this.showResponseMessage(err.toString(), 'e');
                 });
              
              }
-             else{
-              
-             }
+             
             });
-       
           
 
         }
