@@ -142,20 +142,31 @@ export class BarcodeCorrectionComponent implements OnInit {
                 }
                 else
                 {
-                  Swal.fire({icon:'success', title: 'Do you want to update?',
-                  showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-               .then((result) => {
-                 if (result.value) {
-                  this.updateBarcode();
-                }
-                else{
-              
-                }
-               
-              },
+                  if(response.barcodeValid)
+                  {
+                          Swal.fire({icon:'success', title: 'Do you want to update?',
+                        showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+                    .then((result) => {
+                      if (result.value) {
+                        this.updateBarcode();
+                      }
+                      else{
+                       
+                      }
+                    
+                    })
+                  }
+                  else{
+                    Swal.fire({icon:'error', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
+                    .then((result) => {
+                     
+                      $('#fadeinModal').modal('hide');
+                    })
+                  }
+                  
                 (err: HttpErrorResponse) => {
                   //this.showResponseMessage(err.toString(), 'e');
-                });
+                };
              
              }
              
