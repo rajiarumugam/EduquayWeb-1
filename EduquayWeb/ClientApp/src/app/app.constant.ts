@@ -126,6 +126,13 @@ export const ENDPOINT = {
         "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
         "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail",
         "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList"
+    },
+    "ERRORCORRECTION":
+    {
+        "RETRIVEBARCODEFORERRORCORRECTION":"api/v1/Support/RetrieveBarcodeDetailsForErrorCorrection/",
+        "CHECKBARCODEEXIST":"api/v1/Support/CheckBarcodeExist/",
+        "UPDATEBARCODEERROR":"api/v1/Support/UpdateBarcodeError",
+        "RETRIVEERRORBARCODE":"api/v1/Support/RetrieveErrorBarcodeDetails"
     }
 
 }

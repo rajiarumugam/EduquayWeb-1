@@ -294,6 +294,11 @@ import { ViewResultMLComponent } from "./molecular-lab-results/hplc-pos-bloodsam
 import { UpdatePregnacyMainComponent } from "./Haematologist/update-pregnacy-main/update-pregnacy-main.component";
 import { UpdatePregnacyComponent } from "./Haematologist/update-pregnacy/update-pregnacy.component";
 import { UpdatePregnacyTestresultsComponent } from "./Haematologist/update-pregnacy-testresults/update-pregnacy-testresults.component";
+
+import { BarcodeCorrectionMainComponent } from "./errorcorrection/barcode-correction/barcode-correction-main/barcode-correction-main.component";
+import { BarcodeCorrectionComponent } from "./errorcorrection/barcode-correction/barcode-correction/barcode-correction.component";
+import { errorcodeResolverService } from "./shared/errorcorrection/errorcode-resolver.service";
+import { BarcodePendingComponent } from "./errorcorrection/barcode-correction/barcode-pending/barcode-pending.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -482,6 +487,13 @@ const routes: Routes = [
         children:[
           {path: '', component: CentralPickPackPendingComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCPickAndPackResolverService}},
           {path: 'start', component: CentralPickPackStartComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCPickAndPackResolverService}}
+        ]
+      },
+      {
+        path: 'errorcorrection', component: BarcodeCorrectionMainComponent,
+        children:[
+          {path: '', component: BarcodeCorrectionComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}},
+          {path: 'pending', component: BarcodePendingComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}}
         ]
       },
       {
@@ -948,7 +960,10 @@ export const RoutingComponents = [
   UpdatePregnacyMainComponent,
   UpdatePregnacyComponent,
   UpdatePregnacyTestresultsComponent,
-  ViewResultMLComponent
+  ViewResultMLComponent,
+  BarcodeCorrectionMainComponent,
+  BarcodeCorrectionComponent,
+  BarcodePendingComponent
 
 ];
 
