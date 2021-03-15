@@ -157,7 +157,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                     })
                   }
                   else{
-                    Swal.fire({icon:'error', title: "Your Reveiced Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
+                    Swal.fire({icon:'error', title: "Your Received Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
                     .then((result) => {
                      
                       $('#fadeinModal').modal('hide');
