@@ -3,8 +3,12 @@
     <form class="form-inline my-2 my-lg-0" style="margin-top:30px !important;">
         <div class="w-100">
             <input type="text" class="w-100 form-control product-search br-30"
-                name="searchbarcode" type="text" placeholder="Scan / Enter RCH ID"
-                [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()">
+                name="searchbarcode" type="text" placeholder="Enter RCH ID"
+                [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()" maxlength="12" numbersOnly autocomplete="off"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" >
+
+               
+
             <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor"

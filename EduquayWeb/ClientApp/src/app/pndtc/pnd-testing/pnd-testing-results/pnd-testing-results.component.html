@@ -537,7 +537,7 @@
                                                     <tr>
                                                         <th class="text-center"><span>{{'SampleRefID' | translate}}</span></th>
                                                         <th class="text-center"><span>{{'NameofFoetus' | translate}}</span></th>
-                                                        <th class="text-center"><span>{{'CVSSampleRefID' | translate}}</span></th>
+                                                        <th class="text-center"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
                                                     </tr>
             
                                                 </thead>
@@ -545,7 +545,7 @@
                                                     <tr *ngFor="let data of foutesArray;let i=index">
                                                         <td class="text-left">{{data.sampleRefId}}</td>
                                                         <td class="text-left">{{data.foetusname}}</td>
-                                                        <td class="text-left"><input type="text" [(ngModel)]="data.CSV" [ngClass]="{'red-border-class': secondFormCheck && data.CSV == '' }"></td>
+                                                        <td class="text-left"><input type="text" [(ngModel)]="data.CSV" [ngClass]="{'red-border-class': secondFormCheck && data.CSV == '' }" placeholder="Scan/Enter CVS Specimen Ref ID" style="width:100%;"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

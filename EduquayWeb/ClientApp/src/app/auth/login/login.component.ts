@@ -10,6 +10,7 @@ import { HttpClientService } from 'src/app/shared/http-client.service';
 import { GenericService } from 'src/app/shared/generic.service';
 import { AuthRequest } from 'src/app/shared/auth-request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,8 @@ export class LoginComponent implements OnInit {
       private route: ActivatedRoute,
       private el: ElementRef,
       private httpClientService:HttpClientService,
-      private genericService: GenericService
+      private genericService: GenericService,
+      private dataservice: DataService,
     ) { }
 
   ngOnInit() {
@@ -67,6 +69,7 @@ export class LoginComponent implements OnInit {
           this.tokenService.setToken('currentUser', this.authResult.token, 'somename');
           this.tokenService.setUser('lu', this.authResult.userDetail);
           console.log(this.authResult.userDetail);
+          this.dataservice.deleteProp('csvspecimenstartdata');
           if(this.authResult.userDetail.userRole === "ANM")
               this.router.navigate(['/app/anm-notification'], { relativeTo: this.route });
           else if(this.authResult.userDetail.userRole === "CHCLTLEVEL1" || this.authResult.userDetail.userRole === "CHCSRLT")

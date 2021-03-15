@@ -88,7 +88,7 @@ export class ScheduleShipmentComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Shipment Log"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Schedule & Counsel (Pre-PNDT)/Shipment", "page": "Shipment Log"}));
     this.form = this._formBuilder.group({
       processingDate: ['', Validators.required],
       receivedDate: ["", Validators.required]
