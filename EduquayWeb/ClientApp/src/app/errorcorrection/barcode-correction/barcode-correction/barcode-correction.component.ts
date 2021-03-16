@@ -126,35 +126,21 @@ export class BarcodeCorrectionComponent implements OnInit {
                 console.log(response);
                 if(response.barcodeExist)
                 {
-                  Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC ID : '+response.data.dcContact+', DC Name : '+response.data.dcName+', Contact number : '+response.data.anmContact+'. DO YOU WANT to OVERWRITE ?',
-                  showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-               .then((result) => {
-                 if (result.value) {
-                  
-                    console.log("hitting here");
-                    this.updateBarcode();
-                 
-                 }
-                 else{
-                  
-                 }
-                });
-                }
-                else
-                {
                   if(response.barcodeValid)
                   {
-                          Swal.fire({icon:'success', title: 'Do you want to update?',
-                        showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-                    .then((result) => {
-                      if (result.value) {
-                        this.updateBarcode();
-                      }
-                      else{
-                       
-                      }
+                    Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC ID : '+response.data.dcContact+', DC Name : '+response.data.dcName+', Contact number : '+response.data.anmContact+'. DO YOU WANT to OVERWRITE ?',
+                    showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+                 .then((result) => {
+                   if (result.value) {
                     
-                    })
+                      console.log("hitting here");
+                      this.updateBarcode();
+                   
+                   }
+                   else{
+                    
+                   }
+                  });
                   }
                   else{
                     Swal.fire({icon:'error', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
@@ -163,12 +149,26 @@ export class BarcodeCorrectionComponent implements OnInit {
                       $('#fadeinModal').modal('hide');
                     })
                   }
-                  
+                 
+                }
+                else
+                {
+                  Swal.fire({icon:'success', title: 'Do you want to update?',
+                  showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+                  .then((result) => {
+                    if (result.value) {
+                      this.updateBarcode();
+                    }
+                    else{
+                    
+                    }
+                })
+                }
                 (err: HttpErrorResponse) => {
                   //this.showResponseMessage(err.toString(), 'e');
                 };
              
-             }
+           
              
             });
           
