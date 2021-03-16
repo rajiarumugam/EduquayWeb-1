@@ -119,10 +119,7 @@ export class BarcodePendingComponent implements OnInit {
         console.log(String(this.secondFormGroup.get('barcode').value).length)
         if(String(this.secondFormGroup.get('barcode').value).length === 6)
         {
-        Swal.fire({icon:'success', title: 'Do you want to update?',
-              showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-           .then((result) => {
-             if (result.value) {
+      
               
              
               this.errorCorrectionService.checkBarcodeExist(this.secondFormGroup.get('barcode').value)
@@ -130,7 +127,7 @@ export class BarcodePendingComponent implements OnInit {
                 console.log(response);
                 if(response.barcodeExist)
                 {
-                  Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+this.popupData.subjectId+', Subject Name : '+this.popupData.subjectName+', ANM ID : '+this.popupData.anmCode+', ANM Name : '+this.popupData.anmName+', DC ID : '+this.popupData.dcContact+', DC Name : '+this.popupData.dcName+', Contact number : '+this.popupData.anmContact+'. DO YOU WANT to OVERWRITE ?',
+                  Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC ID : '+response.data.dcContact+', DC Name : '+response.data.dcName+', Contact number : '+response.data.anmContact+'. DO YOU WANT to OVERWRITE ?',
                   showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                .then((result) => {
                  if (result.value) {
@@ -146,19 +143,35 @@ export class BarcodePendingComponent implements OnInit {
                 }
                 else
                 {
-                  this.updateBarcode();
-                }
-              },
+                  if(response.barcodeValid)
+                  {
+                          Swal.fire({icon:'success', title: 'Do you want to update?',
+                        showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
+                    .then((result) => {
+                      if (result.value) {
+                        this.updateBarcode();
+                      }
+                      else{
+                       
+                      }
+                    
+                    })
+                  }
+                  else{
+                    Swal.fire({icon:'error', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
+                    .then((result) => {
+                     
+                      $('#fadeinModal').modal('hide');
+                    })
+                  }
+                  
                 (err: HttpErrorResponse) => {
                   //this.showResponseMessage(err.toString(), 'e');
-                });
+                };
              
              }
-             else{
-              
-             }
+             
             });
-       
           
 
         }
@@ -183,14 +196,6 @@ export class BarcodePendingComponent implements OnInit {
         .then((result) => {
           this.centralReceiptsData = [];
           $('#fadeinModal').modal('hide');
-          this.errorCorrectionService.getErrorDetails().subscribe(response1 => {
-            this.centralPickpackPendingData = response1.data;    
-            this.rerender();     
-          },
-          (err: HttpErrorResponse) => {
-            //this.showResponseMessage(err.toString(), 'e');
-          });
-        
         })
       },
       (err: HttpErrorResponse) => {
