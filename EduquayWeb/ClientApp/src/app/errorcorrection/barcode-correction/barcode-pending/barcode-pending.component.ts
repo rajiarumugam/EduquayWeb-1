@@ -71,6 +71,7 @@ export class BarcodePendingComponent implements OnInit {
     });
     this.centralReceiptsData = [];
 
+    //this.getErrorDetailst();
    
     
     var centralReceiptsArr = this.route.snapshot.data.positiveSubjects;
@@ -103,13 +104,25 @@ export class BarcodePendingComponent implements OnInit {
     {
         console.log(data);
         this.popupData = data;
-        
+        this.selectedRevisedBarcode = "";
         $('#fadeinModal').modal('show');
     }
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     } 
   
+    getErrorDetailst()
+    {
+      this.errorCorrectionService.getErrorDetails()
+              .subscribe(response => {
+                console.log(response);
+                this.centralPickpackPendingData = response.data;
+                this.rerender();
+              },
+              (err: HttpErrorResponse) => {
+                //this.showResponseMessage(err.toString(), 'e');
+              })
+    }
     sampleSubmit()
     {
       this.searchbarcode = "";
@@ -194,8 +207,8 @@ export class BarcodePendingComponent implements OnInit {
 
         Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
         .then((result) => {
-          this.centralReceiptsData = [];
           $('#fadeinModal').modal('hide');
+          this.getErrorDetailst();
         })
       },
       (err: HttpErrorResponse) => {

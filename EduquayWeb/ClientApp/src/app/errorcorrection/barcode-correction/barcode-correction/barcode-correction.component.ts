@@ -102,7 +102,7 @@ export class BarcodeCorrectionComponent implements OnInit {
     {
         console.log(data);
         this.popupData = data;
-        
+        this.selectedRevisedBarcode = "";
         $('#fadeinModal').modal('show');
     }
     ngAfterViewInit(): void {
@@ -193,8 +193,9 @@ export class BarcodeCorrectionComponent implements OnInit {
 
         Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
         .then((result) => {
-          this.centralReceiptsData = [];
+          this.centralPickpackPendingData = [];
           $('#fadeinModal').modal('hide');
+          this.rerender();
         })
       },
       (err: HttpErrorResponse) => {
