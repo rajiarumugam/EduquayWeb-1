@@ -128,7 +128,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                 {
                   if(response.barcodeValid)
                   {
-                    Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC ID : '+response.data.dcContact+', DC Name : '+response.data.dcName+', Contact number : '+response.data.anmContact+'. DO YOU WANT to OVERWRITE ?',
+                    Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC Contact : '+response.data.dcContact+', DC Name : '+response.data.dcName+'. DO YOU WANT to OVERWRITE ?',
                     showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                  .then((result) => {
                    if (result.value) {
@@ -143,7 +143,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                   });
                   }
                   else{
-                    Swal.fire({icon:'error', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
+                    Swal.fire({icon:'warning', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
                     .then((result) => {
                      
                       $('#fadeinModal').modal('hide');
@@ -153,7 +153,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                 }
                 else
                 {
-                  Swal.fire({icon:'success', title: 'Do you want to update?',
+                  Swal.fire({icon:'warning', title: 'Please confirm to update?',
                   showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                   .then((result) => {
                     if (result.value) {
