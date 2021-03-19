@@ -92,7 +92,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <h6 class="ml-2"><b>{{'OldBarcode' | translate }} : </b><br> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.barcodeNo}} </span></h6>
                                 </div>
                                 <div class="col-md-3" [formGroup]="secondFormGroup">
-                                    <h6 class="ml-2"><b>{{'REVISEDBARCODE' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="number" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "barcode" [ngClass]="{'red-border-class':(secondFormCheck && secondFormGroup.controls.barcode.invalid) || barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    <h6 class="ml-2"><b>{{'REVISEDBARCODE' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="test" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "barcode" [ngClass]="{'red-border-class':(secondFormCheck && secondFormGroup.controls.barcode.invalid) || barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength = "6"> </span></h6>
                                 </div>
                                
