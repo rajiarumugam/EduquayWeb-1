@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TokenService } from '../../../shared/token.service';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 @Component({
   selector: 'app-barcode-correction',
@@ -42,11 +43,13 @@ export class BarcodeCorrectionComponent implements OnInit {
     private DataService:DataService,
     private errorCorrectionService: errorCorrectionService,
     private _formBuilder: FormBuilder,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private loaderService: LoaderService,
     ) { }
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.loaderService.display(false);
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 20,
@@ -116,10 +119,11 @@ export class BarcodeCorrectionComponent implements OnInit {
         this.barcodeValid = false;
         console.log(this.secondFormGroup.get('barcode').value);
         console.log(String(this.secondFormGroup.get('barcode').value).length)
+        
         if(String(this.secondFormGroup.get('barcode').value).length === 6)
         {
       
-              
+          this.loaderService.display(true);
              
               this.errorCorrectionService.checkBarcodeExist(this.secondFormGroup.get('barcode').value)
               .subscribe(response => {
@@ -128,12 +132,14 @@ export class BarcodeCorrectionComponent implements OnInit {
                 {
                   if(response.barcodeValid)
                   {
+                    this.loaderService.display(false);
                     Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC Contact : '+response.data.dcContact+', DC Name : '+response.data.dcName+'. DO YOU WANT to OVERWRITE ?',
                     showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                  .then((result) => {
                    if (result.value) {
                     
                       console.log("hitting here");
+                      
                       this.updateBarcode();
                    
                    }
@@ -143,6 +149,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                   });
                   }
                   else{
+                    this.loaderService.display(false);
                     Swal.fire({icon:'warning', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
                     .then((result) => {
                      
@@ -153,6 +160,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                 }
                 else
                 {
+                  this.loaderService.display(false);
                   Swal.fire({icon:'warning', title: 'Please confirm to update?',
                   showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                   .then((result) => {
@@ -165,6 +173,7 @@ export class BarcodeCorrectionComponent implements OnInit {
                 })
                 }
                 (err: HttpErrorResponse) => {
+                  this.loaderService.display(false);
                   //this.showResponseMessage(err.toString(), 'e');
                 };
              
@@ -180,8 +189,26 @@ export class BarcodeCorrectionComponent implements OnInit {
         }
         //if(String(this.selectedRevisedBarcode).length)
     }
+    getErrorDetailst()
+    {
+      this.loaderService.display(true);
+      this.errorCorrectionService.getErrorDetails()
+              .subscribe(response => {
+                console.log(response);
+                //this.centralPickpackPendingData = response.data;
+                var _tempData = response.data;
+                this.DataService.sendData(JSON.stringify({'screen':'errorBarcode','page':"","pendingcount":0,"startpickCount":_tempData.length, "module": "Error Correction", "pagealter": "Barcode"}));
+                this.rerender();
+                this.loaderService.display(false);
+              },
+              (err: HttpErrorResponse) => {
+                this.loaderService.display(false);
+                //this.showResponseMessage(err.toString(), 'e');
+              })
+    }
     updateBarcode()
     {
+      this.loaderService.display(true);
       var _obj = {};
       _obj['barcodeNo'] = this.popupData.barcodeNo;
       _obj['revisedBarcodeNo'] = String(this.secondFormGroup.get('barcode').value);
@@ -190,15 +217,18 @@ export class BarcodeCorrectionComponent implements OnInit {
       this.errorCorrectionService.updateBarcodeError(_obj)
       .subscribe(response => {
         
-
+        this.loaderService.display(false);
         Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
         .then((result) => {
           this.centralPickpackPendingData = [];
           $('#fadeinModal').modal('hide');
+          this.getErrorDetailst();
+          
           this.rerender();
         })
       },
       (err: HttpErrorResponse) => {
+        this.loaderService.display(false);
         //this.showResponseMessage(err.toString(), 'e');
       });
     }
@@ -211,15 +241,17 @@ export class BarcodeCorrectionComponent implements OnInit {
     {
       let term = this.searchbarcode;
       console.log(term);
-
+      this.loaderService.display(true);
       this.errorCorrectionService.getErrorCorrectionDetails(term)
       .subscribe(response => {
         console.log(response);
         this.centralPickpackPendingData = response.data;
+        this.loaderService.display(false);
         this.rerender();
         
       },
         (err: HttpErrorResponse) => {
+          this.loaderService.display(false);
           //this.showResponseMessage(err.toString(), 'e');
         });
       
