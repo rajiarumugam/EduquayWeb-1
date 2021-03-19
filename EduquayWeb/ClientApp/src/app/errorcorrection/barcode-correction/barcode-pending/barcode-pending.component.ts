@@ -142,7 +142,7 @@ export class BarcodePendingComponent implements OnInit {
                 {
                   if(response.barcodeValid)
                   {
-                    Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC ID : '+response.data.dcContact+', DC Name : '+response.data.dcName+', Contact number : '+response.data.anmContact+'. DO YOU WANT to OVERWRITE ?',
+                    Swal.fire({icon:'warning', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC Contact : '+response.data.dcContact+', DC Name : '+response.data.dcName+'. DO YOU WANT to OVERWRITE ?',
                     showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                  .then((result) => {
                    if (result.value) {
@@ -167,7 +167,7 @@ export class BarcodePendingComponent implements OnInit {
                 }
                 else
                 {
-                  Swal.fire({icon:'success', title: 'Do you want to update?',
+                  Swal.fire({icon:'warning', title: 'Please confirm to update?',
                   showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
                   .then((result) => {
                     if (result.value) {
