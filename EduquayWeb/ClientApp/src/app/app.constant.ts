@@ -16,13 +16,16 @@ export const ENDPOINT = {
         "RETRIEVEMOLECULARLAB":"api/v1/WebMaster/RetrieveMolecularLab/",
         "RETRIVEANM":"api/v1/WebMaster/RetrieveANM/",
         "RETRIVEMOLECULARRESULT":"api/v1/WebMaster/RetrieveMolecularResult",
-        "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/"
+        "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/",
+        "RETRIVEALLPNDTLOCATION":"api/v1/WebMaster/RetrieveAllPNDTLocation"
     },
     "SUBJECT":
     {
         "ADD":"api/v1/Subject/Add",
         "RETRIVE":"api/v1/Subject/RetrieveANWSubjects",
-        "RETRIVECHCANWPOSITIVESUBJECTS":"api/v1/Subject/RetrieveCHCANWPositiveSubjects"
+        "RETRIVECHCANWPOSITIVESUBJECTS":"api/v1/Subject/RetrieveCHCANWPositiveSubjects",
+        "AddMOLECULARBLOODTESTRESULT":"api/v1/MLResultProcess/AddMolecularBloodTestResult",
+        "ADDMOLECULARSPECIMENTESTRESULT":"api/v1/MLResultProcess/AddMolecularSpecimenTestResult"
     },
     "CHC_SAMPLE_REC":
     {
@@ -72,9 +75,12 @@ export const ENDPOINT = {
     "PNDT":
     {
         "RETRIVEPNDTPENDING":"api/v1/PNDTObstetrician/RetrievePNDTPending",
-        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDTest",
+        "ADDPNDTEST":"api/v1/PNDTObstetrician/ADDPNDT",
         "RETRIVEPNDTCOMPLETEDSUMMARY":"api/v1/PNDTObstetrician/RetrievePNDTCompletedSummary",
-        "RETRIVEPNDTNOTCOMPLETED":"api/v1/PNDTObstetrician/RetrievePostPNDTNotCompleted"
+        "RETRIVEPNDTNOTCOMPLETED":"api/v1/PNDTObstetrician/RetrievePostPNDTNotCompleted",
+        "RETRIVEPNDTPICKANDPACK":"api/v1/PNDTC/RetrievePNDTPickAndPack/",
+        "ADDPNDTSHIPMENT":"api/v1/PNDTC/AddPNDTShipment",
+        "RETRIVEPNDTCSHIPMENTLOG":"api/v1/PNDTC/RetrievePNDTShipmentLog/"
     },
     "PNDTMASTER":
     {
@@ -90,7 +96,8 @@ export const ENDPOINT = {
         "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions",
         "RETRIVEBLOCKBYDISTRICT":"api/v1/WebMaster/RetrieveBlockByDistrict/",
         "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
-        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/"
+        "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/",
+        "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/"
     },
     "MTP":
     {
@@ -108,6 +115,8 @@ export const ENDPOINT = {
         "RETRIVEMOLECULARREPORTS":"api/v1/MolecularLab/RetrieveMolecularReports",
         "RETRIVEMOLECULARSAMPLESTATUS":"api/v1/MolecularLab/RetrieveMolecularSampleStatus",
         "RETRIVEMOLECULARREPORTS1":"api/v1/MolecularLab/RetrieveMolecularReports",
+        "RETRIVEMOBPNDTRECEIPT":"api/v1/MolecularLab/RetrieveMolPNDTReceipt/",
+        "ADDRECEIVEDSPECIMENTSHIPMENT":"api/v1/MolecularLab/AddReceivedSpecimenShipments"
     },
     "NHM":{
         "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail"
@@ -115,7 +124,15 @@ export const ENDPOINT = {
     "REPORTS":
     {
         "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
-        "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail"
+        "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail",
+        "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList"
+    },
+    "ERRORCORRECTION":
+    {
+        "RETRIVEBARCODEFORERRORCORRECTION":"api/v1/Support/RetrieveBarcodeDetailsForErrorCorrection/",
+        "CHECKBARCODEEXIST":"api/v1/Support/CheckBarcodeExist/",
+        "UPDATEBARCODEERROR":"api/v1/Support/UpdateBarcodeError",
+        "RETRIVEERRORBARCODE":"api/v1/Support/RetrieveErrorBarcodeDetails"
     }
 
 }

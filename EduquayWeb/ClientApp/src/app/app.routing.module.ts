@@ -266,10 +266,39 @@ import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
+import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
+import { EditResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component";
+import { ConfirmedResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component";
+import { CvsNotificationComponent } from "./molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component";
+import { CvsUpdateresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component";
+import { CvsEditresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component";
+import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component";
 import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
 import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
 import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
 
+import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
+import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
+import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";
+
+import { ScheduleShipmentMainComponent } from "./pndtc/shipment-log/schedule-shipment-log-main/schedule-shipment-log-main.component";
+import { ScheduleShipmentComponent } from "./pndtc/shipment-log/schedule-shipment-log/schedule-shipment-log.component";
+import { pndtcShipmentResolverService } from  "./shared/pndtc/shipment-resolver.service";
+
+import { MolecularSampleRcptCVCComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rec-cvc/molecular-sample-rec-cvc.component";
+import { MolecularSampleRcptCVCMainComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rcpt-cvc-main/molecular-sample-rcpt-cvc-main.component";
+import { MLSampleRcptCSVResolverService } from "./shared/molecularlab/ml-sample-rcpt-csv-resolver.servic";
+import { ViewResultMLComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/view-results-ML/view-results-ML.component";
+
+import { UpdatePregnacyMainComponent } from "./Haematologist/update-pregnacy-main/update-pregnacy-main.component";
+import { UpdatePregnacyComponent } from "./Haematologist/update-pregnacy/update-pregnacy.component";
+import { UpdatePregnacyTestresultsComponent } from "./Haematologist/update-pregnacy-testresults/update-pregnacy-testresults.component";
+
+import { BarcodeCorrectionMainComponent } from "./errorcorrection/barcode-correction/barcode-correction-main/barcode-correction-main.component";
+import { BarcodeCorrectionComponent } from "./errorcorrection/barcode-correction/barcode-correction/barcode-correction.component";
+import { errorcodeResolverService } from "./shared/errorcorrection/errorcode-resolver.service";
+import { BarcodePendingComponent } from "./errorcorrection/barcode-correction/barcode-pending/barcode-pending.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -308,6 +337,24 @@ const routes: Routes = [
           { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
           { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' },
           { path: 'postmtp', component: AnmPostMtpFollowupComponent, pathMatch: 'full' }
+        ]
+      },
+      {
+        path: 'molecular-lab-result', component: MlrNotificationComponent,
+        children: [
+          { path: '', component: UpdateResultsComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'edit-result', component: EditResultsComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
+          { path: 'confirmed-result', component: ConfirmedResultsComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+         
+        ]
+      },
+      {
+        path: 'cvs-specimen', component: CvsNotificationComponent,
+        children: [
+          { path: '', component: CvsUpdateresultComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'cvs-edit-result', component: CvsEditresultComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
+          { path: 'cvs-confirmed-result', component: CvsConfirmedresultComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+         
         ]
       },
       {
@@ -443,6 +490,13 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'errorcorrection', component: BarcodeCorrectionMainComponent,
+        children:[
+          {path: '', component: BarcodeCorrectionComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}},
+          {path: 'pending', component: BarcodePendingComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}}
+        ]
+      },
+      {
         path: 'pathologist-hplc-report/:pagename', component: DiagosisReportmainComponent,
         children:[
           {path: '', component: DiagosisReportComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
@@ -495,9 +549,21 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'schedule-shipment', component: ScheduleShipmentMainComponent,
+        children:[
+          {path: '', component: ScheduleShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: pndtcShipmentResolverService}}
+        ]
+      },
+      {
         path: 'molecularlab', component: MolecularSampleRcptMainComponent,
         children:[
           {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
+        ]
+      },
+      {
+        path: 'molecularlab-cvs', component: MolecularSampleRcptCVCMainComponent,
+        children:[
+          {path: '', component: MolecularSampleRcptCVCComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptCSVResolverService}}
         ]
       },
       {
@@ -603,7 +669,24 @@ const routes: Routes = [
           {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
         ]
       },
+      {
+        path: 'update-pregnancy', component: UpdatePregnacyMainComponent,
+        children:[
+          {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'} 
+        ]
+      },
+      {
+        path: 'csv-specimen', component: CSVSpecimenMainComponent,
+        children:[
+          {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
+          {path: 'csvstart', component: CSVspecimenStartComponent, pathMatch: 'full'}
+          
+        ]
+      },
+      { path: 'view-ml-result', component: ViewResultMLComponent },
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
+      { path: 'update-pregnancy-details', component: UpdatePregnacyTestresultsComponent },
+      
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
       { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
@@ -662,6 +745,7 @@ const routes: Routes = [
      
     ]
   },
+  
 
   { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
@@ -855,9 +939,31 @@ export const RoutingComponents = [
   UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
   PathoreportSampleStatusPrintComponent,
+  MlrNotificationComponent,
+  UpdateResultsComponent,
+  EditResultsComponent,
+  ConfirmedResultsComponent,
+  CvsNotificationComponent,
+  CvsUpdateresultComponent,
+  CvsEditresultComponent,
+  CvsConfirmedresultComponent,
   ANMreportListComponent,
   AnmReportProfileComponent,
-  CHCreportListComponent
+  CHCreportListComponent,
+  CSVspecimenComponent,
+  CSVSpecimenMainComponent,
+  CSVspecimenStartComponent,
+  ScheduleShipmentMainComponent,
+  ScheduleShipmentComponent,
+  MolecularSampleRcptCVCComponent,
+  MolecularSampleRcptCVCMainComponent,
+  UpdatePregnacyMainComponent,
+  UpdatePregnacyComponent,
+  UpdatePregnacyTestresultsComponent,
+  ViewResultMLComponent,
+  BarcodeCorrectionMainComponent,
+  BarcodeCorrectionComponent,
+  BarcodePendingComponent
 
 ];
 

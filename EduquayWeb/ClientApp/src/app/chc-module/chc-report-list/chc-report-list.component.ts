@@ -770,6 +770,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   opensubjectdetail(subjectinfo ){
     console.log(subjectinfo);
     this.DataService.setdata({'anmreportData':subjectinfo});
+    this.DataService.setdata({'reportPreviouspage':"CHC"});
     this.subjectid = subjectinfo.subjectId;
       this.router.navigateByUrl(`/app/view-anm-report?q=${this.subjectid}`);
 
@@ -884,7 +885,7 @@ export class CHCreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       "userid":this.user.id,
       "userInput":subjectinfo.subjectId
     }
-    let subProfile = this.SubjectProfileService.getparticularanmSubjectProfileList(_obj)
+    let subProfile = this.SubjectProfileService.getparticularanmSCHC(_obj)
       .subscribe(response => {
         var _response = response.subjectsDetail[0];
 

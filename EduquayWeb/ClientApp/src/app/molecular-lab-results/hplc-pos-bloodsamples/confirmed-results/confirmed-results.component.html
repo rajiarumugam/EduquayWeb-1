@@ -1,0 +1,53 @@
+
+<div class="tab-pane fade show active" id="damagedsample" role="tabpanel" aria-labelledby="confirmresultsample-tab">
+    <div class="form-row">
+      <div class="col-md-12">
+          <div *ngIf="confirmSamplesErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': confirmSamplesErrorMessage ==='No subjects found', 'alert-danger': confirmSamplesErrorMessage !== 'No subjects found'}">
+              <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{confirmSamplesErrorMessage}}
+          </div>  
+      </div>
+    </div>
+    <div class="table-responsive mb-4">
+      <table id="damagedsample-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+          <tr>
+            <th><span>{{'SNo' | translate }}</span></th>
+            <th><span>{{'SubjectName' | translate }}</span></th>
+            <th><span>{{'SubjectType' | translate }}</span></th>
+            <th><span>{{'SubjectID' | translate }}</span></th>
+            <th><span>{{'RCHID' | translate }}</span></th>
+            <th><span>{{'District' | translate }}</span></th>
+            <!--<th><span>{{'Update Molecular Test Result' | translate }}</span></th>-->
+            <th><span >{{'View Case Details' | translate }}</span></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sample of testedConfirmSamples; index as i">
+            <td class="sno text-center">{{i +1}}</td>
+            <td class="sname text-left">{{sample.subjectName}}</td>
+            <td class="sid text-center">{{sample.subjectType}}</td>
+            <td class="sid text-center">{{sample.uniqueSubjectId}}</td>
+            <td class="sid text-center">{{sample.rchId}}</td>
+            <td class="number text-center">{{sample.district}}</td>
+            <!--<td class="text-center"><a><i class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
+                ></i></a></td>  -->
+                <td style="text-align: center" (click)="showViewScrren(sample);"><a>
+                    <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                </td>        
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- The Modal -->
+
+  <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+  <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+  
+  <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/notificationunsent-flatpickr.js'"></i>
+  <i appLoadScript [script]="'assets/plugins/flatpickr/notificationtimeout-flatpickr.js'"></i>
+  <i appLoadScript [script]="'assets/plugins/flatpickr/notificationpositive-flatpickr.js'"></i> -->
+  <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

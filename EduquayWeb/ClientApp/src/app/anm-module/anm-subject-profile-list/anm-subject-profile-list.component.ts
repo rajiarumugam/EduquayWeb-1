@@ -259,6 +259,8 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
 
    openpopup(index, subjectinfo: SubjectProfileList){
 
+    console.log(subjectinfo); 
+
     this.childSubjectTypeId = subjectinfo.primaryDetail.childSubjectTypeId;
     this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
     this.firstName = subjectinfo.primaryDetail.firstName;
@@ -360,6 +362,7 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
       }      
       let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)      
         .subscribe(response => {
+          console.log(response);
           this.trackingSubjectResponse = response;        
           this.loaderService.display(false);
           if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
@@ -374,7 +377,11 @@ export class AnmSubjectProfileListComponent implements AfterViewInit, OnDestroy,
               }
               let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
               .subscribe(response => {
+                console.log(response);
                 this.trackingAnmSubjectTrackerResponse = response;
+                this.barcodes = response.data.barcodeNo;
+                this.lmpDate = response.data.lmpDate;
+                this.ga = Number(response.data['ga']);
                 if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
                   this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
     

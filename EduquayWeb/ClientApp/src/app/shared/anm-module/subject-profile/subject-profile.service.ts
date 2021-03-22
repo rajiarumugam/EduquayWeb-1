@@ -105,6 +105,9 @@ export class SubjectProfileService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.CHCREPORTSDETAIL);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
-
+  getparticularanmSCHC(anmparticularsubProfile){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.RETRIVEPARTICULARCHC);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: anmparticularsubProfile});
+  }
  
 }

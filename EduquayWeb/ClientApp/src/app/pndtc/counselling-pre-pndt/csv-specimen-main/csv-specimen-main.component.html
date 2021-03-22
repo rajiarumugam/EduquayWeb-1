@@ -1,0 +1,74 @@
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="pndtc" subMenum="Counselling-Pre-PNDT"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+          <!-- <div class="col-md-12 text-center">
+                    <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+          <div class="col-md-12">
+            <div class="justify-between">
+              <div class="col-md-4">
+                <div class="float-left mb-4">
+                    <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/counselling-pre-pndt']" role="button"
+                    ngbTooltip="Counselling – Pre PNDT" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                  </div>
+              </div>
+              <!-- <h5 class="float-left">Sample Collection</h5> -->
+              <div class="col-md-4">
+                <div class="headertit">
+                  <h5 class="float-center">{{'CVSSpecimen' | translate}}</h5>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="float-right mb-4">
+                  <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/schedule-shipment']" role="button"
+                  ngbTooltip="Shipment Log" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="tobeCounselled-tab" data-toggle="tab"
+                     [routerLink]="['/app/csv-specimen']" role="tab" aria-controls="home"
+                     [ngClass]="{'active': currentPage == 'csv-specimen' ? true : false}" aria-selected="true">
+                     {{'pendingforPickup' | translate}}<span class="badge badge-pill badge-warning shadow mx-1">{{counsellingnumber}}</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="counselledYes-tab" data-toggle="tab" [routerLink]="['/app/csv-specimen/csvstart']"
+                  [ngClass]="{'active': currentPage == 'csvstart' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
+                     {{'startPickandpack' | translate}}<span class="badge badge-pill badge-warning shadow ml-1">{{counselledyesnumber}}</span>
+                  </a>
+                </li>
+                
+              </ul>
+              <div class="tab-content mt-5" id="myTabContent" style="margin-top:0 !important;">
+                <router-outlet (activate)="showNumberOnBadge($event)"></router-outlet>
+                <!-- <router-outlet></router-outlet> -->
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+  </div>
+  <!--  END MAIN CONTAINER  -->
+  
+  <!--<i appLoadScript [script]="''"></i>-->
+  <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+  

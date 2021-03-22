@@ -133,4 +133,10 @@ export class masterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+  retriveReceivingMocularLab(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVEALLPNDTLOCATION);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }

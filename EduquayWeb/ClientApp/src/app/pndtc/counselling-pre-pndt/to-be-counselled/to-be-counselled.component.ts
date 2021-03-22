@@ -13,6 +13,7 @@ import { CounsellPrePndtService } from 'src/app/shared/pndtc/counsell-pre-pndt/c
 import { CounsellPrePndtResquest } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-resquest';
 import { CounsellPrePndtResponse, CounsellingList } from 'src/app/shared/pndtc/counsell-pre-pndt/counsell-pre-pndt-response';
 import { Router } from '@angular/router';
+import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
 
 @Component({
   selector: 'app-to-be-counselled',
@@ -53,7 +54,8 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
     private tokenService: TokenService,
     private loaderService: LoaderService,
     private _formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private PNDTCmasterService: PNDTCmasterService
   ) { }
 
   ngOnInit() {
@@ -112,7 +114,7 @@ export class ToBeCounselledComponent implements AfterViewInit, OnDestroy, OnInit
 
   
   ddlDistrict(userId) {
-    let district = this.pndtmtpMasterService.getDistrict(userId).subscribe(response => {
+    let district = this.PNDTCmasterService.retrieveDistrictByPNDTLocation().subscribe(response => {
       this.pndtmtpMasterResponse = response;
       if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
         this.districts = this.pndtmtpMasterResponse.data;

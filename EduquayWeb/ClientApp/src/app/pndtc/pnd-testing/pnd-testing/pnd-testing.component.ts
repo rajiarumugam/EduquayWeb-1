@@ -87,7 +87,7 @@ export class pndTestingComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   getDistrictData(){
-    this.PNDTCmasterService.getPNDTCDistrict()
+    this.PNDTCmasterService.retrieveDistrictByPNDTLocation()
     .subscribe(response => {
       this.districts = response['data'];
       //this.selectedDistrict = this.user.districtId;

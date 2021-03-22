@@ -33,6 +33,8 @@ export interface user {
   chcName: string;
   centralLabId: number;
   centralLabName: string;
+  molecularLabId: number;
+  molecularLabName: string;
   phcId: number,
   scId: number,
   riId: string,
@@ -44,6 +46,7 @@ export interface user {
   registeredFrom: number,
   sampleCollectionFrom: number,
   shipmentFrom: number,
+  pndtLocationId:number
 }
 
 export interface resetLoginResponse {

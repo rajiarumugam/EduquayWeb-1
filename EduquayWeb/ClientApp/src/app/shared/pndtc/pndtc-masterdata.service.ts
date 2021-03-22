@@ -112,4 +112,11 @@ export class PNDTCmasterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
+  retrieveDistrictByPNDTLocation(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEDISTRICTBYPNDTLOCTION+this.user.pndtLocationId);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
 }
