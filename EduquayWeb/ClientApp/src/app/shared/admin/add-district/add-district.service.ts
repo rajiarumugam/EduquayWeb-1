@@ -12,9 +12,10 @@ import { AddDistrictResponse, AddDistrictDataresponse } from './add-district-res
 })
 export class AddDistrictService {
 
-  retrieveDistrictApi: string = "api/v1/District/Retrieve";
-  addDistrictApi: string = "api/v1/District/Add";
-  retrieveStateApi: string = "api/v1/State/Retrieve";
+  retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
+  addDistrictApi: string = "api/v1/SA/AddNewDistrict";
+  retrieveStateApi: string = "api/v1/SA/RetrieveAllStates";
+  updateDistrictApi: string = "api/v1/SA/UpdateDistrict";
 
   constructor(
     private httpClient: HttpClient,
@@ -33,8 +34,13 @@ export class AddDistrictService {
     return this.http.get<StateResponse>({url: apiUrl});
   }
 
-  addDistrict(districtadd: AddDistrictRequest){
+  addDistrict(districtadd){
     let apiUrl=this.genericService.buildApiUrl(this.addDistrictApi);
+    return this.http.post<AddDistrictDataresponse>({url: apiUrl, body: districtadd});
+  }
+
+  updateDistrict(districtadd){
+    let apiUrl=this.genericService.buildApiUrl(this.updateDistrictApi);
     return this.http.post<AddDistrictDataresponse>({url: apiUrl, body: districtadd});
   }
 }
