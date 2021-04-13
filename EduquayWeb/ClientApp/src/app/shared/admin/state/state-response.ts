@@ -1,7 +1,7 @@
 export interface StateResponse {
     status: string;
     message: string;
-    states: StateList[];
+    data: StateList[];
 }
 
 export interface StateList {

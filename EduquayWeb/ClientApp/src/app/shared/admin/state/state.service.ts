@@ -11,8 +11,9 @@ import { AddStateResponse, StateResponse } from './state-response';
 })
 export class StateService {
 
-  retrieveStateApi: string = "api/v1/State/Retrieve";
-  addStateApi: string = "api/v1/State/Add";
+  retrieveStateApi: string = "api/v1/SA/RetrieveAllStates";
+  addStateApi: string = "api/v1/SA/AddNewState";
+  updateStateApi: string = "api/v1/SA/UpdateState";
 
   constructor(
     private httpClient: HttpClient,
@@ -28,6 +29,11 @@ export class StateService {
 
   addState(stateadd: StateRequest){
     let apiUrl=this.genericService.buildApiUrl(this.addStateApi);
+    return this.http.post<AddStateResponse>({url: apiUrl, body: stateadd});
+  }
+
+  updateState(stateadd){
+    let apiUrl=this.genericService.buildApiUrl(this.updateStateApi);
     return this.http.post<AddStateResponse>({url: apiUrl, body: stateadd});
   }
 }
