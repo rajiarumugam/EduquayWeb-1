@@ -36,7 +36,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     user: user;
   
     confirmationSelected: boolean ;
-    districtListResponse: AddDistrictResponse;
+    districtListResponse;
     districtlists: DistrictList[];
     addDistrictRequest: AddDistrictRequest;
     addDistrictResponse: AddDistrictDataresponse;
@@ -59,6 +59,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     districtcodedata: string;
     districtnamedata: string;
     commentsdata: string;
+    selectedDistrictData;
    
   
     constructor(
@@ -107,11 +108,11 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
         this.districtListResponse = response;
         this.loaderService.display(false);
         if(this.districtListResponse !== null && this.districtListResponse.status === "true"){
-          if(this.districtListResponse.districts.length <= 0){
+          if(this.districtListResponse.data.length <= 0){
             this.districtlistErrorMessage = response.message;
           }
           else{
-            this.districtlists = this.districtListResponse.districts;
+            this.districtlists = this.districtListResponse.data;
             this.districtlists.forEach(element => {
               this.getstate = element.stateId;
             });
@@ -134,7 +135,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.DistrictService.getStateList().subscribe(response => {
         this.stateListResponse = response;
         if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
-          this.statelists = this.stateListResponse.states;
+          this.statelists = this.stateListResponse.data;
           this.selectedState = "";
         }
         else {
@@ -151,7 +152,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.DistrictService.getStateList().subscribe(response => {
         this.stateListResponse = response;
         if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
-          this.statelists = this.stateListResponse.states;
+          this.statelists = this.stateListResponse.data;
           this.selectedState = this.getstate;
         }
         else {
@@ -179,10 +180,12 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    openEditDistrict(editDistrictDetail, sample: DistrictList) {
+    openEditDistrict(editDistrictDetail, sample) {
   
+      console.log(sample);
       this.editddlState();
-      this.districtnamedata = sample.districtName;
+      this.selectedDistrictData = sample;
+      this.districtnamedata = sample.name;
       this.districtcodedata = sample.districtGovCode;
       this.selectedEditState = sample.stateId;
       this.commentsdata = sample.comments;
@@ -209,21 +212,19 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       this.comments = addDistrictForm.value.Comments;
       this.selectedState = addDistrictForm.value.ddlState;
   
-      this.addDistrictRequest = {
+      var _obj = {
         districtGovCode: this.districtGovCode,
-        districtName: this.districtName,
+        name: this.districtName,
         stateId: +(this.selectedState),
-        isActive: ""+this.confirmationSelected,
         comments: this.comments,
-        createdBy: this.user.id,
-        updatedBy: this.user.id,
+        userId: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.DistrictService.addDistrict(this.addDistrictRequest)
+      let damagedsampleCollection = this.DistrictService.addDistrict(_obj)
       .subscribe(response => {
         this.addDistrictResponse = response;
         if(this.addDistrictResponse !== null){
@@ -243,29 +244,21 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   
     editSubmit(editDistrictForm: NgForm){
-  
-      console.log(editDistrictForm.value);
-      this.statetnamedata = editDistrictForm.value.editStatename;
-      this.districtcodedata = editDistrictForm.value.editDistrictCode;
-      this.districtnamedata = editDistrictForm.value.editDistirctName;
-      this.commentsdata = editDistrictForm.value.editComments;
-      this.selectedEditState = editDistrictForm.value.DDLstate;
-  
-      this.addDistrictRequest = {
+      var _obj = {
+        id:this.selectedDistrictData.id,
         districtGovCode: this.districtcodedata,
-        districtName: this.districtnamedata,
-        stateId: +(this.selectedEditState),
-        isActive: ""+this.confirmationSelected,
+        name: this.districtnamedata,
+        stateId: this.selectedEditState,
+        isActive: this.confirmationSelected,
         comments: this.commentsdata,
-        createdBy: this.user.id,
-        updatedBy: this.user.id,
+        userId: this.user.id,
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.DistrictService.addDistrict(this.addDistrictRequest)
+      let damagedsampleCollection = this.DistrictService.updateDistrict(_obj)
       .subscribe(response => {
         this.addDistrictResponse = response;
         if(this.addDistrictResponse !== null){
