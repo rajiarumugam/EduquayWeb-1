@@ -73,7 +73,7 @@
                             <tr *ngFor="let sample of districtlists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
                               <td class="sname text-left">{{sample.districtGovCode}}</td>
-                              <td class="sid text-center">{{sample.districtName}}</td>
+                              <td class="sid text-center">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.stateName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center">{{sample.isActive}}</td>
@@ -116,7 +116,7 @@
                                             required [(ngModel)]="selectedState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
-                                                    {{statedata.stateName}}
+                                                    {{statedata.name}}
                                                 </option>
                                             </select>
                                               <small class=" ml-2 text-danger" *ngIf="ddlState.invalid && ddlState.touched ">Please choose a State</small>
@@ -218,7 +218,7 @@
                                      [(ngModel)]="selectedEditState">
                                         <option value="">Select</option>
                                         <option *ngFor="let statenme of statelists" [(value)]="statenme.id">
-                                            {{statenme.stateName}}
+                                            {{statenme.name}}
                                         </option>
                                     </select>
                                 </div>

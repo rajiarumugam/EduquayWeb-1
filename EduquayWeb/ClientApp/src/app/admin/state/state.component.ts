@@ -32,7 +32,7 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
   statelistErrorMessage: string;
   user: user;
 
-  confirmationSelected: string;
+  confirmationSelected;
   stateListResponse: StateResponse;
   statelists: StateList[];
   addStateRequest: StateRequest;
@@ -50,6 +50,8 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
   statetcodedata: string;
   shortnamedata: string;
   commentsdata: string;
+
+  selectedStateForEdit;
 
   constructor(
     private StateService: StateService,
@@ -95,13 +97,14 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
     let samplesList = this.StateService.getStateList()
     .subscribe(response => {
       this.stateListResponse = response;
+      console.log(this.stateListResponse);
       this.loaderService.display(false);
       if(this.stateListResponse !== null && this.stateListResponse.status === "true"){
-        if(this.stateListResponse.states.length <= 0){
+        if(this.stateListResponse.data.length <= 0){
           this.statelistErrorMessage = response.message;
         }
         else{
-          this.statelists = this.stateListResponse.states;
+          this.statelists = this.stateListResponse.data;
           this.rerender();
           
         }
@@ -132,13 +135,17 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
 
   }
 
-  editAddState(editStateDetail, sample: StateList) {
+  editAddState(editStateDetail, sample) {
 
-    this.shortnamedata = sample.shortName;
+    console.log(editStateDetail);
+    console.log(sample);
+
+    this.selectedStateForEdit = sample;
+    this.shortnamedata = sample.name;
     this.statetcodedata = sample.stateGovCode;
-    this.statetnamedata = sample.stateName;
+    this.statetnamedata = sample.name;
     this.commentsdata = sample.comments;
-    this.confirmationSelected = sample.isActive;
+    this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
     this.modalService.open(
       editStateDetail, {
@@ -162,12 +169,12 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.addStateRequest = {
       stateGovCode: this.stateCode,
-      stateName: this.stateName,
+      name: this.stateName,
       shortName: this.shortName,
-      isActive: ""+this.confirmationSelected,
+     /* isActive: ""+this.confirmationSelected,*/
       comments: this.comments,
-      createdBy: this.user.id,
-      updatedBy: this.user.id,
+      /*createdBy: this.user.id,
+      updatedBy: this.user.id,*/
     };
 
     //Remove below 2 lines after successfully tested
@@ -197,26 +204,29 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
   editSubmit(editStateForm: NgForm){
 
     console.log(editStateForm.value);
-    this.statetnamedata = editStateForm.value.editstatename;
+    /*this.statetnamedata = editStateForm.value.editstatename;
     this.statetcodedata = editStateForm.value.editStateCode;
     this.shortnamedata = editStateForm.value.editshortName;
-    this.commentsdata = editStateForm.value.editComments;
+    this.commentsdata = editStateForm.value.editComments;*/
 
-    this.addStateRequest = {
+    console.log(this.shortnamedata);
+    console.log(this.statetcodedata);
+    //shortnamedata
+    var _obj = {
+      id:this.selectedStateForEdit.id,
       stateGovCode: this.statetcodedata,
-      stateName: this.statetnamedata,
+      name: this.statetnamedata,
       shortName: this.shortnamedata,
-      isActive: ""+this.confirmationSelected,
       comments: this.commentsdata,
-      createdBy: this.user.id,
-      updatedBy: this.user.id,
+      isActive: this.confirmationSelected,
+      userId: this.user.id
     };
 
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
 
-    let damagedsampleCollection = this.StateService.addState(this.addStateRequest)
+    let damagedsampleCollection = this.StateService.updateState(_obj)
     .subscribe(response => {
       this.addStateResponse = response;
       if(this.addStateResponse !== null){
