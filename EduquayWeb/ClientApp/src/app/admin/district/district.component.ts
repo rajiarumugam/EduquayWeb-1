@@ -39,7 +39,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     districtListResponse;
     districtlists: DistrictList[];
     addDistrictRequest: AddDistrictRequest;
-    addDistrictResponse: AddDistrictDataresponse;
+    addDistrictResponse;
     stateListResponse: StateResponse;
     statelists: StateList[];
     selectedState: string;
@@ -228,11 +228,11 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       .subscribe(response => {
         this.addDistrictResponse = response;
         if(this.addDistrictResponse !== null){
-          this.showResponseMessage(this.addDistrictResponse.string, 's')
+          this.showResponseMessage(this.addDistrictResponse.message, 's')
            this.retrirveDistrictlist();
         }else{
-          this.showResponseMessage(this.addDistrictResponse.string, 'e');
-                  this.districtlistErrorMessage = response.string;
+          this.showResponseMessage(this.addDistrictResponse.message, 'e');
+                  this.districtlistErrorMessage = response['message'];
         }
   
       },
@@ -262,10 +262,10 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       .subscribe(response => {
         this.addDistrictResponse = response;
         if(this.addDistrictResponse !== null){
-          this.showResponseMessage(this.addDistrictResponse.string, 's')
+          this.showResponseMessage(this.addDistrictResponse.message, 's')
            this.retrirveDistrictlist();
         }else{
-          this.showResponseMessage(this.addDistrictResponse.string, 'e');
+          this.showResponseMessage(this.addDistrictResponse.message, 'e');
                   this.districtlistErrorMessage = response.string;
         }
   

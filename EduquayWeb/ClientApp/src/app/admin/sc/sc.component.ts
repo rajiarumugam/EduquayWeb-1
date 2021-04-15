@@ -35,7 +35,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     user: user;
   
     confirmationSelected: boolean ;
-    scListResponse: AddScResponse;
+    scListResponse;
     sclists: ScList[];
     scListRequest: AddScRequest;
     addScResponse: AddScDataresponse;
@@ -128,12 +128,12 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         this.scListResponse = response;
         this.loaderService.display(false);
         if(this.scListResponse !== null){
-          if(this.scListResponse.scDetails.length <= 0){
+          if(this.scListResponse.data.length <= 0){
             this.sclistErrorMessage = response.message;
             
           }
           else{
-            this.sclists = this.scListResponse.scDetails;
+            this.sclists = this.scListResponse.data;
             this.sclists.forEach(element => {
               this.getchc = '' +(element.chcId);
               this.getphc = '' +(element.phcId);

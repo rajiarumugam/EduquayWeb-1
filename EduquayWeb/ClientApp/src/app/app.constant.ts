@@ -132,7 +132,10 @@ export const ENDPOINT = {
         "RETRIVEBARCODEFORERRORCORRECTION":"api/v1/Support/RetrieveBarcodeDetailsForErrorCorrection/",
         "CHECKBARCODEEXIST":"api/v1/Support/CheckBarcodeExist/",
         "UPDATEBARCODEERROR":"api/v1/Support/UpdateBarcodeError",
-        "RETRIVEERRORBARCODE":"api/v1/Support/RetrieveErrorBarcodeDetails"
+        "RETRIVEERRORBARCODE":"api/v1/Support/RetrieveErrorBarcodeDetails",
+        "RETRIVEFORRCHIDERRORCORRECTION":"api/v1/Support/RetrieveDetailsForRCHIdErrorCorrection/",
+        "CHECKRCHIDEXIST":"api/v1/Support/CheckRCHIDExist/",
+        "UPDATERCHIDERROR":"api/v1/Support/UpdateRCHIDError"
     }
 
 }

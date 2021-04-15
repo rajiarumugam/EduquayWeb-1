@@ -13,9 +13,9 @@ import { AddScDataresponse, AddScResponse } from './add-sc-response';
 })
 export class AddScService  {
 
-    retrieveScApi: string = "api/v1/SC/Retrieve";
-    retrievePhcApi: string = "api/v1/PHC/Retrieve";
-    addScApi: string = "api/v1/SC/Add";
+    retrieveScApi: string = "api/v1/SA/RetrieveAllSCs";
+    retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
+    addScApi: string = "api/v1/SA/AddNewSC";
     retrieveChcApi: string = "api/v1/CHC/Retrieve";
   
     constructor(

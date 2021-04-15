@@ -72,7 +72,7 @@
                           <tbody>
                             <tr *ngFor="let sample of blocklists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.blockName}}</td>
+                              <td class="sname text-left">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.blockGovCode}}</td>
                               <td class="sid text-center">{{sample.districtName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
@@ -117,7 +117,7 @@
                                             required [(ngModel)]="selectedDistrict">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                                    {{districtdata.districtName}}
+                                                    {{districtdata.name}}
                                                 </option>
                                             </select>
                                               <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
@@ -220,7 +220,7 @@
                                     name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict">
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                            {{districtdata.districtName}}
+                                            {{districtdata.name}}
                                         </option>
                                     </select>
                                 </div>
