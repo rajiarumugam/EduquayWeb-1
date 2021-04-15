@@ -74,11 +74,11 @@
                           <tbody>
                             <tr *ngFor="let sample of phclists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.phcName}}</td>
+                              <td class="sname text-left">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.pincode}}</td>
                               <td class="sid text-center">{{sample.latitude}}</td>
                               <td class="sid text-center">{{sample.longitude}}</td>
-                              <td class="sid text-center">{{sample.phcName}}</td>
+                              <td class="sid text-center">{{sample.chcName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center">{{sample.isActive}}</td>
                              
@@ -113,16 +113,29 @@
                             <form class="text-left" (ngSubmit)="addPhcForm.form.valid && onSubmit(addPhcForm)" #addPhcForm="ngForm" novalidate>
                               <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
+                                  
+
+                                  <div class="form-group col-md-3">
+                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                    <select id="inputilrPoint" class="form-control"
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                            {{districtdata.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
                                   <div class="form-group col-md-3">
                                        
                                         <label [ngClass]="{'label-border-class':ddlChc.invalid && ddlChc.touched || addPhcForm.submitted && ddlChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || addPhcForm.submitted && ddlChc.invalid"
-                                            required [(ngModel)]="selectedChc">
+                                            required [(ngModel)]="selectedChc" [disabled]="!disabledChc">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
-                                                    {{chcdata.chcName}}
+                                                    {{chcdata.name}}
                                                 </option>
                                             </select>
                                               <small class=" ml-2 text-danger" *ngIf="ddlChc.invalid && ddlChc.touched ">Please choose a CHC</small>
@@ -150,8 +163,20 @@
                                 <div *ngIf="addPhcForm.submitted && phcName.invalid">     
                                   <small *ngIf="phcName.untouched" class=" ml-2 text-danger">PHC Name is required</small>  
                                 </div> 
-                             
+                                
+                               
                           </div>
+                          <div class="form-group col-md-3">
+                            <label class="note" [ngClass]="{'label-border-class':!hninId.valid && hninId.touched || addPhcForm.submitted && hninId.invalid}">{{'hninId' | translate }} <span class="manto">*</span></label>
+                            <input class="form-control" name="hninId" type="text" placeholder="hnin Id" ngModel
+                            [class.is-invalid]="!hninId.valid && hninId.touched || addPhcForm.submitted && phcName.invalid"
+                             #hninId="ngModel" required>
+                            <small class="text-danger ml-2" *ngIf="!hninId.valid && phcName.touched ">Enter hnin Id</small> 
+                            <div *ngIf="addPhcForm.submitted && hninId.invalid">     
+                              <small *ngIf="hninId.untouched" class=" ml-2 text-danger">hnin Id is required</small>  
+                            </div> 
+                       </div>
+                       
                               <div class="form-group col-md-3">
                                 <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
                                 <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode" 
@@ -229,6 +254,16 @@
                           <form class="text-left" (ngSubmit)="editPhcForm.form.valid && editSubmit(editPhcForm)" #editPhcForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
+                                  <div class="form-group col-md-3">
+                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                    <select id="inputilrPoint" class="form-control"
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                            {{districtdata.name}}
+                                        </option>
+                                    </select>
+                                </div>
                                     <div class="form-group col-md-3">
                                        
                                         <label [ngClass]="{'label-border-class':ddlEditChc.invalid && ddlEditChc.touched ||editPhcForm.submitted && ddlEditChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
@@ -238,7 +273,7 @@
                                             required [(ngModel)]="selectedEditChc">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
-                                                    {{chcdata.chcName}}
+                                                    {{chcdata.name}}
                                                 </option>
                                             </select>
                                               <small class=" ml-2 text-danger" *ngIf="ddlEditChc.invalid && ddlEditChc.touched ">Please choose a CHC</small>
@@ -248,28 +283,29 @@
                                      
                                   </div>
                                   <div class="form-group col-md-3">
-                                    <label class="note" [ngClass]="{'label-border-class':!phcCodedata.valid && phcCodedata.touched || editPhcForm.submitted && phcCodedata.invalid}">{{'PHC Code' | translate }} <span class="manto"></span></label>
+                                    <label class="note">{{'PHC Code' | translate }} <span class="manto"></span></label>
                                     <input class="form-control" name="phcCodedata" type="text" placeholder="PHC Code" 
-                                    [class.is-invalid]="!phcCodedata.valid && phcCodedata.touched || editPhcForm.submitted && phcCodedata.invalid"
+                                    
                                       required [(ngModel)]="phcCodedata">
-                                    <small class="text-danger ml-2" *ngIf="!phcCodedata.valid && phcCodedata.touched ">Enter PHC Code</small> 
-                                    <div *ngIf="editPhcForm.submitted && phcCodedata.invalid">     
-                                      <small *ngIf="phcCodedata.untouched" class=" ml-2 text-danger">PHC Code is required</small>  
-                                    </div> 
+                                    
                                  
                               </div>
+
                               <div class="form-group col-md-3">
-                                <label class="note" [ngClass]="{'label-border-class':!phcNamedata.valid && phcNamedata.touched || editPhcForm.submitted && phcNamedata.invalid}">{{'PHC Code' | translate }} <span class="manto"></span></label>
+                                <label class="note">{{'PHC Name' | translate }} <span class="manto"></span></label>
                                 <input class="form-control" name="phcNamedata" type="text" placeholder="PHC Name" 
-                                [class.is-invalid]="!phcNamedata.valid && phcNamedata.touched || editPhcForm.submitted && phcNamedata.invalid"
+                                
                                   required [(ngModel)]="phcNamedata">
-                                <small class="text-danger ml-2" *ngIf="!phcNamedata.valid && phcNamedata.touched ">Enter PHC Name</small> 
-                                <div *ngIf="editPhcForm.submitted && phcNamedata.invalid">     
-                                  <small *ngIf="phcNamedata.untouched" class=" ml-2 text-danger">PHC Name is required</small>  
-                                </div> 
+                                
                              
                           </div>
                               
+                               <div class="form-group col-md-3">
+                            <label class="note">{{'hninId' | translate }} <span class="manto">*</span></label>
+                            <input class="form-control" name="hninId" type="text" placeholder="hnin Id" [(ngModel)]="hninId" required>
+                            
+                         
+                       </div>
                               <div class="form-group col-md-3">
                                 <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
                                 <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode" 

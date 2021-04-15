@@ -33,12 +33,12 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     blocklistErrorMessage: string;
     user: user;
   
-    confirmationSelected: string;
-    blockListResponse: AddBlockResponse;
+    confirmationSelected;
+    blockListResponse;
     blocklists: BlockList[];
     blockListRequest: AddBlockRequest;
     addBlockResponse: AddBlockDataresponse;
-    districtListResponse: AddDistrictResponse;
+    districtListResponse;
     districtlists: DistrictList[];
     selectedDistrict: string;
     getstate: string;
@@ -59,6 +59,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     commentsdata: string;
     getdistrict: string;
     blockCodedata: string;
+    editBlockDetails;
    
   
     constructor(
@@ -107,12 +108,12 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         this.blockListResponse = response;
         this.loaderService.display(false);
         if(this.blockListResponse !== null){
-          if(this.blockListResponse.blocks.length <= 0){
+          if(this.blockListResponse.data.length <= 0){
             this.blocklistErrorMessage = response.message;
             
           }
           else{
-            this.blocklists = this.blockListResponse.blocks;
+            this.blocklists = this.blockListResponse.data;
             this.blocklists.forEach(element => {
               this.getdistrict = element.districtId;
             });
@@ -136,7 +137,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.BlockService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.districts;
+          this.districtlists = this.districtListResponse.data;
           this.selectedDistrict = "";
         }
         else {
@@ -153,7 +154,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.BlockService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.districts;
+          this.districtlists = this.districtListResponse.data;
           this.selectedEditDistrict = this.getdistrict;
         }
         else {
@@ -169,7 +170,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddBlock(addBlockDetail) {
       
       this.ddlDistrict();
-      this.confirmationSelected = "true";
+      this.confirmationSelected = true;
       this.modalService.open(
         addBlockDetail, {
         centered: true,
@@ -183,14 +184,17 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     }
     
   
-    openEditBlock(editBlockDetail, sample: BlockList) {
+    openEditBlock(editBlockDetail, sample) {
   
+      console.log(sample);
+
+      this.editBlockDetails = sample;
       this.ddlEditDistrict();
-      this.blocknamedata = sample.blockName;
+      this.blocknamedata = sample.name;
       this.blockCodedata = sample.blockGovCode;
       //this.selectedEditDistrict = sample.districtId;
       this.commentsdata = sample.comments;
-      this.confirmationSelected = sample.isActive;
+      this.confirmationSelected = sample.isActive === 'True' ? true : false;
   
       this.modalService.open(
         editBlockDetail, {
@@ -213,21 +217,19 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       this.comments = addBlockForm.value.Comments;
       this.selectedDistrict = addBlockForm.value.ddlDistrict;
   
-      this.blockListRequest = {
+      var _obj = {
         blockGovCode: this.blockcodedata,
-        blockName: this.blocknamedata,
+        name: this.blocknamedata,
         districtId: +(this.selectedDistrict),
-        isActive: this.confirmationSelected,
         comments: this.comments,
-        createdBy: this.user.id,
-        updatedBy: this.user.id,
+        userId: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.BlockService.addBlock(this.blockListRequest)
+      let damagedsampleCollection = this.BlockService.addBlock(_obj)
       .subscribe(response => {
         this.addBlockResponse = response;
         if(this.addBlockResponse !== null){
@@ -249,27 +251,28 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editDistrictForm: NgForm){
   
       console.log(editDistrictForm.value);
-      this.blocknamedata = editDistrictForm.value.editBlockName;
+      /*this.blocknamedata = editDistrictForm.value.editBlockName;
       this.blockcodedata = editDistrictForm.value.editblockCode;
       this.districtnamedata = editDistrictForm.value.editDistirctName;
       this.commentsdata = editDistrictForm.value.editComments;
       this.selectedEditDistrict = editDistrictForm.value.ddlEditDistrict;
-  
-      this.blockListRequest = {
-        blockGovCode: this.blockcodedata,
-        blockName: this.blocknamedata,
+  */
+ console.log(this.blockCodedata);
+     var _obj = {
+        id:this.editBlockDetails.id,
+        blockGovCode: this.blockCodedata,
+        name: this.blocknamedata,
         districtId: +(this.selectedEditDistrict),
         isActive: this.confirmationSelected,
         comments: this.commentsdata,
-        createdBy: this.user.id,
-        updatedBy: this.user.id,
+        userId: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.BlockService.addBlock(this.blockListRequest)
+      let damagedsampleCollection = this.BlockService.updateBlock(_obj)
       .subscribe(response => {
         this.addBlockResponse = response;
         if(this.addBlockResponse !== null){

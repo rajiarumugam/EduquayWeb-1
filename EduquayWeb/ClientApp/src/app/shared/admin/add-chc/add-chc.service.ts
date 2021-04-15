@@ -14,7 +14,7 @@ import { AddChcResponse, AddChcDataresponse } from './add-chc-response';
 export class AddChcService {
 
   retrieveBlockApi: string = "api/v1/Block/Retrieve";
-  retrieveChcApi: string = "api/v1/CHC/Retrieve";
+  retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
   addChcApi: string = "api/v1/CHC/Add";
   retrieveDistrictApi: string = "api/v1/District/Retrieve";
 

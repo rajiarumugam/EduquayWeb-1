@@ -12,10 +12,13 @@ import { AddPhcResponse, AddPhcDataresponse } from './add-phc-response';
 })
 export class AddPhcService {
 
-  retrieveBlockApi: string = "api/v1/Block/Retrieve";
-  retrievePhcApi: string = "api/v1/PHC/Retrieve";
-  addPhcApi: string = "api/v1/PHC/Add";
-  retrieveChcApi: string = "api/v1/CHC/Retrieve";
+  retrieveBlockApi: string = "api/v1/SA/RetrieveAllBlocks";
+  retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
+  addPhcApi: string = "api/v1/SA/AddNewPHC";
+  retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
+  updatePhcApi: string = "api/v1/SA/UpdatePHC";
+  retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
+  RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
 
   constructor(
     private httpClient: HttpClient,
@@ -34,8 +37,23 @@ export class AddPhcService {
     return this.http.get<AddPhcResponse>({url: apiUrl});
   }
 
-  addPhc(phcadd: AddPhcRequest){
+  addPhc(phcadd){
     let apiUrl=this.genericService.buildApiUrl(this.addPhcApi);
     return this.http.post<AddPhcDataresponse>({url: apiUrl, body: phcadd});
+  }
+
+  updatePhc(phcadd){
+    let apiUrl=this.genericService.buildApiUrl(this.updatePhcApi);
+    return this.http.post<AddPhcDataresponse>({url: apiUrl, body: phcadd});
+  }
+
+  getDistrictList(){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveDistrictApi);
+    return this.http.get<any>({url: apiUrl});
+  }
+
+  getCHCByDis(id){
+    let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyDistrict+id);
+    return this.http.get<any>({url: apiUrl});
   }
 }

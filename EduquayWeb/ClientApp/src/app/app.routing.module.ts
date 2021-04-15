@@ -299,6 +299,10 @@ import { BarcodeCorrectionMainComponent } from "./errorcorrection/barcode-correc
 import { BarcodeCorrectionComponent } from "./errorcorrection/barcode-correction/barcode-correction/barcode-correction.component";
 import { errorcodeResolverService } from "./shared/errorcorrection/errorcode-resolver.service";
 import { BarcodePendingComponent } from "./errorcorrection/barcode-correction/barcode-pending/barcode-pending.component";
+
+import { RCHCorrectionMainComponent } from "./errorcorrection/rch/rch-correction-main/rch-correction-main.component";
+import { RCHCorrectionComponent } from "./errorcorrection/rch/rch-correction/rch-correction.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -494,6 +498,12 @@ const routes: Routes = [
         children:[
           {path: '', component: BarcodeCorrectionComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}},
           {path: 'pending', component: BarcodePendingComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}}
+        ]
+      },
+      {
+        path: 'rchcorrection', component: RCHCorrectionMainComponent,
+        children:[
+          {path: '', component: RCHCorrectionComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -963,7 +973,9 @@ export const RoutingComponents = [
   ViewResultMLComponent,
   BarcodeCorrectionMainComponent,
   BarcodeCorrectionComponent,
-  BarcodePendingComponent
+  BarcodePendingComponent,
+  RCHCorrectionMainComponent,
+  RCHCorrectionComponent
 
 ];
 

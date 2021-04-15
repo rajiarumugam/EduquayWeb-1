@@ -16,7 +16,7 @@ export class AddRipointService {
 
   retrieveScApi: string = "api/v1/SC/Retrieve";
   retrieveRiPointApi: string = "api/v1/RI/Retrieve";
-  retrievePhcApi: string = "api/v1/PHC/Retrieve";
+  retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
   addRiPtApi: string = "api/v1/RI/Add";
   retrieveChcApi: string = "api/v1/CHC/Retrieve";
 

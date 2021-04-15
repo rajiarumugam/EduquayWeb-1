@@ -12,9 +12,10 @@ import { AddBlockDataresponse, AddBlockResponse } from './add-block-response';
 })
 export class AddBlockService {
 
-  retrieveBlockApi: string = "api/v1/Block/Retrieve";
-  addBlockApi: string = "api/v1/Block/Add";
-  retrieveDistrictApi: string = "api/v1/District/Retrieve";
+  retrieveBlockApi: string = "api/v1/SA/RetrieveAllBlocks";
+  addBlockApi: string = "api/v1/SA/AddNewBlock";
+  retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
+  updateBlockApi: string = "api/v1/SA/UpdateBlock";
 
   constructor(
     private httpClient: HttpClient,
@@ -33,8 +34,13 @@ export class AddBlockService {
     return this.http.get<AddBlockResponse>({url: apiUrl});
   }
 
-  addBlock(blockadd: AddBlockRequest){
+  addBlock(blockadd){
     let apiUrl=this.genericService.buildApiUrl(this.addBlockApi);
+    return this.http.post<AddBlockDataresponse>({url: apiUrl, body: blockadd});
+  }
+
+  updateBlock(blockadd){
+    let apiUrl=this.genericService.buildApiUrl(this.updateBlockApi);
     return this.http.post<AddBlockDataresponse>({url: apiUrl, body: blockadd});
   }
 }

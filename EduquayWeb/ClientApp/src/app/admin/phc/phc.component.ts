@@ -34,11 +34,11 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     user: user;
   
     confirmationSelected: boolean ;
-    phcListResponse: AddPhcResponse;
+    phcListResponse;
     phclists: PhcList[];
-    phcListRequest: AddPhcRequest;
+    phcListRequest;
     addPhcResponse: AddPhcDataresponse;
-    chcListResponse: AddChcResponse;
+    chcListResponse;
     chclists: ChcList[];
    
    
@@ -56,6 +56,8 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     updatedBy: number;
     stateCode: string;
     phcnamedata: string;
+    districtlists;
+    hninId;
   
     commentsdata: string;
     getchc: string;
@@ -73,6 +75,11 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     phcNamedata: string;
     phcCodedata: string;
     selectedEditBlock: string = '';
+    districtListResponse;
+    selectedDistrict = '';
+    disabledChc = false;
+    getdistrict = "";
+    editPhcDetails;
   
     constructor(
     
@@ -121,12 +128,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.phcListResponse = response;
         this.loaderService.display(false);
         if(this.phcListResponse !== null){
-          if(this.phcListResponse.phcDetails.length <= 0){
+          if(this.phcListResponse.data.length <= 0){
             this.phclistErrorMessage = response.message;
             
           }
           else{
-            this.phclists = this.phcListResponse.phcDetails;
+            this.phclists = this.phcListResponse.data;
             this.phclists.forEach(element => {
               this.getchc = '' +(element.chcId);
              
@@ -153,7 +160,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.PhcService.getChcList().subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
+          this.chclists = this.chcListResponse.data;
           this.selectedChc = "";
         }
         else {
@@ -166,6 +173,39 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
 
+    ddlDistrict() {
+      let district = this.PhcService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+          this.selectedDistrict = "";
+        }
+        else {
+          this.phclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.phclistErrorMessage = err.toString();
+  
+        });
+    }
+
+    ddlEditDistrict() {
+      let district = this.PhcService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+            this.selectedDistrict = this.getdistrict;
+        }
+        else {
+          this.phclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.phclistErrorMessage = err.toString();
+  
+        });
+    }
     ddlEditChc() {
       this.selectedEditChc = '';
       let district = this.PhcService.getChcList().subscribe(response => {
@@ -185,10 +225,34 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
   
-     
+    districtChange()
+    {
+          console.log(this.selectedDistrict);
+
+          this.selectedChc = '';
+      let district = this.PhcService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+          this.selectedChc = "";
+          this.disabledChc = true;
+        }
+        else {
+          this.phclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.phclistErrorMessage = err.toString();
+  
+        });
+    }
+
+   
     openAddPhc(addPhcDetail) {
       
-      this.ddlChc();
+      //this.ddlChc();
+      this.disabledChc = false;
+      this.ddlDistrict();
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
         addPhcDetail, {
@@ -202,16 +266,26 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    openEditPhc(editPhcDetail, sample: PhcList) {
+    openEditPhc(editPhcDetail, sample) {
   
-      this.ddlEditChc();
-      this.phcNamedata = sample.phcName;
+      console.log(sample);
+      //this.ddlEditChc();
+      this.editPhcDetails = sample;
+      this.getdistrict = sample.districtId;
+      this.selectedDistrict =sample.districtId;
+      this.ddlEditDistrict();
+      setTimeout(() => {
+        this.districtChange();
+      }, 100);
+     
+      this.phcNamedata = sample.name;
       this.pincodeData = sample.pincode;
       this.latitudedata = sample.latitude;
       this.longitudedata = sample.longitude;
       this.selectedEditChc = "" +(sample.chcId)
       this.commentsdata = sample.comments;
       this.phcCodedata = sample.phcGovCode;
+      this.hninId = sample.hninId;
       this.confirmationSelected = Boolean(sample.isActive);
   
       this.modalService.open(
@@ -237,19 +311,19 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.phcCode =  addPhcForm.value.phcCode
       this.latitude = addPhcForm.value.latitudeData;
       this.longitude = addPhcForm.value.longitudeData;
+      this.hninId = addPhcForm.value.hninId;
   
+
       this.phcListRequest = {
         chcId: +(this.selectedChc),
-        hninId: "",
+        hninId: this.hninId,
         phcGovCode: this.phcCode,
-        phcName: this.phcName,
-        isActive: "" + this.confirmationSelected,
+        name: this.phcName,
         pincode: this.pincode,
         comments: this.comments,
         latitude: this.latitude,
         longitude: this.longitude,
-        createdBy: this.user.id,
-        updatedBy: this.user.id
+        userId: this.user.id  
       };
   
       //Remove below 2 lines after successfully tested
@@ -259,7 +333,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       let damagedsampleCollection = this.PhcService.addPhc(this.phcListRequest)
       .subscribe(response => {
         this.addPhcResponse = response;
-        if(this.addPhcResponse !== null){
+        if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage(this.addPhcResponse.message, 's')
            this.retrirvePhclist();
         }else{
@@ -282,34 +356,38 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.commentsdata = editPhcForm.value.commentsdata;
       this.selectedEditChc = editPhcForm.value.ddlEditChc;
       this.phcCodedata = editPhcForm.value.phcCodedata;
-      this.phcnamedata = editPhcForm.value.phcNamedata;
+      //this.phcnamedata = editPhcForm.value.phcNamedata;
       this.pincodeData = editPhcForm.value.pincodeData;
       this.latitudedata = editPhcForm.value.latitudeData;
       this.longitudedata = editPhcForm.value.longitudeData;
-  
+      this.hninId = editPhcForm.value.hninId;
+
+      console.log(this.phcCodedata);
+      console.log(this.phcNamedata);
   
       this.phcListRequest = {
+        id: this.editPhcDetails.id,
         chcId: +(this.selectedEditChc),
-        hninId: "",
+        
         phcGovCode: this.phcCodedata,
-        phcName: this.phcnamedata,
-        isActive: "" + this.confirmationSelected,
+        name: this.phcNamedata,
+        hninId: this.hninId,
         pincode: this.pincodeData,
-        comments: this.commentsdata,
+        isActive: this.confirmationSelected,
         latitude: this.latitudedata,
         longitude: this.longitudedata,
-        createdBy: this.user.id,
-        updatedBy: this.user.id
+        comments: this.commentsdata,
+        userId: this.user.id,
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.PhcService.addPhc(this.phcListRequest)
+      let damagedsampleCollection = this.PhcService.updatePhc(this.phcListRequest)
       .subscribe(response => {
         this.addPhcResponse = response;
-        if(this.addPhcResponse !== null){
+        if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage(this.addPhcResponse.message, 's')
            this.retrirvePhclist();
         }else{
