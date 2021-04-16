@@ -37,11 +37,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     confirmationSelected: boolean ;
     scListResponse;
     sclists: ScList[];
-    scListRequest: AddScRequest;
+    scListRequest;
     addScResponse: AddScDataresponse;
-    chcListResponse: AddChcResponse;
+    chcListResponse;
     chclists: ChcList[];
-    phcListResponse:AddPhcResponse;
+    phcListResponse;
     phclists: PhcList[];
    
     selectedChc: string;
@@ -80,6 +80,15 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedEditPhc: string = '';
     scNamedata: string;
     scCodedata: string;
+
+    districtListResponse;
+    selectedDistrict = '';
+    disabledChc = false;
+    districtlists;
+    getdistrict;
+    scAddress;
+    hninId;
+    editSampleData;
   
     constructor(
     
@@ -130,6 +139,8 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.scListResponse !== null){
           if(this.scListResponse.data.length <= 0){
             this.sclistErrorMessage = response.message;
+
+            this.ddlDistrict();
             
           }
           else{
@@ -155,6 +166,39 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
 
+    ddlDistrict() {
+      let district = this.ScService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+          //this.selectedDistrict = "";
+        }
+        else {
+          this.sclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.sclistErrorMessage = err.toString();
+  
+        });
+    }
+
+    ddlEditDistrict() {
+      let district = this.ScService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+            this.selectedDistrict = this.getdistrict;
+        }
+        else {
+          this.sclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.sclistErrorMessage = err.toString();
+  
+        });
+    }
     ddlChc() {
 
       this.selectedChc = '';
@@ -197,7 +241,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.ScService.getPhcList(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
-          this.phclists = this.phcListResponse.phcDetails;
+          this.phclists = this.phcListResponse.data;
           this.selectedPhc = "";
          
         }
@@ -215,7 +259,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.ScService.getPhcList(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
-          this.phclists = this.phcListResponse.phcDetails;
+          this.phclists = this.phcListResponse.data;
           if(this.phclists.length > 0){
             this.selectedEditPhc = this.getphc;
             
@@ -249,11 +293,34 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         this.ddlEdtiPhc(this.selectedEditChc);
       }
     }
-   
+    districtChange()
+    {
+          console.log(this.selectedDistrict);
+
+          this.selectedChc = '';
+      let district = this.ScService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+          this.selectedChc = "";
+          this.disabledChc = true;
+        }
+        else {
+          this.sclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.sclistErrorMessage = err.toString();
+  
+        });
+    }
+
   
     openAddSc(addScDetail) {
       
-      this.ddlChc();
+     // this.ddlChc();
+     this.ddlDistrict();
+     this.selectedDistrict = "";
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
         addScDetail, {
@@ -267,11 +334,15 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    openEditSc(editScDetail, sample: ScList) {
+    openEditSc(editScDetail, sample) {
   
+      this.editSampleData = sample;
+      console.log(sample);
+      this.ddlDistrict();
+      this.selectedDistrict = sample.districtId;
       this.ddlEditChc();
-      this.ddlEdtiPhc(this.user.chcId);
-      this.scNamedata = sample.scName;
+      this.ddlEdtiPhc(sample.chcId);
+      this.scNamedata = sample.name;
       this.scCodedata = sample.scGovCode;
       this.pincodeData = sample.pincode;
       this.latitudedata = sample.latitude;
@@ -279,6 +350,8 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedEditChc = "" +(sample.chcId);
       this.selectedEditPhc = "" +(sample.phcId)
       this.commentsdata = sample.comments;
+      this.hninId = sample.hninId;
+      this.scAddress = sample.scAddress;
       this.confirmationSelected = Boolean(sample.isActive);
   
       this.modalService.open(
@@ -305,21 +378,21 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pincode = addScForm.value.pincodeData;
       this.latitude = addScForm.value.latitudeData;
       this.longitude = addScForm.value.longitudeData;
+      this.scAddress = addScForm.value.scAddress;
+      this.hninId = addScForm.value.hninId;
   
       this.scListRequest = {
         chcId: +(this.selectedChc),
         phcId: +(this.selectedPhc),
-        hninId: "0",
         scGovCode: this.scCode,
-        scName: this.scName,
-        scAddress: "", 
+        name: this.scName,
+        hninId: this.hninId,
+        scAddress: this.scAddress, 
         pincode: this.pincode,
-        isActive: ""+this.confirmationSelected,
         comments: this.comments,
         latitude: this.latitude,
         longitude: this.longitude,
-        createdBy: this.user.id,
-        updatedBy: this.user.id
+        userId: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
@@ -329,7 +402,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       let damagedsampleCollection = this.ScService.addSc(this.scListRequest)
       .subscribe(response => {
         this.addScResponse = response;
-        if(this.addScResponse !== null){
+        if(this.addScResponse !== null && this.addScResponse.status == 'true'){
           this.showResponseMessage(this.addScResponse.message, 's')
            this.retrirveSclist();
         }else{
@@ -357,32 +430,33 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pincodeData = editScForm.value.pincodeData;
       this.latitudedata = editScForm.value.latitudeData;
       this.longitudedata = editScForm.value.longitudeData;
+      this.longitudedata = editScForm.value.longitudeData;
   
   
       this.scListRequest = {
+        id:this.editSampleData.id,
         chcId: +(this.selectedEditChc),
         phcId: +(this.selectedEditPhc),
-        hninId: "0",
         scGovCode: this.scCodedata,
-        scName: this.scNamedata,
-        scAddress: "", 
+        name: this.scNamedata,
+        hninId: this.hninId,
         pincode: this.pincodeData,
-        isActive: ""+this.confirmationSelected,
-        comments: this.commentsdata,
+        scAddress: this.scAddress, 
+        isActive: this.confirmationSelected,
         latitude: this.latitudedata,
         longitude: this.longitudedata,
-        createdBy: this.user.id,
-        updatedBy: this.user.id
+        comments: this.commentsdata,
+        userId: this.user.id
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.ScService.addSc(this.scListRequest)
+      let damagedsampleCollection = this.ScService.updateSc(this.scListRequest)
       .subscribe(response => {
         this.addScResponse = response;
-        if(this.addScResponse !== null){
+        if(this.addScResponse !== null && this.addScResponse.status === 'true'){
           this.showResponseMessage(this.addScResponse.message, 's')
            this.retrirveSclist();
         }else{

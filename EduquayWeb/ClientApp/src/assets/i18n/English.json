@@ -584,5 +584,6 @@
 "Molecular Lab Test Date":"Molecular Lab Test Date",
 "OldRCHID":"Old RCHID",
 "REVISEDRCHID":"REVISED RCHID",
-"hninId":"hnin Id"
+"hninId":"hnin Id",
+"scAddress":"SC Address"
 }

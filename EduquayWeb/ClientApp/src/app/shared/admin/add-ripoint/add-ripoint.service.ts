@@ -15,10 +15,12 @@ import { AddRipointResponse, AddRiPtDataresponse } from './add-ripoint-response'
 export class AddRipointService {
 
   retrieveScApi: string = "api/v1/SC/Retrieve";
-  retrieveRiPointApi: string = "api/v1/RI/Retrieve";
+  retrieveRiPointApi: string = "api/v1/SA/RetrieveAllRISites";
   retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
   addRiPtApi: string = "api/v1/RI/Add";
   retrieveChcApi: string = "api/v1/CHC/Retrieve";
+  retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
+  RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
 
   constructor(
     private httpClient: HttpClient,
@@ -52,6 +54,16 @@ export class AddRipointService {
   addRiPt(riptadd: AddRipointRequest){
     let apiUrl=this.genericService.buildApiUrl(this.addRiPtApi);
     return this.http.post<AddRiPtDataresponse>({url: apiUrl, body: riptadd});
+  }
+
+  getDistrictList(){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveDistrictApi);
+    return this.http.get<any>({url: apiUrl});
+  }
+
+  getCHCByDis(id){
+    let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyDistrict+id);
+    return this.http.get<any>({url: apiUrl});
   }
 
 }
