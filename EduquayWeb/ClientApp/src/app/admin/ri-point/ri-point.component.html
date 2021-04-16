@@ -155,7 +155,7 @@
                                         required [(ngModel)]="selectedPhc" (change)="onChangePhc($event.target.value)" >
                                             <option value="">Select</option>
                                             <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
-                                                {{phcdata.phcName}}
+                                                {{phcdata.name}}
                                             </option>
                                         </select>
                                           <small class=" ml-2 text-danger" *ngIf="ddlPhc.invalid && ddlPhc.touched ">Please choose a PHC</small>
@@ -173,7 +173,7 @@
                                     required [(ngModel)]="selectedSc" >
                                         <option value="">Select</option>
                                         <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
-                                            {{scdata.scName}}
+                                            {{scdata.name}}
                                         </option>
                                     </select>
                                       <small class=" ml-2 text-danger" *ngIf="ddlSc.invalid && ddlSc.touched ">Please choose a SC</small>
@@ -218,6 +218,18 @@
                                 <input class="form-control field" name="longitudeData" type="text" placeholder="Longitude" 
                                   autocomplete="off" #longitudeData="ngModel" ngModel>
                               </div>
+
+                              <div class="form-group col-md-3">
+                                <label class="note">{{'ilrId' | translate }}<span class="manto"></span></label>
+                                <input class="form-control field" name="ilrId" type="text" placeholder="Longitude" 
+                                  autocomplete="off" #ilrId="ngModel" ngModel>
+                              </div>
+
+                              <div class="form-group col-md-3">
+                                <label class="note">{{'ilrId' | translate }}<span class="manto"></span></label>
+                                <input class="form-control field" name="ilrId" type="text" placeholder="Longitude" 
+                                  autocomplete="off" #ilrId="ngModel" ngModel>
+                              </div>  
                     
                                   <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
