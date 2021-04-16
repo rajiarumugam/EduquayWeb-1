@@ -14,9 +14,9 @@ import { AddRipointResponse, AddRiPtDataresponse } from './add-ripoint-response'
 })
 export class AddRipointService {
 
-  retrieveScApi: string = "api/v1/SC/Retrieve";
+  retrieveScApi: string = "api/v1/WebMaster/RetrieveSCByPHC/";
   retrieveRiPointApi: string = "api/v1/SA/RetrieveAllRISites";
-  retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
+  retrievePhcApi: string = "api/v1/WebMaster/RetrievePHCByCHC/";
   addRiPtApi: string = "api/v1/RI/Add";
   retrieveChcApi: string = "api/v1/CHC/Retrieve";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
@@ -37,12 +37,12 @@ export class AddRipointService {
   getPhcList(code){
     //var user = JSON.parse(this.tokenService.getUser('lu'));
     //this.userId = user.id;
-    let apiUrl = this.genericService.buildApiUrl(`${this.retrievePhcApi}/${code}`);
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrievePhcApi}${code}`);
     return this.http.get<AddPhcResponse>({url: apiUrl });
   }
 
   getScList(code){
-    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveScApi}/${code}`);
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveScApi}${code}`);
     return this.http.get<AddScResponse>({url: apiUrl});
   }
 

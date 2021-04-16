@@ -43,9 +43,9 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     addriptResponse: AddRiPtDataresponse;
     chcListResponse;
     chclists: ChcList[];
-    phcListResponse:AddPhcResponse;
+    phcListResponse;
     phclists: PhcList[];
-    scListResponse: AddScResponse;
+    scListResponse;
     sclists: ScList[];
     scListRequest: AddScRequest;
    
@@ -246,7 +246,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.RiPtService.getPhcList(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
-          this.phclists = this.phcListResponse.phcDetails;
+          this.phclists = this.phcListResponse.data;
           this.selectedPhc = "";
          
         }
@@ -285,7 +285,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.RiPtService.getScList(code).subscribe(response => {
         this.scListResponse = response;
         if (this.scListResponse !== null && this.scListResponse.status === "true") {
-          this.sclists = this.scListResponse.scDetails;
+          this.sclists = this.scListResponse.data;
           this.selectedSc = "";
          
         }

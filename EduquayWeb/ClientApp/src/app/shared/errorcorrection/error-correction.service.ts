@@ -50,4 +50,10 @@ export class errorCorrectionService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIVEERRORBARCODE);
     return this.http.get<any>({url:apiUrl});
   }
+
+  getRCHErrorDetails(rchid)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIVEFORRCHIDERRORCORRECTION+rchid);
+    return this.http.get<any>({url:apiUrl});
+  }
 }
