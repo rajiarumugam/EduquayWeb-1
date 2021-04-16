@@ -585,5 +585,6 @@
 "OldRCHID":"Old RCHID",
 "REVISEDRCHID":"REVISED RCHID",
 "hninId":"hnin Id",
-"scAddress":"SC Address"
+"scAddress":"SC Address",
+"ilrId":"ilr Id"
 }
