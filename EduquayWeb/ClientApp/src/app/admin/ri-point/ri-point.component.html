@@ -77,7 +77,7 @@
                           <tbody>
                             <tr *ngFor="let sample of riptlists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.riSite}}</td>
+                              <td class="sname text-left">{{sample.name}}</td>
                               <td class="sname text-left">{{sample.riGovCode}}</td>
                               <td class="sid text-center">{{sample.pincode}}</td>
                               <td class="sid text-center">{{sample.latitude}}</td>
@@ -119,6 +119,16 @@
                               <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
                                   <div class="form-group col-md-3">
+                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                    <select id="inputilrPoint" class="form-control"
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" >
+                                        <option value="">Select</option>
+                                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                            {{districtdata.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                  <div class="form-group col-md-3">
                                        
                                         <label [ngClass]="{'label-border-class':ddlChc.invalid && ddlChc.touched || addRiPtForm.submitted && ddlChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
                                             class="manto"> *</span></label>
@@ -127,7 +137,7 @@
                                             required [(ngModel)]="selectedChc" (change)="onChangeChc($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
-                                                    {{chcdata.chcName}}
+                                                    {{chcdata.name}}
                                                 </option>
                                             </select>
                                               <small class=" ml-2 text-danger" *ngIf="ddlChc.invalid && ddlChc.touched ">Please choose a CHC</small>

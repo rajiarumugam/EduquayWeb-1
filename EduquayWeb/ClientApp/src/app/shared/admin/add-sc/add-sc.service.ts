@@ -14,9 +14,13 @@ import { AddScDataresponse, AddScResponse } from './add-sc-response';
 export class AddScService  {
 
     retrieveScApi: string = "api/v1/SA/RetrieveAllSCs";
-    retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
+    retrievePhcApi: string = "api/v1/WebMaster/RetrievePHCByCHC";
     addScApi: string = "api/v1/SA/AddNewSC";
     retrieveChcApi: string = "api/v1/CHC/Retrieve";
+    retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
+    RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
+    RetrievePHCByCHC="api/v1/WebMaster/RetrievePHCByCHC/";
+    updateScApi: string = "api/v1/SA/UpdateSC";
   
     constructor(
       private httpClient: HttpClient,
@@ -45,5 +49,25 @@ export class AddScService  {
     addSc(scadd: AddScRequest){
       let apiUrl=this.genericService.buildApiUrl(this.addScApi);
       return this.http.post<AddScDataresponse>({url: apiUrl, body: scadd});
+    }
+
+    updateSc(scadd: AddScRequest){
+      let apiUrl=this.genericService.buildApiUrl(this.updateScApi);
+      return this.http.post<AddScDataresponse>({url: apiUrl, body: scadd});
+    }
+
+    getDistrictList(){
+      let apiUrl = this.genericService.buildApiUrl(this.retrieveDistrictApi);
+      return this.http.get<any>({url: apiUrl});
+    }
+
+    getCHCByDis(id){
+      let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyDistrict+id);
+      return this.http.get<any>({url: apiUrl});
+    }
+
+    getPHCByCHC(id){
+      let apiUrl = this.genericService.buildApiUrl(this.RetrievePHCByCHC+id);
+      return this.http.get<any>({url: apiUrl});
     }
   }

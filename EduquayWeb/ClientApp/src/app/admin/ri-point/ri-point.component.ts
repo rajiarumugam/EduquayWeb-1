@@ -37,11 +37,11 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     user: user;
   
     confirmationSelected: boolean ;
-    riPtListResponse: AddRipointResponse;
+    riPtListResponse;
     riptlists: RiList[];
     riptListRequest: AddRipointRequest;
     addriptResponse: AddRiPtDataresponse;
-    chcListResponse: AddChcResponse;
+    chcListResponse;
     chclists: ChcList[];
     phcListResponse:AddPhcResponse;
     phclists: PhcList[];
@@ -56,6 +56,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     districtGovCode: string;
     stateName: string;
 
+    selectedDistrict = '';
     districtName: string;
     isActive: string;
     comments: string;
@@ -88,6 +89,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedEditSc: string = '';
     riNamedata: string;
     riCodedata: string;
+    districtListResponse;
+    districtlists;
   
     constructor(
     
@@ -125,6 +128,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrieveRiPtList();
+      this.ddlDistrict();
     }
   
     retrieveRiPtList(){
@@ -136,12 +140,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         this.riPtListResponse = response;
         this.loaderService.display(false);
         if(this.riPtListResponse !== null){
-          if(this.riPtListResponse.riDetails.length <= 0){
+          if(this.riPtListResponse.data.length <= 0){
             this.ripointlistErrorMessage = response.message;
             
           }
           else{
-            this.riptlists = this.riPtListResponse.riDetails;
+            this.riptlists = this.riPtListResponse.data;
             this.riptlists.forEach(element => {
               this.getchc = '' +(element.chcId);
               this.getphc = '' +(element.phcId);
@@ -163,6 +167,43 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
 
+    districtChange()
+    {
+          console.log(this.selectedDistrict);
+
+          this.selectedChc = '';
+      let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+          this.selectedChc = "";
+          //this.disabledChc = true;
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+    ddlDistrict() {
+      let district = this.RiPtService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+          //this.selectedDistrict = "";
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
     ddlChc() {
 
       this.selectedChc = '';
@@ -318,7 +359,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
   
     openAddRiPt(addRiPtDetail) {
       
-      this.ddlChc();
+      //this.ddlChc();
       //this.ddlPhc(this.selectedPhc);
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
