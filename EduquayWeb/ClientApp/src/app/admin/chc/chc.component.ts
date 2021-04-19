@@ -35,18 +35,19 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     user: user;
   
     confirmationSelected: boolean ;
-    chcListResponse: AddChcResponse;
+    chcListResponse;
     chclists: ChcList[];
-    chcListRequest: AddChcRequest;
+    chcListRequest;
     addChcResponse: AddChcDataresponse;
-    districtListResponse: AddDistrictResponse;
+    districtListResponse;
     districtlists: DistrictList[];
-    blockListResponse:AddBlockResponse;
+    blockListResponse;
     blocklists: BlockList[];
    
     selectedDistrict: string;
     getstate: string;
     selectedEditDistrict: string = '';
+    hninId;
   
     districtGovCode: string;
     stateName: string;
@@ -78,6 +79,10 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chcNamedata: string;
     chcCodedata: string;
     selectedEditBlock: string = '';
+    isTestingFacility = true;
+    selectedtestingCHCId = '';
+    testingCHCResponse;
+    testingCHCists;
   
     constructor(
     
@@ -126,12 +131,12 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.chcListResponse = response;
         this.loaderService.display(false);
         if(this.chcListResponse !== null){
-          if(this.chcListResponse.chcDetails.length <= 0){
+          if(this.chcListResponse.data.length <= 0){
             this.chclistErrorMessage = response.message;
             
           }
           else{
-            this.chclists = this.chcListResponse.chcDetails;
+            this.chclists = this.chcListResponse.data;
             this.chclists.forEach(element => {
               this.getdistrict = '' +(element.districtId);
               this.getblock = '' +(element.blockId);
@@ -160,7 +165,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.ChcService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.districts;
+          this.districtlists = this.districtListResponse.data;
           this.selectedDistrict = "";
         }
         else {
@@ -178,7 +183,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.ChcService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.districts;
+          this.districtlists = this.districtListResponse.data;
           this.selectedEditDistrict = this.getdistrict;
           this.onChangeEditDistrict(this.getblock);
         }
@@ -196,8 +201,26 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.ChcService.getBlocklist(code).subscribe(response => {
         this.blockListResponse = response;
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
-          this.blocklists = this.blockListResponse.blocks;
+          this.blocklists = this.blockListResponse.data;
           this.selectedBlock = "";
+         
+        }
+        else {
+          this.chclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.chclistErrorMessage = err.toString();
+  
+        });
+    }
+    ddlTestingCHC(code) {
+      this.selectedBlock = '';
+      let district = this.ChcService.gettestingCHC(code).subscribe(response => {
+        this.testingCHCResponse = response;
+        if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
+          this.testingCHCists = this.testingCHCResponse.data;
+         
          
         }
         else {
@@ -214,7 +237,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       let district = this.ChcService.getBlocklist(code).subscribe(response => {
         this.blockListResponse = response;
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
-          this.blocklists = this.blockListResponse.blocks;
+          this.blocklists = this.blockListResponse.data;
           if(this.blocklists.length > 0){
             this.selectedEditBlock = this.getblock;
             
@@ -237,6 +260,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       }
       else {
         this.ddlBlock(this.selectedDistrict);
+        this.ddlTestingCHC(this.selectedDistrict);
       }
     }
     onChangeEditDistrict(event) {
@@ -249,7 +273,10 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
    
-  
+    chcChange()
+    {
+      console.log(this.chcName);
+    }
     openAddChc(addChcDetail) {
       
       this.ddlDistrict();
@@ -266,11 +293,13 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    openEditChc(editBlockDetail, sample: ChcList) {
+    openEditChc(editBlockDetail, sample) {
   
+      console.log(sample);
+      this.getdistrict = sample.districtId;
       this.ddlEditDistrict();
-      this.ddlEditBlock(this.user.districtId);
-      this.chcNamedata = sample.chcName;
+      this.ddlEditBlock(sample.districtId);
+      this.chcNamedata = sample.name;
       this.chcCodedata = sample.chcGovCode;
       this.pincodeData = sample.pincode;
       this.latitudedata = sample.latitude;
@@ -279,6 +308,10 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedEditBlock = "" +(sample.blockId)
       this.commentsdata = sample.comments;
       this.confirmationSelected = Boolean(sample.isActive);
+
+
+      this.isTestingFacility = sample.isTestingFacility === 'True' ? true : false;
+      this.hninId = sample.hninId;
   
       this.modalService.open(
         editBlockDetail, {
@@ -304,25 +337,25 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pincode = addChcForm.value.pincodeData;
       this.latitude = addChcForm.value.latitudeData;
       this.longitude = addChcForm.value.longitudeData;
+      this.hninId = addChcForm.value.hninId;
   
       this.chcListRequest = {
         districtId: +(this.selectedDistrict),
         blockId: +(this.selectedBlock),
-        hninId: "0",
+        hninId:  this.hninId,
         chcGovCode: this.chcCode,
-        chcName: this.chcName,
-        isTestingFacility: "",
+        name: this.chcName,
+        isTestingFacility: this.isTestingFacility,
         testingCHCId: +this.testingchcId,
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
-        isActive: ""+this.confirmationSelected,
         comments: this.comments,
         latitude: this.latitude,
         longitude: this.longitude,
-        createdBy: this.user.id,
-        updatedBy: this.user.id
+        userId: this.user.id
       };
   
+      console.log(this.chcListRequest);
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
@@ -330,7 +363,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       let damagedsampleCollection = this.ChcService.addChc(this.chcListRequest)
       .subscribe(response => {
         this.addChcResponse = response;
-        if(this.addChcResponse !== null){
+        if(this.addChcResponse !== null && this.addChcResponse.status == 'true'){
           this.showResponseMessage(this.addChcResponse.message, 's')
            this.retrirveChclist();
         }else{

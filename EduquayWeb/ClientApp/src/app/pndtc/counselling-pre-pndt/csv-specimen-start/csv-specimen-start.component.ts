@@ -43,7 +43,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   pndtmtpMasterResponse: PndtMtpMasterResponse;
   counsellingprepndtRequest: CounsellPrePndtResquest;
   counsellingprepndtResponse: CounsellPrePndtResponse;
-  counsellinglists: CounsellingList[] = [];
+  counsellinglists = [];
   counsellingTemplists;
   districts: dataModel[] = [];
   selectedDistrict: string = '';
@@ -364,6 +364,9 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   searchBarCodetype()
   {
     let term = this.searchbarcode;
+
+    /*------for RCHID --------- */
+    /*
     var _tempSliceArr = [];
     var _tempRemainingArray = [];
     
@@ -410,6 +413,24 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
     }
     
           //this.counsellingTemplists = JSON.parse(JSON.stringify(_tempRemainingArray));
+*/
+/*------------FOR CSV SPECIMEN REF ID----------- */
+console.log(term);
+console.log(this.counsellinglists);
+var _index = this.counsellinglists.findIndex(com => com.cvsSampleRefId === term);
+console.log(_index);
+if(_index >= 0)
+      {
+        this.counsellinglists[_index]['checked'] = true;
+        this.checkAllEnabled = true;
+        this.counsellingStartlist.push(this.counsellinglists[_index]);
+        this.searchbarcode = ""; 
+        this.rerender();
+       
+        this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
+     
+this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
+      }
 
 
   }
@@ -423,7 +444,8 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
   }
   removeCounsellingData(i, event)
   {
-    var _tempRCHID = this.counsellingStartlist[i].rchId;
+    /*---------_FOR RCH ID------------------ */
+    /*var _tempRCHID = this.counsellingStartlist[i].rchId;
     var _rchMatchArray = [];
     for(var k =0;k<this.counsellingStartlist.length;k++)
     {
@@ -442,7 +464,11 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
     this.rerender();
     this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
     this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
-   
+   */
+    this.counsellingStartlist.splice(i, 1);
+    this.rerender();
+    this.dataservice.setdata({'csvspecimenstartdata':this.counsellingStartlist});
+    this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":this.counsellinglists.length-this.counsellingStartlist.length,"start":this.counsellingStartlist.length}));
   }
   ngAfterViewInit(): void {
     //this.dtTrigger.next();
