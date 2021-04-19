@@ -3,7 +3,7 @@
     <form class="form-inline my-2 my-lg-0" style="margin-top:30px !important;">
         <div class="w-100">
             <input type="text" class="w-100 form-control product-search br-30"
-                name="searchbarcode" type="text" placeholder="Enter RCH ID"
+                name="searchbarcode" type="text" placeholder="Enter CVS Specimen Ref ID"
                 [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()" maxlength="12" numbersOnly autocomplete="off"
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" >
 

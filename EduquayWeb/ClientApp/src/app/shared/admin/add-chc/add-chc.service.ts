@@ -13,10 +13,11 @@ import { AddChcResponse, AddChcDataresponse } from './add-chc-response';
 })
 export class AddChcService {
 
-  retrieveBlockApi: string = "api/v1/Block/Retrieve";
+  retrieveBlockApi: string = "api/v1/WebMaster/RetrieveBlockByDistrict/";
   retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
-  addChcApi: string = "api/v1/CHC/Add";
-  retrieveDistrictApi: string = "api/v1/District/Retrieve";
+  addChcApi: string = "api/v1/SA/AddNewCHC";
+  retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
+  RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
 
   constructor(
     private httpClient: HttpClient,
@@ -43,8 +44,17 @@ export class AddChcService {
   getBlocklist(code){
     //var user = JSON.parse(this.tokenService.getUser('lu'));
     //this.userId = user.id;
-    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveBlockApi}/${code}`);
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveBlockApi}${code}`);
     return this.http.get<AddBlockResponse>({url: apiUrl });
   }
 
+  gettestingCHC(code){
+    //var user = JSON.parse(this.tokenService.getUser('lu'));
+    //this.userId = user.id;
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveTestingCHCByDistrict}${code}`);
+    return this.http.get<AddBlockResponse>({url: apiUrl });
+  }
+
+
+  
 }

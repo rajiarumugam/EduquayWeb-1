@@ -586,5 +586,7 @@
 "REVISEDRCHID":"REVISED RCHID",
 "hninId":"hnin Id",
 "scAddress":"SC Address",
-"ilrId":"ilr Id"
+"ilrId":"ilr Id",
+"TestingFacility":"Testing Facility",
+"testingCHC":"Testing CHC"
 }
