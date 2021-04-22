@@ -320,17 +320,16 @@
                                                 <td class="sp-xs-td-15">{{counsellingdataItem?.pndtDateTime}}</td>
                                                 <td class="sp-xs-td-9"><b>{{'ObstetricianName' | translate}}</b></td>
                                                 <td class="sp-xs-td-15">{{counsellingdataItem?.pndtObstetrician}}</td>
-                                                <td class="sp-xs-td-9"><b>{{'PNDTResults' | translate}}</b></td>
-                                                <td class="sp-xs-td-15">{{counsellingdataItem?.pndtResults}}</td>
-                                            </tr>
-
-                                            <tr>
                                                 <td><b>{{'CounsellorName' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.pndtCounsellorName}} </td>
+                                            </tr>
+
+                                            <!--<tr>
+                                                
                                                 <td><b>{{'PNDTDiagnosis' | translate}}</b></td>
                                                 <td>{{counsellingdataItem?.pndtDiagnosis}}</td>
 
-                                            </tr>
+                                            </tr>-->
                                            
                                         </tbody>
                                     </table>
@@ -341,7 +340,44 @@
                         
                     </div>
                 </div>
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable" *ngIf="counsellingdataItem?.foetalDisease === true">
+
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+                    <div class="widget-content widget-content-area br-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                            <thead> 
+                                <tr>
+                                    <th class="text-center"><span>{{'SNo' | translate}}</span></th>
+                                    <th class="text-center"><span>{{'SampleRefID' | translate}}</span></th>
+                                    <th class="text-center"><span>{{'NameofFoetus' | translate}}</span></th>
+                                    <th class="text-left"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
+                                    <th class="text-center"><span>{{'MolecularLabTestResult' | translate}}</span></th>                                             
+                                    <th class="text-center"><span>{{'PregnancyContinue' | translate}}</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let person of counsellingdataItem?.foetusDetail;index as i">
+                                    <td class="text-left">{{i+1}}</td>
+                                    <td class="text-left">{{person?.sampleRefId}}</td>
+                                    <td class="text-left">{{person?.foetusName}}</td>
+                                    <td class="text-center sp-xs-th">{{person?.cvsSampleRefId}}</td>                                                                                          
+                                    <td class="text-center">{{person?.molResult}}</td>
+                                    <td class="text-center">
+
+                                      {{person?.planforPregnancy}}
+                                    </td>
+                                    
+                                    <!-- <td class="text-left"></td> -->
+                                </tr>
+                               
+                            </tbody> 
+                        </table>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
