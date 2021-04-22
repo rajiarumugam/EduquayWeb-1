@@ -483,7 +483,7 @@ this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":thi
       var _tempBarcode;
       this.counsellingStartlist.forEach(function(val,index){
           if(index===0)
-              _tempBarcode = val.pndtFoetusId;
+              _tempBarcode = ''+val.pndtFoetusId;
           else
               _tempBarcode += ","+val.pndtFoetusId;
       });
@@ -509,7 +509,7 @@ this.dataservice.sendData(JSON.stringify({"module": "CSV SPECIMEN","pending":thi
                if (result.value) {
                 this.dataservice.deleteProp('csvspecimenstartdata');
                 this.counsellingStartlist = [];
-                this.router.navigateByUrl(`app/csv-specimen`);
+                this.router.navigateByUrl(`app/schedule-shipment`);
                }
                else{
                 this.firstFormGroup.reset();

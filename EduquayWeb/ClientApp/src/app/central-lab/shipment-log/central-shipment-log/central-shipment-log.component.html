@@ -28,8 +28,8 @@
                     <div class="col-md-4 d-flex justify-content-end">
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-light">
-                                    <img src="../../../../assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button>
+                                <!--<button type="button" class="btn btn-sm btn-outline-light">
+                                    <img src="../../../../assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button>-->
                                 <!-- <button type="button" class="btn btn-sm btn-outline-light">
                                     <img src="../../../../assets/assets/img/pdfimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
                             </div>
@@ -114,7 +114,7 @@
             <th>{{'DeliveryExecutiveName' | translate }}</th>
             <th>{{'ReceivingCentralLab' | translate }}</th>
             <th>{{'View' | translate }}</th>
-            <th>{{'Print' | translate }}</th>
+            <!--<th>{{'Print' | translate }}</th>-->
         </tr>
     </thead>
     <tbody>
@@ -126,7 +126,7 @@
             <td>{{ person.deliveryExecutiveName }}</td>
             <td>{{ person.centralLabName }}</td>
             <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
-            <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
+            <!--<td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>-->
         </tr>
     </tbody>
 </table>

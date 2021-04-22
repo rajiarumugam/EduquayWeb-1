@@ -164,9 +164,9 @@ else if(this.screenName == "confirm")
   this.prevScreen = ['/app/molecular-lab-result/confirmed-result'];
 }
 if(this.screenName == "update" || this.screenName == "confirm")
-    this.dataservice.sendData(JSON.stringify({ "module": "Molecular Lab", "submodule": "Counselling – Update Molecular Test Results - HPLC Positive Blood Sample" }));
+    this.dataservice.sendData(JSON.stringify({ "module": "Update Mol Results", "submodule": "Results/HPLC Positive Blood Sample / Case Sheet" }));
 else if(this.screenName == "edit")
-    this.dataservice.sendData(JSON.stringify({ "module": "Molecular Lab", "submodule": "Counselling – Update Molecular Test Results - HPLC Positive Blood Sample" }));
+    this.dataservice.sendData(JSON.stringify({ "module": "Update Mol Results", "submodule": "Results/HPLC Positive Blood Sample / Case Sheet" }));
 
     this.ddlobstetricianName();
   }
@@ -270,9 +270,13 @@ else if(this.screenName == "edit")
             else {
               this.counsellingdataItem = this.counsellingprepndtResponse.subjects.
                 find(counselling => counselling.uniqueSubjectId === this.anwSubjectId);
-             
-                const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
-                this.dateOptions.minDate = regDate;
+             console.log(this.counsellingdataItem);
+             if(this.counsellingdataItem != undefined)
+             {
+              const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
+              this.dateOptions.minDate = regDate;
+             }
+                
   
             }
           }
