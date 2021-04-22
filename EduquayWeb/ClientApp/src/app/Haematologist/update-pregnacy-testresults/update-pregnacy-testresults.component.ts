@@ -217,7 +217,7 @@ console.log(_tempArr);
       .subscribe(response => {
         this.loaderService.display(false);
         Swal.fire({
-          icon: 'success', title: "Pregnancy data updated Sucessfully!",
+          icon: 'success', title: "Status updated successfully!",
           showCancelButton: true, cancelButtonText: 'Close', allowOutsideClick: false
         })
           .then((result) => {

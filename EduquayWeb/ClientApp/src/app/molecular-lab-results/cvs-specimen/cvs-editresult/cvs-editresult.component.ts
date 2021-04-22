@@ -254,7 +254,16 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
 
   sampleSubmit(index)
   {
-    
+
+    var _msg = "Confirm Update Molecular Test Results";
+    if(index === 1)
+    {
+      _msg =  "";
+    }
+    if(index === 2)
+    {
+      _msg = "Confirm Update Molecular Test Results";
+    }
     this.firstFormCheck = true;
 
     var _testResult = this.selectedZygosityValueText;
@@ -288,7 +297,7 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
         console.log(_obj);
         Swal.fire({
           title: 'Are you sure?',
-          text: "Confirm Update Molecular Test Results",
+          text: _msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',
@@ -322,7 +331,7 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
         console.log(_obj);
         Swal.fire({
           title: 'Are you sure?',
-          text: "Confirm Update Molecular Test Results",
+          text: _msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',

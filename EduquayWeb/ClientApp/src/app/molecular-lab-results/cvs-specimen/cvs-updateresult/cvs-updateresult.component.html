@@ -62,8 +62,8 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <ng2-flatpickr id="scFromDate" name="testDate" formControlName="testDate" class="form-control flatpickr flatpickr-input active" #receivedPicker [config]="receiveddateOptions" placeholder="Select Date.." [(ngModel)]="selectedTestDate" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.testDate.value == undefined }"></ng2-flatpickr>
                       </div>
                           <div class="form-group col-md-3" *ngIf="showZygosity">
-                            <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && selectedZygosityValue === null }">{{'Zygosity' | translate}}</label>
-                            <select id="inputDistrict" class="form-control"  [(ngModel)]="selectedZygosityValue" (ngModelChange)="zygosityChange(selectedZygosityValue);" formControlName = "zygosity" [ngClass]="{'red-border-class': firstFormCheck && selectedZygosityValue === null }">
+                            <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.zygosity.value == undefined }">{{'Zygosity' | translate}}</label>
+                            <select id="inputDistrict" class="form-control"  [(ngModel)]="selectedZygosityValue" (ngModelChange)="zygosityChange(selectedZygosityValue);" formControlName = "zygosity" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.zygosity.value == undefined }">
                                 <option [ngValue]="null">Select</option>
                                 <option [value]="district.id" *ngFor="let district of zygositylist">{{district.name}}</option>
                               </select>
