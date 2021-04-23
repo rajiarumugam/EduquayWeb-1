@@ -341,41 +341,69 @@
                     </div>
                 </div>
 
-                <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
                     <div class="widget-content widget-content-area br-6">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                            <thead> 
-                                <tr>
-                                    <th class="text-center"><span>{{'SNo' | translate}}</span></th>
-                                    <th class="text-center"><span>{{'SampleRefID' | translate}}</span></th>
-                                    <th class="text-center"><span>{{'NameofFoetus' | translate}}</span></th>
-                                    <th class="text-left"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
-                                    <th class="text-center"><span>{{'MolecularLabTestResult' | translate}}</span></th>                                             
-                                    <th class="text-center"><span>{{'PregnancyContinue' | translate}}</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let person of counsellingdataItem?.foetusDetail;index as i">
-                                    <td class="text-left">{{i+1}}</td>
-                                    <td class="text-left">{{person?.sampleRefId}}</td>
-                                    <td class="text-left">{{person?.foetusName}}</td>
-                                    <td class="text-center sp-xs-th">{{person?.cvsSampleRefId}}</td>                                                                                          
-                                    <td class="text-center">{{person?.molResult}}</td>
-                                    <td class="text-center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="tablecss">
+                                            <tr class="" style="background-color: #e3e8ef;">
+                                                <th colspan="6" class="text-left"
+                                                    style="color:#3a3b3e;font-size: 15px;">
+                                                    <a href="#" class="pthead">
+                                                        <b>
+                                                            <div class="d-flex">
+                                                                <div class="p-2">{{'Molecular Lab Test Result' | translate}}</div>
+                                                                <div class="ml-auto p-2"><i
+                                                                        class="fa fa-caret-down"></i></div>
+                                                            </div>
+                                                        </b>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="d-none">
+                                            <div class="table-responsive" style="margin-top:10px;">
+                                                <table class="table table-bordered table-striped">
+                                                <thead> 
+                                                    <tr>
+                                                        <th class="text-center"><span>{{'SNo' | translate}}</span></th>
+                                                        <th class="text-center"><span>{{'SampleRefID' | translate}}</span></th>
+                                                        <th class="text-center"><span>{{'NameofFoetus' | translate}}</span></th>
+                                                        <th class="text-left"><span>{{'CVSSpecimenRefID' | translate}}</span></th>
+                                                        <th class="text-center"><span>{{'MolecularLabTestResult' | translate}}</span></th>                                             
+                                                        <th class="text-center"><span>{{'PregnancyContinue' | translate}}</span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let person of counsellingdataItem?.foetusDetail;index as i">
+                                                        <td class="text-left">{{i+1}}</td>
+                                                        <td class="text-left">{{person?.sampleRefId}}</td>
+                                                        <td class="text-left">{{person?.foetusName}}</td>
+                                                        <td class="text-center sp-xs-th">{{person?.cvsSampleRefId}}</td>                                                                                          
+                                                        <td class="text-center">{{person?.molResult}}</td>
+                                                        <td class="text-center">
+                    
+                                                          {{person?.planforPregnancy}}
+                                                        </td>
+                                                        
+                                                        <!-- <td class="text-left"></td> -->
+                                                    </tr>
+                                                   
+                                                </tbody> 
+                                            </table>
+                                            </div>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                                      {{person?.planforPregnancy}}
-                                    </td>
-                                    
-                                    <!-- <td class="text-left"></td> -->
-                                </tr>
-                               
-                            </tbody> 
-                        </table>
                         </div>
+                        
                     </div>
                 </div>
-
                 
                 <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile" id="myTable">
                     <div class="widget-content widget-content-area br-6">

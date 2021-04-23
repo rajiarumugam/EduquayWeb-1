@@ -158,7 +158,7 @@ export class SchedulePostPndtcToBeScheduledComponent implements AfterViewInit, O
         console.log(response);
         this.loaderService.display(false);
         this.scheduledlists = response.data;
-        this.dataservice.sendData(JSON.stringify({"module": "Haematologist", "submodule": "Schedule – Post PNDT counselling"}));
+        this.dataservice.sendData(JSON.stringify({"module": "Schedule & Counsel (Pre-PNDT)", "submodule": "Schedule – Post PNDT counselling"}));
       },
       (err: HttpErrorResponse) =>{
        
