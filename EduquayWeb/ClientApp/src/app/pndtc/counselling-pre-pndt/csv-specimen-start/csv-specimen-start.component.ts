@@ -152,7 +152,7 @@ export class CSVspecimenStartComponent implements AfterViewInit, OnDestroy, OnIn
               this.counsellingStartlist.forEach(function(element,index) {
                   this.counsellingTemplists.forEach(function(val,ind) 
                   {
-                      if(element.rchId === val.rchId)
+                      if(element.cvsSampleRefId === val.cvsSampleRefId)
                       {
                         this.counsellingTemplists.splice(ind,1);
                       }

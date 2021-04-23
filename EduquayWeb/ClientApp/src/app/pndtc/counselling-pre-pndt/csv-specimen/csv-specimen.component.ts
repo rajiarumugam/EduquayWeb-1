@@ -109,7 +109,7 @@ export class CSVspecimenComponent implements AfterViewInit, OnDestroy, OnInit  {
                   {
                       console.log(element);
                       console.log(val);
-                      if(element.rchId === val.rchId)
+                      if(element.cvsSampleRefId === val.cvsSampleRefId)
                       {
                         this.counsellinglists.splice(ind,1);
                       }
