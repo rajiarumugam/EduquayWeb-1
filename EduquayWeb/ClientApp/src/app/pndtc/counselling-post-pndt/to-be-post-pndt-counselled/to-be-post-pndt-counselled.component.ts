@@ -60,7 +60,7 @@ export class ToBePostPndtCounselledComponent implements AfterViewInit, OnDestroy
     this.loaderService.display(true);
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dataservice.sendData(JSON.stringify({"module": "Haematologist","submodule": "Counselling– Post PNDT" }));
+    this.dataservice.sendData(JSON.stringify({"module": "Schedule & Counsel (Pre-PNDT)","submodule": "Counselling– Post PNDT" }));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 20,
