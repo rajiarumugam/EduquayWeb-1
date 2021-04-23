@@ -269,12 +269,21 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
     var _testResult = this.selectedZygosityValueText;
     if(this.selectemutuation != null)
     {
-      _testResult += "for "+this.selectemutuationText;
+      _testResult += " for "+this.selectemutuationText;
     }
-    if(this.selectedmutuation2 != null)
+    if(this.selectedmutuation2 != null && this.selectedmutuation2 != '' && this.mutation3 == '')
     {
-      _testResult += "and "+this.selectedmutuation2Text;
+      _testResult += " and "+this.selectedmutuation2Text;
     }
+    if(this.selectedmutuation2 != null && this.selectedmutuation2 != '' && this.mutation3 != '')
+    {
+      _testResult += " , "+this.selectedmutuation2Text;
+    }
+    if(this.mutation3 != null && this.mutation3 != '')
+    {
+      _testResult += " and "+this.mutation3;
+    }
+    console.log(_testResult);
     var _obj = {};
     if(this.firstFormGroup.controls.maritalStatus.value === "true")
     {

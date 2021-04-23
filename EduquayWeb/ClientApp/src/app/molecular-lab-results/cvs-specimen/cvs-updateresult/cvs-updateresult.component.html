@@ -113,7 +113,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                   </div>
                   <div class="row">
                         <div class="col-md-12">
-                          <h6 class="ml-2"><b>{{'Result' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{selectedZygosityValueText}} <span  *ngIf="selectemutuation != null">for</span> {{selectemutuationText}} <span  *ngIf="selectedmutuation2 != null">and </span>{{selectedmutuation2Text}}</span></h6>
+                          <h6 class="ml-2"><b>{{'Result' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> {{selectedZygosityValueText}} <span  *ngIf="selectemutuation != null">for</span> {{selectemutuationText}} <span  *ngIf="selectedmutuation2 != null && selectedmutuation2 != '' && mutation3 == ''">and </span>  <span  *ngIf="selectedmutuation2 != null && selectedmutuation2 != '' && mutation3 != ''">, </span>{{selectedmutuation2Text}}</span> <span  *ngIf="mutation3 != null && mutation3 != ''"> and </span>{{mutation3}}</h6>
                       </div>
                     </div>
                   </div>
