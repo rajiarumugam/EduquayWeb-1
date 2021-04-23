@@ -37,7 +37,7 @@ export class PostPndtcTestresultsComponent implements OnInit {
   counsellinglists: PostCounsellingList[] = [];
   addCounsellingRequest: AddPostPndtCounsellingRequest;
   addCounsellingResponse: AddPostPndtcCounsellingResponse;
-  counsellingdataItem: PostCounsellingList;
+  counsellingdataItem;
   selectedobstetrician: string = '';
   obstetricianlists: dataModel[] = [];
   user: user;
