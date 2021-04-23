@@ -155,6 +155,11 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
   {
       console.log(data);
       this.popupData = data;
+      this.selectedZygosityValue = null;
+      this.selectedreasonforClose = "";
+      this.selectemutuation = null;
+      this.selectedmutuation2 = null;
+      this.mutation3 = '';
       if(this.popupData.sampleDamaged)
       {
         this.showZygosity = true;
@@ -165,6 +170,9 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
         this.showZygosity = true;
         //this.showReason = true;
       }
+      this.showMutation = false;
+      this.showMutation2 = false;
+      this.selectedZygosityValue = '';  
       $('#fadeinModal').modal('show');
   }
   zygosityChange(val)
@@ -242,12 +250,21 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
     var _testResult = this.selectedZygosityValueText;
     if(this.selectemutuation != null)
     {
-      _testResult += "for "+this.selectemutuationText;
+      _testResult += " for "+this.selectemutuationText;
     }
-    if(this.selectedmutuation2 != null)
+    if(this.selectedmutuation2 != null && this.selectedmutuation2 != '' && this.mutation3 == '')
     {
-      _testResult += "and "+this.selectedmutuation2Text;
+      _testResult += " and "+this.selectedmutuation2Text;
     }
+    if(this.selectedmutuation2 != null && this.selectedmutuation2 != '' && this.mutation3 != '')
+    {
+      _testResult += " , "+this.selectedmutuation2Text;
+    }
+    if(this.mutation3 != null && this.mutation3 != '')
+    {
+      _testResult += " and "+this.mutation3;
+    }
+    console.log(_testResult);
     var _obj = {};
 
     console.log(this.firstFormGroup.controls.maritalStatus.value);

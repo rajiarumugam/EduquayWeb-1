@@ -287,7 +287,6 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
       _testResult += " and "+this.mutation3;
     }
     console.log(_testResult);
-    return;
     var _obj = {};
     if(this.firstFormGroup.controls.maritalStatus.value === "true")
     {
