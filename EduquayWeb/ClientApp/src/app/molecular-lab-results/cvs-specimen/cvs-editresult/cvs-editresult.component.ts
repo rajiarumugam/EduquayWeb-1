@@ -159,21 +159,30 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
   {
       console.log(data);
       this.popupData = data;
-      if(this.popupData.sampleDamaged)
+      console.log(this.popupData.sampleProcessed);
+      if(this.popupData.sampleProcessed)
       {
         this.showZygosity = true;
-        //this.showReason = false;
+        this.showReason = false;
+        this.selectedZygosityValue =this.popupData.zygosityId;
+        this.selectemutuation = this.popupData.mutation1Id;
       }
       else
       {
-        this.showZygosity = true;
-        //this.showReason = true;
+        this.showZygosity = false;
+        this.showReason = true;
       }
+
+
+      //this.firstFormGroup.controls.maritalStatus.value(this.popupData.sampleProcessed);
+      this.firstFormGroup.patchValue({
+        maritalStatus:this.popupData.sampleProcessed === true ? 'true' : "false"
+      });
+      //this.sampleDamagedChange(this.popupData.sampleProcessed === true ? 'true' : "false");
       this.receivedPicker.flatpickr.setDate(this.popupData.testDate);
       this.selectedTestDate = this.popupData.testDate;
       this.firstTimeOpen = true;
-      this.selectedZygosityValue =this.popupData.zygosityId;
-      this.selectemutuation = this.popupData.mutation1Id;
+     
       
       $('#fadeinModal').modal('show');
   }
@@ -256,11 +265,11 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
   {
 
     var _msg = "Confirm Update Molecular Test Results";
-    if(index === 1)
+    if(index === '1')
     {
-      _msg =  "";
+      _msg =  "Save and Edit Molecular Test Results Later";
     }
-    if(index === 2)
+    if(index === '2')
     {
       _msg = "Confirm Update Molecular Test Results";
     }
@@ -314,7 +323,9 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
           
-              this.submitData(_obj);
+          if (result.value) {
+            this.submitData(_obj);
+        }
           })
       }
       
@@ -348,7 +359,9 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
           
-              this.submitData(_obj);
+          if (result.value) {
+            this.submitData(_obj);
+        }
           })
       }
     }

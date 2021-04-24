@@ -10,6 +10,7 @@ import { GenericService } from '../../../shared/generic.service';
 import { HttpClientService } from '../../../shared/http-client.service';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 import { DataService } from 'src/app/shared/data.service';
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-central-shipment-log',
@@ -28,6 +29,7 @@ export class CentralCentralShipmentComponent implements OnInit {
   receivedDateSelected = false;
   maxmDays = 8;
   selectedShipmentLog;
+  fileName: any;
   
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -126,8 +128,10 @@ export class CentralCentralShipmentComponent implements OnInit {
   }
   
   openPopup(data,id) {
+    console.log(data);
     this.selectedShipmentLog = id;
     console.log(this.selectedShipmentLog );
+    this.fileName= data.shipmentId +'.xlsx';
     $('#fadeinModal').modal('show');
   }
 
@@ -150,5 +154,31 @@ export class CentralCentralShipmentComponent implements OnInit {
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
+    }
+
+    exportexcel(): void 
+    {
+
+      
+       /* table id is passed over here */   
+       let element = document.getElementById('excel-table'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+       var fmt = "0.00";
+       /* change cell format of range B2:D4 */
+       var range = { s: {r:1, c:1}, e: {r:2, c:3} };
+       for(var R = range.s.r; R <= range.e.r; ++R) {
+         for(var C = range.s.c; C <= range.e.c; ++C) {
+           var cell = ws[XLSX.utils.encode_cell({r:R,c:C})];
+           if(!cell || cell.t != 'n') continue; // only format numeric cells
+           cell.z = fmt;
+         }
+       }
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
     }
 }

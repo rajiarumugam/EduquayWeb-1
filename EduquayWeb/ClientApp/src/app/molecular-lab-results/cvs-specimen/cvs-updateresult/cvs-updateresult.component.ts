@@ -237,11 +237,11 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
   {
     
     var _msg = "Confirm Update Molecular Test Results";
-    if(index === 1)
+    if(index === '1')
     {
-      _msg =  "";
+      _msg =  "Save and Edit Molecular Test Results Later";
     }
-    if(index === 2)
+    if(index === '2')
     {
       _msg = "Confirm Update Molecular Test Results";
     }
@@ -299,7 +299,9 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
           
-              this.submitData(_obj);
+          if (result.value) {
+            this.submitData(_obj);
+        }
           })
       }
       if(this.firstFormGroup.controls.testDate.value != undefined && this.firstFormGroup.controls.zygosity.value == '4') 
@@ -329,7 +331,9 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
           
-              this.submitData(_obj);
+          if (result.value) {
+            this.submitData(_obj);
+        }
           })
       }
     }
@@ -339,7 +343,7 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
       {
         _obj['uniqueSubjectId'] = this.popupData.uniqueSubjectId;
         _obj['pndtFoetusId'] = this.popupData.pndtFoetusId;
-        _obj['zygosityId'] = this.selectedZygosityValue;
+        _obj['zygosityId'] = this.selectedZygosityValue === null ? 0 : this.selectedZygosityValue;
         _obj['mutation1Id'] = Number(this.selectemutuation);
         _obj['mutation2Id'] = this.selectedmutuation2 ? Number(this.selectedmutuation2) : 0;
         _obj['mutation3'] = this.mutation3 != undefined ? this.mutation3 : "";
@@ -361,8 +365,10 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
-          
-              this.submitData(_obj);
+          if (result.value) {
+            this.submitData(_obj);
+        }
+             
           })
       }
     }

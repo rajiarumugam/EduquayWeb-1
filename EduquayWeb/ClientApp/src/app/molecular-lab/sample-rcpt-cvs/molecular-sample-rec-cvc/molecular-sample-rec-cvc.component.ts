@@ -68,7 +68,7 @@ export class MolecularSampleRcptCVCComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab", "page": "Sample Receipt"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Molecular Lab - Receipt", "page": "Receipt/Sample Receipt - CVS Specimen"}));
     this.loaderService.display(false);
     this.form = this._formBuilder.group({
       receivedDate: ["", Validators.required]

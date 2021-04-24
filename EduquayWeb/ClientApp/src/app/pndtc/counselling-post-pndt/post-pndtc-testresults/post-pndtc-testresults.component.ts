@@ -268,7 +268,12 @@ export class PostPndtcTestresultsComponent implements OnInit {
   }
 
   onSubmit(updatePostPndtForm: NgForm) {
+    console.log('hitting');
     this.updatepostpndtcErrorMessage = '';
+    console.log(this.foetalDisease);
+    console.log(this.isSelectedYes);
+    console.log(this.foetalDisease);
+    this.foetalDisease = true;
     if (this.foetalDisease === true) {
       if (this.isSelectedYes === true) {
         console.log(updatePostPndtForm.value);
