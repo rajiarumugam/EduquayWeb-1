@@ -589,5 +589,8 @@
 "ilrId":"ilr Id",
 "TestingFacility":"Testing Facility",
 "testingCHC":"Testing CHC",
-"Molecular Lab Result":"Molecular Lab Result"
+"Molecular Lab Result":"Molecular Lab Result",
+"update pregnancy continue":"Update Pregnancy Continue",
+"Molecular Lab Test Results":"Molecular Lab Test Results",
+"SenderNameAndLocation":"Sender Name & Location"
 }

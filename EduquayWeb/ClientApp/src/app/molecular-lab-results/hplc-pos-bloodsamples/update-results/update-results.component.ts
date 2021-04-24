@@ -31,6 +31,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('receivedPicker', { static: false }) receivedPicker;
 
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -154,6 +155,17 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
   {
       console.log(data);
       this.popupData = data;
+      this.firstFormGroup.patchValue({
+        maritalStatus:'true'
+      });
+      this.receivedPicker.flatpickr.setDate("");
+      this.selectedreasonforClose = '';
+      this.selectedZygosityValue = null;
+      this.selectemutuation = null;
+      this.selectedmutuation2 = null;
+      this.mutation3 = '';
+      this.showMutation2 = false;
+      this.showMutation = false;
       if(this.popupData.sampleDamaged)
       {
         this.showZygosity = true;
@@ -215,7 +227,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
   zygosityChange(val)
   {
     console.log(val);
-    this.selectedZygosityValue = null;
+    //this.selectedZygosityValue = null;
     this.selectemutuation = null;
     this.selectemutuationText = "";
     this.selectedmutuation2Text = "";
@@ -266,7 +278,15 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
 
   sampleSubmit(index)
   {
-    
+    var _msg = "Confirm Update Molecular Test Results";
+    if(index === '1')
+    {
+      _msg =  "Save and Edit Molecular Test Results Later";
+    }
+    if(index === '2')
+    {
+      _msg = "Confirm Update Molecular Test Results";
+    }
     this.firstFormCheck = true;
 
     var _testResult = this.selectedZygosityValueText;
@@ -288,6 +308,8 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
     }
     console.log(_testResult);
     var _obj = {};
+    console.log(this.firstFormGroup.controls.zygosity.value);
+    console.log(this.firstFormGroup.controls.maritalStatus.value);
     if(this.firstFormGroup.controls.maritalStatus.value === "true")
     {
       if(this.firstFormGroup.controls.testDate.value != undefined && this.firstFormGroup.valid && this.firstFormGroup.controls.zygosity.value != null) 
@@ -300,7 +322,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
         _obj['mutation3'] = this.mutation3 != undefined ? this.mutation3 : "";
         _obj['testResult'] = _testResult ;
         _obj['sampleDamaged'] = this.popupData.sampleDamaged;
-        _obj['sampleProcessed'] =  this.firstFormGroup.controls.maritalStatus.value === "true" ? true : false;
+        _obj['sampleProcessed'] =  (this.firstFormGroup.controls.maritalStatus.value === "true" || this.firstFormGroup.controls.maritalStatus.value === null)  ? true : false;
         _obj['completeStatus'] = index == '1' ? false : true;
         _obj['reasonForClose'] = this.selectedreasonforClose != undefined ? this.selectedreasonforClose : "";
         _obj['testDate'] = moment(new Date(this.firstFormGroup.controls.testDate.value)).format("DD/MM/YYYY");
@@ -309,15 +331,19 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
         console.log(_obj);
         Swal.fire({
           title: 'Are you sure?',
-          text: "Confirm Update Molecular Test Results",
+          text: _msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
-          
-              this.submitData(_obj);
+
+          if (result.value) {
+            this.submitData(_obj);
+          }
+          else{
+          }
           })
       }
       
@@ -328,13 +354,13 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
       {
         _obj['uniqueSubjectId'] = this.popupData.uniqueSubjectId;
         _obj['barcodeNo'] = this.popupData.barcodeNo;
-        _obj['zygosityId'] = this.selectedZygosityValue;
+        _obj['zygosityId'] = this.selectedZygosityValue != null ? Number(this.selectedZygosityValue) : 0;
         _obj['mutation1Id'] = Number(this.selectemutuation);
         _obj['mutation2Id'] = this.selectedmutuation2 ? Number(this.selectedmutuation2) : 0;
         _obj['mutation3'] = this.mutation3 != undefined ? this.mutation3 : "";
         _obj['testResult'] = _testResult ;
         _obj['sampleDamaged'] = this.popupData.sampleDamaged;
-        _obj['sampleProcessed'] =  this.firstFormGroup.controls.maritalStatus.value === "true" ? true : false;
+        _obj['sampleProcessed'] =  (this.firstFormGroup.controls.maritalStatus.value === "true" || this.firstFormGroup.controls.maritalStatus.value === null ) ? true : false;
         _obj['completeStatus'] = index == '1' ? false : true;
         _obj['reasonForClose'] = this.selectedreasonforClose != undefined ? this.selectedreasonforClose : "";
         _obj['testDate'] = moment(new Date(this.firstFormGroup.controls.testDate.value)).format("DD/MM/YYYY");
@@ -343,7 +369,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
         console.log(_obj);
         Swal.fire({
           title: 'Are you sure?',
-          text: "Confirm Update Molecular Test Results",
+          text: _msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',

@@ -161,17 +161,19 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
   {
       console.log(data);
       this.popupData = data;
-      if(this.popupData.sampleDamaged)
+      if(this.popupData.sampleProcessed)
       {
         this.showZygosity = true;
-        //this.showReason = false;
+        this.showReason = false;
       }
       else
       {
-        this.showZygosity = true;
-        //this.showReason = true;
+        this.showZygosity = false;
+        this.showReason = true;
       }
-
+      this.firstFormGroup.patchValue({
+        maritalStatus:this.popupData.sampleProcessed === true ? 'true' : "false"
+      });
       this.receivedPicker.flatpickr.setDate(this.popupData.testDate);
       this.selectedTestDate = this.popupData.testDate;
       this.firstTimeOpen = true;
@@ -301,7 +303,15 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   sampleSubmit(index)
   {
-    
+    var _msg = "Confirm Update Molecular Test Results";
+    if(index === '1')
+    {
+      _msg =  "Save and Edit Molecular Test Results Later";
+    }
+    if(index === '2')
+    {
+      _msg = "Confirm Update Molecular Test Results";
+    }
     this.firstFormCheck = true;
 
     var _testResult = this.selectedZygosityValueText;
@@ -344,7 +354,7 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
         console.log(_obj);
         Swal.fire({
           title: 'Are you sure?',
-          text: "Confirm Update Molecular Test Results",
+          text: _msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',
@@ -379,7 +389,7 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
         console.log(_obj);
         Swal.fire({
           title: 'Are you sure?',
-          text: "Confirm Update Molecular Test Results",
+          text: _msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes',
@@ -387,7 +397,9 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
           cancelButtonColor: '#ffffff', allowOutsideClick: false
         }).then((result) => {
           
-              this.submitData(_obj);
+          if (result.value) {
+            this.submitData(_obj);
+        }
           })
       }
     }

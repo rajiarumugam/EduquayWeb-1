@@ -28,8 +28,8 @@
                     <div class="col-md-4 d-flex justify-content-end">
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group">
-                                <!--<button type="button" class="btn btn-sm btn-outline-light">
-                                    <img src="../../../../assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button>-->
+                                <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
+                                    <img src="../../../../assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button></a> 
                                 <!-- <button type="button" class="btn btn-sm btn-outline-light">
                                     <img src="../../../../assets/assets/img/pdfimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
                             </div>
@@ -42,7 +42,7 @@
                              </div>
                          </div>
                      </div>
-                     <div class="row my-4">
+                    <!-- <div class="row my-4">
                          <div class="col-md-4">
                              <span><b>{{'LabTechnicianName' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</span>
                          </div>
@@ -53,8 +53,8 @@
                              <span><b>{{'ReceivingMolecularLab' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</span>
                          </div>
                          
-                     </div>
-                     <div class="row my-4">
+                     </div>-->
+                    <!--<div class="row my-4">
                          <div class="col-md-4">
                              <span><b>{{'LogisticsServiceProvider' | translate}} : </b></span>{{centralReceiptsData[selectedShipmentLog]?.logisticsProviderName}}<span></span>
                          </div>
@@ -64,7 +64,32 @@
                          <div class="col-md-4">
                              <span><b>{{'ContactNumber' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.contactNo}}</span>
                          </div>
-                     </div>
+                     </div>-->
+                     <div id="excel-table">
+                     <div class="table-responsive my-4">
+                        <table class="table">                                
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'LabTechnicianName' | translate }} : </b></td>
+                                    <td class="sp-xs-td-15">{{centralReceiptsData[selectedShipmentLog]?.labTechnicianName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'CentralLab' | translate }} : </b></td>
+                                    <td class="sp-xs-td-15">{{centralReceiptsData[selectedShipmentLog]?.centralLabName}}</td>
+                                    <td class="sp-xs-td-9"><b>{{'ReceivingMolecularLab' | translate }} : </b></td>
+                                    <td class="sp-xs-td-15">{{centralReceiptsData[selectedShipmentLog]?.receivingMolecularLab}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{'LogisticsServiceProvider' | translate }} : </b> </td>
+                                    <td>{{centralReceiptsData[selectedShipmentLog]?.logisticsProviderName}}</td>
+                                    <td><b>{{'DeliveryExecutiveName' | translate }} : </b></td>
+                                    <td>{{centralReceiptsData[selectedShipmentLog]?.deliveryExecutiveName}}
+                                    </td>
+                                    <td><b>{{'ContactNumber' | translate }} : </b></td>
+                                    <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                    <td>{{centralReceiptsData[selectedShipmentLog]?.contactNo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                          <div class="table-responsive" style="overflow-x: scroll;">
                              <table class="table table-bordered">
                                  <thead>
@@ -92,6 +117,7 @@
                              </table>
                          </div>
                      </div>
+                    </div>
                  <!-- </div> -->
              </div>
         
