@@ -195,6 +195,7 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
     this.selectedmutuation2Text = "";
     this.selectemutuation = null;
     this.selectedmutuation2 = null;
+    this.mutation3 = "";
     //this.selectedZygosityValueText = "Suresh";
     
   this.zygositylist.forEach(element => {
