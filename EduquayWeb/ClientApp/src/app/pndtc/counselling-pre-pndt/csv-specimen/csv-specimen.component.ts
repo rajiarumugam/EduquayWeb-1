@@ -63,7 +63,7 @@ export class CSVspecimenComponent implements AfterViewInit, OnDestroy, OnInit  {
     this.loaderService.display(true);
     this.recordCount = 0;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-   // this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "Counselling – Pre PNDT", "page": "To be Counselled"}));
+   this.dataservice.sendData(JSON.stringify({"module": "PNDTC Counsellor", "submodule": "CVS Specimen Pick & Pack​"}));
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 20,

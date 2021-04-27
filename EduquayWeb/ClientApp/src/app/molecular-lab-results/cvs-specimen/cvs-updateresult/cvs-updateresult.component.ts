@@ -32,6 +32,7 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('receivedPicker', { static: false }) receivedPicker;
 
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
@@ -160,6 +161,10 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
       this.selectemutuation = null;
       this.selectedmutuation2 = null;
       this.mutation3 = '';
+      this.receivedPicker.flatpickr.setDate("");
+      this.selectedZygosityValueText = "";
+      this.selectemutuationText = "";
+      this.selectedmutuation2Text = "";
       if(this.popupData.sampleDamaged)
       {
         this.showZygosity = true;
@@ -184,7 +189,8 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
     this.selectedmutuation2Text = "";
     this.selectemutuation = null;
     this.selectedmutuation2 = null;
-    //this.selectedZygosityValueText = "Suresh";
+    this.mutation3 = '';
+   
     
   this.zygositylist.forEach(element => {
     if(element.id == val)
