@@ -11,6 +11,7 @@ import { HttpClientService } from '../../../shared/http-client.service';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 import { DataService } from 'src/app/shared/data.service';
 import * as XLSX from 'xlsx'; 
+import * as printJS from "print-js";
 
 @Component({
   selector: 'app-central-shipment-log',
@@ -133,6 +134,16 @@ export class CentralCentralShipmentComponent implements OnInit {
     console.log(this.selectedShipmentLog );
     this.fileName= data.shipmentId +'.xlsx';
     $('#fadeinModal').modal('show');
+   
+  }
+
+  openPopupPrint(data,id) {
+    console.log(data);
+    this.selectedShipmentLog = id;
+    console.log(this.selectedShipmentLog );
+    this.fileName= data.shipmentId +'.xlsx';
+    $('#fadeinModal').modal('show');
+    this.printShipment();
   }
 
   // printPdf()
@@ -181,4 +192,20 @@ export class CentralCentralShipmentComponent implements OnInit {
        XLSX.writeFile(wb, this.fileName);
 			
     }
+
+    printShipment(){
+      return new Promise(resolve =>
+        setTimeout(() => resolve(
+          //printJS("print-area", "html" )
+          printJS({printable: 'print-area',
+          type: 'html',
+          targetStyles: ['*'], 
+          header:'<h3>Shipment Details</h3><hr>',
+          documentTitle: 'Shipment Details',
+          maxWidth: 1200  })
+          ), 200)
+      );
+      
+    }
+
 }

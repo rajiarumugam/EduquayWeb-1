@@ -195,6 +195,9 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
   this.zygositylist.forEach(element => {
     if(element.id == val)
     {
+      if(val == 4)
+      this.selectedZygosityValueText = "Common Beta globin mutations not detected.";
+    else 
       this.selectedZygosityValueText = element.name;
     }
   });

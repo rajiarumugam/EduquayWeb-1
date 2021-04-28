@@ -258,7 +258,10 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
   this.zygositylist.forEach(element => {
     if(element.id == val)
     {
-      this.selectedZygosityValueText = element.name;
+      if(val == 4)
+      this.selectedZygosityValueText = "Common Beta globin mutations not detected.";
+      else 
+        this.selectedZygosityValueText = element.name;
     }
   });
     if(val == 1 || val == 2)

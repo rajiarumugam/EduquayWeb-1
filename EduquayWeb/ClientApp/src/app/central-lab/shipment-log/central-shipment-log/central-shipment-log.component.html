@@ -25,9 +25,9 @@
                     <div class="col-md-4">
                         <p class="float-left"><span><b>{{'ShipmentDateAndTime' | translate}} : </b></span><span>{{centralReceiptsData[selectedShipmentLog]?.shipmentDateTime}}</span>
                     </div>
-                    <div class="col-md-4 d-flex justify-content-end">
+                    <div class="col-md-4 d-flex justify-content-end print-none">
                         <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group">
+                            <div class="btn-group print-none">
                                 <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
                                     <img src="../../../../assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button></a> 
                                 <!-- <button type="button" class="btn btn-sm btn-outline-light">
@@ -140,7 +140,7 @@
             <th>{{'DeliveryExecutiveName' | translate }}</th>
             <th>{{'ReceivingCentralLab' | translate }}</th>
             <th>{{'View' | translate }}</th>
-            <!--<th>{{'Print' | translate }}</th>-->
+            <th>{{'Print' | translate }}</th>
         </tr>
     </thead>
     <tbody>
@@ -151,8 +151,8 @@
             <td>{{ person.labTechnicianName }}</td>
             <td>{{ person.deliveryExecutiveName }}</td>
             <td>{{ person.centralLabName }}</td>
-            <td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
-            <!--<td class="user-plus" (click)="openPopup(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>-->
+            <td class="user-plus text-center"(click)="openPopup(person,i);"><i class="fa fa-file-text-o text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
+            <td class="user-plus text-center" (click)="openPopupPrint(person,i);"><i class="fa fa-print text-primary" aria-hidden="true" style="font-size: 18px;"></i></td>
         </tr>
     </tbody>
 </table>
