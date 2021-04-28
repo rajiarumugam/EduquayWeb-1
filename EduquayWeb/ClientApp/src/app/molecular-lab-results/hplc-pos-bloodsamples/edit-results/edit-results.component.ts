@@ -127,6 +127,7 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.editSamplesServiceService.retrieveBloodSampleseditApi);
     this.editResultSamples(this.user.molecularLabId);
+    this.sendDataToBa(this.user.molecularLabId);
 
     this.getZygosityList();
     this.getAllMutuationList();
@@ -180,6 +181,38 @@ export class EditResultsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedZygosityValue =this.popupData.zygosityId;
       this.selectemutuation = this.popupData.mutation1Id;
       $('#fadeinModal').modal('show');
+  }
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.editSamplesServiceService.getbloodSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.editSamplesServiceService.geteditbloodSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.editSamplesServiceService.getconfirmbloodSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "MIR NOTIFICATION","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Update Molecular Test Results", "submodule":"HPLC Positive Blood Sample", "page": "Edit Result"}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        
+      });
   }
   editResultSamples(molecularLabId) {
     this.loaderService.display(true);
@@ -425,6 +458,7 @@ if(response.status == "true")
       this.firstFormGroup.reset();
       //this.getpositiveSubjectList(this.user.id);
       this.editResultSamples(this.user.molecularLabId);
+      this.sendDataToBa(this.user.molecularLabId);
       if(this.modalService.hasOpenModals){
         this.modalService.dismissAll();
       }

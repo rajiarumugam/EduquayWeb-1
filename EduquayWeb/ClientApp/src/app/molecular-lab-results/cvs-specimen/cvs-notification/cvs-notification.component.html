@@ -43,20 +43,20 @@
                   <a class="nav-link active" [ngClass]="{'active': currentPage == 'cvs-specimen' ? true : false}" id="updateresult-tab" data-toggle="tab"
                      [routerLink]="['/app/cvs-specimen']" role="tab" aria-controls="home"
                      aria-selected="true">
-                     {{'Update Result' | translate }}<span class="badge badge-pill badge-warning shadow mx-1"></span>
+                     {{'Update Result' | translate }}<span class="badge badge-pill badge-warning shadow mx-1">{{updateResultCount}}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{'active': currentPage == 'cvs-edit-result' ? true : false}" id="editresultsample-tab" data-toggle="tab" [routerLink]="['/app/cvs-specimen/cvs-edit-result']"
                      role="tab" aria-controls="profile" aria-selected="false">
-                     {{'Edit Result' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
+                     {{'Edit Result' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{editResultCount}}</span>
                   </a>
                 </li>
                
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{'active': currentPage == 'cvs-confirmed-result' ? true : false}" id="confirmresultsample-tab" data-toggle="tab" [routerLink]="['/app/cvs-specimen/cvs-confirmed-result']"
                      role="tab" aria-controls="profile" aria-selected="false">
-                     {{'Confirmed Results' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
+                     {{'Confirmed Results' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{confirmedResultCount}}</span>
                   </a>
                 </li>
               </ul>

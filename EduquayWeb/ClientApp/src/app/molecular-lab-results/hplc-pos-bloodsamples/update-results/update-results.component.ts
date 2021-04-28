@@ -120,6 +120,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.updateSamplesServiceService.retrieveBloodSamplesApi);
     this.updateResultSamples(this.user.molecularLabId);
+    this.sendDataToBa(this.user.molecularLabId);
     //$('#fadeinModal').modal('show');
 
     this.getZygosityList();
@@ -177,6 +178,39 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
         //this.showReason = true;
       }
       $('#fadeinModal').modal('show');
+  }
+
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.updateSamplesServiceService.getbloodSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.updateSamplesServiceService.geteditbloodSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.updateSamplesServiceService.getconfirmbloodSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "MIR NOTIFICATION","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        
+      });
   }
   updateResultSamples(molecularLabId) {
     this.loaderService.display(true);
@@ -403,6 +437,7 @@ if(response.status == "true")
       this.firstFormGroup.reset();
       //this.getpositiveSubjectList(this.user.id);
       this.updateResultSamples(this.user.molecularLabId);
+      this.sendDataToBa(this.user.molecularLabId);
       if(this.modalService.hasOpenModals){
         this.modalService.dismissAll();
       }

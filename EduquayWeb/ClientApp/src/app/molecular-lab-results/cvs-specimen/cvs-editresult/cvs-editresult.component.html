@@ -84,16 +84,16 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                             </select>
                       </div>
 
-                      <div class="form-group col-md-3" *ngIf="showMutation2">
+                      <div class="form-group col-md-3" [ngClass]="{'showformgroup': !showMutation2 }">
                         <label for="inputSubjectcategory" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.mutation2.invalid }">{{'Mutation 2' | translate}}</label>
-                        <select id="inputDistrict" class="form-control" [required]="showMutation2" [(ngModel)]="selectedmutuation2" (ngModelChange)="mutationChange1(selectedmutuation2);" formControlName = "mutation2" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.mutation2.invalid }">
+                        <select id="inputDistrict" class="form-control" [(ngModel)]="selectedmutuation2" (ngModelChange)="mutationChange1(selectedmutuation2);" formControlName = "mutation2" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.mutation2.invalid }">
                             <option [ngValue]="null">Select</option>
                             <option [value]="district.id" *ngFor="let district of mutuationList">{{district.name}}</option>
                           </select>
                     </div>
 
 
-                    <div class="form-group col-md-3" *ngIf="showMutation2">
+                    <div class="form-group col-md-3" [ngClass]="{'showformgroup': !showMutation2 }">
                             <label class="birthreg" for="danwname">{{'Mutation 3' | translate }}</label><span class="manto"> *</span>
                             <input type="Text" class="form-control" id="danwname" placeholder="Name"  [(ngModel)]="mutation3" formControlName = "mutation3" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.mutation3.invalid }">
                         </div>

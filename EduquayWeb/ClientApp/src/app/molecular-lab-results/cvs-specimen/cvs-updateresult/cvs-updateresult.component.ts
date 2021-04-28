@@ -51,6 +51,7 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
   selectedZygosityValueText =  "";
   selectemutuationText = "";
   showMutation2 = false;
+  showMutation2required = false;
   mutation3 = "";
   selectedmutuation2 = null;
   selectedmutuation2Text = "";
@@ -123,7 +124,7 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.updateSamplesService.retrieveSpecimenSamplesApi);
     this.updateResultSamples(this.user.molecularLabId);
-
+   this.sendDataToBa(this.user.molecularLabId);
     this.getZygosityList();
     this.getAllMutuationList();
 
@@ -176,7 +177,9 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
         //this.showReason = true;
       }
       this.showMutation = false;
+      this.showMutation2required = false;
       this.showMutation2 = false;
+      
       this.selectedZygosityValue = '';  
       $('#fadeinModal').modal('show');
   }
@@ -204,18 +207,29 @@ export class CvsUpdateresultComponent implements AfterViewInit, OnDestroy, OnIni
     if(val == 1 || val == 2)
     {
       this.showMutation = true;
+      this.showMutation2required = false;
       this.showMutation2 = false;
       this.mutationText = "Mutation";
+
+      const validators = [ Validators.required];
+      this.firstFormGroup.addControl('mutation2', new FormControl(''));
+      this.firstFormGroup.addControl('mutation3', new FormControl(''));
+     
     }
     if(val == 3)
     {
       this.showMutation = true;
+      this.showMutation2required = true;
       this.showMutation2 = true;
       this.mutationText = "Mutation 1";
+      const validators = [ Validators.required];
+      this.firstFormGroup.addControl('mutation2', new FormControl('', validators));
+      this.firstFormGroup.addControl('mutation3', new FormControl('', validators));
     }
     if(val == 4)
     {
       this.showMutation = false;
+      this.showMutation2required = false;
       this.showMutation2 = false;
       this.mutation3 = "";
       
@@ -400,6 +414,7 @@ if(response.status == "true")
       this.firstFormGroup.reset();
       //this.getpositiveSubjectList(this.user.id);
       this.updateResultSamples(this.user.molecularLabId);
+      this.sendDataToBa(this.user.molecularLabId);
       if(this.modalService.hasOpenModals){
         this.modalService.dismissAll();
       }
@@ -424,6 +439,7 @@ if(response.status == "true")
         this.showZygosity = false;
         this.showReason = true;
         this.showMutation = false;
+        this.showMutation2required = false;
         this.showMutation2 = false;
       }
   }
@@ -459,6 +475,38 @@ if(response.status == "true")
 
   }
 
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.updateSamplesService.getspecimenSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.updateSamplesService.geteditspecimenSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.updateSamplesService.getconfirmspecimenSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "CSV SPECIMEN","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Molecular Lab - Receipt", "submodule":"Sample Receipt - CVS Specimen", "page": ""}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        this.updateSamplesErrorMessage = err.toString();
+      });
+  }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first 

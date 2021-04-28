@@ -74,9 +74,42 @@ export class ConfirmedResultsComponent implements AfterViewInit, OnDestroy, OnIn
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.confirmSamplesServiceService.retrieveBloodSamplesApi);
     this.updateResultSamples(this.user.molecularLabId);
+    this.sendDataToBa(this.user.molecularLabId);
 
   }
 
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.confirmSamplesServiceService.getbloodSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.confirmSamplesServiceService.geteditbloodSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.confirmSamplesServiceService.getconfirmbloodSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "MIR NOTIFICATION","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Update Molecular Test Results", "submodule":"HPLC Positive Blood Sample", "page": "Confirmed Results"}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        
+      });
+  }
   updateResultSamples(molecularLabId) {
     this.loaderService.display(true);
     this.testedConfirmSamples = [];
