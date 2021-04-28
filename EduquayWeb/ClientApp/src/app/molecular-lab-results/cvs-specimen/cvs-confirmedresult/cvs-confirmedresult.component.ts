@@ -123,12 +123,45 @@ export class CvsConfirmedresultComponent implements AfterViewInit, OnDestroy, On
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.confirmSamplesService.retrieveSpecimenSamplesCompleteApi);
     this.updateResultSamples(this.user.molecularLabId);
+    this.sendDataToBa(this.user.molecularLabId);
 
     this.getZygosityList();
     this.getAllMutuationList();
 
   }
 
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.confirmSamplesService.getspecimenSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.confirmSamplesService.geteditspecimenSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.confirmSamplesService.getconfirmspecimenSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "CSV SPECIMEN","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Update Molecular Test Results", "submodule":"CVS Specimen", "page": "Confirmed Results"}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        
+      });
+  }
   getZygosityList(){
     this.updateSamplesServiceService.retrieveAllZygositylist()
       .subscribe(response => { 
@@ -312,6 +345,7 @@ if(response.status == "true")
       this.firstFormGroup.reset();
       //this.getpositiveSubjectList(this.user.id);
       this.updateResultSamples(this.user.molecularLabId);
+      this.sendDataToBa(this.user.molecularLabId);
       if(this.modalService.hasOpenModals){
         this.modalService.dismissAll();
       }

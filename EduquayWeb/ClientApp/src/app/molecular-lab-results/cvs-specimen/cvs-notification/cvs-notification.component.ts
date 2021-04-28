@@ -10,6 +10,9 @@ import { DataService } from 'src/app/shared/data.service';
 export class CvsNotificationComponent implements OnInit {
 
   currentPage = "";
+  updateResultCount = 0;
+  editResultCount = 0;
+  confirmedResultCount = 0;
 
   constructor(
 
@@ -19,6 +22,19 @@ export class CvsNotificationComponent implements OnInit {
 
   ngOnInit() {
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
+    this.notificationCount();
+  }
+
+  async notificationCount(){
+    this.dataservice.receiveData().subscribe(x => { 
+      console.log(JSON.parse(x).module);
+      if(JSON.parse(x).modulepage === "CSV SPECIMEN")
+      {
+        this.updateResultCount = JSON.parse(x).updatecount;
+        this.editResultCount = JSON.parse(x).editCount;
+        this.confirmedResultCount = JSON.parse(x).confirmedCount;
+      }
+    });
   }
 
 }

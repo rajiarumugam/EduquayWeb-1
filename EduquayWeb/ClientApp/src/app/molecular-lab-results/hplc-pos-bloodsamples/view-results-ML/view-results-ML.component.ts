@@ -196,12 +196,16 @@ else if(this.screenName == "edit")
     this.loaderService.display(true);
     this.counsellinglists = [];
     this.updatepndtcErrorMessage = '';
+
+    console.log(this.screenName);
    
     if(this.screenName == "update")
     {
+      console.log("hitting here");
       let counsellingdata =  this.updateSamplesServiceService.getbloodSampleList(this.user.molecularLabId)
       .subscribe(response => {
           this.counsellingprepndtResponse = response;
+          console.log(this.counsellingprepndtResponse);
           this.loaderService.display(false);
           if (this.counsellingprepndtResponse !== null && this.counsellingprepndtResponse.status === "true") {
             if (this.counsellingprepndtResponse.subjects.length <= 0) {
@@ -210,13 +214,19 @@ else if(this.screenName == "edit")
             else {
               this.counsellingdataItem = this.counsellingprepndtResponse.subjects.
                 find(counselling => counselling.uniqueSubjectId === this.anwSubjectId);
+                console.log(this.counsellingdataItem);
+                console.log(this.anwSubjectId);
               //this.counsellinglists = this.counsellingprepndtResponse.data;
                 //this.pndtscheduleDate = moment().format("DD/MM/YYYY");
                 //this.pndtscheduleTime = moment().format("HH:mm");
                 //this.dateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
                 //var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-                const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
-                this.dateOptions.minDate = regDate;
+                if(this.counsellingdataItem != undefined && this.counsellingdataItem.counsellingDateTime != undefined)
+                {
+                  const regDate = this.dateservice.convertToDateTimeFormat(this.counsellingdataItem.counsellingDateTime);
+                  this.dateOptions.minDate = regDate;
+                }
+                
   
             }
           }
@@ -257,7 +267,7 @@ else if(this.screenName == "edit")
           });
     }
 
-    else(this.screenName == "confirm")
+    else if(this.screenName == "confirm")
     {
       let counsellingdata =  this.updateSamplesServiceService.getconfirmbloodSampleList(this.user.molecularLabId)
       .subscribe(response => {
@@ -290,6 +300,8 @@ else if(this.screenName == "edit")
           });
     }
     
+    console.log(this.screenName);
+    console.log(this.counsellingdataItem);
   }
 
   ddlobstetricianName() {

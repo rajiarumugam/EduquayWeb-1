@@ -125,7 +125,7 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
     // this.timeOfShipment = this.dateService.getTime();
     console.log(this.editSamplesService.retrieveSpecimenSampleseditApi);
     this.editResultSamples(this.user.molecularLabId);
-
+this.sendDataToBa(this.user.molecularLabId);
     this.getZygosityList();
     this.getAllMutuationList();
 
@@ -201,7 +201,10 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
   this.zygositylist.forEach(element => {
     if(element.id == val)
     {
-      this.selectedZygosityValueText = element.name;
+          if(val == 4)
+          this.selectedZygosityValueText = "Common Beta globin mutations not detected.";
+        else 
+          this.selectedZygosityValueText = element.name;
     }
 
     if(this.popupData.mutation1Id != 0 && this.firstTimeOpen)
@@ -226,12 +229,19 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
       this.showMutation = true;
       this.showMutation2 = false;
       this.mutationText = "Mutation";
+
+      const validators = [ Validators.required];
+      this.firstFormGroup.addControl('mutation2', new FormControl(''));
+      this.firstFormGroup.addControl('mutation3', new FormControl(''));
     }
     if(val == 3)
     {
       this.showMutation = true;
       this.showMutation2 = true;
       this.mutationText = "Mutation 1";
+      const validators = [ Validators.required,Validators.min(100000000000)];
+      this.firstFormGroup.addControl('mutation2', this._formBuilder.control('', [Validators.required]));
+      this.firstFormGroup.addControl('mutation3', new FormControl('', Validators.required));
     }
     if(val == 4)
     {
@@ -239,6 +249,7 @@ export class CvsEditresultComponent implements AfterViewInit, OnDestroy, OnInit 
       this.showMutation2 = false;
       this.mutationText = "Mutation 1";
       this.mutation3 = "";
+      
     }
   }
   mutationChange(val)
@@ -385,6 +396,7 @@ if(response.status == "true")
       this.firstFormGroup.reset();
       //this.getpositiveSubjectList(this.user.id);
       this.editResultSamples(this.user.molecularLabId);
+      this.sendDataToBa(this.user.molecularLabId);
       if(this.modalService.hasOpenModals){
         this.modalService.dismissAll();
       }
@@ -444,6 +456,38 @@ if(response.status == "true")
 
   }
 
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.editSamplesService.getspecimenSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.editSamplesService.geteditspecimenSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.editSamplesService.getconfirmspecimenSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "CSV SPECIMEN","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Update Molecular Test Results", "submodule":"CVS Specimen", "page": "Edit Result"}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        
+      });
+  }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first 

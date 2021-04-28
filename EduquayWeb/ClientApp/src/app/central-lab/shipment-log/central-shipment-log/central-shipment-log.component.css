@@ -44,3 +44,14 @@ height: 50px;
 div.dataTables_wrapper div.dataTables_filter svg {
     top: 30px !important;
 }
+
+@media print {
+
+    /* invert the display (show/hide) properties of the main */
+    /* aplication component and the printing component       */
+
+    .print-none
+    {
+        display:none;
+    }
+}
