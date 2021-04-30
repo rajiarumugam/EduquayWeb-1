@@ -36,7 +36,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
   addCounselledyesRequest: AddPostPndtCounsellingRequest;
   addCounselledyesResponse: AddPostPndtcCounsellingResponse;
   anwSubjectId: string;
-  counselledYesdataItem: PostCounselledList;
+  counselledYesdataItem;
   selectedobstetrician: string = '';
   obstetricianlists: dataModel[] = [];
   user: user;
@@ -291,7 +291,7 @@ export class PostPndtcDecisionYesComponent implements OnInit {
   }
 
   onSubmit(updatePostPndtyesForm: NgForm) {
-
+    this.foetalDisease = true;
     if (this.foetalDisease === true) {
       if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
         console.log(updatePostPndtyesForm.value);
