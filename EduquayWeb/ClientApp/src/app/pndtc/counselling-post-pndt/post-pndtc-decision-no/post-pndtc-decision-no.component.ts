@@ -36,7 +36,7 @@ export class PostPndtcDecisionNoComponent implements OnInit {
   addCounselledNoRequest: AddPostPndtCounsellingRequest;
   addCounselledNoResponse: AddPostPndtcCounsellingResponse;
   anwSubjectId: string;
-  counselledNodataItem: PostCounselledList;
+  counselledNodataItem;
   selectedobstetrician: string = '';
   obstetricianlists: dataModel[] = [];
   user: user;
@@ -270,6 +270,7 @@ export class PostPndtcDecisionNoComponent implements OnInit {
   }
   onSubmit(updatePostPndtnoForm: NgForm) {
     this.postupdateDecisionNopndtErrorMessage = '';
+    this.foetalDisease = true;
     if (this.foetalDisease === true) {
       if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
         console.log(updatePostPndtnoForm.value);

@@ -271,11 +271,15 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     }
     onSubmit(postupdatePndtpendingForm: NgForm) {
       this.postupdateDecisionPendingpndtErrorMessage = '';
+      this.foetalDisease = true;
       if (this.foetalDisease === true) {
         if (this.isSelectedYes === true || this.isMTPAgreeYes === true) {
           console.log(postupdatePndtpendingForm.value);
+          console.log(this.counselledPendingdataItem.fileName);
+          console.log(this.fileName);
           const formData = new FormData();
-        if (formData === undefined || this.consentForm === undefined) {      
+          console.log(formData);
+        if (formData === undefined || this.fileName === undefined) {      
         if(this.confirmationSelected == false){
           this.decisionYesResponseMessage('Please confirm if you have received & filed the consent form from Subject', 'e');
           return false;
