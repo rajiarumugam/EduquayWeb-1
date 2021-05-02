@@ -200,7 +200,7 @@ export class UpdateResultsComponent implements AfterViewInit, OnDestroy, OnInit 
 
 
 
-          this.dataservice.sendData(JSON.stringify({"modulepage": "MIR NOTIFICATION","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount}));
+          this.dataservice.sendData(JSON.stringify({"modulepage": "MIR NOTIFICATION","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Molecular Lab - Receipt", "submodule":"Sample Receipt - HPLC Positive Blood Sample", "page": ""}));
         },
           (err: HttpErrorResponse) => {
           });
