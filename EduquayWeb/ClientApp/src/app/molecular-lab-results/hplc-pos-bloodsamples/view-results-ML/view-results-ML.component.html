@@ -50,8 +50,8 @@
                                                 <td>
                                                     <span class="float-left mt-0 mr-4">
                                                         <h5><b>{{'SubjectID' | translate}} :</b>{{counsellingdataItem?.uniqueSubjectId}}
-                                                            <strong class="ml-5">{{'SubjectInfo' | translate}} :</strong>{{counsellingdataItem?.subjectName}}, F, {{counsellingdataItem?.age}} yrs
-                                                            <strong class="ml-5">{{'RCHID' | translate}} :</strong>{{counsellingdataItem?.rchId}} 
+                                                            <strong class="ml-5">{{'SubjectInfo' | translate}} :</strong>{{counsellingdataItem?.subjectName}}, <span *ngIf="counsellingdataItem?.gender === 'Female'">F</span><span *ngIf="counsellingdataItem?.gender === 'Male'">M</span>, {{counsellingdataItem?.age}} yrs
+                                                            <strong class="ml-5" *ngIf="counsellingdataItem?.rchId != ''">{{'RCHID' | translate}} :</strong>{{counsellingdataItem?.rchId}} 
                                                       </h5>
                                                     </span>
                                                 </td>
@@ -152,7 +152,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>
+                                            <td class="text-left">{{counsellingdataItem?.subjectName}}, <span *ngIf="counsellingdataItem?.gender === 'Female'">F</span><span *ngIf="counsellingdataItem?.gender === 'Male'">M</span></td>
                                             <td class="text-left">{{counsellingdataItem?.sstResult}}</td>
                                             <td class="text-left">{{counsellingdataItem?.cbcResult}}</td>
                                             <td class="text-center sp-xs-th">{{counsellingdataItem?.mcv}}</td>                                                                                          
@@ -161,8 +161,8 @@
                                             
                                             <!-- <td class="text-left"></td> -->
                                         </tr>
-                                       <!-- <tr>
-                                            <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>
+                                       <tr>
+                                            <td class="text-left">{{counsellingdataItem?.spouseName}}, <span *ngIf="counsellingdataItem?.gender === 'Female'">M</span><span *ngIf="counsellingdataItem?.gender === 'Male'">F</span></td>
                                             <td class="text-left">{{counsellingdataItem?.spouseSSTestResult}}</td>
                                             <td class="text-left">{{counsellingdataItem?.spouseCBCTestResult}}</td>
                                             <td class="text-center sp-xs-th">{{counsellingdataItem?.spouseMCV}}</td>                                                                                          
@@ -170,7 +170,7 @@
                                             <td class="text-center">{{counsellingdataItem?.spouseRBC}}</td>
                                             
                                            
-                                        </tr>-->
+                                        </tr>
                                     </tbody> 
                                 </table>
                                 </div>
@@ -205,7 +205,7 @@
                                         <tbody>
                                             
                                             <tr>
-                                                <td class="text-left">{{counsellingdataItem?.subjectName}}, F</td>                                
+                                                <td class="text-left">{{counsellingdataItem?.subjectName}}, <span *ngIf="counsellingdataItem?.gender === 'Female'">F</span><span *ngIf="counsellingdataItem?.gender === 'Male'">M</span></td>                                
                                                 <td class="text-center">{{counsellingdataItem?.hbA0}}</td>
                                                 <td class="text-center">{{counsellingdataItem?.hbA2}}</td>
                                                 <!--<td class="text-center">{{counsellingdataItem?.hbC}}</td>-->
@@ -216,8 +216,8 @@
                                                 <!-- <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td>
                                                 <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td> -->
                                             </tr>
-                                            <!--<tr>
-                                                <td class="text-left">{{counsellingdataItem?.spouseName}}, M</td>                                        
+                                            <tr>
+                                                <td class="text-left">{{counsellingdataItem?.spouseName}}, <span *ngIf="counsellingdataItem?.gender === 'Female'">M</span><span *ngIf="counsellingdataItem?.gender === 'Male'">F</span></td>                                        
                                                 <td class="text-center">{{counsellingdataItem?.spouseHbA0}}</td>
                                                 <td class="text-center">{{counsellingdataItem?.spouseHbA2}}</td>
                                                
@@ -226,8 +226,8 @@
                                                 <td class="text-center">{{counsellingdataItem?.spouseHbS}}</td>
                                                 <td class="text-left">{{counsellingdataItem?.spouseHPLCTestResult}}</td>
                                                 <!-- <td class="text-left">{{counsellingdataItem?.spouseHPLCDiagnosis}}</td>
-                                                <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td>
-                                            </tr> -->
+                                                <td class="text-left">{{counsellingdataItem?.anwHPLCDiagnosis}}</td>-->
+                                            </tr>
                                     </table>
                                 </div>
                             </div>
