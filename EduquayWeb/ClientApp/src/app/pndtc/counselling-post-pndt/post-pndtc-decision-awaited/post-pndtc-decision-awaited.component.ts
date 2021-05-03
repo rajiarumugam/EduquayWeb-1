@@ -36,7 +36,7 @@ export class PostPndtcDecisionAwaitedComponent implements OnInit {
     addCounselledPendingRequest: AddPostPndtCounsellingRequest;
     addCounselledPendingResponse: AddPostPndtcCounsellingResponse;
     anwSubjectId: string;
-    counselledPendingdataItem: PostCounselledList;
+    counselledPendingdataItem;
     selectedobstetrician: string = '';
     obstetricianlists: dataModel[] = [];
     user: user;
