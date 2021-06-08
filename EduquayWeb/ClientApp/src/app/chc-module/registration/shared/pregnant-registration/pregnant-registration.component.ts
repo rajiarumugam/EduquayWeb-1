@@ -124,6 +124,7 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   associatedCount = 0;
 
   associatedANMData = [];
+  chcLogin = false;
 
   statelist = [];
   dtOptions: DataTables.Settings = {};
@@ -137,6 +138,15 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if (this.router.url.indexOf('/block-subregn') > -1) {
+      this.DataService.sendData(JSON.stringify({"module": "Block - REG & SAMPLING", "submodule": " Registration", "page": "Pregnant"}));
+  }
+  else
+  {
+    this.DataService.sendData(JSON.stringify({"module": "CHC - REG & SAMPLING", "submodule": " Registration", "page": "Pregnant"}));
+  }
+    
     this.DataService.deleteProp('chcCurrentPageCount');
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
@@ -250,8 +260,17 @@ export class ChcpregnantRegistrationComponent implements OnInit {
   getCHC(){
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
-      this.CHCdata = response['chc'];
-      this.selectedchc = this.user.chcId;
+      if(response['chc'] != undefined)
+      {
+        this.chcLogin = true;
+        this.CHCdata = response['chc'];
+        this.selectedchc = this.user.chcId;
+      }
+      else
+      {
+        this.chcLogin = false;
+        this.CHCdata = response['data'];
+      }
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];

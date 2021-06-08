@@ -123,9 +123,19 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   selectedassociatedANM;
   selectedTestingchc = null;
   statelist = [];
+  chcLogin = true;
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router, private loaderService: LoaderService,private DataService:DataService) { }
 
   ngOnInit() {
+
+    if (this.router.url.indexOf('/block-subregn') > -1) {
+      this.DataService.sendData(JSON.stringify({"module": "Block - REG & SAMPLING", "submodule": " Registration", "page": "Other Walk-ins"}));
+  }
+  else
+  {
+    this.DataService.sendData(JSON.stringify({"module": "CHC - REG & SAMPLING", "submodule": " Registration", "page": "Other Walk-ins"}));
+  }
+    
     this.DataService.deleteProp('chcCurrentPageCount');
     this.loaderService.display(false);
     this.user = JSON.parse(this.tokenService.getUser('lu'));
@@ -233,8 +243,19 @@ export class ChcwalkinRegistrationComponent implements OnInit {
   getCHC(){
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
-      this.CHCdata = response['chc'];
-      this.selectedchc = this.user.chcId;
+      if(response['chc'] != undefined)
+      {
+        this.chcLogin = true;
+        this.CHCdata = response['chc'];
+        this.selectedchc = this.user.chcId;
+      }
+      else
+      {
+        this.chcLogin = false;
+        this.CHCdata = response['data'];
+      }
+      
+      
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];

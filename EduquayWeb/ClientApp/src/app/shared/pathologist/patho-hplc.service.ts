@@ -11,6 +11,8 @@ import { TokenService } from 'src/app/shared/token.service';
 })
 export class pathoHPLCService {
 
+  retrieveBloodSamplesReportApi: string = "api/v1/MLResultProcess/RetrieveBloodTestReports";
+
   constructor(
     private httpClient: HttpClient,
     private genericService: GenericService,
@@ -57,4 +59,9 @@ export class pathoHPLCService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
   
+  getbloodSampleReports(){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveBloodSamplesReportApi}/${user.molecularLabId}`);
+    return this.http.get<any>({url: apiUrl });
+  }
 }
