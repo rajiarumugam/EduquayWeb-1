@@ -44,6 +44,7 @@ import { DamagedSamplesResolverService } from "./shared/anm-module/notifications
 
 
 import { CheSubjectRegistrationComponent } from './chc-module/registration/chc-subject-registration/chc-subject-registration.component'
+import { BlockSubjectRegistrationComponent } from './chc-module/registration/block-subject-registration/block-subject-registration.component';
 import { WalkinRegistrationComponent } from './chc-module/registration/walkin-registration/walkin-registration.component';
 import { ChcpregnantRegistrationComponent } from "./chc-module/registration/shared/pregnant-registration/pregnant-registration.component";
 import { ChcStudentRegistrationComponent } from "./chc-module/registration/shared/chc-student-registration/chc-student-registration.component";
@@ -277,6 +278,7 @@ import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specime
 import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
 import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
 import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
+import { HPLCPosPrintComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print/hplc-pos-bloodsamples-reports-print.component";
 
 import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
 import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
@@ -302,6 +304,10 @@ import { BarcodePendingComponent } from "./errorcorrection/barcode-correction/ba
 
 import { RCHCorrectionMainComponent } from "./errorcorrection/rch/rch-correction-main/rch-correction-main.component";
 import { RCHCorrectionComponent } from "./errorcorrection/rch/rch-correction/rch-correction.component";
+
+import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
+import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
+import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -349,6 +355,23 @@ const routes: Routes = [
           { path: '', component: UpdateResultsComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
           { path: 'edit-result', component: EditResultsComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
           { path: 'confirmed-result', component: ConfirmedResultsComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+          { path: 'reports', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+         
+        ]
+      },
+      {
+        path: 'hplcpositive-bloodsample-reoprts', component: HPLCReportsMainComponent,
+        children: [
+         
+          { path: '', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+         
+        ]
+      },
+      {
+        path: 'cvs-reoprts', component: CVSReportsMainComponent,
+        children: [
+         
+          { path: '', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
          
         ]
       },
@@ -372,6 +395,16 @@ const routes: Routes = [
       },
       {
         path: 'chc-subregn', component: CheSubjectRegistrationComponent,
+        children:[
+          {path: '', component: ChcwalkinRegistrationComponent, pathMatch: 'full'},
+          {path: 'awreg', component: ChcpregnantRegistrationComponent, pathMatch: 'full'},
+          {path: 'spouse', component: CheSpouseRegistrationComponent, pathMatch: 'full'},
+          {path: 'student', component: ChcStudentRegistrationComponent, pathMatch: 'full'},
+          {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'block-subregn', component: BlockSubjectRegistrationComponent,
         children:[
           {path: '', component: ChcwalkinRegistrationComponent, pathMatch: 'full'},
           {path: 'awreg', component: ChcpregnantRegistrationComponent, pathMatch: 'full'},
@@ -975,7 +1008,12 @@ export const RoutingComponents = [
   BarcodeCorrectionComponent,
   BarcodePendingComponent,
   RCHCorrectionMainComponent,
-  RCHCorrectionComponent
+  RCHCorrectionComponent,
+  HPLCPosPrintComponent,
+  HPLCReportsMainComponent,
+  CVSReportsMainComponent,
+  CVSPosPrintComponent,
+  BlockSubjectRegistrationComponent
 
 ];
 

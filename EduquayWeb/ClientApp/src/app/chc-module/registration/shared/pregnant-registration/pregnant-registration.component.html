@@ -19,11 +19,21 @@
                             </select>
                             
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3" *ngIf="chcLogin">
                             <label class="birthreg" for="inputCHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">{{'AssociatedCHC' | translate }}</label><span class="manto"> *</span>
                             <select id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">
                                 <option [ngValue]="null">Select CHC</option>
                                 <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.chcName}}</option>
+                               
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3" *ngIf="!chcLogin">
+                            <label class="birthreg" for="inputCHC" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">{{'AssociatedCHC' | translate }}</label><span class="manto"> *</span>
+                            <select id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.chc.invalid }">
+                                <option [ngValue]="null">Select CHC</option>
+                                <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                               
                             </select>
                         </div>
                         <div class="form-group col-md-3 associatedanm">

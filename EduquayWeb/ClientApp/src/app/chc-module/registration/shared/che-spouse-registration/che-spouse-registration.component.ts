@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 import { TokenService } from 'src/app/shared/token.service';
 import { DataTableDirective } from 'angular-datatables';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { DataService } from '../../../../shared/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'che-spouse-registration',
@@ -55,12 +57,19 @@ export class CheSpouseRegistrationComponent implements OnInit {
 
   fromDate = "";
   toDate = "";
-
+  currentPage = "";
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(zone: NgZone,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private _formBuilder: FormBuilder) { }
+  constructor(zone: NgZone,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService,private _formBuilder: FormBuilder,private DataService:DataService,private router: Router) { }
 
   ngOnInit() {
+    if (this.router.url.indexOf('/block-subregn') > -1) {
+        this.DataService.sendData(JSON.stringify({"module": "Block - REG & SAMPLING", "submodule": " Registration", "page": "Married & Spouse Registered"}));
+    }
+    else
+    {
+      this.DataService.sendData(JSON.stringify({"module": "CHC - REG & SAMPLING", "submodule": " Registration", "page": "Married & Spouse Registered"}));
+    }
     
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.dateform = this._formBuilder.group({

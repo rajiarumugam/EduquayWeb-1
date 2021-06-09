@@ -27,7 +27,12 @@ export class masterService {
   }
   getuserBasedCHC(): Observable<any> {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECHC+this.user.id);
+    var apiUrl;
+    if(this.user.chcId === 0)
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECHCBYBLOCK+this.user.blockId);
+    else
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECHC+this.user.id);
+
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }

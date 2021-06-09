@@ -1,0 +1,451 @@
+<div class="tab-pane fade show print-none" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row ml-3 my-2">
+             <!-- <div class="form-group col-md-2" [formGroup]="dateform">
+                <label for="inputFromdate">{{'FromDate' | translate }}
+                </label>
+                <div class="form-group mb-0">
+                    <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
+                </div>
+              </div>
+              <div class="form-group col-md-2" [formGroup]="dateform">
+                <label for="inputTodate">{{'ToDate' | translate }}</label>
+                <div class="form-group mb-0">
+                  <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+                </div>
+              </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">{{'SampleStatus' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                        <option [ngValue]="null">Select Status</option>
+                        <option [value]="district.id" *ngFor="let district of sampleStatusData1">{{district.statusName}}</option>
+                      </select>
+                </div>
+                <div class="form-group col-md-2" [formGroup]="dateform">
+                    <label for="inputTodate">{{'District' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="districtselected($event.target.value)" formControlName = "district" >
+                            <option [ngValue]="null">Select District</option>
+                            <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-2" [formGroup]="dateform">
+                    <label for="inputTodate">{{'Block' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputilrPoint" class="form-control" formControlName = "block" (change)="blockselected($event.target.value)"
+                        [(ngModel)]="selectedBlock">
+                            <option [ngValue]="null">Select</option>
+                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                                {{blockdata.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>    
+                <div class="form-group col-md-2" [formGroup]="dateform">
+                    <label for="inputTodate">{{'CHC' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select [attr.disabled]="selectedBlock === null ? '' : null" id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" (change)="getANMData()">
+                            <option [ngValue]="null">Select CHC</option>
+                            <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                        </select>
+                    </div>
+                </div>  
+                <div class="form-group col-md-2" [formGroup]="dateform">
+                    <label for="inputTodate">{{'ANM' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select id="inputDistrict" class="form-control" [(ngModel)]="selectedAnm" [attr.disabled]="selectedchc === null ? '' : null" formControlName = "anm" >
+                            <option [ngValue]="null">Select ANM</option>
+                            <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <div class="px-2 bd-highlight search-margin">
+                  
+                    <a (click)="refreshData()"><button type="submit" class="btn search-bu">
+                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                </div>-->
+            </div>
+            <div>
+              <button type="button" class="btn btn-sm btn-outline-light print-btn"
+              (click)="printPdf();" style="float:right;margin-right:20px;">
+              <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
+              <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                  aria-hidden="true"></i>
+          </button>
+            </div>
+            <div class="table-responsive my-2">
+             
+                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                            <th><span>{{'SNo' | translate}}</span></th>
+                           
+                            <th><span>{{'SubjectName' | translate}}</span></th>
+                            <th><span>{{'SubjectID' | translate}}</span></th>
+                            <th><span>{{'RCHID' | translate}}</span></th>
+                            <th><span>{{'District' | translate }}</span></th>
+                            <th (change)="checkAllSelected()"><input type="checkbox" class="checkbox" [checked]="checkdAllEnabled"></th>
+                            <!--<th><span>{{'Results' | translate }}</span></th>-->
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pnddata of pndPendingArray; index as i">
+                            <td>{{i+1}}</td>
+                             
+                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                            <td class="text-center">{{pnddata.uniqueSubjectId}}</td>
+                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                            <td style="text-align: left">{{pnddata.district}}</td>
+                            <td class="sid text-center"><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                (change)="checkIfSelected(i)"></td>
+                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-2 left-logo-cont">
+    <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 0px;">
+    <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 0px;">
+    <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/logo-bg1.jpg" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/printlogo.jpg" class="mt-1" style="height: 0px;">
+    
+</div>
+
+
+<div class="print-show" style="margin-top:-200px !important;">
+<div class="col-xl-12 col-lg-12 col-sm-12 " style="margin-top:-100px !important;" *ngFor="let data of printArray;let i=index;">
+
+
+   
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
+        <div class="widget-content widget-content-area br-6">
+         <!-- <div class="row py-2 my-2 print-header">
+              
+              <div class="col-md-2 left-logo-cont">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 70px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 70px;margin-left:10px;">
+              </div>
+              <div class="col-md-8 col-mid">
+                  <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
+                  <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
+              </div>
+              <div class="col-md-2 right-logo-cont" style="float:right;">
+                  
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 70px;margin-left:10px;float:right;">
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 70px;float:right;margin-left:10px;">
+              </div>
+          </div>-->
+
+          <div class="row py-2 my-2 print-header">
+              
+            <div class="col-md-12 left-logo-cont" style="text-align:center;">
+                <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 50px;float:left;">
+                <img class="logo-center" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 50px;margin-left:10px;">
+                <img class="logo-right" src="../../../../assets/assets/img/printlogo.jpg" class="mt-1" style="height: 50px;margin-left:10px;float:right;">
+            </div>
+
+            <div class="col-md-12 col-mid">
+                <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;margin: 0;"><b>Genetic Laboratory – SCB Medical College, Cuttack</b></h4>
+                <p style="text-align: center;margin: 0;font-size: 12px;"><i>-In collaboration with –</i></p>
+                <h5 class="text-center header-text" style="font-size: 16px !important;margin: 0;"><b>Control Program for Thalassemia &amp; Sickle Cell disease in Odisha</b></h5>
+                <p style="text-align: center;margin: 0;font-size: 12px;"><i>-Coordinated by–</i></p>
+                <p style="text-align: center;margin: 0;font-size: 16px;">Christian Medical College, Vellore &amp; Centre for Stem Cell Research (a unit of inStem, Bengaluru), CMC Campus, Vellore.</p>
+                <p style="text-align: center;margin: 0;font-size: 16px;margin-top:5px;"><u><b>GENETIC DIAGNOSIS OF HAEMOGLOBIN DISORDERS</b></u></p>
+            </div>
+        </div>
+            
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
+        <!--<div class="watermark1">
+            <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+        </div>-->
+        <div class="widget-content widget-content-area br-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss">
+                                
+                            </thead> 
+                            <tbody>
+                                <tr> 
+                                    <td class="sp-xs-td-9" style="width: 70%;"><b>{{'Date of Diagnosis' | translate}} : </b>{{data.sampleCollectionDate}}</td>
+                                    <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Printed' | translate}} : </b>{{currentDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss" style="background-color: #aaaaaa !important;">
+                                <tr class="" style="background-color: #aaaaaa !important;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION A : PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                                   
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'District' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                    <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'SC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-9">{{'RI Point' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                    <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-15"> <b></b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss" style="background-color: #aaaaaa;">
+                                <tr class="" style="background-color: #aaaaaa;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
+                                   
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Propositus' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.subjectName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.age}} Years / {{data.gender}}</b></td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Husband' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Address' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.rchId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.contactNo}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Regn ID/Subject ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.uniqueSubjectId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.registrationDate}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.uniqueSubjectId}}</b></td>
+                                    <td class="sp-xs-td-9">GA (as of {{currentDate}} )</td>
+                                    <td class="sp-xs-td-15"><b>{{data.registrationDate}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b></b></td>
+                                    <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                            <thead class="tablecss">
+                                <tr class="" style="background-color: #e3e8ef;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : MOLECULAR LAB TEST DETAILS' | translate}}</b>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
+                            
+                            <tbody>
+                               
+                                <tr>
+                                    <td class="sp-xs-td-3">{{'Test Category' | translate}} </td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.diagnosis}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-3">{{'Sample Type' | translate}} </td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-3">{{'Clinical Details' | translate}} </td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-3">{{'Gene Tested' | translate}} </td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-3">{{'Chromosome Location' | translate}} </td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-3">{{'Method' | translate}} </td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                </tr>
+                               <!-- <tr>
+                                    <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosisSummary}}</b></td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                            <thead class="tablecss">
+                                <tr class="" style="background-color: #e3e8ef;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION D: MOLECULAR LAB TEST RESULTS' | translate}}</b>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Relation</th>
+                                <th>Lab Accession ID/Barcode</th>
+                                <th>Mutation</th>
+                              </tr>
+                           </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>Ms. Yogeswari Malik, F,
+                                        OD/18625/00036/F,12345</b></td>
+                                    <td class="sp-xs-td-9">Propositus</td>
+                                    <td class="sp-xs-td-9">123456</td>
+                                    <td class="sp-xs-td-9">Heterozygous for IVS 1-5 (G-C) mutations in the β-
+                                        globin gene. &lt;&lt; Mol result of WHOLE BLOOD of ANW&gt;&gt;</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="margin:0;">Note</p>
+                    <ol>
+                        <li>Seegene Novaplex thalassaemia assay has been developed and validated at Department of Haematology, CMC Vellore</li>
+                        <li>Other family members may be at risk of carrying this mutation and should be offered genetic counselling and testing</li>
+                        <li>The results should be correlated with the subject’s or parents haemoglobin analysis by HPLC</li>
+                      </ol> 
+                   
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="margin:0;">Disclaimer</p>
+                    <ol>
+                        <li>This report should not be copied or reproduced except in its entirety</li>
+                        <li>This is a computer-generated report. It does not require a physical signature.</li>
+                        <li>All precautions were taken to ensure the accuracy of these results. However, a 1% chance of error in this report is
+                            possible</li>
+                    </ol>
+                   
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{data.labTechnicianName}} <br><br>({{'Lab Technician' | translate}})</b></td>
+                                    <td class="sp-xs-td-9" style="text-align: left;max-width:120px;" align="right"> <br><br> <br><br><b>{{'Lab In Charge' | translate}} : {{data.pathologistName}}</b><br>Dr Roma Rattan,
+                                        Associate Professor, Dept of Biochemistry,<br>
+                                        Nodal Officer – MRU, In Charge – Molecular Genomic<br>
+                                        Laboratory, SCB Medical College, Cuttack, Odisha.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+  </div>
+  <div style="page-break-before: always;" *ngIf="i < printArray.length -1 "></div>
+
+  </div>
+
+</div>
+

@@ -23,12 +23,12 @@
                   role="button" ><i class="fas fa-chevron-left pNav-left"></i></a></div> -->
               </div>
               <!-- <h5 class="float-left">Sample Collection</h5> -->
-              <div class="col-md-4">
+              <div class="col-md-4 print-none">
                 <div class="headertit">
                   <h5 class="float-center">{{'HPLC Positive Blood Sample' | translate }}</h5>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 print-none">
                 <div class="float-right">
                 <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/cvs-specimen']"
                 role="button" ngbTooltip="CVS Specimen" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
@@ -37,7 +37,7 @@
           </div>
           <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <ul class="nav nav-tabs print-none" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" [ngClass]="{'active': currentPage == 'molecular-lab-result' ? true : false}" id="updateresult-tab" data-toggle="tab"
                      [routerLink]="['/app/molecular-lab-result']" role="tab" aria-controls="home"
@@ -57,6 +57,13 @@
                   <a class="nav-link" [ngClass]="{'active': currentPage == 'confirmed-result' ? true : false}" id="confirmresultsample-tab" data-toggle="tab" [routerLink]="['/app/molecular-lab-result/confirmed-result']"
                      role="tab" aria-controls="profile" aria-selected="false">
                      {{'Confirmed Results' | translate }}<span class="badge badge-pill badge-warning shadow ml-1">{{confirmedResultCount}}</span>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': currentPage == 'reports' ? true : false}" id="confirmresultsample-tab" data-toggle="tab" [routerLink]="['/app/molecular-lab-result/reports']"
+                     role="tab" aria-controls="profile" aria-selected="false">
+                     {{'Reports' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
                   </a>
                 </li>
               </ul>

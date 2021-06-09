@@ -110,13 +110,21 @@ export class ChcStudentRegistrationComponent implements OnInit {
   selectedschoolsection;
   selectedrollnumber;
   ageValidate = false;
-
+  chcLogin =  false;
   createdSubjectId;
   user;
   constructor(private masterService: masterService, private _formBuilder: FormBuilder,private httpClientService:HttpClientService,private genericService: GenericService,private tokenService: TokenService, private router: Router,private loaderService: LoaderService,private DataService:DataService) { }
 
 
   ngOnInit() {
+    if (this.router.url.indexOf('/block-subregn') > -1) {
+      this.DataService.sendData(JSON.stringify({"module": "Block - REG & SAMPLING", "submodule": " Registration", "page": "Age < 18"}));
+  }
+  else
+  {
+    this.DataService.sendData(JSON.stringify({"module": "CHC - REG & SAMPLING", "submodule": " Registration", "page": "Age < 18"}));
+  }
+    
     this.DataService.deleteProp('chcCurrentPageCount');
     this.loaderService.display(false);
     /*phc: ['', Validators.required],
@@ -205,8 +213,17 @@ export class ChcStudentRegistrationComponent implements OnInit {
   getCHC(){
     this.masterService.getuserBasedCHC()
     .subscribe(response => {
-      this.CHCdata = response['chc'];
-      this.selectedchc = this.user.chcId;
+      if(response['chc'] != undefined)
+      {
+        this.chcLogin = true;
+        this.CHCdata = response['chc'];
+        this.selectedchc = this.user.chcId;
+      }
+      else
+      {
+        this.chcLogin = false;
+        this.CHCdata = response['data'];
+      }
     },
     (err: HttpErrorResponse) =>{
       this.CHCdata = [];
