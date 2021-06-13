@@ -2,72 +2,99 @@
     <div class="main-box no-header clearfix">
         <div class="main-box-body clearfix">
             <div class="form-row ml-3 my-2">
-             <!-- <div class="form-group col-md-2" [formGroup]="dateform">
-                <label for="inputFromdate">{{'FromDate' | translate }}
-                </label>
-                <div class="form-group mb-0">
-                    <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
-                </div>
-              </div>
-              <div class="form-group col-md-2" [formGroup]="dateform">
-                <label for="inputTodate">{{'ToDate' | translate }}</label>
-                <div class="form-group mb-0">
-                  <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
-                </div>
-              </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">{{'SampleStatus' | translate }}</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
-                        <option [ngValue]="null">Select Status</option>
-                        <option [value]="district.id" *ngFor="let district of sampleStatusData1">{{district.statusName}}</option>
-                      </select>
-                </div>
                 <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'District' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="districtselected($event.target.value)" formControlName = "district" >
-                            <option [ngValue]="null">Select District</option>
-                            <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'Block' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputilrPoint" class="form-control" formControlName = "block" (change)="blockselected($event.target.value)"
-                        [(ngModel)]="selectedBlock">
-                            <option [ngValue]="null">Select</option>
-                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
-                                {{blockdata.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>    
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'CHC' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select [attr.disabled]="selectedBlock === null ? '' : null" id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" (change)="getANMData()">
-                            <option [ngValue]="null">Select CHC</option>
-                            <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
-                        </select>
-                    </div>
-                </div>  
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'ANM' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select id="inputDistrict" class="form-control" [(ngModel)]="selectedAnm" [attr.disabled]="selectedchc === null ? '' : null" formControlName = "anm" >
-                            <option [ngValue]="null">Select ANM</option>
-                            <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
-                        </select>
-                    </div>
-                </div>
-               
-                <div class="px-2 bd-highlight search-margin">
+                   <label for="inputFromdate">{{'FromDate' | translate }}
+                   </label>
+                   <div class="form-group mb-0">
+                       <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
+                   </div>
+                 </div>
+                 <div class="form-group col-md-2" [formGroup]="dateform">
+                   <label for="inputTodate">{{'ToDate' | translate }}</label>
+                   <div class="form-group mb-0">
+                     <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+                   </div>
+                 </div>
+                  <!--<div class="form-group col-md-2">
+                       <label for="inputSubjectcategory">{{'SampleStatus' | translate }}</label>
+                       <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                           <option [ngValue]="null">Select Status</option>
+                           <option [value]="district.id" *ngFor="let district of sampleStatusData1">{{district.statusName}}</option>
+                         </select>
+                   </div>--> 
+                   <div class="form-group col-md-2" [formGroup]="dateform">
+                       <label for="inputTodate">{{'District' | translate }}</label>
+                       <div class="form-group mb-0">
+                           <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="districtselected($event.target.value)" formControlName = "district" >
+                               <option [ngValue]="null">Select District</option>
+                               <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="form-group col-md-2" [formGroup]="dateform">
+                       <label for="inputTodate">{{'Block' | translate }}</label>
+                       <div class="form-group mb-0">
+                           <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputilrPoint" class="form-control" formControlName = "block" (change)="blockselected($event.target.value)"
+                           [(ngModel)]="selectedBlock">
+                               <option [ngValue]="null">Select</option>
+                               <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                                   {{blockdata.name}}
+                               </option>
+                           </select>
+                       </div>
+                   </div>    
+                   <div class="form-group col-md-2" [formGroup]="dateform">
+                       <label for="inputTodate">{{'CHC' | translate }}</label>
+                       <div class="form-group mb-0">
+                           <select [attr.disabled]="selectedBlock === null ? '' : null" id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" (change)="getANMData()">
+                               <option [ngValue]="null">Select CHC</option>
+                               <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                           </select>
+                       </div>
+                   </div>  
+                   <!--<div class="form-group col-md-2" [formGroup]="dateform">
+                       <label for="inputTodate">{{'ANM' | translate }}</label>
+                       <div class="form-group mb-0">
+                           <select id="inputDistrict" class="form-control" [(ngModel)]="selectedAnm" [attr.disabled]="selectedchc === null ? '' : null" formControlName = "anm" >
+                               <option [ngValue]="null">Select ANM</option>
+                               <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
+                           </select>
+                       </div>
+                   </div>-->
                   
-                    <a (click)="refreshData()"><button type="submit" class="btn search-bu">
-                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                </div>-->
-            </div>
+                   <div class="px-2 bd-highlight search-margin">
+                     
+                       <a (click)="refreshData()"><button type="submit" class="btn search-bu">
+                               <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                   </div>
+                  
+               </div>
+               <div class="form-row ml-3 my-2">
+                    <div class="form-group col-md-12 mt-4 ml-5" style="text-align: center;margin:0;padding:0;">
+                    <b>(or)</b>
+                    </div>
+                </div>
+                <div class="form-row ml-3 my-2">
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 filtered-list-search mt-2">
+                        <form class="form-inline my-2 my-lg-0 col-md-12">
+                            <label for="inputSearch" class="ml-3"><span class="note">{{'SearchbyRCHId/SubjectName/SubjectId/ContactNumber' | translate }} </span></label>
+                            <div class="w-100">
+                                <input type="text" class="w-100 form-control product-search br-30"
+                                name="searchsubjectid" type="text" placeholder="Search"
+                                [(ngModel)]="searchsubjectid" autocomplete="off">
+                            <a (click)="anmSubjectProfile()"><button class="btn btn-primary" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-search">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        </svg>
+                                    </button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             <div>
               <button type="button" class="btn btn-sm btn-outline-light print-btn"
               (click)="printPdf();" style="float:right;margin-right:20px;">
@@ -315,27 +342,28 @@
                                
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Test Category' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.diagnosis}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>To screen for mutations in the  globin gene in the subjects DNA sample</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Sample Type' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>Parent’s blood sample in EDTA; Chorionic Villus Sample (CVS) in EDTA - Saline</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Clinical Details' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b> thalassaemia</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Gene Tested' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>HBB haemoglobin,. NCBI Reference Sequence: NC_000011.9</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Chromosome Location' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>11p15</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Method' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>Analysed by Seegene Novaplex thalassaemia assay to detect 13 common
+                                        mutations in the Indian population</b></td>
                                 </tr>
                                <!-- <tr>
                                     <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
