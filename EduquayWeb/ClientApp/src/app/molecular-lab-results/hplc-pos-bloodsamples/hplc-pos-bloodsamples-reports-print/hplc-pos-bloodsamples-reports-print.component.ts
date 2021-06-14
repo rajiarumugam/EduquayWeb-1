@@ -71,12 +71,14 @@ export class HPLCPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
     maxDate: new Date(Date.now())
   };
   currentDate;
+  searchsubjectid: string;
   printArray = [];
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
     ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService,private confirmSamplesServiceService: HplcPosBloodsamplesService
   ) { }
 
   ngOnInit() {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
     this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
@@ -455,15 +457,13 @@ export class HPLCPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
   {
     this.loaderService.display(true);
     var _subjectObj = {
-      "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "districtId": this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
-      "blockId":this.selectedBlock != null ? Number(this.selectedBlock) : 0,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
-      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0,
       "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
-      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
+      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+      "molecularLabId":this.user.molecularLabId
     }
-    this.pathoHPLCService.getbloodSampleReports().subscribe(response => {
+    this.pathoHPLCService.postbloodSampleReports(_subjectObj).subscribe(response => {
       console.log(response);
       this.pndPendingArray = response.data;
       this.pndPendingArray.forEach(function(val,ind){
@@ -480,6 +480,31 @@ export class HPLCPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
       this.loaderService.display(false);
     });
    
+  }
+
+  anmSubjectProfileList() {
+
+    this.loaderService.display(true);
+    var _subjectObj = {
+      input: this.searchsubjectid,
+      "molecularLabId":this.user.molecularLabId
+    }
+    this.pathoHPLCService.retrieveIndividualBloodTestReports(_subjectObj).subscribe(response => {
+      console.log(response);
+      this.pndPendingArray = response.data;
+      this.pndPendingArray.forEach(function(val,ind){
+        val.checked = true;
+      })
+      this.rerender();
+      this.loaderService.display(false);
+
+      /*setTimeout(() => {
+        window.print();
+      }, 100);*/
+    },
+    (err: HttpErrorResponse) =>{
+      this.loaderService.display(false);
+    });
   }
 
   openResultPage(data)

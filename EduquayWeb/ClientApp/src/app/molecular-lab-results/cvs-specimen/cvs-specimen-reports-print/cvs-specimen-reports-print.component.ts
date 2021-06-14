@@ -17,6 +17,7 @@ import { chcsampleService } from "../../../shared/chc-sample/chc-sample.service"
 import { LoaderService } from '../../../shared/loader/loader.service';
 import { pathoHPLCService } from "../../../shared/pathologist/patho-hplc.service";
 import Swal from 'sweetalert2';
+import { CVSSpecimenService } from 'src/app/shared/molecularlab-results/CVS-specimen/cvs-specimen.service';
 
 @Component({
   selector: 'app-cvs-specimen-reports-print',
@@ -72,11 +73,12 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
   currentDate;
   printArray = [];
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
-    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService
+    ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService,private confirmSamplesService: CVSSpecimenService,
   ) { }
 
   ngOnInit() {
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
     var pndtcTestingArr = this.route.snapshot.data.pndtcTesting;
     this.dateform = this._formBuilder.group({
@@ -94,6 +96,7 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.getDistrictData();
     this.refreshData();
+    this.sendDataToBa(this.user.molecularLabId);
     
     
     if(pndtcTestingArr !== undefined && pndtcTestingArr.status.toString() === "true"){
@@ -103,8 +106,7 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
         val.checked = true;
       })
     }
-
-    this.dataservice.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Update Molecular Test Results", "submodule":"CVS Specimen", "page": "Reports"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getSampleStatusData();
     //this.getCHCData();
@@ -266,6 +268,39 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
       defaultDate: new Date()
     });*/
   }
+
+  sendDataToBa(molecularLabId)
+  {
+    var _updateResultCount;
+    var _editResultCount;
+    var _confirmedResultCount;
+    this.confirmSamplesService.getspecimenSampleList(molecularLabId)
+    .subscribe(response => {
+      _updateResultCount = response.subjects.length;
+
+      this.confirmSamplesService.geteditspecimenSampleList(molecularLabId)
+      .subscribe(response2 => {
+        _editResultCount = response2.subjects.length;
+
+        this.confirmSamplesService.getconfirmspecimenSampleList(molecularLabId)
+        .subscribe(response3 => {
+          _confirmedResultCount= response3.subjects.length;
+          //this.onLoadSubject.emit(this.recordCount);
+
+
+
+          this.dataservice.sendData(JSON.stringify({"modulepage": "CSV SPECIMEN","updatecount":_updateResultCount,"editCount":_editResultCount,"confirmedCount":_confirmedResultCount,"module": "Update Molecular Test Results", "submodule":"CVS Specimen", "page": "Confirmed Results"}));
+        },
+          (err: HttpErrorResponse) => {
+          });
+      },
+        (err: HttpErrorResponse) => {
+        });
+    },
+      (err: HttpErrorResponse) => {
+        
+      });
+  }
   getSampleStatusData(){
     this.pathoHPLCService.getSampleStatus()
     .subscribe(response => {
@@ -418,15 +453,13 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
   {
     this.loaderService.display(true);
     var _subjectObj = {
-      "sampleStatus": this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "districtId": this.selectedDistrict != null ? Number(this.selectedDistrict) : 0,
-      "blockId":this.selectedBlock != null ? Number(this.selectedBlock) : 0,
       "chcId":this.selectedchc != null ? Number(this.selectedchc) : 0,
-      "anmId":this.selectedAnm != null ? Number(this.selectedAnm) : 0,
       "fromDate": this.fromDate != '' ? moment(new Date(this.fromDate)).format("DD/MM/YYYY") : '',
-      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : ''
+      "toDate": this.toDate != '' ? moment(new Date(this.toDate)).format("DD/MM/YYYY") : '',
+      "molecularLabId":this.user.molecularLabId
     }
-    this.pathoHPLCService.getbloodSampleReports().subscribe(response => {
+    this.pathoHPLCService.retrieveSpecimenTestReports(_subjectObj).subscribe(response => {
       console.log(response);
       this.pndPendingArray = response.data;
       this.pndPendingArray.forEach(function(val,ind){

@@ -12,6 +12,8 @@ import { TokenService } from 'src/app/shared/token.service';
 export class pathoHPLCService {
 
   retrieveBloodSamplesReportApi: string = "api/v1/MLResultProcess/RetrieveBloodTestReports";
+  retrieveIndividualBloodTestReport = "api/v1/MLResultProcess/RetrieveIndividualBloodTestReports";
+  retrieveSpecimenTestReport="api/v1/MLResultProcess/RetrieveSpecimenTestReports";
 
   constructor(
     private httpClient: HttpClient,
@@ -63,5 +65,23 @@ export class pathoHPLCService {
     var user = JSON.parse(this.tokenService.getUser('lu'));
     let apiUrl = this.genericService.buildApiUrl(`${this.retrieveBloodSamplesReportApi}/${user.molecularLabId}`);
     return this.http.get<any>({url: apiUrl });
+  }
+
+  postbloodSampleReports(obj){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveBloodSamplesReportApi}`);
+    return this.http.post<any>({url: apiUrl, body: obj });
+  }
+
+  retrieveIndividualBloodTestReports(obj){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveIndividualBloodTestReport}`);
+    return this.http.post<any>({url: apiUrl, body: obj });
+  }
+
+  retrieveSpecimenTestReports(obj){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveSpecimenTestReport}`);
+    return this.http.post<any>({url: apiUrl, body: obj });
   }
 }
