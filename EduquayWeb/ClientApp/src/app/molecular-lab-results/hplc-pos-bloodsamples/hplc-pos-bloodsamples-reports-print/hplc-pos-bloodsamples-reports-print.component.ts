@@ -73,7 +73,6 @@ export class HPLCPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
   currentDate;
   searchsubjectid: string;
   printArray = [];
-  searchsubjectid;
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
     ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService,private confirmSamplesServiceService: HplcPosBloodsamplesService
   ) { }
