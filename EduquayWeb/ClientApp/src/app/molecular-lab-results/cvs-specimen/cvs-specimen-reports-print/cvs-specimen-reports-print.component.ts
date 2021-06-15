@@ -56,6 +56,7 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
   blocklists = [];
   selectedBlock = null;
   DAY = 86400000;
+  searchsubjectid;
   dateform:FormGroup;
   startOptions1: FlatpickrOptions = {
     mode: 'single',
@@ -301,6 +302,32 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
         
       });
   }
+
+  anmSubjectProfileList() {
+
+    this.loaderService.display(true);
+    var _subjectObj = {
+      input: this.searchsubjectid,
+      "molecularLabId":this.user.molecularLabId
+    }
+    this.pathoHPLCService.retrieveIndividualBloodTestReports(_subjectObj).subscribe(response => {
+      console.log(response);
+      this.pndPendingArray = response.data;
+      this.pndPendingArray.forEach(function(val,ind){
+        val.checked = true;
+      })
+      this.rerender();
+      this.loaderService.display(false);
+
+      /*setTimeout(() => {
+        window.print();
+      }, 100);*/
+    },
+    (err: HttpErrorResponse) =>{
+      this.loaderService.display(false);
+    });
+  }
+
   getSampleStatusData(){
     this.pathoHPLCService.getSampleStatus()
     .subscribe(response => {
