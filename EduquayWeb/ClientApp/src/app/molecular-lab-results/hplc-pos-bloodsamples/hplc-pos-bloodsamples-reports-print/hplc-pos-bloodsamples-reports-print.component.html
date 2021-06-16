@@ -180,8 +180,8 @@
               
             <div class="col-md-12 left-logo-cont" style="text-align:center;">
                 <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 50px;float:left;">
-                <img class="logo-center" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 50px;margin-left:10px;">
-                <img class="logo-right" src="../../../../assets/assets/img/printlogo.jpg" class="mt-1" style="height: 50px;margin-left:10px;float:right;">
+                <img class="logo-center" src="../../../../assets/assets/img/printlogo.jpg" class="mt-1" style="height: 50px;margin-left:10px;">
+                <img class="logo-right" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 50px;margin-left:10px;float:right;">
             </div>
 
             <div class="col-md-12 col-mid">
@@ -210,7 +210,7 @@
                             </thead> 
                             <tbody>
                                 <tr> 
-                                    <td class="sp-xs-td-9" style="width: 70%;"><b>{{'Date of Diagnosis' | translate}} : </b>{{data.sampleCollectionDate}}</td>
+                                    <td class="sp-xs-td-9" style="width: 70%;"><b>{{'Date of Diagnosis' | translate}} : </b>{{data.testDate}}</td>
                                     <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Printed' | translate}} : </b>{{currentDate}}</td>
                                 </tr>
                             </tbody>
@@ -233,8 +233,21 @@
                                 <tr>
                                     <td class="sp-xs-td-9">{{'District' | translate}}</td>
                                     <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
-                                    <td class="sp-xs-td-9">{{'Sentinel Centre' | translate}}</td>
+                                    <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.block}}</b></td>
+                                    <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.chc}}</b></td>
+                                    <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.phc}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'SC' | translate}}</td>
                                     <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                    <td class="sp-xs-td-9">{{'RI Point' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.ri}}</b></td>
+                                    <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.anmName}}</b></td>
+                                   
                                 </tr>
                             </tbody>
                         </table>
@@ -247,21 +260,21 @@
                         <table class="table table-bordered table-striped">
                             <thead class="tablecss" style="background-color: #aaaaaa;">
                                 <tr class="" style="background-color: #aaaaaa;">
-                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : MOTHER DETAILS' | translate}}</b>
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
                                    
                                     </th>
                                 </tr> 
                             </thead> 
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{'Mother' | translate}}</td>
+                                    <td class="sp-xs-td-9">{{'Propositus' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.subjectName}}</b></td>
                                     <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.age}} Years / {{data.gender}}</b></td>
                                    
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{'Father' | translate}}</td>
+                                    <td class="sp-xs-td-9">{{'Husband' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
                                     <td class="sp-xs-td-9">{{'Address' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
@@ -282,53 +295,24 @@
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b></b></td>
-                                    <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-custom-border">
-                            <thead class="tablecss">
-                                <tr class="" style="background-color: #e3e8ef;">
-                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : BABY DETAILS' | translate}}</b>
-                                    </th>
-                                </tr> 
-                            </thead> 
-                            
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-custom-border">
-                           
-                            <tbody>
-                                <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Propositus' | translate}}</b></td>
-                                    <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
-                                    <td class="sp-xs-td-9">{{'Date of Birth' | translate}}</td>
-                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate}}</b></td>
                                     <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.uniqueSubjectId}}</b></td>
                                     <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.sampleCollectionDate}}</b></td>
                                     
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{data.sstResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.cbcTestResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.sstResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.cbcTestResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.sstResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.cbcTestResult}}</td>
+                                    <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.lmpDate}}</b></td>
+                                    <td class="sp-xs-td-9">GA (as of {{currentDate}} )</td>
+                                    <td class="sp-xs-td-15"><b>{{data.ga}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>DEPT OF HEMATOLOGY</b></td>
+                                    <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -361,27 +345,27 @@
                                
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Test Category' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.diagnosis}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>To screen for mutations in the &#946; globin gene in the subjects DNA sample</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Sample Type' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>Peripheral Blood</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Clinical Details' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>&#946; thalassaemia</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Gene Tested' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>HBB haemoglobin,&#946;. NCBI Reference Sequence: NC_000011.9</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Chromosome Location' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>11p15</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-3">{{'Method' | translate}} </td>
-                                    <td class="sp-xs-td-9" style="width: 800px;"><b>{{data.hplcResult}}</b></td>
+                                    <td class="sp-xs-td-9" style="width: 800px;"><b>Analysed by Seegene Novaplex thalassaemia assay to detect 13 common mutations in the Indian population</b></td>
                                 </tr>
                                <!-- <tr>
                                     <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
@@ -416,14 +400,23 @@
                            
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Propositus' | translate}}</b></td>
+                                    <td class="sp-xs-td-9"><b>{{'Name' | translate}}</b></td>
                                     <td class="sp-xs-td-9">{{'Barcode' | translate}}</td>
+                                    <td class="sp-xs-td-9">{{'Relation' | translate}}</td>
                                     <td class="sp-xs-td-9">{{'Mutation' | translate}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{data.sstResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.cbcTestResult}}</td>
-                                    <td class="sp-xs-td-9">{{data.sstResult}}</td>
+                                    <td class="sp-xs-td-9"><b>{{data.subjectName}}</b>, <span *ngIf="data.gender === 'Female' ? true : false">F</span><span *ngIf="data.gender === 'Female' ? false : true">M</span>, uniqueSubjectId</td>
+                                    <td class="sp-xs-td-9">{{data.barcodeNo}}</td>
+                                    <td class="sp-xs-td-9">Propositus</td>
+                                    <td class="sp-xs-td-9">{{data.molecularTestResult}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{data.spouseName}}</b>, <span *ngIf="data.gender === 'Female' ? true : false">M</span><span *ngIf="data.gender === 'Female' ? false : true">F</span>, uniqueSubjectId</td>
+                                    <td class="sp-xs-td-9">{{data.spouseBarcodeNo}}</td>
+                                    <td class="sp-xs-td-9"><span *ngIf="data.gender === 'Female' ? true : false">Husband</span><span *ngIf="data.gender === 'Female' ? false : true">Wife</span></td>
+                                    <td class="sp-xs-td-9">{{data.spouseMolecularTestResult}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -461,11 +454,6 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <tbody>
-                                <tr>
-                                    <td class="sp-xs-td-9"></td>
-                                </tr>
-
-
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{data.labTechnicianName}} <br><br>({{'Lab Technician' | translate}})</b></td>
                                     <td class="sp-xs-td-9" style="text-align: left;max-width:120px;" align="right"> <br><br> <br><br><b>{{'Lab In Charge' | translate}} : {{data.pathologistName}}</b><br>Dr Roma Rattan,

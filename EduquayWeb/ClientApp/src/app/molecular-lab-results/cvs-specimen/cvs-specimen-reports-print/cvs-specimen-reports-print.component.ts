@@ -73,11 +73,13 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
   };
   currentDate;
   printArray = [];
+  currentPage;
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
     ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService,private confirmSamplesService: CVSSpecimenService,
   ) { }
 
   ngOnInit() {
+    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);

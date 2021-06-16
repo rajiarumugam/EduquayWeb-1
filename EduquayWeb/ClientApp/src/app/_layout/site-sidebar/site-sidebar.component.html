@@ -120,14 +120,14 @@
                     </svg>
                 </div>
             </a>
-            <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'chc'}" id="chc" data-parent="#accordionExample">
+            <ul class="submenu list-unstyled collapse"   id="chc" data-parent="#accordionExample">
                <!-- <li routerLinkActive="active">
                     <a [routerLink]="['/app/chc-notification']">  {{'Notifications' | translate }} </a>
                 </li>-->
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/block-subregn']"> {{'Registration' | translate }} </a>
                 </li>
-                <!--<li routerLinkActive="active">
+                <li routerLinkActive="active">
                     <a [routerLink]="['/app/chc-sample-collection']"> {{'SampleCollection' | translate }} </a>
                 </li>
                 <li routerLinkActive="active">
@@ -141,7 +141,7 @@
                 </li>
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/chc-main-report']"> {{'Reports' | translate }} </a>
-                </li>-->
+                </li>
             </ul>
         </li>
         <li class="menu" *ngIf="user.userRole === 'CHCLTLEVEL1' || user.userRole === 'CHCSRLT'">
