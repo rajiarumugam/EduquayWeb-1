@@ -409,8 +409,7 @@
                                         {{data.uniqueSubjectId}}</td>
                                     <td class="sp-xs-td-9">Propositus</td>
                                     <td class="sp-xs-td-9">{{data.barcodeNo}}</td>
-                                    <td class="sp-xs-td-9"><!--Heterozygous for IVS 1-5 (G-C) mutations in the β-
-                                        globin gene. &lt;&lt; Mol result of WHOLE BLOOD of ANW&gt;&gt;--></td>
+                                    <td class="sp-xs-td-9">{{data.molecularTestResult}}</td>
                                 </tr>
 
                                 <tr>
@@ -418,15 +417,14 @@
                                         {{data.spouseSubjectId}}</td>
                                     <td class="sp-xs-td-9">spouseSubjectId</td>
                                     <td class="sp-xs-td-9">{{data.spouseBarcodeNo}}</td>
-                                    <td class="sp-xs-td-9"><!--Heterozygous for IVS 1-5 (G-C) mutations in the β-
-                                        globin gene. &lt;&lt; Mol result of WHOLE BLOOD of ANW&gt;&gt;--></td>
+                                    <td class="sp-xs-td-9">{{data.spouseMolecularTestResult}}</td>
                                 </tr>
                                 
                                 <tr *ngFor="let foetusdat of data.foetusDetail;index as k">
                                     <td class="sp-xs-td-9"><b>{{foetusdat.foetusName}}</b></td>
                                     <td class="sp-xs-td-9">Foetus {{k+1}}</td>
                                     <td class="sp-xs-td-9">{{foetusdat.cvsSampleRefId}}</td>
-                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9">{{foetusdat.specimenTestResult}}</td>
                                 </tr>
                                 
                             </tbody>
@@ -460,17 +458,12 @@
                 </div>
             </div>
             
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <tbody>
-                                <tr>
-                                    <td class="sp-xs-td-9"></td>
-                                </tr>
-
-
-                                <tr>
+            <div class="row" style="margin:0;">
+                <div class="col-md-12" style="margin:0;">
+                    <div class="table-responsive" style="margin:0;">
+                        <table class="table table-bordered table-striped" style="margin:0;">
+                            <tbody style="margin:0;">
+                                <tr style="margin:0;">
                                     <td class="sp-xs-td-9"><b>{{'Reported By' | translate}} {{data.labTechnicianName}} <br><br>({{'Lab Technician' | translate}})</b></td>
                                     <td class="sp-xs-td-9" style="text-align: left;max-width:120px;" align="right"> <br><br> <br><br><b>{{'Lab In Charge' | translate}} : {{data.pathologistName}}</b><br>Dr Roma Rattan,
                                         Associate Professor, Dept of Biochemistry,<br>
