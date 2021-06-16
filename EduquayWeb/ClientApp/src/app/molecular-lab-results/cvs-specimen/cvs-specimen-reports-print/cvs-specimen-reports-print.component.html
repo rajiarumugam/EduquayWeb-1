@@ -154,7 +154,7 @@
 </div>
 
 
-<div class="print-show" style="margin-top:-200px !important;">
+<div class="print-show" style="margin-top:-230px !important;" [ngClass]="{'margintop250': currentPage === 'cvs-reoprts' ? true : false}">
 <div class="col-xl-12 col-lg-12 col-sm-12 " style="margin-top:-100px !important;" *ngFor="let data of printArray;let i=index;">
 
 
@@ -182,8 +182,8 @@
               
             <div class="col-md-12 left-logo-cont" style="text-align:center;">
                 <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 50px;float:left;">
-                <img class="logo-center" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 50px;margin-left:10px;">
-                <img class="logo-right" src="../../../../assets/assets/img/printlogo.jpg" class="mt-1" style="height: 50px;margin-left:10px;float:right;">
+                <img class="logo-center" src="../../../../assets/assets/img/printlogo.jpg" class="mt-1" style="height: 50px;margin-left:10px;">
+                <img class="logo-right" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 50px;margin-left:10px;float:right;">
             </div>
 
             <div class="col-md-12 col-mid">
@@ -212,7 +212,7 @@
                             </thead> 
                             <tbody>
                                 <tr> 
-                                    <td class="sp-xs-td-9" style="width: 70%;"><b>{{'Date of Diagnosis' | translate}} : </b>{{data.sampleCollectionDate}}</td>
+                                    <td class="sp-xs-td-9" style="width: 70%;"><b>{{'Date of Diagnosis' | translate}} : </b>{{data.testDate}}</td>
                                     <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Printed' | translate}} : </b>{{currentDate}}</td>
                                 </tr>
                             </tbody>
@@ -236,19 +236,19 @@
                                     <td class="sp-xs-td-9">{{'District' | translate}}</td>
                                     <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
                                     <td class="sp-xs-td-9">{{'Block' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.block}}</b></td>
                                     <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.chc}}</b></td>
                                     <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.phc}}</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'SC' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
-                                    <td class="sp-xs-td-9">{{'RI Point' | translate}}</td>
                                     <td class="sp-xs-td-15">: <b>{{data.sc}}</b></td>
+                                    <td class="sp-xs-td-9">{{'RI Point' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.ri}}</b></td>
                                     <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
-                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-15">: <b>{{data.anmName}}</b></td>
                                     <td class="sp-xs-td-9"></td>
                                     <td class="sp-xs-td-15"> <b></b></td>
                                 </tr>
@@ -299,14 +299,14 @@
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{data.uniqueSubjectId}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.lmpDate}}</b></td>
                                     <td class="sp-xs-td-9">GA (as of {{currentDate}} )</td>
-                                    <td class="sp-xs-td-15"><b>{{data.registrationDate}}</b></td>
+                                    <td class="sp-xs-td-15"><b>{{data.ga}}</b></td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b></b></td>
+                                    <td class="sp-xs-td-15"><b>DEPT OF HEMATOLOGY</b></td>
                                     <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
                                 </tr>
@@ -405,12 +405,28 @@
                            </thead>
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>Ms. Yogeswari Malik, F,
-                                        OD/18625/00036/F,12345</b></td>
+                                    <td class="sp-xs-td-9"><b>Ms. {{data.subjectName}},</b> F,
+                                        {{data.uniqueSubjectId}}</td>
                                     <td class="sp-xs-td-9">Propositus</td>
-                                    <td class="sp-xs-td-9">123456</td>
-                                    <td class="sp-xs-td-9">Heterozygous for IVS 1-5 (G-C) mutations in the β-
-                                        globin gene. &lt;&lt; Mol result of WHOLE BLOOD of ANW&gt;&gt;</td>
+                                    <td class="sp-xs-td-9">{{data.barcodeNo}}</td>
+                                    <td class="sp-xs-td-9"><!--Heterozygous for IVS 1-5 (G-C) mutations in the β-
+                                        globin gene. &lt;&lt; Mol result of WHOLE BLOOD of ANW&gt;&gt;--></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>Mr. {{data.spouseName}},</b> M,
+                                        {{data.spouseSubjectId}}</td>
+                                    <td class="sp-xs-td-9">spouseSubjectId</td>
+                                    <td class="sp-xs-td-9">{{data.spouseBarcodeNo}}</td>
+                                    <td class="sp-xs-td-9"><!--Heterozygous for IVS 1-5 (G-C) mutations in the β-
+                                        globin gene. &lt;&lt; Mol result of WHOLE BLOOD of ANW&gt;&gt;--></td>
+                                </tr>
+                                
+                                <tr *ngFor="let foetusdat of data.foetusDetail;index as k">
+                                    <td class="sp-xs-td-9"><b>{{foetusdat.foetusName}}</b></td>
+                                    <td class="sp-xs-td-9">Foetus {{k+1}}</td>
+                                    <td class="sp-xs-td-9">{{foetusdat.cvsSampleRefId}}</td>
+                                    <td class="sp-xs-td-9"></td>
                                 </tr>
                                 
                             </tbody>
@@ -471,7 +487,7 @@
 
         
   </div>
-  <div style="page-break-before: always;" *ngIf="i < printArray.length -1 "></div>
+  <div style="page-break-before: always;"></div>
 
   </div>
 
