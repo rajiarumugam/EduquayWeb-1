@@ -274,7 +274,7 @@
                                    
                                 </tr>
                                 <tr>
-                                    <td class="sp-xs-td-9">{{'Husband' | translate}}</td>
+                                    <td class="sp-xs-td-9"><span *ngIf="data.gender === 'Female' ? true : false">Husband</span><span *ngIf="data.gender === 'Female' ? false : true">Wife</span></td>
                                     <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
                                     <td class="sp-xs-td-9">{{'Address' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
