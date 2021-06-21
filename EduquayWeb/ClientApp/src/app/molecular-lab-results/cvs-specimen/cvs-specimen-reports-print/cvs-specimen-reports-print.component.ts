@@ -541,7 +541,9 @@ export class CVSPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
     if(this.printArray.length > 0)
     {
       setTimeout(() => {
-        window.print();
+        document.title="TSCOD CVS Genetic Diagnosis Report - "+new Date().getMonth()+new Date().getDate()+new Date().getFullYear()+"-"+new Date().getHours()+"-"+new Date().getMinutes();
+      window.print();
+      document.title='CMC - Thalassemia & Sickle cell';
       }, 1);
     }
     else
