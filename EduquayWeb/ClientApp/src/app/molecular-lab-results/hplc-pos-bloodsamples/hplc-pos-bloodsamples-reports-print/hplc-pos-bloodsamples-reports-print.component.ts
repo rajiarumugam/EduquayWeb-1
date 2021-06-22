@@ -541,7 +541,7 @@ export class HPLCPosPrintComponent implements AfterViewInit, OnDestroy, OnInit {
     if(this.printArray.length > 0)
     {
       setTimeout(() => {
-        document.title="TSCOD Whole Blood Genetic Diagnosis Report - "+new Date().getMonth()+new Date().getDate()+new Date().getFullYear()+"-"+new Date().getHours()+"-"+new Date().getMinutes();
+        document.title="TSCOD Whole Blood Genetic Diagnosis Report - "+new Date().getDate()+(Number(new Date().getMonth())+1)+new Date().getFullYear()+"-"+new Date().getHours()+"-"+new Date().getMinutes();
       window.print();
       document.title='CMC - Thalassemia & Sickle cell';
       }, 1);
