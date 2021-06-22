@@ -187,7 +187,7 @@
             <div class="col-md-12 col-mid">
                 <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;margin: 0;"><b>Genetic Laboratory – SCB Medical College, Cuttack</b></h4>
                 <p style="text-align: center;margin: 0;font-size: 12px;"><i>-In collaboration with –</i></p>
-                <h5 class="text-center header-text" style="font-size: 16px !important;margin: 0;"><b>Control Program for Thalassemia &amp; Sickle Cell disease in Odisha</b></h5>
+                <h5 class="text-center header-text" style="font-size: 16px !important;margin: 0;"><b>Control Program for Thalassemia &amp; Sickle Cell Disease in Odisha</b></h5>
                 <p style="text-align: center;margin: 0;font-size: 12px;"><i>-Coordinated by–</i></p>
                 <p style="text-align: center;margin: 0;font-size: 16px;">Christian Medical College, Vellore &amp; Centre for Stem Cell Research (a unit of inStem, Bengaluru), CMC Campus, Vellore.</p>
                 <p style="text-align: center;margin: 0;font-size: 16px;margin-top:5px;"><u><b>GENETIC DIAGNOSIS OF HAEMOGLOBIN DISORDERS</b></u></p>
@@ -296,7 +296,7 @@
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
-                                    <td class="sp-xs-td-15"><b>{{data.barcodeNo}}</b></td>
+                                    <td class="sp-xs-td-15" ><b>{{data.barcodeNo}}</b></td>
                                     <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
                                     <td class="sp-xs-td-15"><b>{{data.sampleCollectionDate}}</b></td>
                                     
@@ -400,21 +400,21 @@
                            
                             <tbody>
                                 <tr>
-                                    <td class="sp-xs-td-9"><b>{{'Name' | translate}}</b></td>
-                                    <td class="sp-xs-td-9"><b>{{'Barcode' | translate}}</b></td>
-                                    <td class="sp-xs-td-9"><b>{{'Relation' | translate}}</b></td>
-                                    <td class="sp-xs-td-9"><b>{{'Mutation' | translate}}</b></td>
+                                    <td class="sp-xs-td-9" class="text-center"><b>{{'Name' | translate}}</b></td>
+                                    <td class="sp-xs-td-9" class="text-center"><b>{{'Barcode' | translate}}</b></td>
+                                    <td class="sp-xs-td-9" class="text-center"><b>{{'Relation' | translate}}</b></td>
+                                    <td class="sp-xs-td-9" class="text-center"><b>{{'Mutation' | translate}}</b></td>
                                 </tr>
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{data.subjectName}}</b>, <span *ngIf="data.gender === 'Female' ? true : false">F</span><span *ngIf="data.gender === 'Female' ? false : true">M</span>, {{data.uniqueSubjectId}}</td>
-                                    <td class="sp-xs-td-9">{{data.barcodeNo}}</td>
+                                    <td class="sp-xs-td-9" class="text-center">{{data.barcodeNo}}</td>
                                     <td class="sp-xs-td-9">Propositus</td>
                                     <td class="sp-xs-td-9">{{data.molecularTestResult}}</td>
                                 </tr>
 
                                 <tr>
                                     <td class="sp-xs-td-9"><b>{{data.spouseName}}</b>, <span *ngIf="data.gender === 'Female' ? true : false">M</span><span *ngIf="data.gender === 'Female' ? false : true">F</span>, {{data.spouseSubjectId}}</td>
-                                    <td class="sp-xs-td-9">{{data.spouseBarcodeNo}}</td>
+                                    <td class="sp-xs-td-9" class="text-center">{{data.spouseBarcodeNo}}</td>
                                     <td class="sp-xs-td-9"><span *ngIf="data.gender === 'Female' ? true : false">Husband</span><span *ngIf="data.gender === 'Female' ? false : true">Wife</span></td>
                                     <td class="sp-xs-td-9">{{data.spouseMolecularTestResult}}</td>
                                 </tr>
