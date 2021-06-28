@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, JsonpClientBackend } from '@angular/common/http';
 import { GenericService } from '../generic.service';
 import { HttpClientService } from '../http-client.service';
 import { ENDPOINT } from 'src/app/app.constant';
@@ -56,4 +56,53 @@ export class errorCorrectionService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIVEFORRCHIDERRORCORRECTION+rchid);
     return this.http.get<any>({url:apiUrl});
   }
+  getLMPErrorDetails(obj){
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIEVELMPERRORCORRECTION)
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
+  
+  updateLMP(obj){
+  
+  
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.UPDATELMP)
+    console.log(apiUrl);
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
+  getSSTErrorDetails(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIEVESSTERRORCORRECTION)
+    
+    return this.http.post<any>({url:apiUrl,body:obj});
+
+  }
+  updateSST(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.UPDATESST)
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
+  getBarcodeErrorReport(obj){
+    
+      let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORREPORT.BARCODEERRORREPORT)
+      return this.http.post<any>({url:apiUrl,body:obj});
+    }
+
+  getRCHErrorReport(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORREPORT.RCHERRORREPORT)
+    return this.http.post<any>({url:apiUrl,body:obj});
+
+  }
+  getLMPErrorReport(obj){
+
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORREPORT.LMPERRORREPORT)
+    return this.http.post<any>({url:apiUrl,body:obj});
+
+  }
+  getSSTErrorReport(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORREPORT.SSTERRORREPORT)
+    return this.http.post<any>({url:apiUrl,body:obj});
+
+  }
+
 }
+
