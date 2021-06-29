@@ -8,19 +8,13 @@ declare var $: any
 import { DataService } from '../../../shared/data.service';
 import { errorCorrectionService } from 'src/app/shared/errorcorrection/error-correction.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import * as moment from 'moment'
 import { TokenService } from '../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { AddPhcService } from 'src/app/shared/admin/add-phc/add-phc.service';
-import { FormsModule } from '@angular/forms';
-import { stringify } from '@angular/compiler/src/util';
-import { AddRipointService } from 'src/app/shared/admin/add-ripoint/add-ripoint.service';
-import { Console } from 'console';
-import { PndtMtpMasterService } from 'src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master.service';
-import {DataTablesModule} from 'angular-datatables';
+
 
 
 @Component({
@@ -30,7 +24,7 @@ import {DataTablesModule} from 'angular-datatables';
 })
 export class SSTReportComponent implements OnInit {
   submitted = false;
-  oppoSuits: any = ['Men', 'Women', 'Boys', 'Inspiration']
+ 
 
 
 
@@ -83,10 +77,10 @@ export class SSTReportComponent implements OnInit {
   constructor(
     
     zone: NgZone,
-    private pndtmtpMasterService: PndtMtpMasterService,
+  
     public fb: FormBuilder,
-    private RiPtService: AddRipointService,
-    private PhcService: AddPhcService,
+   
+   
     private route: ActivatedRoute,
     private DataService:DataService,
     private errorCorrectionService: errorCorrectionService,
@@ -122,9 +116,7 @@ export class SSTReportComponent implements OnInit {
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
-      buttons: [
-        'pdf', 'csv', 'excel'
-    ],
+  
     
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
@@ -153,7 +145,7 @@ export class SSTReportComponent implements OnInit {
     this.centralReceiptsData = [];
 
    
-    let district = this.PhcService.getDistrictList().subscribe(response => {
+    let district = this.errorCorrectionService.getDistrictList().subscribe(response => {
       this.districtListResponse = response;
       if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
         this.districtlists = this.districtListResponse.data;
@@ -200,7 +192,7 @@ export class SSTReportComponent implements OnInit {
     }
   
     ddlDistrict() {
-      let district = this.PhcService.getDistrictList().subscribe(response => {
+      let district = this.errorCorrectionService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
@@ -217,10 +209,11 @@ export class SSTReportComponent implements OnInit {
     }
     districtChange()
     {
+      
           console.log(this.selectedDistrict);
 
           this.selectedChc = '';
-      let district = this.PhcService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+      let district = this.errorCorrectionService.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
         console.log(this.chcListResponse);
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
@@ -239,7 +232,7 @@ export class SSTReportComponent implements OnInit {
     }
     ddlEditDistrict() {
       console.log(this.selectedDistrict);
-      let district = this.PhcService.getDistrictList().subscribe(response => {
+      let district = this.errorCorrectionService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
@@ -254,27 +247,10 @@ export class SSTReportComponent implements OnInit {
   
         });
     }
-    ddlEditChc() {
-      this.selectedEditChc = '';
-      let district = this.PhcService.getChcList().subscribe(response => {
-        this.chcListResponse = response;
-        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
-          this.selectedEditChc = this.getchc;
-          
-        }
-        else {
-          //this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          //this.phclistErrorMessage = err.toString();
-  
-        });
-    }
+
     ddlPhc(code) {
       this.selectedPhc = '';
-      let district = this.RiPtService.getPhcList(code).subscribe(response => {
+      let district = this.errorCorrectionService.getPHCByCHC(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.data;
@@ -292,7 +268,7 @@ export class SSTReportComponent implements OnInit {
     }
     ddlEdtiPhc(code) {
       this.selectedEditPhc = '';
-      let district = this.RiPtService.getPhcList(code).subscribe(response => {
+      let district = this.errorCorrectionService.getPHCByCHC(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.phcDetails;
@@ -353,7 +329,7 @@ export class SSTReportComponent implements OnInit {
       this.anmlists = [];
       this.selectedanm = '';
       
-      this.pndtmtpMasterService.getAnm(id)
+      this.errorCorrectionService.getANMbyPHC(id)
         .subscribe(response => {
           this.pndtmtpMasterResponse = response;
           if (this.pndtmtpMasterResponse !== null && this.pndtmtpMasterResponse.status === "true") {
@@ -480,19 +456,15 @@ export class SSTReportComponent implements OnInit {
       console.log(this.selectedChc);
       console.log(this.selectedEditPhc);
       console.log(this.selectedPhc)
-      //console.log(username);
+     
       let term = this.searchbarcode;
       console.log(term);
       this.loaderService.display(true);
       var datePipe = new DatePipe('en-US');
       console.log(this.fromdaterepo);
-      // let k=JSON.stringify(this.reportform);
-      // console.log(k);
-      // var fromdate = String(datePipe.transform(this.reportform.get('collectionDate').value, 'dd/MM/yyyy'));
-      // var todate = String(datePipe.transform(this.reportform.get('collectionDate2').value, 'dd/MM/yyyy'));
       var _obj = {};
      
-      _obj["fromDate"] ="23/06/2021";
+      _obj["fromDate"] ="21/06/2021";
       _obj["toDate"] ="30/06/2021";
       _obj["districtId"] =+this.selectedDistrict;
       if (this.selectedDistrict === '') {

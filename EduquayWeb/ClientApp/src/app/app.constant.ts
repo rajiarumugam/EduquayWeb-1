@@ -148,6 +148,15 @@ export const ENDPOINT = {
       "LMPERRORREPORT":"api/v1/Support/RetrieveLMPErrorReport",
       "SSTERRORREPORT":"api/v1/Support/RetrieveSSTResultErrorReport"
 
+    },
+    "Search":{
+        "retrieveDistrictApi":"api/v1/SA/RetrieveAllDistricts",
+        "RetrieveCHCbyDistrict":"api/v1/WebMaster/RetrieveCHCByDistrict/",
+        "RetrievePHCByCHC":"api/v1/WebMaster/RetrievePHCByCHC/",
+        "RetrieveANMByPHC":"api/v1/WebMaster/RetrieveANMByCHC/"
+
+      
     }
+
 
 }
