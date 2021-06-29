@@ -103,6 +103,28 @@ export class errorCorrectionService {
     return this.http.post<any>({url:apiUrl,body:obj});
 
   }
+  getDistrictList(){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.Search.retrieveDistrictApi);
+    return this.http.get<any>({url: apiUrl});
+  }
+
+  getCHCByDis(id){
+    console.log(id);
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.Search.RetrieveCHCbyDistrict+id);
+    return this.http.get<any>({url: apiUrl});
+  }
+
+
+  getPHCByCHC(id){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.Search.RetrievePHCByCHC+id);
+    return this.http.get<any>({url: apiUrl});
+  }
+  getANMbyPHC(id){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.Search.RetrieveANMByPHC+id);
+    return this.http.get<any>({url: apiUrl});
+  }
+
+  
 
 }
 

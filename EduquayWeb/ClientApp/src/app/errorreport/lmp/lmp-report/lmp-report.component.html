@@ -1,13 +1,13 @@
 <form>
   <div  style="float:left"  class="form-group col-md-3" [formGroup]="popupform">
-    <label class="note">{{'Revised LMP' | translate }} <span class="manto">*</span></label>
+    <label class="note">{{'From Date' | translate }} <span class="manto">*</span></label>
 
     <ng2-flatpickr id="fromdate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
      [config]="collectionDateOptions"[ngModel]="fromdaterepo" placeholder="Select Date.." formControlName = "collectionDate" #username>
     </ng2-flatpickr>
   </div> 
   <div style="float:left"  class="form-group col-md-3" [formGroup]="popupform">
-    <label class="note">{{'Revised LMP' | translate }} <span class="manto">*</span></label>
+    <label class="note">{{'To Date' | translate }} <span class="manto">*</span></label>
 
     <ng2-flatpickr id="todate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
      [config]="collectionDateOptions2" placeholder="Select Date.." formControlName = "collectionDate">
@@ -82,7 +82,7 @@
   
     <button>Submit</button>
   </form> -->
-<div  class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+<div style="float: left; padding: 5px 10px 10px 10px;"   class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
   <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
         viewBox="0 0 24 24" fill="none" stroke="currentColor"
