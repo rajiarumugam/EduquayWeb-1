@@ -65,15 +65,12 @@ export class BarcodeReportComponent implements OnInit {
   disabledChc: boolean;
   selectedEditPhc: string;
   selectedPhc: string=" ";
-  phcListResponse: import("c:/Users/User/Desktop/office/office files/EduquayWeb-master/EduquayWeb/ClientApp/src/app/shared/admin/add-phc/add-phc-response").AddPhcResponse;
+  phcListResponse:any;
   phclists: any;
   getphc: string;
   selectedanm: string=" ";
   anmlists: any[];
-  pndtmtpMasterResponse: import("c:/Users/User/Desktop/office/office files/EduquayWeb-master/EduquayWeb/ClientApp/src/app/shared/pndtc/pndt-mtp-master-service/pndt-mtp-master-response").PndtMtpMasterResponse;
-  
-  
- 
+  pndtmtpMasterResponse:any;
  
   constructor(
     
