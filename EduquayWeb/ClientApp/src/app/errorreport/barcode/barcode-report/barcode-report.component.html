@@ -1,0 +1,239 @@
+<form>
+    <div  style="float:left"  class="form-group col-md-3" [formGroup]="popupform">
+      <label class="note">{{'Revised LMP' | translate }} <span class="manto">*</span></label>
+  
+      <ng2-flatpickr id="fromdate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+       [config]="collectionDateOptions"[ngModel]="fromdaterepo" placeholder="Select Date.." formControlName = "collectionDate" #username>
+      </ng2-flatpickr>
+    </div> 
+    <div style="float:left"  class="form-group col-md-3" [formGroup]="popupform">
+      <label class="note">{{'Revised LMP' | translate }} <span class="manto">*</span></label>
+  
+      <ng2-flatpickr id="todate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+       [config]="collectionDateOptions2" placeholder="Select Date.." formControlName = "collectionDate">
+      </ng2-flatpickr>
+    </div> 
+    <div class="form-group col-md-3" style="float:left">
+      <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+      <select  id="inputilrPoint" class="form-control"
+      name="ddlEditDistrict" #ddlEditDistrict="ngModel"  [(ngModel)]="selectedDistrict" (change)="districtChange();">
+          <option value="">Select</option>
+          <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+              {{districtdata.name}}
+          </option>
+      </select>
+  </div>
+  <div class="form-group col-md-3" style="float: left;">
+                                         
+      <label for="inputilrPoint">{{'CHC' | translate }}<span
+          class="manto"> </span></label>
+          <select id="inputilrPoint2" class="form-control"
+          name="ddlEditChc" #ddlEditChc="ngModel" [(ngModel)]="selectedEditChc"  (change)="onChangeChc($event.target.value);"
+           >
+              <option value="">Select</option>
+              <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
+                  {{chcdata.name}}
+              </option>
+          </select>
+  
+   
+  </div>
+  <div class="form-group col-md-3" style="float: left;">
+                                         
+      <label for="inputilrPoint">{{'PHC' | translate }}<span
+          class="manto"> </span></label>
+          <select id="inputilrPoint4" class="form-control"
+          name="ddlEditPhc" #ddlEditChc="ngModel" 
+          [(ngModel)]="selectedPhc"  (change)="onChangephc($event.target.value);">
+              <option value="">Select</option>
+              <option *ngFor="let chcdata of phclists" [(value)]="chcdata.id">
+                  {{chcdata.name}}
+              </option>
+          </select>
+  
+   
+  </div>
+  <div class="form-group col-md-3" style="float: left;">
+                                         
+      <label for="inputilrPoint">{{'ANM' | translate }}<span
+          class="manto"> </span></label>
+          <select id="inputilrPoint3" class="form-control"
+          name="ddlEditANM" #ddlEditChc="ngModel" 
+          required [(ngModel)]="selectedanm">
+              <option value="">Select</option>
+              <option *ngFor="let chcdata of anmlists" [(value)]="chcdata.id">
+                  {{chcdata.name}}
+              </option>
+          </select>
+  
+   
+  </div>
+  
+  
+  </form>
+  <!-- <form class="form-group col-md-3" [formGroup]="oppoSuitsForm" (ngSubmit)="onSubmit()">
+  
+      <select  form-group col-md-3 formControlName="name">
+          <span class="manto"></span> 
+        <option disabled>Select Oppo Suits</option>
+        <option>Choose oppo suit</option>
+        <option *ngFor="let suit of oppoSuits">{{suit}}</option>
+      </select>
+    
+      <button>Submit</button>
+    </form> -->
+  <div  class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+    <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-search">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+  </button></a>
+  </div>
+  
+  
+  
+  
+  <div class="table-responsive mb-4">
+  <table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+      <thead>
+          <tr>
+              <th><span>{{'SNo' | translate }}</span></th>
+              <th><span>{{'SubjectName' | translate }}</span></th>
+              <th><span>{{'SubjectID' | translate }}</span></th>
+              <th><span>{{'Old Barcode' | translate }}</span></th>
+              <th><span>{{'Revised Barcode' | translate }}</span></th>
+              <th><span>{{'Date Changed' | translate }}</span></th>
+              <th><span>{{'ANMName' | translate }}</span></th>
+              <th><span>{{'ANM Contact' | translate }}</span></th>
+              <th><span>{{'District Name' | translate }}</span></th>
+              <th><span>{{'DC Name' | translate }}</span></th>
+              <th><span>{{'DCContact' | translate }}</span></th>
+              <th><span>{{'CHC' | translate }}</span></th>
+              <th><span>{{'PHC' | translate }}</span></th>
+              <th><span>{{'Track' | translate }}</span></th>
+              <th><span>{{'Profile' | translate }}</span></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let person of centralPickpackPendingData;index as i">
+              <td style="text-align: center;">{{ i + 1}}</td>
+              <td style="text-align: center;">{{ person.subjectId }}</td>
+              <td style="text-align: center;" [ngClass]="{'redColortext': person.loginIconEnableStatus == false ? true : false}">{{ person.anmName }}</td>
+              <td style="text-align: center;">{{ person.oldBarcodeNo }}</td>
+              <td style="text-align: center;">{{ person.revisedBarcodeNo }}</td>
+              <td style="text-align: center;">{{ person.dateChanged }}</td>
+              <td style="text-align: center;">{{ person.anmName }}</td>
+              <td style="text-align: center;">{{ person.anmContact }}</td>
+              <td style="text-align: center;">{{ person.districtName }}</td>
+  
+             
+                          <td>{{ person.dcName }}</td>
+              <td style="text-align: center;">{{person.dcContact}}</td>
+              <td style="text-align: center;">{{ person.chcName }}</td>
+              <td style="text-align: center;">{{ person.phcName }}</td>
+             
+              <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                  <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+               </a></td>
+              <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                  <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
+              </td>
+              <!-- <td style="text-align: center;">{{person.lmpDate}}</td>
+              <td class="text-center"><a><i *ngIf="person.loginIconEnableStatus" class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
+                  (click)="showPopup(person);"></i><i *ngIf="!person.loginIconEnableStatus" class="fas fa-reply fa-2x arrow barcode-edit-disabled" aria-hidden="true" data-toggle="modal"
+                  ></i></a></td>   -->
+          </tr>
+      </tbody>
+  </table>
+  
+  
+  </div>
+  
+  <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'LMPUPDATE' | translate}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-x">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="col-lg-12">
+                  <div class="main-box no-header clearfix">
+                      <div class="main-box-body clearfix">
+  
+                         
+                              <div class="form-row my-2">
+                                  <div class="col-md-3">
+                                      <h6 class="ml-2"><b>{{'SubjectID' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.subjectId}} </span></h6>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <h6 class="ml-2"><b>{{'SubjectName' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.subjectName}} </span></h6>
+                                  </div>
+                                 
+                                <div class="col-md-3">
+                                  <h6 class="ml-2"><b>{{'ANMId' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.anmCode}} </span></h6>
+                              </div>
+                              <div class="col-md-3">
+                                <h6 class="ml-2"><b>{{'ANMName' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.anmName}} </span></h6>
+                            </div>
+                          </div>
+                            <div class="form-row my-2">
+                              <div class="col-md-3">
+                                  <h6 class="ml-2"><b>{{'DCContact' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.dcContact}} </span></h6>
+                              </div>
+                              <div class="col-md-3">
+                                  <h6 class="ml-2"><b>{{'DCName' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.dcName}} </span></h6>
+                              </div>
+                             
+                            <div class="col-md-3">
+                              <h6 class="ml-2"><b>{{'CHC' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.chc}} </span></h6>
+                          </div>
+                              </div>
+                              <br><br>
+                              <div class="form-row my-2">
+                                  <div class="col-md-6">
+                                      <h6 class="ml-2"><b>{{'Current LMP DATE' | translate }} : </b><br> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.lmpDate}} </span></h6>
+                                  </div>
+                                   <div class="form-group col-md-3" [formGroup]="popupform">
+                                      <label class="note">{{'Revised LMP' | translate }} <span class="manto">*</span></label>
+                                  
+                                      <ng2-flatpickr id="newlmp" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+                                       [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
+                                      </ng2-flatpickr>
+                                    </div> 
+                                    
+                                   <div class="col-md-3" [formGroup]="secondFormGroup">
+                                      <h6 class="ml-2"><b>{{'Remarks' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "remarks" [ngClass]="{'red-border-class':(secondFormCheck && secondFormGroup.controls.barcode.invalid) || barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                          maxlength = "6"> </span></h6>
+                                  </div>
+                                 
+                                  
+                                  
+                                 
+                                
+                                  </div>
+                      <div class="row float-right">
+                          <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+   (click)="sampleSubmit();"  name="linkto">{{'Submit' | translate}}</button>
+                          <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  </div>
