@@ -48,7 +48,6 @@ export class RCHCorrectionComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.DataService.sendData(JSON.stringify({"module": "Error Correction", "submodule": "RCH"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
     this.dtOptions = {
