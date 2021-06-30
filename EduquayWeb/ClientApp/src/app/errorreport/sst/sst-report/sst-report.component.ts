@@ -8,14 +8,14 @@ declare var $: any
 import { DataService } from '../../../shared/data.service';
 import { errorCorrectionService } from 'src/app/shared/errorcorrection/error-correction.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import * as moment from 'moment'
 import { TokenService } from '../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-
-
+import { ConstantPool } from '@angular/compiler';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-rch-correction',
@@ -31,8 +31,11 @@ export class SSTReportComponent implements OnInit {
 
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  date5:any
   errorMessage: string;
-  fromdaterepo:Date;
+  fromdaterepo:any;
+  dateform: FormGroup;
+  todaterepo:any;
   errorSpouseMessage: string;
   centralReceiptsData: any[] = [];
   popupData:any;
@@ -42,6 +45,8 @@ export class SSTReportComponent implements OnInit {
   searchbarcode;
   secondFormCheck = false;
   popupform:FormGroup;
+  date= new FormControl();
+  popupform1:FormGroup;
   reportform:FormGroup;
   secondFormGroup: FormGroup;
   selectedRevisedBarcode;
@@ -53,7 +58,7 @@ export class SSTReportComponent implements OnInit {
   user;
   chcListResponse: any;
   chclists: any;
-  selectedEditChc: any;
+  selectedEditChc='';
   getchc: any;
   selectedChc: string;
 
@@ -101,13 +106,18 @@ export class SSTReportComponent implements OnInit {
       enableTime:false,
       
     };
-    oppoSuitsForm = this.fb.group({
-      name: ['']
-    });
+  
   ngOnInit() {
+
     this.DataService.sendData(JSON.stringify({"module": "Error Report", "page": "SST"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
+    this.dateform = this._formBuilder.group({
+      collectionDate1: [''],
+      collectionDate2: [''],
+   
+    });
+
     
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -137,10 +147,12 @@ export class SSTReportComponent implements OnInit {
     this.popupform = this._formBuilder.group({
       collectionDate: ['', Validators.required]
     });
-    this.reportform = this._formBuilder.group({
-      collectionDate: ['', Validators.required],
+    this.popupform1 = this._formBuilder.group({
+      collectionDate1: ['', Validators.required],
       collectionDate2: ['', Validators.required]
+
     });
+   
     this.centralReceiptsData = [];
 
    
@@ -168,9 +180,7 @@ export class SSTReportComponent implements OnInit {
 
 
   }
-  onSubmit() {
-    alert(JSON.stringify(this.oppoSuitsForm.value))
-  }
+ 
 
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -209,6 +219,7 @@ export class SSTReportComponent implements OnInit {
     districtChange()
     {
       
+       console.log("just")
           console.log(this.selectedDistrict);
 
           this.selectedChc = '';
@@ -354,51 +365,7 @@ export class SSTReportComponent implements OnInit {
       this.dtTrigger.next();
     } 
    
-    sampleSubmit()
-    {
-    
-     // console.log(username)
-    //  console.log(this.selectedDistrict);
-    //  console.log(this.selectedEditChc);
-     
-    //  console.log(this.selectedChc);
-    //  console.log(this.selectedEditPhc);
-    //  console.log(this.selectedPhc)
-    //  console.log(this.selectedanm);
-      var latest_date=new Date();
-      var datePipe = new DatePipe('en-US');
-         var date = String(datePipe.transform(this.popupform.get('collectionDate').value, 'dd/MM/yyyy'));
-      
-      var _obj = {};
-      _obj['subjectId'] = this.popupData.subjectId;
-      _obj['oldLMP'] = String(this.popupData.lmpDate);
-         
-      _obj['newLMP'] = date;
-      _obj["remarks"]=this.secondFormGroup.get('remarks').value;
-      _obj['userId'] = this.user.id;
-      console.log(_obj);
-      this.loaderService.display(true);
-    
-       
-  
-        this.errorCorrectionService.updateLMP(_obj)
-        .subscribe(response => {
-          
-          this.loaderService.display(false);
-          Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
-          .then((result) => {
-            $('#fadeinModal').modal('hide');
-            this.getErrorDetailst();
-          })
-        },
-        (err: HttpErrorResponse) => {
-          //this.showResponseMessage(err.toString(), 'e');
-        });
-  
-    
-       
-        //if(String(this.selectedRevisedBarcode).length)
-    }
+ 
     getErrorDetailst()
     {
       this.loaderService.display(true);
@@ -416,32 +383,7 @@ export class SSTReportComponent implements OnInit {
                 //this.showResponseMessage(err.toString(), 'e');
               })
     }
-    updateBarcode()
-    {
-      this.loaderService.display(true);
-      var _obj = {};
-      _obj['barcodeNo'] = this.popupData.barcodeNo;
-      _obj['revisedBarcodeNo'] = String(this.secondFormGroup.get('barcode').value);
-      _obj['userId'] = this.user.id;
-
-      this.errorCorrectionService.updateBarcodeError(_obj)
-      .subscribe(response => {
-        
-        this.loaderService.display(false);
-        Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
-        .then((result) => {
-          this.centralPickpackPendingData = [];
-          $('#fadeinModal').modal('hide');
-          this.getErrorDetailst();
-          
-          this.rerender();
-        })
-      },
-      (err: HttpErrorResponse) => {
-        this.loaderService.display(false);
-        //this.showResponseMessage(err.toString(), 'e');
-      });
-    }
+   
     searchBarCodetype()
     {
       let term = this.searchbarcode;
@@ -449,22 +391,39 @@ export class SSTReportComponent implements OnInit {
     }
     clicksearchBarcode()
     {
+      console.log(this.dateform.controls.collectionDate1.value.length);
      
-      console.log(this.selectedDistrict);
-      console.log(this.selectedEditChc);
-      console.log(this.selectedChc);
-      console.log(this.selectedEditPhc);
-      console.log(this.selectedPhc)
      
-      let term = this.searchbarcode;
-      console.log(term);
       this.loaderService.display(true);
       var datePipe = new DatePipe('en-US');
-      console.log(this.fromdaterepo);
-      var _obj = {};
+   
+      
+     console.log(this.dateform.controls.collectionDate1.value);
+     console.log(this.dateform.controls.collectionDate2.value);
      
-      _obj["fromDate"] ="21/06/2021";
-      _obj["toDate"] ="30/06/2021";
+      var _obj = {};
+      if(this.dateform.controls.collectionDate1.value.length==0){
+
+        _obj["fromDate"] ="21/06/2021";
+      
+      }
+      else{
+        _obj["fromDate"] =String(datePipe.transform(this.dateform.controls.collectionDate1.value, 'dd/MM/yyyy'));
+
+      }
+      if(this.dateform.controls.collectionDate2.value.length==0){
+        console.log("no date");
+        _obj["toDate"] ="29/06/2021";
+      }
+      else{
+        console.log(datePipe.transform(this.dateform.controls.collectionDate2.value, 'dd/MM/yyyy'));
+        _obj["toDate"] =String(datePipe.transform(this.dateform.controls.collectionDate2.value, 'dd/MM/yyyy'));
+
+
+      }
+     
+      // _obj["fromDate"] ="21/06/2021";
+      // _obj["toDate"] ="30/06/2021";
       _obj["districtId"] =+this.selectedDistrict;
       if (this.selectedDistrict === '') {
         _obj["districtId"] =0
@@ -476,7 +435,7 @@ export class SSTReportComponent implements OnInit {
         _obj["chcid"] =0
       }
       else {
-         _obj["chcid"]  =+this.selectedDistrict;
+         _obj["chcid"]  =+this.selectedEditChc;
       }
       if (this.selectedPhc === '') {
         _obj["phcid"]=0

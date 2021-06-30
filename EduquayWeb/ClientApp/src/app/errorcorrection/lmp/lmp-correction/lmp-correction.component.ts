@@ -14,6 +14,7 @@ import * as moment from 'moment'
 import { TokenService } from '../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { MatTreeFlatDataSource } from '@angular/material';
 
 
 
@@ -38,7 +39,8 @@ export class LMPCorrectionComponent implements OnInit {
   popupform:FormGroup;
   secondFormGroup: FormGroup;
   selectedRevisedBarcode;
-  barcodeValid = false;
+  barcodeValid =false;
+  dateValid=false;
   user;
 
 
@@ -135,12 +137,30 @@ export class LMPCorrectionComponent implements OnInit {
    
     sampleSubmit()
     {
-    
-      console.log(this.popupform.get('collectionDate').value)
       var latest_date=new Date();
       var datePipe = new DatePipe('en-US');
+      var date = String(datePipe.transform(this.popupform.get('collectionDate').value, 'dd/MM/yyyy'));
+    console.log(this.secondFormGroup.get('remarks').value.length==0)
+    console.log(date.length<5)
+
+    
+      console.log(this.secondFormGroup.get('remarks').value.length==0&&date.length<5);
+    
          var date = String(datePipe.transform(this.popupform.get('collectionDate').value, 'dd/MM/yyyy'));
-      
+         if(this.secondFormGroup.get('remarks').value.length==0||date.length<5){
+               if(this.secondFormGroup.get('remarks').value.length==0){
+                 this.barcodeValid=true;
+
+
+               } 
+               else if(date.length<5){
+                 console.log("got")
+                 this.dateValid=true;
+
+
+               }
+         }
+      else{
       var _obj = {};
       _obj['subjectId'] = this.popupData.subjectId;
       _obj['oldLMP'] = String(this.popupData.lmpDate);
@@ -152,7 +172,7 @@ export class LMPCorrectionComponent implements OnInit {
       this.loaderService.display(true);
     
        
-  
+        
         this.errorCorrectionService.updateLMP(_obj)
         .subscribe(response => {
           
@@ -167,7 +187,7 @@ export class LMPCorrectionComponent implements OnInit {
           //this.showResponseMessage(err.toString(), 'e');
         });
   
-    
+      }
        
         //if(String(this.selectedRevisedBarcode).length)
     }
@@ -222,6 +242,7 @@ export class LMPCorrectionComponent implements OnInit {
     clicksearchBarcode()
     {
       let term = this.searchbarcode;
+      
       console.log(term);
       this.loaderService.display(true);
       var _obj = {};

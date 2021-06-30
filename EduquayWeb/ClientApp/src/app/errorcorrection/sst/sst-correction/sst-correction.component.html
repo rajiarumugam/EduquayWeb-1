@@ -116,12 +116,12 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <h6 class="ml-2"><b>{{'Current SST Result' | translate }} : </b><br> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.sstResult}} </span></h6>
                                 </div>
                                 <div class="col-md-3" [formGroup]="secondFormGroup">
-                                    <h6 class="ml-2"><b>{{'Revised SST ' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input disabled type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="RevisedBarcode1" formControlName = "newsstresult" [ngClass]="{'red-border-class':(secondFormCheck && secondFormGroup.controls.barcode.invalid) || barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    <h6 class="ml-2"><b>{{'Revised SST ' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input disabled type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="RevisedBarcode1" formControlName = "newsstresult"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength = "10"> </span></h6>
                                 </div>
                                   
                                  <div class="col-md-3" [formGroup]="secondFormGroup">
-                                    <h6 class="ml-2"><b>{{'Remarks' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "barcode" [ngClass]="{'red-border-class':(secondFormCheck && secondFormGroup.controls.barcode.invalid) || barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    <h6 class="ml-2"><b>{{'Remarks' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "barcode" [ngClass]="{'red-border-class': barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength = "10"> </span></h6>
                                 </div>
                                

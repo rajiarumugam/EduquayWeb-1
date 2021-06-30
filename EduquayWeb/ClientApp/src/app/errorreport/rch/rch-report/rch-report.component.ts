@@ -31,7 +31,9 @@ export class RCHReportComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
-  fromdaterepo:Date;
+  fromdaterepo:any;
+  dateform: FormGroup;
+  todaterepo:any;
   errorSpouseMessage: string;
   centralReceiptsData: any[] = [];
   popupData:any;
@@ -41,6 +43,8 @@ export class RCHReportComponent implements OnInit {
   searchbarcode;
   secondFormCheck = false;
   popupform:FormGroup;
+  date= new FormControl();
+  popupform1:FormGroup;
   reportform:FormGroup;
   secondFormGroup: FormGroup;
   selectedRevisedBarcode;
@@ -52,7 +56,7 @@ export class RCHReportComponent implements OnInit {
   user;
   chcListResponse: any;
   chclists: any;
-  selectedEditChc: any;
+  selectedEditChc='';
   getchc: any;
   selectedChc: string;
 
@@ -63,12 +67,13 @@ export class RCHReportComponent implements OnInit {
   disabledChc: boolean;
   selectedEditPhc: string;
   selectedPhc: string=" ";
-  phcListResponse:any;
+  phcListResponse: any;
   phclists: any;
   getphc: string;
   selectedanm: string=" ";
   anmlists: any[];
   pndtmtpMasterResponse:any;
+  
   
   
  
@@ -108,6 +113,11 @@ export class RCHReportComponent implements OnInit {
     this.DataService.sendData(JSON.stringify({"module": "Error Report", "page": "RCH"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
+    this.dateform = this._formBuilder.group({
+      collectionDate1: [''],
+      collectionDate2: [''],
+   
+    });
     
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -449,22 +459,34 @@ export class RCHReportComponent implements OnInit {
     }
     clicksearchBarcode()
     {
+      console.log(this.dateform.controls.collectionDate1.value.length);
      
-      console.log(this.selectedDistrict);
-      console.log(this.selectedEditChc);
-      console.log(this.selectedChc);
-      console.log(this.selectedEditPhc);
-      console.log(this.selectedPhc)
      
-      let term = this.searchbarcode;
-      console.log(term);
       this.loaderService.display(true);
       var datePipe = new DatePipe('en-US');
-      console.log(this.fromdaterepo);
+   
+      
+    
       var _obj = {};
+      if(this.dateform.controls.collectionDate1.value.length==0){
+        _obj["fromDate"] ="21/06/2021";
+      
+      }
+      else{
+        _obj["fromDate"] =String(datePipe.transform(this.dateform.controls.collectionDate1.value, 'dd/MM/yyyy'));
+
+      }
+      if(this.dateform.controls.collectionDate2.value.length==0){
+        _obj["toDate"] ="29/06/2021";
+      }
+      else{
+        _obj["toDate"] =String(datePipe.transform(this.dateform.controls.collectionDate2.value, 'dd/MM/yyyy'));
+
+
+      }
      
-      _obj["fromDate"] ="21/06/2021";
-      _obj["toDate"] ="30/06/2021";
+      // _obj["fromDate"] ="21/06/2021";
+      // _obj["toDate"] ="30/06/2021";
       _obj["districtId"] =+this.selectedDistrict;
       if (this.selectedDistrict === '') {
         _obj["districtId"] =0
@@ -476,7 +498,7 @@ export class RCHReportComponent implements OnInit {
         _obj["chcid"] =0
       }
       else {
-         _obj["chcid"]  =+this.selectedDistrict;
+         _obj["chcid"]  =+this.selectedEditChc;
       }
       if (this.selectedPhc === '') {
         _obj["phcid"]=0
