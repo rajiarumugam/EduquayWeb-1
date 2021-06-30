@@ -14,6 +14,7 @@ import * as moment from 'moment'
 import { TokenService } from '../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { FlatpickrOptions } from 'ng2-flatpickr';
+import { log } from 'console';
 
 
 
@@ -41,6 +42,7 @@ export class BarcodeReportComponent implements OnInit {
   centralReceiptsData: any[] = [];
   popupData:any;
   processingDate;
+
   centralPickpackPendingData = [];
   pickpackStartList = [];
   searchbarcode;
@@ -64,7 +66,7 @@ export class BarcodeReportComponent implements OnInit {
   selectedChc: string;
 
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
  
   disabledChc: boolean;
@@ -117,10 +119,36 @@ export class BarcodeReportComponent implements OnInit {
     this.dateform = this._formBuilder.group({
       collectionDate1: [''],
       collectionDate2: [''],
+      dis:['']
    
     });
     
     this.dtOptions = {
+      dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+      // Configure the buttons
+        buttons: [
+          {
+            titleAttr: 'Download as PDF',
+            extend: 'pdfHtml5',
+            title: 'Report - Barcode Error',
+            orientation: 'landscape',
+    
+            exportOptions: {
+              columns: ':visible'
+            },
+              text: '<img src="assets/assets/img/pdfimage.png" width="23px" />'},
+
+          {
+            titleAttr: 'Download as Excel',     
+            extend: 'excelHtml5',
+            title: 'Report - Barcode Error ',
+            className: 'custom-btn',
+            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+          },
+        
+        ],
       pagingType: 'simple_numbers',
       pageLength: 20,
       processing: true,
@@ -461,14 +489,9 @@ export class BarcodeReportComponent implements OnInit {
     clicksearchBarcode()
     {
      
-      console.log(this.selectedDistrict);
-      console.log(this.selectedEditChc);
-      console.log(this.selectedChc);
-      console.log(this.selectedEditPhc);
-      console.log(this.selectedPhc)
+    
+      console.log(this.dateform.controls.dis.value);
      
-      let term = this.searchbarcode;
-      console.log(term);
       this.loaderService.display(true);
       var datePipe = new DatePipe('en-US');
       console.log(this.fromdaterepo);

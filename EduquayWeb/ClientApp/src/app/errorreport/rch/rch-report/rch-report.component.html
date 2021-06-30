@@ -1,20 +1,19 @@
-<div >
-    <div  style="float:left"  class="form-group col-md-3" [formControl]="date">
-      <label class="note">{{'From Date' | translate }} <span class="manto">*</span></label>
-  
-      <ng2-flatpickr id="fromdate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
-       [config]="collectionDateOptions"[(ngModel)]="fromdaterepo" placeholder="Select Date.." formControlName = "collectionDate1" ></ng2-flatpickr>
-      
-    </div> 
-   
+<div [formGroup]="dateform" style="float:left"  class="form-group col-md-3" >
+    <label class="note">{{'From Date' | translate }} <span class="manto">*</span></label>
 
-    <div style="float:left"  class="form-group col-md-3" [formControl]="date">
-      <label class="note">{{'To Date' | translate }} <span class="manto">*</span></label>
-  
-      <ng2-flatpickr id="todate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
-       [config]="collectionDateOptions2" [(ngModel)]="todaterepo"  placeholder="Select Date.." formControlName = "collectionDate2">
-      </ng2-flatpickr>
-    </div> 
+    <ng2-flatpickr id="fromdate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+     [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate1" ></ng2-flatpickr>
+    
+  </div> 
+ 
+
+  <div [formGroup]="dateform" style="float:left"  class="form-group col-md-3" [formControl]="date">
+    <label class="note">{{'To Date' | translate }} <span class="manto">*</span></label>
+
+    <ng2-flatpickr id="todate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+     [config]="collectionDateOptions2" [(ngModel)]="todaterepo"  placeholder="Select Date.." formControlName = "collectionDate2">
+    </ng2-flatpickr>
+  </div> 
     <div class="form-group col-md-3" style="float:left">
         <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
         <select  id="inputilrPoint" class="form-control"
@@ -99,8 +98,8 @@
               <th><span>{{'DCContact' | translate }}</span></th>
               <th><span>{{'CHC' | translate }}</span></th>
               <th><span>{{'PHC' | translate }}</span></th>
-              <th><span>{{'Track' | translate }}</span></th>
-              <th><span>{{'Profile' | translate }}</span></th>
+              <!-- <th><span>{{'Track' | translate }}</span></th>
+              <th><span>{{'Profile' | translate }}</span></th> -->
           </tr>
       </thead>
       <tbody>
@@ -121,12 +120,12 @@
               <td style="text-align: center;">{{ person.chcName }}</td>
               <td style="text-align: center;">{{ person.phcName }}</td>
              
-              <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+              <!-- <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
                   <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
                </a></td>
               <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                   <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
-              </td>
+              </td> -->
               <!-- <td style="text-align: center;">{{person.lmpDate}}</td>
               <td class="text-center"><a><i *ngIf="person.loginIconEnableStatus" class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
                   (click)="showPopup(person);"></i><i *ngIf="!person.loginIconEnableStatus" class="fas fa-reply fa-2x arrow barcode-edit-disabled" aria-hidden="true" data-toggle="modal"
@@ -138,87 +137,3 @@
   
   </div>
   
-  <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'LMPUPDATE' | translate}}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-x">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-              </button>
-          </div>
-          <div class="modal-body">
-              <div class="col-lg-12">
-                  <div class="main-box no-header clearfix">
-                      <div class="main-box-body clearfix">
-  
-                         
-                              <div class="form-row my-2">
-                                  <div class="col-md-3">
-                                      <h6 class="ml-2"><b>{{'SubjectID' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.subjectId}} </span></h6>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <h6 class="ml-2"><b>{{'SubjectName' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.subjectName}} </span></h6>
-                                  </div>
-                                 
-                                <div class="col-md-3">
-                                  <h6 class="ml-2"><b>{{'ANMId' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.anmCode}} </span></h6>
-                              </div>
-                              <div class="col-md-3">
-                                <h6 class="ml-2"><b>{{'ANMName' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.anmName}} </span></h6>
-                            </div>
-                          </div>
-                            <div class="form-row my-2">
-                              <div class="col-md-3">
-                                  <h6 class="ml-2"><b>{{'DCContact' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.dcContact}} </span></h6>
-                              </div>
-                              <div class="col-md-3">
-                                  <h6 class="ml-2"><b>{{'DCName' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.dcName}} </span></h6>
-                              </div>
-                             
-                            <div class="col-md-3">
-                              <h6 class="ml-2"><b>{{'CHC' | translate }} : </b> <br><span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.chc}} </span></h6>
-                          </div>
-                              </div>
-                              <br><br>
-                              <div class="form-row my-2">
-                                  <div class="col-md-6">
-                                      <h6 class="ml-2"><b>{{'Current LMP DATE' | translate }} : </b><br> <span class="ml-2" style="margin-left: 0 !important;"> {{popupData?.lmpDate}} </span></h6>
-                                  </div>
-                                   <div class="form-group col-md-3" [formGroup]="popupform">
-                                      <label class="note">{{'Revised LMP' | translate }} <span class="manto">*</span></label>
-                                  
-                                      <ng2-flatpickr id="newlmp" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
-                                       [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
-                                      </ng2-flatpickr>
-                                    </div> 
-                                    
-                                   <div class="col-md-3" [formGroup]="secondFormGroup">
-                                      <h6 class="ml-2"><b>{{'Remarks' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "remarks" [ngClass]="{'red-border-class':(secondFormCheck && secondFormGroup.controls.barcode.invalid) || barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                          maxlength = "6"> </span></h6>
-                                  </div>
-                                 
-                                  
-                                  
-                                 
-                                
-                                  </div>
-                      <div class="row float-right">
-                          <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
-   (click)="sampleSubmit();"  name="linkto">{{'Submit' | translate}}</button>
-                          <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  
-  </div>
