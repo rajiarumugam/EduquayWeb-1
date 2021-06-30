@@ -149,8 +149,13 @@ export class SSTCorrectionComponent implements OnInit {
       console.log(this.popupform.get('collectionDate').value)
      
     console.log(this.popupData.barcode);
-      
+    if(this.secondFormGroup.get('barcode').value .length==0){
+      this.barcodeValid=true;
+
+    }
+    else{
       var _obj = {};
+      this.barcodeValid=false;
       _obj['sstId']=this.popupData.sstId;
       _obj['subjectId'] = this.popupData.subjectId;
       _obj['barcode']=this.popupData.barcodeNo;
@@ -189,7 +194,7 @@ export class SSTCorrectionComponent implements OnInit {
         });
   
     
-       
+      }
         //if(String(this.selectedRevisedBarcode).length)
     }
     getErrorDetailst()
