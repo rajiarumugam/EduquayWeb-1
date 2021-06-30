@@ -63,7 +63,7 @@ export class SSTReportComponent implements OnInit {
   selectedChc: string;
 
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions:any = {};
   dtTrigger: Subject<any> = new Subject();
  
   disabledChc: boolean;
@@ -120,6 +120,30 @@ export class SSTReportComponent implements OnInit {
 
     
     this.dtOptions = {
+      dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+      // Configure the buttons
+        buttons: [
+          {
+            titleAttr: 'Download as PDF',
+            extend: 'pdfHtml5',
+            title: 'Report - SST Error',
+            orientation: 'landscape',
+    
+            exportOptions: {
+              columns: ':visible'
+            },
+              text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'},
+          {
+            titleAttr: 'Download as Excel',     
+            extend: 'excelHtml5',
+            title: 'Report - SST Error ',
+            className: 'custom-btn',
+            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+          },
+        
+        ],
       pagingType: 'simple_numbers',
       pageLength: 20,
       processing: true,
@@ -399,7 +423,7 @@ export class SSTReportComponent implements OnInit {
    
       
      console.log(this.dateform.controls.collectionDate1.value);
-     console.log(this.dateform.controls.collectionDate2.value);
+     console.log(this.dateform.controls.collectionDate1.value);
      
       var _obj = {};
       if(this.dateform.controls.collectionDate1.value.length==0){
