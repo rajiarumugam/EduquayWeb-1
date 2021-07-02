@@ -31,6 +31,7 @@ export class RCHReportComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
+  recordcount=0;
   fromdaterepo:any;
   dateform: FormGroup;
   todaterepo:any;
@@ -126,13 +127,6 @@ export class RCHReportComponent implements OnInit {
       // Configure the buttons
         buttons: [
           {
-            titleAttr: 'Download as Excel',     
-            extend: 'excelHtml5',
-            title: 'Report - RCH Error ',
-            className: 'custom-btn',
-            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-          },
-          {
             titleAttr: 'Download as PDF',
             extend: 'pdfHtml5',
             title: 'Report - RCH Error',
@@ -142,6 +136,14 @@ export class RCHReportComponent implements OnInit {
               columns: ':visible'
             },
               text: '<img src="assets/assets/img/pdfimage.png" width="23px" />'},
+       
+          {
+            titleAttr: 'Download as Excel',     
+            extend: 'excelHtml5',
+            title: 'Report - RCH Error ',
+            className: 'custom-btn',
+            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+          },
        
        
         ],
@@ -544,6 +546,7 @@ export class RCHReportComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.centralPickpackPendingData = response.data;
+        this.recordcount=response.data.length;
         this.loaderService.display(false);
         this.rerender();
         

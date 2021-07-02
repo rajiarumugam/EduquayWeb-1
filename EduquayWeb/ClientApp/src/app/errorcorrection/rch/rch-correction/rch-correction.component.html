@@ -3,7 +3,7 @@
     <form class="form-inline my-2 my-lg-0" style="margin-top:30px !important;">
         <div class="w-100">
             <input type="text" class="w-100 form-control product-search br-30"
-                name="searchbarcode" type="text" placeholder="Scan / Enter RCH ID"
+                name="searchbarcode" type="text" placeholder="Search by SubjectId /RCHID"
                 [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()">
             <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -56,7 +56,7 @@
 
 
 </div>
-<p><strong><i>Note : Barcode can be edited only if ANM has logged OFF from the Tablet</i></strong></p>
+<p><strong><i>Note : RCH edit is applicable only for ANWs and possible only when the respective ANM has logged OFF.</i></strong></p>
 <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
 aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">

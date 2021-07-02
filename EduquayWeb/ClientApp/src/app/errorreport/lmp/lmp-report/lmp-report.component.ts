@@ -32,6 +32,7 @@ export class LMPReportComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   date5:any
+  recordcount=0;
   errorMessage: string;
   fromdaterepo:any;
   dateform: FormGroup;
@@ -126,13 +127,6 @@ export class LMPReportComponent implements OnInit {
       // Configure the buttons
         buttons: [
           {
-            titleAttr: 'Download as Excel',     
-            extend: 'excelHtml5',
-            title: 'Report - LMP Error ',
-            className: 'custom-btn',
-            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-          },
-          {
             titleAttr: 'Download as PDF',
             extend: 'pdfHtml5',
             title: 'Report - LMP Error',
@@ -141,7 +135,15 @@ export class LMPReportComponent implements OnInit {
             exportOptions: {
               columns: ':visible'
             },
-              text: '<img src="assets/assets/img/pdfimage.png" width="23px" />'}
+              text: '<img src="assets/assets/img/pdfimage.png" width="23px" />'},
+          {
+            titleAttr: 'Download as Excel',     
+            extend: 'excelHtml5',
+            title: 'Report - LMP Error ',
+            className: 'custom-btn',
+            text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+          },
+        
         ],
       pagingType: 'simple_numbers',
       pageLength: 20,
@@ -542,6 +544,8 @@ export class LMPReportComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.centralPickpackPendingData = response.data;
+        console.log(response.data.length)
+        this.recordcount=response.data.length;
         this.loaderService.display(false);
         this.rerender();
         

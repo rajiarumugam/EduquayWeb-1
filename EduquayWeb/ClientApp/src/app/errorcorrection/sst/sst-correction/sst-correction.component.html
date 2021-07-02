@@ -60,7 +60,7 @@ size="700"
 
 
 </div>
-<p><strong><i>Note : SST can be edited only if ANM has logged OFF from the Tablet</i></strong></p>
+<p><strong><i>Note : SST edit is applicable only for ANWs and possible only when the respective ANM has logged OFF.</i></strong></p>
 <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
 aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -121,7 +121,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 </div>
                                   
                                  <div class="col-md-3" [formGroup]="secondFormGroup">
-                                    <h6 class="ml-2"><b>{{'Remarks' | translate }} : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "barcode" [ngClass]="{'red-border-class': barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    <h6 class="ml-2"><b>{{'Remarks' | translate }}<span class="manto">*</span> : </b> <span class="ml-2" style="margin-left: 0 !important;"> <input type="text" class="form-control" id="inputGovtIdDetail" placeholder="Enter Detail"  [(ngModel)]="selectedRevisedBarcode" formControlName = "barcode" [ngClass]="{'red-border-class': barcodeValid}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength = "10"> </span></h6>
                                 </div>
                                

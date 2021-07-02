@@ -36,6 +36,7 @@ export class BarcodeReportComponent implements OnInit {
   date5:any
   errorMessage: string;
   fromdaterepo:any;
+  recordcount=0;
   dateform: FormGroup;
   todaterepo:any;
   errorSpouseMessage: string;
@@ -547,6 +548,7 @@ export class BarcodeReportComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.centralPickpackPendingData = response.data;
+        this.recordcount=response.data.length;
         this.loaderService.display(false);
         this.rerender();
         
