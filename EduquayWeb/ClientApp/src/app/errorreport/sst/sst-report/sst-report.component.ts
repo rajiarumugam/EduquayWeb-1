@@ -33,6 +33,7 @@ export class SSTReportComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   date5:any
   errorMessage: string;
+  recordcount=0;
   fromdaterepo:any;
   dateform: FormGroup;
   todaterepo:any;
@@ -480,6 +481,7 @@ export class SSTReportComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.centralPickpackPendingData = response.data;
+        this.recordcount=response.data.length;
         this.loaderService.display(false);
         this.rerender();
         
