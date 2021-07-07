@@ -36,6 +36,80 @@ export class masterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+  RetrievePHCByCHC(chcid): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl;
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVEPHCBYCHC+chcid);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+  RetrieveSCByPHC(phcid): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl;
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVESCBYPHC+phcid);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+  getuserBlockBasedCHC(blockId): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl;
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECHCBYBLOCK+blockId);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+  getuserBasedBlock(did): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEBLOCKBYDISTRICT+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+   getANMbyPHC(did): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVEANMBYPHC+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getSCbyANM(did): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVESCBYANM+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getRIbyANM(did): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVERIBYANM+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getSCbyPHC(did): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVESCBYANM+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getbyPHC(did): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIVERIBYANM+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getBlockBasedCHC(): Observable<any> {
+    this.user = JSON.parse(this.tokenService.getUser('lu'));
+    var apiUrl;
+    if(this.user.chcId === 0)
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECHCBYBLOCK+this.user.blockId);
+    else
+        apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVECHC+this.user.id);
+
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
   getuserBasedPHC(): Observable<any> {
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.MASTER.RETRIEVEPHC+this.user.id);
