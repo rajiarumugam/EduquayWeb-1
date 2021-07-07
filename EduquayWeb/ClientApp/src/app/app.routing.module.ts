@@ -1099,7 +1099,7 @@ export const RoutingComponents = [
   BarcodeReportComponent,
   BarcodeReportMainComponent,
   RCHReportComponent,
-  RCHReportMainComponent,
+  RCHReportMainComponent
 
 ];
 
