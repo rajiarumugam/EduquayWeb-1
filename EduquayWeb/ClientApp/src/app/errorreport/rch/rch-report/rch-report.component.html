@@ -1,0 +1,145 @@
+<div [formGroup]="dateform" style="float:left"  class="form-group col-md-3" >
+    <label class="note">{{'From Date' | translate }} <span class="manto">*</span></label>
+
+    <ng2-flatpickr id="fromdate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+     [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate1" ></ng2-flatpickr>
+    
+  </div> 
+ 
+
+  <div [formGroup]="dateform" style="float:left"  class="form-group col-md-3" [formControl]="date">
+    <label class="note">{{'To Date' | translate }} <span class="manto">*</span></label>
+
+    <ng2-flatpickr id="todate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+     [config]="collectionDateOptions2" [(ngModel)]="todaterepo"  placeholder="Select Date.." formControlName = "collectionDate2">
+    </ng2-flatpickr>
+  </div> 
+    <div class="form-group col-md-3" style="float:left">
+        <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+        <select  id="inputilrPoint" class="form-control"
+        name="ddlEditDistrict" #ddlEditDistrict="ngModel"  [(ngModel)]="selectedDistrict" (change)="districtChange();">
+            <option value="">Select</option>
+            <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                {{districtdata.name}}
+            </option>
+        </select>
+    </div>
+  <div class="form-group col-md-3" style="float: left;" >
+                                         
+      <label for="inputilrPoint">{{'CHC' | translate }}<span
+          class="manto"> </span></label>
+          <select id="inputilrPoint2" class="form-control"
+          name="ddlEditChc" #ddlEditChc="ngModel" [(ngModel)]="selectedEditChc"  (change)="onChangeChc($event.target.value);"
+           >
+              <option value="">Select</option>
+              <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
+                  {{chcdata.name}}
+              </option>
+          </select>
+  
+   
+  </div>
+  <div class="form-group col-md-3" style="float:left;" >
+                                         
+      <label for="inputilrPoint">{{'PHC' | translate }}<span
+          class="manto"> </span></label>
+          <select id="inputilrPoint4" class="form-control"
+          name="ddlEditPhc" #ddlEditChc="ngModel" 
+          [(ngModel)]="selectedPhc"  (change)="onChangephc($event.target.value);">
+              <option value="">Select</option>
+              <option *ngFor="let chcdata of phclists" [(value)]="chcdata.id">
+                  {{chcdata.name}}
+              </option>
+          </select>
+  
+   
+  </div>
+<div class="form-group col-md-3" style="float: left;">
+                                         
+      <label for="inputilrPoint">{{'ANM' | translate }}<span
+          class="manto"> </span></label>
+          <select id="inputilrPoint3" class="form-control"
+          name="ddlEditANM" #ddlEditChc="ngModel" 
+          required [(ngModel)]="selectedanm">
+              <option value="">Select</option>
+              <option *ngFor="let chcdata of anmlists" [(value)]="chcdata.id">
+                  {{chcdata.name}}
+              </option>
+          </select>
+  
+   
+  </div>
+  
+  
+ 
+ 
+  <div style="float:left;" class="form-group col-md-1">
+    <a (click)="clicksearchBarcode()" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
+        <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+</div>  
+<div>
+    <div class="col-md-2" >
+        <p > No of Records: {{recordcount}} </p>
+        
+    </div> 
+    </div>  
+    
+  
+  
+  
+  <div class="table-responsive mb-4">
+  <table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+      <thead>
+          <tr>
+              <th><span>{{'SNo' | translate }}</span></th>
+              <th><span>{{'SubjectName' | translate }}</span></th>
+              <th><span>{{'SubjectID' | translate }}</span></th>
+              <th><span>{{'Old RCH' | translate }}</span></th>
+              <th><span>{{'Revised RCH' | translate }}</span></th>
+              <th><span>{{'Date Changed' | translate }}</span></th>
+              <th><span>{{'ANMName' | translate }}</span></th>
+              <th><span>{{'ANM Contact' | translate }}</span></th>
+              <th><span>{{'District Name' | translate }}</span></th>
+              <th><span>{{'DC Name' | translate }}</span></th>
+              <th><span>{{'DCContact' | translate }}</span></th>
+              <th><span>{{'CHC' | translate }}</span></th>
+              <th><span>{{'PHC' | translate }}</span></th>
+              <!-- <th><span>{{'Track' | translate }}</span></th>
+              <th><span>{{'Profile' | translate }}</span></th> -->
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let person of centralPickpackPendingData;index as i">
+              <td style="text-align: center;">{{ i + 1}}</td>
+              <td style="text-align: center;">{{ person.subjectId }}</td>
+              <td style="text-align: center;" [ngClass]="{'redColortext': person.loginIconEnableStatus == false ? true : false}">{{ person.anmName }}</td>
+              <td style="text-align: center;">{{ person.oldRCHId }}</td>
+              <td style="text-align: center;">{{ person.revisedRCHId }}</td>
+              <td style="text-align: center;">{{ person.dateChanged }}</td>
+              <td style="text-align: center;">{{ person.anmName }}</td>
+              <td style="text-align: center;">{{ person.anmContact }}</td>
+              <td style="text-align: center;">{{ person.districtName }}</td>
+  
+                          <td>{{ person.dcName }}</td>
+              <td style="text-align: center;">{{person.dcContact}}</td>
+              
+              <td style="text-align: center;">{{ person.chcName }}</td>
+              <td style="text-align: center;">{{ person.phcName }}</td>
+             
+              <!-- <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                  <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+               </a></td>
+              <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                  <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
+              </td> -->
+              <!-- <td style="text-align: center;">{{person.lmpDate}}</td>
+              <td class="text-center"><a><i *ngIf="person.loginIconEnableStatus" class="fas fa-reply fa-2x arrow" aria-hidden="true" data-toggle="modal"
+                  (click)="showPopup(person);"></i><i *ngIf="!person.loginIconEnableStatus" class="fas fa-reply fa-2x arrow barcode-edit-disabled" aria-hidden="true" data-toggle="modal"
+                  ></i></a></td>   -->
+          </tr>
+      </tbody>
+  </table>
+  
+  
+  </div>
+  

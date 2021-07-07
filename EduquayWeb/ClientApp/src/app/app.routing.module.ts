@@ -305,6 +305,20 @@ import { BarcodePendingComponent } from "./errorcorrection/barcode-correction/ba
 import { RCHCorrectionMainComponent } from "./errorcorrection/rch/rch-correction-main/rch-correction-main.component";
 import { RCHCorrectionComponent } from "./errorcorrection/rch/rch-correction/rch-correction.component";
 
+import { LMPCorrectionMainComponent } from "./errorcorrection/lmp/lmp-correction-main/lmp-correction-main.component";
+import { LMPCorrectionComponent} from "./errorcorrection/lmp/lmp-correction/lmp-correction.component";
+import { SSTCorrectionComponent } from "./errorcorrection/sst/sst-correction/sst-correction.component";
+import { SSTCorrectionMainComponent } from "./errorcorrection/sst/sst-correction-main/sst-correction-main.component";
+
+import { LMPReportComponent } from "./errorreport/lmp/lmp-report/lmp-report.component";
+import { LMPReportMainComponent} from "./errorreport/lmp/lmp-report-main/lmp-report-main.component";
+import { BarcodeReportComponent } from "./errorreport/barcode/barcode-report/barcode-report.component";
+import { BarcodeReportMainComponent } from "./errorreport/barcode/barcode-report-main/barcode-report-main.component";
+import { RCHReportComponent } from "./errorreport/rch/rch-report/rch-report.component";
+import { RCHReportMainComponent } from "./errorreport/rch/rch-report-main/rch-report-main.component";
+import { SSTReportComponent } from "./errorreport/sst/sst-report/sst-report.component";
+
+import { SSTReportMainComponent } from "./errorreport/sst/sst-report-main/sst-report-main.component";
 import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
 import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
 import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
@@ -555,6 +569,47 @@ const routes: Routes = [
           {path: '', component: RCHCorrectionComponent, pathMatch: 'full'}
         ]
       },
+      {
+        path: 'lmpcorrection', component: LMPCorrectionMainComponent,
+        children:[
+          {path: '', component: LMPCorrectionComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'sstcorrection', component: SSTCorrectionMainComponent,
+        children:[
+          {path: '', component: SSTCorrectionComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'lmpreport', component: LMPReportMainComponent,
+        children:[
+          {path: '', component: LMPReportComponent, pathMatch: 'full'}
+         
+        ]
+      },
+      {
+        path: 'barcodereport', component: BarcodeReportMainComponent,
+        children:[
+          {path: '', component: BarcodeReportComponent, pathMatch: 'full'}
+         
+        ]
+      },
+      {
+        path: 'rchreport', component: RCHReportMainComponent,
+        children:[
+          {path: '', component: RCHReportComponent, pathMatch: 'full'}
+         
+        ]
+      },
+      {
+        path: 'sstreport', component: SSTReportMainComponent,
+        children:[
+          {path: '', component: SSTReportComponent, pathMatch: 'full'}
+         
+        ]
+      },
+      
       {
         path: 'pathologist-hplc-report/:pagename', component: DiagosisReportmainComponent,
         children:[
@@ -1025,6 +1080,8 @@ export const RoutingComponents = [
   BarcodePendingComponent,
   RCHCorrectionMainComponent,
   RCHCorrectionComponent,
+  LMPCorrectionMainComponent,
+  LMPCorrectionComponent,
   HPLCPosPrintComponent,
   HPLCReportsMainComponent,
   CVSReportsMainComponent,
@@ -1032,7 +1089,17 @@ export const RoutingComponents = [
   BlockSubjectRegistrationComponent,
   BlockAwRegistrationComponent,
   BlockSubjecttRegistrationComponent,
-  BlockStudentRegistrationComponent
+  BlockStudentRegistrationComponent,
+  SSTCorrectionComponent,
+  SSTCorrectionMainComponent,
+  LMPReportComponent,
+  LMPReportMainComponent,
+  SSTReportComponent,
+  SSTReportMainComponent,
+  BarcodeReportComponent,
+  BarcodeReportMainComponent,
+  RCHReportComponent,
+  RCHReportMainComponent,
 
 ];
 

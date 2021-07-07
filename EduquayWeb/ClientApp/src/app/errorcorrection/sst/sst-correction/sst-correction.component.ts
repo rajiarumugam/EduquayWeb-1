@@ -2,21 +2,27 @@ import { Component, OnInit, Pipe, NgZone, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
+import { DatePipe } from '@angular/common'
+
 declare var $: any 
 import { DataService } from '../../../shared/data.service';
 import { errorCorrectionService } from 'src/app/shared/errorcorrection/error-correction.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
+import * as moment from 'moment'
 import { TokenService } from '../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+
+
 
 @Component({
   selector: 'app-rch-correction',
-  templateUrl: './rch-correction.component.html',
-  styleUrls: ['./rch-correction.component.css']
+  templateUrl: './sst-correction.component.html',
+  styleUrls: ['./sst-correction.component.css']
 })
-export class RCHCorrectionComponent implements OnInit {
+export class SSTCorrectionComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
@@ -29,8 +35,10 @@ export class RCHCorrectionComponent implements OnInit {
   pickpackStartList = [];
   searchbarcode;
   secondFormCheck = false;
+  popupform:FormGroup;
   secondFormGroup: FormGroup;
   selectedRevisedBarcode;
+  RevisedBarcode1;
   barcodeValid = false;
   user;
 
@@ -46,9 +54,17 @@ export class RCHCorrectionComponent implements OnInit {
     private tokenService: TokenService,
     private loaderService: LoaderService,
     ) { }
+    collectionDateOptions: FlatpickrOptions = {
+      mode: 'single',
+      dateFormat: 'd/m/Y ',
+    
+      
+      maxDate: new Date(moment().add(-30, 'day').format()),
+      enableTime:false,
+      
+    };
 
   ngOnInit() {
-    this.DataService.sendData(JSON.stringify({"module": "Error Correction", "submodule": "RCH"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
     this.dtOptions = {
@@ -71,7 +87,11 @@ export class RCHCorrectionComponent implements OnInit {
     };
     
     this.secondFormGroup = this._formBuilder.group({
-      barcode: ['', Validators.required]
+      barcode: ['', Validators.required],
+      newsstresult:['',Validators.required]
+    });
+    this.popupform = this._formBuilder.group({
+      collectionDate: ['', Validators.required]
     });
     this.centralReceiptsData = [];
 
@@ -107,87 +127,74 @@ export class RCHCorrectionComponent implements OnInit {
         console.log(data);
         this.popupData = data;
         this.selectedRevisedBarcode = "";
+        if(this.popupData.sstResult=="Positive"){
+          this.RevisedBarcode1="Negative";
+        }
+        else{
+          this.RevisedBarcode1="Positive";
+
+        }
+
+       
         $('#fadeinModal').modal('show');
     }
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     } 
   
+  
     sampleSubmit()
     {
-      this.searchbarcode = "";
-        this.secondFormCheck =    true;
-        this.barcodeValid = false;
-        console.log(this.secondFormGroup.get('barcode').value);
-        console.log(String(this.secondFormGroup.get('barcode').value).length)
-        
-        if(String(this.secondFormGroup.get('barcode').value).length === 6)
-        {
-      
-          this.loaderService.display(true);
-             
-              this.errorCorrectionService.checkBarcodeExist(this.secondFormGroup.get('barcode').value)
-              .subscribe(response => {
-                console.log(response);
-                if(response.barcodeExist)
-                {
-                  if(response.barcodeValid)
-                  {
-                    this.loaderService.display(false);
-                    Swal.fire({icon:'error', title: 'The barcode you are trying to update is already mapped to the following subject, Subject ID : '+response.data.subjectId+', Subject Name : '+response.data.subjectName+', ANM ID : '+response.data.anmCode+', ANM Name : '+response.data.anmName+', DC Contact : '+response.data.dcContact+', DC Name : '+response.data.dcName+'. DO YOU WANT to OVERWRITE ?',
-                    showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-                 .then((result) => {
-                   if (result.value) {
-                    
-                      console.log("hitting here");
-                      
-                      this.updateBarcode();
-                   
-                   }
-                   else{
-                    
-                   }
-                  });
-                  }
-                  else{
-                    this.loaderService.display(false);
-                    Swal.fire({icon:'warning', title: "Your Revised Barcode number Sample already Damaged / Timeout Expiry.", confirmButtonText: 'Close', allowOutsideClick: false})
-                    .then((result) => {
-                     
-                      $('#fadeinModal').modal('hide');
-                    })
-                  }
-                 
-                }
-                else
-                {
-                  this.loaderService.display(false);
-                  Swal.fire({icon:'warning', title: 'Please confirm to update?',
-                  showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: false })
-                  .then((result) => {
-                    if (result.value) {
-                      this.updateBarcode();
-                    }
-                    else{
-                    
-                    }
-                })
-                }
-                (err: HttpErrorResponse) => {
-                  this.loaderService.display(false);
-                  //this.showResponseMessage(err.toString(), 'e');
-                };
-             
-           
-             
-            });
-          
+      console.log(this.secondFormGroup.get('barcode').value);
+      console.log(this.popupform.get('collectionDate').value)
+     
+    console.log(this.popupData.barcode);
+    if(this.secondFormGroup.get('barcode').value .length==0){
+      this.barcodeValid=true;
 
-        }
-        else
-        {
-            this.barcodeValid = true;
-        }
+    }
+    else{
+      var _obj = {};
+      this.barcodeValid=false;
+      _obj['sstId']=this.popupData.sstId;
+      _obj['subjectId'] = this.popupData.subjectId;
+      _obj['barcode']=this.popupData.barcodeNo;
+      _obj['oldSST'] = String(this.popupData.sstResult);
+      if(this.popupData.sstResult=="Positive"){
+        _obj['newSST'] =false;
+      }
+      else{
+        _obj['newSST'] =true;
+      }
+      
+      _obj["remarks"]=this.secondFormGroup.get('barcode').value;
+      _obj['userId'] = this.user.id;
+    
+
+     
+   
+      
+      console.log(_obj);
+      this.loaderService.display(true);
+    
+       
+  
+        this.errorCorrectionService.updateSST(_obj)
+        .subscribe(response => {
+          
+          this.loaderService.display(false);
+          Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
+          .then((result) => {
+            $('#fadeinModal').modal('hide');
+            this.getErrorDetailst();
+          })
+        },
+        (err: HttpErrorResponse) => {
+          //this.showResponseMessage(err.toString(), 'e');
+        });
+  
+    
+      }
         //if(String(this.selectedRevisedBarcode).length)
     }
     getErrorDetailst()
@@ -243,7 +250,10 @@ export class RCHCorrectionComponent implements OnInit {
       let term = this.searchbarcode;
       console.log(term);
       this.loaderService.display(true);
-      this.errorCorrectionService.getRCHErrorDetails(term)
+      var _obj = {};
+      _obj["input"] =term.trim();
+     
+      this.errorCorrectionService.getSSTErrorDetails(_obj)
       .subscribe(response => {
         console.log(response);
         this.centralPickpackPendingData = response.data;

@@ -30,7 +30,7 @@ export const ENDPOINT = {
     {
         "ADD":"api/v1/Subject/Add",
         "RETRIVE":"api/v1/Subject/RetrieveANWSubjects",
-        "RETRIVECHCANWPOSITIVESUBJECTS":"api/v1/Subject/RetrieveCHCANWPositiveSubjects",
+        "RETRIVECHCANWPOSITIVESUBJECTS":"Subject/RetrieveCHCANWPositiveSubjects",
         "AddMOLECULARBLOODTESTRESULT":"api/v1/MLResultProcess/AddMolecularBloodTestResult",
         "ADDMOLECULARSPECIMENTESTRESULT":"api/v1/MLResultProcess/AddMolecularSpecimenTestResult"
     },
@@ -142,7 +142,27 @@ export const ENDPOINT = {
         "RETRIVEERRORBARCODE":"api/v1/Support/RetrieveErrorBarcodeDetails",
         "RETRIVEFORRCHIDERRORCORRECTION":"api/v1/Support/RetrieveDetailsForRCHIdErrorCorrection/",
         "CHECKRCHIDEXIST":"api/v1/Support/CheckRCHIDExist/",
-        "UPDATERCHIDERROR":"api/v1/Support/UpdateRCHIDError"
+        "UPDATERCHIDERROR":"api/v1/Support/UpdateRCHIDError",
+        "RETRIEVELMPERRORCORRECTION":"api/v1/Support/RetrieveDetailsForLMPErrorCorrection",
+        "UPDATELMP":"api/v1/Support/UpdateLMP",
+        "RETRIEVESSTERRORCORRECTION":"api/v1/Support/RetrieveDetailsForSSTCorrection",
+        "UPDATESST":"api/v1/Support/UpdateSST"
+    },
+    "ERRORREPORT":{
+      "BARCODEERRORREPORT" : "api/v1/Support/RetrieveBarcodeErrorReport",
+      "RCHERRORREPORT":"api/v1/Support/RetrieveRCHIdErrorReport",
+      "LMPERRORREPORT":"api/v1/Support/RetrieveLMPErrorReport",
+      "SSTERRORREPORT":"api/v1/Support/RetrieveSSTResultErrorReport"
+
+    },
+    "Search":{
+        "retrieveDistrictApi":"api/v1/SA/RetrieveAllDistricts",
+        "RetrieveCHCbyDistrict":"api/v1/WebMaster/RetrieveCHCByDistrict/",
+        "RetrievePHCByCHC":"api/v1/WebMaster/RetrievePHCByCHC/",
+        "RetrieveANMByPHC":"api/v1/WebMaster/RetrieveANMByCHC/"
+
+      
     }
+
 
 }
