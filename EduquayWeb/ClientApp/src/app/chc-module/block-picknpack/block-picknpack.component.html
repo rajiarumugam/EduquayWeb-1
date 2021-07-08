@@ -1,0 +1,340 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="chc" subMenum="Pick & Pack"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Sample Collection" placement="right" [routerLink]="['/app/chc-sample-collection']"
+                                    role="button"><i class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center"> {{'Pick&Pack' | translate }} to Screening Center </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right mb-4">
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-shipmentlog']" role="button" ngbTooltip="Screening Center Shipment Log" placement="left"
+                                ><i class="fas fa-chevron-right pNav-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-6 filtered-list-search">
+                        <form class="form-inline my-2 my-lg-0">
+                            <div class="w-100">
+                                <input type="text" class="w-100 form-control product-search br-30" id="input-search" placeholder="Search" >
+                                <button class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                            </div>
+                        </form>
+                    </div> -->
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div *ngIf="chcPicknpackErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': chcPicknpackErrorMessage ==='No samples found', 'alert-danger': chcPicknpackErrorMessage !== 'No samples found'}">
+                                    <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{chcPicknpackErrorMessage}}
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="chcpickpack-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                    <tr>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'SubjectName' | translate }}</span></th>
+                                        <th><span>{{'SubjectID' | translate }}</span></th>
+                                        <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                        <th><span>{{'Barcode' | translate }}</span></th>
+                                        <th class="us-datetime wordwrap"><span class="">{{'SampleCollectionDate_Time' | translate }}</span>
+                                        </th>
+                                        <th class="text-center agingsample">{{'AgingofSample' | translate }}</th>
+                                        <!-- <th><span></span><input type="checkbox" id="select_all" class="ml-1 mt-1" /></th> -->
+                                        <th class="text-center rch">
+                                            <div class="n-chk text-center">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll" (change)="selectAll()">
+                                                    <span class="new-control-indicator leftspace"></span>&nbsp;
+                                                </label>
+                                            </div>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let chcpicknpack of chcSampleList; index as i"  class="tbl-row-red tbl-row-black"
+                                    [ngClass]="{'tbl-row-black tbl-data-black': +chcpicknpack.sampleAging < 24 , 'tbl-row tbl-data-red': +chcpicknpack.sampleAging >= 24 }">
+                                        <td class="sno text-center tbl-data-red tbl-data-black">{{i +1}}</td>
+                                        <td class="sname text-left tbl-data-red tbl-data-black">{{chcpicknpack.subjectName}}</td>
+                                        <td class="sid tbl-data-red tbl-data-black">{{chcpicknpack.uniqueSubjectId}}</td>
+                                        <td class="sid text-center tbl-data-red tbl-data-black">{{chcpicknpack.rchId}}</td>
+                                        <td class="sid tbl-data-red tbl-data-black">{{chcpicknpack.barcodeNo}}</td>
+                                        <td class="datetimenew tbl-data-red tbl-data-black"><span style="display: none;">{{returnTimeStamp(chcpicknpack.sampleDateTime)}}</span>{{chcpicknpack.sampleDateTime}}</td>
+                                        <td class="text-center tbl-data-red tbl-data-black">{{chcpicknpack.sampleAging}}</td>
+                                        <td class="sno">
+                                            <div class="n-chk">
+                                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                                    <input type="checkbox" class="new-control-input checkbox" 
+                                                    value="{{chcpicknpack.sampleSelected}}" 
+                                                    (change)="checkIfAllSelected()"
+                                                    [(ngModel)]="chcpicknpack.sampleSelected">
+                                                    <span class="new-control-indicator"></span>&nbsp;
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex flex-row-reverse mt-2">
+                            <div class="px-1">    
+                                <a class="btn btn-primary float-right" (click)="getChcCreateShipmentConfirmation(chcPicknPackdetail)"
+                                 role="button">{{'CreateShipment' | translate }}</a>
+                            </div>
+                            <div class="px-1">  
+                                 <a class="btn btn-danger float-right mr-2" (click)="getChcExpirySamplesConfirmation()"
+                                role="button">{{'MovetoExpiry' | translate }}</a>
+                            </div>
+                            <div class="px-1">  
+                                 <a class="btn btn-outline-primary float-right mr-2"
+                                role="button">{{length}} Selected</a>
+                            </div>
+                        </div>
+                        <!-- <div class="container p-4">
+                            <div class="row">
+                                <div class="col-md-12 border-bottom">
+                                </div>
+                            </div>
+                        </div> -->
+                        <ng-template #chcPicknPackdetail let-modal>
+                                    <div class="modal-header">
+                                        <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}
+                                        </h5>
+                                        <button type="button" class="close"  (click)="modal.dismiss()" aria-label="Close">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="text-left"
+                                         (ngSubmit)="chcShipmentForm.form.valid && onSubmit(chcShipmentForm)" #chcShipmentForm="ngForm" novalidate>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12" id="text">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid}">
+                                                                    {{'CHCLabTechnicianName' | translate }} <span
+                                                                    class="manto"></span></label>
+                                                                    <input class="form-control field" name="chctechnicianname" #chctechnicianname="ngModel" ngModel 
+                                                                    [class.is-invalid]="!chctechnicianname.valid && chctechnicianname.touched || chcShipmentForm.submitted && chctechnicianname.invalid" readonly 
+                                                                    type="text" placeholder="CHC Lab Technician Name" [(ngModel)] = "chclabtechnician">   
+                                                                    <small class="text-danger ml-2" *ngIf="!chctechnicianname.valid && chctechnicianname.touched">Enter the CHC Lab Technician Name</small>
+                                                                    <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
+                                                                    <div *ngIf="chcShipmentForm.submitted && chctechnicianname.invalid">     
+                                                                        <small *ngIf="chctechnicianname.untouched" class=" ml-2 text-danger">CHC Lab Technician Name is required</small>  
+                                                                    </div>      
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label [ngClass]="{'label-border-class':!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid}"> {{'CollectionCHC' | translate }} <span
+                                                                    class="manto"> </span></label>
+                                                                <input class="form-control field" name="collectionchc" #collectionchc="ngModel" ngModel 
+                                                                [class.is-invalid]="!collectionchc.valid && collectionchc.touched || chcShipmentForm.submitted && collectionchc.invalid" readonly 
+                                                                type="text" placeholder="Collection CHC"  [(ngModel)] = "collectionchcname"> 
+                                                                <small class="text-danger ml-2" *ngIf="!collectionchc.valid && collectionchc.touched">Enter the collection CHC</small>
+                                                                <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
+                                                                <div *ngIf="chcShipmentForm.submitted && collectionchc.invalid">     
+                                                                    <small *ngIf="collectionchc.untouched" class=" ml-2 text-danger">Collection CHC is required</small>  
+                                                                </div>  
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || chcShipmentForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">
+                                                                    {{'ReceivingTestingCHC' | translate }} <span class="manto">*</span></label>
+                                                                    <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || chcShipmentForm.submitted && DDLtestingChc.invalid"
+                                                                    class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
+                                                                    <option value="" selected>--Select--</option>
+                                                                    <option *ngFor="let testingChcName of testingCHCNames"
+                                                                              [(value)]= "testingChcName.id">
+                                                                          {{ testingChcName.chcName }}
+                                                                      </option>
+                                                                </select>
+                                                                <small class=" ml-2 text-danger" *ngIf="!DDLtestingChc.valid && DDLtestingChc.touched ">Please choose a Receiving Testing CHC </small>
+                                                                <div *ngIf="chcShipmentForm.submitted && DDLtestingChc.invalid">  
+                                                                    <small *ngIf="DDLtestingChc.untouched" class=" ml-2 text-danger">Receiving Testing CHC is required</small>  
+                                                                  </div>
+                                                            </div>
+                                                             <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid}" for="inputAvdName">{{'LogisticsServiceProvider' | translate }}<span
+                                                                    class="manto"> *</span></label>
+                                                                <select name="inputAvdName"
+                                                                name="DDLserviceproviderName" #DDLserviceproviderName="ngModel" [class.is-invalid]="DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid"
+                                                                class="form-control field" id="inputAvdName" required [(ngModel)]="selectedproviderName">
+                                                                <option value="">--Select--</option>
+                                                                <option *ngFor="let providername of providerNames"
+                                                                          [(value)]= "providername.id">
+                                                                      {{ providername.providerName }}
+                                                                  </option>
+                                                                </select>
+                                                                <small class=" ml-2 text-danger" *ngIf="!DDLserviceproviderName.valid && DDLserviceproviderName.touched ">Enter the Logistics Service Provider</small>
+                                                                <div *ngIf="chcShipmentForm.submitted && DDLserviceproviderName.invalid">  
+                                                                    <small *ngIf="DDLserviceproviderName.untouched" class=" ml-2 text-danger">Logistics Service Provider is required</small>  
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':!serviceprovider.valid && serviceprovider.touched || chcShipmentForm.submitted && serviceprovider.invalid}">
+                                                                    Logistics Service Provider<span
+                                                                    class="manto"> *</span></label>
+                                                                <input class="form-control field" name="serviceprovider" #serviceprovider="ngModel" ngModel 
+                                                                [class.is-invalid]="!serviceprovider.valid && serviceprovider.touched || chcShipmentForm.submitted && serviceprovider.invalid" required 
+                                                                type="text" placeholder="Receiving Testing CHC"> 
+                                                                <small class="text-danger ml-2" *ngIf="!serviceprovider.valid && serviceprovider.touched">Enter the Logistics Service Provider</small>
+                                                               
+                                                                <div *ngIf="chcShipmentForm.submitted && serviceprovider.invalid">     
+                                                                    <small *ngIf="serviceprovider.untouched" class=" ml-2 text-danger">Logistics Service Provider is required</small>  
+                                                                </div>       
+                                                            </div> -->
+                                                            <!-- <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':DDLchc.invalid && DDLchc.touched || chcShipmentForm.submitted && DDLchc.invalid}" for="inputriPoint">Collection CHC<span
+                                                                    class="manto">*</span></label>
+                                                                    <select class="form-control" (change)="onChangeriPoint($event.target.value)"
+                                                                    name=DDLchc #DDLchc="ngModel" ngModel="ngModel" [class.is-invalid]="DDLchc.invalid && DDLchc.touched || chcShipmentForm.submitted && DDLchc.invalid"
+                                                                    required [(ngModel)]="selectedChc">
+                                                                      <option value="">--Select--</option>
+                                                                      <option *ngFor="let chcPoint of collectionchc"
+                                                                              [(value)]= "chcPoint.id ">
+                                                                          {{ chcPoint.chcName }}
+                                                                      </option>
+                                                                      </select>
+                                                                      <small class=" ml-2 text-danger" *ngIf="DDLchc.invalid && DDLchc.touched">Please choose a RI Point</small>
+                                                                      <div *ngIf="chcShipmentForm.submitted && DDLchc.invalid">     
+                                                                        <small *ngIf="DDLchc.untouched" class=" ml-2 text-danger">RI Point is required</small>  
+                                                                      </div>  
+                                                            </div> -->
+                                                            <!-- <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':DDLtestingChc.invalid && DDLtestingChc.touched || chcShipmentForm.submitted && DDLtestingChc.invalid}" for="inputTestingCHC">
+                                                                    Receiving Testing CHC<span class="manto">*</span></label>
+                                                                    <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || chcShipmentForm.submitted && DDLtestingChc.invalid"
+                                                                    class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
+                                                                    <option value="" selected>--Select--</option>
+                                                                    <option *ngFor="let testingChcName of testingCHCNames"
+                                                                              [(value)]= "testingChcName.id">
+                                                                          {{ testingChcName. chcName }}
+                                                                      </option>
+                                                                </select>
+                                                                <small class=" ml-2 text-danger" [class.d-none]="DDLtestingChc.valid || DDLtestingChc.untouched ">Please choose a Receiving Testing CHC</small>
+                                                                <div *ngIf="chcShipmentForm.submitted && DDLtestingChc.invalid">  
+                                                                    <small *ngIf="DDLtestingChc.untouched" class=" ml-2 text-danger">Receiving Testing CHC is required</small>  
+                                                                  </div>
+                                                            </div> -->
+                                                            <!-- <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid}" for="inputAvdName">Logistics Service Provider<span
+                                                                    class="manto">*</span></label>
+                                                                <select name="inputAvdName"
+                                                                name="DDLserviceproviderName" #DDLserviceproviderName="ngModel" [class.is-invalid]="DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid"
+                                                                class="form-control field" id="inputAvdName" required [(ngModel)]="selectedproviderName">
+                                                                <option value="">--Select--</option>
+                                                                <option *ngFor="let providername of providerNames"
+                                                                          [(value)]= "providername.id">
+                                                                      {{ providername. providerName }}
+                                                                  </option>
+                                                                </select>
+                                                                <small class=" ml-2 text-danger" [class.d-none]="DDLserviceproviderName.valid || DDLserviceproviderName.untouched ">Please choose a Receiving Testing CHC</small>
+                                                                <div *ngIf="chcShipmentForm.submitted && DDLserviceproviderName.invalid">  
+                                                                    <small *ngIf="DDLserviceproviderName.untouched" class=" ml-2 text-danger">AVD Name is required</small>  
+                                                                  </div>
+                                                            </div> -->
+                                                        </div>
+
+                                                        <div class="form-row my-2">   
+                                                            <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid}"> {{'DeliveryExecutiveName' | translate }} <span
+                                                                    class="manto"> *</span></label>
+                                                                <input class="form-control field" name="deliveryexecutivename" #deliveryexecutivename="ngModel" ngModel autocomplete="off"
+                                                                [class.is-invalid]="!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid" required 
+                                                                type="text" placeholder="Delivery Executive Name"  [(ngModel)] = "deliveryexecutive"> 
+                                                                <small class="text-danger ml-2" *ngIf="!deliveryexecutivename.valid && deliveryexecutivename.touched">Enter the Delivery Executive Name</small>
+                                                                <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
+                                                                <div *ngIf="chcShipmentForm.submitted && deliveryexecutivename.invalid">     
+                                                                    <small *ngIf="deliveryexecutivename.untouched" class=" ml-2 text-danger">Delivery Executive Name is required</small>  
+                                                                </div> 
+                                                            </div>
+
+                                                            <div class="form-group col-md-3">
+                                                                <label [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid}">{{'ContactNumber' | translate }} <span
+                                                                    class="manto">*</span></label>
+                                                                <input class="form-control field" name="contactNo" #contactNo="ngModel" ngModel maxlength="10" numbersOnly
+                                                                oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" autocomplete="off"
+                                                                [class.is-invalid]="contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid"
+                                                                    required type="tel" placeholder="Contact Number" [(ngModel)]="executiveContactNo">
+                                                                    <div *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
+                                                                        <small class="ml-2 text-danger" *ngIf="contactNo.errors.required && contactNo.touched ">The Contact number is required</small>
+                                                                        <!-- <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number is invalid</small> -->
+                                                                    </div>
+                                                                    <div *ngIf="chcShipmentForm.submitted && contactNo.invalid">  
+                                                                        <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">The Contact number is required</small>  
+                                                                    </div>
+                                                            </div>
+                                                            <div class="form-group col-md-3" [formGroup]="popupform">
+                                                                <label class="note">{{'ShipmentDate&Time' | translate }} <span class="manto">*</span></label>
+                                                                <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                                                  placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                                                <ng2-flatpickr id="popupDate" name="dateOfShipment" class="form-control flatpickr flatpickr-input active" #shipmentDatePicker
+                                                                 [config]="shipmentDateOptions" placeholder="Select Date.." formControlName = "shipmentDate" [ngModel]="dataOfPickPack">
+                                                                </ng2-flatpickr>
+                                                              </div>                                                          
+                                                            
+                                                        </div>
+                                                       
+                                                        <div class="modal-footer">
+                                                            <span class="mr-auto d-none d-sm-none d-md-none d-lg-block"><b>Selected samples barcode: </b>({{_intSelectedBarcode}}) {{_strSelectedBarcode}}</span>
+                                                          
+                                                            <button class="btn"  (click)="modal.dismiss()"><i
+                                                                    class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                    id="linktobuttonpickpak">{{'Submit' | translate }}</button>
+                                                                </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                    </form>
+                                    </div>
+                                    <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+                                </ng-template>
+                          
+                       
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+</div>
+<!--  END MAIN CONTAINER  -->
+
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-pickandpack.js'"></i>
+<i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

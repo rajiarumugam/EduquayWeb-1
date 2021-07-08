@@ -600,5 +600,8 @@
 "Molecular Lab Result":"Molecular Lab Result",
 "update pregnancy continue":"Update Pregnancy Continue",
 "Molecular Lab Test Results":"Molecular Lab Test Results",
-"SenderNameAndLocation":"Sender Name & Location"
+"SenderNameAndLocation":"Sender Name & Location",
+"MotherFirstName":"Mother First Name",
+"FatherFirstName":"Father First Name",
+"GuardianFirstName":"Guardian First Name"
 }

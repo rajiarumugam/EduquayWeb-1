@@ -1,0 +1,66 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="block" subMenum="sample-collection"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+            <!-- <div class="col-md-12 text-center">
+                            <h5 class="">ANM Name - PHC Name</h5>
+                        </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        <!--<div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Notifications" placement="right" [routerLink]="['/app/anm-notification']"
+                                role="button" ><i class="fas fa-chevron-left pNav-left"></i></a></div>-->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">{{'SubjectRegistration' | translate }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="float-right"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Sample Collection" placement="left" [routerLink]="['/app/anm-sample-collection']"
+                                role="button"><i class="fas fa-chevron-right pNav-right"></i></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': (currentPage == 'awreg' || currentPage == 'block-subregn') ? true : false}" id="antenatal-tab" data-toggle="tab"
+                                [routerLink]="['/app/block-subregn/awreg']" role="tab" aria-controls="home"
+                                aria-selected="true">{{'AntenatalWomanRegistration' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'spouse' ? true : false}" id="spouseregistration-tab" [routerLink]="['/app/block-subregn/spouse']" data-toggle="tab" 
+                                role="tab" aria-controls="profile" aria-selected="true">{{'SpouseRegistration' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'student' ? true : false}" id="studentregistration-tab" [routerLink]="['/app/block-subregn/student']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'Age' | translate }} < 18</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-5" id="myTabContent">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+      </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+  </div>
+  <!--  END MAIN CONTAINER  -->
+  
+  <!--<i appLoadScript [script]="''"></i>-->
+  <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+  
