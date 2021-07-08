@@ -20,11 +20,11 @@ import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
-  selector: 'app-anm-spouse-registration',
-  templateUrl: './anm-spouse-registration.component.html',
-  styleUrls: ['./anm-spouse-registration.component.css']
+  selector: 'app-block-spouse-registration',
+  templateUrl: './block-spouse-registration.component.html',
+  styleUrls: ['./block-spouse-registration.component.css']
 })
-export class AnmSpouseRegistrationComponent implements OnInit {
+export class blockSpouseRegistrationComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('startPicker1', { static: false }) pickerStart;
