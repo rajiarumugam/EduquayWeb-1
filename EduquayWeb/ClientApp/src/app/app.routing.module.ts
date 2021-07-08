@@ -327,6 +327,7 @@ import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-s
 import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
 import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
 import { BlockStudentRegistrationComponent } from "./anm-module/block-registration/block-student-registration/block-student-registration.component";
+import { blockSpouseRegistrationComponent } from './anm-module/block-registration/block-spouse-registration/block-spouse-registration.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -426,7 +427,7 @@ const routes: Routes = [
         children:[
           {path: '', component: BlockAwRegistrationComponent, pathMatch: 'full'},
           {path: 'awreg', component: BlockAwRegistrationComponent, pathMatch: 'full'},
-          {path: 'spouse', component: AnmSpouseRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},
+          {path: 'spouse', component: blockSpouseRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},
           {path: 'student', component: BlockStudentRegistrationComponent, pathMatch: 'full'},
           {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
           {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
@@ -1099,7 +1100,8 @@ export const RoutingComponents = [
   BarcodeReportComponent,
   BarcodeReportMainComponent,
   RCHReportComponent,
-  RCHReportMainComponent
+  RCHReportMainComponent,
+  blockSpouseRegistrationComponent
 
 ];
 
