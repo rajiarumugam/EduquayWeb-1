@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                     <div class="justify-between">
                         <div class="col-md-4">
-                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Sample Collection" placement="right" [routerLink]="['/app/chc-sample-collection']"
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip" ngbTooltip="Sample Collection" placement="right" [routerLink]="['/app/block-sample-collection']"
                                     role="button"><i class="fas fa-chevron-left pNav-left"></i></a></div>
                         </div>
                         <div class="col-md-4">
@@ -51,6 +51,44 @@
                                 </div>  
                             </div>
                         </div>
+                          
+              <div class="form-row mt-4" [formGroup]="dateform">
+               
+                <div class="form-group col-md-2">
+                  <label for="inputchc">{{'CHC' | translate }}</label>
+                  <select id="inputchc" class="form-control" name=CHC #CHC formControlName="selectedCHC"
+                  required [(ngModel)]="selectedCHC" (change)="chcselected($event.target.value)">
+                  <option [ngValue]="null">Select CHC</option>
+                  <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                    </select>
+                
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputchc">{{'PHC' | translate }}</label>
+                  <select id="inputchc" class="form-control" name=PHC #PHC formControlName="selectedPHC"
+                  required [(ngModel)]="selectedPHC" (change)="phcselected($event.target.value)">
+                  <option [ngValue]="null">Select PHC</option>
+                  <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
+                    </select>
+                
+                </div>
+                <div class="form-group col-md-2" style="z-index: 1;">
+                  <label for="inputchc">{{'ANM' | translate }}</label>
+                  <select id="inputchc" class="form-control" name=ANM #ANM formControlName="selectedANM"
+                  required [(ngModel)]="selectedANM">
+                  <option [ngValue]="null">Select ANM</option>
+                  <option [value]="phc.id" *ngFor="let phc of anmList">{{phc.name}}</option>
+                    </select>
+                
+                </div>
+                <div class="col-md-2 mt-3">
+                  <div class="px-2 bd-highlight">
+                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                   <button type="submit" class="btn search-bu" (click)="chcSampleCollection()">
+                        <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+            </div>
                         <div class="table-responsive">
                             <table id="chcpickpack-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                 <thead>

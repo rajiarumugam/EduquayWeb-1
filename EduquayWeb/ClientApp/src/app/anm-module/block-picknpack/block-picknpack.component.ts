@@ -16,13 +16,14 @@ import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
 
 @Component({
-  selector: 'app-chc-picknpack',
-  templateUrl: './chc-picknpack.component.html',
-  styleUrls: ['./chc-picknpack.component.css']
+  selector: 'app-block-picknpack',
+  templateUrl: './block-picknpack.component.html',
+  styleUrls: ['./block-picknpack.component.css']
 })
-export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
+export class BlockPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
   chcPicknpackErrorMessage: string;
   chcpicknpackInitResponse: any;
@@ -96,6 +97,16 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     enableTime: true,
   };
 
+  dateform: FormGroup;
+
+  selectedCHC:string = null;
+  CHCdata = [];
+  PHCdata = [];
+  selectedBlock;
+  erroMessage;
+  selectedPHC:string = null;
+  anmList = [];
+  selectedANM = null;
   constructor(
     private ChcpicknpackService: ChcPicknpackService,
     private modalService: NgbModal,
@@ -106,14 +117,21 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     private _formBuilder: FormBuilder,
     private constantService: ConstantService,
     private dataservice: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private masterService: masterService
   ) {}
 
   ngOnInit() {
 
+    this.dateform = this._formBuilder.group({
+      selectedCHC:[''],
+      selectedPHC:[''],
+      selectedANM:[' ']
+    });
     
-    this.dataservice.sendData(JSON.stringify({"module": "CHC - Reg & Sampling", "page": "Pick & Pack to Screening Center"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Block - REG & SAMPLING", "page": "Pick & Pack to Screening Center"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+    this.getCHC();
     this.InitializeDateRange();
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -138,7 +156,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     console.log(this.ChcpicknpackService.chcpickandpackListApi);
     // this.ddlChc(this.user.id);
     // this.ddlProviderName();
-    this.chcpicknpackList();
+    //this.chcpicknpackList();
 
     // Resolver //
     // this.chcpicknpackInitResponse = this.route.snapshot.data.chcpicknpackData;
@@ -159,6 +177,55 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     // }
   }
 
+  chcSampleCollection(){
+    this.chcpicknpackList();
+  }
+  getCHC(){
+    this.selectedBlock = this.user.blockId;
+    this.masterService.getuserBlockBasedCHC(this.selectedBlock)
+    .subscribe(response => {
+      this.CHCdata = response['data'];
+       this.selectedCHC = ''+this.CHCdata[0].id;
+       this.getPHC();
+    },
+    (err: HttpErrorResponse) =>{
+      this.CHCdata = [];
+      this.erroMessage = err.toString();
+    });
+  }
+  chcselected(event) {
+    this.getPHC();
+  }
+
+  getPHC(){
+    this.masterService.RetrievePHCByCHC(this.selectedCHC)
+    .subscribe(response => {
+      this.PHCdata = response['data'];
+      this.selectedPHC = ''+this.PHCdata[0].id;
+      this.getANMData();
+    },
+    (err: HttpErrorResponse) =>{
+      this.PHCdata = [];
+      this.erroMessage = err.toString();
+    });
+  }
+  phcselected(event) {
+    this.getANMData();
+  }
+  getANMData(){
+    this.masterService.getANMbyPHC(this.selectedPHC)
+    .subscribe(response => {
+
+    this.anmList = response['data'];
+    this.selectedANM = this.anmList[0].id;
+      
+      console.log(response)
+    },
+    (err: HttpErrorResponse) =>{
+      
+      this.erroMessage = err.toString();
+    });
+  }
   ddltestingChc(chcId) {
     let riPoint = this.ChcpicknpackService.getTestingChc(chcId).subscribe(response => {
       this.testingchcResponse = response;
@@ -203,7 +270,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.loaderService.display(true);
     this.chcSampleList = [];
-    this.chcpicknpackRequest = { userId: this.user.id, collectionFrom: this.user.sampleCollectionFrom };
+    this.chcpicknpackRequest = { userId: Number(this.selectedANM), collectionFrom: this.user.sampleCollectionFrom };
     let picknpack = this.ChcpicknpackService.getchcpickandpackList(this.chcpicknpackRequest)
       .subscribe(response => {
         this.chcpicknpackResponse = response;
@@ -299,7 +366,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       testingCHCId: this.user.chcId,
       dateOfShipment: this.sampleShipmentDate,
       timeOfShipment: this.sampleShipmentTime,
-      createdBy: this.user.id,
+      createdBy: Number(this.selectedANM),
       source: 'N',
     }
     //return false;
@@ -619,7 +686,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     }
     
     this.chcmovetimeoutExpiryRequest = {
-      userId: this.user.id,
+      userId: Number(this.selectedANM),
       barcodeNo: this.selectedBarcodes,
     }
     // Swal.fire({ allowOutsideClick: false,icon: 'success', title: "successfull",
