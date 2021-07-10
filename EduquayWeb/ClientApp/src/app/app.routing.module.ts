@@ -328,6 +328,9 @@ import { BlockAwRegistrationComponent } from "./anm-module/block-registration/bl
 import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
 import { BlockStudentRegistrationComponent } from "./anm-module/block-registration/block-student-registration/block-student-registration.component";
 import { blockSpouseRegistrationComponent } from './anm-module/block-registration/block-spouse-registration/block-spouse-registration.component';
+
+import { BlockSampleCollectionComponent } from './anm-module/block-sample-collection/block-sample-collection.component';
+import { BlockPicknpackComponent } from "./anm-module/block-picknpack/block-picknpack.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -444,9 +447,11 @@ const routes: Routes = [
           {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
       }*/,
-      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} 
+      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent }, 
+      { path: 'block-sample-collection', component: BlockSampleCollectionComponent },// resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} 
       { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
       { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
+      { path: 'block-pickandpack', component: BlockPicknpackComponent},
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent }, // resolve: {chcshipmentLogData: ChcShipmentlogResolverService}
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
       { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
@@ -1101,7 +1106,9 @@ export const RoutingComponents = [
   BarcodeReportMainComponent,
   RCHReportComponent,
   RCHReportMainComponent,
-  blockSpouseRegistrationComponent
+  blockSpouseRegistrationComponent,
+  BlockSampleCollectionComponent,
+  BlockPicknpackComponent
 
 ];
 
