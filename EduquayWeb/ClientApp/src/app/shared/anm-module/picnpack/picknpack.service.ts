@@ -18,7 +18,8 @@ export class PicknpackService {
   testingChcApi: string = "api/v1/WebMaster/RetrieveTestingCHC";
   avdNameApi: string = "api/v1/WebMaster/RetrieveAVD";
   AddShipmentApi: string = "api/v1/ANMCHCShipment/AddANMShipment";
-  timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimeoutExpiry"
+  timeoutExpirySampleApi: string = "api/v1/ANMNotifications/MoveTimeoutExpiry";
+  ilrPointApiByANm: string = "api/v1/WebMaster/RetrieveRIByANM";
 
   userId: number;
 
@@ -43,6 +44,11 @@ export class PicknpackService {
 
   getIlrPoint(riId){
     let apiUrl = this.genericServices.buildApiUrl(`${this.ilrPointApi}/${riId}`);
+    return this.http.get<ILRpointResponse>({url: apiUrl });
+  }
+
+  getIlrPointByANM(riId){
+    let apiUrl = this.genericServices.buildApiUrl(`${this.ilrPointApiByANm}/${riId}`);
     return this.http.get<ILRpointResponse>({url: apiUrl });
   }
 

@@ -331,6 +331,7 @@ import { blockSpouseRegistrationComponent } from './anm-module/block-registratio
 
 import { BlockSampleCollectionComponent } from './anm-module/block-sample-collection/block-sample-collection.component';
 import { BlockPicknpackComponent } from "./anm-module/block-picknpack/block-picknpack.component";
+import { BlockShipmentComponent } from "./anm-module/block-shipment/block-shipment.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -844,7 +845,9 @@ const routes: Routes = [
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
       { path: 'anm-pickpack', component: AnmPickandPackComponent },  // resolve: {picknpackData: PicknpackResolverService}
-      { path: 'anm-shipment', component: AnmShipmentComponent }, // resolve: {shipmentLogData: ShipmentlogResolverService }
+      { path: 'anm-shipment', component: AnmShipmentComponent },
+      { path: 'block-shipment', component: BlockShipmentComponent },
+      // resolve: {shipmentLogData: ShipmentlogResolverService }
       { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
       { path: 'chc-reg-viewsubjectprofile', component: AnmChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
@@ -1108,7 +1111,8 @@ export const RoutingComponents = [
   RCHReportMainComponent,
   blockSpouseRegistrationComponent,
   BlockSampleCollectionComponent,
-  BlockPicknpackComponent
+  BlockPicknpackComponent,
+  BlockShipmentComponent
 
 ];
 

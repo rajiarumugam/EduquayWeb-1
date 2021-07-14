@@ -134,14 +134,9 @@
                         <a [routerLink]="['/app/block-pickandpack']"> {{'Pick&Pack' | translate }}</a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-shipmentlog']"> {{'Shipmentlog' | translate }}</a>
+                        <a [routerLink]="['/app/block-shipment']"> {{'Shipmentlog' | translate }}</a>
                     </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-subjectprofile']"> {{'SubjectProfile' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-main-report']"> {{'Reports' | translate }} </a>
-                    </li>
+                   
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'CHCLTLEVEL1' || user.userRole === 'CHCSRLT'">
