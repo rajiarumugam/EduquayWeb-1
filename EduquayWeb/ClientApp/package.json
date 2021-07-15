@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 5000",
     "build": "ng build",
     "build:ssr": "ng run EduquayWeb:server:dev",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:prod":"NODE_OPTIONS=--max_old_space_size=8192 ng build --prod"
   },
   "private": true,
   "dependencies": {

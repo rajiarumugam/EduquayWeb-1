@@ -120,7 +120,7 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="submenu list-unstyled collapse"   id="block" data-parent="#accordionExample">
+                <ul class="submenu list-unstyled collapse show"   id="block" data-parent="#accordionExample">
                    <!-- <li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-notification']">  {{'Notifications' | translate }} </a>
                     </li>-->
@@ -134,14 +134,9 @@
                         <a [routerLink]="['/app/block-pickandpack']"> {{'Pick&Pack' | translate }}</a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-shipmentlog']"> {{'Shipmentlog' | translate }}</a>
+                        <a [routerLink]="['/app/block-shipment']"> {{'Shipmentlog' | translate }}</a>
                     </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-subjectprofile']"> {{'SubjectProfile' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-main-report']"> {{'Reports' | translate }} </a>
-                    </li>
+                   
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'CHCLTLEVEL1' || user.userRole === 'CHCSRLT'">
