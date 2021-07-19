@@ -332,6 +332,9 @@ import { blockSpouseRegistrationComponent } from './anm-module/block-registratio
 import { BlockSampleCollectionComponent } from './anm-module/block-sample-collection/block-sample-collection.component';
 import { BlockPicknpackComponent } from "./anm-module/block-picknpack/block-picknpack.component";
 import { BlockShipmentComponent } from "./anm-module/block-shipment/block-shipment.component";
+
+import { CHCRegnreportListComponent } from "./nhm/chc-report-list/chc-report-list.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -834,8 +837,10 @@ const routes: Routes = [
         path: 'anm-report', component: ANMreportListComponent,
        
       },
-      
-      
+      {
+        path: 'chc-regn-report', component: CHCRegnreportListComponent,
+       
+      },
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
       { path: 'update-post-pndtc-awaited', component: PostPndtcDecisionAwaitedComponent },
@@ -1112,7 +1117,8 @@ export const RoutingComponents = [
   blockSpouseRegistrationComponent,
   BlockSampleCollectionComponent,
   BlockPicknpackComponent,
-  BlockShipmentComponent
+  BlockShipmentComponent,
+  CHCRegnreportListComponent
 
 ];
 
