@@ -180,6 +180,8 @@
                     </li>
                 </ul>
             </li>
+            
+
             <li class="menu" *ngIf="user.userRole === 'NHM'">
                 <a href="#nhm" data-toggle="collapse" attr.data-active="{{module === 'nhm'}}" attr.aria-expanded="{{module === 'nhm'}}" class="dropdown-toggle">
                     <div class="">
@@ -245,6 +247,9 @@
                     </li>
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-report']"> {{'Report' | translate }} </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/chc-regn-report']"> {{'Report' | translate }} </a>
                     </li>
                 </ul>
             </li>
