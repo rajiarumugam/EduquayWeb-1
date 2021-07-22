@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">{{'nhmreport' | translate }}</h5>
+                            <h5 class="float-center">{{'Central Lab Report' | translate }}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -138,19 +138,16 @@
                                 <p>{{'Timeout/Damaged' | translate }}</p>
                             </div>
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);"> 
-                                <p>{{'CBC Pending' | translate }}</p>
+                                <p>{{'Test Pending' | translate }}</p>
                             </div>
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);"> 
-                                <p>{{'SST Pending' | translate }}</p>
+                                <p>{{'Abnormal' | translate }}</p>
                             </div>
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);"> 
-                                <p style="text-align: center;">{{'CBC or SST Positive' | translate }}</p>
+                                <p style="text-align: center;">{{'Normal' | translate }}</p>
                             </div>
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);"> 
-                                <p style="text-align: center;">{{'CBC And SST Negative' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);"> 
-                                <p>{{'Shipment Status' | translate }}</p>
+                                <p style="text-align: center;">{{'Shipment Status' | translate }}</p>
                             </div>
                             
                         </div>
@@ -222,9 +219,9 @@
                                 <p>{{'carrier' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDTcarrierCount}}</span></p>
                             </div>
                         </div>--> 
-                        <div class="custm-tab" *ngIf="maintabSelected == 7 ? true : false">
+                        <div class="custm-tab" *ngIf="maintabSelected == 6 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(7,1);"> 
-                                    <p>{{'Shipped to CL' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingpendingCount}}</span></p>
+                                    <p>{{'Shipped to ML' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingpendingCount}}</span></p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(7,2);"> 
                                 <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingMTPAgreedCount}}</span></p>
