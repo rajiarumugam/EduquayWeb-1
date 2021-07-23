@@ -16,7 +16,11 @@ export class PNDTCmasterService {
   constructor(private _http: HttpClientService, private genericService: GenericService, private tokenService: TokenService) {
 
    }
-
+   getSampleStatus(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVECENTRALLABSAMPLESTATUS);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
   
   getPNDTCDistrict(): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEALLDISTRICT);

@@ -127,7 +127,8 @@ export const ENDPOINT = {
     },
     "NHM":{
         "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail",
-        "CHCRECEIPTREPORTSDETAIL":"api/v1/CHCReceiptProcessing/CHCReceiptReportsDetail"
+        "CHCRECEIPTREPORTSDETAIL":"api/v1/CHCReceiptProcessing/CHCReceiptReportsDetail",
+        "CLRECEIPTREPORTSDETAIL":"api/v1/CentralLab/CLReceiptReportsDetail"
     },
     "REPORTS":
     {

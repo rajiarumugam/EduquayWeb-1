@@ -294,9 +294,16 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/central-shipment']"> {{'Shipmentlog' | translate }}</a>
                     </li>
-                    <li routerLinkActive="active">
+                    <!--<li routerLinkActive="active">
                         <a [routerLink]="['/app/centrallab-report']"> {{'ReportSampleStatus' | translate }} </a>
+                    </li>-->
+
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/cl-regn-report']"> {{'ReportSampleStatus' | translate }} </a>
                     </li>
+
+
+                    
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'SUPPORTADMIN'">
