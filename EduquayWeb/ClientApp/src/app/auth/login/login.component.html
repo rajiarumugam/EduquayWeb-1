@@ -254,4 +254,26 @@
 <!-- <div class="col-md-2">
       <a href="#" class="py-5 pr-5 text-primary" style="float: right; font-weight: 900;">HELP</a>
   </div> -->
-
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Maintenance Notice </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          Dear all,
+          Kindly notice that we will be experiencing server downtime due to scheduled maintenance on 24-07-2021 (Saturday) from 
+          10 AM  to 3 PM. During this time, the TSCOD web application and mobile application will be unavailable.
+          Kindly plan accordingly.
+          
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close()">ok</button>
+    </div>
+  </ng-template>
+  

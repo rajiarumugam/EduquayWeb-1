@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { authResponse, resetLoginResponse } from '../../shared/auth-response';
 import { TokenService } from '../../shared/token.service';
@@ -20,6 +20,8 @@ import { DataService } from 'src/app/shared/data.service';
 export class LoginComponent implements OnInit {
   @ViewChild('f', { static: false }) loginForm: NgForm;
   //@ViewChild('t', { static: false }) resetLoginForm: NgForm;
+  @ViewChild('content', { static: true }) content: TemplateRef<any>;
+
   
   loginCaption: string = "Submit";
   loginProcess: string = "Processing..";
@@ -65,10 +67,12 @@ export class LoginComponent implements OnInit {
       .subscribe(response => {
         this.authResult = response;
         console.log(response);
+        this.openModal()
         if (this.authResult && (this.authResult.status)) {
           this.tokenService.setToken('currentUser', this.authResult.token, 'somename');
           this.tokenService.setUser('lu', this.authResult.userDetail);
           console.log(this.authResult.userDetail);
+
           this.dataservice.deleteProp('csvspecimenstartdata');
           if(this.authResult.userDetail.userRole === "ANM")
               this.router.navigate(['/app/anm-notification'], { relativeTo: this.route });
@@ -189,6 +193,9 @@ export class LoginComponent implements OnInit {
         console.log(err);
       });
 
+  }
+  openModal(){
+    this.modalService.open(this.content, { centered: true });
   }
 
   showResponseMessage(message: string, type: string){
