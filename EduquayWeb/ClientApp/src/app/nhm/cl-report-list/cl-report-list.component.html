@@ -20,9 +20,9 @@
             <div class="col-md-12">
                 <div class="justify-between">
                     <div class="col-md-4">
-                        <!-- <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
-                            [routerLink]="['/app/anm-shipment']" role="button" ngbTooltip="Shipment log" placement="right"><i
-                                    class="fas fa-chevron-left pNav-left"></i></a></div> -->
+                        <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                            [routerLink]="['/app/central-shipment']" role="button" ngbTooltip="Shipment log" placement="right"><i
+                                    class="fas fa-chevron-left pNav-left"></i></a></div>
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
@@ -71,6 +71,13 @@
                                     <ng2-flatpickr id="scToDate" name="toDate" class="form-control flatpickr flatpickr-input active" #endPicker
                                     [config]="endOptions" placeholder="Select Date.." formControlName="toDate"></ng2-flatpickr>
                                 </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputSubjectcategory">{{'SampleStatus' | translate}}</label>
+                                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus" formControlName = "sampleStatus">
+                                        <option [ngValue]="null">Select Status</option>
+                                        <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
+                                      </select>
                                 </div>
                                
                                 <div class="form-group col-md-2">
@@ -249,17 +256,19 @@
                                 <thead>
                                     <tr>
                                         <th><span>{{'SNo' | translate }}</span></th>
-                                        <th><span>{{'SubjectType' | translate }}</span></th>
+                                        <!--<th><span>{{'SubjectType' | translate }}</span></th>-->
+                                        <th><span>{{'SubjectName' | translate }}</span></th>
                                         <th><span>{{'SubjectID' | translate }}</span></th>
+                                        
                                         <th><span>{{'Barcode' | translate }}</span></th>
                                         <th><span>{{'RCHID' | translate }}</span></th>
-                                        <th><span>{{'ANMName' | translate }}</span></th>
-                                        <th><span>{{'ANMContact' | translate }}</span></th>
-                                        <th><span>{{'ANM Shipped Date' | translate }}</span></th>
+                                        <!--<th><span>{{'ANMName' | translate }}</span></th>
+                                        <th><span>{{'ANMContact' | translate }}</span></th>-->
+                                        <th><span>{{'CHC Shipped Date' | translate }}</span></th>
                                         <th><span >{{'LT Recd DT/TM' | translate }}</span></th>
-                                        <th><span >{{'Test Status' | translate }}</span></th>
-                                        <th><span>{{'Test DT / TM' | translate }}</span></th>
-                                        <!--<th><span>{{'Village/District' | translate }}</span></th>
+                                        <th><span >{{'Normal / Damaged / Timeout' | translate }}</span></th>
+                                       <!-- <th><span>{{'Test DT / TM' | translate }}</span></th>
+                                        <th><span>{{'Village/District' | translate }}</span></th>
                                         <th><span >{{'GA' | translate }}</span></th>
                                         <th><span >{{'SampleCollected' | translate }}</span></th>
                                         <th><span>{{'SampleCollectedDt' | translate }}</span></th>
@@ -281,16 +290,15 @@
                                 <tbody>
                                     <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
                                         <td style="text-align: center">{{i +1}}</td>
-                                        <td style="text-align: left">{{subjectinfo.anmId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
+                                        
+                                        <td style="text-align: center">{{subjectinfo.subjectName}}</td>
                                         <td style="text-align: center">{{subjectinfo.subjectId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.subjectType}}</td>
-                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
-                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
-                                        <td style="text-align: left">{{subjectinfo.barcode}}</td>
-                                        <td class="text-left sname">{{subjectinfo.dateOfRegister}}</td>
-                                        <td style="text-align: center">{{subjectinfo.ri}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
+                                        <td style="text-align: center">{{subjectinfo.barcodeNo}}</td>
+                                        <td class="text-left sname">{{subjectinfo.rchId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.shipmentDateTime}}</td>
+                                        <td style="text-align: center">{{subjectinfo.clShipmentDateTime}}</td>
+                                        <td class="text-left sname">{{subjectinfo.timeoutDamaged}}</td>
+                                       
                                         <!--<td class="text-left sname">{{subjectinfo.village}}</td>
                                         <td style="text-align: center">{{subjectinfo.ga}}</td>
                                         <td style="text-align: left">{{subjectinfo.sampleCollected}}</td>
@@ -309,7 +317,7 @@
                                         <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
                                             <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
                                          </a></td>
-                                        <!--<td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                        <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
                                         </td>
                                         <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">

@@ -183,6 +183,8 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
 
   PHCdata = [];
   selectedphc = null;
+  sampleStatusData = [];
+  selectedSampleStatus = null;
 
   
 
@@ -199,13 +201,14 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Report - Sample Status"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     this.selectedDistrict = this.user.districtId === 0 ? null : this.user.districtId;
 
     console.log(this.selectedDistrict);
 
+    this.getSampleStatusData();
     this.getCHCData();
     /*if(this.selectedDistrict != null)
     {
@@ -371,11 +374,13 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
       phcId:0,
       /*userInput:"",
       searchType:1*/
+      "centralLabId": this.user.centralLabId,
+      "subjectType":0,
       "searchSection":this.maintabSelected,
       "status":1
     }
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getCHCReceiptReportsDetail(_obj)
+    let subProfile = this.SubjectProfileService.getCLReceiptReportsDetail(_obj)
       .subscribe(response => {
         console.log(response);
         this.anmsubjectProfileResponse = response;
@@ -404,7 +409,16 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
        
         //this.phcChange();
   }
-
+  getSampleStatusData(){
+    this.PNDTCmasterService.getSampleStatus()
+    .subscribe(response => {
+      console.log(response);
+      this.sampleStatusData = response['sampleStatus'];
+    },
+    (err: HttpErrorResponse) =>{
+      this.sampleStatusData = [];
+    });
+  }
   getDistrictData(){
     this.PNDTCmasterService.getPNDTCDistrict()
     .subscribe(response => {
@@ -437,7 +451,7 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
     this.loaderService.display(true);
     this.ANMdata = [];
     this.selectedAnm = null;
-    this.PNDTCmasterService.getCHCbyTestingCHC()
+    this.PNDTCmasterService.getCHCbyCentrallab()
     .subscribe(response => {
       console.log(response);
       this.CHCdata = response['chc'];
@@ -509,12 +523,14 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
       chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
       phcId: this.selectedphc === null ? 0 : Number(this.selectedphc),
       anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
+      "centralLabId": this.user.centralLabId,
+      "subjectType":this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "searchSection":maintab,
       "status":subtab
     }
    
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getCHCReceiptReportsDetail(_obj)
+    let subProfile = this.SubjectProfileService.getCLReceiptReportsDetail(_obj)
       .subscribe(response => {
         this.anmsubjectProfileResponse = response;
         this.loaderService.display(false);
@@ -602,12 +618,14 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
       chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
       anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
       phcId: this.selectedphc === null ? 0 : Number(this.selectedphc),
+      "centralLabId": this.user.centralLabId,
+      "subjectType":this.selectedSampleStatus != null ? Number(this.selectedSampleStatus) : 0,
       "searchSection":maintab,
       "status":subtab
     }
    
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getCHCReceiptReportsDetail(_obj)
+    let subProfile = this.SubjectProfileService.getCLReceiptReportsDetail(_obj)
       .subscribe(response => {
         
        console.log(response['data'].length);
@@ -785,6 +803,7 @@ export class CentralLabRegnreportListComponent implements AfterViewInit, OnDestr
       chc: [''],
       phc: [''],
       anm: [''],
+      sampleStatus: ['']
     });
 
     // Start Date Changes
