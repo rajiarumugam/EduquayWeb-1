@@ -334,6 +334,7 @@ import { BlockPicknpackComponent } from "./anm-module/block-picknpack/block-pick
 import { BlockShipmentComponent } from "./anm-module/block-shipment/block-shipment.component";
 
 import { CHCRegnreportListComponent } from "./nhm/chc-report-list/chc-report-list.component";
+import { CentralLabRegnreportListComponent } from "./nhm/cl-report-list/cl-report-list.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -841,6 +842,12 @@ const routes: Routes = [
         path: 'chc-regn-report', component: CHCRegnreportListComponent,
        
       },
+{
+      path: 'cl-regn-report', component: CentralLabRegnreportListComponent,
+       
+    },
+
+      
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
       { path: 'update-post-pndtc-awaited', component: PostPndtcDecisionAwaitedComponent },
@@ -1118,7 +1125,8 @@ export const RoutingComponents = [
   BlockSampleCollectionComponent,
   BlockPicknpackComponent,
   BlockShipmentComponent,
-  CHCRegnreportListComponent
+  CHCRegnreportListComponent,
+  CentralLabRegnreportListComponent
 
 ];
 

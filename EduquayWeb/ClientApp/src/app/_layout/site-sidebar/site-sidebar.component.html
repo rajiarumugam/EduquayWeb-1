@@ -245,12 +245,16 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-sample-shipmentlog']"> {{'Shipmentlog' | translate }} </a>
                     </li>
-                    <li routerLinkActive="active">
+                    <!--<li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-report']"> {{'Report' | translate }} </a>
-                    </li>
+                    </li>-->
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-regn-report']"> {{'Report' | translate }} </a>
                     </li>
+
+                    <!--<li routerLinkActive="active">
+                        <a [routerLink]="['/app/cl-regn-report']"> {{'CL Report' | translate }} </a>
+                    </li>-->
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'HPLCLT'">
