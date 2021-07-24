@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    console.log(Date.now)
+   this.openModal()
     let patientResponse = {};
     let patients = [];
   }
@@ -67,7 +69,7 @@ export class LoginComponent implements OnInit {
       .subscribe(response => {
         this.authResult = response;
         console.log(response);
-        this.openModal()
+       
         if (this.authResult && (this.authResult.status)) {
           this.tokenService.setToken('currentUser', this.authResult.token, 'somename');
           this.tokenService.setUser('lu', this.authResult.userDetail);
@@ -195,7 +197,7 @@ export class LoginComponent implements OnInit {
 
   }
   openModal(){
-    this.modalService.open(this.content, { centered: true });
+    this.modalService.open(this.content, { centered: true ,size:"10",backdrop:"static"});
   }
 
   showResponseMessage(message: string, type: string){
