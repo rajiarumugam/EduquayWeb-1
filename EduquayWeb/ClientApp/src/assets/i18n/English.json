@@ -600,5 +600,15 @@
 "Molecular Lab Result":"Molecular Lab Result",
 "update pregnancy continue":"Update Pregnancy Continue",
 "Molecular Lab Test Results":"Molecular Lab Test Results",
-"SenderNameAndLocation":"Sender Name & Location"
+"SenderNameAndLocation":"Sender Name & Location",
+"MotherFirstName":"Mother First Name",
+"FatherFirstName":"Father First Name",
+"GuardianFirstName":"Guardian First Name",
+"AlternateAVDName":"Alternate AVD Name",
+"AlternateAVDContactNumber":"Alternate AVD Contact Number",
+"ANM Shipped Date":"ANM Shipped Date",
+"LT Recd DT/TM":"LT Recd DT/TM",
+"Test Status":"Test Status",
+"Test DT / TM":"Test DT / TM",
+"Central Lab Report":"Central Lab Report"
 }

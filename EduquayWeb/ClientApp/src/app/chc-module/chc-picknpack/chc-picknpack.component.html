@@ -77,7 +77,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let chcpicknpack of chcSampleList; index as i"  class="tbl-row-red tbl-row-black"
-                                    [ngClass]="{'tbl-row-black tbl-data-black': +chcpicknpack.sampleAging < 24 , 'tbl-row tbl-data-red': +chcpicknpack.sampleAging >= 24 }">
+                                    [ngClass]="{'tbl-row-black tbl-data-black': +chcpicknpack.sampleAging < 36 , 'tbl-row tbl-data-red': +chcpicknpack.sampleAging >= 36 }">
                                         <td class="sno text-center tbl-data-red tbl-data-black">{{i +1}}</td>
                                         <td class="sname text-left tbl-data-red tbl-data-black">{{chcpicknpack.subjectName}}</td>
                                         <td class="sid tbl-data-red tbl-data-black">{{chcpicknpack.uniqueSubjectId}}</td>

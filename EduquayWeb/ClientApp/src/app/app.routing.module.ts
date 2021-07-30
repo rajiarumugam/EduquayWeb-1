@@ -323,6 +323,19 @@ import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-blood
 import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
 import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
 
+
+import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
+import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
+import { BlockStudentRegistrationComponent } from "./anm-module/block-registration/block-student-registration/block-student-registration.component";
+import { blockSpouseRegistrationComponent } from './anm-module/block-registration/block-spouse-registration/block-spouse-registration.component';
+
+import { BlockSampleCollectionComponent } from './anm-module/block-sample-collection/block-sample-collection.component';
+import { BlockPicknpackComponent } from "./anm-module/block-picknpack/block-picknpack.component";
+import { BlockShipmentComponent } from "./anm-module/block-shipment/block-shipment.component";
+
+import { CHCRegnreportListComponent } from "./nhm/chc-report-list/chc-report-list.component";
+import { CentralLabRegnreportListComponent } from "./nhm/cl-report-list/cl-report-list.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -418,6 +431,18 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'block-subregn', component: BlockSubjecttRegistrationComponent,
+        children:[
+          {path: '', component: BlockAwRegistrationComponent, pathMatch: 'full'},
+          {path: 'awreg', component: BlockAwRegistrationComponent, pathMatch: 'full'},
+          {path: 'spouse', component: blockSpouseRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},
+          {path: 'student', component: BlockStudentRegistrationComponent, pathMatch: 'full'},
+          {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
+          {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
+        ]
+
+      }/*,
+      {
         path: 'block-subregn', component: BlockSubjectRegistrationComponent,
         children:[
           {path: '', component: ChcwalkinRegistrationComponent, pathMatch: 'full'},
@@ -426,10 +451,12 @@ const routes: Routes = [
           {path: 'student', component: ChcStudentRegistrationComponent, pathMatch: 'full'},
           {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
-      },
-      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} 
+      }*/,
+      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent }, 
+      { path: 'block-sample-collection', component: BlockSampleCollectionComponent },// resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} 
       { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
       { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
+      { path: 'block-pickandpack', component: BlockPicknpackComponent},
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent }, // resolve: {chcshipmentLogData: ChcShipmentlogResolverService}
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
       { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
@@ -811,7 +838,15 @@ const routes: Routes = [
         path: 'anm-report', component: ANMreportListComponent,
        
       },
-      
+      {
+        path: 'chc-regn-report', component: CHCRegnreportListComponent,
+       
+      },
+{
+      path: 'cl-regn-report', component: CentralLabRegnreportListComponent,
+       
+    },
+
       
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
@@ -822,7 +857,9 @@ const routes: Routes = [
       { path: 'anm-sample-collection/:subtype', component: SampleCollectionComponent }, // resolve: {sampleCollectionData: SampleCollectionResolverService}
       //{ path: 'test/:id', component: AboutComponent }
       { path: 'anm-pickpack', component: AnmPickandPackComponent },  // resolve: {picknpackData: PicknpackResolverService}
-      { path: 'anm-shipment', component: AnmShipmentComponent }, // resolve: {shipmentLogData: ShipmentlogResolverService }
+      { path: 'anm-shipment', component: AnmShipmentComponent },
+      { path: 'block-shipment', component: BlockShipmentComponent },
+      // resolve: {shipmentLogData: ShipmentlogResolverService }
       { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
       { path: 'chc-reg-viewsubjectprofile', component: AnmChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
@@ -1071,6 +1108,9 @@ export const RoutingComponents = [
   CVSReportsMainComponent,
   CVSPosPrintComponent,
   BlockSubjectRegistrationComponent,
+  BlockAwRegistrationComponent,
+  BlockSubjecttRegistrationComponent,
+  BlockStudentRegistrationComponent,
   SSTCorrectionComponent,
   SSTCorrectionMainComponent,
   LMPReportComponent,
@@ -1081,6 +1121,12 @@ export const RoutingComponents = [
   BarcodeReportMainComponent,
   RCHReportComponent,
   RCHReportMainComponent,
+  blockSpouseRegistrationComponent,
+  BlockSampleCollectionComponent,
+  BlockPicknpackComponent,
+  BlockShipmentComponent,
+  CHCRegnreportListComponent,
+  CentralLabRegnreportListComponent
 
 ];
 

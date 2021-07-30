@@ -18,14 +18,17 @@ import * as moment from 'moment';
 import { ConstantService } from 'src/app/shared/constant.service';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
-
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
+import { ChcPicknpackService } from 'src/app/shared/chc-module/chc-pickandpack/chc-picknpack.service';
+import { ChcPicknpackResponse, ChcSampleList, ChcResponse, ChcModel, ProviderNameResponse, logisticsProviderModel, AddChcShipmentResponse, chcMoveTimeoutExpiryResponse, TestingChcResponse, ChcTestingModel } from 'src/app/shared/chc-module/chc-pickandpack/chc-picknpack-response';
+import { ChcPicknpackRequest, AddChcShipmentRequest, chcMoveTimeoutExpiryRequest } from 'src/app/shared/chc-module/chc-pickandpack/chc-picknpack-request';
 
 @Component({
-  selector: 'app-anm-pickandpack',
-  templateUrl: './anm-pickandpack.component.html',
-  styleUrls: ['./anm-pickandpack.component.css']
+  selector: 'app-block-picknpack',
+  templateUrl: './block-picknpack.component.html',
+  styleUrls: ['./block-picknpack.component.css']
 })
-export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit {
+export class BlockPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChild('shipmentDatePicker', { static: false }) shipmentDatePicker;
   //@Output() barcodeselected: EventEmitter<any> = new EventEmitter<any>(); 
@@ -77,7 +80,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   shipmentId: string;
   errorMessage: string;
   selectedBarcodes: string;
-  name: string;
+  name: any;
   sampleSelected: boolean;
   selectedAll: any;
   sampleDateTime: string;
@@ -119,7 +122,17 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
   //   maxDate: new Date(Date.now())
   // };
 
-
+dateform: FormGroup;
+ selectedCHC:string = null;
+  CHCdata = [];
+  PHCdata = [];
+  selectedBlock;
+  erroMessage;
+  selectedPHC:string = null;
+  anmList = [];
+  selectedANM = null;
+    chcSampleList: ChcSampleList[] = [];
+    chcpicknpackRequest: ChcPicknpackRequest;
   constructor(
     private PicknpackService: PicknpackService,
     private modalService: NgbModal,
@@ -129,13 +142,22 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     private tokenService: TokenService,
     private _formBuilder: FormBuilder,
     private dataservice: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private masterService: masterService,
+    private ChcpicknpackService: ChcPicknpackService,
   ) { }
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "ANM", "page": "Pick & Pack to CHC"}));
+     this.dateform = this._formBuilder.group({
+      selectedCHC:[''],
+      selectedPHC:[''],
+      selectedANM:[' ']
+    });
+    
+    this.dataservice.sendData(JSON.stringify({"module": "Block - REG & SAMPLING", "page": "Pick & Pack to Screening Center"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
+     this.getCHC();
     this.InitializeDateRange();
     this.dtOptions = {
       pagingType: 'simple_numbers',
@@ -181,7 +203,86 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     //   }
     // }
   }
+  chcSampleCollection(){
+    this.chcpicknpackList();
+  }
 
+  chcpicknpackList() {
+
+    this.loaderService.display(true);
+    this.chcSampleList = [];
+    this.chcpicknpackRequest = { userId: Number(this.selectedANM), collectionFrom: this.user.sampleCollectionFrom };
+    let picknpack = this.ChcpicknpackService.getchcpickandpackList(this.chcpicknpackRequest)
+      .subscribe(response => {
+        this.picknpackResponse = response;
+        this.loaderService.display(false);
+        if (this.picknpackResponse !== null && this.picknpackResponse.status === "true") {
+          if (this.picknpackResponse.sampleList.length <= 0) {
+            this.picknpackErrorMessage = response.message;
+          }
+          else {
+            this.sampleList = this.picknpackResponse.sampleList;
+            // this.sampleList.forEach(element => {
+            //   element.sampleSelected = true;
+            // });
+            this.rerender();
+          }
+        }
+        else {
+          this.picknpackErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.picknpackErrorMessage = err.toString();
+        });
+
+  }
+getCHC(){
+    this.selectedBlock = this.user.blockId;
+    this.masterService.getuserBlockBasedCHC(this.selectedBlock)
+    .subscribe(response => {
+      this.CHCdata = response['data'];
+       this.selectedCHC = ''+this.CHCdata[0].id;
+       this.getPHC();
+    },
+    (err: HttpErrorResponse) =>{
+      this.CHCdata = [];
+      this.erroMessage = err.toString();
+    });
+  }
+  chcselected(event) {
+    this.getPHC();
+  }
+
+  getPHC(){
+    this.masterService.RetrievePHCByCHC(this.selectedCHC)
+    .subscribe(response => {
+      this.PHCdata = response['data'];
+      this.selectedPHC = ''+this.PHCdata[0].id;
+      this.getANMData();
+    },
+    (err: HttpErrorResponse) =>{
+      this.PHCdata = [];
+      this.erroMessage = err.toString();
+    });
+  }
+  phcselected(event) {
+    this.getANMData();
+  }
+  getANMData(){
+    this.masterService.getANMbyPHC(this.selectedPHC)
+    .subscribe(response => {
+
+    this.anmList = response['data'];
+    this.selectedANM = this.anmList[0].id;
+      
+      console.log(response)
+    },
+    (err: HttpErrorResponse) =>{
+      
+      this.erroMessage = err.toString();
+    });
+  }
   ddlRiPoint(userId) {
     let riPoint = this.PicknpackService.getRiPoint(userId).subscribe(response => {
       this.riPointResponse = response;
@@ -399,7 +500,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       timeOfShipment: this.sampleShipmentTime,
       barcodeNo: this.selectedBarcodes,
       shipmentFrom: this.user.shipmentFrom,
-      createdBy: this.user.id,
+      createdBy: Number(this.selectedANM),
       source: 'N',
     }
     // Swal.fire({icon: 'success', title: "successfull",
@@ -458,7 +559,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
     }
 
     this.pickpackmovetimeoutExpiryRequest = {
-      anmId: this.user.id,
+      anmId: Number(this.selectedANM),
       barcodeNo: this.selectedBarcodes,
     }
     // Swal.fire({icon: 'success', title: "successfull",
@@ -698,7 +799,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.fetchMaxDateAllbc();
       
           this.picknpackErrorMessage = '';
-          this.ddlRiPoint(this.user.id);
+          this.ddlRiPoint(Number(this.selectedANM));
           this.alternateAVD = '';
           this.alternateAVDContactNo = '';
 
@@ -707,7 +808,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
-          this.name = this.user.name;
+          this.name = this.anmList.map(x=> {return x.id === this.selectedANM ? x.name : ''});;
           this.modalService.open(
             picknPackdetail, {
             centered: true,
@@ -729,7 +830,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.fetchMaxDatelt24();
           
           this.picknpackErrorMessage = '';
-           this.ddlRiPoint(this.user.id);
+           this.ddlRiPoint(Number(this.selectedANM));
           this.alternateAVD = '';
           this.alternateAVDContactNo = '';
           
@@ -738,7 +839,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
           this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
-          this.name = this.user.name;
+          this.name = this.anmList.map(x=> {return x.id === this.selectedANM ? x.name : ''});;
           this.modalService.open(
             picknPackdetail, {
             centered: true,
@@ -766,7 +867,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       this.fetchMaxDatelt24(); 
 
       this.picknpackErrorMessage = '';
-      this.ddlRiPoint(this.user.id);
+      this.ddlRiPoint(Number(this.selectedANM));
       this.alternateAVD = '';
       this.alternateAVDContactNo = '';
       
@@ -775,7 +876,7 @@ export class AnmPickandPackComponent implements AfterViewInit, OnDestroy, OnInit
       this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
       this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
-      this.name = this.user.name;
+      this.name = this.anmList.map(x=> {return x.id === this.selectedANM ? x.name : ''});
       
       this.modalService.open(
         picknPackdetail, {

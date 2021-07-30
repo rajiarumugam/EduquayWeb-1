@@ -104,7 +104,7 @@
             </li>
           
             <li class="menu" *ngIf="user.userRole === 'NHM'">
-                <a href="#chc" data-toggle="collapse"  attr.data-active="{{module === 'chc'}}" attr.aria-expanded="{{module === 'chc'}}" class="dropdown-toggle">
+                <a href="#block" data-toggle="collapse"  attr.data-active="{{module === 'block'}}" attr.aria-expanded="{{module === 'block'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -120,7 +120,7 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="submenu list-unstyled collapse"   id="chc" data-parent="#accordionExample">
+                <ul class="submenu list-unstyled collapse show"   id="block" data-parent="#accordionExample">
                    <!-- <li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-notification']">  {{'Notifications' | translate }} </a>
                     </li>-->
@@ -128,20 +128,15 @@
                         <a [routerLink]="['/app/block-subregn']"> {{'Registration' | translate }} </a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-sample-collection']"> {{'SampleCollection' | translate }} </a>
+                        <a [routerLink]="['/app/block-sample-collection']"> {{'SampleCollection' | translate }} </a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-pickandpack']"> {{'Pick&Pack' | translate }}</a>
+                        <a [routerLink]="['/app/block-pickandpack']"> {{'Pick&Pack' | translate }}</a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-shipmentlog']"> {{'Shipmentlog' | translate }}</a>
+                        <a [routerLink]="['/app/block-shipment']"> {{'Shipmentlog' | translate }}</a>
                     </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-subjectprofile']"> {{'SubjectProfile' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/chc-main-report']"> {{'Reports' | translate }} </a>
-                    </li>
+                   
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'CHCLTLEVEL1' || user.userRole === 'CHCSRLT'">
@@ -185,8 +180,10 @@
                     </li>
                 </ul>
             </li>
+            
+
             <li class="menu" *ngIf="user.userRole === 'NHM'">
-                <a href="#nhm" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+                <a href="#nhm" data-toggle="collapse" attr.data-active="{{module === 'nhm'}}" attr.aria-expanded="{{module === 'nhm'}}" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -248,9 +245,16 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-sample-shipmentlog']"> {{'Shipmentlog' | translate }} </a>
                     </li>
-                    <li routerLinkActive="active">
+                    <!--<li routerLinkActive="active">
                         <a [routerLink]="['/app/chc-report']"> {{'Report' | translate }} </a>
+                    </li>-->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/chc-regn-report']"> {{'Report' | translate }} </a>
                     </li>
+
+                    <!--<li routerLinkActive="active">
+                        <a [routerLink]="['/app/cl-regn-report']"> {{'CL Report' | translate }} </a>
+                    </li>-->
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'HPLCLT'">
@@ -290,9 +294,16 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/central-shipment']"> {{'Shipmentlog' | translate }}</a>
                     </li>
-                    <li routerLinkActive="active">
+                    <!--<li routerLinkActive="active">
                         <a [routerLink]="['/app/centrallab-report']"> {{'ReportSampleStatus' | translate }} </a>
+                    </li>-->
+
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/cl-regn-report']"> {{'ReportSampleStatus' | translate }} </a>
                     </li>
+
+
+                    
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'SUPPORTADMIN'">

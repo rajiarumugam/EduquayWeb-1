@@ -19,6 +19,12 @@ export const ENDPOINT = {
         "RETRIVERIBYCHC":"api/v1/WebMaster/RetrieveRIByCHC/",
         "RETRIVEALLPNDTLOCATION":"api/v1/WebMaster/RetrieveAllPNDTLocation" ,
         "RETRIEVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
+        "RETRIEVEPHCBYCHC":"api/v1/WebMaster/RetrievePHCByCHC/",
+        "RETRIVESCBYPHC":"api/v1/WebMaster/RetrieveSCByPHC/",
+        "RETRIVEANMBYPHC":"api/v1/WebMaster/RetrieveANMByPHC/",
+        "RETRIVESCBYANM":"api/v1/WebMaster/RetrieveSCByANM/",
+        "RETRIVERIBYANM":"api/v1/WebMaster/RetrieveRIByANM/"
+
     },
     "SUBJECT":
     {
@@ -120,7 +126,9 @@ export const ENDPOINT = {
         "ADDRECEIVEDSPECIMENTSHIPMENT":"api/v1/MolecularLab/AddReceivedSpecimenShipments"
     },
     "NHM":{
-        "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail"
+        "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail",
+        "CHCRECEIPTREPORTSDETAIL":"api/v1/CHCReceiptProcessing/CHCReceiptReportsDetail",
+        "CLRECEIPTREPORTSDETAIL":"api/v1/CentralLab/CLReceiptReportsDetail"
     },
     "REPORTS":
     {

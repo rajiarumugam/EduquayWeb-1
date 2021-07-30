@@ -381,11 +381,11 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
         var _arrSelectedBarcode = [];
         this.chcSampleList.forEach(element => {
           if (element.sampleSelected) {
-            if(agingMode === 'gt24bc' && +element.sampleAging >= 24){
+            if(agingMode === 'gt24bc' && +element.sampleAging >= 36){
               _arrSelectedBarcode.push(element.barcodeNo);
               //this._arrSelectedDate.push(element.sampleDateTime);
             }
-            else if(agingMode === 'lt24bc' && +element.sampleAging < 24){
+            else if(agingMode === 'lt24bc' && +element.sampleAging < 36){
               _arrSelectedBarcode.push(element.barcodeNo);
              // this._arrSelectedDate.push(element.sampleDateTime);
             }
@@ -407,10 +407,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       return false;
     }
 
-    var hasGreaterThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 24);
+    var hasGreaterThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) >= 36);
     if(hasGreaterThan24.length > 0){
       Swal.fire({ allowOutsideClick: false,
-        title: 'One or more selected samples that are aging more than 24 hours',
+        title: 'One or more selected samples that are aging more than 36 hours',
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
@@ -533,7 +533,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     var isFirst = true;
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && +element.sampleAging < 24) {
+      if (element.sampleSelected === true && +element.sampleAging < 36) {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
@@ -554,10 +554,10 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
       return false;
     }
 
-    var hasLessThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) < 24);
+    var hasLessThan24 = this.chcSampleList.filter(x => x.sampleSelected === true && +(x.sampleAging) < 36);
     if(hasLessThan24.length > 0){
       Swal.fire({ allowOutsideClick: false,
-        title: 'One or more selected samples that are aging less than 24 hours',
+        title: 'One or more selected samples that are aging less than 36 hours',
         text: "Do you still want to continue?",
         icon: 'warning',
         showCancelButton: true,         
@@ -596,7 +596,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
     var isFirst = true;
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && +element.sampleAging >= 24) {
+      if (element.sampleSelected === true && +element.sampleAging >= 36) {
         //if (element.sampleSelected) {
         if (isFirst) {
           this.selectedBarcodes += element.barcodeNo;
@@ -663,7 +663,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && +element.sampleAging >= 24) {
+      if (element.sampleSelected === true && +element.sampleAging >= 36) {
         
         if (isFirst) {
           getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
@@ -735,7 +735,7 @@ export class ChcPicknpackComponent implements AfterViewInit, OnDestroy, OnInit {
   
     this.chcSampleList.forEach(element => {
       console.log('sampleSelected :' + element.sampleSelected);
-      if (element.sampleSelected === true && +(element.sampleAging) < 24) {
+      if (element.sampleSelected === true && +(element.sampleAging) < 36) {
         if (isFirst) {
           getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
           isFirst = false;
