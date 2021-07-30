@@ -807,8 +807,15 @@ getCHC(){
           this.sampleShipmentTime = moment().format("HH:mm");
           this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
-
-          this.name = this.anmList.map(x=> {return x.id === this.selectedANM ? x.name : ''});;
+      this.name = '';
+      this.anmList.forEach(element => {
+        
+        if(element.id == this.selectedANM){
+          this.name = element.name;
+        }
+      });
+      this.selectedilrPoint = null;
+      this.selectedtestingCHC = null;
           this.modalService.open(
             picknPackdetail, {
             centered: true,
@@ -839,7 +846,14 @@ getCHC(){
           this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
           this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
 
-          this.name = this.anmList.map(x=> {return x.id === this.selectedANM ? x.name : ''});;
+          this.anmList.forEach(element => {
+            this.name = '';
+            if(element.id == this.selectedANM){
+              this.name = element.name;
+            }
+          });
+          this.selectedilrPoint = null;
+          this.selectedtestingCHC = null;
           this.modalService.open(
             picknPackdetail, {
             centered: true,
@@ -875,9 +889,16 @@ getCHC(){
       this.sampleShipmentTime = moment().format("HH:mm");
       this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
       this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+      this.name = '';
+      this.anmList.forEach(element => {
+        
+        if(element.id == this.selectedANM){
+          this.name = element.name;
+        }
+      });
 
-      this.name = this.anmList.map(x=> {return x.id === this.selectedANM ? x.name : ''});
-      
+      this.selectedilrPoint = null;
+      this.selectedtestingCHC = null;
       this.modalService.open(
         picknPackdetail, {
         centered: true,
@@ -894,7 +915,6 @@ getCHC(){
     this.selectedBarcodes = '';
     var isFirst = true;
     this.sampleList.forEach(element => {
-      console.log('sampleSelected :' + element.sampleSelected);
       if (element.sampleSelected === true && +element.sampleAging < 36) {
         //if (element.sampleSelected) {
         if (isFirst) {
