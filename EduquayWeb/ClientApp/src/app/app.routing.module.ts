@@ -536,20 +536,20 @@ const routes: Routes = [
           
         ]
       },
-      /*{
+      {
         path: 'central-update-hplc', component: HPLCUpdateNewComponent,
         children:[
           {path: '', component: HPLCReceivedNewComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCNewService}},
           
         ]
-      },*/
-      {
+      },
+      /*{
         path: 'central-update-hplc', component: CentralHPLCupdateComponent,
         children:[
           {path: '', component: CentralReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}},
           {path: 'upload', component: CentralHPLCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCService}}
         ]
-      },
+      },*/
       {
         path: 'pathologist-hplc', component: DiagosisHPLCmainComponent,
         children:[
