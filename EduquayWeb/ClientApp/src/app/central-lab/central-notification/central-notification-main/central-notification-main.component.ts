@@ -59,7 +59,10 @@ export class CentralNotificationMainComponent implements OnInit {
 
     var apiUrl1 = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEHPLCTEST+user.centralLabId);
     this.httpClient.get<any>( {url:apiUrl1}).subscribe(response => {
+      if(response.hplcDetail)
       this.CBCCount = response.hplcDetail.length;
+      else 
+      this.CBCCount = 0;
     },
     (err: HttpErrorResponse) =>{
       console.log(err);
