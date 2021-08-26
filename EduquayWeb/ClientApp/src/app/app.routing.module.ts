@@ -336,6 +336,10 @@ import { BlockShipmentComponent } from "./anm-module/block-shipment/block-shipme
 import { CHCRegnreportListComponent } from "./nhm/chc-report-list/chc-report-list.component";
 import { CentralLabRegnreportListComponent } from "./nhm/cl-report-list/cl-report-list.component";
 
+import { UploadMainComponent } from "./upload/upload-main/upload-main.component";
+import { CHCUploadComponent } from "./upload/chc-upload/chc-upload.component";
+import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -572,6 +576,13 @@ const routes: Routes = [
         children:[
           {path: '', component: BarcodeCorrectionComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}},
           {path: 'pending', component: BarcodePendingComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}}
+        ]
+      },
+      {
+        path: 'upload', component: UploadMainComponent,
+        children:[
+          {path: '', component: CHCUploadComponent, pathMatch: 'full'},
+          {path: 'hplc', component: HPLCUploadComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -1126,7 +1137,10 @@ export const RoutingComponents = [
   BlockPicknpackComponent,
   BlockShipmentComponent,
   CHCRegnreportListComponent,
-  CentralLabRegnreportListComponent
+  CentralLabRegnreportListComponent,
+  UploadMainComponent,
+  CHCUploadComponent,
+  HPLCUploadComponent
 
 ];
 
