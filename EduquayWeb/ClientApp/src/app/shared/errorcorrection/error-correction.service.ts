@@ -124,6 +124,11 @@ export class errorCorrectionService {
     return this.http.get<any>({url: apiUrl});
   }
 
+  uploadCHCHPLCFiles(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.UploadCBCHPLCFiles)
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
+
   
 
 }
