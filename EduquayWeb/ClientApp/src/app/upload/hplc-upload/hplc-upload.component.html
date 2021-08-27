@@ -1,7 +1,7 @@
 <table id="customers" *ngIf="_imageArray.length > 0">
     <tr *ngFor="let person of _imageArray;index as i">
       <td>{{person.name}}</td>
-      <td style="cursor: pointer;" (click)="deleteFile(i)">{{'Delete' | translate }}</td>
+      <td style="cursor: pointer; text-align: center; " (click)="deleteFile(i)"><i class="fas fa-trash-alt fa-2x "style="color:blue;" aria-hidden="true"></i></td>
     </tr>
    
   </table>
