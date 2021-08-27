@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">{{'nhmreport' | translate }}</h5>
+                            <h5 class="float-center">{{'Report' | translate }}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -284,16 +284,16 @@
                                 <tbody>
                                     <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
                                         <td style="text-align: center">{{i +1}}</td>
-                                        <td style="text-align: left">{{subjectinfo.anmId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
+                                        <td style="text-align: left">{{subjectinfo.subjectType}}</td>
                                         <td style="text-align: center">{{subjectinfo.subjectId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.subjectType}}</td>
-                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.barcodeNo}}</td>
                                         <td style="text-align: center">{{subjectinfo.rchId}}</td>
-                                        <td style="text-align: left">{{subjectinfo.barcode}}</td>
-                                        <td class="text-left sname">{{subjectinfo.dateOfRegister}}</td>
-                                        <td style="text-align: center">{{subjectinfo.ri}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
+                                        <td class="text-left sname" style="min-width:120px;">{{subjectinfo.anmName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.anmContact}}</td>
+                                        <td style="text-align: left">{{subjectinfo.shipmentDateTime}}</td>
+                                        <td class="text-left sname">{{subjectinfo.shipmentReceivedDate}}</td>
+                                        <td style="text-align: center">{{subjectinfo.testResult}}</td>
+                                        <td style="text-align: left">{{subjectinfo.testDateTime}}</td>
                                         <!--<td class="text-left sname">{{subjectinfo.village}}</td>
                                         <td style="text-align: center">{{subjectinfo.ga}}</td>
                                         <td style="text-align: left">{{subjectinfo.sampleCollected}}</td>

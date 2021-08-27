@@ -221,7 +221,7 @@
                                                                     <select id="inputilrPoint" class="form-control"
                                                                     name="DDilrPoint" #DDilrPoint="ngModel" [class.is-invalid]="DDilrPoint.invalid && DDilrPoint.touched || shipmentForm.submitted && DDilrPoint.invalid"
                                                                     required [(ngModel)]="selectedilrPoint">
-                                                                      <option value="" selected>--Select--</option>
+                                                                      <option value="null" selected>--Select--</option>
                                                                       <option *ngFor="let ilrpnt of ilrPoints"
                                                                               [(value)]= "ilrpnt.id ">
                                                                           {{ ilrpnt.ilrPoint }}
@@ -237,7 +237,7 @@
                                                                     class="manto"> *</span></label>
                                                                 <select name="DDLtestingChc" #DDLtestingChc="ngModel" [class.is-invalid]="DDLtestingChc.invalid && DDLtestingChc.touched || shipmentForm.submitted && DDLtestingChc.invalid"
                                                                     class="form-control field" id="inputTestingCHC" required [(ngModel)]="selectedtestingCHC">
-                                                                    <option value="" selected>--Select--</option>
+                                                                    <option value="null" selected>--Select--</option>
                                                                     <option *ngFor="let testingChcName of testingCHCNames"
                                                                               [(value)]= "testingChcName.id">
                                                                           {{ testingChcName.chcName }}

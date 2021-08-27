@@ -72,13 +72,13 @@
                                     [config]="endOptions" placeholder="Select Date.." formControlName="toDate"></ng2-flatpickr>
                                 </div>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <!--<div class="form-group col-md-2">
                                     <label for="inputSubjectcategory">{{'SampleStatus' | translate}}</label>
                                     <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus" formControlName = "sampleStatus">
                                         <option [ngValue]="null">Select Status</option>
                                         <option [value]="district.id" *ngFor="let district of sampleStatusData">{{district.statusName}}</option>
                                       </select>
-                                </div>
+                                </div>-->
                                
                                 <div class="form-group col-md-2">
                                     <label for="inputSubjectcategory">{{'CHC' | translate}}</label>
@@ -227,10 +227,10 @@
                             </div>
                         </div>--> 
                         <div class="custm-tab" *ngIf="maintabSelected == 6 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(7,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(6,1);"> 
                                     <p>{{'Shipped to ML' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingpendingCount}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(7,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(6,2);"> 
                                 <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{PNDcounsellingMTPAgreedCount}}</span></p>
                             </div>
                             

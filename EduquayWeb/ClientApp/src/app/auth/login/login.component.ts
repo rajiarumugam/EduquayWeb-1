@@ -53,7 +53,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     console.log(Date.now)
-  // this.openModal()
+
+ //  this.openModal()
+
     let patientResponse = {};
     let patients = [];
   }
