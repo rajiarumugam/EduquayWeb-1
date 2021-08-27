@@ -95,7 +95,7 @@ export class SiteHeaderComponent implements OnInit {
 
   getLoggedUser(){
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.userName = `${this.user.firstName} ${this.user.lastName}`;
+    this.userName = `${this.user.name}`;
     
   }
 
