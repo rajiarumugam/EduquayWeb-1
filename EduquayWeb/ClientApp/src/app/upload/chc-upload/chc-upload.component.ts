@@ -68,14 +68,26 @@ export class CHCUploadComponent implements OnInit {
 
     handleFileInput(file: FileList) {
     this.fileToUpload = file.item(0);
-
-    this._imageArray.push(file.item(0));
-    this.myInputVariable.nativeElement.value = '';
-    //Show image preview
-    let reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
+    var _fileList = file.item(0).name.split('.');
+    console.log(_fileList[_fileList.length-1]);
+    if(_fileList[_fileList.length-1] === 'xml')
+    {
+      this._imageArray.push(file.item(0));
+      this.myInputVariable.nativeElement.value = '';
+      //Show image preview
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      }
     }
+    else
+    {
+
+      Swal.fire({icon:'error', title: "Please upload XML file only.", confirmButtonText: 'Close', allowOutsideClick: false});
+      this.myInputVariable.nativeElement.value = '';
+      return;
+    }
+    
     //reader.readAsDataURL(this.fileToUpload);
   }
 
