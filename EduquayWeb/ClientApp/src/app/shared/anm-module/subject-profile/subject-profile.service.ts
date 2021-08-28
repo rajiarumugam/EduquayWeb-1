@@ -120,5 +120,8 @@ export class SubjectProfileService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.RETRIVEPARTICULARCHC);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: anmparticularsubProfile});
   }
- 
+  getPathoReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.RETRIVEPARTICULARPATHOLOGIST);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
 }

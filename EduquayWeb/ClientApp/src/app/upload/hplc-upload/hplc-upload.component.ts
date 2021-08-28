@@ -68,7 +68,11 @@ export class HPLCUploadComponent implements OnInit {
   
       handleFileInput(file: FileList) {
       this.fileToUpload = file.item(0);
-  
+
+      var _fileList = file.item(0).name.split('.');
+    console.log(_fileList[_fileList.length-1]);
+    if(_fileList[_fileList.length-1] === 'txt')
+    {
       this._imageArray.push(file.item(0));
       this.myInputVariable.nativeElement.value = '';
       //Show image preview
@@ -76,6 +80,15 @@ export class HPLCUploadComponent implements OnInit {
       reader.onload = (event: any) => {
         this.imageUrl = event.target.result;
       }
+    }
+    else
+    {
+
+      Swal.fire({icon:'error', title: "Please upload TEXT file only.", confirmButtonText: 'Close', allowOutsideClick: false});
+      this.myInputVariable.nativeElement.value = '';
+      return;
+    }
+
       //reader.readAsDataURL(this.fileToUpload);
     }
   
