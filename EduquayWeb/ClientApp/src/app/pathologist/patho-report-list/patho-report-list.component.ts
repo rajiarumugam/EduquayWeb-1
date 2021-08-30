@@ -518,11 +518,13 @@ export class PathoreportListComponent implements AfterViewInit, OnDestroy, OnIni
     var _obj = {
       fromDate: this.anmSPFromDate !== '' ? this.anmSPFromDate : '',
       toDate: this.anmSPToDate !== '' ? this.anmSPToDate : '',
-      riId: this.selectedRIpoint === null ? 0 : Number(this.selectedRIpoint),
-      subjectTypeId: this.selectedBlock === null ? 0 : Number(this.selectedBlock),
-      "searchSection":maintab,
-      "status":subtab,
-      "chcId": this.user.chcId
+      subjectType: this.selectedBlock === null ? 0 : Number(this.selectedBlock),
+      centralLabId: this.user.centralLabId,
+      chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
+      phcId: this.selectedphc === null ? 0 : Number(this.selectedphc),
+      anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
+      searchSection:maintab,
+      status:subtab
     }
 
       

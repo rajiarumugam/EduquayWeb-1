@@ -520,6 +520,7 @@ hr {
     cursor:pointer;
     border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
+  border-radius: 20px;
    
 }
 
@@ -532,6 +533,7 @@ hr {
   border-right: 1px solid #eeeeee;
   background: #1b55e2 !important;
   color:#ffffff;
+  border-radius: 20px;
 }
 .custum-tab-two.tabselected,.custum-tab-two:hover
 {
@@ -542,6 +544,7 @@ hr {
   border-right: 1px solid #eeeeee;
   background: #1b55e2 !important;
   color:#ffffff;
+  border-radius: 20px;
 }
 .custum-tab-one p,.custum-tab-two p{
   margin:0;
