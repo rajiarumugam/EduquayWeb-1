@@ -7,9 +7,10 @@ import { SiteHeaderComponent } from './_layout/site-header/site-header.component
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-
-
+import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { PathoreportSampleStatusPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { PathoreportSampleStatusMainPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { HomeComponent } from "./home/home.component";
 import { CounterComponent } from "./counter/counter.component";
 import { FetchDataComponent } from "./fetch-data/fetch-data.component";
@@ -266,7 +267,11 @@ import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.co
 import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+
+
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+import { PathoreportSampleStatusPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
 import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
 import { EditResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component";
@@ -843,6 +848,27 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'HPLC-ANM', component: PathoreportSampleStatusMainPrintComponentANM,
+        children:[
+          {path: '', component: PathoreportSampleStatusPrintComponentANM, pathMatch: 'full'},
+        
+        ]
+      },
+      {
+        path: 'HPLC-NHM', component: PathoreportSampleStatusMainPrintComponentNHM,
+        children:[
+          {path: '', component: PathoreportSampleStatusPrintComponentNHM, pathMatch: 'full'},
+        
+        ]
+      },
+      {
+        path: 'HPLC-DC', component: PathoreportSampleStatusMainPrintComponentDC,
+        children:[
+          {path: '', component: PathoreportSampleStatusPrintComponentDC, pathMatch: 'full'},
+        
+        ]
+      },
+      {
         path: 'nhm-report', component: NHMreportListComponent,
        
       },{
@@ -1140,7 +1166,13 @@ export const RoutingComponents = [
   CentralLabRegnreportListComponent,
   UploadMainComponent,
   CHCUploadComponent,
-  HPLCUploadComponent
+  HPLCUploadComponent,
+  PathoreportSampleStatusMainPrintComponentANM,
+  PathoreportSampleStatusPrintComponentANM,
+  PathoreportSampleStatusMainPrintComponentDC,
+  PathoreportSampleStatusPrintComponentDC,
+  PathoreportSampleStatusMainPrintComponentNHM,
+  PathoreportSampleStatusPrintComponentNHM
 
 ];
 
