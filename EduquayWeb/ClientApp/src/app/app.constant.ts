@@ -134,7 +134,8 @@ export const ENDPOINT = {
     {
         "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
         "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail",
-        "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList"
+        "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList",
+        "RETRIVEPARTICULARPATHOLOGIST":"api/v1/Pathologist/RetrievePathologistReportsDetail"
     },
     "ERRORCORRECTION":
     {

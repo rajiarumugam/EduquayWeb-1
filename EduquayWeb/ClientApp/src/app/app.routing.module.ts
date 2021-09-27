@@ -344,6 +344,7 @@ import { CentralLabRegnreportListComponent } from "./nhm/cl-report-list/cl-repor
 import { UploadMainComponent } from "./upload/upload-main/upload-main.component";
 import { CHCUploadComponent } from "./upload/chc-upload/chc-upload.component";
 import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component";
+import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -797,7 +798,7 @@ const routes: Routes = [
       },
       { path: 'view-anm-report', component: AnmReportProfileComponent, pathMatch: 'full'},
       { path: 'chc-main-report', component: CHCreportListComponent, pathMatch: 'full'},
-      
+      { path: 'patho-main-report', component: PathoreportListComponent, pathMatch: 'full'},
       /*{
         path: 'view-pndtc-summary', component: PndSummaryViewComponent,
       },*/
@@ -1167,12 +1168,15 @@ export const RoutingComponents = [
   UploadMainComponent,
   CHCUploadComponent,
   HPLCUploadComponent,
+
   PathoreportSampleStatusMainPrintComponentANM,
   PathoreportSampleStatusPrintComponentANM,
   PathoreportSampleStatusMainPrintComponentDC,
   PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusPrintComponentNHM
+  PathoreportListComponent
+
 
 ];
 
