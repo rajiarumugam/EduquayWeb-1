@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "220.225.126.118",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "220.225.126.118",
+            "username": "sa",
+            "password": "IntelXeon$2020!",
+            "database": "TSCOD"
+        }
+    ]
+}

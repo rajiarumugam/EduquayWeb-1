@@ -260,7 +260,9 @@ import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-h
 import { PhcComponent } from "./admin/phc/phc.component";
 import { ScComponent } from "./admin/sc/sc.component";
 import { RiPointComponent } from "./admin/ri-point/ri-point.component";
+import { IlrPointComponent } from "./admin/ilr-point/ilr-point.component";
 import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
+import { AVDComponent } from "./admin/avd/avd.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 
 import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
@@ -322,12 +324,22 @@ import { BarcodeReportMainComponent } from "./errorreport/barcode/barcode-report
 import { RCHReportComponent } from "./errorreport/rch/rch-report/rch-report.component";
 import { RCHReportMainComponent } from "./errorreport/rch/rch-report-main/rch-report-main.component";
 import { SSTReportComponent } from "./errorreport/sst/sst-report/sst-report.component";
-
+// import { ANMDirectoryAndLoginStatusComponent } from "./anm-SA/anm/anm-all/anm-allcomponent";
+// import { ANMOnlineComponent } from "./anm-SA/anm/anm-online/anm-onlinecomponent";
+// import { ANMOfflineComponent } from "./anm-SA/anm/anm-offline/anm-offlinecomponent";
+// import { ANMDirectoryandLoginStatusMainComponent } from "./anm-SA/anm/anm-directory/anmdirectorymain";
+// import { ANMDeactivateComponent } from "./anm-SA/deactivate-anm/anm-deactivate/anm-deactivate.component";
+// import { ANMDeactivationMainComponent } from "./anm-SA/deactivate-anm/anm-deactivation-main/anm-deactivation-main.component";
+import { AnmCollectionComponent } from "./anm-module/anm-collection/anm-collection.component";
 import { SSTReportMainComponent } from "./errorreport/sst/sst-report-main/sst-report-main.component";
 import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
 import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
 import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
-
+// import { SubjectTransferMainComponent } from "./Subject-and-ANM-tranfers-SA/subject-transfer/subject-transfer-main/subject-transfer-main.component";
+// import { SubjectTransferComponent } from "./Subject-and-ANM-tranfers-SA/subject-transfer/subject-transfer/subject-transfer.component";
+// import { ANMTransferComponent } from "./Subject-and-ANM-tranfers-SA/anm-transfer/anm-transfer/anm-transfer.component";
+// import { ANMTransferMainComponent } from "./Subject-and-ANM-tranfers-SA/anm-transfer/anm-transfer-main/anm-transfer-main.component";
+//import { AVDComponent } from "./admin/avd/avd.component";
 
 import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
 import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
@@ -340,11 +352,16 @@ import { BlockShipmentComponent } from "./anm-module/block-shipment/block-shipme
 
 import { CHCRegnreportListComponent } from "./nhm/chc-report-list/chc-report-list.component";
 import { CentralLabRegnreportListComponent } from "./nhm/cl-report-list/cl-report-list.component";
+import { UserComponent } from "./admin/User/user.component";
 
 import { UploadMainComponent } from "./upload/upload-main/upload-main.component";
 import { CHCUploadComponent } from "./upload/chc-upload/chc-upload.component";
 import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component";
+
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
+
+import { ANMAdminComponent } from "./admin/anm/anm.component";
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -479,8 +496,13 @@ const routes: Routes = [
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
       { path: 'add-sc', component: ScComponent, pathMatch: 'full'},
       { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
+      { path: 'add-ilr-point', component: IlrPointComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
       { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
+      { path: 'add-avd', component:AVDComponent, pathMatch: 'full'},
+      {path:'add-anm',component:ANMAdminComponent,pathMatch:'full'},
+      {path:'add-user',component:UserComponent,pathMatch:'full'},
+      // { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
       
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -584,6 +606,34 @@ const routes: Routes = [
           {path: 'pending', component: BarcodePendingComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}}
         ]
       },
+      // {
+      //   path: 'anmdirectory', component: ANMDirectoryandLoginStatusMainComponent,
+      //   children:[
+      //     {path: 'offline', component: ANMOfflineComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}},
+      //     {path: 'online', component: ANMOnlineComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}},
+      //     {path: '', component: ANMDirectoryAndLoginStatusComponent, pathMatch: 'full', resolve: {positiveSubjects: errorcodeResolverService}}
+        
+
+      //   ]
+      // },
+      // {
+      //   path: 'anmdeactivate', component: ANMDeactivationMainComponent,
+      //   children:[
+      //     {path: '', component: ANMDeactivateComponent, pathMatch: 'full'}
+      //   ]
+      // },
+      // {
+      //   path: 'subjecttransfer', component: SubjectTransferMainComponent,
+      //   children:[
+      //     {path: '', component: SubjectTransferComponent, pathMatch: 'full'}
+      //   ]
+      // },
+      // {
+      //   path: 'anmtransfer', component: ANMTransferMainComponent,
+      //   children:[
+      //     {path: '', component: ANMTransferComponent, pathMatch: 'full'}
+      //   ]
+      // },
       {
         path: 'upload', component: UploadMainComponent,
         children:[
@@ -1175,9 +1225,24 @@ export const RoutingComponents = [
   PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusPrintComponentNHM,
-  PathoreportListComponent
+  PathoreportListComponent,
+
+  IlrPointComponent,
+  AVDComponent,
+  UserComponent,
+  ANMAdminComponent
+  
+  // ANMDirectoryAndLoginStatusComponent,
+  // ANMDirectoryandLoginStatusMainComponent,
+  // ANMOfflineComponent,
+  // ANMOnlineComponent,
+  // ANMDeactivateComponent,
+  // ANMDeactivationMainComponent,
+  // SubjectTransferMainComponent,
+  // SubjectTransferComponent,
+  // ANMTransferComponent,
+  // ANMTransferMainComponent
+
 
 
 ];
-
-

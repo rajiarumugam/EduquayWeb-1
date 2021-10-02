@@ -397,14 +397,7 @@ export class BarcodeReportComponent implements OnInit {
     sampleSubmit()
     {
     
-     // console.log(username)
-    //  console.log(this.selectedDistrict);
-    //  console.log(this.selectedEditChc);
-     
-    //  console.log(this.selectedChc);
-    //  console.log(this.selectedEditPhc);
-    //  console.log(this.selectedPhc)
-    //  console.log(this.selectedanm);
+ 
       var latest_date=new Date();
       var datePipe = new DatePipe('en-US');
          var date = String(datePipe.transform(this.popupform.get('collectionDate').value, 'dd/MM/yyyy'));

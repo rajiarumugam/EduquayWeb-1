@@ -25,6 +25,7 @@ export interface ChcList {
     longitude: string;
     createdBy: number;
     updatedBy: number;
+    name:string;
 }
 
 export interface AddChcDataresponse {

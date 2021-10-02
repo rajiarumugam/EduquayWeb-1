@@ -8,8 +8,9 @@
 };*/
 
 export const environment = {
-apiUrl: 'http://tscodtrainingapi.cscr.in',
- production: false
+  apiUrl: 'https://localhost:5001',
+ // apiUrl:'http://api.eduquay.com',
+ production: true
 };
 
 
