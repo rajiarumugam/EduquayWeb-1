@@ -1174,7 +1174,7 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainPrintComponentDC,
   PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
-  PathoreportSampleStatusPrintComponentNHM
+  PathoreportSampleStatusPrintComponentNHM,
   PathoreportListComponent
 
 
