@@ -1284,24 +1284,22 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
     this.Userslistrequest = {
-      chcId: +(this.selectedChc),
+      chcId: 0,
       id:this.id,
     userTypeId:this.userTypeId,
-    userType:this.userType,
     userRoleId:this.userRoleId,
-    userRole:this.userRole,
-    userRoleDescription:this.userRoleDescription,
-    userRoleAccessModule:this.userRoleAccessModule,
+   
+    
     userGovCode:this.userGovCode,
     userName:this. userName,
     stateId: this.stateId,
     centralLabId: this.centralLabId,
-    centralLabName:this.centralLabName,
+   
     molecularLabId: this.molecularLabId,
-    molecularLabName:this. molecularLabName,
+    
     districtId:this.districtId,
-    districtName:this.districtName, 
-    blockId:this.blockId,
+    
+    blockId:0,
     blockName: this.blockName,
     // chcId:this. chcId,
     chcName:this.chcName ,
@@ -1310,7 +1308,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     scId:this.scId ,
     scName: this.scName,
     riId:this.riId,
-    name:this.name,
+    
     firstName:this.firstName,
     middleName:this.middleName,
     lastName:this.lastName,
@@ -1323,6 +1321,34 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
       comments: this.comments,        
       userId: this.user.id  
+
+  //     "userRoleId": 0,
+  // "userGovCode": "string",
+  // "userName": "string",
+  // "password": "string",
+  // "stateId": 0,
+  // "centralLabId": 0,
+  // "molecularLabId": 0,
+  // "districtId": 0,
+  // "blockId": 0,
+  // "chcId": 0,
+  // "phcId": 0,
+  // "scId": 0,
+  // "riId": "string",
+  // "firstName": "string",
+  // "middleName": "string",
+  // "lastName": "string",
+  // "contactNo1": "string",
+  // "contactNo2": "string",
+  // "email": "string",
+  // "govIdTypeId": 0,
+  // "govIdDetails": "string",
+  // "address": "string",
+  // "pincode": "string",
+  // "createdBy": 0,
+  // "updatedBy": 0,
+  // "comments": "string",
+  // "isActive": "string"
     };
 
     console.log(this.Userslistrequest);
