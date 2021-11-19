@@ -68,9 +68,9 @@
                               <th><span>{{'Longitude ' | translate }}</span></th>
                               <th><span>{{'Block' | translate }}</span></th>
                               <th><span>{{'District Name' | translate }}</span></th>
-                              <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
                               <th><span>{{'Testing CHC' | translate }}</span></th>
+                              <th><span>{{'Comments' | translate }}</span></th>                             
+                              <th><span>{{'Active' | translate }}</span></th>
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
@@ -80,13 +80,16 @@
                               <td class="sname text-left">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.chcGovCode}}</td>
                               <td class="sid text-center">{{sample.pincode}}</td>
+                              
                               <td class="sid text-center">{{sample.latitude}}</td>
                               <td class="sid text-center">{{sample.longitude}}</td>
-                              <td class="sid text-center">{{sample.chcName}}</td>
+                              <td class="sid text-center">{{sample.blockName}}</td>
+                              <!-- <td class="sid text-center">{{sample.chcName}}</td> -->
                               <td class="sid text-center">{{sample.districtName}}</td>
+                              <td class="text-center">{{sample.testingCHC}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center">{{sample.isActive}}</td>
-                              <td class="text-center">{{sample.testingCHC}}</td>
+                              
                              
                               <td class="text-center">
                                 <a class="" (click)="openEditChc(editChcDetail, sample)"

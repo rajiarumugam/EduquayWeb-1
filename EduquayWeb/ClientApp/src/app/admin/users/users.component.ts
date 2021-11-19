@@ -5,27 +5,38 @@ import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrack
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
 import { PNDTCmasterService } from "../../shared/pndtc/pndtc-masterdata.service";
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
+import { AddScResponse, ScList } from 'src/app/shared/admin/add-sc/add-sc-response';
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
 import { DateService } from 'src/app/shared/utility/date.service';
+import { AddUsersService } from 'src/app/shared/admin/add-users/add-users.service';
+import { AddUsersDataresponse, AddUsersResponse, UsersList } from 'src/app/shared/admin/add-users/add-users-response';
+import { Console } from 'console';
+import { DistrictList } from 'src/app/shared/admin/add-district/add-district-response';
+import { BlockList } from 'src/app/shared/admin/add-block/add-block-response';
+import { PhcList } from 'src/app/shared/admin/add-phc/add-phc-response';
+import { ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
 
 
 @Component({
-  selector: 'app-anm-report-list',
-  templateUrl: './anm-report-list.component.html',
-  styleUrls: ['./anm-report-list.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit {
+export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
  
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
@@ -42,17 +53,75 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   subjectProfileRequest: SubjectProfileRequest;
   particularanmSubProfile: ParticularSubjectProfileRequest;
   anmsubjectProfileResponse: RetrieveSubjectProfileList;
+  //adduserProfileResponse: RetrieveSubjectProfileList;
+  AddUsersResponse:AddUsersResponse;
   trackingAnmSubjectTrackerRequest: anmSubjectTrackerRequest;
   trackingAnmSubjectTrackerResponse: trackingANWSubjectResponse;
   trackingSubjectRequest: subjectTrackerRequest;
   trackingSubjectResponse: trackingSubjectResponse;
+  sclistErrorMessage: string;
+  id: number;
+    userTypeId: number;
+    userType: string;
+    userRoleId: number;
+    userRole: string;
+    userRoleDescription: string;
+    userRoleAccessModule: string;
+    userGovCode: string;
+    userName: string;
+    stateId: number;
+    centralLabId: number;
+    centralLabName: string;
+    molecularLabId: number;
+    molecularLabName: string;
+    districtId: number;
+    districtName: string;
+    blockId: number;
+    blockName: string;
+    chcId: number;
+    chcName: string;
+    phcId: number;
+    phcName: string;
+    scId: number;
+    scName: string;
+    riId: string;
+    name: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    email: string;
+    mobileNo: string;
+    registeredFrom: number;
+    sampleCollectionFrom: number;
+    shipmentFrom: number;
+    pndtLocationId: number;
+  ripointlistErrorMessage: string;
   anmSubjectTrackerDetail: ANMSubject;
+  selectedEditPhc: string = '';
   anmSubjectTrackerItem: ANMSubject;
+  chcListResponse;
+  chclistErrorMessage: string;
+  disabledChc = false;
+  Userslistrequest;
+  getchc: string;
+  districtListResponse;
+  selectedEditChc: string = '';
+  districtlists: DistrictList[];
+  blocklists: BlockList[];
+  blockListResponse;
+  confirmationSelected: boolean ;
+  phclistErrorMessage: string;
+  selectedDistrict = '';
+  getphc: string;
   subjectTrackerItem: SubjectTrack;
+  chclists: ChcList[];
   childsubjectTrackerItem: SubjectTrack;
 
   subjectprofileLists: SubjectProfileList[]=[];
+  userprofileLists: UsersList[]=[];
   subjectprofileItem: SubjectProfileList;
+  phclists: PhcList[];
+  sclists: ScList[];
   basicInfo: PrimaryDetail;
   // basicInfo: PrimaryDetail;
   socioDemographicInfo: AddressDetail;
@@ -64,7 +133,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   userId: number;
 
   /*Date Range configuration starts*/
-  dateform: FormGroup;
+  dateform: NgForm;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
   anmSPFromDate: string ="";
@@ -88,11 +157,16 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   spouseSubjectIdValue: string;
   spouseSamplingStatus: boolean;
   uniqueSubjectId: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
+  
+  selectedChc: string;
+  selectedBlock: string;
+
+  addPhcResponse: AddUsersDataresponse;
+  
   religionId: number;
   religionName: string;
+  phcListResponse;
+  scListResponse;
   casteId: number;
   casteName: string;
   communityId: number;
@@ -100,27 +174,33 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   address1: string;
   address2: string;
   address3: string;
+  selectedEditBlock: string = '';
   stateName: string;
+  
   pincode: string;
-  districtName: string;
-  chcName: string;
-  phcName: string;
-  scName: string;
+  
+  
+ 
+  
   riSite: string;
   dob: string;
   age: number;
   gender: string;
-  mobileNo: string;
+
   emailId: string;
+  selectedPhc: string = '';
+  selectedSc: string = '';
   spouseSubjectId: string;
   spouseFirstName: string;
   spouseMiddleName: string;
   spouseLastName: string;
+  testingCHCists;
   spouseContactNo: string;
   govIdTypeId: number;
   govIdType: string;
   govIdDetail: string;
   rchId: string;
+  testingCHCResponse;
   ecNumber: string;
   lmpDate: string;
   gestationalperiod: number;
@@ -129,6 +209,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   p: number;
   l: number;
   a: number;
+  comments: string;
   barcodes: string;
   ga: number;
   ANMdata;
@@ -138,10 +219,11 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   RIData;
   selectedRIpoint = null;
   subjectData;
-  selectedBlock = null;
+  // selectedBlock = null;
   selectedchc = null;
   selectedAnm = null;
   showDistrict = true;
+  getblock: string;
   showBlock = true;
   globalTimeout = null;
   maintabSelected = 1;
@@ -234,15 +316,16 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     private loaderService: LoaderService,
     private tokenService: TokenService,
     private dataservice: DataService,
+    private modalService: NgbModal,
     private router: Router,
     private PNDTCmasterService: PNDTCmasterService,
     private masterService: masterService,
     private sampleCollectionService: SampleCollectionService,
-    private DataService:DataService
+    private DataService:DataService,
+    private UsersService:AddUsersService
   ) { }
 
   ngOnInit() {
-
     this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
         
@@ -264,6 +347,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
        "<'row'<'col-sm-12'tr>>" +
        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
+      
          buttons: [
            {
              titleAttr: 'Download as Excel',     
@@ -272,10 +356,10 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
            }
-	
+                  
          ], 
       language: {
-        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+        search: '<div><span class="note">Search by any Users information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
         lengthMenu: "Records / Page :  _MENU_",
         paginate: {
@@ -286,8 +370,9 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         }, 
       }   
     };
+    
 
-    console.log(this.SubjectProfileService.subjectprofileListApi);
+    //console.log(this.SubjectProfileService.subjectprofileListApi);
     var _obj = {
       fromDate: '',
       toDate: '',
@@ -297,20 +382,22 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       "status":1,
       "userId": this.user.id,
     }
+    console.log(_obj);
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+    let subProfile = this.UsersService.getUsersList(1)
       .subscribe(response => {
         console.log(response);
-        this.anmsubjectProfileResponse = response;
+        this.AddUsersResponse = response;
         this.loaderService.display(false);
-        if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
-          if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
+        if (this.AddUsersResponse !== null && this.AddUsersResponse.status === "true") {
+          if (this.AddUsersResponse.users.length <= 0 ) {
             this.subjectprofilelistErrorMessage = response.message;
           }
           else {
-            this.subjectprofileLists = response['data'];
+            this.userprofileLists = response.users;
             this.rerender();
           }
+          //console.log( this.userprofileLists );
         }
         else {
           this.subjectprofilelistErrorMessage = response.message;
@@ -326,6 +413,302 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         this.anmSubjectBadgeProfileListCount(1,1,3);
        
         //this.phcChange();
+  }
+
+  ddlDistrict() {
+    let district = this.UsersService.getDistrictList().subscribe(response => {
+      this.districtListResponse = response;
+      if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+        this.districtlists = this.districtListResponse.data;
+        this.selectedDistrict = "";
+        console.log(this.districtlists);
+      }
+      else {
+        this.phclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.phclistErrorMessage = err.toString();
+
+      });
+      
+      
+  }
+  
+
+  ddlTestingCHC(code) {
+    this.selectedBlock = '';
+    let district = this.UsersService.gettestingCHC(code).subscribe(response => {
+      this.testingCHCResponse = response;
+      if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
+        this.testingCHCists = this.testingCHCResponse.data;
+       
+       
+      }
+      else {
+        this.chclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.chclistErrorMessage = err.toString();
+
+      });
+  }
+
+  ddlBlock(code) {
+    this.selectedBlock = '';
+    let district = this.UsersService.getBlocklist(code).subscribe(response => {
+      this.blockListResponse = response;
+      console.log(this.blockListResponse);
+      if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
+        this.blocklists = this.blockListResponse.data;
+        // console.log(this.blocklists);
+        this.selectedBlock = "";
+       
+      }
+      else {
+        this.chclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.chclistErrorMessage = err.toString();
+
+      });
+  }
+  ddlPhc(code) {
+    this.selectedPhc = '';
+    let district = this.UsersService.getPhcList(code).subscribe(response => {
+      this.phcListResponse = response;
+      console.log(this.phcListResponse);
+      if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
+        this.phclists = this.phcListResponse.phcDetails;
+        this.selectedPhc = "";
+       
+      }
+      else {
+        this.sclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.sclistErrorMessage = err.toString();
+
+      });
+  }
+
+  onChangeBlock(event) {
+  
+    if (this.selectedBlock === '') {
+      this.selectedChc = '';
+    }
+    else {
+      this.ddlChc();
+    }
+  }
+
+   onChangeChc(event) {
+  
+      if (this.selectedChc === '') {
+        this.selectedPhc = '';
+      }
+      else {
+        this.ddlPhc(this.selectedChc);
+      }
+    }
+
+  onChangePhc(event) {
+    console.log(this.selectedPhc);
+    if (this.selectedPhc === '') {
+      this.selectedSc = '';
+    }
+    else {
+      this.ddlSc(this.selectedPhc);
+    }
+  }
+
+  onChangeEditChc(event) {
+
+    if (this.selectedEditChc === '') {
+      this.selectedEditPhc = '';
+    }
+    else {
+      this.ddlEdtiPhc(this.selectedEditChc);
+    }
+  }
+
+  onChangeDistrict(event) {
+  
+    if (this.selectedDistrict === '') {
+      this.selectedBlock = '';
+    }
+    else {
+      this.ddlBlock(this.selectedDistrict);
+      this.ddlTestingCHC(this.selectedDistrict);
+    }
+  }
+
+  districtChange()
+  {
+        console.log(this.selectedDistrict);
+        this.ddlBlock(this.selectedDistrict);
+        this.selectedChc = '';
+    let district = this.UsersService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+      this.chcListResponse = response;
+      console.log(this.chcListResponse);
+      if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+        this.chclists = this.chcListResponse.data;
+        this.selectedChc = "";
+        this.disabledChc = true;
+      }
+      else {
+        this.sclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.sclistErrorMessage = err.toString();
+
+      });
+  }
+
+
+  ddlEdtiPhc(code) {
+    this.selectedEditPhc = '';
+    let district = this.UsersService.getPhcList(code).subscribe(response => {
+      this.phcListResponse = response;
+      if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
+        this.phclists = this.phcListResponse.data;
+        if(this.phclists.length > 0){
+          this.selectedEditPhc = this.getphc;
+          
+        }
+                
+      }
+      else {
+        this.sclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.sclistErrorMessage = err.toString();
+
+      });
+  }
+  ddlSc(code) {
+    this.selectedPhc = '';
+    console.log(code);
+    let district = this.UsersService.getScList(code).subscribe(response => {
+      this.scListResponse = response;
+      console.log(this.scListResponse);
+      if (this.scListResponse !== null && this.scListResponse.status === "true") {
+        this.sclists = this.scListResponse.scDetails;
+        console.log(this.sclists);
+        this.selectedSc = "";       
+      }      
+      else {
+        this.ripointlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.ripointlistErrorMessage = err.toString();
+
+      });
+  }
+  // ddlEdtiSc(code) {
+  //   this.selectedEditPhc = '';
+  //   let district = this.UsersService.getScList(code).subscribe(response => {
+  //     this.scListResponse = response;
+  //     if (this.scListResponse !== null && this.scListResponse.status === "true") {
+  //       this.sclists = this.scListResponse.scDetails;
+  //       if(this.sclists.length > 0){
+  //         this.selectedEditSc = this.getsc;
+          
+  //       }
+                
+  //     }
+  //     else {
+  //       this.ripointlistErrorMessage = response.message;
+  //     }
+  //   },
+  //     (err: HttpErrorResponse) => {
+  //       this.ripointlistErrorMessage = err.toString();
+
+  //     });
+  // }
+
+  ddlEditChc() {
+    this.selectedEditChc = '';
+    let district = this.UsersService.getChcList().subscribe(response => {
+      this.chcListResponse = response;
+      if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+        this.chclists = this.chcListResponse.chcDetails;
+        this.selectedEditChc = this.getchc;
+        this.onChangeEditChc(this.getchc);
+      }
+      else {
+        this.sclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.sclistErrorMessage = err.toString();
+
+      });
+  }
+
+  ddlChc() {
+
+    this.selectedChc = '';
+    let district = this.UsersService.getChcList().subscribe(response => {
+      this.chcListResponse = response;
+      console.log(this.chcListResponse);
+      if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+        this.chclists = this.chcListResponse.chcDetails;
+        this.selectedChc = "";
+      }
+      else {
+        this.sclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.sclistErrorMessage = err.toString();
+
+      });
+  }
+
+  ddlEditBlock(code) {
+    this.selectedBlock = '';
+    let district = this.UsersService.getBlocklist(code).subscribe(response => {
+      this.blockListResponse = response;
+      if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
+        this.blocklists = this.blockListResponse.data;
+        if(this.blocklists.length > 0){
+          this.selectedEditBlock = this.getblock;
+          
+        }
+                
+      }
+      else {
+        this.chclistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.chclistErrorMessage = err.toString();
+
+      });
+  }
+
+  openAddIlr(addIlrDetail) {
+      
+    //this.ddlChc();
+    this.disabledChc = false;
+    this.ddlDistrict();
+    this.confirmationSelected = Boolean("True");
+    this.modalService.open(
+      addIlrDetail, {
+      centered: true,
+      size: 'xl',
+      scrollable: true,
+      backdrop:'static',
+      keyboard: false,
+      ariaLabelledBy: 'modal-basic-title'
+    });
   }
 
   getRIpointData(){
@@ -398,11 +781,12 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     });
   }
 
+  
   anmSubjectProfileList(id,maintab,subtab) {
-     
+    
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
-    this.subjectprofileLists=[];
+    this.userprofileLists=[];
     var _obj = {
       fromDate: this.anmSPFromDate !== '' ? this.anmSPFromDate : '',
       toDate: this.anmSPToDate !== '' ? this.anmSPToDate : '',
@@ -414,19 +798,23 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     }
    
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+    let subProfile = this.UsersService.getUsersList(maintab)
       .subscribe(response => {
-        this.anmsubjectProfileResponse = response;
+        this.AddUsersResponse = response;
+        console.log(this.AddUsersResponse);
         this.loaderService.display(false);
-        if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
-          if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
+        if (this.AddUsersResponse !== null && this.AddUsersResponse.status === "true") {
+          console.log(response.users);
+          if (this.AddUsersResponse.users.length <= 0 ) {
             this.subjectprofilelistErrorMessage = response.message;
-            this.subjectprofileLists = [];
+            this.userprofileLists = [];
             this.rerender();
+            console.log('no data');
           }
           else {
-            this.subjectprofileLists = response['data'];
+            this.userprofileLists = response.users;
             this.rerender();
+            console.log('data');
           }
         }
         else {
@@ -496,7 +884,73 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           this.anmSubjectBadgeProfileListCount(1,9,2);
           this.anmSubjectBadgeProfileListCount(1,9,3);
         }
+        if(maintab === 10)
+        {
+          this.anmSubjectBadgeProfileListCount(1,9,1);
+          this.anmSubjectBadgeProfileListCount(1,9,2);
+          this.anmSubjectBadgeProfileListCount(1,9,3);
+        }
+        if(maintab === 11)
+        {
+          this.anmSubjectBadgeProfileListCount(1,9,1);
+          this.anmSubjectBadgeProfileListCount(1,9,2);
+          this.anmSubjectBadgeProfileListCount(1,9,3);
+        }
+        if(maintab === 12)
+        {
+          this.anmSubjectBadgeProfileListCount(1,9,1);
+          this.anmSubjectBadgeProfileListCount(1,9,2);
+          this.anmSubjectBadgeProfileListCount(1,9,3);
+        }
+        if(maintab === 13)
+        {
+          this.anmSubjectBadgeProfileListCount(1,9,1);
+          this.anmSubjectBadgeProfileListCount(1,9,2);
+          this.anmSubjectBadgeProfileListCount(1,9,3);
+        }
+        if(maintab === 14)
+        {
+          this.anmSubjectBadgeProfileListCount(1,9,1);
+          this.anmSubjectBadgeProfileListCount(1,9,2);
+          this.anmSubjectBadgeProfileListCount(1,9,3);
+        }
   }
+
+  retrirveIlrlist(){
+    this.loaderService.display(true);
+    this.phclists = [];
+    this.phclistErrorMessage ='';
+    let samplesList = this.UsersService.getallUsersList()
+    .subscribe(response => {
+      this.phcListResponse = response;
+      this.loaderService.display(false);
+      if(this.phcListResponse !== null){
+        if(this.phcListResponse.data.length <= 0){
+          this.phclistErrorMessage = response.message;
+          
+        }
+        else{
+          this.phclists = this.phcListResponse.data;
+          this.phclists.forEach(element => {
+            this.getchc = '' +(element.chcId);
+           
+          });
+          //this.getstate = this.
+          this.rerender();
+          
+        }
+      }
+      else{
+        this.phclistErrorMessage = response.message;
+      }
+     
+    },
+    (err: HttpErrorResponse) => {
+      if (this.loadDataTable) this.rerender();
+      this.phclistErrorMessage = err.toString();
+    });
+  }
+
 
   anmSubjectBadgeProfileListCount(id,maintab,subtab) {
      
@@ -749,6 +1203,23 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   /*ngAfterViewInit(): void {
     this.dtTrigger.next();
   }   */
+  showResponseMessage(message: string, type: string){
+    var messageType = '';
+    if(type === 'e'){
+      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+    }
+    else{
+      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+      .then((result) => {
+        if (result.value) {
+          if(this.modalService.hasOpenModals){
+            this.modalService.dismissAll();
+           
+          }
+        }
+      });
+    }
+  }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -767,6 +1238,119 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
  
   }
 
+  onSubmit(addIlrForm: NgForm){
+  
+    console.log(addIlrForm.value);
+    
+    this.comments = addIlrForm.value.Comments;
+    this.selectedChc = addIlrForm.value.ddlChc; 
+    
+    // this.userTypeId=addIlrForm.value.userTypeId;
+    // this.userType= addIlrForm.value.userType;
+    // this.userRoleId= addIlrForm.value.userRoleId ;
+    this.userRole= addIlrForm.value.userRole;
+    this.userRoleDescription= addIlrForm.value.userRoleDescription;
+    // this.userRoleAccessModule= addIlrForm.value.userRoleAccessModule;
+    this.userGovCode=addIlrForm.value.userGovCode ;
+    this.userName= addIlrForm.value. userName;
+    // this.stateId=addIlrForm.value.stateId;
+    // this.centralLabId= addIlrForm.value.centralLabId;
+    // this.centralLabName= addIlrForm.value. centralLabName;
+    // this.molecularLabId=addIlrForm.value.molecularLabId ;
+    this.molecularLabName=addIlrForm.value.molecularLabName ; 
+    // this.districtId= addIlrForm.value.districtId ;
+    this.districtName= addIlrForm.value.districtName ;
+    // // this.blockId= addIlrForm.value.blockId ;
+    // this.blockName=addIlrForm.value.blockName ;
+    // this.chcId= addIlrForm.value.chcId ;
+    this.chcName= addIlrForm.value.chcName ;
+    // this.phcId= addIlrForm.value.phcId ;
+    this.phcName=addIlrForm.value.phcName ;
+    // this.scId=addIlrForm.value.scId ;
+    this.scName= addIlrForm.value.scName ;
+    // this.riId= addIlrForm.value.riId ;
+    this.name= addIlrForm.value.name ;
+    this.firstName= addIlrForm.value.firstName ;
+    this.middleName= addIlrForm.value.middleName ;
+    this.lastName=addIlrForm.value.lastName ;
+    this.email=addIlrForm.value.email ;
+    this.mobileNo= addIlrForm.value.mobileNo ;
+    // this.registeredFrom =addIlrForm.value.registeredFrom ;
+    // this.sampleCollectionFrom=addIlrForm.value.sampleCollectionFrom ;
+    // this.shipmentFrom= addIlrForm.value.shipmentFrom ;
+    // this.pndtLocationId= addIlrForm.value.pndtLocationId ;
+ 
+    
+
+
+    this.Userslistrequest = {
+      chcId: +(this.selectedChc),
+      id:this.id,
+    userTypeId:this.userTypeId,
+    userType:this.userType,
+    userRoleId:this.userRoleId,
+    userRole:this.userRole,
+    userRoleDescription:this.userRoleDescription,
+    userRoleAccessModule:this.userRoleAccessModule,
+    userGovCode:this.userGovCode,
+    userName:this. userName,
+    stateId: this.stateId,
+    centralLabId: this.centralLabId,
+    centralLabName:this.centralLabName,
+    molecularLabId: this.molecularLabId,
+    molecularLabName:this. molecularLabName,
+    districtId:this.districtId,
+    districtName:this.districtName, 
+    blockId:this.blockId,
+    blockName: this.blockName,
+    // chcId:this. chcId,
+    chcName:this.chcName ,
+    phcId:this.phcId,
+    phcName:this.phcName ,
+    scId:this.scId ,
+    scName: this.scName,
+    riId:this.riId,
+    name:this.name,
+    firstName:this.firstName,
+    middleName:this.middleName,
+    lastName:this.lastName,
+    email:this.email,
+    mobileNo:this.mobileNo,
+    registeredFrom: this.registeredFrom,
+    sampleCollectionFrom:this.sampleCollectionFrom,
+    shipmentFrom:this.shipmentFrom,
+    pndtLocationId:this.pndtLocationId,
+
+      comments: this.comments,        
+      userId: this.user.id  
+    };
+
+    console.log(this.Userslistrequest);
+
+    //Remove below 2 lines after successfully tested
+    // this.showResponseMessage('Successfully registered', 's');
+    // return false;
+
+    let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+    .subscribe(response => {
+      this.addPhcResponse = response;
+      console.log(response );
+      if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+        this.showResponseMessage(this.addPhcResponse.message, 's')
+         this.retrirveIlrlist();
+         console.log(this.addPhcResponse.message );
+      }else{
+        this.showResponseMessage(this.addPhcResponse.message, 'e');
+                this.phclistErrorMessage = response.message;
+      }
+
+    },
+    (err: HttpErrorResponse) => {
+      this.showResponseMessage(err.toString(), 'e');
+      this.phclistErrorMessage = err.toString();
+    });
+    //swal ("Here's the title!", "...and here's the text!");
+  }
 
   custumTabClick(i,j)
   {

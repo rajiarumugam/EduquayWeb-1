@@ -1,0 +1,321 @@
+
+   
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+  <div class="overlay"></div>
+  <div class="search-overlay"></div>
+  <!--  BEGIN SIDEBAR  -->
+  <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="admin" subMenum="sample-collection"></app-site-sidebar>
+  </div>
+  <!--  END SIDEBAR  -->
+
+  <!--  BEGIN CONTENT AREA  -->
+
+  <div id="content" class="main-content">
+      <div class="row layout-top-spacing">
+          <!-- <div class="col-md-12 text-center">
+              <h5 class="">ANM Name - PHC Name</h5>
+          </div> -->
+          <div class="col-md-12">
+              <div class="justify-between">
+                  <div class="col-md-4">
+                      <div class="float-left mb-4">
+                          <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-chc']" role="button"
+                          ngbTooltip="CHC" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                        </div>
+                  </div>
+                  <!-- <h5 class="float-left">Sample Collection</h5> -->
+                  <div class="col-md-4">
+                    <div class="headertit">
+                      <h5 class="float-center">{{'ILR' | translate }}</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="float-right mb-4">
+                      <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-sc']" role="button"
+                      ngbTooltip="SC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+              <div class="widget-content widget-content-area br-6">
+                  <div class="form-row">
+                      <div class="col-md-12">
+                          <div *ngIf="phclistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': phclistErrorMessage ==='No sample data  found', 'alert-danger': phclistErrorMessage !== 'No sample data  found'}">
+                              <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{phclistErrorMessage}}
+                          </div>  
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <a class="float-right mr-5" (click)="openAddIlr(addIlrDetail)"
+                            role="button">
+                                <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="table-responsive mb-4">
+                      <table id="phclist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                          <tr>
+                            <th><span>{{'SNo' | translate }}</span></th>
+                            <th><span>{{'Name' | translate }}</span></th>
+                              <th><span>{{'DistrictName' | translate }}</span></th>
+                              
+                              <th><span>{{'ChcName ' | translate }}</span></th>
+                              <th><span>{{'Ilrcode' | translate }}</span></th>                   
+                              
+                              <th><span>{{'Comments' | translate }}</span></th>
+                              <th><span>{{'Active' | translate }}</span></th>
+
+                              <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let sample of phclists; index as i">
+                              <td class="sno text-center">{{i +1}}</td>
+                              <td class="sid text-center">{{sample.name}}</td>
+                              <td class="sid text-center">{{sample.districtName}}</td>
+                           
+                              <td class="sid text-center">{{sample.chcName}}</td>
+                              <td class="sid text-center">{{sample.ilrCode}}</td>
+                              
+                              <td class="number text-center">{{sample.comments}}</td>
+                              <td class="text-center">{{sample.isActive}}</td>
+                           
+                            <td class="text-center">
+                              <a class="" (click)="openEditIlr(editIlrDetail, sample)"
+                              role="button">
+                                  <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                   
+                
+                  <!-- The Modal -->
+                   <ng-template #addIlrDetail let-modal> 
+                        <div class="modal-header">
+                          <h4 class="modal-title modaltitle">{{'Add ILR' | translate }}</h4>
+                          <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="modal-body form-body">
+                          <form class="text-left" (ngSubmit)="addIlrForm.form.valid && onSubmit(addIlrForm)" #addIlrForm="ngForm" novalidate>
+                            <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                              <div class="form-row">
+                                
+
+                                
+
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                  <select id="inputilrPoint" class="form-control"
+                                  name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();">
+                                      <option value="">Select</option>
+                                      <option *ngFor="let districtdata1 of districtlists" [(value)]="districtdata1.id">
+                                          {{districtdata1.name}}
+                                      </option>
+                                  </select>
+                                  
+                              </div>
+                            
+
+                                <div class="form-group col-md-3">
+                                     
+                                      <label [ngClass]="{'label-border-class':ddlChc.invalid && ddlChc.touched || addIlrForm.submitted && ddlChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
+                                          class="manto"> *</span></label>
+                                          <select id="inputilrPoint" class="form-control"
+                                          name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || addIlrForm.submitted && ddlChc.invalid"
+                                          required [(ngModel)]="selectedChc" [disabled]="!disabledChc">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
+                                                  {{chcdata.name}}
+                                              </option>
+                                          </select>
+                                            <small class=" ml-2 text-danger" *ngIf="ddlChc.invalid && ddlChc.touched ">Please choose a CHC</small>
+                                            <div *ngIf="addIlrForm.submitted && ddlChc.invalid">  
+                                              <small *ngIf="ddlChc.untouched" class=" ml-2 text-danger">CHC is required</small>  
+                                            </div>  
+                                   
+                                </div>
+                                                               
+                            <div class="form-group col-md-3">
+                              <label class="note">{{'Name' | translate }}<span class="manto"> *</span></label>
+                              <input class="form-control" name="ilrname" type="text" placeholder="Name" ngModel pattern="^[a-zA-Z0-9]+$" required          
+                              #ilrname ="ngModel" [class.is-invalid]="!ilrname.valid && ilrname.touched || addIlrForm.submitted && ilrname.invalid">
+                              <small class="text-danger ml-2" *ngIf="!ilrname.valid && ilrname.touched ">Enter Name</small> 
+                              <div *ngIf="addIlrForm.submitted && ilrname.invalid">     
+                              <small *ngIf="ilrname.untouched" class=" ml-2 text-danger">Name is required</small>  
+                              </div> 
+                            </div>
+                            
+                            <div class="form-group col-md-3">
+                              <label class="note">{{'Ilr Code' | translate }}<span class="manto"> *</span></label>
+                              <input class="form-control" name="ilrCode" type="text" placeholder="Ilr Code" ngModel
+                              [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
+                               #ilrCode="ngModel" required>
+                              <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Ilr Code</small> 
+                              <div *ngIf="addIlrForm.submitted && ilrCode.invalid">     
+                                <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr Code is required</small>  
+                              </div> 
+                              
+                             
+                        </div>
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                  <div class="n-chk">
+                                      <label class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox" class="new-control-input checkbox" 
+                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                      </label>
+                                  </div>
+                                </div>
+                  
+                              </div>
+                  
+                              <div class="form-row mt-4">
+                                <div class="form-group col-md-12">
+                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                   rows="2"
+                                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                </div>                                                     
+                              </div>
+                            </div>
+                  
+                            <div class="modal-footer">
+                              <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto" >{{'Submit' | translate }}</button>
+                              <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                              <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                            </div>
+                          </form>
+                  
+                        </div>
+                      
+                      </ng-template> 
+
+                     <ng-template #editIlrDetail let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title modaltitle">{{'Edit ILR' | translate }}</h4>
+                        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="modal-body form-body">
+                        <form class="text-left" (ngSubmit)="editIlrForm.form.valid && editSubmit(editIlrForm)" #editIlrForm="ngForm" novalidate>
+                          <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                              <div class="form-row">
+                                <div class="form-group col-md-3">
+                                  <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                  <select id="inputilrPoint" class="form-control"
+                                  name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();"disabled>
+                                      <option value="">Select</option>
+                                      <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                          {{districtdata.name}}
+                                      </option>
+                                  </select>
+                              </div>
+                                  <div class="form-group col-md-3">
+                                     
+                                    <label [ngClass]="{'label-border-class':ddlEditChc.invalid && ddlEditChc.touched ||editIlrForm.submitted && ddlEditChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
+                                      class="manto"> </span></label>
+                                      <select id="inputilrPoint" class="form-control" disabled="disabled"
+                                      name="ddlEditChc" #ddlEditChc="ngModel" [class.is-invalid]="ddlEditChc.invalid && ddlEditChc.touched ||editIlrForm.submitted && ddlEditChc.invalid"
+                                      required [(ngModel)]="selectedEditChc">
+                                          <option value="">Select</option>
+                                          <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
+                                              {{chcdata.name}}
+                                          </option>
+                                      </select>
+                                        <small class=" ml-2 text-danger" *ngIf="ddlEditChc.invalid && ddlEditChc.touched ">Please choose a CHC</small>
+                                        <div *ngIf="editIlrForm.submitted && ddlEditChc.invalid">  
+                                          <small *ngIf="ddlEditChc.untouched" class=" ml-2 text-danger">CHC is required</small>  
+                                        </div>  
+                                        <input type="hidden" [(ngModel)]="selectedEditChc" name="ddlEdChc" #ddlEdChc="ngModel"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'Name' | translate }} <span class="manto"></span></label>
+                                  <input class="form-control" name="ilrname" type="text" placeholder="Name" required 
+                                    [(ngModel)]="ilrname">
+                                  <small class="text-danger ml-2" *ngIf="!ilrname.valid && ilrname.touched ">Enter Name</small>
+                                  <div *ngIf="editIlrForm.submitted && ilrname.invalid">
+                                    <small *ngIf="ilrname.untouched" class=" ml-2 text-danger">Name is required</small>
+                                  </div>
+            
+                                </div>
+            
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'Ilr code' | translate }} <span class="manto"></span></label>
+                                  <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code"
+                                    [class.is-invalid]="!ilrCode.valid && ilrCode.touched || editIlrForm.submitted && ilrCode.invalid"
+                                    required [(ngModel)]="ilrCode">
+                                  <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Ilr code</small>
+                                  <div *ngIf="editIlrForm.submitted && ilrCode.invalid">
+                                    <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr code is required</small>
+                                  </div>
+            
+                                </div>
+                              
+                           
+                        
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                  <div class="n-chk">
+                                      <label class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox" class="new-control-input checkbox" 
+                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                      </label>
+                                  </div>
+                                </div>
+                  
+                              </div>
+                  
+                              <div class="form-row mt-4">
+                                <div class="form-group col-md-12">
+                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                   rows="2"
+                                  placeholder="" name=commentsdata [(ngModel)]="commentsdata"></textarea>
+                                </div>                                                     
+                              </div>
+                            </div>
+                
+                          <div class="modal-footer">
+                            <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                            <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                          </div>
+                        </form>
+                
+                      </div>
+                    
+                   </ng-template> 
+              </div>
+              <!--  END CONTENT AREA  -->
+          </div>
+          <!-- END MAIN CONTAINER -->
+      </div>
+     
+  </div>
+</div>
+<!--  END CONTENT AREA  -->
+<!--  END MAIN CONTAINER  -->

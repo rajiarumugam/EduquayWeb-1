@@ -273,7 +273,7 @@
                                 <div class="form-row">
                                   <div class="form-group col-md-3">
                                     <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
-                                    <select id="inputilrPoint" class="form-control"
+                                    <select id="inputilrPoint" class="form-control" disabled
                                     name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" >
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
@@ -284,7 +284,7 @@
                                     <div class="form-group col-md-3">
                                         <label [ngClass]="{'label-border-class':ddlEditChc.invalid && ddlEditChc.touched ||editScForm.submitted && ddlEditChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
                                             class="manto"> </span></label>
-                                            <select id="inputilrPoint" class="form-control"
+                                            <select id="inputilrPoint" class="form-control" disabled
                                             name="ddlEditChc" #ddlEditChc="ngModel" [class.is-invalid]="ddlEditChc.invalid && ddlEditChc.touched ||editScForm.submitted && ddlEditChc.invalid"
                                             required [(ngModel)]="selectedEditChc" (change)="onChangeEditChc($event.target.value)">
                                                 <option value="">Select</option>
@@ -296,6 +296,7 @@
                                               <div *ngIf="editScForm.submitted && ddlEditChc.invalid">  
                                                 <small *ngIf="ddlEditChc.untouched" class=" ml-2 text-danger">CHC is required</small>  
                                               </div>  
+                                              <input type="hidden" [(ngModel)]="selectedEditChc" name="ddlEdChc" #ddlEdChc="ngModel"/>
                                      
                                   </div>
                                   <div class="form-group col-md-3">
