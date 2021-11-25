@@ -70,10 +70,10 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chcName: string;
     pincode: string;
     latitude: string;
-    longitude : string;
+    
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
+   
     latitudedata: string;
     pincodeData: string;
     blockdata:string;
@@ -304,8 +304,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcNamedata = sample.name;
       this.chcCodedata = sample.chcGovCode;
       this.pincodeData = sample.pincode;      
-      this.latitudedata = sample.latitude;
-      this.longitudedata = sample.longitude;
+     
       this.blockdata = sample.blockName;
       this.selectedEditDistrict = "" +(sample.districtId);
       this.selectedEditBlock = "" +(sample.blockId)
@@ -338,8 +337,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-      this.latitude = addChcForm.value.latitudeData;
-      this.longitude = addChcForm.value.longitudeData;
+      
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
   
@@ -354,8 +352,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,
-        latitude: this.latitude,
-        longitude: this.longitude,
+       
         userId: this.user.id
       };
   
@@ -393,8 +390,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcCodedata = editChcForm.value.chcCodedata;
       this.chcNamedata = editChcForm.value.chcNamedata;
       this.pincodeData = editChcForm.value.pincodeData;
-      this.latitudedata = editChcForm.value.latitudeData;
-      this.longitudedata = editChcForm.value.longitudeData;
+    
   
   
       this.chcListRequest = {
@@ -409,8 +405,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         pincode: this.pincodeData,
         isActive: ""+this.confirmationSelected,
         comments: this.commentsdata,
-        latitude: this.latitudedata,
-        longitude: this.longitudedata,
+        
         createdBy: this.user.id,
         updatedBy: this.user.id
       };

@@ -5,6 +5,8 @@ import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddBlockResponse } from '../add-block/add-block-response';
 import { AddChcResponse } from '../add-chc/add-chc-response';
+import { StateResponse } from '../state/state-response';
+import { UserroleResponse } from './add-users-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
 import { AddUsersRequest } from './add-users-request';
 import { AddUsersResponse, AddUsersDataresponse} from './add-users-response'; 
@@ -27,19 +29,21 @@ export class AddUsersService {
   RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
   addusersapi="api/v1/UserIdentity/Add";
   RetrieveAllUsers="api/v1/UserIdentity/Retrieve";
-
+  Retrieveuserrolebytype="api/v1/UserRole/RetrieveUserroleByType";
   updateIlrApi: string = "api/v1/SA/UpdateILR";
   RetrieveAllIlr: string = "api/v1/SA/RetrieveAllILR";
   addIlrApi: string = "api/v1/SA/AddNewILR";
   retrieveUsersApi: string = "api/v1/UserIdentity/RetrieveByType";
-
+  retrieveStateApi: string = "api/v1/SA/RetrieveAllStates";
+  retrieveUserroleApi: string = "api/v1/UserRole/Retrieve";
   
   
   constructor(
     private httpClient: HttpClient,
     private genericService: GenericService,
     private http: HttpClientService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    
   ) { }
 
   getallUsersList(){
@@ -67,6 +71,22 @@ export class AddUsersService {
     let apiUrl = this.genericService.buildApiUrl(this.retrieveDistrictApi);
     return this.http.get<any>({url: apiUrl});
   }
+
+  getStateList(){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveStateApi);
+    return this.http.get<StateResponse>({url: apiUrl});
+  }
+
+  getUserroleList(){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveUserroleApi);
+    return this.http.get<UserroleResponse>({url: apiUrl});
+  }
+
+  getUserroleListType(type){
+    let apiUrl = this.genericService.buildApiUrl(`${this.Retrieveuserrolebytype}/${type}`);
+    return this.http.get<UserroleResponse>({url: apiUrl});
+  }
+  
   
   getPhcList(code){
     //var user = JSON.parse(this.tokenService.getUser('lu'));

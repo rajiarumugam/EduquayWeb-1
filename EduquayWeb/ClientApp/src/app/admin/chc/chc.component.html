@@ -64,8 +64,7 @@
                               <th><span>{{'CHC Name' | translate }}</span></th>
                               <th><span>{{'CHC Code' | translate }}</span></th>
                               <th><span>{{'Pincode' | translate }}</span></th>
-                              <th><span>{{'Latitude' | translate }}</span></th>
-                              <th><span>{{'Longitude ' | translate }}</span></th>
+                            
                               <th><span>{{'Block' | translate }}</span></th>
                               <th><span>{{'District Name' | translate }}</span></th>
                               <th><span>{{'Testing CHC' | translate }}</span></th>
@@ -81,8 +80,7 @@
                               <td class="sid text-center">{{sample.chcGovCode}}</td>
                               <td class="sid text-center">{{sample.pincode}}</td>
                               
-                              <td class="sid text-center">{{sample.latitude}}</td>
-                              <td class="sid text-center">{{sample.longitude}}</td>
+                             
                               <td class="sid text-center">{{sample.blockName}}</td>
                               <!-- <td class="sid text-center">{{sample.chcName}}</td> -->
                               <td class="sid text-center">{{sample.districtName}}</td>
@@ -218,16 +216,7 @@
                                 <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode" 
                                   autocomplete="off" #pincodeData="ngModel" ngModel >
                               </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Latitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="latitudeData" type="text" placeholder="Latitude" 
-                                  autocomplete="off" #latitudeData="ngModel" ngModel>
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Longitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="longitudeData" type="text" placeholder="Longitude" 
-                                  autocomplete="off" #longitudeData="ngModel" ngModel>
-                              </div>
+                             
                     
                                   <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
@@ -392,16 +381,7 @@
                                 <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode" 
                                   autocomplete="off"  [(ngModel)]="pincodeData">
                               </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Latitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="latitudeData" type="text" placeholder="Latitude" 
-                                  autocomplete="off"  [(ngModel)]="latitudedata">
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Longitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="longitudeData" type="text" placeholder="Longitude" 
-                                  autocomplete="off" [(ngModel)]="longitudedata">
-                              </div>
+                             
                     
                                   <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>

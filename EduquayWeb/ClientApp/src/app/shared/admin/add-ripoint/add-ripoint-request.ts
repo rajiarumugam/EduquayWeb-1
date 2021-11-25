@@ -8,9 +8,7 @@ export class AddRipointRequest {
     pincode: string;
     ilrId: number;
     isActive: string;
-    comments: string;
-    latitude: string;
-    longitude: string;
+    comments: string; 
     createdBy: number;
     updatedBy: number;
 }

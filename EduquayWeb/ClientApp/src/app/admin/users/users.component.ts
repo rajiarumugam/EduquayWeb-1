@@ -5,14 +5,16 @@ import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrack
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
+import { FormBuilder,NgForm } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
+import { StateList, StateResponse } from 'src/app/shared/admin/state/state-response';
+import { Userrolelist, UserroleResponse } from 'src/app/shared/admin/add-users/add-users-response';
 import { TokenService } from 'src/app/shared/token.service';
-import { user } from 'src/app/shared/auth-response';
+import { user } from 'src/app/shared/auth-response'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AddDistrictService } from 'src/app/shared/admin/add-district/add-district.service';
 import { Router } from '@angular/router';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
@@ -68,7 +70,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     userRoleDescription: string;
     userRoleAccessModule: string;
     userGovCode: string;
+    districtlistErrorMessage: string;
     userName: string;
+    riCode: string;
     stateId: number;
     centralLabId: number;
     centralLabName: string;
@@ -90,6 +94,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     middleName: string;
     lastName: string;
     email: string;
+    Address: string;
     mobileNo: string;
     registeredFrom: number;
     sampleCollectionFrom: number;
@@ -107,6 +112,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   districtListResponse;
   selectedEditChc: string = '';
   districtlists: DistrictList[];
+  getstate: string;
   blocklists: BlockList[];
   blockListResponse;
   confirmationSelected: boolean ;
@@ -159,8 +165,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   uniqueSubjectId: string;
   
   selectedChc: string;
+  selectedState: string;
+  selectedUserrole: string;
   selectedBlock: string;
-
+  stateListResponse: StateResponse;
+  userroleListResponse:UserroleResponse;
   addPhcResponse: AddUsersDataresponse;
   
   religionId: number;
@@ -171,6 +180,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   casteName: string;
   communityId: number;
   communityName: string;
+  address:string;
   address1: string;
   address2: string;
   address3: string;
@@ -191,14 +201,18 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   selectedPhc: string = '';
   selectedSc: string = '';
   spouseSubjectId: string;
+  
   spouseFirstName: string;
   spouseMiddleName: string;
+  statelists: StateList[];
+  userrolelists: Userrolelist[];
   spouseLastName: string;
   testingCHCists;
   spouseContactNo: string;
   govIdTypeId: number;
   govIdType: string;
-  govIdDetail: string;
+  govIdDetails: string;
+
   rchId: string;
   testingCHCResponse;
   ecNumber: string;
@@ -306,10 +320,18 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
+  password: any;
+  contactNo1: any;
+  contactNo2:any;
+  createdBy: any;
+  updatedBy: any;
+  isActive: any;
+  State: any;
 
   
 
   constructor(
+    private DistrictService: AddDistrictService,
     private SubjectProfileService: SubjectProfileService,
     private httpService: HttpClient,
     private _formBuilder: FormBuilder,
@@ -434,7 +456,61 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       
       
   }
-  
+  ddlState() {
+    let district = this.DistrictService.getStateList().subscribe(response => {
+      this.stateListResponse = response;
+      if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
+        this.statelists = this.stateListResponse.data;
+        this.selectedState = "";
+      }
+      else {
+        this.districtlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.districtlistErrorMessage = err.toString();
+
+      });
+  }
+
+  ddlUserRole(type) {
+    
+    let district = this.UsersService.getUserroleListType(type).subscribe(response => {
+      this.userroleListResponse = response;
+      console.log(this.userroleListResponse);
+      if (this.userroleListResponse !== null && this.userroleListResponse.status === "true") {
+        this.userrolelists = this.userroleListResponse.userRoles;
+        this.selectedUserrole = "";
+       
+      }
+
+      else {
+        this.districtlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.districtlistErrorMessage = err.toString();
+
+      });
+  }
+
+  editddlState() {
+    let district = this.DistrictService.getStateList().subscribe(response => {
+      this.stateListResponse = response;
+      if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
+        this.statelists = this.stateListResponse.data;
+        this.selectedState = this.getstate;
+      }
+      else {
+        this.districtlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.districtlistErrorMessage = err.toString();
+
+      });
+  }
+
 
   ddlTestingCHC(code) {
     this.selectedBlock = '';
@@ -697,6 +773,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   openAddIlr(addIlrDetail) {
       
     //this.ddlChc();
+    this.ddlState();
+    this.ddlUserRole(this.maintabSelected);
     this.disabledChc = false;
     this.ddlDistrict();
     this.confirmationSelected = Boolean("True");
@@ -968,109 +1046,109 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     }
    
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getANMReportList(_obj)
-      .subscribe(response => {
+    // let subProfile = this.SubjectProfileService.getANMReportList(_obj)
+    //   .subscribe(response => {
         
-       console.log(response['data'].length);
-       if(maintab ===1)
-       {
-            if(subtab === 1)
-                  this.countMain1Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain1Sub2 = response['data'].length;
-       }
-       if(maintab ===2)
-       {
-            if(subtab === 1)
-                  this.countMain2Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain2Sub2 = response['data'].length;
+    //    console.log(response['data'].length);
+    //    if(maintab ===1)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain1Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain1Sub2 = response['data'].length;
+    //    }
+    //    if(maintab ===2)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain2Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain2Sub2 = response['data'].length;
             
-       }
-       if(maintab ===3)
-       {
-            if(subtab === 1)
-                  this.countMain3Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain3Sub2 = response['data'].length;
-       }
+    //    }
+    //    if(maintab ===3)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain3Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain3Sub2 = response['data'].length;
+    //    }
 
-       if(maintab ===4)
-       {
-            if(subtab === 1)
-                  this.countMain4Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain4Sub1 = response['data'].length;
-            if(subtab === 3)
-                  this.countMain4Sub3 = response['data'].length;
-            if(subtab === 4)
-                  this.countMain4Sub4 = response['data'].length;
-            if(subtab === 5)
-                  this.countMain4Sub5 = response['data'].length;
-       }
+    //    if(maintab ===4)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain4Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain4Sub1 = response['data'].length;
+    //         if(subtab === 3)
+    //               this.countMain4Sub3 = response['data'].length;
+    //         if(subtab === 4)
+    //               this.countMain4Sub4 = response['data'].length;
+    //         if(subtab === 5)
+    //               this.countMain4Sub5 = response['data'].length;
+    //    }
 
-       if(maintab ===5)
-       {
-            if(subtab === 1)
-                  this.countMain5Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain5Sub2 = response['data'].length;
-            if(subtab === 3)
-                  this.countMain5Sub3 = response['data'].length;
-            if(subtab === 4)
-                  this.countMain5Sub4 = response['data'].length;
-       }
-       if(maintab ===6)
-       {
-            if(subtab === 1)
-                  this.countMain6Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain6Sub2 = response['data'].length;
-            if(subtab === 3)
-                  this.countMain6Sub3 = response['data'].length;
-            if(subtab === 4)
-                  this.countMain6Sub4 = response['data'].length;
-            if(subtab === 5)
-                  this.countMain6Sub5 = response['data'].length;
-       }
-       if(maintab ===7)
-       {
-            if(subtab === 1)
-                  this.countMain7Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain7Sub2 = response['data'].length;
-            if(subtab === 3)
-                  this.countMain7Sub3 = response['data'].length;      
-       }
-       if(maintab ===8)
-       {
-            if(subtab === 1)
-                  this.countMain8Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain8Sub2 = response['data'].length;
-            if(subtab === 3)
-                  this.countMain8Sub3 = response['data'].length;
-            if(subtab === 4)
-                  this.countMain8Sub4 = response['data'].length;
-            if(subtab === 5)
-                  this.countMain8Sub5 = response['data'].length;
+    //    if(maintab ===5)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain5Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain5Sub2 = response['data'].length;
+    //         if(subtab === 3)
+    //               this.countMain5Sub3 = response['data'].length;
+    //         if(subtab === 4)
+    //               this.countMain5Sub4 = response['data'].length;
+    //    }
+    //    if(maintab ===6)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain6Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain6Sub2 = response['data'].length;
+    //         if(subtab === 3)
+    //               this.countMain6Sub3 = response['data'].length;
+    //         if(subtab === 4)
+    //               this.countMain6Sub4 = response['data'].length;
+    //         if(subtab === 5)
+    //               this.countMain6Sub5 = response['data'].length;
+    //    }
+    //    if(maintab ===7)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain7Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain7Sub2 = response['data'].length;
+    //         if(subtab === 3)
+    //               this.countMain7Sub3 = response['data'].length;      
+    //    }
+    //    if(maintab ===8)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain8Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain8Sub2 = response['data'].length;
+    //         if(subtab === 3)
+    //               this.countMain8Sub3 = response['data'].length;
+    //         if(subtab === 4)
+    //               this.countMain8Sub4 = response['data'].length;
+    //         if(subtab === 5)
+    //               this.countMain8Sub5 = response['data'].length;
            
-       }
-       if(maintab ===9)
-       {
-            if(subtab === 1)
-                  this.countMain9Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain9Sub1 = response['data'].length;
-            if(subtab === 3)
-                  this.countMain9Sub1 = response['data'].length;
+    //    }
+    //    if(maintab ===9)
+    //    {
+    //         if(subtab === 1)
+    //               this.countMain9Sub1 = response['data'].length;
+    //         if(subtab === 2)
+    //               this.countMain9Sub1 = response['data'].length;
+    //         if(subtab === 3)
+    //               this.countMain9Sub1 = response['data'].length;
            
-       }
-       this.loaderService.display(false);
-      },
-        (err: HttpErrorResponse) => {
-          this.subjectprofilelistErrorMessage = err.toString();
-        });
+    //    }
+    //    this.loaderService.display(false);
+    //   },
+    //     (err: HttpErrorResponse) => {
+    //       this.subjectprofilelistErrorMessage = err.toString();
+    //     });
 
   }
 
@@ -1238,146 +1316,934 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
  
   }
 
-  onSubmit(addIlrForm: NgForm){
+  onSubmitsadmin(addIlrForm: NgForm){
   
     console.log(addIlrForm.value);
     
+    this.userName = addIlrForm.value.Username;
+    this.firstName = addIlrForm.value.firstName;
+    this.middleName = addIlrForm.value.middleName;
+    this.lastName = addIlrForm.value.lastName;
+    this.userGovCode = addIlrForm.value.userGovCode;
+    this.State = addIlrForm.value.State;
+    this.email = addIlrForm.value.email;
+    this.selectedState = addIlrForm.value.ddlState;
+    this.contactNo1 = addIlrForm.value.contactNo1;
     this.comments = addIlrForm.value.Comments;
-    this.selectedChc = addIlrForm.value.ddlChc; 
-    
-    // this.userTypeId=addIlrForm.value.userTypeId;
-    // this.userType= addIlrForm.value.userType;
-    // this.userRoleId= addIlrForm.value.userRoleId ;
-    this.userRole= addIlrForm.value.userRole;
-    this.userRoleDescription= addIlrForm.value.userRoleDescription;
-    // this.userRoleAccessModule= addIlrForm.value.userRoleAccessModule;
-    this.userGovCode=addIlrForm.value.userGovCode ;
-    this.userName= addIlrForm.value. userName;
-    // this.stateId=addIlrForm.value.stateId;
-    // this.centralLabId= addIlrForm.value.centralLabId;
-    // this.centralLabName= addIlrForm.value. centralLabName;
-    // this.molecularLabId=addIlrForm.value.molecularLabId ;
-    this.molecularLabName=addIlrForm.value.molecularLabName ; 
-    // this.districtId= addIlrForm.value.districtId ;
-    this.districtName= addIlrForm.value.districtName ;
-    // // this.blockId= addIlrForm.value.blockId ;
-    // this.blockName=addIlrForm.value.blockName ;
-    // this.chcId= addIlrForm.value.chcId ;
-    this.chcName= addIlrForm.value.chcName ;
-    // this.phcId= addIlrForm.value.phcId ;
-    this.phcName=addIlrForm.value.phcName ;
-    // this.scId=addIlrForm.value.scId ;
-    this.scName= addIlrForm.value.scName ;
-    // this.riId= addIlrForm.value.riId ;
-    this.name= addIlrForm.value.name ;
-    this.firstName= addIlrForm.value.firstName ;
-    this.middleName= addIlrForm.value.middleName ;
-    this.lastName=addIlrForm.value.lastName ;
-    this.email=addIlrForm.value.email ;
-    this.mobileNo= addIlrForm.value.mobileNo ;
-    // this.registeredFrom =addIlrForm.value.registeredFrom ;
-    // this.sampleCollectionFrom=addIlrForm.value.sampleCollectionFrom ;
-    // this.shipmentFrom= addIlrForm.value.shipmentFrom ;
-    // this.pndtLocationId= addIlrForm.value.pndtLocationId ;
- 
-    
-
-
+  console.log(addIlrForm);
     this.Userslistrequest = {
-      chcId: 0,
-      id:this.id,
-    userTypeId:this.userTypeId,
-    userRoleId:this.userRoleId,
-   
-    
-    userGovCode:this.userGovCode,
-    userName:this. userName,
-    stateId: this.stateId,
-    centralLabId: this.centralLabId,
-   
-    molecularLabId: this.molecularLabId,
-    
-    districtId:this.districtId,
-    
-    blockId:0,
-    blockName: this.blockName,
-    // chcId:this. chcId,
-    chcName:this.chcName ,
-    phcId:this.phcId,
-    phcName:this.phcName ,
-    scId:this.scId ,
-    scName: this.scName,
-    riId:this.riId,
-    
-    firstName:this.firstName,
-    middleName:this.middleName,
-    lastName:this.lastName,
-    email:this.email,
-    mobileNo:this.mobileNo,
-    registeredFrom: this.registeredFrom,
-    sampleCollectionFrom:this.sampleCollectionFrom,
-    shipmentFrom:this.shipmentFrom,
-    pndtLocationId:this.pndtLocationId,
-
-      comments: this.comments,        
-      userId: this.user.id  
-
-  //     "userRoleId": 0,
-  // "userGovCode": "string",
-  // "userName": "string",
-  // "password": "string",
-  // "stateId": 0,
-  // "centralLabId": 0,
-  // "molecularLabId": 0,
-  // "districtId": 0,
-  // "blockId": 0,
-  // "chcId": 0,
-  // "phcId": 0,
-  // "scId": 0,
-  // "riId": "string",
-  // "firstName": "string",
-  // "middleName": "string",
-  // "lastName": "string",
-  // "contactNo1": "string",
-  // "contactNo2": "string",
-  // "email": "string",
-  // "govIdTypeId": 0,
-  // "govIdDetails": "string",
-  // "address": "string",
-  // "pincode": "string",
-  // "createdBy": 0,
-  // "updatedBy": 0,
-  // "comments": "string",
-  // "isActive": "string"
+      userTypeId:1,   
+      userRoleId:1,   
+        userGovCode:this.userGovCode,
+        userName:this. userName,       
+        password:'KJOJ',
+        stateId: +(this.selectedState), 
+        centralLabId: 0,
+            
+        molecularLabId: 0,        
+        districtId:0,   
+        blockId:0,
+        chcId:0 ,
+        phcId:0,
+        scId:0 ,
+        riId:null,        
+        firstName:this.firstName,
+        middleName:this.middleName,
+        lastName:this.lastName,
+        contactNo1:this.contactNo1,
+        contactNo2:null,
+        email:this.email,
+        govIdTypeId:0,
+        govIdDetails:null,
+        address:null,
+        pincode:null,
+        createdBy:this.user.id ,
+        updatedBy:this.user.id ,
+        comments: this.comments,
+        isActive:"true",         
     };
-
-    console.log(this.Userslistrequest);
-
-    //Remove below 2 lines after successfully tested
-    // this.showResponseMessage('Successfully registered', 's');
-    // return false;
-
     let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
     .subscribe(response => {
-      this.addPhcResponse = response;
+       this.addPhcResponse = response;
       console.log(response );
       if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-        this.showResponseMessage(this.addPhcResponse.message, 's')
+         this.showResponseMessage(this.addPhcResponse.message, 's')
          this.retrirveIlrlist();
-         console.log(this.addPhcResponse.message );
-      }else{
-        this.showResponseMessage(this.addPhcResponse.message, 'e');
-                this.phclistErrorMessage = response.message;
-      }
+          console.log(this.addPhcResponse.message );
+       }else{
+         this.showResponseMessage(this.addPhcResponse.message, 'e');
+               this.phclistErrorMessage = response.message;
+       }
 
     },
     (err: HttpErrorResponse) => {
       this.showResponseMessage(err.toString(), 'e');
-      this.phclistErrorMessage = err.toString();
+    this.phclistErrorMessage = err.toString();
     });
-    //swal ("Here's the title!", "...and here's the text!");
-  }
+    // this.rerender();
+     //swal ("Here's the title!", "...and here's the text!");
+   }
+    onSubmitanm(addIlrForm: NgForm){
+  
+      console.log(addIlrForm.value);
+      this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+      this.selectedBlock = addIlrForm.value.ddlBlock;
+      this.selectedChc = addIlrForm.value.ddlChc;
+      this.selectedPhc = addIlrForm.value.ddlPhc;
+      this.selectedSc = addIlrForm.value.ddlSc;
+      this.riId = addIlrForm.value.riId;
+      this.userName = addIlrForm.value.Username;
+      this.firstName = addIlrForm.value.firstName;
+      this.middleName = addIlrForm.value.middleName;
+      this.lastName = addIlrForm.value.lastName;
+      this.contactNo1 = addIlrForm.value.contactNo1;
+      this.userGovCode = addIlrForm.value.userGovCode;      
+      this.selectedState = addIlrForm.value.ddlState;     
+      this.email = addIlrForm.value.email;      
+      this.Address = addIlrForm.value.Address;
+      this.comments = addIlrForm.value.Comments;
 
+    console.log(addIlrForm);
+      this.Userslistrequest = {
+        userTypeId:3,   
+        userRoleId:3,   
+          userGovCode:this.userGovCode,
+          userName:this.userName,       
+          password:'KJOJ',
+          stateId:+(this.selectedState), 
+          centralLabId: 0,
+              
+          molecularLabId: 0,        
+          districtId: +(this.selectedDistrict),  
+          blockId: +(this.selectedBlock),
+          chcId: +(this.selectedChc),
+          phcId: +(this.selectedPhc),
+          scId: +(this.selectedSc),
+          riId:this.riId,        
+          firstName:this.firstName,
+          middleName:this.middleName,
+          lastName:this.lastName,
+          contactNo1:this.contactNo1,
+          contactNo2:null,
+          email:this.email,
+          govIdTypeId:0,
+          govIdDetails:null,
+          address:this.Address,
+          pincode:null,
+          createdBy:this.user.id ,
+          updatedBy:this.user.id ,
+          comments: this.comments,
+          isActive:"true",         
+      };
+
+    console.log(this.Userslistrequest);
+    //Remove below 2 lines after successfully tested
+    // this.showResponseMessage('Successfully registered', 's');
+    // return false;
+  
+      
+    let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+    .subscribe(response => {
+       this.addPhcResponse = response;
+      console.log(response );
+      if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+         this.showResponseMessage(this.addPhcResponse.message, 's')
+         this.retrirveIlrlist();
+          console.log(this.addPhcResponse.message );
+       }else{
+         this.showResponseMessage(this.addPhcResponse.message, 'e');
+               this.phclistErrorMessage = response.message;
+       }
+
+    },
+    (err: HttpErrorResponse) => {
+      this.showResponseMessage(err.toString(), 'e');
+    this.phclistErrorMessage = err.toString();
+    });
+    // this.rerender();
+     //swal ("Here's the title!", "...and here's the text!");
+   }
+
+   onSubmitchc(addIlrForm: NgForm){
+  
+    console.log(addIlrForm.value);
+    this.selectedUserrole = addIlrForm.value.ddlUserRole;
+    this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+    this.selectedBlock = addIlrForm.value.ddlBlock;
+    this.selectedChc = addIlrForm.value.ddlChc;    
+    this.userName = addIlrForm.value.Username;
+    this.firstName = addIlrForm.value.firstName;
+    this.middleName = addIlrForm.value.middleName;
+    this.lastName = addIlrForm.value.lastName;
+    this.contactNo1 = addIlrForm.value.contactNo1;
+    this.userGovCode = addIlrForm.value.userGovCode;    
+    this.selectedState = addIlrForm.value.ddlState;       
+    this.email = addIlrForm.value.email;      
+    this.Address = addIlrForm.value.Address;
+    this.comments = addIlrForm.value.Comments;
+
+  console.log(addIlrForm);
+    this.Userslistrequest = {
+      userTypeId:4,   
+      userRoleId:+(this.selectedUserrole),   
+        userGovCode:this.userGovCode,
+        userName:this.userName,       
+        password:'KJOJ',
+        stateId:+(this.selectedState), 
+        centralLabId: 0,
+            
+        molecularLabId: 0,        
+        districtId: +(this.selectedDistrict),  
+        blockId: +(this.selectedBlock),
+        chcId: +(this.selectedChc),
+        phcId: 0,
+        scId: 0,
+        riId:null,        
+        firstName:this.firstName,
+        middleName:this.middleName,
+        lastName:this.lastName,
+        contactNo1:this.contactNo1,
+        contactNo2:null,
+        email:this.email,
+        govIdTypeId:0,
+        govIdDetails:null,
+        address:this.Address,
+        pincode:null,
+        createdBy:this.user.id ,
+        updatedBy:this.user.id ,
+        comments: this.comments,
+        isActive:"true",         
+    };
+
+  console.log(this.Userslistrequest);
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+    
+  let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+  .subscribe(response => {
+     this.addPhcResponse = response;
+    console.log(response );
+    if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+       this.showResponseMessage(this.addPhcResponse.message, 's')
+       this.retrirveIlrlist();
+        console.log(this.addPhcResponse.message );
+     }else{
+       this.showResponseMessage(this.addPhcResponse.message, 'e');
+             this.phclistErrorMessage = response.message;
+     }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+  this.phclistErrorMessage = err.toString();
+  });
+  // this.rerender();
+   //swal ("Here's the title!", "...and here's the text!");
+ }
+  
+ onSubmithplc(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:5,   
+    userRoleId:+(this.selectedUserrole),   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitpndtc(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:6,   
+    userRoleId:6,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+  
+onSubmitmtp(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:7,   
+    userRoleId:7,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitdc(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:8,   
+    userRoleId:8,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitmolecular(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:9,   
+    userRoleId:9,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitspc(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:9,   
+    userRoleId:9,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitnhm(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:9,   
+    userRoleId:9,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitpndt(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:9,   
+    userRoleId:9,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
+onSubmitsupport(addIlrForm: NgForm){
+  
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;    
+  this.selectedState = addIlrForm.value.ddlState;       
+  this.email = addIlrForm.value.email;      
+  this.Address = addIlrForm.value.Address;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:9,   
+    userRoleId:9,   
+      userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId:+(this.selectedState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedDistrict),  
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",         
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+  
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+     this.showResponseMessage(this.addPhcResponse.message, 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
   custumTabClick(i,j)
   {
       this.maintabSelected = i;

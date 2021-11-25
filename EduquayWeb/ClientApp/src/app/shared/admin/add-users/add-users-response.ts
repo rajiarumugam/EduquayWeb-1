@@ -4,6 +4,22 @@ export class AddUsersResponse {
     users: UsersList[];
 }
 
+export interface UserroleResponse {
+    status: string;
+    message: string;
+    userRoles: Userrolelist[];
+}
+export interface Userrolelist {
+    id: number;
+    userTypeId: string;
+    userTypeName: string;
+    userRoleName: string;
+    isActive: string;
+    comments: string;
+    createdBy: number;
+    updatedBy: number;
+}
+
 export interface UsersList {
     id: number;
     userTypeId: number;
@@ -40,6 +56,8 @@ export interface UsersList {
     sampleCollectionFrom: number;
     shipmentFrom: number;
     pndtLocationId: number;
+    comments:string;
+    isActive:string;
 }
 
 export interface AddUsersDataresponse {

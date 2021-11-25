@@ -65,12 +65,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     chcName: string;
     pincode: string;
-    latitude: string;
-    longitude : string;
+   
+   
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
-    latitudedata: string;
+    
+   
     pincodeData: string;
     phcNamedata: string;
     phcCodedata: string;
@@ -280,8 +280,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
      
       this.phcNamedata = sample.name;
       this.pincodeData = sample.pincode;
-      this.latitudedata = sample.latitude;
-      this.longitudedata = sample.longitude;
+     
       this.selectedEditChc = "" +(sample.chcId)
       this.commentsdata = sample.comments;
       this.phcCodedata = sample.phcGovCode;
@@ -308,9 +307,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedChc = addPhcForm.value.ddlChc;
       this.phcName = addPhcForm.value.phcName;
       this.pincode = addPhcForm.value.pincodeData;
-      this.phcCode =  addPhcForm.value.phcCode
-      this.latitude = addPhcForm.value.latitudeData;
-      this.longitude = addPhcForm.value.longitudeData;
+      this.phcCode =  addPhcForm.value.phcCode     
       this.hninId = addPhcForm.value.hninId;
   
 
@@ -320,9 +317,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         phcGovCode: this.phcCode,
         name: this.phcName,
         pincode: this.pincode,
-        comments: this.comments,
-        latitude: this.latitude,
-        longitude: this.longitude,
+        comments: this.comments,      
         userId: this.user.id  
       };
   
@@ -358,8 +353,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.phcCodedata = editPhcForm.value.phcCodedata;
       //this.phcnamedata = editPhcForm.value.phcNamedata;
       this.pincodeData = editPhcForm.value.pincodeData;
-      this.latitudedata = editPhcForm.value.latitudeData;
-      this.longitudedata = editPhcForm.value.longitudeData;
+      
       this.hninId = editPhcForm.value.hninId;
 
       console.log(this.selectedEditChc);
@@ -374,8 +368,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         hninId: this.hninId,
         pincode: this.pincodeData,
         isActive: this.confirmationSelected,
-        latitude: this.latitudedata,
-        longitude: this.longitudedata,
+        
         comments: this.commentsdata,
         userId: this.user.id,
       };

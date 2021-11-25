@@ -34,4 +34,6 @@ export class AddUsersRequest {
     sampleCollectionFrom: number;
     shipmentFrom: number;
     pndtLocationId: number;
+    comments: string;
+    isActive:string;
 }

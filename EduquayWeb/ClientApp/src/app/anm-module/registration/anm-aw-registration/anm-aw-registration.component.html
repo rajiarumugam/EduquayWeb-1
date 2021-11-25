@@ -69,8 +69,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputFirstname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">{{'FirstName' | translate }}</label><span class="manto"> *</span>
-                            <input type="text" autocomplete="off"class="form-control" id="inputFirstname" placeholder="First Name" [(ngModel)]="selectedfirstname" required formControlName = "firstname" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">
+                            <input type="text" autocomplete="off"class="form-control" id="inputFirstname" placeholder="First Name" [(ngModel)]="selectedfirstname" required formControlName = "firstname"
+                             [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.firstname.invalid }">
                         </div>
+
+                        
                         <div class="form-group col-md-3">
                             <label class="birthreg" for="inputMiddlename">{{'MiddleName' | translate }}</label>
                             <input type="text" autocomplete="off"class="form-control" id="inputMiddlename" placeholder="Middle Name" [(ngModel)]="selectedmiddlename" formControlName = "middlename">

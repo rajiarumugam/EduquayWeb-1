@@ -64,8 +64,8 @@
                               <th><span>{{'SC Name' | translate }}</span></th>
                               <th><span>{{'SC Code' | translate }}</span></th>
                               <th><span>{{'Pincode' | translate }}</span></th>
-                              <th><span>{{'Latitude' | translate }}</span></th>
-                              <th><span>{{'Longitude ' | translate }}</span></th>
+                              
+                            
                               <th><span>{{'CHC' | translate }}</span></th>
                               <th><span>{{'PHC' | translate }}</span></th>                               
                               <th><span>{{'Comments' | translate }}</span></th>
@@ -79,8 +79,7 @@
                               <td class="sname text-left">{{sample.name}}</td>
                               <td class="sname text-center">{{sample.scGovCode}}</td>
                               <td class="sid text-center">{{sample.pincode}}</td>
-                              <td class="sid text-center">{{sample.latitude}}</td>
-                              <td class="sid text-center">{{sample.longitude}}</td>
+                            
                               <td class="sid text-left">{{sample.chcName}}</td>
                               <td class="sid text-left">{{sample.phcName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
@@ -192,18 +191,7 @@
                                 <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
                                 <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode" 
                                   autocomplete="off" #pincodeData="ngModel" ngModel >
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Latitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="latitudeData" type="text" placeholder="Latitude" 
-                                  autocomplete="off" #latitudeData="ngModel" ngModel>
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Longitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="longitudeData" type="text" placeholder="Longitude" 
-                                  autocomplete="off" #longitudeData="ngModel" ngModel>
-                              </div>
-
+                              </div>                           
                               <div class="form-group col-md-3">
                                 <label class="note">{{'scAddress' | translate }}<span class="manto"></span></label>
                                 <input class="form-control field" name="scAddress" type="text" placeholder="SC Address" 
@@ -349,16 +337,7 @@
                                 <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode" 
                                   autocomplete="off"  [(ngModel)]="pincodeData">
                               </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Latitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="latitudeData" type="text" placeholder="Latitude" 
-                                  autocomplete="off"  [(ngModel)]="latitudedata">
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'Longitude' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="longitudeData" type="text" placeholder="Longitude" 
-                                  autocomplete="off" [(ngModel)]="longitudedata">
-                              </div>
+                             
 
                               <div class="form-group col-md-3">
                                 <label class="note">{{'scAddress' | translate }}<span class="manto"></span></label>

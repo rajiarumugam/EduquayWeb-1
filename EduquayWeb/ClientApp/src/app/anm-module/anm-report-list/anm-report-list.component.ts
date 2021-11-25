@@ -5,12 +5,12 @@ import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrack
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import { Router } from '@angular/router';
+import { FormBuilder,NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
@@ -64,7 +64,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   userId: number;
 
   /*Date Range configuration starts*/
-  dateform: FormGroup;
+  dateform: NgForm;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
   anmSPFromDate: string ="";

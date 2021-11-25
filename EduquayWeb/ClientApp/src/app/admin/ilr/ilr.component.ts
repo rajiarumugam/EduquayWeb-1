@@ -71,12 +71,12 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
     // chcName: string;
     pincode: string;
-    latitude: string;
-    longitude : string;
+   
+   
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
-    latitudedata: string;
+    
+    
     ilrname: string;
     // chcName: string;
     ilrCode: string;
