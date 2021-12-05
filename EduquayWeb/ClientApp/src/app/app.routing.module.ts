@@ -15,6 +15,7 @@ import { HomeComponent } from "./home/home.component";
 import { CounterComponent } from "./counter/counter.component";
 import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { LoginComponent } from "./auth/login/login.component";
+import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { AuthGuard } from "./shared/auth.guard";
 import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
@@ -270,7 +271,10 @@ import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-p
 
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
+
 import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+
 import { PathoreportSampleStatusPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
 import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
@@ -351,6 +355,9 @@ const routes: Routes = [
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   {
+    path: 'hplc-report-print', component: HplcreportSampleStatusPrintComponent,pathMatch: 'full'
+  },
+  {
     path: 'home',
     component: HomeLayoutComponent,
     children: [
@@ -359,7 +366,8 @@ const routes: Routes = [
       { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
       { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
       { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'},
-      { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'}
+      { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'},
+      { path: 'hplclogin', component: HplcLoginComponent, pathMatch: 'full'}
     ]
   },
 
@@ -914,12 +922,10 @@ const routes: Routes = [
         {path: 'postmtp-follow-up', component: PostMtpFollowupComponent, pathMatch: 'full'}
       ]
       },
-      
-     
     ]
   },
   
-
+  
   { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
   { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
@@ -944,6 +950,7 @@ export const RoutingComponents = [
   CounterComponent,
   FetchDataComponent,
   LoginComponent,
+  HplcLoginComponent,
   HomeHeaderComponent,
   HomeLayoutComponent,
   SiteHeaderComponent,
@@ -1168,16 +1175,14 @@ export const RoutingComponents = [
   UploadMainComponent,
   CHCUploadComponent,
   HPLCUploadComponent,
-
   PathoreportSampleStatusMainPrintComponentANM,
   PathoreportSampleStatusPrintComponentANM,
   PathoreportSampleStatusMainPrintComponentDC,
   PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
-  PathoreportSampleStatusPrintComponentNHM
-  PathoreportListComponent
-
-
+  PathoreportSampleStatusPrintComponentNHM,
+  PathoreportListComponent,
+  HplcreportSampleStatusPrintComponent
 ];
 
 

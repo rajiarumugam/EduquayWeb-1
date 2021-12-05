@@ -1,0 +1,148 @@
+<div class="container-fluid d-fiex">
+  <div class="row mlmr">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 pt-5 text-center">
+      <!-- <div class="row center1 mlmr"> -->
+        <!-- <div class="col-md-5 text-center"> -->
+          <img src="assets/assets/img/odisa-family34.png" class="">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 pt-1 align-self-center h-100">
+          <div class="py-3">
+            <h4 class="font-size:800" style="color: #e19f49">VISION</h4>
+            <h5 class="">People of Odisha will live a life, free from the burden of<br>major
+              haemoglobin disorders such as thalassemia major<br>and sickle cell disease.</h5>
+          </div>
+          <div class="">
+            <h4 class="font-size:800" style="color: #e19f49">GOAL</h4>
+            <h5 class="">To reduce the burden of disease due to major haemoglobin<br>disorders in
+              Odisha.</h5>
+          </div>
+
+
+        </div>
+      
+
+    <!-- </div> -->
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+      
+      <div class="form-form  mt-5">
+       
+        <!-- <div class="col-md-12"> -->
+        <div class="form-form-wrap">
+          <!-- <div class="form-container"> -->
+          <div class="form-content">
+            <h4 class="text-center text-primary">Log In
+            </h4>
+            <p>&nbsp;</p>
+            <div *ngIf="isLoginError" class="alert alert-danger" role="alert">
+              <div class="row">
+                <div class="col-1 alert-icon-col">
+                  <span class="fa fa-info-circle fa-1x"></span>
+                </div>
+                <div class="">
+                  {{loginErrorMessage}}
+                </div>
+              </div>
+            </div>
+            <form class="text-left" (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <div class="form">
+                <div id="username-field" class="field-wrapper input">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-user">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <input id="userid" name="userid" type="text" class="form-control" placeholder="Subject Id" ngModel
+                    #emailVal="ngModel" required>
+                  <span class="input-error" *ngIf="!emailVal.valid && emailVal.touched">Please enter a valid
+                    Subject id</span>
+                </div>
+
+                <div id="password-field" class="field-wrapper input mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-lock">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input id="password" name="password" type="number" class="form-control"
+                    placeholder="Barcode" ngModel #passwordVal="ngModel" required minlength="6">
+                  <span class="input-error"
+                    *ngIf="(!passwordVal.valid && passwordVal.touched && passwordVal.errors?.required)">Please enter
+                    Barcode</span>
+                  <span class="input-error"
+                    *ngIf="!passwordVal.valid && passwordVal.touched && passwordVal.errors?.minlength">Please enter at
+                    least 6 chars</span>
+                </div>
+                <div class="d-sm-flex justify-content-between">
+                  <div class="field-wrapper toggle-pass">
+
+
+                  </div>
+
+                  <div class="field-wrapper mt-2">
+                    <button type="submit" class="btn btn-primary mb-3 mr-3" id="loginApp" name="loginApp"
+                      [disabled]="!f.valid"> {{loginStatus}}
+                      <div class="spinner-border text-white mr-2 align-self-center loader-sm" *ngIf="isProcessing"
+                        style="margin-bottom: -3px;"></div>
+                    </button>
+                  </div>
+
+
+                </div>
+
+                <div class="field-wrapper">
+             
+              <!-- <div class="d-sm-flex justify-content-center"> -->
+               
+              <!-- </div> -->
+              </div>
+          </div>
+          </form>
+
+        </div>
+        <!-- </div> -->
+      </div>
+      <!-- </div> -->
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div class="clearer" ></div>
+<footer>
+<div class="container-fluid d-fiex">
+
+</div>
+</footer>
+<!-- The Modal -->
+
+
+<!--  </div> -->
+<!-- <div class="col-md-2">
+      <a href="#" class="py-5 pr-5 text-primary" style="float: right; font-weight: 900;">HELP</a>
+  </div> -->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Site  Under  Maintenance </h4>
+      
+    </div>
+    <div class="modal-body">
+      <form>
+          <div>
+          Dear TSCOD User,<br>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kindly notice that we will be experiencing server downtime due to scheduled maintenance today (24-07-2021) from 10 AM to 3 PM. During this time, you will not be able to access the TSCOD web application and mobile application. Kindly resume your operations after the maintenance window. 
+          <br><br>
+          We appreciate your patience and understanding.
+
+
+          
+        </div>
+      </form>
+    </div>
+    
+  </ng-template>
+  
