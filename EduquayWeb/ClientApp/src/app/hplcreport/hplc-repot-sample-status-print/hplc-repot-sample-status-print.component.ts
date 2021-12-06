@@ -45,7 +45,7 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
   selectedphc = null;
   ANMdata = []
   selectedAnm = null;
-  pndPendingArray = [];  
+  pndPendingArray = [];
   pndNotCompleteArray = [];
   fromDate ;
   toDate;
@@ -73,9 +73,9 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
   };
   currentDate;
   printArray = [];
-  RetrieveDiagnosisSampleStatusbybarcode="api/v1/Pathologist/RetrieveDiagnosisSampleStatusbybarcode?barcode=";
+  RetrieveDiagnosisSampleStatusbybarcode="api/v1/Pathologist/RetrievePathologistReportsByBarcode?barcode=";
 
-  constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService, private authService: AuthService, 
+  constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService, private authService: AuthService,
     private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService,private httpClient: HttpClient
   ) { }
 
@@ -83,7 +83,7 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
     this.getuserHPLCData();
   }
- 
+
 
   getuserHPLCData(){
     console.log(sessionStorage.getItem('hplcuserDetails'));
@@ -95,11 +95,11 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
       let adddamagedsample = this.authService.retrievehplcByBarcode(_hplcUserDetails)
       .subscribe(response => {
        console.log(response);
-        
+
         this.printArray = response.subjects[0];
       },
       (err: HttpErrorResponse) =>{
-        
+
       });
 
   }
@@ -110,8 +110,8 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
   }
 
   ngAfterViewInit(): void {
-    
-  }   
+
+  }
   printPdf()
   {
     console.log('print pdf');
@@ -120,7 +120,7 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
     }, 1);
       //alert('Please select atleast one data!');
     //document.title='CMC - Thalassemia & Sickle cell';
-    
+
   }
   checkIfSelected(i)
   {
