@@ -350,6 +350,9 @@ import { CHCUploadComponent } from "./upload/chc-upload/chc-upload.component";
 import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component";
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
 
+import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
+import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -597,6 +600,12 @@ const routes: Routes = [
         children:[
           {path: '', component: CHCUploadComponent, pathMatch: 'full'},
           {path: 'hplc', component: HPLCUploadComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'saupload', component: UploadSAMainComponent,
+        children:[
+          {path: '', component: SAUploadComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -1182,7 +1191,9 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusPrintComponentNHM,
   PathoreportListComponent,
-  HplcreportSampleStatusPrintComponent
+  HplcreportSampleStatusPrintComponent,
+  UploadSAMainComponent,
+  SAUploadComponent
 ];
 
 
