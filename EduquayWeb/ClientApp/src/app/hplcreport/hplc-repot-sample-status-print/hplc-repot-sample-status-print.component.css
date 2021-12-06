@@ -1,0 +1,191 @@
+::ng-deep .dt-buttons
+{
+    float:right !important;
+}
+
+    .print-show
+{
+    display:none;
+}
+.margin-top-30
+{
+    margin-top:30px !important;
+}
+.print-none
+    {
+        display:block;
+    }
+    .watermark,.watermark1 {
+       /*visibility: hidden;*/
+       width: 100%;
+    height: 700px;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0.1;
+   
+      }
+      .watermark img{
+          /*position: relative;*/
+          top: 40%;
+        left: 5%;
+        /*transform: translate(-50%, -50%);*/
+        position: fixed;
+        opacity: 0.1;
+      }
+      .watermark1 img{
+        /*position: relative;*/
+        top: 40%;
+      left: 5%;
+      /*transform: translate(-50%, -50%);*/
+      position: fixed;
+      opacity: 0.5;
+    }
+    @media all {
+        .watermark,.watermark1 {
+          /*display: none;*/
+         /* background-image: url("../../../../assets/assets/img/NRHM_GovOdishA_logo.png");*/
+          /*float: right;*/
+          width: 100%;
+    height: 700px;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0.1;
+    
+    
+
+        }
+      }
+@media print {
+    /* invert the display (show/hide) properties of the main */
+    /* aplication component and the printing component       */
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+    @page{size:auto; margin:5mm;}
+    @page :footer { 
+        display: none
+    } 
+  
+    @page :header { 
+        display: none
+    } 
+    /* invert the display (show/hide) properties of the main */
+    /* aplication component and the printing component       */
+    .watermark,.watermark1 {
+        display: block;
+        -webkit-print-color-adjust: exact;
+        visibility: visible;
+       /* background-image: url("../../../../assets/assets/img/NRHM_GovOdishA_logo.png");*/
+      }
+    .print-none
+    {
+        display:none;
+    }
+    .print-show
+{
+    display:block;
+}
+  .print-header
+  {
+      /*display: block;*/
+  }
+    .testing-summary-contaner
+    {
+        margin-top:-120px;
+    }
+    .print-btn
+    {
+        display: none;
+    }
+    .layout-spacing
+    {
+        padding:0;
+    }
+    .mt-3, .my-3
+    {
+        margin:0 !important;
+    }
+    .header-text
+    {
+        font-size: 12px;
+    }
+    .row
+    {
+        margin:0 !important;
+    }
+    .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto
+    {
+        padding:0 !important;
+    }
+    .logo-left
+    {
+        margin-left:5px;
+    }
+    .logo-right
+    {
+        margin-right:5px;
+        max-width: 100px;
+        padding-right:15px;
+    }
+    .left-logo-cont
+    {
+       /* max-width: 15% !important;*/
+    }
+    .col-mid
+    {
+        /*max-width: 50% !important;*/
+
+    }
+    .table > thead > tr > th
+    {
+        color:#000000 !important;
+    }
+    .widget-content-area
+    {
+        padding: 10px 20px;
+    }
+    .right-logo-cont
+    {
+        
+    }
+    .table-bordered tbody tr:nth-of-type(odd)
+    {
+        background-color: #ffffff !important;
+    }
+    .table-bordered td
+    {
+        border:none !important;
+    }
+    .table > tbody tr,.table
+    {
+        border:none !important;
+        height:auto;
+    }
+    .table-bordered.table-custom-border td,.table.table-custom-border > tbody tr
+    {
+        border:1px solid #000000 !important;
+    }
+    .table td, .table th{
+        padding: 5px !important;
+    }
+    .table,tbody
+    {
+        border: none !important;
+    }
+  }
+
+
+
+@media print {
+    .pagebreak { page-break-after: always; } /* page-break-after works, as well */
+}
