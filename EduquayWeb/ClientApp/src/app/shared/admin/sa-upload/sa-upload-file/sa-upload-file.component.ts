@@ -94,16 +94,55 @@ export class SAUploadComponent implements OnInit {
   uploadFiles()
   {
     var _obj = {};
-
     const frmData = new FormData();
-    
     for (var i = 0; i < this._imageArray.length; i++) { 
       frmData.append("formFiles", this._imageArray[i]);
     }
     this.errorCorrectionService.uploadSAFiles(frmData)
     .subscribe(response => {
       console.log(response);
-      Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
+      Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Validate', allowOutsideClick: false})
+      .then((result) => {
+        if (result.value) {
+          this.validateBulkUpload();
+          //this.resetData();
+        }
+      });
+      
+    },
+      (err: HttpErrorResponse) => {
+        this.loaderService.display(false);
+        Swal.fire({icon:'error', title: err.toString(), confirmButtonText: 'Close', allowOutsideClick: false})
+        //this.showResponseMessage(err.toString(), 'e');
+      });
+  }
+  validateBulkUpload()
+  {
+    this.errorCorrectionService.validateuploadSAFiles()
+    .subscribe(response => {
+      console.log(response);
+      Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Create', allowOutsideClick: false})
+      .then((result) => {
+        if (result.value) {
+          this.createBulkUpload();
+         // this.resetData();
+        }
+      });
+      
+    },
+      (err: HttpErrorResponse) => {
+        this.loaderService.display(false);
+        Swal.fire({icon:'error', title: err.toString(), confirmButtonText: 'Close', allowOutsideClick: false})
+        //this.showResponseMessage(err.toString(), 'e');
+      });
+  }
+
+  createBulkUpload()
+  {
+    this.errorCorrectionService.createuploadSAFiles()
+    .subscribe(response => {
+      console.log(response);
+      Swal.fire({icon:'success', title: response.msg, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.resetData();
@@ -117,7 +156,6 @@ export class SAUploadComponent implements OnInit {
         //this.showResponseMessage(err.toString(), 'e');
       });
   }
-
   resetData()
   {
     this._imageArray = [];
