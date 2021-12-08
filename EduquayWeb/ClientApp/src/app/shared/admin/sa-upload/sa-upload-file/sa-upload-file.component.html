@@ -1,0 +1,11 @@
+<table id="customers" *ngIf="_imageArray.length > 0">
+    <tr *ngFor="let person of _imageArray;index as i">
+      <td>{{person.name}}</td>
+      <td style="cursor: pointer; text-align: center; " (click)="deleteFile(i)"><i class="fas fa-trash-alt fa-2x "style="color:blue;" aria-hidden="true"></i></td>
+    </tr>
+   
+  </table>
+<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.ms-excel" />
+<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
+
+<!--<img width="100%" *ngIf="imageUrl" [src]="imageUrl" class="image">-->

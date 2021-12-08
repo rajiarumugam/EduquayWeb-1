@@ -15,6 +15,7 @@ import { HomeComponent } from "./home/home.component";
 import { CounterComponent } from "./counter/counter.component";
 import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { LoginComponent } from "./auth/login/login.component";
+import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { AuthGuard } from "./shared/auth.guard";
 import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
@@ -269,7 +270,10 @@ import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-p
 import { UsersComponent } from "./admin/users/users.component";
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
+
 import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+
 import { PathoreportSampleStatusPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
 import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
@@ -349,10 +353,16 @@ import { TestComponent } from "./test/test.component";
 
 
 
+import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
+import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
+  {
+    path: 'hplc-report-print', component: HplcreportSampleStatusPrintComponent,pathMatch: 'full'
+  },
   {
     path: 'home',
     component: HomeLayoutComponent,
@@ -362,7 +372,8 @@ const routes: Routes = [
       { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
       { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
       { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'},
-      { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'}
+      { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'},
+      { path: 'hplclogin', component: HplcLoginComponent, pathMatch: 'full'}
     ]
   },
 
@@ -597,6 +608,12 @@ const routes: Routes = [
         children:[
           {path: '', component: CHCUploadComponent, pathMatch: 'full'},
           {path: 'hplc', component: HPLCUploadComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+        path: 'saupload', component: UploadSAMainComponent,
+        children:[
+          {path: '', component: SAUploadComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -922,12 +939,10 @@ const routes: Routes = [
         {path: 'postmtp-follow-up', component: PostMtpFollowupComponent, pathMatch: 'full'}
       ]
       },
-      
-     
     ]
   },
   
-
+  
   { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
   { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
@@ -952,6 +967,7 @@ export const RoutingComponents = [
   CounterComponent,
   FetchDataComponent,
   LoginComponent,
+  HplcLoginComponent,
   HomeHeaderComponent,
   HomeLayoutComponent,
   SiteHeaderComponent,
@@ -1176,7 +1192,6 @@ export const RoutingComponents = [
   UploadMainComponent,
   CHCUploadComponent,
   HPLCUploadComponent,
-
   PathoreportSampleStatusMainPrintComponentANM,
   PathoreportSampleStatusPrintComponentANM,
   PathoreportSampleStatusMainPrintComponentDC,
@@ -1188,10 +1203,9 @@ export const RoutingComponents = [
   IlrComponent,
   TestComponent,
   UsersComponent
-  
-  
-  
-
+  HplcreportSampleStatusPrintComponent,
+  UploadSAMainComponent,
+  SAUploadComponent
 
 ];
 

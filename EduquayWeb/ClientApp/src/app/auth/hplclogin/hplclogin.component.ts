@@ -13,11 +13,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-hplclogin',
+  templateUrl: './hplclogin.component.html',
+  styleUrls: ['./hplclogin.component.css']
 })
-export class LoginComponent implements OnInit {
+export class HplcLoginComponent implements OnInit {
   @ViewChild('f', { static: false }) loginForm: NgForm;
   //@ViewChild('t', { static: false }) resetLoginForm: NgForm;
   @ViewChild('content', { static: true }) content: TemplateRef<any>;
@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     console.log(Date.now)
-    sessionStorage.clear();
 
  //  this.openModal()
 
@@ -79,38 +78,7 @@ export class LoginComponent implements OnInit {
           console.log(this.authResult.userDetail);
 
           this.dataservice.deleteProp('csvspecimenstartdata');
-          if(this.authResult.userDetail.userRole === "ANM")
-              this.router.navigate(['/app/anm-notification'], { relativeTo: this.route });
-          else if(this.authResult.userDetail.userRole === "CHCLTLEVEL1" || this.authResult.userDetail.userRole === "CHCSRLT")
-              this.router.navigate(['/app/chc-notification'], { relativeTo: this.route });
-          else if(this.authResult.userDetail.userRole === "CHCLTLEVEL2")
-              this.router.navigate(['/app/chc-sample'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "HPLCLT")
-              this.router.navigate(['/app/central-notification'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "PATHO")
-              this.router.navigate(['/app/pathologist-hplc/abnormal'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "MOLECULARLT")
-              this.router.navigate(['/app/molecularlab'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "COUNSELLOR")
-              this.router.navigate(['/app/schedule-pre-pndtc'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "PNDTOBSTETRICIAN")
-              this.router.navigate(['/app/pndtc-testing'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "MTPOBSTETRICIAN")
-              this.router.navigate(['/app/mtp-service'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "DC")
-              this.router.navigate(['/app/dc-notification'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "NHM")
-              this.router.navigate(['/app/nhm-report'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "SPC")
-              this.router.navigate(['/app/patho-report-print'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "MOLECULARDR")
-              this.router.navigate(['/app/molecular-lab-result'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "HAEMATOLOGIST")
-              this.router.navigate(['/app/update-pregnancy'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "SUPPORTADMIN")
-              this.router.navigate(['/app/errorcorrection'], { relativeTo: this.route });
-          else  if(this.authResult.userDetail.userRole === "SUPERADMIN" || this.authResult.userDetail.userRole === "ADMIN" )
-              this.router.navigate(['/app/add-state'], { relativeTo: this.route });
+         
 
         } else if ((this.authResult && (!this.authResult.status))) {
           this.isLoginError = true;
@@ -172,19 +140,21 @@ export class LoginComponent implements OnInit {
     this.resetEmailInput = resetLoginForm.value.userid;
     this.resetpasswordInput = resetLoginForm.value.password;
     
-    this.resetLoginResquest = {
-      userName:  this.resetEmailInput,
-      password: this.resetpasswordInput,
+    var _hplcLoginForm = {
+      usd:  this.resetEmailInput,
+      barcode: this.resetpasswordInput,
      
     }
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
-    let adddamagedsample = this.authService.resetLoginFunc(this.resetLoginResquest)
+    let adddamagedsample = this.authService.hplcLoginFunc(_hplcLoginForm)
       .subscribe(response => {
         this.resetLoginResponse = response;
-        if (this.resetLoginResponse !== null && this.resetLoginResponse.success === true) {
-          this.showResponseMessage(this.resetLoginResponse.message, 's');
+        if (response !== null && response.status === "1") {
+         // this.showResponseMessage(this.resetLoginResponse.message, 's');
+          sessionStorage.setItem("hplcuserDetails", JSON.stringify(_hplcLoginForm));
+          this.router.navigate(['/hplc-report-print']);
         } 
         else {
           this.showResponseMessage(this.resetLoginResponse.message, 'e');
