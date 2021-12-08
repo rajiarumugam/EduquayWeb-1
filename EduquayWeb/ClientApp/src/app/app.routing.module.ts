@@ -211,8 +211,7 @@ import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/
 
 import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
 import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
-
-
+import { AVDComponent } from "./admin/avd/avd.component";
 import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
 import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
@@ -268,7 +267,7 @@ import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.co
 import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
-
+import { UsersComponent } from "./admin/users/users.component";
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
@@ -349,6 +348,10 @@ import { UploadMainComponent } from "./upload/upload-main/upload-main.component"
 import { CHCUploadComponent } from "./upload/chc-upload/chc-upload.component";
 import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component";
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
+import { IlrComponent } from "./admin/ilr/ilr.component";
+import { TestComponent } from "./test/test.component";
+
+
 
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
@@ -487,8 +490,13 @@ const routes: Routes = [
       { path: 'add-district', component: DistrictComponent, pathMatch: 'full'},
       { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
       { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
+      { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
+      { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
+      { path: 'add-test', component: TestComponent, pathMatch: 'full'},
+      { path: 'add-ilr', component:IlrComponent, pathMatch: 'full'},
       { path: 'add-sc', component: ScComponent, pathMatch: 'full'},
+      
       { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
       { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
@@ -1191,9 +1199,14 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusPrintComponentNHM,
   PathoreportListComponent,
+  AVDComponent,
+  IlrComponent,
+  TestComponent,
+  UsersComponent
   HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
   SAUploadComponent
+
 ];
 
 

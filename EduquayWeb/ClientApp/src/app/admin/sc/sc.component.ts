@@ -68,11 +68,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     scCode: string;
     scName: string;
     pincode: string;
-    latitude: string;
-    longitude : string;
+    
+    
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
+   
     latitudedata: string;
     pincodeData: string;
     chcNamedata: string;
@@ -113,7 +113,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any SC information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -345,8 +345,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.scNamedata = sample.name;
       this.scCodedata = sample.scGovCode;
       this.pincodeData = sample.pincode;
-      this.latitudedata = sample.latitude;
-      this.longitudedata = sample.longitude;
+     
       this.selectedEditChc = "" +(sample.chcId);
       this.selectedEditPhc = "" +(sample.phcId)
       this.commentsdata = sample.comments;
@@ -376,8 +375,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.scCode = addScForm.value.scCode;
       this.scName = addScForm.value.scName;
       this.pincode = addScForm.value.pincodeData;
-      this.latitude = addScForm.value.latitudeData;
-      this.longitude = addScForm.value.longitudeData;
+     
       this.scAddress = addScForm.value.scAddress;
       this.hninId = addScForm.value.hninId;
   
@@ -390,8 +388,8 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         scAddress: this.scAddress, 
         pincode: this.pincode,
         comments: this.comments,
-        latitude: this.latitude,
-        longitude: this.longitude,
+        
+       
         userId: this.user.id
       };
   
@@ -423,14 +421,13 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       console.log(editScForm.value);
       
       this.commentsdata = editScForm.value.commentsdata;
-      this.selectedEditPhc = editScForm.value.ddlEditChc;
+      this.selectedEditPhc = editScForm.value.ddlEdChc;
       this.selectedEditChc = editScForm.value.ddlEditPhc;
       this.scCodedata = editScForm.value.scCodedata;
       this.scNamedata = editScForm.value.scNamedata;
       this.pincodeData = editScForm.value.pincodeData;
       this.latitudedata = editScForm.value.latitudeData;
-      this.longitudedata = editScForm.value.longitudeData;
-      this.longitudedata = editScForm.value.longitudeData;
+      
   
   
       this.scListRequest = {
@@ -444,7 +441,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         scAddress: this.scAddress, 
         isActive: this.confirmationSelected,
         latitude: this.latitudedata,
-        longitude: this.longitudedata,
+      
         comments: this.commentsdata,
         userId: this.user.id
       };

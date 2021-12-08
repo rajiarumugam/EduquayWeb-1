@@ -5,12 +5,12 @@ import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrack
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import { Router } from '@angular/router';
+import { FormBuilder,NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
@@ -64,7 +64,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   userId: number;
 
   /*Date Range configuration starts*/
-  dateform: FormGroup;
+  dateform: NgForm;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
   anmSPFromDate: string ="";
@@ -271,105 +271,8 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
              title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-           }/*,
-         {
-           titleAttr: 'Download as PDF',
-           extend: 'pdfHtml5',
-           title: 'Report - Sample Status',
-           orientation: 'landscape',
-           pageSize: 'LEGAL',
-           className: 'custom-btn',
-           margin: [5,5,5,5],
-           //filename: 'dt_custom_pdf',
-          customize: function(doc) {doc.styles.tableHeader.vertical = 'middle'
-               //Remove the title created by datatTables
-               
-						doc.content.splice(0,1);
-						//Create a date string that we use in the footer. Format is dd-mm-yyyy
-						var now = new Date();
-            var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
-            doc.pageMargins = [20,60,20,30];
-						// Set the font size fot the entire document
-						doc.defaultStyle.fontSize = 10;
-						// Set the fontsize for the table header
-            doc.styles.tableHeader.fontSize = 11;
-            doc.styles.tableHeader.alignment = 'center'
-						// Create a header object with 3 columns
-						// Left side: Logo
-						// Middle: brandname
-						// Right side: A document title
-						doc['header']=(function() {
-							return {
-								columns: [
-									// {
-									// 	//image: logo,
-									// 	width: 24
-									// },
-									// {
-									// 	alignment: 'left',
-									// 	italics: true,
-									// 	text: 'dataTables',
-									// 	fontSize: 18,
-									// 	margin: [10,0]
-									// },
-									// {
-									// 	alignment: 'right',
-									// 	fontSize: 14,
-									// 	text: 'Custom PDF export with dataTables'
-									// }
-								],
-								margin: 20
-							}
-						});
-						// Create a footer object with 2 columns
-						// Left side: report creation date
-						// Right side: current page and total pages
-						doc['footer']=(function(page, pages) {
-							return {
-								columns: [
-									{
-										alignment: 'left',
-										text: ['Created on: ', { text: jsDate.toString() }]
-									},
-									{
-										alignment: 'right',
-										text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
-									}
-								],
-								margin: 20
-							}
-						});
-						// Change dataTable layout (Table styling)
-						// To use predefined layouts uncomment the line below and comment the custom lines below
-						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
-						var objLayout = {};
-						objLayout['hLineWidth'] = function(i) { return .5; };
-						objLayout['vLineWidth'] = function(i) { return .5; };
-						objLayout['hLineColor'] = function(i) { return '#aaa'; };
-						objLayout['vLineColor'] = function(i) { return '#aaa'; };
-						objLayout['paddingLeft'] = function(i) { return 4; };
-						objLayout['paddingRight'] = function(i) { return 4; };
-						doc.content[0].layout = objLayout;
-				},				
-          exportOptions: {
-              columns: ':visible'
-          },
-           text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
-         },*/
-         
-         // {
-         //   titleAttr: 'Download as CSV',     
-         //   extend: 'csvHtml5',
-         //   className: 'custom-btn fa fa-file-text-o',
-         //   text: ''
-         // },
-         // {
-         // titleAttr: 'Print',     
-         // extend: 'print',
-         // className: 'custom-btn fa fa-print',
-         // text: ''
-         // }
- 
+           }
+	
          ], 
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
