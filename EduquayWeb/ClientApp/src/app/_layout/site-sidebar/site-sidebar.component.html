@@ -58,7 +58,9 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/add-user-type']"> {{'User Type' | translate }} </a>
                     </li>
-                   
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/saupload']"> {{'Upload' | translate }} </a>
+                    </li>
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'ANM'">
