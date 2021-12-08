@@ -58,7 +58,16 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/add-user-type']"> {{'User Type' | translate }} </a>
                     </li>
-                   
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/add-avd']"> {{'AVD' | translate }} </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/add-ilr']"> {{'ILR' | translate }} </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/add-users']"> {{'USERS' | translate }} </a>
+                    </li>
+
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'ANM'">
@@ -281,7 +290,7 @@
                     </div>
                 </a>
                 <ul class="submenu list-unstyled collapse show"  id="centrallab" data-parent="#accordionExample"
-                    style="">
+                    style ="">
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/central-notification']">  {{'Notifications' | translate }} </a>
                     </li>

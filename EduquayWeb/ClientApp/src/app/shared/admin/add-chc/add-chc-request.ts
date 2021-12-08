@@ -1,6 +1,7 @@
 export class AddChcRequest {
  districtId: number;
   blockId: number;
+  blockName: string;
   hninId: string;
   chcGovCode: string;
   chcName: string;

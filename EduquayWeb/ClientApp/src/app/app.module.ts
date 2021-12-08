@@ -110,6 +110,9 @@ import { DistrictComponent } from './admin/district/district.component';
 import { BlockComponent } from './admin/block/block.component';
 import { ChcComponent } from './admin/chc/chc.component';
 import { PhcComponent } from './admin/phc/phc.component';
+import { AVDComponent } from './admin/avd/avd.component';
+
+import { IlrComponent } from './admin/ilr/ilr.component';
 import { ScComponent } from './admin/sc/sc.component';
 import { RiPointComponent } from './admin/ri-point/ri-point.component';
 import { FacilityTypeComponent } from './admin/facility-type/facility-type.component';
@@ -130,6 +133,8 @@ import { CvsNotificationComponent } from './molecular-lab-results/cvs-specimen/c
 import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component';
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
+
+
 
 
 
@@ -214,7 +219,11 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     BlockComponent,
     ChcComponent,
     PhcComponent,
+    TestComponent,
+    AVDComponent,
+    IlrComponent,
     ScComponent,
+    
     RiPointComponent,
     FacilityTypeComponent,
     HNINComponent,
@@ -230,7 +239,8 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     CvsNotificationComponent,
     CvsUpdateresultComponent,
     CvsEditresultComponent,
-    CvsConfirmedresultComponent
+    CvsConfirmedresultComponent,
+    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

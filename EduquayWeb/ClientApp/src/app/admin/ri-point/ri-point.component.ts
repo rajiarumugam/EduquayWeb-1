@@ -76,12 +76,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     riCode: string;
     riName: string;
     pincode: string;
-    latitude: string;
-    longitude : string;
+    
+  
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
-    latitudedata: string;
+    
+    
     pincodeData: string;
     chcNamedata: string;
     chcCodedata: string;
@@ -115,7 +115,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any Ri information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -381,8 +381,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riNamedata = sample.riSite;
       this.riCodedata = sample.riGovCode;
       this.pincodeData = sample.pincode;
-      this.latitudedata = sample.latitude;
-      this.longitudedata = sample.longitude;
+    
+      
       this.selectedEditChc = "" +(sample.chcId);
       this.selectedEditPhc = "" +(sample.phcId);
       this.selectedEditSc = "" +(sample.scId)
@@ -412,8 +412,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riCode = addRiPtForm.value.riCode;
       this.riName = addRiPtForm.value.riName;
       this.pincode = addRiPtForm.value.pincodeData;
-      this.latitude = addRiPtForm.value.latitudeData;
-      this.longitude = addRiPtForm.value.longitudeData;
+     
   
       this.riptListRequest = {
         testingCHCId: 0,
@@ -426,8 +425,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         pincode: this.pincode,
         isActive: ""+this.confirmationSelected,
         comments: this.comments,
-        latitude: this.latitude,
-        longitude: this.longitude,
+        
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
@@ -466,8 +464,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riCodedata = editScForm.value.scCodedata;
       this.riNamedata = editScForm.value.scNamedata;
       this.pincodeData = editScForm.value.pincodeData;
-      this.latitudedata = editScForm.value.latitudeData;
-      this.longitudedata = editScForm.value.longitudeData;
+     
   
   
       this.riptListRequest = {
@@ -481,8 +478,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         pincode: this.pincodeData,
         isActive: ""+this.confirmationSelected,
         comments: this.commentsdata,
-        latitude: this.latitudedata,
-        longitude: this.longitudedata,
+      
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
