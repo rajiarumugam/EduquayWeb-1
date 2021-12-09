@@ -28,14 +28,14 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-    
+
     loadDataTable: boolean = false;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-  
+
     ripointlistErrorMessage: string;
     user: user;
-  
+
     confirmationSelected: boolean ;
     riPtListResponse;
     riptlists: RiList[];
@@ -48,11 +48,11 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     scListResponse;
     sclists: ScList[];
     scListRequest: AddScRequest;
-   
+
     selectedChc: string;
     getstate: string;
     selectedEditChc: string = '';
-  
+
     districtGovCode: string;
     stateName: string;
 
@@ -76,12 +76,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     riCode: string;
     riName: string;
     pincode: string;
-    
-  
+
+
     testingchcId : string;
     centrallablid : string;
-    
-    
+
+
     pincodeData: string;
     chcNamedata: string;
     chcCodedata: string;
@@ -91,9 +91,9 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     riCodedata: string;
     districtListResponse;
     districtlists;
-  
+
     constructor(
-    
+
       private RiPtService: AddRipointService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -103,12 +103,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private dataservice: DataService,
     ) { }
-  
+
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "RI Point"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = { 
+      this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
@@ -120,7 +120,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←' 
+            last: '', // or '←'
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -130,7 +130,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.retrieveRiPtList();
       this.ddlDistrict();
     }
-  
+
     retrieveRiPtList(){
       this.loaderService.display(true);
       this.sclists = [];
@@ -142,7 +142,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.riPtListResponse !== null){
           if(this.riPtListResponse.data.length <= 0){
             this.ripointlistErrorMessage = response.message;
-            
+
           }
           else{
             this.riptlists = this.riPtListResponse.data;
@@ -153,13 +153,13 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
             });
             //this.getstate = this.
             this.rerender();
-            
+
           }
         }
         else{
           this.ripointlistErrorMessage = response.message;
         }
-       
+
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -185,7 +185,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     ddlDistrict() {
@@ -201,7 +201,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     ddlChc() {
@@ -219,7 +219,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -238,7 +238,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     ddlPhc(code) {
@@ -248,7 +248,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.data;
           this.selectedPhc = "";
-         
+
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -256,7 +256,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     ddlEdtiPhc(code) {
@@ -267,9 +267,9 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
           this.phclists = this.phcListResponse.phcDetails;
           if(this.phclists.length > 0){
             this.selectedEditPhc = this.getphc;
-            
+
           }
-                  
+
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -277,7 +277,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     ddlSc(code) {
@@ -287,7 +287,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.scListResponse !== null && this.scListResponse.status === "true") {
           this.sclists = this.scListResponse.data;
           this.selectedSc = "";
-         
+
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -295,7 +295,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     ddlEdtiSc(code) {
@@ -306,9 +306,9 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
           this.sclists = this.scListResponse.scDetails;
           if(this.sclists.length > 0){
             this.selectedEditSc = this.getsc;
-            
+
           }
-                  
+
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -316,11 +316,11 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.ripointlistErrorMessage = err.toString();
-  
+
         });
     }
     onChangeChc(event) {
-  
+
       if (this.selectedChc === '') {
         this.selectedPhc = '';
       }
@@ -329,7 +329,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
     onChangeEditChc(event) {
-  
+
       if (this.selectedEditChc === '') {
         this.selectedEditPhc = '';
       }
@@ -338,7 +338,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
     onChangePhc(event) {
-  
+
       if (this.selectedPhc === '') {
         this.selectedSc = '';
       }
@@ -347,7 +347,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
     onChangeEditPhc(event) {
-  
+
       if (this.selectedEditPhc === '') {
         this.selectedEditSc = '';
       }
@@ -355,10 +355,10 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         this.ddlEdtiSc(this.selectedEditPhc);
       }
     }
-   
-  
+
+
     openAddRiPt(addRiPtDetail) {
-      
+
       //this.ddlChc();
       //this.ddlPhc(this.selectedPhc);
       this.confirmationSelected = Boolean("True");
@@ -371,24 +371,24 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     openEditRiPt(editRiPtDetail, sample: RiList) {
-  
+
       this.ddlEditChc();
       //this.ddlEdtiPhc(this.user.chcId);
       this.riNamedata = sample.riSite;
       this.riCodedata = sample.riGovCode;
       this.pincodeData = sample.pincode;
-    
-      
+
+
       this.selectedEditChc = "" +(sample.chcId);
       this.selectedEditPhc = "" +(sample.phcId);
       this.selectedEditSc = "" +(sample.scId)
       this.commentsdata = sample.comments;
       this.confirmationSelected = Boolean(sample.isActive);
-  
+
       this.modalService.open(
         editRiPtDetail, {
         centered: true,
@@ -398,13 +398,13 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     onSubmit(addRiPtForm: NgForm){
-  
+
       console.log(addRiPtForm.value);
-      
+
       this.comments = addRiPtForm.value.Comments;
       this.selectedChc = addRiPtForm.value.ddlChc;
       this.selectedPhc = addRiPtForm.value.ddlPhc;
@@ -412,8 +412,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riCode = addRiPtForm.value.riCode;
       this.riName = addRiPtForm.value.riName;
       this.pincode = addRiPtForm.value.pincodeData;
-     
-  
+
+
       this.riptListRequest = {
         testingCHCId: 0,
         chcId: +(this.selectedChc),
@@ -421,30 +421,30 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         scId: +(this.selectedSc),
         riGovCode: this.riCode,
         riSite: this.riName,
-        ilrId: 0, 
+        ilrId: 0,
         pincode: this.pincode,
         isActive: ""+this.confirmationSelected,
         comments: this.comments,
-        
+
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
       .subscribe(response => {
         this.addriptResponse = response;
-        if(this.addriptResponse !== null){
+        if(this.addriptResponse !== null && this.addriptResponse.status === "true"){
           this.showResponseMessage(this.addriptResponse.message, 's')
            this.retrieveRiPtList();
         }else{
           this.showResponseMessage(this.addriptResponse.message, 'e');
                   this.ripointlistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -452,11 +452,11 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     editSubmit(editScForm: NgForm){
-  
+
       console.log(editScForm.value);
-      
+
       this.commentsdata = editScForm.value.commentsdata;
       this.selectedEditPhc = editScForm.value.ddlEditChc;
       this.selectedEditChc = editScForm.value.ddlEditPhc;
@@ -464,9 +464,9 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riCodedata = editScForm.value.scCodedata;
       this.riNamedata = editScForm.value.scNamedata;
       this.pincodeData = editScForm.value.pincodeData;
-     
-  
-  
+
+
+
       this.riptListRequest = {
         testingCHCId: 0,
         chcId: +(this.selectedEditChc),
@@ -474,30 +474,30 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         scId: +(this.selectedEditSc),
         riGovCode: this.riCodedata,
         riSite: this.riNamedata,
-        ilrId: 0, 
+        ilrId: 0,
         pincode: this.pincodeData,
         isActive: ""+this.confirmationSelected,
         comments: this.commentsdata,
-      
+
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
       .subscribe(response => {
         this.addriptResponse = response;
-        if(this.addriptResponse !== null){
+        if(this.addriptResponse !== null && this.addriptResponse.status === "true"){
           this.showResponseMessage(this.addriptResponse.message, 's')
            this.retrieveRiPtList();
         }else{
           this.showResponseMessage(this.addriptResponse.message, 'e');
                   this.ripointlistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -505,7 +505,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
@@ -517,31 +517,31 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-             
+
             }
           }
         });
       }
     }
-  
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first
         dtInstance.clear();
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
+        // Call the dtTrigger to rerender again
         this.dtTrigger.next();
       });
     }
-  
+
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }
-  
+
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
-  
+
   }
 

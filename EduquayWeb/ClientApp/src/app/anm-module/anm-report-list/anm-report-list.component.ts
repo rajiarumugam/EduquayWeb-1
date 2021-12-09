@@ -10,7 +10,7 @@ import { DataService } from 'src/app/shared/data.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { user } from 'src/app/shared/auth-response';
 import { Router } from '@angular/router';
-import { FormBuilder,NgForm } from '@angular/forms';
+import { FormBuilder,FormGroup,NgForm } from '@angular/forms';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
@@ -27,7 +27,7 @@ import { DateService } from 'src/app/shared/utility/date.service';
 })
 export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit {
 
- 
+
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
@@ -64,7 +64,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   userId: number;
 
   /*Date Range configuration starts*/
-  dateform: NgForm;
+  dateform: FormGroup;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
   anmSPFromDate: string ="";
@@ -84,7 +84,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     maxDate: new Date(Date.now())
   };
 
-  
+
   spouseSubjectIdValue: string;
   spouseSamplingStatus: boolean;
   uniqueSubjectId: string;
@@ -225,7 +225,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
 
-  
+
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -245,7 +245,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
     this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-        
+
     this.loaderService.display(true);
     this.SubprofileInitializeDateRange();
 
@@ -266,25 +266,25 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
        // Configure the buttons
          buttons: [
            {
-             titleAttr: 'Download as Excel',     
+             titleAttr: 'Download as Excel',
              extend: 'excelHtml5',
              title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
            }
-	
-         ], 
+
+         ],
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
         lengthMenu: "Records / Page :  _MENU_",
         paginate: {
           first: '',
-          last: '', // or '←' 
+          last: '', // or '←'
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        }, 
-      }   
+        },
+      }
     };
 
     console.log(this.SubjectProfileService.subjectprofileListApi);
@@ -320,11 +320,11 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           this.subjectprofilelistErrorMessage = err.toString();
         });
 
-         
+
         this.anmSubjectBadgeProfileListCount(1,1,1);
         this.anmSubjectBadgeProfileListCount(1,1,2);
         this.anmSubjectBadgeProfileListCount(1,1,3);
-       
+
         //this.phcChange();
   }
 
@@ -399,7 +399,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   anmSubjectProfileList(id,maintab,subtab) {
-     
+
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.subjectprofileLists=[];
@@ -412,7 +412,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       "status":subtab,
       "userId": this.user.id
     }
-   
+
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getANMReportList(_obj)
       .subscribe(response => {
@@ -499,7 +499,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   anmSubjectBadgeProfileListCount(id,maintab,subtab) {
-     
+
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.subjectprofileLists=[];
@@ -512,11 +512,11 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       status:subtab,
       userId: this.user.id
     }
-   
+
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getANMReportList(_obj)
       .subscribe(response => {
-        
+
        console.log(response['data'].length);
        if(maintab ===1)
        {
@@ -531,7 +531,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
                   this.countMain2Sub1 = response['data'].length;
             if(subtab === 2)
                   this.countMain2Sub2 = response['data'].length;
-            
+
        }
        if(maintab ===3)
        {
@@ -586,7 +586,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
             if(subtab === 2)
                   this.countMain7Sub2 = response['data'].length;
             if(subtab === 3)
-                  this.countMain7Sub3 = response['data'].length;      
+                  this.countMain7Sub3 = response['data'].length;
        }
        if(maintab ===8)
        {
@@ -600,7 +600,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
                   this.countMain8Sub4 = response['data'].length;
             if(subtab === 5)
                   this.countMain8Sub5 = response['data'].length;
-           
+
        }
        if(maintab ===9)
        {
@@ -610,7 +610,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
                   this.countMain9Sub1 = response['data'].length;
             if(subtab === 3)
                   this.countMain9Sub1 = response['data'].length;
-           
+
        }
        this.loaderService.display(false);
       },
@@ -621,7 +621,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   anmSubjectProfileList1(id,maintab,subtab) {
-     
+
     if(this.searchsubjectid != null || this.searchsubjectid != undefined)
     {
         this.loaderService.display(true);
@@ -636,7 +636,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           "searchSection":1,
           "status":0
         }
-      
+
         //this.subjectprofileItem = new SubjectProfileList();
         let subProfile = this.SubjectProfileService.getANMReportList(_obj)
           .subscribe(response => {
@@ -667,7 +667,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           }
 
   }
-  
+
 
   opensubjectdetail(subjectinfo ){
     console.log(subjectinfo);
@@ -684,18 +684,18 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
     }*/
-    
+
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {
     //     // var subjectid = element.primaryDetail.uniqueSubjectId;
-    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);    
+    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);
     // });
   //}
-    
+
   }
 
   SubprofileInitializeDateRange() {
-    
+
     this.dateform = this._formBuilder.group({
       fromDate: [''],
       toDate: [''],
@@ -738,13 +738,13 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first   
-      dtInstance.clear();   
+      // Destroy the table first
+      dtInstance.clear();
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again       
+      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-  }   
+  }
 
   /*ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -764,7 +764,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         });
       });
     });
- 
+
   }
 
 
@@ -838,18 +838,18 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     else if((_response.primaryDetail.childSubjectTypeId === 1 && _response.primaryDetail.spouseSubjectId !== '' ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.spouseSubjectId !== '' && _response.primaryDetail.gender === "Female")){
       this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
       this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
-  
-     
+
+
       this.trackingAnmSubjectTrackerRequest = {
         uniqueSubjectId: this.uniqueSubjectId
       }
-     
+
       let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
         .subscribe(response => {
-         
+
           this.trackingAnmSubjectTrackerResponse = response;
           this.loaderService.display(false);
-       
+
               if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
                 this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
               //this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
@@ -865,13 +865,13 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
                   // }
                   // else {
                     this.subjectTrackerItem = this.trackingSubjectResponse.data;
-    
+
                 }
                 else{
                   this.subjectprofilelistErrorMessage = response.message;
                 }
               })
-              
+
             }
           //}
           else {
@@ -881,19 +881,19 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
     else if((_response.primaryDetail.childSubjectTypeId === 2 ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId !== '')){
       this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
       this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
-  
+
       this.trackingSubjectRequest = {
         uniqueSubjectId: this.uniqueSubjectId
-      }      
-      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)      
+      }
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
         .subscribe(response => {
-          this.trackingSubjectResponse = response;        
+          this.trackingSubjectResponse = response;
           this.loaderService.display(false);
           if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
             // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
@@ -910,13 +910,13 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
                 this.trackingAnmSubjectTrackerResponse = response;
                 if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
                   this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
-    
+
                 }
                 else{
                   this.subjectprofilelistErrorMessage = response.message;
                 }
               });
-              
+
             }
           //}
           else {
@@ -926,15 +926,15 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
       else if(_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId === ''){
         this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
         this.trackingSubjectRequest = {
           uniqueSubjectId: this.uniqueSubjectId
         }
-  
+
       let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingSubjectRequest)
         .subscribe(response => {
           this.trackingSubjectResponse = response;
@@ -956,15 +956,15 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
       else if(_response.primaryDetail.childSubjectTypeId === 3){
         this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
         this.trackingAnmSubjectTrackerRequest = {
           uniqueSubjectId: this.uniqueSubjectId
         }
-  
+
       let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
         .subscribe(response => {
           this.trackingAnmSubjectTrackerResponse = response;
@@ -978,7 +978,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
               this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
 
               this.loaderService.display(false);
-              
+
               //this.rerender();
             }
           //}
@@ -989,21 +989,21 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
-        
+
       },
       (err: HttpErrorResponse) => {
         this.subjectprofilelistErrorMessage = err.toString();
-      });      
-   
-   
-    
-    
+      });
+
+
+
+
       $('#fadeinModal').modal('show');
-       
-  
+
+
   }
 }
 

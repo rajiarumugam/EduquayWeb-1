@@ -26,14 +26,14 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-    
+
     loadDataTable: boolean = false;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-  
+
     chclistErrorMessage: string;
     user: user;
-  
+
     confirmationSelected: boolean ;
     chcListResponse;
     chclists: ChcList[];
@@ -43,12 +43,12 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     districtlists: DistrictList[];
     blockListResponse;
     blocklists: BlockList[];
-   
+
     selectedDistrict: string;
     getstate: string;
     selectedEditDistrict: string = '';
     hninId;
-  
+
     districtGovCode: string;
     stateName: string;
 
@@ -70,10 +70,10 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chcName: string;
     pincode: string;
     latitude: string;
-    
+
     testingchcId : string;
     centrallablid : string;
-   
+
     latitudedata: string;
     pincodeData: string;
     blockdata:string;
@@ -85,9 +85,9 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedtestingCHCId = '';
     testingCHCResponse;
     testingCHCists;
-  
+
     constructor(
-    
+
       private ChcService: AddChcService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -97,12 +97,12 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private dataservice: DataService,
     ) { }
-  
+
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "CHC"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = { 
+      this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
@@ -114,7 +114,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←' 
+            last: '', // or '←'
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -123,7 +123,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.retrirveChclist();
     }
-  
+
     retrirveChclist(){
       this.loaderService.display(true);
       this.chclists = [];
@@ -135,7 +135,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.chcListResponse !== null){
           if(this.chcListResponse.data.length <= 0){
             this.chclistErrorMessage = response.message;
-            
+
           }
           else{
             this.chclists = this.chcListResponse.data;
@@ -147,13 +147,13 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
             });
             //this.getstate = this.
             this.rerender();
-            
+
           }
         }
         else{
           this.chclistErrorMessage = response.message;
         }
-       
+
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -176,7 +176,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -195,7 +195,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlBlock(code) {
@@ -205,7 +205,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
           this.blocklists = this.blockListResponse.data;
           this.selectedBlock = "";
-         
+
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -213,7 +213,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlTestingCHC(code) {
@@ -222,8 +222,8 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.testingCHCResponse = response;
         if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
           this.testingCHCists = this.testingCHCResponse.data;
-         
-         
+
+
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -231,7 +231,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlEditBlock(code) {
@@ -242,9 +242,9 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
           this.blocklists = this.blockListResponse.data;
           if(this.blocklists.length > 0){
             this.selectedEditBlock = this.getblock;
-            
+
           }
-                  
+
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -252,11 +252,11 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-  
+
         });
     }
     onChangeDistrict(event) {
-  
+
       if (this.selectedDistrict === '') {
         this.selectedBlock = '';
       }
@@ -266,7 +266,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
     onChangeEditDistrict(event) {
-  
+
       if (this.selectedEditDistrict === '') {
         this.selectedEditBlock = '';
       }
@@ -274,13 +274,13 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.ddlEditBlock(this.selectedEditDistrict);
       }
     }
-   
+
     chcChange()
     {
       console.log(this.chcName);
     }
     openAddChc(addChcDetail) {
-      
+
       this.ddlDistrict();
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
@@ -292,19 +292,19 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     openEditChc(editBlockDetail, sample) {
-  
+
       console.log(sample);
       this.getdistrict = sample.districtId;
       this.ddlEditDistrict();
       this.ddlEditBlock(sample.districtId);
       this.chcNamedata = sample.name;
       this.chcCodedata = sample.chcGovCode;
-      this.pincodeData = sample.pincode;      
-     
+      this.pincodeData = sample.pincode;
+
       this.blockdata = sample.blockName;
       this.selectedEditDistrict = "" +(sample.districtId);
       this.selectedEditBlock = "" +(sample.blockId)
@@ -314,7 +314,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
       this.isTestingFacility = sample.isTestingFacility === 'True' ? true : false;
       this.hninId = sample.hninId;
-  
+
       this.modalService.open(
         editBlockDetail, {
         centered: true,
@@ -324,23 +324,23 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     onSubmit(addChcForm: NgForm){
-  
+
       console.log(addChcForm.value);
-      
+
       this.comments = addChcForm.value.Comments;
       this.selectedDistrict = addChcForm.value.ddlDistrict;
       this.selectedBlock = addChcForm.value.ddlBlock;
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-      
+
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
-  
+
       this.chcListRequest = {
         districtId: +(this.selectedDistrict),
         blockId: +(this.selectedBlock),
@@ -352,15 +352,15 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,
-       
+
         userId: this.user.id
       };
-  
+
       console.log(this.chcListRequest);
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.ChcService.addChc(this.chcListRequest)
       .subscribe(response => {
         this.addChcResponse = response;
@@ -371,7 +371,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
           this.showResponseMessage(this.addChcResponse.message, 'e');
                   this.chclistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -379,20 +379,20 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     editSubmit(editChcForm: NgForm){
-  
+
       console.log(editChcForm.value);
-      
+
       this.commentsdata = editChcForm.value.commentsdata;
       this.selectedEditDistrict = editChcForm.value.ddlDistrict;
       this.selectedEditBlock = editChcForm.value.ddlBlock;
       this.chcCodedata = editChcForm.value.chcCodedata;
       this.chcNamedata = editChcForm.value.chcNamedata;
       this.pincodeData = editChcForm.value.pincodeData;
-    
-  
-  
+
+
+
       this.chcListRequest = {
         districtId: +(this.selectedEditDistrict),
         blockId: +(this.selectedEditBlock),
@@ -405,26 +405,26 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         pincode: this.pincodeData,
         isActive: ""+this.confirmationSelected,
         comments: this.commentsdata,
-        
+
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.ChcService.addChc(this.chcListRequest)
       .subscribe(response => {
         this.addChcResponse = response;
-        if(this.addChcResponse !== null){
+        if(this.addChcResponse !== null && this.addChcResponse.status == 'true'){
           this.showResponseMessage(this.addChcResponse.message, 's')
            this.retrirveChclist();
         }else{
           this.showResponseMessage(this.addChcResponse.message, 'e');
                   this.chclistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -432,7 +432,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
@@ -444,30 +444,30 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-             
+
             }
           }
         });
       }
     }
-  
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first
         dtInstance.clear();
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
+        // Call the dtTrigger to rerender again
         this.dtTrigger.next();
       });
     }
-  
+
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }
-  
+
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
-  
+
   }

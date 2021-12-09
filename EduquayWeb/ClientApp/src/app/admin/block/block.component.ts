@@ -25,14 +25,14 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-    
+
     loadDataTable: boolean = false;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-  
+
     blocklistErrorMessage: string;
     user: user;
-  
+
     confirmationSelected;
     blockListResponse;
     blocklists: BlockList[];
@@ -43,7 +43,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedDistrict: string;
     getstate: string;
     selectedEditDistrict: string;
-  
+
     districtGovCode: string;
     stateName: string;
 
@@ -60,8 +60,8 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     getdistrict: string;
     blockCodedata: string;
     editBlockDetails;
-   
-  
+
+
     constructor(
       private BlockService: AddBlockService,
       private modalService: NgbModal,
@@ -72,12 +72,12 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private dataservice: DataService,
     ) { }
-  
+
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "Block"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = { 
+      this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
@@ -89,7 +89,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←' 
+            last: '', // or '←'
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -98,7 +98,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.retrirveBlocklist();
     }
-  
+
     retrirveBlocklist(){
       this.loaderService.display(true);
       this.blocklists = [];
@@ -110,7 +110,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.blockListResponse !== null){
           if(this.blockListResponse.data.length <= 0){
             this.blocklistErrorMessage = response.message;
-            
+
           }
           else{
             this.blocklists = this.blockListResponse.data;
@@ -119,13 +119,13 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
             });
             //this.getstate = this.
             this.rerender();
-            
+
           }
         }
         else{
           this.blocklistErrorMessage = response.message;
         }
-       
+
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -146,7 +146,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.blocklistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -163,12 +163,12 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.blocklistErrorMessage = err.toString();
-  
+
         });
     }
-  
+
     openAddBlock(addBlockDetail) {
-      
+
       this.ddlDistrict();
       this.confirmationSelected = true;
       this.modalService.open(
@@ -180,12 +180,12 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-    
-  
+
+
     openEditBlock(editBlockDetail, sample) {
-  
+
       console.log(sample);
 
       this.editBlockDetails = sample;
@@ -195,7 +195,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       //this.selectedEditDistrict = sample.districtId;
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive === 'True' ? true : false;
-  
+
       this.modalService.open(
         editBlockDetail, {
         centered: true,
@@ -205,18 +205,18 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     onSubmit(addBlockForm: NgForm){
-  
+
       console.log(addBlockForm.value);
       this.blocknamedata = addBlockForm.value.blockname;
       this.blockcodedata = addBlockForm.value.blockCode;
       this.districtName = addBlockForm.value.districtname;
       this.comments = addBlockForm.value.Comments;
       this.selectedDistrict = addBlockForm.value.ddlDistrict;
-  
+
       var _obj = {
         blockGovCode: this.blockcodedata,
         name: this.blocknamedata,
@@ -224,22 +224,22 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         comments: this.comments,
         userId: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.BlockService.addBlock(_obj)
       .subscribe(response => {
         this.addBlockResponse = response;
-        if(this.addBlockResponse !== null){
+        if(this.addBlockResponse !== null && this.addBlockResponse.status === "true"){
           this.showResponseMessage(this.addBlockResponse.message, 's')
            this.retrirveBlocklist();
         }else{
           this.showResponseMessage(this.addBlockResponse.message, 'e');
                   this.blocklistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -247,9 +247,9 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     editSubmit(editDistrictForm: NgForm){
-  
+
       console.log(editDistrictForm.value);
       /*this.blocknamedata = editDistrictForm.value.editBlockName;
       this.blockcodedata = editDistrictForm.value.editblockCode;
@@ -267,22 +267,22 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         comments: this.commentsdata,
         userId: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.BlockService.updateBlock(_obj)
       .subscribe(response => {
         this.addBlockResponse = response;
-        if(this.addBlockResponse !== null){
+        if(this.addBlockResponse !== null && this.addBlockResponse.status === "true"){
           this.showResponseMessage(this.addBlockResponse.message, 's')
            this.retrirveBlocklist();
         }else{
           this.showResponseMessage(this.addBlockResponse.message, 'e');
                   this.blocklistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -290,7 +290,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
@@ -302,30 +302,30 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-             
+
             }
           }
         });
       }
     }
-  
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first
         dtInstance.clear();
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
+        // Call the dtTrigger to rerender again
         this.dtTrigger.next();
       });
     }
-  
+
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }
-  
+
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
-  
+
   }

@@ -5,7 +5,7 @@ import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrack
 import { SubjectProfileResponse, PrimaryDetail, AddressDetail, ParentDetail, PregnancyDetail, RetrieveSubjectProfileList, SubjectProfileList, trackingANWSubjectResponse, trackingSubjectResponse, ANMSubject, SubjectTrack } from 'src/app/shared/anm-module/subject-profile/subject-profile-response';
 import { SubjectProfileService } from 'src/app/shared/anm-module/subject-profile/subject-profile.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder,NgForm } from '@angular/forms';
+import { FormBuilder,FormGroup,NgForm } from '@angular/forms';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { DataService } from 'src/app/shared/data.service';
 import { StateList, StateResponse } from 'src/app/shared/admin/state/state-response';
@@ -40,7 +40,7 @@ import { ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
 })
 export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
- 
+
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
@@ -139,7 +139,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   userId: number;
 
   /*Date Range configuration starts*/
-  dateform: NgForm;
+  dateform: FormGroup;
   DAY = 86400000;
   dyCollectionDate: Date = new Date(Date.now());
   anmSPFromDate: string ="";
@@ -159,11 +159,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     maxDate: new Date(Date.now())
   };
 
-  
+
   spouseSubjectIdValue: string;
   spouseSamplingStatus: boolean;
   uniqueSubjectId: string;
-  
+
   selectedChc: string;
   selectedState: string;
   selectedUserrole: string;
@@ -171,7 +171,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   stateListResponse: StateResponse;
   userroleListResponse:UserroleResponse;
   addPhcResponse: AddUsersDataresponse;
-  
+
   religionId: number;
   religionName: string;
   phcListResponse;
@@ -186,12 +186,12 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   address3: string;
   selectedEditBlock: string = '';
   stateName: string;
-  
+
   pincode: string;
-  
-  
- 
-  
+
+
+
+
   riSite: string;
   dob: string;
   age: number;
@@ -201,7 +201,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   selectedPhc: string = '';
   selectedSc: string = '';
   spouseSubjectId: string;
-  
+
   spouseFirstName: string;
   spouseMiddleName: string;
   statelists: StateList[];
@@ -328,7 +328,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   isActive: any;
   State: any;
 
-  
+
 
   constructor(
     private DistrictService: AddDistrictService,
@@ -350,7 +350,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit() {
     this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-        
+
     this.loaderService.display(true);
     this.SubprofileInitializeDateRange();
 
@@ -369,30 +369,30 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
        "<'row'<'col-sm-12'tr>>" +
        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
        // Configure the buttons
-      
+
          buttons: [
            {
-             titleAttr: 'Download as Excel',     
+             titleAttr: 'Download as Excel',
              extend: 'excelHtml5',
              title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
            }
-                  
-         ], 
+
+         ],
       language: {
         search: '<div><span class="note">Search by any Users information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
         lengthMenu: "Records / Page :  _MENU_",
         paginate: {
           first: '',
-          last: '', // or '←' 
+          last: '', // or '←'
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        }, 
-      }   
+        },
+      }
     };
-    
+
 
     //console.log(this.SubjectProfileService.subjectprofileListApi);
     var _obj = {
@@ -429,11 +429,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
           this.subjectprofilelistErrorMessage = err.toString();
         });
 
-         
+
         this.anmSubjectBadgeProfileListCount(1,1,1);
         this.anmSubjectBadgeProfileListCount(1,1,2);
         this.anmSubjectBadgeProfileListCount(1,1,3);
-       
+
         //this.phcChange();
   }
 
@@ -453,8 +453,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         this.phclistErrorMessage = err.toString();
 
       });
-      
-      
+
+
   }
   ddlState() {
     let district = this.DistrictService.getStateList().subscribe(response => {
@@ -474,14 +474,14 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ddlUserRole(type) {
-    
+
     let district = this.UsersService.getUserroleListType(type).subscribe(response => {
       this.userroleListResponse = response;
       console.log(this.userroleListResponse);
       if (this.userroleListResponse !== null && this.userroleListResponse.status === "true") {
         this.userrolelists = this.userroleListResponse.userRoles;
         this.selectedUserrole = "";
-       
+
       }
 
       else {
@@ -518,8 +518,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       this.testingCHCResponse = response;
       if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
         this.testingCHCists = this.testingCHCResponse.data;
-       
-       
+
+
       }
       else {
         this.chclistErrorMessage = response.message;
@@ -540,7 +540,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         this.blocklists = this.blockListResponse.data;
         // console.log(this.blocklists);
         this.selectedBlock = "";
-       
+
       }
       else {
         this.chclistErrorMessage = response.message;
@@ -559,7 +559,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
         this.phclists = this.phcListResponse.phcDetails;
         this.selectedPhc = "";
-       
+
       }
       else {
         this.sclistErrorMessage = response.message;
@@ -572,7 +572,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onChangeBlock(event) {
-  
+
     if (this.selectedBlock === '') {
       this.selectedChc = '';
     }
@@ -582,7 +582,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
    onChangeChc(event) {
-  
+
       if (this.selectedChc === '') {
         this.selectedPhc = '';
       }
@@ -612,7 +612,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onChangeDistrict(event) {
-  
+
     if (this.selectedDistrict === '') {
       this.selectedBlock = '';
     }
@@ -654,9 +654,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         this.phclists = this.phcListResponse.data;
         if(this.phclists.length > 0){
           this.selectedEditPhc = this.getphc;
-          
+
         }
-                
+
       }
       else {
         this.sclistErrorMessage = response.message;
@@ -676,8 +676,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       if (this.scListResponse !== null && this.scListResponse.status === "true") {
         this.sclists = this.scListResponse.scDetails;
         console.log(this.sclists);
-        this.selectedSc = "";       
-      }      
+        this.selectedSc = "";
+      }
       else {
         this.ripointlistErrorMessage = response.message;
       }
@@ -695,9 +695,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   //       this.sclists = this.scListResponse.scDetails;
   //       if(this.sclists.length > 0){
   //         this.selectedEditSc = this.getsc;
-          
+
   //       }
-                
+
   //     }
   //     else {
   //       this.ripointlistErrorMessage = response.message;
@@ -756,9 +756,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         this.blocklists = this.blockListResponse.data;
         if(this.blocklists.length > 0){
           this.selectedEditBlock = this.getblock;
-          
+
         }
-                
+
       }
       else {
         this.chclistErrorMessage = response.message;
@@ -771,7 +771,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   openAddIlr(addIlrDetail) {
-      
+
     //this.ddlChc();
     this.ddlState();
     this.ddlUserRole(this.maintabSelected);
@@ -859,9 +859,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  
+
   anmSubjectProfileList(id,maintab,subtab) {
-    
+
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.userprofileLists=[];
@@ -874,7 +874,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       "status":subtab,
       "userId": this.user.id
     }
-   
+
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.UsersService.getUsersList(maintab)
       .subscribe(response => {
@@ -1005,23 +1005,23 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       if(this.phcListResponse !== null){
         if(this.phcListResponse.data.length <= 0){
           this.phclistErrorMessage = response.message;
-          
+
         }
         else{
           this.phclists = this.phcListResponse.data;
           this.phclists.forEach(element => {
             this.getchc = '' +(element.chcId);
-           
+
           });
           //this.getstate = this.
           this.rerender();
-          
+
         }
       }
       else{
         this.phclistErrorMessage = response.message;
       }
-     
+
     },
     (err: HttpErrorResponse) => {
       if (this.loadDataTable) this.rerender();
@@ -1031,7 +1031,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   anmSubjectBadgeProfileListCount(id,maintab,subtab) {
-     
+
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.subjectprofileLists=[];
@@ -1044,11 +1044,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       status:subtab,
       userId: this.user.id
     }
-   
+
     //this.subjectprofileItem = new SubjectProfileList();
     // let subProfile = this.SubjectProfileService.getANMReportList(_obj)
     //   .subscribe(response => {
-        
+
     //    console.log(response['data'].length);
     //    if(maintab ===1)
     //    {
@@ -1063,7 +1063,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     //               this.countMain2Sub1 = response['data'].length;
     //         if(subtab === 2)
     //               this.countMain2Sub2 = response['data'].length;
-            
+
     //    }
     //    if(maintab ===3)
     //    {
@@ -1118,7 +1118,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     //         if(subtab === 2)
     //               this.countMain7Sub2 = response['data'].length;
     //         if(subtab === 3)
-    //               this.countMain7Sub3 = response['data'].length;      
+    //               this.countMain7Sub3 = response['data'].length;
     //    }
     //    if(maintab ===8)
     //    {
@@ -1132,7 +1132,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     //               this.countMain8Sub4 = response['data'].length;
     //         if(subtab === 5)
     //               this.countMain8Sub5 = response['data'].length;
-           
+
     //    }
     //    if(maintab ===9)
     //    {
@@ -1142,7 +1142,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     //               this.countMain9Sub1 = response['data'].length;
     //         if(subtab === 3)
     //               this.countMain9Sub1 = response['data'].length;
-           
+
     //    }
     //    this.loaderService.display(false);
     //   },
@@ -1153,7 +1153,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   anmSubjectProfileList1(id,maintab,subtab) {
-     
+
     if(this.searchsubjectid != null || this.searchsubjectid != undefined)
     {
         this.loaderService.display(true);
@@ -1168,7 +1168,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
           "searchSection":1,
           "status":0
         }
-      
+
         //this.subjectprofileItem = new SubjectProfileList();
         let subProfile = this.SubjectProfileService.getANMReportList(_obj)
           .subscribe(response => {
@@ -1199,7 +1199,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
           }
 
   }
-  
+
 
   opensubjectdetail(subjectinfo ){
     console.log(subjectinfo);
@@ -1216,18 +1216,18 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
     }*/
-    
+
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {
     //     // var subjectid = element.primaryDetail.uniqueSubjectId;
-    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);    
+    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);
     // });
   //}
-    
+
   }
 
   SubprofileInitializeDateRange() {
-    
+
     this.dateform = this._formBuilder.group({
       fromDate: [''],
       toDate: [''],
@@ -1270,13 +1270,13 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first   
-      dtInstance.clear();   
+      // Destroy the table first
+      dtInstance.clear();
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again       
+      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-  }   
+  }
 
   /*ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -1292,7 +1292,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         if (result.value) {
           if(this.modalService.hasOpenModals){
             this.modalService.dismissAll();
-           
+
           }
         }
       });
@@ -1313,13 +1313,13 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         });
       });
     });
- 
+
   }
 
   onSubmitsadmin(addIlrForm: NgForm){
-  
+
     console.log(addIlrForm.value);
-    
+
     this.userName = addIlrForm.value.Username;
     this.firstName = addIlrForm.value.firstName;
     this.middleName = addIlrForm.value.middleName;
@@ -1332,21 +1332,21 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     this.comments = addIlrForm.value.Comments;
   console.log(addIlrForm);
     this.Userslistrequest = {
-      userTypeId:1,   
-      userRoleId:1,   
+      userTypeId:1,
+      userRoleId:1,
         userGovCode:this.userGovCode,
-        userName:this. userName,       
+        userName:this. userName,
         password:'KJOJ',
-        stateId: +(this.selectedState), 
+        stateId: +(this.selectedState),
         centralLabId: 0,
-            
-        molecularLabId: 0,        
-        districtId:0,   
+
+        molecularLabId: 0,
+        districtId:0,
         blockId:0,
         chcId:0 ,
         phcId:0,
         scId:0 ,
-        riId:null,        
+        riId:null,
         firstName:this.firstName,
         middleName:this.middleName,
         lastName:this.lastName,
@@ -1360,7 +1360,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         createdBy:this.user.id ,
         updatedBy:this.user.id ,
         comments: this.comments,
-        isActive:"true",         
+        isActive:"true",
     };
     let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
     .subscribe(response => {
@@ -1384,9 +1384,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
      //swal ("Here's the title!", "...and here's the text!");
    }
     onSubmitanm(addIlrForm: NgForm){
-  
+
       console.log(addIlrForm.value);
-      this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+      this.selectedDistrict = addIlrForm.value.ddlDistrict;
       this.selectedBlock = addIlrForm.value.ddlBlock;
       this.selectedChc = addIlrForm.value.ddlChc;
       this.selectedPhc = addIlrForm.value.ddlPhc;
@@ -1397,29 +1397,29 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       this.middleName = addIlrForm.value.middleName;
       this.lastName = addIlrForm.value.lastName;
       this.contactNo1 = addIlrForm.value.contactNo1;
-      this.userGovCode = addIlrForm.value.userGovCode;      
-      this.selectedState = addIlrForm.value.ddlState;     
-      this.email = addIlrForm.value.email;      
+      this.userGovCode = addIlrForm.value.userGovCode;
+      this.selectedState = addIlrForm.value.ddlState;
+      this.email = addIlrForm.value.email;
       this.Address = addIlrForm.value.Address;
       this.comments = addIlrForm.value.Comments;
 
     console.log(addIlrForm);
       this.Userslistrequest = {
-        userTypeId:3,   
-        userRoleId:3,   
+        userTypeId:3,
+        userRoleId:3,
           userGovCode:this.userGovCode,
-          userName:this.userName,       
+          userName:this.userName,
           password:'KJOJ',
-          stateId:+(this.selectedState), 
+          stateId:+(this.selectedState),
           centralLabId: 0,
-              
-          molecularLabId: 0,        
-          districtId: +(this.selectedDistrict),  
+
+          molecularLabId: 0,
+          districtId: +(this.selectedDistrict),
           blockId: +(this.selectedBlock),
           chcId: +(this.selectedChc),
           phcId: +(this.selectedPhc),
           scId: +(this.selectedSc),
-          riId:this.riId,        
+          riId:this.riId,
           firstName:this.firstName,
           middleName:this.middleName,
           lastName:this.lastName,
@@ -1433,15 +1433,15 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
           createdBy:this.user.id ,
           updatedBy:this.user.id ,
           comments: this.comments,
-          isActive:"true",         
+          isActive:"true",
       };
 
     console.log(this.Userslistrequest);
     //Remove below 2 lines after successfully tested
     // this.showResponseMessage('Successfully registered', 's');
     // return false;
-  
-      
+
+
     let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
     .subscribe(response => {
        this.addPhcResponse = response;
@@ -1465,40 +1465,40 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
    }
 
    onSubmitchc(addIlrForm: NgForm){
-  
+
     console.log(addIlrForm.value);
     this.selectedUserrole = addIlrForm.value.ddlUserRole;
-    this.selectedDistrict = addIlrForm.value.ddlDistrict;  
+    this.selectedDistrict = addIlrForm.value.ddlDistrict;
     this.selectedBlock = addIlrForm.value.ddlBlock;
-    this.selectedChc = addIlrForm.value.ddlChc;    
+    this.selectedChc = addIlrForm.value.ddlChc;
     this.userName = addIlrForm.value.Username;
     this.firstName = addIlrForm.value.firstName;
     this.middleName = addIlrForm.value.middleName;
     this.lastName = addIlrForm.value.lastName;
     this.contactNo1 = addIlrForm.value.contactNo1;
-    this.userGovCode = addIlrForm.value.userGovCode;    
-    this.selectedState = addIlrForm.value.ddlState;       
-    this.email = addIlrForm.value.email;      
+    this.userGovCode = addIlrForm.value.userGovCode;
+    this.selectedState = addIlrForm.value.ddlState;
+    this.email = addIlrForm.value.email;
     this.Address = addIlrForm.value.Address;
     this.comments = addIlrForm.value.Comments;
 
   console.log(addIlrForm);
     this.Userslistrequest = {
-      userTypeId:4,   
-      userRoleId:+(this.selectedUserrole),   
+      userTypeId:4,
+      userRoleId:+(this.selectedUserrole),
         userGovCode:this.userGovCode,
-        userName:this.userName,       
+        userName:this.userName,
         password:'KJOJ',
-        stateId:+(this.selectedState), 
+        stateId:+(this.selectedState),
         centralLabId: 0,
-            
-        molecularLabId: 0,        
-        districtId: +(this.selectedDistrict),  
+
+        molecularLabId: 0,
+        districtId: +(this.selectedDistrict),
         blockId: +(this.selectedBlock),
         chcId: +(this.selectedChc),
         phcId: 0,
         scId: 0,
-        riId:null,        
+        riId:null,
         firstName:this.firstName,
         middleName:this.middleName,
         lastName:this.lastName,
@@ -1512,7 +1512,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         createdBy:this.user.id ,
         updatedBy:this.user.id ,
         comments: this.comments,
-        isActive:"true",         
+        isActive:"true",
     };
 
   console.log(this.Userslistrequest);
@@ -1520,7 +1520,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   // this.showResponseMessage('Successfully registered', 's');
   // return false;
 
-    
+
   let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
   .subscribe(response => {
      this.addPhcResponse = response;
@@ -1542,41 +1542,41 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   // this.rerender();
    //swal ("Here's the title!", "...and here's the text!");
  }
-  
+
  onSubmithplc(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:5,   
-    userRoleId:+(this.selectedUserrole),   
+    userTypeId:5,
+    userRoleId:+(this.selectedUserrole),
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -1590,7 +1590,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -1598,7 +1598,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -1622,39 +1622,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitpndtc(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:6,   
-    userRoleId:6,   
+    userTypeId:6,
+    userRoleId:6,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -1668,7 +1668,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -1676,7 +1676,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -1698,41 +1698,41 @@ this.phclistErrorMessage = err.toString();
 // this.rerender();
  //swal ("Here's the title!", "...and here's the text!");
 }
-  
+
 onSubmitmtp(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:7,   
-    userRoleId:7,   
+    userTypeId:7,
+    userRoleId:7,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -1746,7 +1746,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -1754,7 +1754,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -1778,39 +1778,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitdc(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:8,   
-    userRoleId:8,   
+    userTypeId:8,
+    userRoleId:8,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -1824,7 +1824,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -1832,7 +1832,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -1856,39 +1856,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitmolecular(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:9,
+    userRoleId:9,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -1902,7 +1902,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -1910,7 +1910,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -1934,39 +1934,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitspc(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:9,
+    userRoleId:9,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -1980,7 +1980,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -1988,7 +1988,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -2012,39 +2012,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitnhm(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:9,
+    userRoleId:9,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -2058,7 +2058,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -2066,7 +2066,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -2090,39 +2090,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitpndt(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:9,
+    userRoleId:9,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -2136,7 +2136,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -2144,7 +2144,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -2168,39 +2168,39 @@ this.phclistErrorMessage = err.toString();
 }
 
 onSubmitsupport(addIlrForm: NgForm){
-  
+
   console.log(addIlrForm.value);
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
-  this.selectedDistrict = addIlrForm.value.ddlDistrict;  
-  this.selectedBlock = addIlrForm.value.ddlBlock;    
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
   this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
-  this.userGovCode = addIlrForm.value.userGovCode;    
-  this.selectedState = addIlrForm.value.ddlState;       
-  this.email = addIlrForm.value.email;      
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:9,
+    userRoleId:9,
       userGovCode:this.userGovCode,
-      userName:this.userName,       
+      userName:this.userName,
       password:'KJOJ',
-      stateId:+(this.selectedState), 
+      stateId:+(this.selectedState),
       centralLabId: 0,
-          
-      molecularLabId: 0,        
-      districtId: +(this.selectedDistrict),  
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
       blockId: +(this.selectedBlock),
       chcId:0,
       phcId: 0,
       scId: 0,
-      riId:null,        
+      riId:null,
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
@@ -2214,7 +2214,7 @@ console.log(addIlrForm);
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
       comments: this.comments,
-      isActive:"true",         
+      isActive:"true",
   };
 
 console.log(this.Userslistrequest);
@@ -2222,7 +2222,7 @@ console.log(this.Userslistrequest);
 // this.showResponseMessage('Successfully registered', 's');
 // return false;
 
-  
+
 let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
 .subscribe(response => {
    this.addPhcResponse = response;
@@ -2314,18 +2314,18 @@ this.phclistErrorMessage = err.toString();
     else if((_response.primaryDetail.childSubjectTypeId === 1 && _response.primaryDetail.spouseSubjectId !== '' ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.spouseSubjectId !== '' && _response.primaryDetail.gender === "Female")){
       this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
       this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
-  
-     
+
+
       this.trackingAnmSubjectTrackerRequest = {
         uniqueSubjectId: this.uniqueSubjectId
       }
-     
+
       let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
         .subscribe(response => {
-         
+
           this.trackingAnmSubjectTrackerResponse = response;
           this.loaderService.display(false);
-       
+
               if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
                 this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
               //this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
@@ -2341,13 +2341,13 @@ this.phclistErrorMessage = err.toString();
                   // }
                   // else {
                     this.subjectTrackerItem = this.trackingSubjectResponse.data;
-    
+
                 }
                 else{
                   this.subjectprofilelistErrorMessage = response.message;
                 }
               })
-              
+
             }
           //}
           else {
@@ -2357,19 +2357,19 @@ this.phclistErrorMessage = err.toString();
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
     else if((_response.primaryDetail.childSubjectTypeId === 2 ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId !== '')){
       this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
       this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
-  
+
       this.trackingSubjectRequest = {
         uniqueSubjectId: this.uniqueSubjectId
-      }      
-      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)      
+      }
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
         .subscribe(response => {
-          this.trackingSubjectResponse = response;        
+          this.trackingSubjectResponse = response;
           this.loaderService.display(false);
           if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
             // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
@@ -2386,13 +2386,13 @@ this.phclistErrorMessage = err.toString();
                 this.trackingAnmSubjectTrackerResponse = response;
                 if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
                   this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
-    
+
                 }
                 else{
                   this.subjectprofilelistErrorMessage = response.message;
                 }
               });
-              
+
             }
           //}
           else {
@@ -2402,15 +2402,15 @@ this.phclistErrorMessage = err.toString();
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
       else if(_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId === ''){
         this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
         this.trackingSubjectRequest = {
           uniqueSubjectId: this.uniqueSubjectId
         }
-  
+
       let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingSubjectRequest)
         .subscribe(response => {
           this.trackingSubjectResponse = response;
@@ -2432,15 +2432,15 @@ this.phclistErrorMessage = err.toString();
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
       else if(_response.primaryDetail.childSubjectTypeId === 3){
         this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
         this.trackingAnmSubjectTrackerRequest = {
           uniqueSubjectId: this.uniqueSubjectId
         }
-  
+
       let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
         .subscribe(response => {
           this.trackingAnmSubjectTrackerResponse = response;
@@ -2454,7 +2454,7 @@ this.phclistErrorMessage = err.toString();
               this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
 
               this.loaderService.display(false);
-              
+
               //this.rerender();
             }
           //}
@@ -2465,21 +2465,21 @@ this.phclistErrorMessage = err.toString();
           (err: HttpErrorResponse) => {
             this.subjectprofilelistErrorMessage = err.toString();
           });
-  
-  
+
+
       }
-        
+
       },
       (err: HttpErrorResponse) => {
         this.subjectprofilelistErrorMessage = err.toString();
-      });      
-   
-   
-    
-    
+      });
+
+
+
+
       $('#fadeinModal').modal('show');
-       
-  
+
+
   }
 }
 
