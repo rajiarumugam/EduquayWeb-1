@@ -31,6 +31,7 @@ import { DistrictList } from 'src/app/shared/admin/add-district/add-district-res
 import { BlockList } from 'src/app/shared/admin/add-block/add-block-response';
 import { PhcList } from 'src/app/shared/admin/add-phc/add-phc-response';
 import { ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
+import { type } from 'os';
 
 
 @Component({
@@ -85,6 +86,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     chcId: number;
     chcName: string;
     phcId: number;
+    selectedEditState: string;
     phcName: string;
     scId: number;
     scName: string;
@@ -102,7 +104,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     pndtLocationId: number;
   ripointlistErrorMessage: string;
   anmSubjectTrackerDetail: ANMSubject;
-  selectedEditPhc: string = '';
+  selectedEditPhc;
   anmSubjectTrackerItem: ANMSubject;
   chcListResponse;
   chclistErrorMessage: string;
@@ -118,6 +120,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   confirmationSelected: boolean ;
   phclistErrorMessage: string;
   selectedDistrict = '';
+  // selectedBlock= '';
+  selectedEditDistrict: string;
   getphc: string;
   subjectTrackerItem: SubjectTrack;
   chclists: ChcList[];
@@ -135,6 +139,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   personalInfo: PregnancyDetail;
   user: user;
   subjectid: string;
+  getdistrict: string;
   searchsubjectid: string;
   userId: number;
 
@@ -176,9 +181,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   religionName: string;
   phcListResponse;
   scListResponse;
+  userListRequest;
   casteId: number;
   casteName: string;
   communityId: number;
+  userslistErrorMessage: string;
   communityName: string;
   address:string;
   address1: string;
@@ -211,6 +218,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   spouseContactNo: string;
   govIdTypeId: number;
   govIdType: string;
+  selectedEditSc: string = '';
   govIdDetails: string;
 
   rchId: string;
@@ -224,6 +232,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   l: number;
   a: number;
   comments: string;
+  getsc: string;
   barcodes: string;
   ga: number;
   ANMdata;
@@ -327,6 +336,15 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   updatedBy: any;
   isActive: any;
   State: any;
+  editUsername: any;
+  editfirstName: any;
+  editmiddleName: any;
+  editlastName: any;
+  editcontactNo1: any;
+  edituserGovCode: any;
+  editsadminDetail: any;
+  blockdata: any;
+  selectedEditUserrole: any;
 
   
 
@@ -446,16 +464,34 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         console.log(this.districtlists);
       }
       else {
-        this.phclistErrorMessage = response.message;
+        this.userslistErrorMessage = response.message;
       }
     },
       (err: HttpErrorResponse) => {
-        this.phclistErrorMessage = err.toString();
+        this.userslistErrorMessage = err.toString();
 
       });
       
       
   }
+
+  ddlEditDistrict() {
+    let district = this.UsersService.getDistrictList().subscribe(response => {
+      this.districtListResponse = response;
+      if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+        this.districtlists = this.districtListResponse.data;
+     
+      }
+      else {
+        this.userslistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.userslistErrorMessage = err.toString();
+
+      });
+  }
+
   ddlState() {
     let district = this.DistrictService.getStateList().subscribe(response => {
       this.stateListResponse = response;
@@ -472,6 +508,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
       });
   }
+  
 
   ddlUserRole(type) {
     
@@ -490,6 +527,23 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     },
       (err: HttpErrorResponse) => {
         this.districtlistErrorMessage = err.toString();
+
+      });
+  }
+
+  ddleditUserRole(type) {
+    let district = this.UsersService.getUserroleListType(type).subscribe(response => {
+      this.userroleListResponse = response;
+      if (this.userroleListResponse !== null && this.userroleListResponse.status === "true") {
+        this.userrolelists = this.userroleListResponse.userRoles;
+        // this.selectedEditUserrole = this.getstate;
+      }
+      else {
+        this.userslistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.userslistErrorMessage = err.toString();
 
       });
   }
@@ -532,6 +586,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ddlBlock(code) {
+    
     this.selectedBlock = '';
     let district = this.UsersService.getBlocklist(code).subscribe(response => {
       this.blockListResponse = response;
@@ -553,11 +608,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   }
   ddlPhc(code) {
     this.selectedPhc = '';
-    let district = this.UsersService.getPhcList(code).subscribe(response => {
+    let district = this.UsersService.getPhcbychc(code).subscribe(response => {
       this.phcListResponse = response;
       console.log(this.phcListResponse);
       if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
-        this.phclists = this.phcListResponse.phcDetails;
+        this.phclists = this.phcListResponse.data;
         this.selectedPhc = "";
        
       }
@@ -577,12 +632,12 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedChc = '';
     }
     else {
-      this.ddlChc();
+      this.ddlChc(this.selectedBlock);
     }
   }
 
    onChangeChc(event) {
-  
+    console.log(this.selectedChc);
       if (this.selectedChc === '') {
         this.selectedPhc = '';
       }
@@ -647,15 +702,15 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   ddlEdtiPhc(code) {
-    this.selectedEditPhc = '';
-    let district = this.UsersService.getPhcList(code).subscribe(response => {
+    // this.selectedEditPhc = '';
+    let district = this.UsersService.getPhcbychc(code).subscribe(response => {
       this.phcListResponse = response;
       if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
         this.phclists = this.phcListResponse.data;
-        if(this.phclists.length > 0){
-          this.selectedEditPhc = this.getphc;
+        // if(this.phclists.length > 0){
+        //   this.selectedEditPhc = this.getphc;
           
-        }
+        // }
                 
       }
       else {
@@ -670,11 +725,11 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   ddlSc(code) {
     this.selectedPhc = '';
     console.log(code);
-    let district = this.UsersService.getScList(code).subscribe(response => {
+    let district = this.UsersService.getscbyphc(code).subscribe(response => {
       this.scListResponse = response;
       console.log(this.scListResponse);
       if (this.scListResponse !== null && this.scListResponse.status === "true") {
-        this.sclists = this.scListResponse.scDetails;
+        this.sclists = this.scListResponse.data;
         console.log(this.sclists);
         this.selectedSc = "";       
       }      
@@ -687,36 +742,37 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
 
       });
   }
-  // ddlEdtiSc(code) {
-  //   this.selectedEditPhc = '';
-  //   let district = this.UsersService.getScList(code).subscribe(response => {
-  //     this.scListResponse = response;
-  //     if (this.scListResponse !== null && this.scListResponse.status === "true") {
-  //       this.sclists = this.scListResponse.scDetails;
-  //       if(this.sclists.length > 0){
-  //         this.selectedEditSc = this.getsc;
+  ddlEdtiSc(code) {
+ 
+    //this.selectedEditPhc = '';
+    let district = this.UsersService.getscbyphc(code).subscribe(response => {
+      this.scListResponse = response;
+      if (this.scListResponse !== null && this.scListResponse.status === "true") {
+        this.sclists = this.scListResponse.data;
+        // if(this.sclists.length > 0){
+        //   this.selectedEditSc = this.getsc;
           
-  //       }
+        // }
                 
-  //     }
-  //     else {
-  //       this.ripointlistErrorMessage = response.message;
-  //     }
-  //   },
-  //     (err: HttpErrorResponse) => {
-  //       this.ripointlistErrorMessage = err.toString();
+      }
+      else {
+        this.ripointlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.ripointlistErrorMessage = err.toString();
 
-  //     });
-  // }
+      });
+  }
 
-  ddlEditChc() {
-    this.selectedEditChc = '';
-    let district = this.UsersService.getChcList().subscribe(response => {
+  ddlEditChc(id) {
+    console.log(id);
+    let district = this.UsersService.getCHCByBlock(id).subscribe(response => {
       this.chcListResponse = response;
       if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-        this.chclists = this.chcListResponse.chcDetails;
-        this.selectedEditChc = this.getchc;
-        this.onChangeEditChc(this.getchc);
+        this.chclists = this.chcListResponse.data;
+        // this.selectedEditChc = this.getchc;
+        
       }
       else {
         this.sclistErrorMessage = response.message;
@@ -728,14 +784,15 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       });
   }
 
-  ddlChc() {
-
+  ddlChc(id) {
+console.log(id);
     this.selectedChc = '';
-    let district = this.UsersService.getChcList().subscribe(response => {
+    
+    let district = this.UsersService.getCHCByBlock(id).subscribe(response => {
       this.chcListResponse = response;
       console.log(this.chcListResponse);
       if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-        this.chclists = this.chcListResponse.chcDetails;
+        this.chclists = this.chcListResponse.data;
         this.selectedChc = "";
       }
       else {
@@ -754,10 +811,6 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       this.blockListResponse = response;
       if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
         this.blocklists = this.blockListResponse.data;
-        if(this.blocklists.length > 0){
-          this.selectedEditBlock = this.getblock;
-          
-        }
                 
       }
       else {
@@ -770,13 +823,15 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       });
   }
 
-  openAddIlr(addIlrDetail) {
+  openAddUsers(addIlrDetail) {
       
     //this.ddlChc();
     this.ddlState();
     this.ddlUserRole(this.maintabSelected);
     this.disabledChc = false;
     this.ddlDistrict();
+    
+    
     this.confirmationSelected = Boolean("True");
     this.modalService.open(
       addIlrDetail, {
@@ -1281,23 +1336,23 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   /*ngAfterViewInit(): void {
     this.dtTrigger.next();
   }   */
-  showResponseMessage(message: string, type: string){
-    var messageType = '';
-    if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
-    }
-    else{
-      Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
-      .then((result) => {
-        if (result.value) {
-          if(this.modalService.hasOpenModals){
-            this.modalService.dismissAll();
+  // showResponseMessage(message: string, type: string){
+  //   var messageType = '';
+  //   if(type === 'e'){
+  //     Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+  //   }
+  //   else{
+  //     Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+  //     .then((result) => {
+  //       if (result.value) {
+  //         if(this.modalService.hasOpenModals){
+  //           this.modalService.dismissAll();
            
-          }
-        }
-      });
-    }
-  }
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -1367,7 +1422,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
        this.addPhcResponse = response;
       console.log(response );
       if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-         this.showResponseMessage(this.addPhcResponse.message, 's')
+        this.showResponseMessage('Sadmin User added Sucessfully', 's')
          this.retrirveIlrlist();
           console.log(this.addPhcResponse.message );
        }else{
@@ -1447,7 +1502,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
        this.addPhcResponse = response;
       console.log(response );
       if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-         this.showResponseMessage(this.addPhcResponse.message, 's')
+         this.showResponseMessage('ANM User added Successfully', 's')
          this.retrirveIlrlist();
           console.log(this.addPhcResponse.message );
        }else{
@@ -1526,7 +1581,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
      this.addPhcResponse = response;
     console.log(response );
     if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-       this.showResponseMessage(this.addPhcResponse.message, 's')
+      this.showResponseMessage('CHC User added Sucessfully', 's')
        this.retrirveIlrlist();
         console.log(this.addPhcResponse.message );
      }else{
@@ -1604,7 +1659,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('HPLC User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -1641,7 +1696,7 @@ onSubmitpndtc(addIlrForm: NgForm){
 console.log(addIlrForm);
   this.Userslistrequest = {
     userTypeId:6,   
-    userRoleId:6,   
+    userRoleId:9,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -1682,7 +1737,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('PNDTC User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -1719,7 +1774,7 @@ onSubmitmtp(addIlrForm: NgForm){
 console.log(addIlrForm);
   this.Userslistrequest = {
     userTypeId:7,   
-    userRoleId:7,   
+    userRoleId:11,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -1760,7 +1815,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+      this.showResponseMessage('MTP User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -1797,7 +1852,7 @@ onSubmitdc(addIlrForm: NgForm){
 console.log(addIlrForm);
   this.Userslistrequest = {
     userTypeId:8,   
-    userRoleId:8,   
+    userRoleId:12,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -1838,7 +1893,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('DC User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -1875,7 +1930,7 @@ onSubmitmolecular(addIlrForm: NgForm){
 console.log(addIlrForm);
   this.Userslistrequest = {
     userTypeId:9,   
-    userRoleId:9,   
+    userRoleId:+(this.userRole),   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -1916,7 +1971,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('Molecular Lab User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -1952,8 +2007,8 @@ onSubmitspc(addIlrForm: NgForm){
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:10,   
+    userRoleId:14,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -1994,7 +2049,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('SPC User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -2030,8 +2085,8 @@ onSubmitnhm(addIlrForm: NgForm){
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:11,   
+    userRoleId:15,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -2072,7 +2127,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('NHM User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -2108,8 +2163,8 @@ onSubmitpndt(addIlrForm: NgForm){
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:12,   
+    userRoleId:10,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -2150,7 +2205,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('PNDT User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -2186,8 +2241,8 @@ onSubmitsupport(addIlrForm: NgForm){
 
 console.log(addIlrForm);
   this.Userslistrequest = {
-    userTypeId:9,   
-    userRoleId:9,   
+    userTypeId:14,   
+    userRoleId:18,   
       userGovCode:this.userGovCode,
       userName:this.userName,       
       password:'KJOJ',
@@ -2228,7 +2283,7 @@ let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
    this.addPhcResponse = response;
   console.log(response );
   if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-     this.showResponseMessage(this.addPhcResponse.message, 's')
+    this.showResponseMessage('Support Admin User added Sucessfully', 's')
      this.retrirveIlrlist();
       console.log(this.addPhcResponse.message );
    }else{
@@ -2244,6 +2299,1695 @@ this.phclistErrorMessage = err.toString();
 // this.rerender();
  //swal ("Here's the title!", "...and here's the text!");
 }
+
+openEditsadmin(editsadminDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+  this.id = subjectinfo.id;
+     this.userTypeId=9;  
+   this.userRoleId=9;  
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.selectedEditState = subjectinfo.stateId;
+    // this.centralLabId= 0;     
+    // this.molecularLabId=0 ;       
+    // this.districtId =0 ; 
+    // this. blockId =0;
+    // this.chcId=0;
+    // this.phcId=0;
+    // this.scId=0;
+    // this.riId=null  ;     
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editsadminDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editsubmitsadmin(editsadminForm: NgForm){
+  
+  console.log(editsadminForm.value);
+    this.userName = editsadminForm.value.userName;
+    this.firstName = editsadminForm.value.firstName;
+    this.middleName = editsadminForm.value.middleName;
+    this.lastName = editsadminForm.value.lastName;
+    this.userGovCode = editsadminForm.value.userGovCode;
+    this.email = editsadminForm.value.email;
+    this.selectedEditState = editsadminForm.value.ddlState;
+   
+    this.mobileNo = editsadminForm.value.mobileNo;
+    this.comments = editsadminForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:1,   
+    userRoleId:1,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'KJOJ',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: 0,   
+      blockId:0,
+      chcId:0 ,
+      phcId:0,
+      scId:0 ,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('Sadmin User Updated Successfully', 's')
+     // this.anmSubjectBadgeProfileListCount(1,1,1);
+    //  this.anmSubjectBadgeProfileListCount(1,1,1);
+    //  this.anmSubjectBadgeProfileListCount(1,1,2);
+      
+
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+// showResponseMessage1(message: string, type: string){
+//   var messageType = '';
+//   if(type === 'e'){
+//     Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+//   }
+//   else{
+//     Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+//     .then((result) => {
+//       if (result.value) {
+//         if(this.modalService.hasOpenModals){
+//           this.modalService.dismissAll();
+         
+//         }
+//       }
+//     });
+//   }
+// }
+
+openEditanm(editanmDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+ this.ddlEditDistrict();
+this.ddlEditBlock(subjectinfo.districtId);
+
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+    this.ddlEdtiSc(subjectinfo.phcId);
+    this.ddlEdtiPhc(subjectinfo.chcId);
+    
+  
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+    this.selectedEditPhc =subjectinfo.phcId;  
+    this.selectedEditDistrict = subjectinfo.districtId; 
+    this.selectedEditBlock =subjectinfo.blockId;
+    this.selectedEditSc=subjectinfo.scId;
+  
+    // this.riId=subjectinfo.riId;     
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+ 
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editanmDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editsubmitanm(editanmForm: NgForm){
+ // console.log("abc");
+  console.log(editanmForm.value);
+    this.userName = editanmForm.value.userName;
+    this.firstName = editanmForm.value.firstName;
+    this.riId = editanmForm.value.riId;
+    this.middleName = editanmForm.value.middleName;
+    this.lastName = editanmForm.value.lastName;
+    this.userGovCode = editanmForm.value.userGovCode;
+    this.email = editanmForm.value.email;
+    this.selectedEditChc = editanmForm.value.ddlChc;
+    this.selectedEditState = editanmForm.value.ddlState;
+      this.selectedEditPhc = editanmForm.value.ddlPhc;
+     this.selectedEditDistrict = editanmForm.value.ddlDistrict;
+    this.selectedEditSc = editanmForm.value.ddlSc;
+      this.selectedEditBlock = editanmForm.value.ddlBlock;
+    this.mobileNo = editanmForm.value.mobileNo;
+    this.comments = editanmForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:3,   
+    userRoleId:3,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedEditDistrict),
+        blockId: +(this.selectedEditBlock),
+        chcId: +(this.selectedEditChc),
+        phcId: +(this.selectedEditPhc),
+        scId: +(this.selectedEditSc),
+      riId:this.riId,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('ANM user Updated succesfully ', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+showResponseMessage(message: string, type: string){
+  var messageType = '';
+  if(type === 'e'){
+    Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+  }
+  else{
+    Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+    .then((result) => {
+      if (result.value) {
+        if(this.modalService.hasOpenModals){
+          this.modalService.dismissAll();
+         
+        }
+      }
+    });
+  }
+}
+
+openEditchc(editchcDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+   
+    this.ddlEditDistrict();
+    //this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    // this.ddlEdtiSc();   
+    //this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+   
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    // this.centralLabId= 0;   
+    
+   
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+    // this.blockdata = subjectinfo.blockName;
+    // this. blockId =0;
+    
+    // this.chcId=0;
+  
+    // this.phcId=0;
+    // this.selectedEditSc = "" +(subjectinfo.scId)
+    // this.scId=0;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editchcDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editsubmitchc(editchcform: NgForm){
+  console.log("abc");
+  console.log(editchcform.value);
+    this.userName = editchcform.value.userName;
+    this.firstName = editchcform.value.firstName;
+    this.middleName = editchcform.value.middleName;
+    this.lastName = editchcform.value.lastName;
+    this.userGovCode = editchcform.value.userGovCode;
+    this.email = editchcform.value.email;
+    this.selectedEditChc = editchcform.value.ddlChc;
+    // this.selectedEditUserrole = editchcform.value.ddlUserRole;
+    this.selectedEditState = editchcform.value.ddlState;
+     this.selectedEditDistrict = editchcform.value.ddlDistrict;
+      this.selectedEditBlock = editchcform.value.ddlBlock;
+    this.mobileNo = editchcform.value.mobileNo;
+    this.comments = editchcform.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:4,   
+   // userRoleId:+(this.selectedEditUserrole),   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedEditDistrict),
+        blockId: +(this.selectedEditBlock),
+        chcId: +(this.selectedEditChc),
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('CHC user Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEdithplc(edithplcdetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+  //  this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.editddlState();
+    this.selectedEditState = subjectinfo.stateId;
+    this.ddlEditDistrict();
+ this.selectedEditDistrict = subjectinfo.districtId;
+
+ this.ddlEditBlock(subjectinfo.districtId);
+ this.selectedEditBlock =subjectinfo.blockId;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+
+   this.email=subjectinfo.email;
+
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    edithplcdetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmithplc(edithplcform: NgForm){
+  
+  console.log(edithplcform.value);
+    this.userName = edithplcform.value.userName;
+    this.firstName = edithplcform.value.firstName;
+    this.middleName = edithplcform.value.middleName;
+    this.lastName = edithplcform.value.lastName;
+    this.userGovCode = edithplcform.value.userGovCode;
+    this.email = edithplcform.value.email;
+    this.selectedEditChc = edithplcform.value.ddlChc;
+    this.selectedEditUserrole = edithplcform.value.ddlUserRole;
+    this.selectedEditState = edithplcform.value.ddlState;
+     this.selectedEditDistrict = edithplcform.value.ddlDistrict;
+      this.selectedEditBlock = edithplcform.value.ddlBlock;
+    this.mobileNo = edithplcform.value.mobileNo;
+    this.comments = edithplcform.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:5,   
+    userRoleId:+(this.selectedEditUserrole),   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedEditDistrict),
+        blockId: 0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('HPLC user Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+
+openEditpndtc(editpndtcDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ'; 
+    this.ddlEditDistrict();
+    this.editddlState();  
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditDistrict = subjectinfo.districtId;     
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+   this.email=subjectinfo.email;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editpndtcDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitpndtc(edithplcform: NgForm){
+  
+  console.log(edithplcform.value);
+    this.userName = edithplcform.value.userName;
+    this.firstName = edithplcform.value.firstName;
+    this.middleName = edithplcform.value.middleName;
+    this.lastName = edithplcform.value.lastName;
+    this.userGovCode = edithplcform.value.userGovCode;
+    this.email = edithplcform.value.email;
+    this.selectedEditState = edithplcform.value.ddlState;
+     this.selectedEditDistrict = edithplcform.value.ddlDistrict;
+      this.selectedEditBlock = edithplcform.value.ddlBlock;
+    this.mobileNo = edithplcform.value.mobileNo;
+    this.comments = edithplcform.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:6,   
+    userRoleId:9,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,    
+      molecularLabId: 0,        
+      districtId: 0,
+        blockId:0,
+        chcId:0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('PNDTC user Updated Sucessfully','s')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+
+openEditmtp(editmtpDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();  
+    this.ddlEditDistrict();    
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditDistrict = subjectinfo.districtId;  
+   this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+   this.email=subjectinfo.email;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editmtpDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitmtp(editmtpForm: NgForm){
+  
+  console.log(editmtpForm.value);
+    this.userName = editmtpForm.value.userName;
+    this.firstName = editmtpForm.value.firstName;
+    this.middleName = editmtpForm.value.middleName;
+    this.lastName = editmtpForm.value.lastName;
+    this.userGovCode = editmtpForm.value.userGovCode;
+    this.email = editmtpForm.value.email;
+    this.selectedEditChc = editmtpForm.value.ddlChc;
+    this.selectedEditUserrole = editmtpForm.value.ddlUserRole;
+    this.selectedEditState = editmtpForm.value.ddlState;
+     this.selectedEditDistrict = editmtpForm.value.ddlDistrict;
+      this.selectedEditBlock = editmtpForm.value.ddlBlock;
+    this.mobileNo = editmtpForm.value.mobileNo;
+    this.comments = editmtpForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:7,   
+    userRoleId:11,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: 0,
+        blockId: 0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('MTP User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEditdc(editdcDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+   
+    this.ddlEditDistrict();
+  //  this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    // this.ddlEdtiSc();   
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+   
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    // this.centralLabId= 0;   
+    
+   
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+    // this.blockdata = subjectinfo.blockName;
+    // this. blockId =0;
+    
+    // this.chcId=0;
+  
+    // this.phcId=0;
+    // this.selectedEditSc = "" +(subjectinfo.scId)
+    // this.scId=0;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editdcDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitdc(editdcForm: NgForm){
+  
+  console.log(editdcForm.value);
+    this.userName = editdcForm.value.userName;
+    this.firstName = editdcForm.value.firstName;
+    this.middleName = editdcForm.value.middleName;
+    this.lastName = editdcForm.value.lastName;
+    this.userGovCode = editdcForm.value.userGovCode;
+    this.email = editdcForm.value.email;
+    this.selectedEditChc = editdcForm.value.ddlChc;
+    this.selectedEditUserrole = editdcForm.value.ddlUserRole;
+    this.selectedEditState = editdcForm.value.ddlState;
+     this.selectedEditDistrict = editdcForm.value.ddlDistrict;
+      this.selectedEditBlock = editdcForm.value.ddlBlock;
+    this.mobileNo = editdcForm.value.mobileNo;
+    this.comments = editdcForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:8,   
+    userRoleId:12,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedEditDistrict),
+        blockId: 0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage(this.AddUsersResponse.message, 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEditmolecular(editmolecularDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+   
+    this.ddlEditDistrict();
+   // this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    // this.ddlEdtiSc();   
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+   
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    // this.centralLabId= 0;   
+    
+   
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+    // this.blockdata = subjectinfo.blockName;
+    // this. blockId =0;
+    
+    // this.chcId=0;
+  
+    // this.phcId=0;
+    // this.selectedEditSc = "" +(subjectinfo.scId)
+    // this.scId=0;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editmolecularDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitmolecular(editmolecularForm: NgForm){
+  
+  console.log(editmolecularForm.value);
+    this.userName = editmolecularForm.value.userName;
+    this.firstName = editmolecularForm.value.firstName;
+    this.middleName = editmolecularForm.value.middleName;
+    this.lastName = editmolecularForm.value.lastName;
+    this.userGovCode = editmolecularForm.value.userGovCode;
+    this.email = editmolecularForm.value.email;
+    this.selectedEditChc = editmolecularForm.value.ddlChc;
+    this.selectedEditUserrole = editmolecularForm.value.ddlUserRole;
+    this.selectedEditState = editmolecularForm.value.ddlState;
+     this.selectedEditDistrict = editmolecularForm.value.ddlDistrict;
+      this.selectedEditBlock = editmolecularForm.value.ddlBlock;
+    this.mobileNo = editmolecularForm.value.mobileNo;
+    this.comments = editmolecularForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id,
+    userTypeId:9,   
+    userRoleId:+(this.selectedEditUserrole),   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: 0,
+        blockId: 0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('Molecular Lab User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+
+openEditspc(editspcDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+   
+    this.ddlEditDistrict();
+   // this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    // this.ddlEdtiSc();   
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+   
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    // this.centralLabId= 0;   
+    
+   
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+    // this.blockdata = subjectinfo.blockName;
+    // this. blockId =0;
+    
+    // this.chcId=0;
+  
+    // this.phcId=0;
+    // this.selectedEditSc = "" +(subjectinfo.scId)
+    // this.scId=0;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editspcDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+ 
+
+}
+
+editSubmitspc(editspcForm: NgForm){
+  
+  console.log(editspcForm.value);
+    this.userName = editspcForm.value.userName;
+    this.firstName = editspcForm.value.firstName;
+    this.middleName = editspcForm.value.middleName;
+    this.lastName = editspcForm.value.lastName;
+    this.userGovCode = editspcForm.value.userGovCode;
+    this.email = editspcForm.value.email;
+    this.selectedEditChc = editspcForm.value.ddlChc;
+    this.selectedEditUserrole = editspcForm.value.ddlUserRole;
+    this.selectedEditState = editspcForm.value.ddlState;
+     this.selectedEditDistrict = editspcForm.value.ddlDistrict;
+      this.selectedEditBlock = editspcForm.value.ddlBlock;
+    this.mobileNo = editspcForm.value.mobileNo;
+    this.comments = editspcForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id,
+    userTypeId:10,   
+    userRoleId:14,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedEditDistrict),
+        blockId:0,
+        chcId:0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('SPC User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEditnhm(editnhmDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+    this.ddlEditDistrict();
+  //  this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+   this.email=subjectinfo.email;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editnhmDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitnhm(editnhmForm: NgForm){
+  
+  console.log(editnhmForm.value);
+    
+    this.userName = editnhmForm.value.userName;
+    this.firstName = editnhmForm.value.firstName;
+    this.middleName = editnhmForm.value.middleName;
+    this.lastName = editnhmForm.value.lastName;
+    this.userGovCode = editnhmForm.value.userGovCode;
+    this.email = editnhmForm.value.email;
+    this.selectedEditChc = editnhmForm.value.ddlChc;
+    this.selectedEditUserrole = editnhmForm.value.ddlUserRole;
+    this.selectedEditState = editnhmForm.value.ddlState;
+     this.selectedEditDistrict = editnhmForm.value.ddlDistrict;
+      this.selectedEditBlock = editnhmForm.value.ddlBlock;
+    this.mobileNo = editnhmForm.value.mobileNo;
+    this.comments = editnhmForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id,
+    userTypeId:15,   
+    userRoleId:11,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: +(this.selectedEditDistrict),
+        blockId: +(this.selectedEditBlock),
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('NHM User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEditpndt(editpndtDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+   
+    this.ddlEditDistrict();
+   // this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    // this.ddlEdtiSc();   
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+   
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    // this.centralLabId= 0;   
+    
+   
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+    // this.blockdata = subjectinfo.blockName;
+    // this. blockId =0;
+    
+    // this.chcId=0;
+  
+    // this.phcId=0;
+    // this.selectedEditSc = "" +(subjectinfo.scId)
+    // this.scId=0;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editpndtDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitpndt(editpndtForm: NgForm){
+  
+  console.log(editpndtForm.value);
+    this.userName = editpndtForm.value.userName;
+    this.firstName = editpndtForm.value.firstName;
+    this.middleName = editpndtForm.value.middleName;
+    this.lastName = editpndtForm.value.lastName;
+    this.userGovCode = editpndtForm.value.userGovCode;
+    this.email = editpndtForm.value.email;
+    this.selectedEditChc = editpndtForm.value.ddlChc;
+    this.selectedEditUserrole = editpndtForm.value.ddlUserRole;
+    this.selectedEditState = editpndtForm.value.ddlState;
+     this.selectedEditDistrict = editpndtForm.value.ddlDistrict;
+      this.selectedEditBlock = editpndtForm.value.ddlBlock;
+    this.mobileNo = editpndtForm.value.mobileNo;
+    this.comments = editpndtForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id,
+    userTypeId:6,   
+    userRoleId:9,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: 0,
+        blockId: 0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('PNDT User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEdithaematologist(edithaematologistDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+    this.ddlEditDistrict();
+  //  this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+   this.email=subjectinfo.email;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    edithaematologistDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmithaematologist(edithaematologistForm: NgForm){
+  
+  console.log(edithaematologistForm.value);
+    this.userName = edithaematologistForm.value.userName;
+    this.firstName = edithaematologistForm.value.firstName;
+    this.middleName = edithaematologistForm.value.middleName;
+    this.lastName = edithaematologistForm.value.lastName;
+    this.userGovCode = edithaematologistForm.value.userGovCode;
+    this.email = edithaematologistForm.value.email;
+    this.selectedEditState = edithaematologistForm.value.ddlState;
+    this.mobileNo = edithaematologistForm.value.mobileNo;
+    this.comments = edithaematologistForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:13,   
+    userRoleId:17,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: 0,
+        blockId:0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('Haemotologist User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
+openEditsupport(editsupportDetail, subjectinfo) {
+  
+  console.log(subjectinfo);
+ 
+  this.id = subjectinfo.id;
+    this.userGovCode=subjectinfo.userGovCode;
+    this.userName=subjectinfo.userName  ;     
+    // this.password='KJOJ';
+    this.editddlState();
+    this.ddlEditChc(subjectinfo.blockId);
+   
+    this.ddlEditDistrict();
+ //   this.ddleditUserRole(type);
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    // this.ddlEdtiSc();   
+    this.selectedEditUserrole = subjectinfo.userRoleId;
+    this.selectedEditState = subjectinfo.stateId;
+    this.selectedEditChc =subjectinfo.chcId;
+   
+    this.selectedEditDistrict = subjectinfo.districtId;  
+    // this.centralLabId= 0;   
+    
+   
+    this.ddlEditBlock(subjectinfo.districtId);
+    this.selectedEditBlock =subjectinfo.blockId;
+    // this.blockdata = subjectinfo.blockName;
+    // this. blockId =0;
+    
+    // this.chcId=0;
+  
+    // this.phcId=0;
+    // this.selectedEditSc = "" +(subjectinfo.scId)
+    // this.scId=0;
+      
+   this.firstName=subjectinfo.firstName;
+   this.middleName=subjectinfo.middleName;
+   this.lastName=subjectinfo.lastName;
+   this. mobileNo=subjectinfo.mobileNo;
+  //  this.contactNo2=null;
+   this.email=subjectinfo.email;
+  //  this.govIdTypeId=0;
+  //  this. govIdDetails=null;
+  //  this.address=null;
+  //  this. pincode=null;
+  //  this.createdBy=subjectinfo.user.id ;
+  //  this. updatedBy=subjectinfo.user.id ;
+    this.comments= subjectinfo.comments;
+    this.confirmationSelected = subjectinfo.isActive;
+ 
+  // this.selectedEditBlock = "" +(subjectinfo.blockId)
+ console.log(this.firstName);
+
+
+  this.modalService.open(
+    editsupportDetail, {
+    centered: true,
+    size: 'xl',
+    scrollable: true,
+    backdrop:'static',
+    keyboard: false,
+    ariaLabelledBy: 'modal-basic-title'
+  });
+
+}
+
+editSubmitsupport(editsupportForm: NgForm){
+  
+  console.log(editsupportForm.value);
+    this.userName = editsupportForm.value.userName;
+    this.firstName = editsupportForm.value.firstName;
+    this.middleName = editsupportForm.value.middleName;
+    this.lastName = editsupportForm.value.lastName;
+    this.userGovCode = editsupportForm.value.userGovCode;
+    this.email = editsupportForm.value.email;
+    this.selectedEditChc = editsupportForm.value.ddlChc;
+    this.selectedEditUserrole = editsupportForm.value.ddlUserRole;
+    this.selectedEditState = editsupportForm.value.ddlState;
+     this.selectedEditDistrict = editsupportForm.value.ddlDistrict;
+      this.selectedEditBlock = editsupportForm.value.ddlBlock;
+    this.mobileNo = editsupportForm.value.mobileNo;
+    this.comments = editsupportForm.value.Comments;
+
+  this.userListRequest = {
+    id:this.id ,
+    userTypeId:14,   
+    userRoleId:18,   
+    userGovCode:this.userGovCode,
+      userName:this.userName,       
+      password:'odisha',
+      stateId: +(this.selectedEditState), 
+      centralLabId: 0,
+          
+      molecularLabId: 0,        
+      districtId: 0,
+        blockId: 0,
+        chcId: 0,
+        phcId: 0,
+        scId: 0,
+      riId:null,        
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.mobileNo,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:null,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive: this.confirmationSelected, 
+  };
+  console.log(this.userListRequest);
+
+  //Remove below 2 lines after successfully tested
+  // this.showResponseMessage('Successfully registered', 's');
+  // return false;
+
+  let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+  .subscribe(response => {
+    this.AddUsersResponse = response;
+    if(this.AddUsersResponse !== null){
+      this.showResponseMessage('Support Admin User Updated Sucessfully', 's')
+       this.retrirveIlrlist();
+    }else{
+      this.showResponseMessage(this.AddUsersResponse.message, 'e');
+              this.userslistErrorMessage = response.message;
+    }
+
+  },
+  (err: HttpErrorResponse) => {
+    this.showResponseMessage(err.toString(), 'e');
+    this.userslistErrorMessage = err.toString();
+  });
+  //swal ("Here's the title!", "...and here's the text!");
+}
+
   custumTabClick(i,j)
   {
       this.maintabSelected = i;

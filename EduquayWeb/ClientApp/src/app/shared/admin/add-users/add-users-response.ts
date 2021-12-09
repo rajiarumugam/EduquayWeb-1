@@ -52,6 +52,8 @@ export interface UsersList {
     lastName: string;
     email: string;
     mobileNo: string;
+    contactNo1: string,
+     contactNo2: string,
     registeredFrom: number;
     sampleCollectionFrom: number;
     shipmentFrom: number;

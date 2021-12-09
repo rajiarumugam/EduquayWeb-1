@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddBlockResponse } from '../add-block/add-block-response';
-import { AddChcResponse } from '../add-chc/add-chc-response';
+import { AddchcbyblockResponse, AddChcResponse } from '../add-chc/add-chc-response';
 import { StateResponse } from '../state/state-response';
 import { UserroleResponse } from './add-users-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
@@ -18,15 +18,17 @@ import { AddScResponse } from '../add-sc/add-sc-response';
 export class AddUsersService {
 
   retrieveBlockApi: string = "api/v1/WebMaster/RetrieveBlockByDistrict/"
+  retrieveSCbyPhc:String="api/v1/WebMaster/RetrieveSCByPHC"
   retrieveScApi: string = "api/v1/SC/Retrieve";
   retrievePhcApi: string = "api/v1/PHC/Retrieve";
+  retrievephcbychc:string='api/v1/WebMaster/RetrievePHCByCHC'
   addPhcApi: string = "api/v1/SA/AddNewPHC";
   retrieveChcApi: string = "api/v1/CHC/Retrieve";
   updatePhcApi: string = "api/v1/SA/UpdatePHC";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
-  RetrieveCHCbyBlock= "api/v1/WebMaster/RetrieveCHCByBlock/{id}";
-  RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
+  RetrieveCHCbyBlock= "api/v1/WebMaster/RetrieveCHCByBlock";
+  RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict";
   addusersapi="api/v1/UserIdentity/Add";
   RetrieveAllUsers="api/v1/UserIdentity/Retrieve";
   Retrieveuserrolebytype="api/v1/UserRole/RetrieveUserroleByType";
@@ -36,6 +38,7 @@ export class AddUsersService {
   retrieveUsersApi: string = "api/v1/UserIdentity/RetrieveByType";
   retrieveStateApi: string = "api/v1/SA/RetrieveAllStates";
   retrieveUserroleApi: string = "api/v1/UserRole/Retrieve";
+  updateusersApi: string ="api/v1/UserIdentity/Edit";
   
   
   constructor(
@@ -77,6 +80,11 @@ export class AddUsersService {
     return this.http.get<StateResponse>({url: apiUrl});
   }
 
+  updateusers(usersedit){
+    let apiUrl=this.genericService.buildApiUrl(this.updateusersApi);
+    return this.http.post<AddUsersDataresponse>({url: apiUrl, body: usersedit});
+  }
+
   getUserroleList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveUserroleApi);
     return this.http.get<UserroleResponse>({url: apiUrl});
@@ -94,9 +102,25 @@ export class AddUsersService {
     let apiUrl = this.genericService.buildApiUrl(`${this.retrievePhcApi}/${code}`);
     return this.http.get<AddPhcResponse>({url: apiUrl });
   }
+
+  
+
+  getPhcbychc(code){
+    //var user = JSON.parse(this.tokenService.getUser('lu'));
+    //this.userId = user.id;
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrievephcbychc}/${code}`);
+    return this.http.get<AddPhcResponse>({url: apiUrl });
+  }
+  getscbyphc(code){
+    //var user = JSON.parse(this.tokenService.getUser('lu'));
+    //this.userId = user.id;
+    let apiUrl = this.genericService.buildApiUrl(`${this.retrieveSCbyPhc}/${code}`);
+    return this.http.get<AddPhcResponse>({url: apiUrl });
+  }
+
   getCHCByBlock(id){
-    let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyBlock+id);
-    return this.http.get<any>({url: apiUrl});
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveCHCbyBlock}/${id}`);
+    return this.http.get<AddchcbyblockResponse>({url: apiUrl});
   }
 
   getCHCByDis(id){
