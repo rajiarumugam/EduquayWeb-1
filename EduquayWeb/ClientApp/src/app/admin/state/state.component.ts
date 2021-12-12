@@ -229,7 +229,7 @@ export class StateComponent implements AfterViewInit, OnDestroy, OnInit {
     let damagedsampleCollection = this.StateService.updateState(_obj)
     .subscribe(response => {
       this.addStateResponse = response;
-      if(this.addStateResponse !== null){
+      if(this.addStateResponse !== null && this.addStateResponse.status!=''+'false'){
         this.showResponseMessage(this.addStateResponse.message, 's')
          this.retrirveStatelist();
       }else{

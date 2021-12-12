@@ -50,7 +50,7 @@
           </div>
           <div class="form-row">
             <div class="col-md-12">
-              <a class="float-right mr-5" (click)="openAddChc(addAvdDetail)" role="button">
+              <a class="float-right mr-5" (click)="openAddavd(addAvdDetail)" role="button">
                 <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
               </a>
             </div>
@@ -63,7 +63,7 @@
                   <th><span>{{'SNo' | translate }}</span></th>
                   <th><span>{{'AVD Name' | translate }}</span></th>
                   <th><span>{{'AVD Contact No' | translate }}</span></th>
-                  <th><span>{{'RIID' | translate }}</span></th>
+                  <!-- <th><span>{{'RIID' | translate }}</span></th> -->
                   <th><span>{{'Comments' | translate }}</span></th>
                   <th><span>{{'Active' | translate }}</span></th>
                   <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -74,7 +74,7 @@
                   <td class="sno text-center">{{i +1}}</td>
                   <td class="sname text-left">{{sample.avdName}}</td>
                   <td class="sid text-center">{{sample.contactNo}}</td>
-                  <td class="sid text-center">{{sample.riId}}</td>
+                  <!-- <td class="sid text-center">{{sample.riId}}</td> -->
                   <td class="number text-center">{{sample.comments}}</td>
                   <td class="text-center">{{sample.isActive}}</td>
 
@@ -121,6 +121,21 @@
                       </div>
 
                     </div>
+                    
+                    <!-- <div class="form-group col-md-3">
+                      <label class="note">{{'AVD Contact No' | translate }} <span class="manto"> *</span></label>
+                      <input class="form-control" name="avdcontactno" type="number" placeholder="AVD Contact No" [(ngModel)]="avdcontactno" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!avdcontactno.valid && avdcontactno.touched || addAvdForm.submitted && avdcontactno.invalid"
+                      required>
+                      <small class="text-danger ml-2" *ngIf="!avdcontactno.valid && avdcontactno.touched ">Enter AVD
+                        Contact No</small>
+                      <div *ngIf="addAvdForm.submitted && avdcontactno.invalid">
+                        <small *ngIf="avdcontactno.untouched" class=" ml-2 text-danger">AVD Contact No is
+                          required</small>
+                      </div>
+
+                    </div> -->
+
                     <div class="form-group col-md-3">
                       <label class="note">{{'AVD contactNo' | translate }}<span class="manto"> *</span></label>
                       <input class="form-control" name="avdcontactno" type="number" placeholder="AVD contactNo" ngModel
@@ -134,7 +149,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <!-- <div class="form-group col-md-3">
                       <label class="note">{{'RIID' | translate }}<span class="manto"> *</span></label><br/>
                       <input class="form-control form-control-with-search" name="riid" type="text" placeholder="RIID" ngModel
                          pattern="^[a-zA-Z0-9,]+$" required #riid="ngModel"  
@@ -145,10 +160,22 @@
                       <div *ngIf="addAvdForm.submitted && riid.invalid">
                         <small *ngIf="riid.untouched" class=" ml-2 text-danger">RIID is required</small>
                       </div>
+                    </div> -->
+
+                    <div class="form-group col-md-3">
+                      <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                      <div class="n-chk">
+                          <label class="new-control new-checkbox checkbox-outline-primary">
+                            <input type="checkbox" class="new-control-input checkbox" 
+                            [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                            <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                          </label>
+                      </div>
                     </div>
+      
+                  </div>
 
-
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                       <div class="n-chk">
                         <label class="new-control new-checkbox checkbox-outline-primary">
@@ -159,7 +186,7 @@
                       </div>
                     </div>
 
-                  </div>
+                  </div> -->
 
                    
 
@@ -214,13 +241,12 @@
                       </div>
 
                     </div>
-
-
-                    
+   
                     <div class="form-group col-md-3">
                       <label class="note">{{'AVD Contact No' | translate }} <span class="manto"></span></label><br/>
-                      <input class="form-control" name="avdcontactno" type="number" placeholder="AVD Contact No" required
-                        [(ngModel)]="avdcontactno">
+                      <input class="form-control" name="avdcontactno" type="number" placeholder="AVD Contact No" [(ngModel)]="avdcontactno" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!avdcontactno.valid && avdcontactno.touched || editAvdForm.submitted && avdcontactno.invalid"
+                      required>
                       <small class="text-danger ml-2" *ngIf="!avdcontactno.valid && avdcontactno.touched ">Enter AVD
                         Contact No</small>
                       <div *ngIf="editAvdForm.submitted && avdcontactno.invalid">
@@ -237,7 +263,7 @@
                           <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
                   </div> -->
 
-                    <div class="form-group col-md-3 associatedanm">
+                    <!-- <div class="form-group col-md-3 associatedanm">
                       <label class="note">{{'RIID' | translate }} <span class="manto"></span></label><br/>
                       <input class="form-control form-control-with-search" name="riid" type="text" placeholder="RIID"
                         [class.is-invalid]="!riid.valid && riid.touched || editAvdForm.submitted && riid.invalid"
@@ -252,9 +278,9 @@
                       </div>
 
                     </div>
-                    
+                     -->
                     <div class="form-group col-md-5">
-                      <br/>
+                      <!-- <br/> -->
                       <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                       <div class="n-chk">
                         <label class="new-control new-checkbox checkbox-outline-primary">

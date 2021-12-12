@@ -4,23 +4,26 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddChcResponse } from '../add-chc/add-chc-response';
-import { AddPhcRequest } from './add-phc-request';
-import { AddPhcResponse, AddPhcDataresponse } from './add-phc-response';
+// import { AddPhcRequest } from './add-phc-request';
+import { AddPhcResponse, AddPhcDataresponse } from '../add-phc/add-phc-response';
+import { AddUserroleResponse } from './add-user-role-response';
+import { RetrieveUserTypeResponse } from '../add-masters-response';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AddPhcService {
+export class AddUserroleService {
   
 
   retrieveBlockApi: string = "api/v1/SA/RetrieveAllBlocks";
   retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
-  retrieveUserroleApi: string = "api/v1/SA/RetrieveAllPHCs";
-  addPhcApi: string = "api/v1/SA/AddNewPHC";
+  retrieveUserroleApi: string = "api/v1/UserRole/Retrieve";
+  addUserroleApi: string = "api/v1/UserRole/Add";
   retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
   updatePhcApi: string = "api/v1/SA/UpdatePHC";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
+  retrieveUsertypeApi="api/v1/UserType/Retrieve";
 
   constructor(
     private httpClient: HttpClient,
@@ -34,23 +37,20 @@ export class AddPhcService {
     return this.http.get<AddChcResponse>({url: apiUrl});
   }
 
-  getuserroleList(){
-    let apiUrl = this.genericService.buildApiUrl(this.retrievePhcApi);
-    return this.http.get<AddPhcResponse>({url: apiUrl});
+  getUsertypeList(){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveUsertypeApi);
+    return this.http.get<RetrieveUserTypeResponse>({url: apiUrl});
   }
 
-  getPhcList(){
-    let apiUrl = this.genericService.buildApiUrl(this.retrievePhcApi);
-    return this.http.get<AddPhcResponse>({url: apiUrl});
-  }
+
   getUserroleList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveUserroleApi);
-    return this.http.get<AddPhcResponse>({url: apiUrl});
+    return this.http.get<AddUserroleResponse>({url: apiUrl});
   }
 
-  addPhc(phcadd){
-    let apiUrl=this.genericService.buildApiUrl(this.addPhcApi);
-    return this.http.post<AddPhcDataresponse>({url: apiUrl, body: phcadd});
+  addUserrole(Useradd){
+    let apiUrl=this.genericService.buildApiUrl(this.addUserroleApi);
+    return this.http.post<AddPhcDataresponse>({url: apiUrl, body: Useradd});
   }
 
   updatePhc(phcadd){
