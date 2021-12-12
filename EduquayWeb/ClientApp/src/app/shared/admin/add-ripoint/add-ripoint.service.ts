@@ -6,6 +6,7 @@ import { TokenService } from '../../token.service';
 import { AddChcResponse } from '../add-chc/add-chc-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
 import { AddScResponse } from '../add-sc/add-sc-response';
+import { IlrResponse } from './add-ripoint-response';
 import { AddRipointRequest } from './add-ripoint-request';
 import { AddRipointResponse, AddRiPtDataresponse } from './add-ripoint-response';
 
@@ -18,9 +19,11 @@ export class AddRipointService {
   retrieveRiPointApi: string = "api/v1/SA/RetrieveAllRISites";
   retrievePhcApi: string = "api/v1/WebMaster/RetrievePHCByCHC/";
   addRiPtApi: string = "api/v1/RI/Add";
+  updateRiPtApi: string = "api/v1/SA/UpdateRISite";
   retrieveChcApi: string = "api/v1/CHC/Retrieve";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
+  retrieveILrApi: string = "api/v1/ILR/Retrieve";
 
   constructor(
     private httpClient: HttpClient,
@@ -45,11 +48,22 @@ export class AddRipointService {
     let apiUrl = this.genericService.buildApiUrl(`${this.retrieveScApi}${code}`);
     return this.http.get<AddScResponse>({url: apiUrl});
   }
+  getIlrList(){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveILrApi);
+    return this.http.get<IlrResponse>({url: apiUrl});
+  }
 
   getRiList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveRiPointApi);
     return this.http.get<AddRipointResponse>({url: apiUrl});
   }
+
+  updateRiPt(riPtedit){
+    let apiUrl=this.genericService.buildApiUrl(this.updateRiPtApi);
+    return this.http.post<AddRiPtDataresponse>({url: apiUrl, body: riPtedit});
+  }
+
+ 
 
   addRiPt(riptadd: AddRipointRequest){
     let apiUrl=this.genericService.buildApiUrl(this.addRiPtApi);

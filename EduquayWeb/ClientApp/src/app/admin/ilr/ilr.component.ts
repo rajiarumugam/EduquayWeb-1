@@ -48,6 +48,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     districtlists: DistrictList[];
     districtName: string;
     districtnamedata: string;
+    selectedEditDistrict: string;
     selectedChc: string;
     getstate: string;
     selectedEditChc: string = '';
@@ -161,25 +162,40 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
 
-    ddlChc() {
+    ddlChc(id) {
+      console.log(id);
+          this.selectedChc = '';
+          
+          let district = this.IlrService.getCHCByDis(id).subscribe(response => {
+            this.chcListResponse = response;
+            console.log(this.chcListResponse);
+            if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+              this.chclists = this.chcListResponse.data;
+              this.selectedChc = "";
+            }
+            else {
+              this.phclistErrorMessage = response.message;
+            }
+          },
+            (err: HttpErrorResponse) => {
+              this.phclistErrorMessage = err.toString();
+      
+            });
+        }
 
-      this.selectedChc = '';
-      let district = this.IlrService.getChcList().subscribe(response => {
-        this.chcListResponse = response;
-        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.data;
-          this.selectedChc = "";
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
+
+
+      onChangeDistrict(event) {
   
-        });
+      if (this.selectedDistrict === '') {
+        this.selectedChc = '';
+      }
+      else {
+        this.ddlChc(this.selectedDistrict);
+        
+      }
     }
-
+  
     ddlDistrict() {
       let district = this.Ilrservice.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
@@ -199,14 +215,12 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
         
         
     }
-
     ddlEditDistrict() {
       let district = this.Ilrservice.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
-            this.selectedDistrict = this.getdistrict;
-            console.log(this.districtlists);
+       
         }
         else {
           this.phclistErrorMessage = response.message;
@@ -217,13 +231,14 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
         });
     }
-    ddlEditChc() {
-      this.selectedEditChc = '';
-      let district = this.Ilrservice.getIlrList().subscribe(response => {
+
+    ddlEditChc(id) {
+      console.log(id);
+      let district = this.Ilrservice.getCHCByDis(id).subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
-          this.selectedEditChc = this.getchc;
+          this.chclists = this.chcListResponse.data;
+          // this.selectedEditChc = this.getchc;
           
         }
         else {
@@ -235,14 +250,15 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
         });
     }
-  
+    
     districtChange()
     {
-          console.log(this.selectedDistrict);
-
+          
+          this.ddlChc(this.selectedDistrict);
           this.selectedChc = '';
       let district = this.Ilrservice.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
+        console.log(this.chcListResponse);
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.data;
           this.selectedChc = "";
@@ -257,6 +273,8 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
         });
     }
+  
+  
 
    
     openAddIlr(addIlrDetail) {
@@ -264,6 +282,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       //this.ddlChc();
       this.disabledChc = false;
       this.ddlDistrict();
+
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
         addIlrDetail, {
@@ -279,18 +298,15 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     openEditIlr(editIlrDetail, sample) {
   
       console.log(sample);
-      // this.ddlEditChc();
-      this.editIlrDetails = sample;
-      this.getdistrict = sample.districtId;
-      this.selectedDistrict =sample.districtId;
       this.ddlEditDistrict();
-      setTimeout(() => {
-        this.districtChange();
-      }, 100);
+      this.ddlEditChc(sample.districtId);
+      this.editIlrDetails = sample;
+    
      
       this.chcname = sample.chcName;
       this.ilrname = sample.name;
-      this.selectedEditChc = "" +(sample.chcId)
+      this.selectedEditDistrict=sample.districtId
+      this.selectedEditChc =sample.chcId; 
       this.commentsdata = sample.comments;
       this.ilrCode = sample.ilrCode;
       this.confirmationSelected = Boolean(sample.isActive);
@@ -315,9 +331,6 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedChc = addIlrForm.value.ddlChc;
       this.ilrCode = addIlrForm.value.ilrCode;
       this.ilrname = addIlrForm.value.ilrname;
-   
-      
-  
 
       this.ilrListRequest = {
         chcId: +(this.selectedChc),
@@ -360,7 +373,8 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       console.log(editIlrForm.value);
       
       this.commentsdata = editIlrForm.value.commentsdata;
-      this.selectedEditChc = editIlrForm.value.ddlEdChc;
+      //this.selectedEditChc = editIlrForm.value.ddlChc;
+      this.selectedEditDistrict = editIlrForm.value.ddlDistrict;
       this.ilrCode = editIlrForm.value.ilrCode;
       // this.chcname = editIlrForm.value.chcname;
       this.ilrname = editIlrForm.value.ilrname;
@@ -369,8 +383,8 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
       this.ilrListRequest = {
         id: this.editIlrDetails.id,
-        chcId: +(this.selectedEditChc),
-        
+       chcId: this.selectedEditChc,
+        // Dist
         ilrCode: this.ilrCode,
         // chcName: this.chcname,
         name: this.ilrname,

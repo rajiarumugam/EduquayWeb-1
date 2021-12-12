@@ -1,7 +1,7 @@
 export class AddRipointResponse {
     status: string;
     message: string;
-    riDetails: RiList[];
+    userRoles: RiList[];
 }
 
 export interface RiList {
@@ -28,7 +28,36 @@ export interface RiList {
     updatedBy: number;
 }
 
-export interface AddRiPtDataresponse {
+export interface AddRiPtDataresponse {    
     status: string;
     message: string;
+    userRoles: RiList[];
+}
+
+
+export interface IlrResponse {
+    status: string;
+    message: string;
+    ilrDetails: IlrList[];
+}
+
+export interface IlrList {
+    id: number;
+    ilrPoint: string;
+    ilrCode: string;
+    chcId: number;
+    createdBy: number;
+    updatedBy: number;
+    comments: string;
+    isActive: string;
+    chcName:string;
+  
+   
+    
+}
+
+export interface AddIlrResponse {
+    status: "string",
+    message: "string",
+    ilrDetails: IlrList[];
 }

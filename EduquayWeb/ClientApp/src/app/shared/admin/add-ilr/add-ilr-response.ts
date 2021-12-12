@@ -4,6 +4,8 @@ export class AddIlrResponse {
         data: IlrList[];
     }
     
+
+    
     export interface IlrList {
     id: number;
     districtId: number;

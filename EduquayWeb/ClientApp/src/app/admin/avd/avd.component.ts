@@ -137,7 +137,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
       let samplesList = this.Avdservice.getAvdList()
       .subscribe(response => {
         this.avdListResponse = response;
-        console.log(this.avdlists,this.avdListResponse);
+        console.log(this.avdlists);
         this.loaderService.display(false);
         if(this.avdListResponse !== null){
           if(this.avdListResponse.avdDetails.length <= 0){
@@ -235,9 +235,10 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     {
       console.log(this.contactno);
     }
-    openAddChc(addAvdDetail) {
 
-
+    openAddavd(addAvdDetail) {
+      
+    
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
         addAvdDetail, {
@@ -251,8 +252,9 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
     }
 
-
-    openEditAvd(editBlockDetail, sample) {
+  
+    openEditAvd(editAvdDetail, sample) {
+  
 
       console.log(sample);
 
@@ -260,7 +262,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
       // this.ddlEditBlock(sample.districtId);
       this.avdcontactno = sample.contactNo;
       this.avdName = sample.avdName;
-      this.riid = sample.riId;
+      this.riid = null;
       this.id = sample.id;
 
 
@@ -271,7 +273,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
       this.modalService.open(
-        editBlockDetail, {
+        editAvdDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -296,7 +298,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
         avdName: this.avdName,
         contactno: this.contactno,
-        riId: this.riId,
+        riId: null,
         comments: this.comments,
         userId: this.user.id
 
@@ -330,26 +332,18 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
     editSubmit(editAvdForm: NgForm){
 
-      //console.log(editAvdForm.value);
-
-      this.commentsdata = editAvdForm.value.commentsdata;
-
+               
+      this.commentsdata = editAvdForm.value.commentsdata;     
       this.avdName = editAvdForm.value.avdName;
       this.avdcontactno = editAvdForm.value.avdcontactno;
       this.riid = editAvdForm.value.riid;
-
-      // avdcontactno
-      // console.log(this.avdName);
-      // console.log(this.avdcontactno);
-      // console.log(this.riid);
-
-
-
+            
+  
       this.avdListRequest = {
         id:   this.tempeditid,
         name: this.avdName,
         contact:""+this.avdcontactno,
-        riId: this.riid,
+        riId: null,
         comments: this.commentsdata,
         userId: this.user.id
 

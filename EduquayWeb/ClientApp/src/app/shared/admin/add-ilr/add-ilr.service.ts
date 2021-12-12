@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
-import { AddChcResponse } from '../add-chc/add-chc-response';
+import { AddchcbyblockResponse, AddChcResponse } from '../add-chc/add-chc-response';
 import { AddIlrRequest } from './add-ilr-request';
 import { AddIlrResponse, AddIlrDataresponse } from './add-ilr-response';
 
@@ -18,7 +18,7 @@ export class AddIlrService {
   retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
   updatePhcApi: string = "api/v1/SA/UpdatePHC";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
-  RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
+  RetrieveCHCbyDistrict="api/v1/WebMaster/RetrieveCHCByDistrict";
 
   updateIlrApi: string = "api/v1/SA/UpdateILR";
   RetrieveAllIlr: string = "api/v1/SA/RetrieveAllILR";
@@ -49,8 +49,8 @@ export class AddIlrService {
   }
 
   getCHCByDis(id){
-    let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyDistrict+id);
-    return this.http.get<any>({url: apiUrl});
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveCHCbyDistrict}/${id}`);
+    return this.http.get<AddchcbyblockResponse>({url: apiUrl});
   }
   getChcList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveChcApi);
