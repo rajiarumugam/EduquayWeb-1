@@ -25,14 +25,14 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-    
+
     loadDataTable: boolean = false;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-  
+
     phclistErrorMessage: string;
     user: user;
-  
+
     confirmationSelected: boolean ;
     phcListResponse;
     phclists: PhcList[];
@@ -40,12 +40,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     addPhcResponse: AddPhcDataresponse;
     chcListResponse;
     chclists: ChcList[];
-   
-   
+
+
     selectedChc: string;
     getstate: string;
     selectedEditChc: string = '';
-  
+
     districtGovCode: string;
     stateName: string;
 
@@ -58,19 +58,19 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     phcnamedata: string;
     districtlists;
     hninId;
-  
+
     commentsdata: string;
     getchc: string;
     phcCode: string;
-  
+
     chcName: string;
     pincode: string;
-   
-   
+
+
     testingchcId : string;
     centrallablid : string;
-    
-   
+
+
     pincodeData: string;
     phcNamedata: string;
     phcCodedata: string;
@@ -80,9 +80,9 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     disabledChc = false;
     getdistrict = "";
     editPhcDetails;
-  
+
     constructor(
-    
+
       private PhcService: AddPhcService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -92,12 +92,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private dataservice: DataService,
     ) { }
-  
+
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "PHC"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = { 
+      this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
@@ -109,7 +109,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←' 
+            last: '', // or '←'
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -118,7 +118,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.retrirvePhclist();
     }
-  
+
     retrirvePhclist(){
       this.loaderService.display(true);
       this.phclists = [];
@@ -130,23 +130,23 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.phcListResponse !== null){
           if(this.phcListResponse.data.length <= 0){
             this.phclistErrorMessage = response.message;
-            
+
           }
           else{
             this.phclists = this.phcListResponse.data;
             this.phclists.forEach(element => {
               this.getchc = '' +(element.chcId);
-             
+
             });
             //this.getstate = this.
             this.rerender();
-            
+
           }
         }
         else{
           this.phclistErrorMessage = response.message;
         }
-       
+
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -169,7 +169,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.phclistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -186,7 +186,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.phclistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -195,7 +195,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
-            this.selectedDistrict = this.getdistrict;
+           // this.selectedDistrict = this.getdistrict;
         }
         else {
           this.phclistErrorMessage = response.message;
@@ -203,7 +203,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.phclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlEditChc() {
@@ -212,8 +212,8 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.chcDetails;
-          this.selectedEditChc = this.getchc;
-          
+         // this.selectedEditChc = this.getchc;
+
         }
         else {
           this.phclistErrorMessage = response.message;
@@ -221,10 +221,10 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.phclistErrorMessage = err.toString();
-  
+
         });
     }
-  
+
     districtChange()
     {
           console.log(this.selectedDistrict);
@@ -243,13 +243,13 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.phclistErrorMessage = err.toString();
-  
+
         });
     }
 
-   
+
     openAddPhc(addPhcDetail) {
-      
+
       //this.ddlChc();
       this.disabledChc = false;
       this.ddlDistrict();
@@ -263,11 +263,11 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     openEditPhc(editPhcDetail, sample) {
-  
+
       console.log(sample);
       //this.ddlEditChc();
       this.editPhcDetails = sample;
@@ -277,16 +277,16 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       setTimeout(() => {
         this.districtChange();
       }, 100);
-     
+
       this.phcNamedata = sample.name;
       this.pincodeData = sample.pincode;
-     
+
       this.selectedEditChc = "" +(sample.chcId)
       this.commentsdata = sample.comments;
       this.phcCodedata = sample.phcGovCode;
       this.hninId = sample.hninId;
       this.confirmationSelected = Boolean(sample.isActive);
-  
+
       this.modalService.open(
         editPhcDetail, {
         centered: true,
@@ -296,20 +296,20 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     onSubmit(addPhcForm: NgForm){
-  
+
       console.log(addPhcForm.value);
-      
+
       this.comments = addPhcForm.value.Comments;
       this.selectedChc = addPhcForm.value.ddlChc;
       this.phcName = addPhcForm.value.phcName;
       this.pincode = addPhcForm.value.pincodeData;
-      this.phcCode =  addPhcForm.value.phcCode     
+      this.phcCode =  addPhcForm.value.phcCode
       this.hninId = addPhcForm.value.hninId;
-  
+
 
       this.phcListRequest = {
         chcId: +(this.selectedChc),
@@ -317,14 +317,14 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         phcGovCode: this.phcCode,
         name: this.phcName,
         pincode: this.pincode,
-        comments: this.comments,      
-        userId: this.user.id  
+        comments: this.comments,
+        userId: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.PhcService.addPhc(this.phcListRequest)
       .subscribe(response => {
         this.addPhcResponse = response;
@@ -335,7 +335,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           this.showResponseMessage(this.addPhcResponse.message, 'e');
                   this.phclistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -343,32 +343,32 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     editSubmit(editPhcForm: NgForm){
-  
+
       console.log(editPhcForm.value);
-      
+
       this.commentsdata = editPhcForm.value.commentsdata;
       this.selectedEditChc = editPhcForm.value.ddlEdChc;
       this.phcCodedata = editPhcForm.value.phcCodedata;
       //this.phcnamedata = editPhcForm.value.phcNamedata;
       this.pincodeData = editPhcForm.value.pincodeData;
-      
+
       this.hninId = editPhcForm.value.hninId;
 
       console.log(this.selectedEditChc);
       // console.log(this.phcNamedata);
-  
+
       this.phcListRequest = {
         id: this.editPhcDetails.id,
         chcId: +(this.selectedEditChc),
-        
+
         phcGovCode: this.phcCodedata,
         name: this.phcNamedata,
         hninId: this.hninId,
         pincode: this.pincodeData,
         isActive: this.confirmationSelected,
-        
+
         comments: this.commentsdata,
         userId: this.user.id,
       };
@@ -376,7 +376,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.PhcService.updatePhc(this.phcListRequest)
       .subscribe(response => {
         this.addPhcResponse = response;
@@ -387,7 +387,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           this.showResponseMessage(this.addPhcResponse.message, 'e');
                   this.phclistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -395,7 +395,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
@@ -407,30 +407,30 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-             
+
             }
           }
         });
       }
     }
-  
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first
         dtInstance.clear();
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
+        // Call the dtTrigger to rerender again
         this.dtTrigger.next();
       });
     }
-  
+
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }
-  
+
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
-  
+
   }

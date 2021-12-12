@@ -1,5 +1,5 @@
 
-   
+
 <!--  BEGIN MAIN CONTAINER  -->
 <div class="main-container" id="container">
     <div class="overlay"></div>
@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="justify-between">
                     <div class="col-md-4">
-                       
+
                     </div>
                     <!-- <h5 class="float-left">Sample Collection</h5> -->
                     <div class="col-md-4">
@@ -42,7 +42,7 @@
                         <div class="col-md-12">
                             <div *ngIf="statelistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': statelistErrorMessage ==='No sample data  found', 'alert-danger': statelistErrorMessage !== 'No sample data  found'}">
                                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{statelistErrorMessage}}
-                            </div>  
+                            </div>
                         </div>
                       </div>
                       <div class="form-row">
@@ -51,7 +51,6 @@
                             role="button">
                                 <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
                               </a>
-                        </div>
                       </div>
                       <div class="table-responsive mb-4">
                         <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
@@ -88,12 +87,12 @@
                                   </a>
                               </td>
                             </tr>
-                            
+
                           </tbody>
                         </table>
                       </div>
-                     
-                  
+
+
                     <!-- The Modal -->
                     <ng-template #addStateDetail let-modal>
                           <div class="modal-header">
@@ -116,68 +115,68 @@
                                         <input class="form-control" name="statename" type="text" placeholder="State Name" ngModel
                                         [class.is-invalid]="!statename.valid && statename.touched || addStateForm.submitted && statename.invalid"
                                          #statename="ngModel" required>
-                                        <small class="text-danger ml-2" *ngIf="!statename.valid && statename.touched ">Enter State Name</small> 
-                                        <div *ngIf="addStateForm.submitted && statename.invalid">     
-                                          <small *ngIf="statename.untouched" class=" ml-2 text-danger">State Name is required</small>  
-                                        </div> 
-                                     
+                                        <small class="text-danger ml-2" *ngIf="!statename.valid && statename.touched ">Enter State Name</small>
+                                        <div *ngIf="addStateForm.submitted && statename.invalid">
+                                          <small *ngIf="statename.untouched" class=" ml-2 text-danger">State Name is required</small>
+                                        </div>
+
                                   </div>
-                    
+
                                   <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
                                     <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
                                     [class.is-invalid]="!StateCode.valid && StateCode.touched || addStateForm.submitted && StateCode.invalid"
                                     #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small> 
-                                    <div *ngIf="addStateForm.submitted && StateCode.invalid">     
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>  
-                                    </div> 
+                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
+                                    <div *ngIf="addStateForm.submitted && StateCode.invalid">
+                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
+                                    </div>
                                   </div> -->
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel pattern="^[a-zA-Z0-9]+$"           
+                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel pattern="^[a-zA-Z0-9]+$"
                                     #StateCode="ngModel" >
-                                    
+
                                   </div>
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'ShortName' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control field" name="shortName" type="text" placeholder="Short Name" 
+                                    <input class="form-control field" name="shortName" type="text" placeholder="Short Name"
                                       autocomplete="off"  #shortName="ngModel" ngModel>
                                   </div>
-                    
+
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                     <div class="n-chk">
                                         <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input checkbox" 
-                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                          <input type="checkbox" class="new-control-input checkbox"
+                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
                                           <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                         </label>
                                     </div>
                                   </div>
-                    
+
                                 </div>
-                    
+
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
                                     <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
                                     <textarea id="textarea" class="form-control textarea" maxlength="225"
                                      rows="2"
                                     placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                  </div>                                                     
+                                  </div>
                                 </div>
                               </div>
-                    
+
                               <div class="modal-footer">
                                 <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
                                 <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
                                 <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                               </div>
                             </form>
-                    
+
                           </div>
-                        
-                       </ng-template> 
+
+                       </ng-template>
 
                        <ng-template #editStateDetail let-modal>
                         <div class="modal-header">
@@ -197,66 +196,66 @@
                               <div class="form-row">
                                 <div class="form-group col-md-3">
                                       <label class="note">{{'StateName' | translate }} <span class="manto">*</span></label>
-                                      <input class="form-control" name="editStatename" type="text" placeholder="State Name" ngModel                                      
+                                      <input class="form-control" name="editStatename" type="text" placeholder="State Name" ngModel
                                        #editStatename="ngModel" [(ngModel)]="statetnamedata">
-                                                                       
+
                                 </div>
-                  
+
                                 <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
                                   <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
                                   [class.is-invalid]="!StateCode.valid && StateCode.touched || addStateForm.submitted && StateCode.invalid"
                                   #StateCode="ngModel" required>
-                                  <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small> 
-                                  <div *ngIf="addStateForm.submitted && StateCode.invalid">     
-                                  <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>  
-                                  </div> 
+                                  <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
+                                  <div *ngIf="addStateForm.submitted && StateCode.invalid">
+                                  <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
+                                  </div>
                                 </div> -->
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                  <input class="form-control" name="editStateCode" type="text" placeholder="State Code" ngModel pattern="^[a-zA-Z0-9]+$"           
+                                  <input class="form-control" name="editStateCode" type="text" placeholder="State Code" ngModel pattern="^[a-zA-Z0-9]+$"
                                   #editStateCode="ngModel" [(ngModel)]="statetcodedata">
-                                  
+
                                 </div>
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'ShortName' | translate }}<span class="manto"></span></label>
-                                  <input class="form-control field" name="editShortName" type="text" placeholder="Short Name" 
+                                  <input class="form-control field" name="editShortName" type="text" placeholder="Short Name"
                                     autocomplete="off"  #editShortName="ngModel" ngModel [(ngModel)]="shortnamedata">
                                 </div>
-                  
+
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                   <div class="n-chk">
                                       <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox" 
-                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                        <input type="checkbox" class="new-control-input checkbox"
+                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
                                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                       </label>
                                   </div>
                                 </div>
-                  
+
                               </div>
-                  
+
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
                                   <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
                                   <textarea id="textarea" class="form-control textarea" maxlength="225"
                                    rows="2" [(ngModel)]="commentsdata"
                                   placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
-                                </div>                                                     
+                                </div>
                               </div>
                             </div>
-                  
+
                             <div class="modal-footer">
                               <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
                               <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
                               <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                             </div>
                           </form>
-                  
+
                         </div>
-                      
-                     </ng-template> 
+
+                     </ng-template>
                 </div>
                 <!--  END CONTENT AREA  -->
             </div>

@@ -2407,6 +2407,29 @@ editsubmitsadmin(editsadminForm: NgForm){
     this.AddUsersResponse = response;
     if(this.AddUsersResponse !== null){
       this.showResponseMessage('Sadmin User Updated Successfully', 's')
+      let subProfile = this.UsersService.getUsersList(1)
+      .subscribe(response => {
+        console.log(response);
+        this.AddUsersResponse = response;
+        this.loaderService.display(false);
+        if (this.AddUsersResponse !== null && this.AddUsersResponse.status === "true") {
+          if (this.AddUsersResponse.users.length <= 0 ) {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+          else {
+            this.userprofileLists = response.users;
+            this.rerender();
+          }
+          //console.log( this.userprofileLists );
+        }
+        else {
+          this.subjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
+
      // this.anmSubjectBadgeProfileListCount(1,1,1);
     //  this.anmSubjectBadgeProfileListCount(1,1,1);
     //  this.anmSubjectBadgeProfileListCount(1,1,2);

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { sample } from 'rxjs/operators';
 import { AddBlockResponse, BlockList } from 'src/app/shared/admin/add-block/add-block-response';
 import { AddChcRequest } from 'src/app/shared/admin/add-chc/add-chc-request';
 import { AddChcDataresponse, AddChcResponse, ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
@@ -36,6 +37,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
     confirmationSelected: boolean ;
     chcListResponse;
+    Editsample;
     chclists: ChcList[];
     chcListRequest;
     addChcResponse: AddChcDataresponse;
@@ -85,6 +87,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedtestingCHCId = '';
     testingCHCResponse;
     testingCHCists;
+  editid: any;
 
     constructor(
 
@@ -186,8 +189,8 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
-          this.selectedEditDistrict = this.getdistrict;
-          this.onChangeEditDistrict(this.getblock);
+          this.selectedEditDistrict = this.Editsample.districtId;
+          this.onChangeEditDistrict(this.selectedEditDistrict);
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -241,7 +244,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
           this.blocklists = this.blockListResponse.data;
           if(this.blocklists.length > 0){
-            this.selectedEditBlock = this.getblock;
+           // this.selectedEditBlock = this.getblock;
 
           }
 
@@ -298,23 +301,36 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     openEditChc(editBlockDetail, sample) {
 
       console.log(sample);
+      this.Editsample=sample;
+      this.editid=sample.id
       this.getdistrict = sample.districtId;
-      this.ddlEditDistrict();
-      this.ddlEditBlock(sample.districtId);
+      this.selectedEditDistrict =sample.districtId;
+      this.selectedEditBlock =sample.blockId
+
+      setTimeout(() => {
+        this.ddlEditDistrict();
+      }, 100);
+
+      setTimeout(() => {
+        this.ddlEditBlock(sample.districtId);
+
+      }, 100);
       this.chcNamedata = sample.name;
       this.chcCodedata = sample.chcGovCode;
       this.pincodeData = sample.pincode;
 
       this.blockdata = sample.blockName;
-      this.selectedEditDistrict = "" +(sample.districtId);
-      this.selectedEditBlock = "" +(sample.blockId)
+
+
+      console.log(this.selectedEditDistrict);
+     console.log(this.selectedEditBlock);
       this.commentsdata = sample.comments;
       this.confirmationSelected = Boolean(sample.isActive);
 
 
       this.isTestingFacility = sample.isTestingFacility === 'True' ? true : false;
       this.hninId = sample.hninId;
-
+      console.log(this.selectedEditBlock);
       this.modalService.open(
         editBlockDetail, {
         centered: true,
@@ -383,27 +399,31 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editChcForm: NgForm){
 
       console.log(editChcForm.value);
-
+      console.log(editChcForm.form.valid);
       this.commentsdata = editChcForm.value.commentsdata;
-      this.selectedEditDistrict = editChcForm.value.ddlDistrict;
-      this.selectedEditBlock = editChcForm.value.ddlBlock;
+      this.selectedEditDistrict = editChcForm.value.ddlEditDistrict;
+      this.selectedEditBlock = editChcForm.value.ddlEditBlock;
       this.chcCodedata = editChcForm.value.chcCodedata;
       this.chcNamedata = editChcForm.value.chcNamedata;
       this.pincodeData = editChcForm.value.pincodeData;
+      this.isTestingFacility=editChcForm.value.isTestingFacility;
+      this.isActive=editChcForm.value.isActive;
+      this.hninId = editChcForm.value.hninId;
 
 
 
       this.chcListRequest = {
+        id:this.editid,
         districtId: +(this.selectedEditDistrict),
         blockId: +(this.selectedEditBlock),
-        hninId: "0",
+        hninId:this.hninId,
         chcGovCode: this.chcCodedata,
-        chcName: this.chcNamedata,
-        isTestingFacility: "",
+        name: this.chcNamedata,
+        isTestingFacility:this.isTestingFacility,
         testingCHCId: +this.testingchcId,
         centralLabId: +this.centrallablid,
         pincode: this.pincodeData,
-        isActive: ""+this.confirmationSelected,
+        isActive: this.isActive,
         comments: this.commentsdata,
 
         createdBy: this.user.id,
@@ -414,7 +434,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
 
-      let damagedsampleCollection = this.ChcService.addChc(this.chcListRequest)
+      let damagedsampleCollection = this.ChcService.updateChcfn(this.chcListRequest)
       .subscribe(response => {
         this.addChcResponse = response;
         if(this.addChcResponse !== null && this.addChcResponse.status == 'true'){

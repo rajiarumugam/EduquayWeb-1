@@ -91,6 +91,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     riCodedata: string;
     districtListResponse;
     districtlists;
+  ilrid: any;
 
     constructor(
 
@@ -171,12 +172,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     {
           console.log(this.selectedDistrict);
 
-          this.selectedChc = '';
+          //this.selectedChc = '';
       let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.data;
-          this.selectedChc = "";
+         // this.selectedChc = "";
           //this.disabledChc = true;
         }
         else {
@@ -205,13 +206,14 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
     ddlChc() {
-
-      this.selectedChc = '';
-      let district = this.RiPtService.getChcList().subscribe(response => {
+  console.log('lll')
+    //  this.selectedChc = '';
+      let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
-          this.selectedChc = "";
+          this.chclists = this.chcListResponse.data;
+
+        //  this.selectedChc = "";
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -225,10 +227,10 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
 
     ddlEditChc() {
       this.selectedEditChc = '';
-      let district = this.RiPtService.getChcList().subscribe(response => {
+      let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
+          this.chclists = this.chcListResponse.data;
           this.selectedEditChc = this.getchc;
           this.onChangeEditChc(this.getchc);
         }
@@ -242,12 +244,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
     ddlPhc(code) {
-      this.selectedPhc = '';
+     // this.selectedPhc = '';
       let district = this.RiPtService.getPhcList(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.data;
-          this.selectedPhc = "";
+          //this.selectedPhc = "";
 
         }
         else {
@@ -281,12 +283,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
     ddlSc(code) {
-      this.selectedPhc = '';
+     // this.selectedPhc = '';
       let district = this.RiPtService.getScList(code).subscribe(response => {
         this.scListResponse = response;
         if (this.scListResponse !== null && this.scListResponse.status === "true") {
           this.sclists = this.scListResponse.data;
-          this.selectedSc = "";
+         // this.selectedSc = "";
 
         }
         else {
@@ -376,18 +378,30 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
 
     openEditRiPt(editRiPtDetail, sample: RiList) {
 
-      this.ddlEditChc();
-      //this.ddlEdtiPhc(this.user.chcId);
-      this.riNamedata = sample.riSite;
-      this.riCodedata = sample.riGovCode;
-      this.pincodeData = sample.pincode;
+    //  this.ddlEditChc();
 
+      //this.ddlEdtiPhc(this.user.chcId);
+      // this.riNamedata = sample.riSite;
+      // this.riCodedata = sample.riGovCode;
+      // this.pincodeData = sample.pincode;
+      this.selectedDistrict=""+sample.districtId;
+      this.ddlChc();
+
+      this.selectedChc="" +(sample.chcId);
+      this.ddlPhc(this.selectedChc);
+      this.selectedPhc="" +(sample.phcId);
+      this.ddlSc(this.selectedPhc);
+      this.selectedSc=""+(sample.scId);
 
       this.selectedEditChc = "" +(sample.chcId);
       this.selectedEditPhc = "" +(sample.phcId);
       this.selectedEditSc = "" +(sample.scId)
       this.commentsdata = sample.comments;
       this.confirmationSelected = Boolean(sample.isActive);
+      this.comments=sample.comments;
+      this.riName=sample.riSite;
+      this.riCode=sample.riGovCode;
+      this.pincode=sample.pincode;
 
       this.modalService.open(
         editRiPtDetail, {
@@ -412,7 +426,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riCode = addRiPtForm.value.riCode;
       this.riName = addRiPtForm.value.riName;
       this.pincode = addRiPtForm.value.pincodeData;
-
+      this.ilrid = addRiPtForm.value.ilrId;
 
       this.riptListRequest = {
         testingCHCId: 0,
@@ -421,7 +435,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         scId: +(this.selectedSc),
         riGovCode: this.riCode,
         riSite: this.riName,
-        ilrId: 0,
+        ilrId: +(this.ilrid),
         pincode: this.pincode,
         isActive: ""+this.confirmationSelected,
         comments: this.comments,

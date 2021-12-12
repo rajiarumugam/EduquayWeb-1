@@ -62,6 +62,7 @@ export class AddRipointService {
   }
 
   getCHCByDis(id){
+    console.log(id,'cll');
     let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyDistrict+id);
     return this.http.get<any>({url: apiUrl});
   }

@@ -3,6 +3,11 @@ export class AddChcResponse {
     message: string;
     chcDetails: ChcList[];
 }
+export class AddchcbyblockResponse {
+  status: string;
+  message: string;
+  data: ChcList[];
+}
 
 export interface ChcList {
     id: number;

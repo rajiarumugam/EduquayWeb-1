@@ -39,6 +39,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     blockListRequest: AddBlockRequest;
     addBlockResponse: AddBlockDataresponse;
     districtListResponse;
+    disableddis:boolean =true;
     districtlists: DistrictList[];
     selectedDistrict: string;
     getstate: string;
@@ -268,9 +269,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         userId: this.user.id
       };
 
-      //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
-      // return false;
+   ;
 
       let damagedsampleCollection = this.BlockService.updateBlock(_obj)
       .subscribe(response => {

@@ -5,6 +5,7 @@ export class AddRipointResponse {
 }
 
 export interface RiList {
+    districtId:number;
     id: number;
     testingCHCId: number;
     testingCHCName: string;
