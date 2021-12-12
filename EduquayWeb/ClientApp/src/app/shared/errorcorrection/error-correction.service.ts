@@ -129,7 +129,18 @@ export class errorCorrectionService {
     return this.http.post<any>({url:apiUrl,body:obj});
   }
 
+  uploadSAFiles(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.UploadSAFiles)
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
   
-
+  validateuploadSAFiles(){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.ValidateBulkUpload)
+    return this.http.post<any>({url:apiUrl,body:{}});
+  }
+  createuploadSAFiles(){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.CreateBulkUpload)
+    return this.http.post<any>({url:apiUrl,body:{}});
+  }
 }
 

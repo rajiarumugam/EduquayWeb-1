@@ -17,11 +17,13 @@ export class AuthService {
   patientApi: string = 'api/v1/Patient/GetPatients';
   logoutApi: string = 'api/v1/User/Logout';
   resetloginApi: string = 'api/v1/UserIdentity/ResetLogin';
+  hplcloginApi: string = 'api/v1/WebMaster/RetrieveLoginStatus';
+  retrieveDiagnosisSampleStatusbybarcode="api/v1/Pathologist/RetrievePathologistReportsByBarcode?barcode=";
 
   constructor(
     private httpClient: HttpClient,
-    private http: HttpClientService, 
-    private tokenService: TokenService, 
+    private http: HttpClientService,
+    private tokenService: TokenService,
     private genericService: GenericService) { }
 
   //Observable<HttpResponse<authresult>>
@@ -56,7 +58,7 @@ export class AuthService {
     //.pipe(retry(3), catchError(this.handleError('userAuthentication', [])));
   }
 
-  
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -86,4 +88,39 @@ export class AuthService {
     //return this.http.post<resetLoginResponse>({url:apiUrl, header: options, body: resetdata });
   }
 
+  hplcLoginFunc(resetdata): Observable<any> {
+    let httpHeaders = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+      'No-Auth': 'True',
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache'
+    });
+    let options = {
+      headers: httpHeaders
+    };
+  let apiUrl = this.genericService.buildApiUrl(this.hplcloginApi+"?usd="+resetdata.usd+"&barcode="+resetdata.barcode);
+  return this.httpClient.post(apiUrl, resetdata, options);
+ //return this.httpClient.get(apiUrl, options);
+  //return this.http.post<resetLoginResponse>({url:apiUrl, header: options, body: resetdata });
+}
+
+retrievehplcByBarcode(resetdata): Observable<any> {
+  let httpHeaders = new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+    'No-Auth': 'True',
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache'
+  });
+  let options = {
+    headers: httpHeaders
+  };
+let apiUrl = this.genericService.buildApiUrl(this.retrieveDiagnosisSampleStatusbybarcode+resetdata.barcode);
+// return this.httpClient.post(apiUrl, resetdata, options);
+return this.httpClient.get(apiUrl, options);
+//return this.http.post<resetLoginResponse>({url:apiUrl, header: options, body: resetdata });
+}
 }

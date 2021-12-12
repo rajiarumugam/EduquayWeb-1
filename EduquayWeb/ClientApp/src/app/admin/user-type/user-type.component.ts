@@ -24,20 +24,20 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-    
+
     loadDataTable: boolean = false;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-  
+
     userTypelistErrorMessage: string;
     user: user;
-  
+
     confirmationSelected: string;
     userTypeListResponse: RetrieveUserTypeResponse;
     usertypeLists: UserTypes[];
     addUserTypeRequest: AddUserTypeRequest;
     addUserTypeResponse: AddUserTypeResponse;
-  
+
     stateGovCode: string;
     usertypeName: string;
     usertypeNamedata: string;
@@ -50,7 +50,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
     statetcodedata: string;
     shortnamedata: string;
     commentsdata: string;
-  
+
     constructor(
       private UserTypeService: AddMastersService,
       private modalService: NgbModal,
@@ -61,12 +61,12 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private dataservice: DataService,
     ) { }
-  
+
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "User Type"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = { 
+      this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
@@ -78,7 +78,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←' 
+            last: '', // or '←'
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -87,7 +87,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.retrirveUserTypelist();
     }
-  
+
     retrirveUserTypelist(){
       this.loaderService.display(true);
       this.usertypeLists = [];
@@ -103,22 +103,22 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
           else{
             this.usertypeLists = this.userTypeListResponse.userTypes;
             this.rerender();
-            
+
           }
         }
         else{
           this.userTypelistErrorMessage = response.message;
         }
-       
+
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
         this.userTypelistErrorMessage = err.toString();
       });
     }
-  
+
     openAddUserType(adduserTypeDetail) {
-  
+
       this.confirmationSelected = "True";
       this.modalService.open(
         adduserTypeDetail, {
@@ -129,15 +129,15 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     editAddUserType(editUsertypeDetail, sample: UserTypes) {
-  
+
       this.usertypeNamedata = sample.userTypeName;
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive;
-  
+
       this.modalService.open(
         editUsertypeDetail, {
         centered: true,
@@ -147,15 +147,15 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     onSubmit(addUserTypeForm: NgForm){
-  
+
       console.log(addUserTypeForm.value);
       this.usertypeName = addUserTypeForm.value.usertypeName;
       this.comments = addUserTypeForm.value.Comments;
-  
+
       this.addUserTypeRequest = {
         userTypeName: this.usertypeName,
         isActive: this.confirmationSelected,
@@ -163,15 +163,15 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.UserTypeService.addUserType(this.addUserTypeRequest)
       .subscribe(response => {
         this.addUserTypeResponse = response;
-        if(this.addUserTypeResponse !== null){
+        if(this.addUserTypeResponse !== null && this.addUserTypeResponse.status === "true"){
           this.showResponseMessage(this.addUserTypeResponse.message, 's')
            this.retrirveUserTypelist();
         }
@@ -179,7 +179,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
           this.showResponseMessage(this.addUserTypeResponse.message, 'e');
                   this.userTypelistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -187,13 +187,13 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     editSubmit(editUsertypeForm: NgForm){
-  
+
       console.log(editUsertypeForm.value);
       this.usertypeNamedata = editUsertypeForm.value.usertypeNamedata;
       this.commentsdata = editUsertypeForm.value.editComments;
-  
+
       this.addUserTypeRequest = {
         userTypeName: this.usertypeNamedata,
         isActive: ""+this.confirmationSelected,
@@ -201,22 +201,23 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
         createdBy: this.user.id,
         updatedBy: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.UserTypeService.addUserType(this.addUserTypeRequest)
       .subscribe(response => {
         this.addUserTypeResponse = response;
-        if(this.addUserTypeResponse !== null){
+        if(this.addUserTypeResponse !== null
+          && this.addUserTypeResponse.status === "true"){
           this.showResponseMessage(this.addUserTypeResponse.message, 's')
            this.retrirveUserTypelist();
         }else{
           this.showResponseMessage(this.addUserTypeResponse.message, 'e');
                   this.userTypelistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -224,7 +225,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
@@ -236,30 +237,30 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-             
+
             }
           }
         });
       }
     }
-  
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first
         dtInstance.clear();
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
+        // Call the dtTrigger to rerender again
         this.dtTrigger.next();
       });
     }
-  
+
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }
-  
+
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
-  
+
   }
