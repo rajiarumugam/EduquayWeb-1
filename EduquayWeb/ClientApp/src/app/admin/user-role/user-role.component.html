@@ -1,0 +1,284 @@
+
+   
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="admin" subMenum="sample-collection"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="row layout-top-spacing">
+            <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        <div class="float-left mb-4">
+                            <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-chc']" role="button"
+                            ngbTooltip="CHC" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                          </div>
+                    </div>
+                    <!-- <h5 class="float-left">Sample Collection</h5> -->
+                    <div class="col-md-4">
+                      <div class="headertit">
+                        <h5 class="float-center">{{'User Role' | translate }}</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="float-right mb-4">
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-sc']" role="button"
+                        ngbTooltip="SC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div *ngIf="phclistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': phclistErrorMessage ==='No sample data  found', 'alert-danger': phclistErrorMessage !== 'No sample data  found'}">
+                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{phclistErrorMessage}}
+                            </div>  
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-12">
+                            <a class="float-right mr-5" (click)="openAdduserrole(adduserroledetail)"
+                            role="button">
+                                <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                      </div>
+
+                      <!-- <td class="text-center">
+                        <a class="" (click)="openEdituserrole(edituserroleDetail, sample)"
+                        role="button">
+                            <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                          </a>
+                      </td> -->
+
+                      <div class="table-responsive mb-4">
+                        <table id="phclist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                          <thead>
+                            <tr>
+                              <th><span>{{'SNo' | translate }}</span></th>
+                              <th><span>{{'User Type' | translate }}</span></th>
+                              <th><span>{{'User Role' | translate }}</span></th>                                                        
+                              <th><span>{{'Comments' | translate }}</span></th>
+                              <th><span>{{'Active' | translate }}</span></th>
+                              <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let sample of userlists; index as i">
+                              <td class="sno text-center">{{i +1}}</td>
+                              <td class="sname text-left">{{sample.userTypeName}}</td>
+                              <td class="sid text-center">{{sample.userRoleName}}</td>                       
+                              
+                              <td class="number text-center">{{sample.comments}}</td>
+                              <td class="text-center">{{sample.isActive}}</td>
+                             
+                             
+                              <td class="text-center">
+                                <a class="" (click)="openEdituserrole(edituserroleDetail, sample)"
+                                role="button">
+                                    <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                                  </a>
+                              </td>
+                            </tr>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                     
+                  
+                    <!-- The Modal -->
+                    <ng-template #adduserroledetail let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title modaltitle">{{'Add User Role' | translate }}</h4>
+                            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                              </svg>
+                            </button>
+                          </div>
+                          <div class="modal-body form-body">
+                            <form class="text-left" (ngSubmit)="adduserroleForm.form.valid && onSubmit(adduserroleForm)" #adduserroleForm="ngForm" novalidate>
+                              <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                                <div class="form-row">
+                                  
+
+                                  <div class="form-group col-md-3">
+                                    <label [ngClass]="{'label-border-class':ddlUsertype.invalid && ddlUsertype.touched || adduserroleForm.submitted && ddlUsertype.invalid}" for="inputilrPoint">{{'User Type' | translate }}<span
+                                        class="manto"> *</span></label>
+                                        <select id="inputilrPoint" class="form-control"
+                                        name="ddlUsertype" #ddlUsertype="ngModel" [class.is-invalid]="ddlUsertype.invalid && ddlUsertype.touched || adduserroleForm.submitted && ddlUsertype.invalid"
+                                        required [(ngModel)]="selectedUsertype">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let userroledata of userlists" [(value)]="userroledata.id">
+                                                {{userroledata.userTypeName}}
+                                            </option>
+                                        </select>
+                                          <small class=" ml-2 text-danger" *ngIf="ddlUsertype.invalid && ddlUsertype.touched ">Please choose a User role</small>
+                                          <div *ngIf="adduserroleForm.submitted && ddlUsertype.invalid">  
+                                            <small *ngIf="ddlUsertype.untouched" class=" ml-2 text-danger">User role is required</small>  
+                                          </div> 
+                                </div>
+
+                                  
+                                                                 
+                             
+                              <div class="form-group col-md-3">
+                                <label class="note" [ngClass]="{'label-border-class':!userrolename.valid && userrolename.touched || adduserroleForm.submitted && userrolename.invalid}">{{'User Role Name' | translate }} <span class="manto">*</span></label>
+                                <input class="form-control" name="userrolename" type="text" placeholder="User Role Name" ngModel
+                                [class.is-invalid]="!userrolename.valid && userrolename.touched || adduserroleForm.submitted && userrolename.invalid"
+                                 #userrolename="ngModel" required>
+                                <small class="text-danger ml-2" *ngIf="!userrolename.valid && userrolename.touched ">Enter User Role Name</small> 
+                                <div *ngIf="adduserroleForm.submitted && userrolename.invalid">     
+                                  <small *ngIf="userrolename.untouched" class=" ml-2 text-danger">User Role Name is required</small>  
+                                </div> 
+                                
+                               
+                          </div>
+
+
+                                  <div class="form-group col-md-3">
+                                    <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                    <div class="n-chk">
+                                        <label class="new-control new-checkbox checkbox-outline-primary">
+                                          <input type="checkbox" class="new-control-input checkbox" 
+                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                          <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                        </label>
+                                    </div>
+                                  </div>
+                    
+                                </div>
+                    
+                                <div class="form-row mt-4">
+                                  <div class="form-group col-md-12">
+                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                     rows="2"
+                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                  </div>                                                     
+                                </div>
+                              </div>
+                    
+                              <div class="modal-footer">
+                                <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                                <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                                <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                              </div>
+                            </form>
+                    
+                          </div>
+                        
+                       </ng-template> 
+
+                       <ng-template #edituserroleDetail let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title modaltitle">{{'Edit User Role' | translate }}</h4>
+                          <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="modal-body form-body">
+                          <form class="text-left" (ngSubmit)="editUserroleform.form.valid && editSubmituserrole(editUserroleform)" #editUserroleform="ngForm" novalidate>
+                            <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                              <div class="form-row">
+                                
+
+                                <div class="form-group col-md-3">
+                                  <label [ngClass]="{'label-border-class':ddlUsertype.invalid && ddlUsertype.touched || editUserroleform.submitted && ddlUsertype.invalid}" for="inputilrPoint">{{'User Type' | translate }}<span
+                                      class="manto"> *</span></label>
+                                      <select id="inputilrPoint" class="form-control"
+                                      name="ddlUsertype" #ddlUsertype="ngModel" [class.is-invalid]="ddlUsertype.invalid && ddlUsertype.touched || editUserroleform.submitted && ddlUsertype.invalid"
+                                      required [(ngModel)]="selectededitUsertype">
+                                          <option value="">Select</option>
+                                          <option *ngFor="let userroledata of userlists" [(value)]="userroledata.id">
+                                              {{userroledata.userTypeName}}
+                                          </option>
+                                      </select>
+                                        <small class=" ml-2 text-danger" *ngIf="ddlUsertype.invalid && ddlUsertype.touched ">Please choose a User role</small>
+                                        <div *ngIf="editUserroleform.submitted && ddlUsertype.invalid">  
+                                          <small *ngIf="ddlUsertype.untouched" class=" ml-2 text-danger">User role is required</small>  
+                                        </div> 
+                              </div>
+
+                                
+                                                               
+                           
+                            <div class="form-group col-md-3">
+                              <label class="note" [ngClass]="{'label-border-class':!userrolename.valid && userrolename.touched || editUserroleform.submitted && userrolename.invalid}">{{'User Role Name' | translate }} <span class="manto">*</span></label>
+                              <input class="form-control" name="userrolename" type="text" placeholder="User Role Name" ngModel
+                              [class.is-invalid]="!userrolename.valid && userrolename.touched || editUserroleform.submitted && userrolename.invalid"
+                               #userrolename="ngModel" required>
+                              <small class="text-danger ml-2" *ngIf="!userrolename.valid && userrolename.touched ">Enter User Role Name</small> 
+                              <div *ngIf="editUserroleform.submitted && userrolename.invalid">     
+                                <small *ngIf="userrolename.untouched" class=" ml-2 text-danger">User Role Name is required</small>  
+                              </div> 
+                              
+                             
+                        </div>
+
+
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                  <div class="n-chk">
+                                      <label class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox" class="new-control-input checkbox" 
+                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                      </label>
+                                  </div>
+                                </div>
+                  
+                              </div>
+                  
+                              <div class="form-row mt-4">
+                                <div class="form-group col-md-12">
+                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                   rows="2"
+                                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                </div>                                                     
+                              </div>
+                            </div>
+                  
+                            <div class="modal-footer">
+                              <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                              <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                              <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                            </div>
+                          </form>
+                  
+                        </div>
+                      
+                     </ng-template> 
+                
+                </div>
+                <!--  END CONTENT AREA  -->
+            </div>
+            <!-- END MAIN CONTAINER -->
+        </div>
+       
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+<!--  END MAIN CONTAINER  -->

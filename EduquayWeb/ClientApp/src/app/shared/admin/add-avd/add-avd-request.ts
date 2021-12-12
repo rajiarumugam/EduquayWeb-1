@@ -1,6 +1,6 @@
 export class AddAvdRequest {
   
-  riId : string;
+   riId : string;
   avdName : string;
   contactNo : number;
   createdBy : number;

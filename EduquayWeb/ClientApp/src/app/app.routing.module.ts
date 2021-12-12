@@ -212,6 +212,7 @@ import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/
 import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
 import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
 import { AVDComponent } from "./admin/avd/avd.component";
+import { UserRoleComponent } from "./admin/User-role/User-role.component";
 import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
 import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
@@ -491,6 +492,7 @@ const routes: Routes = [
       { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
       { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
       { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
+      { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
       { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
       { path: 'add-test', component: TestComponent, pathMatch: 'full'},
@@ -1200,6 +1202,7 @@ export const RoutingComponents = [
   PathoreportSampleStatusPrintComponentNHM,
   PathoreportListComponent,
   AVDComponent,
+  UserRoleComponent,
   IlrComponent,
   TestComponent,
   UsersComponent,

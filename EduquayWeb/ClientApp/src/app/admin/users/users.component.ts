@@ -2449,15 +2449,13 @@ openEditanm(editanmDetail, subjectinfo) {
 
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
-    this.userName=subjectinfo.userName  ;
- this.ddlEditDistrict();
-this.ddlEditBlock(subjectinfo.districtId);
-
+    this.userName=subjectinfo.userName  ;     
+    this.ddlEditDistrict();
+    this.ddlEditBlock(subjectinfo.districtId);
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
     this.ddlEdtiSc(subjectinfo.phcId);
-    this.ddlEdtiPhc(subjectinfo.chcId);
-
+    this.ddlEdtiPhc(subjectinfo.chcId);  
 
     this.selectedEditState = subjectinfo.stateId;
     this.selectedEditChc =subjectinfo.chcId;
@@ -2466,18 +2464,15 @@ this.ddlEditBlock(subjectinfo.districtId);
     this.selectedEditBlock =subjectinfo.blockId;
     this.selectedEditSc=subjectinfo.scId;
 
-    // this.riId=subjectinfo.riId;
    this.firstName=subjectinfo.firstName;
    this.middleName=subjectinfo.middleName;
    this.lastName=subjectinfo.lastName;
    this. mobileNo=subjectinfo.mobileNo;
-  //  this.contactNo2=null;
-   this.email=subjectinfo.email;
 
+   this.email=subjectinfo.email; 
     this.comments= subjectinfo.comments;
     this.confirmationSelected = subjectinfo.isActive;
 
-  // this.selectedEditBlock = "" +(subjectinfo.blockId)
  console.log(this.firstName);
 
 
