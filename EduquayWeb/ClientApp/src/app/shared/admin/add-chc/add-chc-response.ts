@@ -10,11 +10,11 @@ export class AddchcbyblockResponse {
 }
 
 
-export class AddchcbyblockResponse {
-    status: string;
-    message: string;
-    data: ChcList[];
-}
+// export class AddchcbyblockResponse {
+//     status: string;
+//     message: string;
+//     data: ChcList[];
+// }
 
 export interface ChcList {
     id: number;

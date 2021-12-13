@@ -32,6 +32,7 @@ import { BlockList } from 'src/app/shared/admin/add-block/add-block-response';
 import { PhcList } from 'src/app/shared/admin/add-phc/add-phc-response';
 import { ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
 import { type } from 'os';
+import { sample } from 'rxjs/operators';
 
 
 @Component({
@@ -2472,13 +2473,13 @@ openEditanm(editanmDetail, subjectinfo) {
 
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
-    this.userName=subjectinfo.userName  ;     
+    this.userName=subjectinfo.userName  ;
     this.ddlEditDistrict();
     this.ddlEditBlock(subjectinfo.districtId);
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
     this.ddlEdtiSc(subjectinfo.phcId);
-    this.ddlEdtiPhc(subjectinfo.chcId);  
+    this.ddlEdtiPhc(subjectinfo.chcId);
 
     this.selectedEditState = subjectinfo.stateId;
     this.selectedEditChc =subjectinfo.chcId;
@@ -2492,7 +2493,7 @@ openEditanm(editanmDetail, subjectinfo) {
    this.lastName=subjectinfo.lastName;
    this. mobileNo=subjectinfo.mobileNo;
 
-   this.email=subjectinfo.email; 
+   this.email=subjectinfo.email;
     this.comments= subjectinfo.comments;
     this.confirmationSelected = subjectinfo.isActive;
 
@@ -2690,7 +2691,7 @@ editsubmitchc(editchcform: NgForm){
   this.userListRequest = {
     id:this.id ,
     userTypeId:4,
-   // userRoleId:+(this.selectedEditUserrole),
+   userRoleId:6,
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
@@ -2807,7 +2808,7 @@ editSubmithplc(edithplcform: NgForm){
   this.userListRequest = {
     id:this.id ,
     userTypeId:5,
-    userRoleId:+(this.selectedEditUserrole),
+    userRoleId:0,
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
@@ -3306,7 +3307,7 @@ editSubmitmolecular(editmolecularForm: NgForm){
   this.userListRequest = {
     id:this.id,
     userTypeId:9,
-    userRoleId:+(this.selectedEditUserrole),
+    userRoleId:0,
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
@@ -3954,7 +3955,7 @@ editSubmitsupport(editsupportForm: NgForm){
     userTypeId:14,
     userRoleId:18,
     userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:editsupportForm.value.userName,
       password:'odisha',
       stateId: +(this.selectedEditState),
       centralLabId: 0,

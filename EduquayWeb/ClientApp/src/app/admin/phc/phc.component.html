@@ -168,10 +168,10 @@
                             <label class="note" [ngClass]="{'label-border-class':!hninId.valid && hninId.touched || addPhcForm.submitted && hninId.invalid}">{{'hninId' | translate }} <span class="manto">*</span></label>
                             <input class="form-control" name="hninId" type="text" placeholder="hnin Id" ngModel
                             [class.is-invalid]="!hninId.valid && hninId.touched || addPhcForm.submitted && phcName.invalid"
-                             #hninId="ngModel" required>
+                             #hninId1="ngModel" required>
                             <small class="text-danger ml-2" *ngIf="!hninId.valid && phcName.touched ">Enter hnin Id</small>
                             <div *ngIf="addPhcForm.submitted && hninId.invalid">
-                              <small *ngIf="hninId.untouched" class=" ml-2 text-danger">hnin Id is required</small>
+                              <small *ngIf="hninId1.untouched" class=" ml-2 text-danger">hnin Id is required</small>
                             </div>
                        </div>
 

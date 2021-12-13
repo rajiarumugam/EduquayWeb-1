@@ -92,6 +92,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     districtListResponse;
     districtlists;
   ilrid: any;
+  ilrListResponse: import("c:/Users/User/Documents/GitHub/EduquayWeb/EduquayWeb/ClientApp/src/app/shared/admin/add-ripoint/add-ripoint-response").IlrResponse;
+  ilrlists: import("c:/Users/User/Documents/GitHub/EduquayWeb/EduquayWeb/ClientApp/src/app/shared/admin/add-ripoint/add-ripoint-response").IlrList[];
 
     constructor(
 
@@ -189,6 +191,24 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
 
         });
     }
+    ddlIlr() {
+      let district = this.RiPtService.getIlrList().subscribe(response => {
+        this.ilrListResponse = response;
+        if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
+          this.ilrlists = this.ilrListResponse.ilrDetails;
+          //this.selectedIlr = "";
+          //this.selectedIlr=
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+
+        });
+    }
+
     ddlDistrict() {
       let district = this.RiPtService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
@@ -363,6 +383,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
 
       //this.ddlChc();
       //this.ddlPhc(this.selectedPhc);
+      this.ddlIlr();
+
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
         addRiPtDetail, {

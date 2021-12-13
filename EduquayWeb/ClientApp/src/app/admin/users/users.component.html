@@ -5523,7 +5523,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input disabled='true' class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
                                    [class.is-invalid]="!userName.valid && userName.touched || editsupportForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editsupportForm.submitted && userName.invalid">
