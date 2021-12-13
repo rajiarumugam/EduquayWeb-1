@@ -122,32 +122,21 @@
 
                     </div>
                     
-                    <!-- <div class="form-group col-md-3">
-                      <label class="note">{{'AVD Contact No' | translate }} <span class="manto"> *</span></label>
-                      <input class="form-control" name="avdcontactno" type="number" placeholder="AVD Contact No" [(ngModel)]="avdcontactno" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                      [class.is-invalid]="!avdcontactno.valid && avdcontactno.touched || addAvdForm.submitted && avdcontactno.invalid"
-                      required>
-                      <small class="text-danger ml-2" *ngIf="!avdcontactno.valid && avdcontactno.touched ">Enter AVD
-                        Contact No</small>
-                      <div *ngIf="addAvdForm.submitted && avdcontactno.invalid">
-                        <small *ngIf="avdcontactno.untouched" class=" ml-2 text-danger">AVD Contact No is
-                          required</small>
-                      </div>
-
-                    </div> -->
-
+                    
                     <div class="form-group col-md-3">
-                      <label class="note">{{'AVD contactNo' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="avdcontactno" type="number" placeholder="AVD contactNo" ngModel
-                        pattern="^[a-zA-Z0-9]+$" required #avdcontactno="ngModel"
-                        [class.is-invalid]="!avdcontactno.valid && avdcontactno.touched || addAvdForm.submitted && avdcontactno.invalid">
-                      <small class="text-danger ml-2" *ngIf="!avdcontactno.valid && avdcontactno.touched ">Enter AVD
-                        contactNo</small>
-                      <div *ngIf="addAvdForm.submitted && avdcontactno.invalid">
-                        <small *ngIf="avdcontactno.untouched" class=" ml-2 text-danger">AVD contactNo is
-                          required</small>
+                      <label class="note">{{'AVD ContactNo ' | translate }}<span class="manto"> *</span></label>
+                      <input class="form-control" name="contactNo" type="text" placeholder="contactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!contactNo.valid && contactNo.touched || addAvdForm.submitted && contactNo.invalid"
+                       #contactNo="ngModel" required >
+                      <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter contactNo</small>
+                      <div *ngIf="addAvdForm.submitted && contactNo.invalid">
+                        <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">contactNo is required</small>
                       </div>
-                    </div>
+                     </div>
+
+                  
+
+                 
 
                     <!-- <div class="form-group col-md-3">
                       <label class="note">{{'RIID' | translate }}<span class="manto"> *</span></label><br/>
@@ -243,18 +232,15 @@
                     </div>
    
                     <div class="form-group col-md-3">
-                      <label class="note">{{'AVD Contact No' | translate }} <span class="manto"></span></label><br/>
-                      <input class="form-control" name="avdcontactno" type="number" placeholder="AVD Contact No" [(ngModel)]="avdcontactno" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                      [class.is-invalid]="!avdcontactno.valid && avdcontactno.touched || editAvdForm.submitted && avdcontactno.invalid"
-                      required>
-                      <small class="text-danger ml-2" *ngIf="!avdcontactno.valid && avdcontactno.touched ">Enter AVD
-                        Contact No</small>
-                      <div *ngIf="editAvdForm.submitted && avdcontactno.invalid">
-                        <small *ngIf="avdcontactno.untouched" class=" ml-2 text-danger">AVD Contact No is
-                          required</small>
+                      <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                      <input class="form-control" name="contactNo" type="text" placeholder="contactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!contactNo.valid && contactNo.touched || editAvdForm.submitted && contactNo.invalid"
+                      [(ngModel)]="contactNo" required >
+                      <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter contactNo</small>
+                      <div *ngIf="editAvdForm.submitted && contactNo.invalid">
+                        <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">contactNo is required</small>
                       </div>
-
-                    </div>
+                     </div>
 
                     <!-- <div class="form-group col-md-3 associatedanm">
                       <label class="birthreg" for="inputSubtitle" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.sc.invalid }">{{'AssociatedANM' | translate }}</label><span class="manto"> *</span>
