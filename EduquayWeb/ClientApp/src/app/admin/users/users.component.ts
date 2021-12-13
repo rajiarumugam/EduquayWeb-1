@@ -2513,9 +2513,9 @@ openEditanm(editanmDetail, subjectinfo) {
 }
 
 editsubmitanm(editanmForm: NgForm){
- // console.log("abc");
-  console.log(editanmForm.value);
-    this.userName = editanmForm.value.userName;
+ console.log(editanmForm.value);
+
+  this.userName = editanmForm.value.userName;
     this.firstName = editanmForm.value.firstName;
     this.riId = editanmForm.value.riId;
     this.middleName = editanmForm.value.middleName;
@@ -3207,7 +3207,7 @@ editSubmitdc(editdcForm: NgForm){
   .subscribe(response => {
     this.AddUsersResponse = response;
     if(this.AddUsersResponse !== null){
-      this.showResponseMessage(this.AddUsersResponse.message, 's')
+      this.showResponseMessage('DC User Updated Sucessfully', 's')
        this.retrirveIlrlist();
     }else{
       this.showResponseMessage(this.AddUsersResponse.message, 'e');

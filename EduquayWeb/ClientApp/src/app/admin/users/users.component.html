@@ -978,11 +978,11 @@
 
                         <div class="form-group col-md-3">
                           <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                          <input class="form-control" disabled='true' name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
-                          [class.is-invalid]="!userName.valid && userName.touched || editanmForm.submitted && userName.invalid">
-                          <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
+                          <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                           [class.is-invalid]="!userName.valid && userName.touched || editanmForm.submitted && userName.invalid">
+                          <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                           <div *ngIf="editanmForm.submitted && userName.invalid">
-                          <small *ngIf="userName.untouched" class=" ml-2 text-danger">UserName is required</small>
+                          <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
                           </div>
                         </div>
 
@@ -5521,15 +5521,17 @@
                                               </div>
                                     </div>
 
-                                <div class="form-group col-md-3">
-                                  <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input disabled='true' class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
-                                   [class.is-invalid]="!userName.valid && userName.touched || editsupportForm.submitted && userName.invalid">
-                                  <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
-                                  <div *ngIf="editsupportForm.submitted && userName.invalid">
-                                  <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
-                                  </div>
-                                </div>
+                                    <div class="form-group col-md-3">
+                                      <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
+                                      <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                       [class.is-invalid]="!userName.valid && userName.touched || editsupportForm.submitted && userName.invalid">
+                                      <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
+                                      <div *ngIf="editsupportForm.submitted && userName.invalid">
+                                      <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
+                                      </div>
+                                    </div>
+
+                             
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>
