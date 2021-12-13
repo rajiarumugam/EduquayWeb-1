@@ -70,7 +70,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     getblock: string;
     blockCodedata: string;
     selectedBlock: string = '';
-    avdcontactno:number;
+    contactNo:number;
     contactno: number;
     contact:string;
     riId: string;
@@ -233,7 +233,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
     chcChange()
     {
-      console.log(this.contactno);
+      console.log(this.contactNo);
     }
 
     openAddavd(addAvdDetail) {
@@ -260,9 +260,9 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
       this.tempeditid=sample.id;
       // this.ddlEditBlock(sample.districtId);
-      this.avdcontactno = sample.contactNo;
+      this.contactNo = sample.contactNo;
       this.avdName = sample.avdName;
-      this.riid = null;
+      this.riid = "0";
       this.id = sample.id;
 
 
@@ -290,15 +290,15 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
       this.comments = addAvdForm.value.Comments;
       this.avdName = addAvdForm.value.avdName;
-      this.contactno = addAvdForm.value.avdcontactno;
-      this.riId = addAvdForm.value.riid;
+      this.contactNo = addAvdForm.value.contactNo;
+     
 
 
       this.avdListRequest = {
 
         avdName: this.avdName,
-        contactno: this.contactno,
-        riId: null,
+        contactNo: +(this.contactNo),
+        riId: "0",
         comments: this.comments,
         userId: this.user.id
 
@@ -331,19 +331,19 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     editSubmit(editAvdForm: NgForm){
-
+console.log(editAvdForm.value);
                
       this.commentsdata = editAvdForm.value.commentsdata;     
       this.avdName = editAvdForm.value.avdName;
-      this.avdcontactno = editAvdForm.value.avdcontactno;
-      this.riid = editAvdForm.value.riid;
+      this.contactNo = editAvdForm.value.contactNo;
+     
             
   
       this.avdListRequest = {
         id:   this.tempeditid,
         name: this.avdName,
-        contact:""+this.avdcontactno,
-        riId: null,
+        contact:""+this.contactNo,
+        riId: "0",
         comments: this.commentsdata,
         userId: this.user.id
 
