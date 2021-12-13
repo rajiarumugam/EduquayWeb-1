@@ -237,17 +237,14 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
         });
     }
+
     ddlEditBlock(code) {
       this.selectedBlock = '';
       let district = this.ChcService.getBlocklist(code).subscribe(response => {
         this.blockListResponse = response;
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
           this.blocklists = this.blockListResponse.data;
-          if(this.blocklists.length > 0){
-           // this.selectedEditBlock = this.getblock;
-
-          }
-
+  
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -255,7 +252,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-
+  
         });
     }
     onChangeDistrict(event) {
@@ -299,27 +296,30 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     openEditChc(editBlockDetail, sample) {
-
+console.log(editBlockDetail);
       console.log(sample);
       this.Editsample=sample;
       this.editid=sample.id
       this.getdistrict = sample.districtId;
       this.selectedEditDistrict =sample.districtId;
-      this.selectedEditBlock =sample.blockId
+      this.ddlEditBlock(sample.districtId);
+      this.selectedEditBlock =sample.blockId;
+      this.ddlEditDistrict();
+      this.pincodeData = sample.pincode;
+      // setTimeout(() => {
+      //   this.ddlEditDistrict();
+      // }, 100);
 
-      setTimeout(() => {
-        this.ddlEditDistrict();
-      }, 100);
+      // setTimeout(() => {
+      //   this.ddlEditBlock(sample.districtId);
 
-      setTimeout(() => {
-        this.ddlEditBlock(sample.districtId);
-
-      }, 100);
+      // }, 100);
       this.chcNamedata = sample.name;
       this.chcCodedata = sample.chcGovCode;
       this.pincodeData = sample.pincode;
+      this.hninId = sample.hninId;
 
-      this.blockdata = sample.blockName;
+     
 
 
       console.log(this.selectedEditDistrict);
@@ -329,7 +329,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
       this.isTestingFacility = sample.isTestingFacility === 'True' ? true : false;
-      this.hninId = sample.hninId;
+    
       console.log(this.selectedEditBlock);
       this.modalService.open(
         editBlockDetail, {

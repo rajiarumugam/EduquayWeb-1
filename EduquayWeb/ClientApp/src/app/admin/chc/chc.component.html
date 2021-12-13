@@ -191,7 +191,7 @@
 
                                 <label for="inputilrPoint">{{'testingCHC' | translate }}<span
                                     class="manto"> *</span></label>
-                                    <select id="inputilrPoint" class="form-control"
+                                    <select id="inputilrPoint" class="form-control field"
                                     name="testingCHCId"
                                     required [(ngModel)]="selectedtestingCHCId" (change)="onChangeDistrict($event.target.value)">
                                         <option value="">Select</option>
@@ -218,11 +218,11 @@
                               </div> -->
 
                               <div class="form-group col-md-3">
-                                <label class="note" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
-                                <input type="text" autocomplete="off"class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                maxlength = "6" numbersOnly>
-                            </div>
-
+                                <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
+                                <input class="form-control field " name="pincodeData" type="text" placeholder="pincode"
+                                  autocomplete="off" #pincodeData="ngModel" ngModel oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                  maxlength = "6" numbersOnly>
+                              </div>
                                   <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
                                     <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
@@ -376,14 +376,23 @@
 
                           </div>
 
-                              <div class="form-group col-md-3">
-                                <label class="note">{{'hninId' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="hninId" type="text" placeholder="hnin Id"
-                                  autocomplete="off" [(ngModel)]="hninId1" >
-                              </div>
-                              <div class="form-group col-md-3">
+                            
+                          <div class="form-group col-md-3">
+                            <label class="note">{{'hninId' | translate }}<span class="manto"></span></label>
+                            <input class="form-control" name="hninId" type="text" placeholder="hnin Id"
+                              autocomplete="off"  [(ngModel)]="hninId" >
+                          </div>
+
+                              <!-- <div class="form-group col-md-3">
                                 <label class="note" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
                                 <input type="text" autocomplete="off"class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                maxlength = "6" numbersOnly>
+                            </div> -->
+
+                            <div class="form-group col-md-3">
+                              <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
+                              <input class="form-control" name="pincodeData" type="text" placeholder="pincode"
+                                autocomplete="off" [(ngModel)]="pincodeData" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                 maxlength = "6" numbersOnly>
                             </div>
 

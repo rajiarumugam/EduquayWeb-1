@@ -85,7 +85,7 @@
                               <td class="text-center">{{sample.isActive}}</td>
 
                               <td class="text-center">
-                                <a class="" (click)="openEditRiPt(addRiPtDetail,sample)"
+                                <a class="" (click)="openEditRiPt(editRiPtDetail,sample)"
                                 role="button">
                                     <i class="fas fa-pencil-square" aria-hidden="true"></i>
                                   </a>
@@ -203,7 +203,7 @@
                           <div class="form-group col-md-3">
                             <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
                             <input class="form-control" name="pincode" type="text" placeholder="pincode"
-                              autocomplete="off" [(ngModel)]="hninId" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                              autocomplete="off" [(ngModel)]="pincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                               maxlength = "6" numbersOnly>
                           </div>
 
