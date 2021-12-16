@@ -9,6 +9,7 @@ import { AddScResponse } from '../add-sc/add-sc-response';
 import { IlrResponse } from './add-ripoint-response';
 import { AddRipointRequest } from './add-ripoint-request';
 import { AddRipointResponse, AddRiPtDataresponse } from './add-ripoint-response';
+import { AddchcbydistrictResponse } from '../add-chc/add-chc-response';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class AddRipointService {
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
   retrieveILrApi: string = "api/v1/ILR/Retrieve";
+  RetrieveCHCByDistrict= "api/v1/WebMaster/RetrieveCHCByDistrict";
 
   constructor(
     private httpClient: HttpClient,
@@ -35,6 +37,11 @@ export class AddRipointService {
   getChcList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveChcApi);
     return this.http.get<AddChcResponse>({url: apiUrl});
+  }
+
+  getCHCByDistrict(id){
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveCHCByDistrict}/${id}`);
+    return this.http.get<AddchcbydistrictResponse>({url: apiUrl});
   }
 
   getPhcList(code){
@@ -63,7 +70,6 @@ export class AddRipointService {
     return this.http.post<AddRiPtDataresponse>({url: apiUrl, body: riPtedit});
   }
 
- 
 
   addRiPt(riptadd: AddRipointRequest){
     let apiUrl=this.genericService.buildApiUrl(this.addRiPtApi);

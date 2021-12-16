@@ -17,6 +17,8 @@ export interface RiList {
     scName: string;
     riGovCode: string;
     riSite: string;
+    name: string;
+    userId: number;
     pincode: string;
     ilrId: number;
     ilrPoint: string;

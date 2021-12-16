@@ -35,7 +35,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chclistErrorMessage: string;
     user: user;
 
-    confirmationSelected: boolean ;
+    confirmationSelected;
     chcListResponse;
     Editsample;
     chclists: ChcList[];
@@ -87,6 +87,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedtestingCHCId = '';
     testingCHCResponse;
     testingCHCists;
+    selectedEdittestingCHCId='';
   editid: any;
 
     constructor(
@@ -207,7 +208,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.blockListResponse = response;
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
           this.blocklists = this.blockListResponse.data;
-          this.selectedBlock = "";
+          //  this.selectedBlock = "";
 
         }
         else {
@@ -219,8 +220,9 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
         });
     }
+    
     ddlTestingCHC(code) {
-      this.selectedBlock = '';
+      this.selectedtestingCHCId = '';
       let district = this.ChcService.gettestingCHC(code).subscribe(response => {
         this.testingCHCResponse = response;
         if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
@@ -237,6 +239,8 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
         });
     }
+
+
 
     ddlEditBlock(code) {
       this.selectedBlock = '';
@@ -272,6 +276,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       }
       else {
         this.ddlEditBlock(this.selectedEditDistrict);
+        this.ddlTestingCHC(this.selectedEditDistrict);
       }
     }
 
@@ -282,7 +287,8 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddChc(addChcDetail) {
 
       this.ddlDistrict();
-      this.confirmationSelected = Boolean("True");
+      this.selectedBlock="";
+      this.confirmationSelected = true;
       this.modalService.open(
         addChcDetail, {
         centered: true,
@@ -302,31 +308,25 @@ console.log(editBlockDetail);
       this.editid=sample.id
       this.getdistrict = sample.districtId;
       this.selectedEditDistrict =sample.districtId;
-      this.ddlEditBlock(sample.districtId);
+      this.selectedEdittestingCHCId=sample.testingCHCId;
+      this.ddlBlock(sample.districtId);
       this.selectedEditBlock =sample.blockId;
-      this.ddlEditDistrict();
+      this.ddlDistrict();
+      this.ddlTestingCHC(sample.districtId);
+      // this.selectedtestingCHCId
       this.pincodeData = sample.pincode;
       // setTimeout(() => {
       //   this.ddlEditDistrict();
       // }, 100);
-
       // setTimeout(() => {
       //   this.ddlEditBlock(sample.districtId);
-
       // }, 100);
       this.chcNamedata = sample.name;
       this.chcCodedata = sample.chcGovCode;
       this.pincodeData = sample.pincode;
       this.hninId = sample.hninId;
-
-     
-
-
-      console.log(this.selectedEditDistrict);
-     console.log(this.selectedEditBlock);
       this.commentsdata = sample.comments;
-      this.confirmationSelected = Boolean(sample.isActive);
-
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
       this.isTestingFacility = sample.isTestingFacility === 'True' ? true : false;
     
@@ -353,7 +353,7 @@ console.log(editBlockDetail);
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-
+      this.selectedtestingCHCId = addChcForm.value.testingCHCId;
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
 
@@ -364,11 +364,10 @@ console.log(editBlockDetail);
         chcGovCode: this.chcCode,
         name: this.chcName,
         isTestingFacility: this.isTestingFacility,
-        testingCHCId: +this.testingchcId,
+        testingCHCId: +(this.selectedtestingCHCId),
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,
-
         userId: this.user.id
       };
 
@@ -401,17 +400,14 @@ console.log(editBlockDetail);
       console.log(editChcForm.value);
       console.log(editChcForm.form.valid);
       this.commentsdata = editChcForm.value.commentsdata;
-      this.selectedEditDistrict = editChcForm.value.ddlEditDistrict;
-      this.selectedEditBlock = editChcForm.value.ddlEditBlock;
-      this.chcCodedata = editChcForm.value.chcCodedata;
+      //  this.selectedEditDistrict = editChcForm.value.ddlEditDistrict;
+      //  this.selectedEditBlock = editChcForm.value.ddlEditBlock;
+      // this.chcCodedata = editChcForm.value.chcCodedata;
       this.chcNamedata = editChcForm.value.chcNamedata;
       this.pincodeData = editChcForm.value.pincodeData;
-      this.isTestingFacility=editChcForm.value.isTestingFacility;
-      this.isActive=editChcForm.value.isActive;
+      this.selectedEdittestingCHCId = editChcForm.value.testingCHCId;
       this.hninId = editChcForm.value.hninId;
-
-
-
+      
       this.chcListRequest = {
         id:this.editid,
         districtId: +(this.selectedEditDistrict),
@@ -420,12 +416,11 @@ console.log(editBlockDetail);
         chcGovCode: this.chcCodedata,
         name: this.chcNamedata,
         isTestingFacility:this.isTestingFacility,
-        testingCHCId: +this.testingchcId,
+        testingCHCId: +(this.selectedEdittestingCHCId),
         centralLabId: +this.centrallablid,
         pincode: this.pincodeData,
-        isActive: this.isActive,
+        isActive: this.confirmationSelected==1?"true":"false",
         comments: this.commentsdata,
-
         createdBy: this.user.id,
         updatedBy: this.user.id
       };

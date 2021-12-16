@@ -264,12 +264,9 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
       this.avdName = sample.avdName;
       this.riid = "0";
       this.id = sample.id;
-
-
-
       // this.selectedEditBlock = "" +(sample.blockId)
       this.commentsdata = sample.comments;
-      this.confirmationSelected = Boolean(sample.isActive);
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
 
       this.modalService.open(
@@ -331,20 +328,18 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     editSubmit(editAvdForm: NgForm){
-console.log(editAvdForm.value);
-               
+console.log(editAvdForm.value);               
       this.commentsdata = editAvdForm.value.commentsdata;     
       this.avdName = editAvdForm.value.avdName;
       this.contactNo = editAvdForm.value.contactNo;
-     
-            
-  
+           
       this.avdListRequest = {
         id:   this.tempeditid,
         name: this.avdName,
         contact:""+this.contactNo,
         riId: "0",
         comments: this.commentsdata,
+        isActive: this.confirmationSelected,
         userId: this.user.id
 
       };

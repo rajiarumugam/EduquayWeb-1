@@ -62,9 +62,7 @@
                             <tr>
                               <th><span>{{'SNo' | translate }}</span></th>
                               <th><span>{{'CHC Name' | translate }}</span></th>
-                              <th><span>{{'CHC Code' | translate }}</span></th>
-                              <th><span>{{'Pincode' | translate }}</span></th>
-
+                              <th><span>{{'CHC Code' | translate }}</span></th>                           
                               <th><span>{{'Block' | translate }}</span></th>
                               <th><span>{{'District Name' | translate }}</span></th>
                               <th><span>{{'Testing CHC' | translate }}</span></th>
@@ -77,16 +75,15 @@
                             <tr *ngFor="let sample of chclists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
                               <td class="sname text-left">{{sample.name}}</td>
-                              <td class="sid text-center">{{sample.chcGovCode}}</td>
-                              <td class="sid text-center">{{sample.pincode}}</td>
-
-
+                              <td class="sid text-center">{{sample.chcGovCode}}</td>                           
                               <td class="sid text-center">{{sample.blockName}}</td>
                               <!-- <td class="sid text-center">{{sample.chcName}}</td> -->
                               <td class="sid text-center">{{sample.districtName}}</td>
                               <td class="text-center">{{sample.testingCHC}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
 
 
                               <td class="text-center">
@@ -328,7 +325,7 @@
                                 <label class="note" [ngClass]="{'label-border-class':!chcCodedata.valid && chcCodedata.touched || editChcForm.submitted && chcCodedata.invalid}">{{'CHC Code' | translate }} <span class="manto"></span></label>
                                 <input class="form-control" name="chcCodedata" type="text" placeholder="CHC Code"
                                 [class.is-invalid]="!chcCodedata.valid && chcCodedata.touched || editChcForm.submitted && chcCodedata.invalid"
-                                  required [(ngModel)]="chcCodedata">
+                                  required [(ngModel)]="chcCodedata" disabled="chcCodedata">
                                 <small class="text-danger ml-2" *ngIf="!chcCodedata.valid && chcCodedata.touched ">Enter CHC Code</small>
                                 <div *ngIf="editChcForm.submitted && chcCodedata.invalid">
                                   <small *ngIf="chcCodedata.untouched" class=" ml-2 text-danger">CHC Code is required</small>
@@ -363,7 +360,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="testingCHCId"
-                                    required [(ngModel)]="selectedtestingCHCId" (change)="onChangeDistrict($event.target.value)">
+                                    required [(ngModel)]="selectedEdittestingCHCId" (change)="onChangeDistrict($event.target.value)">
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of testingCHCists" [(value)]="districtdata.id">
                                             {{districtdata.name}}

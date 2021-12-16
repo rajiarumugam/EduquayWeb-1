@@ -61,9 +61,9 @@
                           <thead>
                             <tr>
                               <th><span>{{'SNo' | translate }}</span></th>
-                              <th><span>{{'District Code' | translate }}</span></th>
-                              <th><span>{{'District' | translate }}</span></th>
                               <th><span>{{'State' | translate }}</span></th>
+                              <th><span>{{'District Name' | translate }}</span></th> 
+                              <th><span>{{'District Code' | translate }}</span></th>                                                       
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -72,11 +72,13 @@
                           <tbody>
                             <tr *ngFor="let sample of districtlists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.districtGovCode}}</td>
-                              <td class="sid text-center">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.stateName}}</td>
+                              <td class="sid text-center">{{sample.name}}</td>
+                              <td class="sname text-left">{{sample.districtGovCode}}</td>                                                          
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
 
                               <td class="text-center">
                                 <a class="" (click)="openEditDistrict(editDistrictDetail, sample)"
@@ -167,7 +169,6 @@
                                         </label>
                                     </div>
                                   </div>
-
                                 </div>
 
                                 <div class="form-row mt-4">
@@ -193,7 +194,7 @@
 
                        <ng-template #editDistrictDetail let-modal>
                         <div class="modal-header">
-                          <h4 class="modal-title modaltitle">{{'EditDistrict' | translate }}</h4>
+                          <h4 class="modal-title modaltitle">{{'Edit District' | translate }}</h4>
                           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -230,7 +231,7 @@
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'District Code' | translate }}<span class="manto"></span></label>
                                   <input class="form-control" name="editDistrictCode" type="text" placeholder="District Code" ngModel pattern="^[a-zA-Z0-9]+$"
-                                  #editDistrictCode="ngModel" [(ngModel)]="districtcodedata">
+                                  #editDistrictCode="ngModel" [(ngModel)]="districtcodedata" disabled="editDistrictCode" >
 
                                 </div>
 

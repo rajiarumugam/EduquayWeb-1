@@ -251,6 +251,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddPhc(addPhcDetail) {
       
       //this.ddlChc();
+      this.selectedChc="";
       this.disabledChc = false;
       this.ddlDistrict();
       this.confirmationSelected = Boolean("True");
@@ -285,7 +286,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.commentsdata = sample.comments;
       this.phcCodedata = sample.phcGovCode;
       this.hninId = sample.hninId;
-      this.confirmationSelected = Boolean(sample.isActive);
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
   
       this.modalService.open(
         editPhcDetail, {
@@ -350,14 +351,10 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       
       this.commentsdata = editPhcForm.value.commentsdata;
       this.selectedEditChc = editPhcForm.value.ddlEdChc;
-      this.phcCodedata = editPhcForm.value.phcCodedata;
-      //this.phcnamedata = editPhcForm.value.phcNamedata;
+      // this.phcCodedata = editPhcForm.value.phcCodedata;
+      this.phcnamedata = editPhcForm.value.phcNamedata;
       this.pincodeData = editPhcForm.value.pincodeData;
-      
-      this.hninId = editPhcForm.value.hninId;
-
-      console.log(this.selectedEditChc);
-      // console.log(this.phcNamedata);
+       this.hninId = editPhcForm.value.hninId;
   
       this.phcListRequest = {
         id: this.editPhcDetails.id,
