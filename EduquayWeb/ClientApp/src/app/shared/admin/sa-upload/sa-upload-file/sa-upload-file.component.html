@@ -8,4 +8,108 @@
 <input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.ms-excel" />
 <button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
+<div class="table-responsive mt-5" *ngIf = "showValidationError">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
+      <thead>
+          <tr>
+              <th class="text-center"><span>{{'District Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'Block Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'CHC Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'PHC Count' | translate}}</span></th>
+              <!-- <th class="text-center"><span>{{'LMPDate' | translate}}</span></th>                                     -->
+              <th class="text-center"><span>{{'SC Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'ANM count' | translate}}</span></th>
+              <th class="text-center"><span>{{'RI Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'AVD Count' | translate}}</span></th>
+          </tr>
+
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-center">{{validateData?.districtCount}}</td>
+              <td class="text-center">{{validateData?.blockCount}}</td>
+              <td class="text-center">{{validateData?.chcCount}}</td>
+              <td class="text-center">{{validateData?.phcCount}}</td>
+              <td class="text-center">{{validateData?.scCount}}</td>
+              <td class="text-center">{{validateData?.anMcount}}</td>
+              <td class="text-center">{{validateData?.riCount}}</td>
+              <td class="text-center">{{validateData?.avdCount}}</td>
+              <!-- <td class="text-center">18/05/2020</td> 
+              <td class="text-center"><a (click)="openpndtdetail(counsellingdata)"><i
+                          class="fas fa-edit fa-2x"
+                          aria-hidden="true"></i></a></td>-->
+
+          </tr>
+      </tbody>
+  </table>
+
+  <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
+  <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+</div>
+
+<div class="table-responsive mt-5" *ngIf = "showValidationError">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
+      <thead>
+          <tr>
+              <th class="text-center"><span>{{'District Error Code' | translate}}</span></th>
+              <th class="text-center"><span>{{'Block Error Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'CHC Error Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'PHC Error Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'SC Error Count' | translate}}</span></th>
+              <th class="text-center"><span>{{'ANM Error count' | translate}}</span></th>
+          </tr>
+
+      </thead>
+      <tbody>
+          <tr>
+              <td class="text-center">{{validateData?.districtError}}</td>
+              <td class="text-center">{{validateData?.blockError}}</td>
+              <td class="text-center">{{validateData?.chcError}}</td>
+              <td class="text-center">{{validateData?.phcError}}</td>
+              <td class="text-center">{{validateData?.scError}}</td>
+              <td class="text-center">{{validateData?.anmError}}</td>
+          </tr>
+      </tbody>
+  </table>
+
+  <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
+  <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+</div>
+<div class="table-responsive mt-5" *ngIf = "showValidationError">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
+      <tbody>
+          <tr>
+            <td class="text-left">{{'ANM Code Error' | translate}}</td>
+              <td class="text-left">{{validateData?.anmCodeError}}</td>
+          </tr>
+          <tr>
+            <td class="text-left">{{'Block Code Error' | translate}}</td>
+              <td class="text-left">{{validateData?.blockCodeError}}</td>
+          </tr>
+
+          <tr>
+            <td class="text-left">{{'CHC Code Error' | translate}}</td>
+              <td class="text-left">{{validateData?.chcCodeError}}</td>
+          </tr>
+
+          <tr>
+            <td class="text-left">{{'District Code Error' | translate}}</td>
+              <td class="text-left">{{validateData?.districtCodeError}}</td>
+          </tr>
+
+          <tr>
+            <td class="text-left">{{'PHC Code Error' | translate}}</td>
+              <td class="text-left">{{validateData?.phcCodeError}}</td>
+          </tr>
+
+          <tr>
+            <td class="text-left">{{'SC Code Error' | translate}}</td>
+              <td class="text-left">{{validateData?.scCodeError}}</td>
+          </tr>
+      </tbody>
+  </table>
+
+  <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
+  <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+</div>
 <!--<img width="100%" *ngIf="imageUrl" [src]="imageUrl" class="image">-->
