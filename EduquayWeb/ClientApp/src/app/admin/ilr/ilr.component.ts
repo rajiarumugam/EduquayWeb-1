@@ -375,7 +375,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       this.commentsdata = editIlrForm.value.commentsdata;
       //this.selectedEditChc = editIlrForm.value.ddlChc;
       this.selectedEditDistrict = editIlrForm.value.ddlDistrict;
-      this.ilrCode = editIlrForm.value.ilrCode;
+      // this.ilrCode = editIlrForm.value.ilrCode;
       // this.chcname = editIlrForm.value.chcname;
       this.ilrname = editIlrForm.value.ilrname;
       console.log(editIlrForm.value.ddlEdChc);

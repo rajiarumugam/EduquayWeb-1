@@ -322,6 +322,8 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
 
      // this.ddlChc();
      this.ddlDistrict();
+     this.selectedChc="";
+     this.selectedPhc="";
      this.selectedDistrict = "";
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
@@ -353,7 +355,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.commentsdata = sample.comments;
       this.hninId = sample.hninId;
       this.scAddress = sample.scAddress;
-      this.confirmationSelected = Boolean(sample.isActive);
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
       this.modalService.open(
         editScDetail, {

@@ -12,3 +12,20 @@ export class AddRipointRequest {
     createdBy: number;
     updatedBy: number;
 }
+
+
+export class AddRipointRequest2 {
+    testingCHCId: number;
+    chcId: number;
+    phcId: number;
+    scId: number;
+    riGovCode: string;
+    name: string;
+    pincode: string;
+    ilrId: number;
+    isActive: boolean;
+    comments: string;
+    userId: number;
+    id:number
+   
+}

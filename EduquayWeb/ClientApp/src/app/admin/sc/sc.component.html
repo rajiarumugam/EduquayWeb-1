@@ -33,8 +33,8 @@
                     </div>
                     <div class="col-md-4">
                       <div class="float-right mb-4">
-                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-ri-point']" role="button"
-                        ngbTooltip="RI-Point" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-ilr']" role="button"
+                        ngbTooltip="ILR" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
                       </div>
                     </div>
                   </div>
@@ -62,10 +62,7 @@
                             <tr>
                               <th><span>{{'SNo' | translate }}</span></th>
                               <th><span>{{'SC Name' | translate }}</span></th>
-                              <th><span>{{'SC Code' | translate }}</span></th>
-                              <th><span>{{'Pincode' | translate }}</span></th>
-
-
+                              <th><span>{{'SC Code' | translate }}</span></th>                            
                               <th><span>{{'CHC' | translate }}</span></th>
                               <th><span>{{'PHC' | translate }}</span></th>
                               <th><span>{{'Comments' | translate }}</span></th>
@@ -77,13 +74,13 @@
                             <tr *ngFor="let sample of sclists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
                               <td class="sname text-left">{{sample.name}}</td>
-                              <td class="sname text-center">{{sample.scGovCode}}</td>
-                              <td class="sid text-center">{{sample.pincode}}</td>
-
+                              <td class="sname text-center">{{sample.scGovCode}}</td>                            
                               <td class="sid text-left">{{sample.chcName}}</td>
                               <td class="sid text-left">{{sample.phcName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
 
                               <td class="text-center">
                                 <a class="" (click)="openEditSc(editScDetail, sample)"
@@ -304,7 +301,7 @@
                                     <label class="note" [ngClass]="{'label-border-class':!scCodedata.valid && scCodedata.touched || editScForm.submitted && scCodedata.invalid}">{{'SC Code' | translate }} <span class="manto"></span></label>
                                     <input class="form-control" name="scCodedata" type="text" placeholder="SC Code"
                                     [class.is-invalid]="!scCodedata.valid && scCodedata.touched || editScForm.submitted && scCodedata.invalid"
-                                      required [(ngModel)]="scCodedata">
+                                      required [(ngModel)]="scCodedata" disabled="scCodedata"  >
                                     <small class="text-danger ml-2" *ngIf="!scCodedata.valid && scCodedata.touched ">Enter SC Code</small>
                                     <div *ngIf="editScForm.submitted && scCodedata.invalid">
                                       <small *ngIf="scCodedata.untouched" class=" ml-2 text-danger">SC Code is required</small>

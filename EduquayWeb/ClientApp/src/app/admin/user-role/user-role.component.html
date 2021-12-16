@@ -83,7 +83,9 @@
                               <td class="sid text-center">{{sample.userRoleName}}</td>                       
                               
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
                              
                              
                               <td class="text-center">

@@ -657,6 +657,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   }
 
+  
+
   onChangeEditChc(event) {
 
     if (this.selectedEditChc === '') {
@@ -666,6 +668,8 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
       this.ddlEdtiPhc(this.selectedEditChc);
     }
   }
+
+  
 
   onChangeDistrict(event) {
 
@@ -1392,7 +1396,7 @@ console.log(id);
       userRoleId:1,
         userGovCode:this.userGovCode,
         userName:this. userName,
-        password:'KJOJ',
+        password:'odisha',
         stateId: +(this.selectedState),
         centralLabId: 0,
 
@@ -1465,7 +1469,7 @@ console.log(id);
         userRoleId:3,
           userGovCode:this.userGovCode,
           userName:this.userName,
-          password:'KJOJ',
+          password:'odisha',
           stateId:+(this.selectedState),
           centralLabId: 0,
 
@@ -1544,7 +1548,7 @@ console.log(id);
       userRoleId:+(this.selectedUserrole),
         userGovCode:this.userGovCode,
         userName:this.userName,
-        password:'KJOJ',
+        password:'odisha',
         stateId:+(this.selectedState),
         centralLabId: 0,
 
@@ -1622,7 +1626,7 @@ console.log(addIlrForm);
     userRoleId:+(this.selectedUserrole),
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -1700,7 +1704,7 @@ console.log(addIlrForm);
     userRoleId:9,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -1778,7 +1782,7 @@ console.log(addIlrForm);
     userRoleId:11,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -1856,7 +1860,7 @@ console.log(addIlrForm);
     userRoleId:12,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -1934,7 +1938,7 @@ console.log(addIlrForm);
     userRoleId:+(this.userRole),
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -2012,7 +2016,7 @@ console.log(addIlrForm);
     userRoleId:14,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -2090,7 +2094,7 @@ console.log(addIlrForm);
     userRoleId:15,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -2168,7 +2172,7 @@ console.log(addIlrForm);
     userRoleId:10,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -2246,7 +2250,7 @@ console.log(addIlrForm);
     userRoleId:18,
       userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
 
@@ -2309,7 +2313,7 @@ openEditsadmin(editsadminDetail, subjectinfo) {
    this.userRoleId=9;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.selectedEditState = subjectinfo.stateId;
     // this.centralLabId= 0;
@@ -2371,7 +2375,7 @@ editsubmitsadmin(editsadminForm: NgForm){
     userRoleId:1,
     userGovCode:this.userGovCode,
       userName:this.userName,
-      password:'KJOJ',
+      password:'odisha',
       stateId: +(this.selectedEditState),
       centralLabId: 0,
 
@@ -2513,9 +2517,9 @@ openEditanm(editanmDetail, subjectinfo) {
 }
 
 editsubmitanm(editanmForm: NgForm){
- // console.log("abc");
-  console.log(editanmForm.value);
-    this.userName = editanmForm.value.userName;
+ console.log(editanmForm.value);
+
+  this.userName = editanmForm.value.userName;
     this.firstName = editanmForm.value.firstName;
     this.riId = editanmForm.value.riId;
     this.middleName = editanmForm.value.middleName;
@@ -2613,7 +2617,7 @@ openEditchc(editchcDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
 
@@ -2752,7 +2756,7 @@ openEdithplc(edithplcdetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
   //  this.ddleditUserRole(type);
     this.selectedEditUserrole = subjectinfo.userRoleId;
     this.editddlState();
@@ -2870,7 +2874,7 @@ openEditpndtc(editpndtcDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.ddlEditDistrict();
     this.editddlState();
     this.selectedEditState = subjectinfo.stateId;
@@ -2980,7 +2984,7 @@ openEditmtp(editmtpDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditDistrict();
     this.selectedEditState = subjectinfo.stateId;
@@ -3090,7 +3094,7 @@ openEditdc(editdcDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
 
@@ -3207,7 +3211,7 @@ editSubmitdc(editdcForm: NgForm){
   .subscribe(response => {
     this.AddUsersResponse = response;
     if(this.AddUsersResponse !== null){
-      this.showResponseMessage(this.AddUsersResponse.message, 's')
+      this.showResponseMessage('DC User Updated Sucessfully', 's')
        this.retrirveIlrlist();
     }else{
       this.showResponseMessage(this.AddUsersResponse.message, 'e');
@@ -3229,7 +3233,7 @@ openEditmolecular(editmolecularDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
 
@@ -3369,7 +3373,7 @@ openEditspc(editspcDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
 
@@ -3625,7 +3629,7 @@ openEditpndt(editpndtDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
 
@@ -3875,7 +3879,7 @@ openEditsupport(editsupportDetail, subjectinfo) {
   this.id = subjectinfo.id;
     this.userGovCode=subjectinfo.userGovCode;
     this.userName=subjectinfo.userName  ;
-    // this.password='KJOJ';
+    // this.password='odisha';
     this.editddlState();
     this.ddlEditChc(subjectinfo.blockId);
 

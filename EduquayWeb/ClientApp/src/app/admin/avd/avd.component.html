@@ -19,8 +19,8 @@
         <div class="justify-between">
           <div class="col-md-4">
             <div class="float-left mb-4">
-              <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-block']" role="button"
-                ngbTooltip="Block" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+              <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-user-type']" role="button"
+                ngbTooltip="User Type" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
             </div>
           </div>
           <!-- <h5 class="float-left">Sample Collection</h5> -->
@@ -31,8 +31,8 @@
           </div>
           <div class="col-md-4">
             <div class="float-right mb-4">
-              <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-phc']" role="button"
-                ngbTooltip="PHC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+              <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-users']" role="button"
+                ngbTooltip="Users" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
             </div>
           </div>
         </div>
@@ -76,7 +76,8 @@
                   <td class="sid text-center">{{sample.contactNo}}</td>
                   <!-- <td class="sid text-center">{{sample.riId}}</td> -->
                   <td class="number text-center">{{sample.comments}}</td>
-                  <td class="text-center">{{sample.isActive}}</td>
+                  <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                  <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
 
 
                   <td class="text-center">

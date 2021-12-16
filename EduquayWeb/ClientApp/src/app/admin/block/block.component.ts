@@ -32,7 +32,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
 
     blocklistErrorMessage: string;
     user: user;
-
+    Editsample;
     confirmationSelected;
     blockListResponse;
     blocklists: BlockList[];
@@ -152,11 +152,12 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     ddlEditDistrict() {
+      
       let district = this.BlockService.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
-          this.selectedEditDistrict = this.getdistrict;
+          
         }
         else {
           this.blocklistErrorMessage = response.message;
@@ -187,15 +188,16 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
 
     openEditBlock(editBlockDetail, sample) {
 
-      console.log(sample);
+      console.log(editBlockDetail.value);
 
       this.editBlockDetails = sample;
       this.ddlEditDistrict();
+      this.selectedEditDistrict = sample.districtId;
       this.blocknamedata = sample.name;
       this.blockCodedata = sample.blockGovCode;
       //this.selectedEditDistrict = sample.districtId;
       this.commentsdata = sample.comments;
-      this.confirmationSelected = sample.isActive === 'True' ? true : false;
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
       this.modalService.open(
         editBlockDetail, {

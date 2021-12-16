@@ -21,8 +21,8 @@
               <div class="justify-between">
                   <div class="col-md-4">
                       <div class="float-left mb-4">
-                          <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-chc']" role="button"
-                          ngbTooltip="CHC" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                          <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-sc']" role="button"
+                          ngbTooltip="SC" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
                         </div>
                   </div>
                   <!-- <h5 class="float-left">Sample Collection</h5> -->
@@ -33,8 +33,8 @@
                   </div>
                   <div class="col-md-4">
                     <div class="float-right mb-4">
-                      <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-sc']" role="button"
-                      ngbTooltip="SC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                      <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-ri-point']" role="button"
+                      ngbTooltip="RI-POINT" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
                     </div>
                   </div>
                 </div>
@@ -61,12 +61,10 @@
                         <thead>
                           <tr>
                             <th><span>{{'SNo' | translate }}</span></th>
-                            <th><span>{{'Name' | translate }}</span></th>
-                              <th><span>{{'DistrictName' | translate }}</span></th>
-                              
+                            <th><span>{{'IlR Name' | translate }}</span></th>
+                              <th><span>{{'DistrictName' | translate }}</span></th>                              
                               <th><span>{{'ChcName ' | translate }}</span></th>
-                              <th><span>{{'Ilrcode' | translate }}</span></th>                   
-                              
+                              <th><span>{{'Ilrcode' | translate }}</span></th>                                                
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
 
@@ -77,13 +75,13 @@
                             <tr *ngFor="let sample of phclists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
                               <td class="sid text-center">{{sample.name}}</td>
-                              <td class="sid text-center">{{sample.districtName}}</td>
-                           
+                              <td class="sid text-center">{{sample.districtName}}</td>                           
                               <td class="sid text-center">{{sample.chcName}}</td>
-                              <td class="sid text-center">{{sample.ilrCode}}</td>
-                              
+                              <td class="sid text-center">{{sample.ilrCode}}</td>                              
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
                            
                             <td class="text-center">
                               <a class="" (click)="openEditIlr(editIlrDetail, sample)"
@@ -190,7 +188,7 @@
 
                                                                
                             <div class="form-group col-md-3">
-                              <label class="note">{{'Name' | translate }}<span class="manto"> *</span></label>
+                              <label class="note">{{'ILR Name' | translate }}<span class="manto"> *</span></label>
                               <input class="form-control" name="ilrname" type="text" placeholder="Name" ngModel pattern="^[a-zA-Z0-9]+$" required          
                               #ilrname ="ngModel" [class.is-invalid]="!ilrname.valid && ilrname.touched || addIlrForm.submitted && ilrname.invalid">
                               <small class="text-danger ml-2" *ngIf="!ilrname.valid && ilrname.touched ">Enter Name</small> 
@@ -200,7 +198,7 @@
                             </div>
                             
                             <div class="form-group col-md-3">
-                              <label class="note">{{'Ilr Code' | translate }}<span class="manto"> *</span></label>
+                              <label class="note">{{'ILR Code' | translate }}<span class="manto"> *</span></label>
                               <input class="form-control" name="ilrCode" type="text" placeholder="Ilr Code" ngModel
                               [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                #ilrCode="ngModel" required>
@@ -316,7 +314,7 @@
                                   <label class="note">{{'Ilr code' | translate }} <span class="manto"></span></label>
                                   <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code"
                                     [class.is-invalid]="!ilrCode.valid && ilrCode.touched || editIlrForm.submitted && ilrCode.invalid"
-                                    required [(ngModel)]="ilrCode">
+                                    required [(ngModel)]="ilrCode" disabled="ilrCode">
                                   <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Ilr code</small>
                                   <div *ngIf="editIlrForm.submitted && ilrCode.invalid">
                                     <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr code is required</small>

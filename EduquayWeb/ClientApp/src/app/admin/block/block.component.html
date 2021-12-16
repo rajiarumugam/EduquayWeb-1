@@ -76,7 +76,9 @@
                               <td class="sid text-center">{{sample.blockGovCode}}</td>
                               <td class="sid text-center">{{sample.districtName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
 
                               <td class="text-center">
                                 <a class="" (click)="openEditBlock(editBlockDetail, sample)"
@@ -214,6 +216,26 @@
                                       <input class="form-control" name="editdistrictname" type="text" placeholder="State Name" ngModel
                                        #editdistrictname="ngModel" [(ngModel)]="statetnamedata">
                                 </div> -->
+
+                                <!-- <div class="form-group col-md-3">
+
+                                  <label [ngClass]="{'label-border-class':ddlEditDistrict.invalid && ddlEditDistrict.touched || editChcForm.submitted && ddlEditDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                                      class="manto"> </span></label>
+                                      <select id="inputilrPoint" class="form-control"
+                                      name="ddlEditDistrict" [class.is-invalid]="ddlEditDistrict.invalid && ddlEditDistrict.touched || editChcForm.submitted && ddlEditDistrict.invalid"
+                                      required [(ngModel)]="selectedEditDistrict"  [disabled]="disableddis" >
+                                          <option value="">Select</option>
+                                          <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                              {{districtdata.name}}
+                                          </option>
+                                      </select>
+                                        <small class=" ml-2 text-danger" *ngIf="ddlEditDistrict.invalid && ddlEditDistrict.touched ">Please choose a District</small>
+                                        <div *ngIf="editChcForm.submitted && ddlEditDistrict.invalid">
+                                          <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                        </div>
+
+                            </div> -->
+
                                 <div class="form-group col-md-3">
                                     <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
                                     <select id="inputilrPoint" class="form-control"
@@ -224,15 +246,17 @@
                                         </option>
                                     </select>
                                 </div>
+
+                                
                                 <div class="form-group col-md-3">
                                     <label class="note">{{'Block Name' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control field" name="editBlockName" type="text" placeholder="Block Name"
+                                    <input class="form-control " name="editBlockName" type="text" placeholder="Block Name"
                                       autocomplete="off" #editBlockName="ngModel" ngModel [(ngModel)]="blocknamedata">
                                   </div>
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Block Code' | translate }}<span class="manto"></span></label>
                                   <input class="form-control" name="editblockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$"
-                                  #editblockCode="ngModel" [(ngModel)]="blockCodedata">
+                                  #editblockCode="ngModel" [(ngModel)]="blockCodedata" disabled="editDistrictCode" >
 
                                 </div>
 

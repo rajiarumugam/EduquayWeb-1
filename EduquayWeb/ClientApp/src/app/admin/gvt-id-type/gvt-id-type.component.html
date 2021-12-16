@@ -73,7 +73,9 @@
                               <td class="sno text-center">{{i +1}}</td>
                               <td class="sname text-left">{{sample.govIdTypeName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
                               <!-- <td class="text-center">
                                 <a class="" (click)="openAddState(addStateDetail, sample)"
                                 role="button">

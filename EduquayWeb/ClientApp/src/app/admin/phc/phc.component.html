@@ -61,8 +61,9 @@
                           <thead>
                             <tr>
                               <th><span>{{'SNo' | translate }}</span></th>
-                              <th><span>{{'PHC Name' | translate }}</span></th>
-                              <th><span>{{'Pincode' | translate }}</span></th>                             
+                              <th><span>{{'PHC Name' | translate }}</span></th>       
+                              <th><span>{{'PHC Code' | translate }}</span></th> 
+                              <th><span>{{'District' | translate }}</span></th>                                                      
                               <th><span>{{'CHC' | translate }}</span></th> 
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
@@ -72,11 +73,14 @@
                           <tbody>
                             <tr *ngFor="let sample of phclists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.name}}</td>
-                              <td class="sid text-center">{{sample.pincode}}</td>                       
+                              <td class="sname text-left">{{sample.name}}</td> 
+                              <td class="sname text-left">{{sample.phcGovCode}}</td>     
+                              <td class="sid text-center">{{sample.districtName}}</td>                                            
                               <td class="sid text-center">{{sample.chcName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
                              
                              
                               <td class="text-center">
@@ -282,7 +286,7 @@
                                     <label class="note">{{'PHC Code' | translate }} <span class="manto"></span></label>
                                     <input class="form-control" name="phcCodedata" type="text" placeholder="PHC Code" 
                                     
-                                      required [(ngModel)]="phcCodedata">
+                                      required [(ngModel)]="phcCodedata" disabled="phcCodedata" >
                                     
                                  
                               </div>

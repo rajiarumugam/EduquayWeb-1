@@ -21,7 +21,7 @@
                 <div class="justify-between">
                     <div class="col-md-4">
                         <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
-                            [routerLink]="['/app/anm-subprofile']" role="button" ngbTooltip="Subject Profile" placement="right"><i
+                            [routerLink]="['app/add-avd']" role="button" ngbTooltip="AVD" placement="right"><i
                                     class="fas fa-chevron-left pNav-left"></i></a></div>
                     </div>
                     <div class="col-md-4">
@@ -30,7 +30,10 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-
+                      <div class="float-right mb-4">
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/saupload']" role="button"
+                        ngbTooltip="UPLOAD" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -49,84 +52,7 @@
                             </div>
                         </div>
 
-                        <div class="form-row mt-4" [formGroup]="dateform">
-                            <div class="row" style="width:100%;">
-                                <div class="form-group col-md-2">
-                                <label for="inputFromdate">{{'FromDate' | translate }}
-                                </label>
-                                <div class="form-group mb-0">
-                                    <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
-                                                [(ngModel)]="fromDate" required
-                                                    placeholder="Select Date..."> -->
-                                    <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
-                                    [config]="startOptions" placeholder="Select Date.." formControlName="fromDate">
-                                    </ng2-flatpickr>
-                                </div>
-                                </div>
-                                <div class="form-group col-md-2">
-                                <label for="inputTodate">{{'ToDate' | translate }}</label>
-                                <div class="form-group mb-0">
-                                    <!-- <input id="scToDate" class="form-control flatpickr flatpickr-input" name="toDate" type="text"
-                                                [(ngModel)]="toDate"  required  placeholder="Select Date..."> -->
-                                    <ng2-flatpickr id="scToDate" name="toDate" class="form-control flatpickr flatpickr-input active" #endPicker
-                                    [config]="endOptions" placeholder="Select Date.." formControlName="toDate"></ng2-flatpickr>
-                                </div>
-                                </div>
-                                <div class="form-group col-md-3" >
-                                    <label for="inputTodate">{{'RIPoint' | translate }}</label>
-                                    <div class="form-group mb-0">
-                                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedRIpoint" formControlName = "district" >
-                                            <option [ngValue]="null">Select RI</option>
-                                            <option [value]="district.id" *ngFor="let district of RIData">{{district.riSite}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="inputTodate">{{'SubjectType' | translate }}</label>
-                                    <div class="form-group mb-0">
-                                        <select id="inputilrPoint" class="form-control" formControlName = "block"
-                                        [(ngModel)]="selectedBlock">
-                                            <option [ngValue]="null">Select</option>
-                                            <option *ngFor="let blockdata of subjectData" [(value)]="blockdata.id">
-                                                {{blockdata.subjectTypeName}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-1">
-                                    <a (click)="anmSubjectProfileList(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
-                                        <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                                </div>
-                            </div>
-                            <!--<div class="row" style="width:100%;">
-                                <div class="form-group col-md-12 mt-12 ml-12" style="text-align: center !important;padding: 0;margin: 0 !important;">
-                                    <b>(or)</b>
-                                </div>
-                            </div>
-                            <div class="row" style="width:100%;">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 filtered-list-search mt-2">
-                                    <form class="form-inline my-2 my-lg-0">
-                                        <label for="inputSearch" class="ml-3"><span class="note">{{'SearchbyRCHId/SubjectName/SubjectId/ContactNumber' | translate }} </span></label>
-                                        <div class="w-100">
-                                            <input type="text" class="w-100 form-control product-search br-30"
-                                            name="searchsubjectid" type="text" placeholder="Search"
-                                            [(ngModel)]="searchsubjectid" autocomplete="off">
-                                        <a (click)="anmSubjectProfileList1(2,maintabSelected,mainsubtabSelected)"><button class="btn btn-primary" type="submit">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                        class="feather feather-search">
-                                                        <circle cx="11" cy="11" r="8"></circle>
-                                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                    </svg>
-                                                </button></a>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>-->
-                        </div>
-
+                      
                         <div class="custm-tab">
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Sadmin' | translate }}</p>
@@ -224,7 +150,7 @@
                                     <div class="form-group col-md-3">
                                       <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
                                       <input class="form-control" name="Username" type="text" placeholder="User Name" ngModel pattern="^[a-zA-Z0-9]+$" required
-                                      #Username ="ngModel" [class.is-invalid]="!Username.valid && Username.touched || addIlrForm.submitted && Username.invalid">
+                                      #Username ="ngModel"  [class.is-invalid]="!Username.valid && Username.touched || addIlrForm.submitted && Username.invalid">
                                       <small class="text-danger ml-2" *ngIf="!Username.valid && Username.touched ">Enter UserName</small>
                                       <div *ngIf="addIlrForm.submitted && Username.invalid">
                                       <small *ngIf="Username.untouched" class=" ml-2 text-danger">UserName is required</small>
@@ -364,7 +290,7 @@
                                       </div>
                                         <div class="form-group col-md-3">
                                           <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                          <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                           [class.is-invalid]="!userName.valid && userName.touched || editsadminForm.submitted && userName.invalid">
                                           <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
                                           <div *ngIf="editsadminForm.submitted && userName.invalid">
@@ -414,7 +340,7 @@
 
                                        <div class="form-group col-md-3">
                                         <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                        <input class="form-control" name="userGovCode" type="text" placeholder="UserGovCode" [(ngModel)]="userGovCode"
+                                        <input class="form-control" name="userGovCode" type="text" placeholder="UserGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                         [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editsadminForm.submitted && userGovCode.invalid"
                                          required>
                                         <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -499,8 +425,8 @@
                                         <td style="text-align: center">{{subjectinfo.userGovCode}}</td>
                                         <td style="text-align: center">{{subjectinfo.mobileNo}}</td>
                                         <td class="number text-center">{{subjectinfo.comments}}</td>
-                                        <td class="text-center">{{subjectinfo.isActive}}</td>
-
+                                        <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                        <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
 
                                         <td class="text-center">
                                           <a class="" (click)="openEditsadmin(editsadminDetail, subjectinfo)"
@@ -576,7 +502,8 @@
                                     <td style="text-align: center">{{subjectinfo.mobileNo}}</td>
                                     <td style="text-align: center">{{subjectinfo.email}}</td>
                                     <td class="number text-center">{{subjectinfo.comments}}</td>
-                                    <td class="text-center">{{subjectinfo.isActive}}</td>
+                                    <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                    <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                     <td class="text-center">
                                       <a class="" (click)="openEditanm(editanmDetail, subjectinfo)"
                                       role="button">
@@ -935,7 +862,7 @@
                                  class="manto"> *</span></label>
                                  <select id="inputilrPoint" class="form-control"
                                  name="ddlPhc" #ddlPhc="ngModel" [class.is-invalid]="ddlPhc.invalid && ddlPhc.touched || editanmFormsubmitted && ddlPhc.invalid"
-                                 required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" >
+                                 required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" [disabled]="!selectedEditChc=== ''" >
                                      <option value="">Select</option>
                                      <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
                                          {{phcdata.name}}
@@ -978,11 +905,11 @@
 
                         <div class="form-group col-md-3">
                           <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                          <input class="form-control" disabled='true' name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
-                          [class.is-invalid]="!userName.valid && userName.touched || editanmForm.submitted && userName.invalid">
-                          <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
+                          <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
+                           [class.is-invalid]="!userName.valid && userName.touched || editanmForm.submitted && userName.invalid">
+                          <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                           <div *ngIf="editanmForm.submitted && userName.invalid">
-                          <small *ngIf="userName.untouched" class=" ml-2 text-danger">UserName is required</small>
+                          <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
                           </div>
                         </div>
 
@@ -1027,7 +954,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editanmForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -1350,7 +1277,8 @@
                                         <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                         <td style="text-align: center">{{subjectinfo.email}}</td>
                                         <td class="number text-center">{{subjectinfo.comments}}</td>
-                                        <td class="text-center">{{subjectinfo.isActive}}</td>
+                                        <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                        <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                         <td class="text-center">
                                           <a class="" (click)="openEditchc(editchcDetail, subjectinfo)"
                                           role="button">
@@ -1482,7 +1410,7 @@
 
                             <div class="form-group col-md-3">
                               <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                              <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                              <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                               [class.is-invalid]="!userName.valid && userName.touched || editchcform.submitted && userName.invalid">
                               <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
                               <div *ngIf="editchcform.submitted && userName.invalid">
@@ -1530,7 +1458,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editchcform.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -1744,7 +1672,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
                                             <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
@@ -1843,7 +1771,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEdithplc(edithplcdetail, subjectinfo)"
                                         role="button">
@@ -1933,7 +1862,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                    [class.is-invalid]="!userName.valid && userName.touched || edithplcform.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="edithplcform.submitted && userName.invalid">
@@ -1971,7 +1900,7 @@
 
                                          <div class="form-group col-md-3">
                                           <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                          <input class="form-control" name="mobileNo" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                           [class.is-invalid]="!mobileNo.valid && mobileNo.touched || edithplcform.submitted && mobileNo.invalid"
                                             required >
                                           <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
@@ -1982,7 +1911,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || edithplcform.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -2263,7 +2192,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditpndtc(editpndtcDetail, subjectinfo)"
                                         role="button">
@@ -2313,7 +2243,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                    [class.is-invalid]="!userName.valid && userName.touched || editpndtcForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editpndtcForm.submitted && userName.invalid">
@@ -2362,7 +2292,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editpndtcForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -2643,7 +2573,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditmtp(editmtpDetail, subjectinfo)"
                                         role="button">
@@ -2699,7 +2630,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                   [class.is-invalid]="!userName.valid && userName.touched || editmtpForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editmtpForm.submitted && userName.invalid">
@@ -2748,7 +2679,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editmtpForm.submitted && userGovCode.invalid"
                                              required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -3030,7 +2961,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditdc(editdcDetail, subjectinfo)"
                                         role="button">
@@ -3106,7 +3038,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                    [class.is-invalid]="!userName.valid && userName.touched || editdcForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editdcForm.submitted && userName.invalid">
@@ -3154,7 +3086,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editdcForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -3453,7 +3385,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditmolecular(editmolecularDetail, subjectinfo)"
                                         role="button">
@@ -3526,7 +3459,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                   [class.is-invalid]="!userName.valid && userName.touched || editmolecularForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editmolecularForm.submitted && userName.invalid">
@@ -3575,7 +3508,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editmolecularForm.submitted && userGovCode.invalid"
                                              required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -3860,7 +3793,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditspc(editspcDetail, subjectinfo)"
                                         role="button">
@@ -3935,7 +3869,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                   [class.is-invalid]="!userName.valid && userName.touched || editspcForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editspcForm.submitted && userName.invalid">
@@ -3984,7 +3918,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editspcForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -4270,7 +4204,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditnhm(editnhmDetail, subjectinfo)"
                                         role="button">
@@ -4366,7 +4301,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                    [class.is-invalid]="!userName.valid && userName.touched || editnhmForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editnhmForm.submitted && userName.invalid">
@@ -4415,7 +4350,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editnhmForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -4696,7 +4631,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEditpndt(editpndtDetail, subjectinfo)"
                                         role="button">
@@ -4752,7 +4688,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="User Name" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="User Name" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                    [class.is-invalid]="!userName.valid && userName.touched || editpndtForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="editpndtForm.submitted && userName.invalid">
@@ -4802,7 +4738,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editpndtForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -5084,7 +5020,8 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
                                       <td class="text-center">
                                         <a class="" (click)="openEdithaematologist(edithaematologistDetail, subjectinfo)"
                                         role="button">
@@ -5141,7 +5078,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
+                                  <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
                                   [class.is-invalid]="!userName.valid && userName.touched || edithaematologistForm.submitted && userName.invalid">
                                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
                                   <div *ngIf="edithaematologistForm.submitted && userName.invalid">
@@ -5190,7 +5127,7 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || edithaematologistForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
@@ -5467,7 +5404,9 @@
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.email}}</td>
                                       <td class="number text-center">{{subjectinfo.comments}}</td>
-                                      <td class="text-center">{{subjectinfo.isActive}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
+
                                       <td class="text-center">
                                         <a class="" (click)="openEditsupport(editsupportDetail, subjectinfo)"
                                         role="button">
@@ -5521,15 +5460,17 @@
                                               </div>
                                     </div>
 
-                                <div class="form-group col-md-3">
-                                  <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                  <input disabled='true' class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" pattern="^[a-zA-Z0-9]+$" required
-                                   [class.is-invalid]="!userName.valid && userName.touched || editsupportForm.submitted && userName.invalid">
-                                  <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
-                                  <div *ngIf="editsupportForm.submitted && userName.invalid">
-                                  <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
-                                  </div>
-                                </div>
+                                    <div class="form-group col-md-3">
+                                      <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
+                                      <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
+                                       [class.is-invalid]="!userName.valid && userName.touched || editsupportForm.submitted && userName.invalid">
+                                      <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
+                                      <div *ngIf="editsupportForm.submitted && userName.invalid">
+                                      <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
+                                      </div>
+                                    </div>
+
+                             
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>
@@ -5571,7 +5512,7 @@
                                          </div>
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode"
+                                            <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                                             [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editsupportForm.submitted && userGovCode.invalid"
                                               required>
                                             <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
