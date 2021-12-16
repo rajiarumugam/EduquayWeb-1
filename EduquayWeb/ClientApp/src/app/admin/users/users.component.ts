@@ -2358,13 +2358,13 @@ openEditsadmin(editsadminDetail, subjectinfo) {
 editsubmitsadmin(editsadminForm: NgForm){
 
   console.log(editsadminForm.value);
-    this.userName = editsadminForm.value.userName;
+    // this.userName = editsadminForm.value.userName;
     this.firstName = editsadminForm.value.firstName;
     this.middleName = editsadminForm.value.middleName;
     this.lastName = editsadminForm.value.lastName;
-    this.userGovCode = editsadminForm.value.userGovCode;
+    // this.userGovCode = editsadminForm.value.userGovCode;
     this.email = editsadminForm.value.email;
-    this.selectedEditState = editsadminForm.value.ddlState;
+    // this.selectedEditState = editsadminForm.value.ddlState;
 
     this.mobileNo = editsadminForm.value.mobileNo;
     this.comments = editsadminForm.value.Comments;
@@ -2519,19 +2519,19 @@ openEditanm(editanmDetail, subjectinfo) {
 editsubmitanm(editanmForm: NgForm){
  console.log(editanmForm.value);
 
-  this.userName = editanmForm.value.userName;
+  // this.userName = editanmForm.value.userName;
     this.firstName = editanmForm.value.firstName;
     this.riId = editanmForm.value.riId;
     this.middleName = editanmForm.value.middleName;
     this.lastName = editanmForm.value.lastName;
-    this.userGovCode = editanmForm.value.userGovCode;
+    // this.userGovCode = editanmForm.value.userGovCode;
     this.email = editanmForm.value.email;
-    this.selectedEditChc = editanmForm.value.ddlChc;
-    this.selectedEditState = editanmForm.value.ddlState;
-      this.selectedEditPhc = editanmForm.value.ddlPhc;
-     this.selectedEditDistrict = editanmForm.value.ddlDistrict;
-    this.selectedEditSc = editanmForm.value.ddlSc;
-      this.selectedEditBlock = editanmForm.value.ddlBlock;
+    // this.selectedEditChc = editanmForm.value.ddlChc;
+    // this.selectedEditState = editanmForm.value.ddlState;
+    //   this.selectedEditPhc = editanmForm.value.ddlPhc;
+    //  this.selectedEditDistrict = editanmForm.value.ddlDistrict;
+    // this.selectedEditSc = editanmForm.value.ddlSc;
+    //   this.selectedEditBlock = editanmForm.value.ddlBlock;
     this.mobileNo = editanmForm.value.mobileNo;
     this.comments = editanmForm.value.Comments;
 
@@ -2678,17 +2678,17 @@ openEditchc(editchcDetail, subjectinfo) {
 editsubmitchc(editchcform: NgForm){
   console.log("abc");
   console.log(editchcform.value);
-    this.userName = editchcform.value.userName;
+    // this.userName = editchcform.value.userName;
     this.firstName = editchcform.value.firstName;
     this.middleName = editchcform.value.middleName;
     this.lastName = editchcform.value.lastName;
-    this.userGovCode = editchcform.value.userGovCode;
+    // this.userGovCode = editchcform.value.userGovCode;
     this.email = editchcform.value.email;
-    this.selectedEditChc = editchcform.value.ddlChc;
+    // this.selectedEditChc = editchcform.value.ddlChc;
     // this.selectedEditUserrole = editchcform.value.ddlUserRole;
-    this.selectedEditState = editchcform.value.ddlState;
-     this.selectedEditDistrict = editchcform.value.ddlDistrict;
-      this.selectedEditBlock = editchcform.value.ddlBlock;
+    // this.selectedEditState = editchcform.value.ddlState;
+    //  this.selectedEditDistrict = editchcform.value.ddlDistrict;
+    //   this.selectedEditBlock = editchcform.value.ddlBlock;
     this.mobileNo = editchcform.value.mobileNo;
     this.comments = editchcform.value.Comments;
 
@@ -2795,17 +2795,15 @@ openEdithplc(edithplcdetail, subjectinfo) {
 editSubmithplc(edithplcform: NgForm){
 
   console.log(edithplcform.value);
-    this.userName = edithplcform.value.userName;
     this.firstName = edithplcform.value.firstName;
     this.middleName = edithplcform.value.middleName;
     this.lastName = edithplcform.value.lastName;
-    this.userGovCode = edithplcform.value.userGovCode;
     this.email = edithplcform.value.email;
-    this.selectedEditChc = edithplcform.value.ddlChc;
-    this.selectedEditUserrole = edithplcform.value.ddlUserRole;
-    this.selectedEditState = edithplcform.value.ddlState;
-     this.selectedEditDistrict = edithplcform.value.ddlDistrict;
-      this.selectedEditBlock = edithplcform.value.ddlBlock;
+    // this.selectedEditChc = edithplcform.value.ddlChc;
+    // this.selectedEditUserrole = edithplcform.value.ddlUserRole;
+    // this.selectedEditState = edithplcform.value.ddlState;
+    //  this.selectedEditDistrict = edithplcform.value.ddlDistrict;
+    //   this.selectedEditBlock = edithplcform.value.ddlBlock;
     this.mobileNo = edithplcform.value.mobileNo;
     this.comments = edithplcform.value.Comments;
 
@@ -2908,15 +2906,15 @@ openEditpndtc(editpndtcDetail, subjectinfo) {
 editSubmitpndtc(edithplcform: NgForm){
 
   console.log(edithplcform.value);
-    this.userName = edithplcform.value.userName;
+    // this.userName = edithplcform.value.userName;
     this.firstName = edithplcform.value.firstName;
     this.middleName = edithplcform.value.middleName;
     this.lastName = edithplcform.value.lastName;
-    this.userGovCode = edithplcform.value.userGovCode;
+    // this.userGovCode = edithplcform.value.userGovCode;
     this.email = edithplcform.value.email;
-    this.selectedEditState = edithplcform.value.ddlState;
-     this.selectedEditDistrict = edithplcform.value.ddlDistrict;
-      this.selectedEditBlock = edithplcform.value.ddlBlock;
+    // this.selectedEditState = edithplcform.value.ddlState;
+    //  this.selectedEditDistrict = edithplcform.value.ddlDistrict;
+    //   this.selectedEditBlock = edithplcform.value.ddlBlock;
     this.mobileNo = edithplcform.value.mobileNo;
     this.comments = edithplcform.value.Comments;
 
@@ -3016,17 +3014,17 @@ openEditmtp(editmtpDetail, subjectinfo) {
 editSubmitmtp(editmtpForm: NgForm){
 
   console.log(editmtpForm.value);
-    this.userName = editmtpForm.value.userName;
+    // this.userName = editmtpForm.value.userName;
     this.firstName = editmtpForm.value.firstName;
     this.middleName = editmtpForm.value.middleName;
     this.lastName = editmtpForm.value.lastName;
-    this.userGovCode = editmtpForm.value.userGovCode;
+    // this.userGovCode = editmtpForm.value.userGovCode;
     this.email = editmtpForm.value.email;
-    this.selectedEditChc = editmtpForm.value.ddlChc;
-    this.selectedEditUserrole = editmtpForm.value.ddlUserRole;
-    this.selectedEditState = editmtpForm.value.ddlState;
-     this.selectedEditDistrict = editmtpForm.value.ddlDistrict;
-      this.selectedEditBlock = editmtpForm.value.ddlBlock;
+    // this.selectedEditChc = editmtpForm.value.ddlChc;
+    // this.selectedEditUserrole = editmtpForm.value.ddlUserRole;
+    // this.selectedEditState = editmtpForm.value.ddlState;
+    //  this.selectedEditDistrict = editmtpForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editmtpForm.value.ddlBlock;
     this.mobileNo = editmtpForm.value.mobileNo;
     this.comments = editmtpForm.value.Comments;
 
@@ -3155,17 +3153,17 @@ openEditdc(editdcDetail, subjectinfo) {
 editSubmitdc(editdcForm: NgForm){
 
   console.log(editdcForm.value);
-    this.userName = editdcForm.value.userName;
+    // this.userName = editdcForm.value.userName;
     this.firstName = editdcForm.value.firstName;
     this.middleName = editdcForm.value.middleName;
     this.lastName = editdcForm.value.lastName;
-    this.userGovCode = editdcForm.value.userGovCode;
+    // this.userGovCode = editdcForm.value.userGovCode;
     this.email = editdcForm.value.email;
-    this.selectedEditChc = editdcForm.value.ddlChc;
-    this.selectedEditUserrole = editdcForm.value.ddlUserRole;
-    this.selectedEditState = editdcForm.value.ddlState;
-     this.selectedEditDistrict = editdcForm.value.ddlDistrict;
-      this.selectedEditBlock = editdcForm.value.ddlBlock;
+    // this.selectedEditChc = editdcForm.value.ddlChc;
+    // this.selectedEditUserrole = editdcForm.value.ddlUserRole;
+    // this.selectedEditState = editdcForm.value.ddlState;
+    //  this.selectedEditDistrict = editdcForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editdcForm.value.ddlBlock;
     this.mobileNo = editdcForm.value.mobileNo;
     this.comments = editdcForm.value.Comments;
 
@@ -3294,17 +3292,17 @@ openEditmolecular(editmolecularDetail, subjectinfo) {
 editSubmitmolecular(editmolecularForm: NgForm){
 
   console.log(editmolecularForm.value);
-    this.userName = editmolecularForm.value.userName;
+    // this.userName = editmolecularForm.value.userName;
     this.firstName = editmolecularForm.value.firstName;
     this.middleName = editmolecularForm.value.middleName;
     this.lastName = editmolecularForm.value.lastName;
-    this.userGovCode = editmolecularForm.value.userGovCode;
+    // this.userGovCode = editmolecularForm.value.userGovCode;
     this.email = editmolecularForm.value.email;
-    this.selectedEditChc = editmolecularForm.value.ddlChc;
-    this.selectedEditUserrole = editmolecularForm.value.ddlUserRole;
-    this.selectedEditState = editmolecularForm.value.ddlState;
-     this.selectedEditDistrict = editmolecularForm.value.ddlDistrict;
-      this.selectedEditBlock = editmolecularForm.value.ddlBlock;
+    // this.selectedEditChc = editmolecularForm.value.ddlChc;
+    // this.selectedEditUserrole = editmolecularForm.value.ddlUserRole;
+    // this.selectedEditState = editmolecularForm.value.ddlState;
+    //  this.selectedEditDistrict = editmolecularForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editmolecularForm.value.ddlBlock;
     this.mobileNo = editmolecularForm.value.mobileNo;
     this.comments = editmolecularForm.value.Comments;
 
@@ -3435,17 +3433,17 @@ openEditspc(editspcDetail, subjectinfo) {
 editSubmitspc(editspcForm: NgForm){
 
   console.log(editspcForm.value);
-    this.userName = editspcForm.value.userName;
+    // this.userName = editspcForm.value.userName;
     this.firstName = editspcForm.value.firstName;
     this.middleName = editspcForm.value.middleName;
     this.lastName = editspcForm.value.lastName;
-    this.userGovCode = editspcForm.value.userGovCode;
+    // this.userGovCode = editspcForm.value.userGovCode;
     this.email = editspcForm.value.email;
-    this.selectedEditChc = editspcForm.value.ddlChc;
-    this.selectedEditUserrole = editspcForm.value.ddlUserRole;
-    this.selectedEditState = editspcForm.value.ddlState;
-     this.selectedEditDistrict = editspcForm.value.ddlDistrict;
-      this.selectedEditBlock = editspcForm.value.ddlBlock;
+    // this.selectedEditChc = editspcForm.value.ddlChc;
+    // this.selectedEditUserrole = editspcForm.value.ddlUserRole;
+    // this.selectedEditState = editspcForm.value.ddlState;
+    //  this.selectedEditDistrict = editspcForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editspcForm.value.ddlBlock;
     this.mobileNo = editspcForm.value.mobileNo;
     this.comments = editspcForm.value.Comments;
 
@@ -3551,17 +3549,17 @@ editSubmitnhm(editnhmForm: NgForm){
 
   console.log(editnhmForm.value);
 
-    this.userName = editnhmForm.value.userName;
+    // this.userName = editnhmForm.value.userName;
     this.firstName = editnhmForm.value.firstName;
     this.middleName = editnhmForm.value.middleName;
     this.lastName = editnhmForm.value.lastName;
-    this.userGovCode = editnhmForm.value.userGovCode;
+    // this.userGovCode = editnhmForm.value.userGovCode;
     this.email = editnhmForm.value.email;
-    this.selectedEditChc = editnhmForm.value.ddlChc;
-    this.selectedEditUserrole = editnhmForm.value.ddlUserRole;
-    this.selectedEditState = editnhmForm.value.ddlState;
-     this.selectedEditDistrict = editnhmForm.value.ddlDistrict;
-      this.selectedEditBlock = editnhmForm.value.ddlBlock;
+    // this.selectedEditChc = editnhmForm.value.ddlChc;
+    // this.selectedEditUserrole = editnhmForm.value.ddlUserRole;
+    // this.selectedEditState = editnhmForm.value.ddlState;
+    //  this.selectedEditDistrict = editnhmForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editnhmForm.value.ddlBlock;
     this.mobileNo = editnhmForm.value.mobileNo;
     this.comments = editnhmForm.value.Comments;
 
@@ -3690,17 +3688,17 @@ openEditpndt(editpndtDetail, subjectinfo) {
 editSubmitpndt(editpndtForm: NgForm){
 
   console.log(editpndtForm.value);
-    this.userName = editpndtForm.value.userName;
+    // this.userName = editpndtForm.value.userName;
     this.firstName = editpndtForm.value.firstName;
     this.middleName = editpndtForm.value.middleName;
     this.lastName = editpndtForm.value.lastName;
-    this.userGovCode = editpndtForm.value.userGovCode;
+    // this.userGovCode = editpndtForm.value.userGovCode;
     this.email = editpndtForm.value.email;
-    this.selectedEditChc = editpndtForm.value.ddlChc;
-    this.selectedEditUserrole = editpndtForm.value.ddlUserRole;
-    this.selectedEditState = editpndtForm.value.ddlState;
-     this.selectedEditDistrict = editpndtForm.value.ddlDistrict;
-      this.selectedEditBlock = editpndtForm.value.ddlBlock;
+    // this.selectedEditChc = editpndtForm.value.ddlChc;
+    // this.selectedEditUserrole = editpndtForm.value.ddlUserRole;
+    // this.selectedEditState = editpndtForm.value.ddlState;
+    //  this.selectedEditDistrict = editpndtForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editpndtForm.value.ddlBlock;
     this.mobileNo = editpndtForm.value.mobileNo;
     this.comments = editpndtForm.value.Comments;
 
@@ -3805,13 +3803,13 @@ openEdithaematologist(edithaematologistDetail, subjectinfo) {
 editSubmithaematologist(edithaematologistForm: NgForm){
 
   console.log(edithaematologistForm.value);
-    this.userName = edithaematologistForm.value.userName;
+    // this.userName = edithaematologistForm.value.userName;
     this.firstName = edithaematologistForm.value.firstName;
     this.middleName = edithaematologistForm.value.middleName;
     this.lastName = edithaematologistForm.value.lastName;
-    this.userGovCode = edithaematologistForm.value.userGovCode;
+    // this.userGovCode = edithaematologistForm.value.userGovCode;
     this.email = edithaematologistForm.value.email;
-    this.selectedEditState = edithaematologistForm.value.ddlState;
+    // this.selectedEditState = edithaematologistForm.value.ddlState;
     this.mobileNo = edithaematologistForm.value.mobileNo;
     this.comments = edithaematologistForm.value.Comments;
 
@@ -3940,17 +3938,17 @@ openEditsupport(editsupportDetail, subjectinfo) {
 editSubmitsupport(editsupportForm: NgForm){
 
   console.log(editsupportForm.value);
-    this.userName = editsupportForm.value.userName;
+    // this.userName = editsupportForm.value.userName;
     this.firstName = editsupportForm.value.firstName;
     this.middleName = editsupportForm.value.middleName;
     this.lastName = editsupportForm.value.lastName;
-    this.userGovCode = editsupportForm.value.userGovCode;
+    // this.userGovCode = editsupportForm.value.userGovCode;
     this.email = editsupportForm.value.email;
-    this.selectedEditChc = editsupportForm.value.ddlChc;
-    this.selectedEditUserrole = editsupportForm.value.ddlUserRole;
-    this.selectedEditState = editsupportForm.value.ddlState;
-     this.selectedEditDistrict = editsupportForm.value.ddlDistrict;
-      this.selectedEditBlock = editsupportForm.value.ddlBlock;
+    // this.selectedEditChc = editsupportForm.value.ddlChc;
+    // this.selectedEditUserrole = editsupportForm.value.ddlUserRole;
+    // this.selectedEditState = editsupportForm.value.ddlState;
+    //  this.selectedEditDistrict = editsupportForm.value.ddlDistrict;
+    //   this.selectedEditBlock = editsupportForm.value.ddlBlock;
     this.mobileNo = editsupportForm.value.mobileNo;
     this.comments = editsupportForm.value.Comments;
 
@@ -3959,7 +3957,7 @@ editSubmitsupport(editsupportForm: NgForm){
     userTypeId:14,
     userRoleId:18,
     userGovCode:this.userGovCode,
-      userName:editsupportForm.value.userName,
+      userName:this.userName,
       password:'odisha',
       stateId: +(this.selectedEditState),
       centralLabId: 0,

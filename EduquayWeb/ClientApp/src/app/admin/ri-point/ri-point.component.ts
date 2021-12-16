@@ -466,7 +466,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pincode = sample.pincode;
       this.riName1 = sample.name;
       this.comments= sample.comments;
-      this.confirmationSelected = Boolean(sample.isActive);
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
  
       this.modalService.open(
         editRiPtDetail, {
@@ -565,7 +565,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         name: this.riName,
         ilrId:+ (this.selectedIlr), 
         pincode: this.pincode,
-        isActive:(this.confirmationSelected ==true) ,
+        isActive: this.confirmationSelected,
         comments: this.comments,
      
       };

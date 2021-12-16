@@ -277,7 +277,7 @@
                                               class="manto"> *</span></label>
                                               <select id="inputilrPoint" class="form-control"
                                               name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editsadminForm.submitted && ddlState.invalid"
-                                              required [(ngModel)]="selectedEditState">
+                                              required [(ngModel)]="selectedEditState" disabled= "ddlState">
                                                   <option value="">Select</option>
                                                   <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                       {{statedata.name}}
@@ -554,9 +554,9 @@
 
                                           <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
                                               class="manto"> *</span></label>
-                                              <select id="inputilrPoint" class="form-control"
+                                              <select id="inputilrPoint" class="form-control" disabled
                                               name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid"
-                                              required [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)">
+                                              required [(ngModel)]="selectedDistrict"  (change)="onChangeDistrict($event.target.value)">
                                                   <option value="">Select</option>
                                                   <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                       {{districtdata.name}}
@@ -786,7 +786,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editanmForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled= "ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -805,7 +805,7 @@
                                                  class="manto"> *</span></label>
                                                  <select id="inputilrPoint" class="form-control"
                                                  name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editanmForm.submitted && ddlDistrict.invalid"
-                                                 required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                                 required [(ngModel)]="selectedEditDistrict" disabled= "ddlDistrict" (change)="onChangeDistrict($event.target.value)">
                                                      <option value="">Select</option>
                                                      <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                          {{districtdata.name}}
@@ -823,8 +823,8 @@
                                            <label [ngClass]="{'label-border-class':ddlBlock.invalid && ddlBlock.touched || editanmForm.submitted && ddlBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
                                                class="manto"> *</span></label>
                                                <select id="inputilrPoint" class="form-control"
-                                               name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || editanmForm.submitted && ddlBlock.invalid"
-                                               required [(ngModel)]="selectedEditBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedEditDistrict === ''">
+                                               name="ddlBlock" #ddlBlock="ngModel"  [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || editanmForm.submitted && ddlBlock.invalid"
+                                               required [(ngModel)]="selectedEditBlock" disabled= "ddlBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedEditDistrict === ''">
                                                    <option value="">Select</option>
                                                    <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
                                                        {{blockdata.name}}
@@ -843,7 +843,7 @@
                                  class="manto"> *</span></label>
                                  <select id="inputilrPoint" class="form-control"
                                  name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || editanmForm.submitted && ddlChc.invalid"
-                                 required [(ngModel)]="selectedEditChc" (change)="onChangeChc($event.target.value)" [disabled]="!selectedEditBlock=== ''" >
+                                 required [(ngModel)]="selectedEditChc" disabled= "ddlChc" (change)="onChangeChc($event.target.value)" [disabled]="!selectedEditBlock=== ''" >
                                      <option value="">Select</option>
                                      <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                                          {{chcdata.name}}
@@ -862,7 +862,7 @@
                                  class="manto"> *</span></label>
                                  <select id="inputilrPoint" class="form-control"
                                  name="ddlPhc" #ddlPhc="ngModel" [class.is-invalid]="ddlPhc.invalid && ddlPhc.touched || editanmFormsubmitted && ddlPhc.invalid"
-                                 required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" [disabled]="!selectedEditChc=== ''" >
+                                 required [(ngModel)]="selectedEditPhc" disabled= "ddlPhc" (change)="onChangePhc($event.target.value)" [disabled]="!selectedEditChc=== ''" >
                                      <option value="">Select</option>
                                      <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
                                          {{phcdata.name}}
@@ -880,7 +880,7 @@
                              class="manto"> *</span></label>
                              <select id="inputilrPoint" class="form-control"
                              name="ddlSc" #ddlSc="ngModel" [class.is-invalid]="ddlSc.invalid && ddlSc.touched || editanmFormsubmitted && ddlSc.invalid"
-                             required [(ngModel)]="selectedEditSc" >
+                             required [(ngModel)]="selectedEditSc" disabled= "ddlSc" >
                                  <option value="">Select</option>
                                  <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
                                      {{scdata.name}}
@@ -1320,7 +1320,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editchcform.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled= "ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -1353,7 +1353,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editchcform.submitted && ddlDistrict.invalid"
-                                            required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                            required [(ngModel)]="selectedEditDistrict" disabled= "ddlDistrict" (change)="onChangeDistrict($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                     {{districtdata.name}}
@@ -1372,7 +1372,7 @@
                                           class="manto"> *</span></label>
                                           <select id="inputilrPoint" class="form-control"
                                           name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || editchcform.submitted && ddlBlock.invalid"
-                                          required [(ngModel)]="selectedEditBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedEditDistrict === ''">
+                                          required [(ngModel)]="selectedEditBlock" disabled= "ddlBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedEditDistrict === ''">
                                               <option value="">Select</option>
                                               <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
                                                   {{blockdata.name}}
@@ -1392,7 +1392,7 @@
                                       class="manto"> *</span></label>
                                       <select id="inputilrPoint" class="form-control"
                                       name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || editchcform.submitted && ddlChc.invalid"
-                                      required [(ngModel)]="selectedEditChc" (change)="onChangeChc($event.target.value)" [disabled]="!selectedEditBlock=== ''">
+                                      required [(ngModel)]="selectedEditChc" disabled= "ddlChc" (change)="onChangeChc($event.target.value)" [disabled]="!selectedEditBlock=== ''">
                                           <option value="">Select</option>
                                           <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                                               {{chcdata.name}}
@@ -1814,7 +1814,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || edithplcform.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled= "ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -1847,7 +1847,7 @@
                                           class="manto"> *</span></label>
                                           <select id="inputilrPoint" class="form-control"
                                           name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || edithplcform.submitted && ddlDistrict.invalid"
-                                          required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                          required [(ngModel)]="selectedEditDistrict" disabled= "ddlDistrict" (change)="onChangeDistrict($event.target.value)">
                                               <option value="">Select</option>
                                               <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                   {{districtdata.name}}
@@ -2227,7 +2227,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editpndtcForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -2616,7 +2616,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editmtpForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -3005,7 +3005,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editdcForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -3023,7 +3023,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editdcForm.submitted && ddlDistrict.invalid"
-                                            required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                            required [(ngModel)]="selectedEditDistrict" disabled="ddlDistrict" (change)="onChangeDistrict($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                     {{districtdata.name}}
@@ -3428,7 +3428,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editmolecularForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -3835,7 +3835,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editspcForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -3854,7 +3854,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editspcForm.submitted && ddlDistrict.invalid"
-                                            required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                            required [(ngModel)]="selectedEditDistrict" disabled="ddlDistrict" (change)="onChangeDistrict($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                     {{districtdata.name}}
@@ -4247,7 +4247,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editnhmForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -4267,7 +4267,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editnhmForm.submitted && ddlDistrict.invalid"
-                                            required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                            required [(ngModel)]="selectedEditDistrict" disabled="ddlDistrict" (change)="onChangeDistrict($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                     {{districtdata.name}}
@@ -4286,7 +4286,7 @@
                                           class="manto"> *</span></label>
                                           <select id="inputilrPoint" class="form-control"
                                           name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || editnhmForm.submitted && ddlBlock.invalid"
-                                          required [(ngModel)]="selectedEditBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedEditDistrict === ''">
+                                          required [(ngModel)]="selectedEditBlock" disabled="ddlBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedEditDistrict === ''">
                                               <option value="">Select</option>
                                               <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
                                                   {{blockdata.name}}
@@ -4674,7 +4674,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editpndtForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -5063,7 +5063,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || edithaematologistForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled= "ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
@@ -5448,7 +5448,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editsupportForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedEditState">
+                                            required [(ngModel)]="selectedEditState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}

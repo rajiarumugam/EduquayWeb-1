@@ -32,7 +32,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
     userTypelistErrorMessage: string;
     user: user;
 
-    confirmationSelected: string;
+    confirmationSelected: Boolean;
     userTypeListResponse: RetrieveUserTypeResponse;
     usertypeLists: UserTypes[];
     addUserTypeRequest: AddUserTypeRequest;
@@ -119,7 +119,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
 
     openAddUserType(adduserTypeDetail) {
 
-      this.confirmationSelected = "True";
+      this.confirmationSelected = Boolean("True");
       this.modalService.open(
         adduserTypeDetail, {
         centered: true,
@@ -136,7 +136,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
 
       this.usertypeNamedata = sample.userTypeName;
       this.commentsdata = sample.comments;
-      this.confirmationSelected = sample.isActive;
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
       this.modalService.open(
         editUsertypeDetail, {
@@ -158,7 +158,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
 
       this.addUserTypeRequest = {
         userTypeName: this.usertypeName,
-        isActive: this.confirmationSelected,
+        isActive: ""+this.confirmationSelected,
         comments: this.comments,
         createdBy: this.user.id,
         updatedBy: this.user.id
@@ -191,7 +191,7 @@ export class UserTypeComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editUsertypeForm: NgForm){
 
       console.log(editUsertypeForm.value);
-      this.usertypeNamedata = editUsertypeForm.value.usertypeNamedata;
+      // this.usertypeNamedata = editUsertypeForm.value.usertypeNamedata;
       this.commentsdata = editUsertypeForm.value.editComments;
 
       this.addUserTypeRequest = {
