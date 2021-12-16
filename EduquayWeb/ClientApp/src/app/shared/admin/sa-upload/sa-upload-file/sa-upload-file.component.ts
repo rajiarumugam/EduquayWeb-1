@@ -34,7 +34,8 @@ export class SAUploadComponent implements OnInit {
   selectedRevisedBarcode;
   barcodeValid = false;
   user;
-
+  validateData;
+  showValidationError = false;
 
   name = 'Angular';
   fileToUpload: any;
@@ -93,6 +94,7 @@ export class SAUploadComponent implements OnInit {
 
   uploadFiles()
   {
+    this.showValidationError = false;
     var _obj = {};
     const frmData = new FormData();
     for (var i = 0; i < this._imageArray.length; i++) { 
@@ -121,14 +123,21 @@ export class SAUploadComponent implements OnInit {
     this.errorCorrectionService.validateuploadSAFiles()
     .subscribe(response => {
       console.log(response);
-      Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Create', allowOutsideClick: false})
-      .then((result) => {
-        if (result.value) {
-          this.createBulkUpload();
-         // this.resetData();
-        }
-      });
-      
+      this.validateData = response.data;
+      if(response.status === 'true')
+      {
+          Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Create', allowOutsideClick: false})
+          .then((result) => {
+            if (result.value) {
+              this.createBulkUpload();
+            // this.resetData();
+            }
+          });
+      }
+      else{
+          this.showValidateData();
+          this.showValidationError = true;
+      }
     },
       (err: HttpErrorResponse) => {
         this.loaderService.display(false);
@@ -136,7 +145,10 @@ export class SAUploadComponent implements OnInit {
         //this.showResponseMessage(err.toString(), 'e');
       });
   }
+  showValidateData()
+  {
 
+  }
   createBulkUpload()
   {
     this.errorCorrectionService.createuploadSAFiles()
