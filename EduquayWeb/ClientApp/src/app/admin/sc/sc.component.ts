@@ -428,10 +428,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.commentsdata = editScForm.value.commentsdata;
       this.selectedEditPhc = editScForm.value.ddlEdPhc;
       this.selectedEditChc = editScForm.value.ddlEdChc;
-      this.scCodedata = editScForm.value.scCodedata;
+      // this.scCodedata = editScForm.value.scCodedata;
       this.scNamedata = editScForm.value.scNamedata;
       this.pincodeData = editScForm.value.pincodeData;
-      this.latitudedata = editScForm.value.latitudeData;
+      // this.latitudedata = editScForm.value.latitudeData;
+      this.hninId = editScForm.value.hninId
 
 
 
@@ -445,8 +446,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         pincode: this.pincodeData,
         scAddress: this.scAddress,
         isActive: this.confirmationSelected,
-        latitude: this.latitudedata,
-
+        // latitude: this.latitudedata,
         comments: this.commentsdata,
         userId: this.user.id
       };

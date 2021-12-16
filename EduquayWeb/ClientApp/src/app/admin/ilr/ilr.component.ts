@@ -309,7 +309,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedEditChc =sample.chcId; 
       this.commentsdata = sample.comments;
       this.ilrCode = sample.ilrCode;
-      this.confirmationSelected = Boolean(sample.isActive);
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
   
       this.modalService.open(
         editIlrDetail, {
