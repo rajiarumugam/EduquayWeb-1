@@ -59,7 +59,8 @@
                           <thead>
                             <tr>
                               <th><span>{{'SNo' | translate }}</span></th>
-                              <th><span>{{'RI Point Name' | translate }}</span></th>                           
+                              <th><span>{{'RI Point Name' | translate }}</span></th> 
+                              <th><span>{{'RI Code' | translate }}</span></th> 
                               <th><span>{{'CHC' | translate }}</span></th>
                               <th><span>{{'PHC' | translate }}</span></th>
                               <th><span>{{'SC ' | translate }}</span></th>
@@ -72,6 +73,7 @@
                             <tr *ngFor="let sample of riptlists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
                               <td class="sname text-left">{{sample.name}}</td>
+                              <td class="sname text-left">{{sample.riGovCode}}</td>
                               <td class="sid text-center">{{sample.chcName}}</td>
                               <td class="sid text-center">{{sample.phcName}}</td>
                               <td class="sid text-center">{{sample.scName}}</td>
@@ -127,7 +129,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || addRiPtForm.submitted && ddlChc.invalid"
-                                            required [(ngModel)]="selectedChc" (change)="onChangeChc($event.target.value)">
+                                            required [(ngModel)]="selectedChc"  (change)="onChangeChc($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                                                     {{chcdata.name}}
@@ -187,7 +189,7 @@
                               </div> -->
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!riName.valid && riName.touched || addRiPtForm.submitted && scName.invalid}">{{'RIPoint' | translate }} <span class="manto">*</span></label>
-                                <input class="form-control" name="riName" type="text" placeholder="RI Point" ngModel
+                                <input class="form-control" name="riName" type="text" placeholder="RI Point" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required 
                                 [class.is-invalid]="!riName.valid && riName.touched || addRiPtForm.submitted && riName.invalid"
                                  #riName="ngModel" required>
                                 <small class="text-danger ml-2" *ngIf="!riName.valid && riName.touched ">Enter RI Point</small>
@@ -392,7 +394,7 @@
                               </div> -->
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!riNamedata.valid && riNamedata.touched || editRiPtForm.submitted && riNamedata.invalid}">{{'RIPoint' | translate }} <span class="manto"></span></label>
-                                <input class="form-control" name="riNamedata" type="text" placeholder="RI Point"
+                                <input class="form-control" name="riNamedata" type="text" placeholder="RI Point" pattern="[a-zA-Z][a-zA-Z ]+" required 
                                 [class.is-invalid]="!riNamedata.valid && riNamedata.touched || editRiPtForm.submitted && riNamedata.invalid"
                                   required [(ngModel)]="riNamedata">
                                 <small class="text-danger ml-2" *ngIf="!riNamedata.valid && riNamedata.touched ">Enter RI Point</small>

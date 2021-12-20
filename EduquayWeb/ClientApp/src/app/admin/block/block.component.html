@@ -79,7 +79,6 @@
                               <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
             
-
                               <td class="text-center">
                                 <a class="" (click)="openEditBlock(editBlockDetail, sample)"
                                 role="button">
@@ -87,7 +86,6 @@
                                   </a>
                               </td>
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
@@ -130,26 +128,15 @@
                                   </div>
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid}">{{'Block Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel
+                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
                                     [class.is-invalid]="!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid"
                                      #blockname="ngModel" required>
                                     <small class="text-danger ml-2" *ngIf="!blockname.valid && blockname.touched ">Enter Block Name</small>
                                     <div *ngIf="addBlockForm.submitted && blockname.invalid">
                                       <small *ngIf="blockname.untouched" class=" ml-2 text-danger">Block Name is required</small>
                                     </div>
-
                               </div>
-
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addBlockForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
-                                    <div *ngIf="addBlockForm.submitted && StateCode.invalid">
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
-                                    </div>
-                                  </div> -->
+             
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Block Code' | translate }}<span class="manto"> *</span></label>
                                     <input class="form-control" name="blockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$" required
@@ -159,7 +146,6 @@
                                     <small *ngIf="blockCode.untouched" class=" ml-2 text-danger">Block Code is required</small>
                                     </div>
                                   </div>
-
 
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
@@ -171,7 +157,6 @@
                                         </label>
                                     </div>
                                   </div>
-
                                 </div>
 
                                 <div class="form-row mt-4">
@@ -190,7 +175,6 @@
                                 <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                               </div>
                             </form>
-
                           </div>
 
                        </ng-template>
@@ -211,31 +195,7 @@
                           <form class="text-left" (ngSubmit)="editBlockForm.form.valid && editSubmit(editBlockForm)" #editBlockForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                <!-- <div class="form-group col-md-3">
-                                      <label class="note">{{'State' | translate }} <span class="manto">*</span></label>
-                                      <input class="form-control" name="editdistrictname" type="text" placeholder="State Name" ngModel
-                                       #editdistrictname="ngModel" [(ngModel)]="statetnamedata">
-                                </div> -->
-
-                                <!-- <div class="form-group col-md-3">
-
-                                  <label [ngClass]="{'label-border-class':ddlEditDistrict.invalid && ddlEditDistrict.touched || editChcForm.submitted && ddlEditDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
-                                      class="manto"> </span></label>
-                                      <select id="inputilrPoint" class="form-control"
-                                      name="ddlEditDistrict" [class.is-invalid]="ddlEditDistrict.invalid && ddlEditDistrict.touched || editChcForm.submitted && ddlEditDistrict.invalid"
-                                      required [(ngModel)]="selectedEditDistrict"  [disabled]="disableddis" >
-                                          <option value="">Select</option>
-                                          <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                              {{districtdata.name}}
-                                          </option>
-                                      </select>
-                                        <small class=" ml-2 text-danger" *ngIf="ddlEditDistrict.invalid && ddlEditDistrict.touched ">Please choose a District</small>
-                                        <div *ngIf="editChcForm.submitted && ddlEditDistrict.invalid">
-                                          <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District is required</small>
-                                        </div>
-
-                            </div> -->
-
+                          
                                 <div class="form-group col-md-3">
                                     <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
                                     <select id="inputilrPoint" class="form-control"
@@ -250,16 +210,15 @@
                                 
                                 <div class="form-group col-md-3">
                                     <label class="note">{{'Block Name' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control " name="editBlockName" type="text" placeholder="Block Name"
+                                    <input class="form-control " name="editBlockName" type="text" placeholder="Block Name" pattern="[a-zA-Z][a-zA-Z ]+" required
                                       autocomplete="off" #editBlockName="ngModel" ngModel [(ngModel)]="blocknamedata">
                                   </div>
+
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Block Code' | translate }}<span class="manto"></span></label>
                                   <input class="form-control" name="editblockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$"
                                   #editblockCode="ngModel" [(ngModel)]="blockCodedata" disabled="editDistrictCode" >
-
                                 </div>
-
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
@@ -271,7 +230,6 @@
                                       </label>
                                   </div>
                                 </div>
-
                               </div>
 
                               <div class="form-row mt-4">

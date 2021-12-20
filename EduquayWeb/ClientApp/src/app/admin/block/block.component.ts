@@ -44,16 +44,11 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedDistrict: string;
     getstate: string;
     selectedEditDistrict: string;
-
-    districtGovCode: string;
-    stateName: string;
-
     districtName: string;
     isActive: string;
     comments: string;
     createdBy: number;
     updatedBy: number;
-    stateCode: string;
     blocknamedata: string;
     blockcodedata: string;
     districtnamedata: string;
@@ -111,7 +106,6 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.blockListResponse !== null){
           if(this.blockListResponse.data.length <= 0){
             this.blocklistErrorMessage = response.message;
-
           }
           else{
             this.blocklists = this.blockListResponse.data;
@@ -120,7 +114,6 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
             });
             //this.getstate = this.
             this.rerender();
-
           }
         }
         else{
@@ -147,25 +140,6 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.blocklistErrorMessage = err.toString();
-
-        });
-    }
-
-    ddlEditDistrict() {
-      
-      let district = this.BlockService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.data;
-          
-        }
-        else {
-          this.blocklistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.blocklistErrorMessage = err.toString();
-
         });
     }
 
@@ -182,20 +156,16 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-
     }
-
 
     openEditBlock(editBlockDetail, sample) {
 
       console.log(editBlockDetail.value);
-
       this.editBlockDetails = sample;
-      this.ddlEditDistrict();
+      this.ddlDistrict();
       this.selectedEditDistrict = sample.districtId;
       this.blocknamedata = sample.name;
       this.blockCodedata = sample.blockGovCode;
-      //this.selectedEditDistrict = sample.districtId;
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
@@ -208,7 +178,6 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-
     }
 
     onSubmit(addBlockForm: NgForm){
@@ -254,12 +223,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editDistrictForm: NgForm){
 
       console.log(editDistrictForm.value);
-      /*this.blocknamedata = editDistrictForm.value.editBlockName;
-      this.blockcodedata = editDistrictForm.value.editblockCode;
-      this.districtnamedata = editDistrictForm.value.editDistirctName;
-      this.commentsdata = editDistrictForm.value.editComments;
-      this.selectedEditDistrict = editDistrictForm.value.ddlEditDistrict;
-  */
+     
  console.log(this.blockCodedata);
      var _obj = {
         id:this.editBlockDetails.id,
@@ -270,8 +234,6 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         comments: this.commentsdata,
         userId: this.user.id
       };
-
-   ;
 
       let damagedsampleCollection = this.BlockService.updateBlock(_obj)
       .subscribe(response => {
@@ -303,7 +265,6 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-
             }
           }
         });

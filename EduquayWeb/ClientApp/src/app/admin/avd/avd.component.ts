@@ -24,7 +24,7 @@ import { AddAvdService } from 'src/app/shared/admin/add-avd/add-avd.service';
   templateUrl: './avd.component.html',
   styleUrls: ['./avd.component.css']
 })
-export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
+export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
@@ -91,8 +91,8 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     testingCHCResponse;
     testingCHCists;
 
-    constructor(
 
+    constructor(
       private ChcService: AddChcService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -105,7 +105,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     ) { }
 
     ngOnInit() {
-      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "CHC"}));
+      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "Avd"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = {
@@ -115,7 +115,7 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Avd information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any Block information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -172,8 +172,6 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
 
-
-
     ddlBlock(code) {
       this.selectedBlock = '';
       let district = this.ChcService.getBlocklist(code).subscribe(response => {
@@ -192,49 +190,6 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
         });
     }
-    ddlTestingCHC(code) {
-      this.selectedBlock = '';
-      let district = this.ChcService.gettestingCHC(code).subscribe(response => {
-        this.testingCHCResponse = response;
-        if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
-          this.testingCHCists = this.testingCHCResponse.data;
-
-
-        }
-        else {
-          this.avdlistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.avdlistErrorMessage = err.toString();
-
-        });
-    }
-
-    onChangeDistrict(event) {
-
-      if (this.selectedDistrict === '') {
-        this.selectedBlock = '';
-      }
-      else {
-        this.ddlBlock(this.selectedDistrict);
-        this.ddlTestingCHC(this.selectedDistrict);
-      }
-    }
-    onChangeEditDistrict(event) {
-
-      if (this.selectedEditDistrict === '') {
-        this.selectedEditBlock = '';
-      }
-      else {
-        // this.ddlEditBlock(this.selectedEditDistrict);
-      }
-    }
-
-    chcChange()
-    {
-      console.log(this.contactNo);
-    }
 
     openAddavd(addAvdDetail) {
       
@@ -251,8 +206,6 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
       });
 
     }
-
-  
     openEditAvd(editAvdDetail, sample) {
   
 
@@ -280,7 +233,6 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
       });
 
     }
-
     onSubmit(addAvdForm: NgForm){
 
       console.log(addAvdForm.value);
@@ -301,7 +253,6 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
 
       };
 
-      console.log(this.avdListRequest);
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
@@ -327,64 +278,59 @@ export class AVDComponent implements AfterViewInit, OnDestroy, OnInit {
       //swal ("Here's the title!", "...and here's the text!");
     }
 
+
     editSubmit(editAvdForm: NgForm){
-console.log(editAvdForm.value);               
-      this.commentsdata = editAvdForm.value.commentsdata;     
-      this.avdName = editAvdForm.value.avdName;
-      this.contactNo = editAvdForm.value.contactNo;
-           
-      this.avdListRequest = {
-        id:   this.tempeditid,
-        name: this.avdName,
-        contact:""+this.contactNo,
-        riId: "0",
-        comments: this.commentsdata,
-        isActive: this.confirmationSelected,
-        userId: this.user.id
+      console.log(editAvdForm.value);               
+            this.commentsdata = editAvdForm.value.commentsdata;     
+            this.avdName = editAvdForm.value.avdName;
+            this.contactNo = editAvdForm.value.contactNo;
+                 
+            this.avdListRequest = {
+              id:   this.tempeditid,
+              name: this.avdName,
+              contact:""+this.contactNo,
+              riId: "0",
+              comments: this.commentsdata,
+              isActive: this.confirmationSelected,
+              userId: this.user.id
+      
+            };
+            let damagedsampleCollection = this.Avdservice.updateAvd(this.avdListRequest)
+            .subscribe(response => {
+              this.addAvdResponse = response;
+              if(this.addAvdResponse !== null && this.addAvdResponse.status == 'true'){
+                this.showResponseMessage(this.addAvdResponse.message, 's')
+                 this.retrirveAvdlist();
+              }else{
+                this.showResponseMessage(this.addAvdResponse.message, 'e');
+                        this.avdlistErrorMessage = response.message;
+              }
+      
+            },
+            (err: HttpErrorResponse) => {
+              this.showResponseMessage(err.toString(), 'e');
+              this.avdlistErrorMessage = err.toString();
+            });
+            //swal ("Here's the title!", "...and here's the text!");
+          }
 
-      };
-      console.log(this.avdListRequest);
-
-      //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
-      // return false;
-
-      let damagedsampleCollection = this.Avdservice.updateAvd(this.avdListRequest)
-      .subscribe(response => {
-        this.addAvdResponse = response;
-        if(this.addAvdResponse !== null && this.addAvdResponse.status == 'true'){
-          this.showResponseMessage(this.addAvdResponse.message, 's')
-           this.retrirveAvdlist();
-        }else{
-          this.showResponseMessage(this.addAvdResponse.message, 'e');
-                  this.avdlistErrorMessage = response.message;
-        }
-
-      },
-      (err: HttpErrorResponse) => {
-        this.showResponseMessage(err.toString(), 'e');
-        this.avdlistErrorMessage = err.toString();
-      });
-      //swal ("Here's the title!", "...and here's the text!");
-    }
-
-    showResponseMessage(message: string, type: string){
-      var messageType = '';
-      if(type === 'e'){
-        Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
-      }
-      else{
-        Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
-        .then((result) => {
-          if (result.value) {
-            if(this.modalService.hasOpenModals){
-              this.modalService.dismissAll();
-
+          showResponseMessage(message: string, type: string){
+            var messageType = '';
+            if(type === 'e'){
+              Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+            }
+            else{
+              Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+              .then((result) => {
+                if (result.value) {
+                  if(this.modalService.hasOpenModals){
+                    this.modalService.dismissAll();
+      
+                  }
+                }
+              });
             }
           }
-        });
-      }
-    }
 
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -718,7 +718,7 @@
 
                                        <div class="form-group col-md-3">
                                           <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                          <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                           [class.is-invalid]="!email.valid && email.touched || addIlrForm.submitted && email.invalid"
                                            #email="ngModel" required>
                                           <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -966,7 +966,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editanmForm.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -1197,7 +1197,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!email.valid && email.touched || addIlrForm.submitted && email.invalid"
                                                  #email="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -1471,7 +1471,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editchcform.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -1696,7 +1696,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!email.valid && email.touched || addIlrForm.submitted && email.invalid"
                                                  #email="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -1924,7 +1924,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || edithplcform.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -2120,7 +2120,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -2305,7 +2305,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editpndtcForm.submitted && email.invalid"
                                                required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -2501,7 +2501,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -2692,7 +2692,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editmtpForm.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -2887,7 +2887,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -3099,7 +3099,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editdcForm.submitted && email.invalid"
                                              required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -3311,7 +3311,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -3521,7 +3521,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editmolecularForm.submitted && email.invalid"
                                                required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -3719,7 +3719,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -3932,7 +3932,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editspcForm.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -4128,7 +4128,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -4362,7 +4362,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editnhmForm.submitted && email.invalid"
                                                required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -4559,7 +4559,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -4751,7 +4751,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editpndtForm.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -4947,8 +4947,8 @@
 
 
                                              <div class="form-group col-md-3">
-                                                <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label> 
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -5140,7 +5140,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || edithaematologistForm.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
@@ -5334,7 +5334,7 @@
 
                                              <div class="form-group col-md-3">
                                                 <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel
+                                                <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
                                                  #ilrCode="ngModel" required>
                                                 <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Email</small>
@@ -5525,7 +5525,7 @@
 
                                            <div class="form-group col-md-3">
                                               <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email"
+                                              <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                               [class.is-invalid]="!email.valid && email.touched || editsupportForm.submitted && email.invalid"
                                                 required>
                                               <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>

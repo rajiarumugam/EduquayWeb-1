@@ -34,7 +34,6 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
 
     districtlistErrorMessage: string;
     user: user;
-
     confirmationSelected: boolean ;
     districtListResponse;
     districtlists: DistrictList[];
@@ -45,10 +44,8 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedState: string;
     getstate: string;
     selectedEditState: string;
-
     districtGovCode: string;
     stateName: string;
-
     districtName: string;
     isActive: string;
     comments: string;
@@ -60,7 +57,6 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     districtnamedata: string;
     commentsdata: string;
     selectedDistrictData;
-
 
     constructor(
       private DistrictService: AddDistrictService,
@@ -117,13 +113,11 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
               this.getstate = element.stateId;
             });
             this.rerender();
-
           }
         }
         else{
           this.districtlistErrorMessage = response.message;
         }
-
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -137,23 +131,6 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
           this.statelists = this.stateListResponse.data;
           this.selectedState = "";
-        }
-        else {
-          this.districtlistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.districtlistErrorMessage = err.toString();
-
-        });
-    }
-
-    editddlState() {
-      let district = this.DistrictService.getStateList().subscribe(response => {
-        this.stateListResponse = response;
-        if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
-          this.statelists = this.stateListResponse.data;
-          this.selectedState = this.getstate;
         }
         else {
           this.districtlistErrorMessage = response.message;
@@ -183,7 +160,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     openEditDistrict(editDistrictDetail, sample) {
 
       console.log(sample);
-      this.editddlState();
+      this.ddlState();
       this.selectedDistrictData = sample;
       this.districtnamedata = sample.name;
       this.districtcodedata = sample.districtGovCode;

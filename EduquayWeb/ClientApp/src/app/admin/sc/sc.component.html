@@ -170,7 +170,7 @@
                               </div>
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!scName.valid && scName.touched || addScForm.submitted && scName.invalid}">{{'SC Name' | translate }} <span class="manto">*</span></label>
-                                <input class="form-control" name="scName" type="text" placeholder="SC Name" ngModel
+                                <input class="form-control" name="scName" type="text" placeholder="SC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
                                 [class.is-invalid]="!scName.valid && scName.touched || addScForm.submitted && scName.invalid"
                                  #scName="ngModel" required>
                                 <small class="text-danger ml-2" *ngIf="!scName.valid && scName.touched ">Enter SC Name</small>
@@ -311,7 +311,7 @@
                               <div class="form-group col-md-3">
                                 <label class="note">{{'SC Name' | translate }} <span class="manto"></span></label>
                                 <input class="form-control" name="scNamedata" type="text" placeholder="SC Name"
-                                  required [(ngModel)]="scNamedata">
+                                  required [(ngModel)]="scNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
                                <!--<small class="text-danger ml-2" *ngIf="!scNamedata.valid && scNamedata.touched ">Enter SC Name</small>
                                 <div *ngIf="editScForm.submitted && scNamedata.invalid">
                                   <small *ngIf="scNamedata.untouched" class=" ml-2 text-danger">SC Name is required</small>

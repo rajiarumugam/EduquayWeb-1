@@ -84,8 +84,6 @@
                               <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
             
-
-
                               <td class="text-center">
                                 <a class="" (click)="openEditChc(editChcDetail, sample)"
                                 role="button">
@@ -93,7 +91,6 @@
                                   </a>
                               </td>
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
@@ -132,10 +129,9 @@
                                               <div *ngIf="addChcForm.submitted && ddlDistrict.invalid">
                                                 <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
                                               </div>
-
                                   </div>
-                                  <div class="form-group col-md-3">
 
+                                  <div class="form-group col-md-3">
                                     <label [ngClass]="{'label-border-class':ddlBlock.invalid && ddlBlock.touched || addChcForm.submitted && ddlBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
                                         class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
@@ -150,8 +146,8 @@
                                           <div *ngIf="addChcForm.submitted && ddlBlock.invalid">
                                             <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">Block is required</small>
                                           </div>
-
                               </div>
+
                               <div class="form-group col-md-3">
                                 <label class="note">{{'CHC Code' | translate }}<span class="manto"> *</span></label>
                                 <input class="form-control" name="chcCode" type="text" placeholder="CHC Code" ngModel pattern="^[a-zA-Z0-9]+$" required
@@ -161,16 +157,16 @@
                                 <small *ngIf="chcCode.untouched" class=" ml-2 text-danger">CHC Code is required</small>
                                 </div>
                               </div>
+
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!chcName.valid && chcName.touched || addChcForm.submitted && chcName.invalid}">{{'CHC Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="chcName" type="text" placeholder="CHC Name" ngModel
+                                    <input class="form-control" name="chcName" type="text" placeholder="CHC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
                                     [class.is-invalid]="!chcName.valid && chcName.touched || addChcForm.submitted && chcName.invalid"
                                      #chcName="ngModel" required (change)="chcChange();">
                                     <small class="text-danger ml-2" *ngIf="!chcName.valid && chcName.touched ">Enter CHC Name</small>
                                     <div *ngIf="addChcForm.submitted && chcName.invalid">
                                       <small *ngIf="chcName.untouched" class=" ml-2 text-danger">CHC Name is required</small>
                                     </div>
-
                               </div>
 
                               <div class="form-group col-md-3">
@@ -185,10 +181,9 @@
                               </div>
 
                               <div class="form-group col-md-3" *ngIf="!isTestingFacility">
-
                                 <label for="inputilrPoint">{{'testingCHC' | translate }}<span
                                     class="manto"> *</span></label>
-                                    <select id="inputilrPoint" class="form-control field"
+                                    <select id="inputilrPoint" class="form-control"
                                     name="testingCHCId"
                                     required [(ngModel)]="selectedtestingCHCId" (change)="onChangeDistrict($event.target.value)">
                                         <option value="">Select</option>
@@ -200,7 +195,6 @@
                                       <div *ngIf="addChcForm.submitted && testingCHCId.invalid">
                                         <small *ngIf="testingCHCId.untouched" class=" ml-2 text-danger">District is required</small>
                                       </div>  -->
-
                           </div>
 
                               <div class="form-group col-md-3">
@@ -208,33 +202,14 @@
                                 <input class="form-control field" name="hninId" type="text" placeholder="hnin Id"
                                   autocomplete="off" #hninId1="ngModel" ngModel >
                               </div>
-                              <!-- <div class="form-group col-md-3">
-                                <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
-                                <input class="form-control field" name="pincodeData" type="text" placeholder="Pincode"
-                                  autocomplete="off" #pincodeData="ngModel" ngModel >
-                              </div> -->
-
+                            
                               <div class="form-group col-md-3">
                                 <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
                                 <input class="form-control field " name="pincodeData" type="text" placeholder="pincode"
                                   autocomplete="off" #pincodeData="ngModel" ngModel oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                   maxlength = "6" numbersOnly>
                               </div>
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addChcForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
-                                    <div *ngIf="addChcForm.submitted && StateCode.invalid">
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
-                                    </div>
-                                  </div> -->
-
-
-
-
-
+                                
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                     <div class="n-chk">
@@ -245,7 +220,6 @@
                                         </label>
                                     </div>
                                   </div>
-
                                 </div>
 
                                 <div class="form-row mt-4">
@@ -264,7 +238,6 @@
                                 <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                               </div>
                             </form>
-
                           </div>
 
                        </ng-template>
@@ -281,46 +254,46 @@
                             </svg>
                           </button>
                         </div>
+
                         <div class="modal-body form-body">
                           <form class="text-left" (ngSubmit)="editSubmit(editChcForm)" #editChcForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
-                                  <div class="form-group col-md-3">
 
-                                        <label [ngClass]="{'label-border-class':ddlEditDistrict.invalid && ddlEditDistrict.touched || editChcForm.submitted && ddlEditDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                                  <div class="form-group col-md-3">
+                                        <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || editChcForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
                                             class="manto"> </span></label>
                                             <select id="inputilrPoint" class="form-control"
-                                            name="ddlEditDistrict" [class.is-invalid]="ddlEditDistrict.invalid && ddlEditDistrict.touched || editChcForm.submitted && ddlEditDistrict.invalid"
-                                            required [(ngModel)]="selectedEditDistrict" disabled='true' (change)="onChangeEditDistrict($event.target.value)">
+                                            name="ddlDistrict" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editChcForm.submitted && ddlDistrict.invalid"
+                                            required [(ngModel)]="selectedEditDistrict" disabled='true' (change)="onChangeDistrict($event.target.value)">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                     {{districtdata.name}}
                                                 </option>
                                             </select>
-                                              <small class=" ml-2 text-danger" *ngIf="ddlEditDistrict.invalid && ddlEditDistrict.touched ">Please choose a District</small>
-                                              <div *ngIf="editChcForm.submitted && ddlEditDistrict.invalid">
-                                                <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                              <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
+                                              <div *ngIf="editChcForm.submitted && ddlDistrict.invalid">
+                                                <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
                                               </div>
-
                                   </div>
-                                  <div class="form-group col-md-3">
 
-                                    <label [ngClass]="{'label-border-class':ddlEditBlock.invalid && ddlEditBlock.touched || editChcForm.submitted && ddlEditBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
+                                  <div class="form-group col-md-3">
+                                    <label [ngClass]="{'label-border-class':ddlBlock.invalid && ddlBlock.touched || editChcForm.submitted && ddlBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
                                         class="manto"> </span></label>
                                         <select id="inputilrPoint" class="form-control"
-                                        name="ddlEditBlock"  [class.is-invalid]="ddlEditBlock.invalid && ddlEditBlock.touched || editChcForm.submitted && ddlEditBlock.invalid"
+                                        name="ddlBlock"  [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || editChcForm.submitted && ddlBlock.invalid"
                                         required [(ngModel)]="selectedEditBlock" disabled='true'>
                                             <option value="">Select</option>
                                             <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
                                                 {{blockdata.name}}
                                             </option>
                                         </select>
-                                          <small class=" ml-2 text-danger" *ngIf="ddlEditBlock.invalid && ddlEditBlock.touched ">Please choose a Block</small>
-                                          <div *ngIf="editChcForm.submitted && ddlEditBlock.invalid">
-                                            <small *ngIf="ddlEditBlock.untouched" class=" ml-2 text-danger">Block is required</small>
+                                          <small class=" ml-2 text-danger" *ngIf="ddlBlock.invalid && ddlBlock.touched ">Please choose a Block</small>
+                                          <div *ngIf="editChcForm.submitted && ddlBlock.invalid">
+                                            <small *ngIf="ddlBlock.untouched" class=" ml-2 text-danger">Block is required</small>
                                           </div>
-
                               </div>
+
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!chcCodedata.valid && chcCodedata.touched || editChcForm.submitted && chcCodedata.invalid}">{{'CHC Code' | translate }} <span class="manto"></span></label>
                                 <input class="form-control" name="chcCodedata" type="text" placeholder="CHC Code"
@@ -330,17 +303,12 @@
                                 <div *ngIf="editChcForm.submitted && chcCodedata.invalid">
                                   <small *ngIf="chcCodedata.untouched" class=" ml-2 text-danger">CHC Code is required</small>
                                 </div>
-
                           </div>
+
                                   <div class="form-group col-md-3">
                                     <label class="note" >{{'CHC Name' | translate }} <span class="manto"></span></label>
-                                    <input class="form-control" name="chcNamedata" type="text" placeholder="CHC Name"
-                                      required [(ngModel)]="chcNamedata">
-                                    <!--<small class="text-danger ml-2" *ngIf="!chcNamedata.valid && chcNamedata.touched ">Enter CHC Name</small>
-                                    <div *ngIf="editChcForm.submitted && chcNamedata.invalid">
-                                      <small *ngIf="chcNamedata.untouched" class=" ml-2 text-danger">CHC Name is required</small>
-                                    </div> -->
-
+                                    <input class="form-control" name="chcNamedata" type="text" placeholder="CHC Name" pattern="[a-zA-Z][a-zA-Z ]+" required
+                                      required [(ngModel)]="chcNamedata">                               
                               </div>
 
                               <div class="form-group col-md-3">
@@ -355,7 +323,6 @@
                               </div>
 
                               <div class="form-group col-md-3" *ngIf="!isTestingFacility">
-
                                 <label for="inputilrPoint">{{'testingCHC' | translate }}<span
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
@@ -370,7 +337,6 @@
                                       <div *ngIf="addChcForm.submitted && testingCHCId.invalid">
                                         <small *ngIf="testingCHCId.untouched" class=" ml-2 text-danger">District is required</small>
                                       </div>  -->
-
                           </div>
 
                             
@@ -378,13 +344,7 @@
                             <label class="note">{{'hninId' | translate }}<span class="manto"></span></label>
                             <input class="form-control" name="hninId" type="text" placeholder="hnin Id"
                               autocomplete="off"  [(ngModel)]="hninId" >
-                          </div>
-
-                              <!-- <div class="form-group col-md-3">
-                                <label class="note" for="inputPincode" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }">{{'Pincode' | translate }}</label><span class="manto"> *</span>
-                                <input type="text" autocomplete="off"class="form-control" id="inputPincode" [(ngModel)]="selectedPincode" placeholder="Pincode" required formControlName = "pincode" [ngClass]="{'red-border-class': firstFormCheck && firstFormGroup.controls.pincode.invalid }" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                maxlength = "6" numbersOnly>
-                            </div> -->
+                          </div>                            
 
                             <div class="form-group col-md-3">
                               <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
@@ -392,19 +352,7 @@
                                 autocomplete="off" [(ngModel)]="pincodeData" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                 maxlength = "6" numbersOnly>
                             </div>
-
-
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addChcForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
-                                    <div *ngIf="addChcForm.submitted && StateCode.invalid">
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
-                                    </div>
-                                  </div> -->
-
+                              
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                     <div class="n-chk">
@@ -415,7 +363,6 @@
                                         </label>
                                     </div>
                                   </div>
-
                                 </div>
 
                                 <div class="form-row mt-4">
