@@ -156,7 +156,7 @@
                               </div>
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!phcName.valid && phcName.touched || addPhcForm.submitted && phcName.invalid}">{{'PHC Name' | translate }} <span class="manto">*</span></label>
-                                <input class="form-control" name="phcName" type="text" placeholder="PHC Name" ngModel
+                                <input class="form-control" name="phcName" type="text" placeholder="PHC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
                                 [class.is-invalid]="!phcName.valid && phcName.touched || addPhcForm.submitted && phcName.invalid"
                                  #phcName="ngModel" required>
                                 <small class="text-danger ml-2" *ngIf="!phcName.valid && phcName.touched ">Enter PHC Name</small> 
@@ -293,7 +293,7 @@
 
                               <div class="form-group col-md-3">
                                 <label class="note">{{'PHC Name' | translate }} <span class="manto"></span></label>
-                                <input class="form-control" name="phcNamedata" type="text" placeholder="PHC Name" 
+                                <input class="form-control" name="phcNamedata" type="text" placeholder="PHC Name" pattern="[a-zA-Z][a-zA-Z ]+" 
                                 
                                   required [(ngModel)]="phcNamedata">
                                 

@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { sample } from 'rxjs/operators';
 import { AddBlockResponse, BlockList } from 'src/app/shared/admin/add-block/add-block-response';
 import { AddChcRequest } from 'src/app/shared/admin/add-chc/add-chc-request';
 import { AddChcDataresponse, AddChcResponse, ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
@@ -34,7 +33,6 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
     chclistErrorMessage: string;
     user: user;
-
     confirmationSelected;
     chcListResponse;
     Editsample;
@@ -45,15 +43,11 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     districtlists: DistrictList[];
     blockListResponse;
     blocklists: BlockList[];
-
     selectedDistrict: string;
     getstate: string;
     selectedEditDistrict: string = '';
     hninId;
-
     districtGovCode: string;
-    stateName: string;
-
     districtName: string;
     isActive: string;
     comments: string;
@@ -70,25 +64,21 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedBlock: string = '';
     chcCode: string;
     chcName: string;
-    pincode: string;
-    latitude: string;
-
+    pincode: string;  
     testingchcId : string;
     centrallablid : string;
-
-    latitudedata: string;
     pincodeData: string;
     blockdata:string;
     block:string;
     chcNamedata: string;
     chcCodedata: string;
     selectedEditBlock: string = '';
-    isTestingFacility = true;
-    selectedtestingCHCId = '';
+    isTestingFacility = false;
+    selectedtestingCHCId: string = '';
     testingCHCResponse;
     testingCHCists;
     selectedEdittestingCHCId='';
-  editid: any;
+    editid: any;
 
     constructor(
 
@@ -139,7 +129,6 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         if(this.chcListResponse !== null){
           if(this.chcListResponse.data.length <= 0){
             this.chclistErrorMessage = response.message;
-
           }
           else{
             this.chclists = this.chcListResponse.data;
@@ -151,13 +140,11 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
             });
             //this.getstate = this.
             this.rerender();
-
           }
         }
         else{
           this.chclistErrorMessage = response.message;
         }
-
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -180,28 +167,9 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-
         });
     }
 
-    ddlEditDistrict() {
-      this.selectedDistrict = '';
-      let district = this.ChcService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.data;
-          this.selectedEditDistrict = this.Editsample.districtId;
-          this.onChangeEditDistrict(this.selectedEditDistrict);
-        }
-        else {
-          this.chclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.chclistErrorMessage = err.toString();
-
-        });
-    }
     ddlBlock(code) {
       this.selectedBlock = '';
       let district = this.ChcService.getBlocklist(code).subscribe(response => {
@@ -209,7 +177,6 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
           this.blocklists = this.blockListResponse.data;
           //  this.selectedBlock = "";
-
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -227,8 +194,6 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.testingCHCResponse = response;
         if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
           this.testingCHCists = this.testingCHCResponse.data;
-
-
         }
         else {
           this.chclistErrorMessage = response.message;
@@ -236,29 +201,9 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.chclistErrorMessage = err.toString();
-
         });
     }
 
-
-
-    ddlEditBlock(code) {
-      this.selectedBlock = '';
-      let district = this.ChcService.getBlocklist(code).subscribe(response => {
-        this.blockListResponse = response;
-        if (this.blockListResponse !== null && this.blockListResponse.status === "true") {
-          this.blocklists = this.blockListResponse.data;
-  
-        }
-        else {
-          this.chclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.chclistErrorMessage = err.toString();
-  
-        });
-    }
     onChangeDistrict(event) {
 
       if (this.selectedDistrict === '') {
@@ -269,21 +214,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         this.ddlTestingCHC(this.selectedDistrict);
       }
     }
-    onChangeEditDistrict(event) {
 
-      if (this.selectedEditDistrict === '') {
-        this.selectedEditBlock = '';
-      }
-      else {
-        this.ddlEditBlock(this.selectedEditDistrict);
-        this.ddlTestingCHC(this.selectedEditDistrict);
-      }
-    }
-
-    chcChange()
-    {
-      console.log(this.chcName);
-    }
     openAddChc(addChcDetail) {
 
       this.ddlDistrict();
@@ -298,11 +229,9 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-
     }
 
     openEditChc(editBlockDetail, sample) {
-console.log(editBlockDetail);
       console.log(sample);
       this.Editsample=sample;
       this.editid=sample.id
@@ -353,7 +282,8 @@ console.log(editBlockDetail);
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-      this.selectedtestingCHCId = addChcForm.value.testingCHCId;
+      // this.isTestingFacility=addChcForm.value.isTestingFacility;
+      this.selectedtestingCHCId = addChcForm.value.ddlTestingCHC;
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
 
@@ -364,7 +294,7 @@ console.log(editBlockDetail);
         chcGovCode: this.chcCode,
         name: this.chcName,
         isTestingFacility: this.isTestingFacility,
-        testingCHCId: +(this.selectedtestingCHCId),
+        testingCHCId: this.selectedtestingCHCId,
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,

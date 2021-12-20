@@ -425,8 +425,10 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
   
     openAddRiPt(addRiPtDetail) {
     this.isaddform=true;
+    this.selectedIlr="";
     this.selectedPhc="";
     this.selectedSc="";
+    this.pincode="";
     this.selectedChc="";
     this.selectedDistrict="";
     this.riName1=" ";

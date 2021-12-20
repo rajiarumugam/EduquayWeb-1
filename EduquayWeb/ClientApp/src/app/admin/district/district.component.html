@@ -128,7 +128,7 @@
                                     </div>
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!districtname.valid && districtname.touched || addDistrictForm.submitted && districtname.invalid}">{{'District Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="districtname" type="text" placeholder="District Name" ngModel
+                                    <input class="form-control" name="districtname" type="text" placeholder="District Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
                                     [class.is-invalid]="!districtname.valid && districtname.touched || addDistrictForm.submitted && districtname.invalid"
                                      #districtname="ngModel" required>
                                     <small class="text-danger ml-2" *ngIf="!districtname.valid && districtname.touched ">Enter District Name</small>
@@ -137,17 +137,7 @@
                                     </div>
 
                               </div>
-
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addDistrictForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
-                                    <div *ngIf="addDistrictForm.submitted && StateCode.invalid">
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
-                                    </div>
-                                  </div> -->
+                            
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'District Code' | translate }}<span class="manto"> *</span></label>
                                     <input class="form-control" name="districtCode" type="text" placeholder="District Code" ngModel pattern="^[a-zA-Z0-9]+$"
@@ -157,7 +147,6 @@
                                     <small *ngIf="districtCode.untouched" class=" ml-2 text-danger">District Code is required</small>
                                     </div>
                                   </div>
-
 
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
@@ -208,11 +197,7 @@
                           <form class="text-left" (ngSubmit)="editDistrictForm.form.valid && editSubmit(editDistrictForm)" #editDistrictForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                <!-- <div class="form-group col-md-3">
-                                      <label class="note">{{'State' | translate }} <span class="manto">*</span></label>
-                                      <input class="form-control" name="editStatename" type="text" placeholder="State Name" ngModel
-                                       #editStatename="ngModel" [(ngModel)]="statetnamedata">
-                                </div> -->
+                               
                                 <div class="form-group col-md-3">
                                     <label for="inputState">{{'State' | translate}} <span class="manto"></span></label>
                                     <select id="inputState" class="form-control" name=DDLstate #DDLstate="ngModel" ngModel
@@ -223,16 +208,16 @@
                                         </option>
                                     </select>
                                 </div>
+
                                 <div class="form-group col-md-3">
                                     <label class="note">{{'District Name' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control field" name="editDistrictName" type="text" placeholder="District Name"
-                                      autocomplete="off"  #editDistirctName="ngModel" ngModel [(ngModel)]="districtnamedata">
+                                    <input class="form-control field" name="editDistrictName" type="text" placeholder="District Name" 
+                                      autocomplete="off"  #editDistirctName="ngModel" ngModel [(ngModel)]="districtnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required >
                                   </div>
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'District Code' | translate }}<span class="manto"></span></label>
                                   <input class="form-control" name="editDistrictCode" type="text" placeholder="District Code" ngModel pattern="^[a-zA-Z0-9]+$"
                                   #editDistrictCode="ngModel" [(ngModel)]="districtcodedata" disabled="editDistrictCode" >
-
                                 </div>
 
 
@@ -246,7 +231,6 @@
                                       </label>
                                   </div>
                                 </div>
-
                               </div>
 
                               <div class="form-row mt-4">
@@ -265,7 +249,6 @@
                               <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                             </div>
                           </form>
-
                         </div>
 
                      </ng-template>
