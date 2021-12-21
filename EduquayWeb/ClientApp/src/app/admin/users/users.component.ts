@@ -1380,7 +1380,7 @@ console.log(id);
 
     console.log(addIlrForm.value);
 
-    this.userName = addIlrForm.value.Username;
+    // this.userName = addIlrForm.value.Username;
     this.firstName = addIlrForm.value.firstName;
     this.middleName = addIlrForm.value.middleName;
     this.lastName = addIlrForm.value.lastName;
@@ -1395,7 +1395,7 @@ console.log(id);
       userTypeId:1,
       userRoleId:1,
         userGovCode:this.userGovCode,
-        userName:this. userName,
+        userName:'Tobecreated',
         password:'odisha',
         stateId: +(this.selectedState),
         centralLabId: 0,
@@ -1452,7 +1452,7 @@ console.log(id);
       this.selectedPhc = addIlrForm.value.ddlPhc;
       this.selectedSc = addIlrForm.value.ddlSc;
       this.riId = addIlrForm.value.riId;
-      this.userName = addIlrForm.value.Username;
+      // this.userName = addIlrForm.value.Username;
       this.firstName = addIlrForm.value.firstName;
       this.middleName = addIlrForm.value.middleName;
       this.lastName = addIlrForm.value.lastName;
@@ -1468,7 +1468,7 @@ console.log(id);
         userTypeId:3,
         userRoleId:3,
           userGovCode:this.userGovCode,
-          userName:this.userName,
+          userName:'Tobecreated',
           password:'odisha',
           stateId:+(this.selectedState),
           centralLabId: 0,
@@ -1531,7 +1531,7 @@ console.log(id);
     this.selectedDistrict = addIlrForm.value.ddlDistrict;
     this.selectedBlock = addIlrForm.value.ddlBlock;
     this.selectedChc = addIlrForm.value.ddlChc;
-    this.userName = addIlrForm.value.Username;
+    // this.userName = addIlrForm.value.Username;
     this.firstName = addIlrForm.value.firstName;
     this.middleName = addIlrForm.value.middleName;
     this.lastName = addIlrForm.value.lastName;
@@ -1547,7 +1547,7 @@ console.log(id);
       userTypeId:4,
       userRoleId:+(this.selectedUserrole),
         userGovCode:this.userGovCode,
-        userName:this.userName,
+        userName:'Tobecreated',
         password:'odisha',
         stateId:+(this.selectedState),
         centralLabId: 0,
@@ -1609,7 +1609,7 @@ console.log(id);
   this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -1625,7 +1625,7 @@ console.log(addIlrForm);
     userTypeId:5,
     userRoleId:+(this.selectedUserrole),
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -1687,7 +1687,7 @@ onSubmitpndtc(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -1703,7 +1703,7 @@ console.log(addIlrForm);
     userTypeId:6,
     userRoleId:9,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -1765,7 +1765,7 @@ onSubmitmtp(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -1781,7 +1781,7 @@ console.log(addIlrForm);
     userTypeId:7,
     userRoleId:11,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -1843,7 +1843,7 @@ onSubmitdc(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -1859,7 +1859,7 @@ console.log(addIlrForm);
     userTypeId:8,
     userRoleId:12,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -1921,7 +1921,7 @@ onSubmitmolecular(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -1937,7 +1937,7 @@ console.log(addIlrForm);
     userTypeId:9,
     userRoleId:+(this.userRole),
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -1999,7 +1999,7 @@ onSubmitspc(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -2015,7 +2015,7 @@ console.log(addIlrForm);
     userTypeId:10,
     userRoleId:14,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -2077,7 +2077,7 @@ onSubmitnhm(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -2093,7 +2093,7 @@ console.log(addIlrForm);
     userTypeId:11,
     userRoleId:15,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -2155,7 +2155,7 @@ onSubmitpndt(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -2171,7 +2171,7 @@ console.log(addIlrForm);
     userTypeId:12,
     userRoleId:10,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
@@ -2233,7 +2233,7 @@ onSubmitsupport(addIlrForm: NgForm){
   // this.selectedUserrole = addIlrForm.value.ddlUserRole;
   this.selectedDistrict = addIlrForm.value.ddlDistrict;
   this.selectedBlock = addIlrForm.value.ddlBlock;
-  this.userName = addIlrForm.value.Username;
+  // this.userName = addIlrForm.value.Username;
   this.firstName = addIlrForm.value.firstName;
   this.middleName = addIlrForm.value.middleName;
   this.lastName = addIlrForm.value.lastName;
@@ -2249,7 +2249,7 @@ console.log(addIlrForm);
     userTypeId:14,
     userRoleId:18,
       userGovCode:this.userGovCode,
-      userName:this.userName,
+      userName:'Tobecreated',
       password:'odisha',
       stateId:+(this.selectedState),
       centralLabId: 0,
