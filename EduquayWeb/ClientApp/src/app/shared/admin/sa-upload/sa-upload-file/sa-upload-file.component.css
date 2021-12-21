@@ -312,3 +312,10 @@ vertical-align: middle;
     background-color: #04AA6D;
     color: white;
   }
+
+  .exportasxlsx
+{
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 20px
+}
