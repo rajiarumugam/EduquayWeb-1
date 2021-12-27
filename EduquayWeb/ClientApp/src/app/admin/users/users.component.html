@@ -57,9 +57,9 @@
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Sadmin' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
+                            <!-- <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
                                 <p>{{'Admin' | translate }}</p>
-                            </div>
+                            </div> -->
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
                                 <p>{{'ANM' | translate }}</p>
                             </div>
@@ -553,7 +553,7 @@
 
                                           <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
                                               class="manto"> *</span></label>
-                                              <select id="inputilrPoint" class="form-control" disabled
+                                              <select id="inputilrPoint" class="form-control" 
                                               name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid"
                                               required [(ngModel)]="selectedDistrict"  (change)="onChangeDistrict($event.target.value)">
                                                   <option value="">Select</option>
@@ -1064,7 +1064,7 @@
                                               required [(ngModel)]="selectedUserrole">
                                                   <option value="">Select</option>
                                                   <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                                                      {{Userrole.userRoleName}}
+                                                      {{Userrole.comments}
                                                   </option>
                                               </select>
                                                 <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>

@@ -74,6 +74,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chcCodedata: string;
     selectedEditBlock: string = '';
     isTestingFacility = false;
+    // isTestingFacility = true;
     selectedtestingCHCId: string = '';
     testingCHCResponse;
     testingCHCists;
@@ -237,7 +238,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.editid=sample.id
       this.getdistrict = sample.districtId;
       this.selectedEditDistrict =sample.districtId;
-      this.selectedEdittestingCHCId=sample.testingCHCId;
+      this.selectedtestingCHCId=sample.testingCHCId;
       this.ddlBlock(sample.districtId);
       this.selectedEditBlock =sample.blockId;
       this.ddlDistrict();
@@ -258,8 +259,8 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
       this.isTestingFacility = sample.isTestingFacility === 'True' ? true : false;
-    
-      console.log(this.selectedEditBlock);
+    console.log(this.isTestingFacility);
+
       this.modalService.open(
         editBlockDetail, {
         centered: true,
@@ -336,7 +337,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcNamedata = editChcForm.value.chcNamedata;
       this.isTestingFacility=editChcForm.value.isTestingFacility;
       this.pincodeData = editChcForm.value.pincodeData;
-      this.selectedEdittestingCHCId = editChcForm.value.testingCHCId;
+      this.selectedtestingCHCId = editChcForm.value.ddlTestingCHC;
       this.hninId = editChcForm.value.hninId;
       
       this.chcListRequest = {
@@ -347,7 +348,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         chcGovCode: this.chcCodedata,
         name: this.chcNamedata,
         isTestingFacility:this.isTestingFacility,
-        testingCHCId: +(this.selectedEdittestingCHCId),
+        testingCHCId: this.selectedtestingCHCId,
         centralLabId: +this.centrallablid,
         pincode: this.pincodeData,
         isActive: this.confirmationSelected==1?"true":"false",

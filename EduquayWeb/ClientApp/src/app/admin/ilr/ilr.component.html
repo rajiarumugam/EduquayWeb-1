@@ -220,7 +220,7 @@
                                           
                                   <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || editIlrForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
                                       class="manto"> *</span></label>
-                                      <select id="inputilrPoint" class="form-control"
+                                      <select id="inputilrPoint" class="form-control" disabled="selectedEditDistrict"
                                       name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editIlrForm.submitted && ddlDistrict.invalid"
                                       required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
                                           <option value="">Select</option>
@@ -267,7 +267,7 @@
             
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Ilr code' | translate }} <span class="manto"> *</span></label>
-                                  <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code"
+                                  <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code" disabled="ilrCode"
                                     [class.is-invalid]="!ilrCode.valid && ilrCode.touched || editIlrForm.submitted && ilrCode.invalid"
                                     required [(ngModel)]="ilrCode" disabled="ilrCode">
                                   <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Ilr code</small>

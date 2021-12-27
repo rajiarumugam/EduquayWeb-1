@@ -20,3 +20,17 @@ export interface AddAvdDataresponse {
     status: string;
     message: string;
 }
+
+export class AddRibyAvdResponse {
+    status: string;
+    message: string;
+    ri: scbyanmList[]; 
+}
+
+export interface scbyanmList {
+   
+       id : number;
+       riSite : string;
+       riGovCode :string;
+    
+}

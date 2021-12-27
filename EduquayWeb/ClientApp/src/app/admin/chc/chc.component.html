@@ -333,7 +333,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="testingCHCId"
-                                    required [(ngModel)]="selectedEdittestingCHCId" (change)="onChangeDistrict($event.target.value)">
+                                    required [(ngModel)]="selectedtestingCHCId" (change)="onChangeDistrict($event.target.value)">
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of testingCHCists" [(value)]="districtdata.id">
                                             {{districtdata.name}}

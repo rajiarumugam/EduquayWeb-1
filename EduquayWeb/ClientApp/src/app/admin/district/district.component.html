@@ -60,10 +60,10 @@
                         <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                           <thead>
                             <tr>
-                              <th><span>{{'SNo' | translate }}</span></th>
-                              <th><span>{{'State' | translate }}</span></th>
+                              <th><span>{{'SNo' | translate }}</span></th>                             
                               <th><span>{{'District Name' | translate }}</span></th> 
-                              <th><span>{{'District Code' | translate }}</span></th>                                                       
+                              <th><span>{{'District Code' | translate }}</span></th>  
+                              <th><span>{{'State' | translate }}</span></th>                                                     
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -71,10 +71,10 @@
                           </thead>
                           <tbody>
                             <tr *ngFor="let sample of districtlists; index as i">
-                              <td class="sno text-center">{{i +1}}</td>
-                              <td class="sid text-center">{{sample.stateName}}</td>
+                              <td class="sno text-center">{{i +1}}</td>                          
                               <td class="sid text-center">{{sample.name}}</td>
-                              <td class="sname text-left">{{sample.districtGovCode}}</td>                                                          
+                              <td class="sname text-left">{{sample.districtGovCode}}</td>
+                              <td class="sid text-center">{{sample.stateName}}</td>                                                          
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>

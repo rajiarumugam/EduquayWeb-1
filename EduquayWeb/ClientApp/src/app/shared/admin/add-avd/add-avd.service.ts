@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
-
+import { AddRibyAvdResponse } from './add-avd-response';
 import { AddAvdRequest } from './add-avd-request';
 import { AddAvdResponse, AddAvdDataresponse } from './add-avd-response';
 
@@ -22,6 +22,7 @@ export class AddAvdService {
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
   updateAvdApi: string = "api/v1/AVD/UpdateAVD";
+  RetrieveRIByAVD: string = "api/v1/WebMaster/RetrieveRIByAVD/";
 
   constructor(
     private httpClient: HttpClient,
@@ -46,6 +47,10 @@ export class AddAvdService {
     return this.http.post<AddAvdDataresponse>({url: apiUrl, body: avdadd});
   }
 
+  getriviewavd(AVDId){
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveRIByAVD}${AVDId}`);
+    return this.http.get<AddRibyAvdResponse>({url: apiUrl });
+  }
   
   
 }

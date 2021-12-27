@@ -40,21 +40,12 @@ export interface AddRiPtDataresponse {
 export interface IlrResponse {
     status: string;
     message: string;
-    ilrDetails: IlrList[];
+    data: IlrList[];
 }
 
 export interface IlrList {
     id: number;
-    ilrPoint: string;
-    ilrCode: string;
-    chcId: number;
-    createdBy: number;
-    updatedBy: number;
-    comments: string;
-    isActive: string;
-    chcName:string;
-  
-   
+    name: string;
     
 }
 
