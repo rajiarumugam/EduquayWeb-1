@@ -249,7 +249,7 @@
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
                                   <div class="form-group col-md-3">
-                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                    <label for="inputState">{{'District' | translate}} <span class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control" disabled
                                     name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" >
                                         <option value="">Select</option>
@@ -262,7 +262,7 @@
                             
                                     <div class="form-group col-md-3">
                                         <label [ngClass]="{'label-border-class':ddlEditChc.invalid && ddlEditChc.touched ||editScForm.submitted && ddlEditChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
-                                            class="manto"> </span></label>
+                                            class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control" disabled
                                             name="ddlEditChc" #ddlEditChc="ngModel" [class.is-invalid]="ddlEditChc.invalid && ddlEditChc.touched ||editScForm.submitted && ddlEditChc.invalid"
                                             required [(ngModel)]="selectedEditChc" (change)="onChangeEditChc($event.target.value)">
@@ -280,8 +280,8 @@
 
                                   <div class="form-group col-md-3">
 
-                                    <label [ngClass]="{'label-border-class':ddlEditPhc.invalid && ddlEditPhc.touched ||editScForm.submitted && ddlEditPhc.invalid}" for="inputilrPoint">{{'PHC' | translate }}<span
-                                        class="manto"> </span></label>
+                                    <label [ngClass]="{'label-border-class':ddlEditPhc.invalid && ddlEditPhc.touched ||editScForm.submitted && ddlEditPhc.invalid}" for="inputilrPoint">{{'PHC' | translate }} <span
+                                        class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
                                         name="ddlEditPhc" #ddlEditPhc="ngModel" [class.is-invalid]="ddlEditPhc.invalid && ddlEditPhc.touched ||editScForm.submitted && ddlEditPhc.invalid"
                                         required [(ngModel)]="selectedEditPhc" [disabled]='true'>
@@ -298,23 +298,23 @@
                                           <input type="hidden" [(ngModel)]="selectedEditPhc" name="ddlEdPhc" #ddlEdPhc="ngModel"/>
                               </div>
                                   <div class="form-group col-md-3">
-                                    <label class="note" [ngClass]="{'label-border-class':!scCodedata.valid && scCodedata.touched || editScForm.submitted && scCodedata.invalid}">{{'SC Code' | translate }} <span class="manto"></span></label>
-                                    <input class="form-control" name="scCodedata" type="text" placeholder="SC Code"
+                                    <label class="note" [ngClass]="{'label-border-class':!scCodedata.valid && scCodedata.touched || editScForm.submitted && scCodedata.invalid}">{{'SC Code' | translate }} <span class="manto"> *</span></label>
+                                    <input class="form-control" name="scCodedata" type="text" placeholder="SC Code"  #scCodedata1="ngModel"
                                     [class.is-invalid]="!scCodedata.valid && scCodedata.touched || editScForm.submitted && scCodedata.invalid"
                                       required [(ngModel)]="scCodedata" disabled="scCodedata"  >
-                                    <small class="text-danger ml-2" *ngIf="!scCodedata.valid && scCodedata.touched ">Enter SC Code</small>
+                                    <small class="text-danger ml-2" *ngIf="!scCodedata1.valid && scCodedata.touched ">Enter SC Code</small>
                                     <div *ngIf="editScForm.submitted && scCodedata.invalid">
                                       <small *ngIf="scCodedata.untouched" class=" ml-2 text-danger">SC Code is required</small>
                                     </div>
 
                               </div>
                               <div class="form-group col-md-3">
-                                <label class="note">{{'SC Name' | translate }} <span class="manto"></span></label>
+                                <label class="note">{{'SC Name' | translate }} <span class="manto"> *</span></label>
                                 <input class="form-control" name="scNamedata" type="text" placeholder="SC Name"
-                                  required [(ngModel)]="scNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                               <!--<small class="text-danger ml-2" *ngIf="!scNamedata.valid && scNamedata.touched ">Enter SC Name</small>
-                                <div *ngIf="editScForm.submitted && scNamedata.invalid">
-                                  <small *ngIf="scNamedata.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                #scNamedata1="ngModel"  required [(ngModel)]="scNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                <small class="text-danger ml-2" *ngIf="!scNamedata1.valid && scNamedata1.touched ">Enter SC Name</small>
+                                <!-- <div *ngIf="addScForm.submitted && scName.invalid">
+                                  <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
                                 </div> -->
 
                           </div>

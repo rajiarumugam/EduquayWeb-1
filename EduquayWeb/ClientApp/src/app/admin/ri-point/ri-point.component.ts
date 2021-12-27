@@ -86,11 +86,13 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     riName: string;
     pincode: string;
     tempeditid:number;
-  
+    testingCHCResponse;
+    tcbydisList;
+    selectedEdittestingCHCId='';
     testingchcId : string;
     centrallablid : string;
-    
-    
+  
+    selectedtestingCHCId: string = '';
     pincodeData: string;
     chcNamedata: string;
     chcCodedata: string;
@@ -160,7 +162,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
             this.riptlists.forEach(element => {
               this.getchc = '' +(element.chcId);
               this.getphc = '' +(element.phcId);
-              this.getsc = '' +(element.scId)
+              this.testingchcId =  "" +(element.testingCHCId);
+              this.getsc = '' +(element.scId);
             });
             //this.getstate = this.
             this.rerender();
@@ -181,6 +184,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     districtChange()
     {
           console.log(this.selectedDistrict);
+          this.ddlTestingCHC(this.selectedDistrict);
 
           this.selectedChc = '';
       let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
@@ -345,6 +349,24 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
   
         });
     }
+    ddlTestingCHC(code) {
+      console.log("abc");
+      this.selectedtestingCHCId = '';
+      let district = this.RiPtService.gettestingCHC(code).subscribe(response => {
+        this.testingCHCResponse = response;
+        if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
+          this.tcbydisList = this.testingCHCResponse.data;
+         
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+        });
+    }
+
     ddlSc(code) {
       this.selectedPhc = '';
       let district = this.RiPtService.getScList(code).subscribe(response => {
@@ -394,6 +416,17 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         this.ddlPhc(this.selectedChc);
       }
     }
+    onChangetesting(event) {
+
+      if (this.selectedDistrict === '') {
+        this.selectedtestingCHCId = '';
+      }
+      else {
+        this.ddlTestingCHC(this.selectedDistrict);
+      }
+    }
+    
+
     onChangeEditChc(event) {
   
       if (this.selectedEditChc === '') {
@@ -426,6 +459,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddRiPt(addRiPtDetail) {
     this.isaddform=true;
     this.selectedIlr="";
+    this.selectedtestingCHCId="";
     this.selectedPhc="";
     this.selectedSc="";
     this.pincode="";
@@ -433,6 +467,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     this.selectedDistrict="";
     this.riName1=" ";
       this.ddlIlr();
+     
+      
       // console.log(this.ddlState);
       this.disabledChc = false;
       this.confirmationSelected = Boolean("True");
@@ -457,6 +493,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.ddlEditDistrict();
       this.selectedDistrict = sample.districtId;
       this.ddlChc();
+      this.ddlTestingCHC(sample.districtId);
+      this.selectedtestingCHCId= sample.testingCHCId;
       this.selectedChc =sample.chcId;
       this.ddlEdtiPhc(sample.chcId);
       this.selectedPhc =sample.phcId;
@@ -501,13 +539,15 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedChc = addRiPtForm.value.ddlChc;
       this.selectedPhc = addRiPtForm.value.ddlPhc;
       this.selectedSc = addRiPtForm.value.ddlSc;
+      this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
       this.riCode = addRiPtForm.value.riCode;
       this.riName = addRiPtForm.value.riName;
       this.pincode = addRiPtForm.value.pincode;
      
   
       this.riptListRequest = {
-        testingCHCId: 0,
+        
+        testingCHCId:+(this.selectedtestingCHCId) ,       
         chcId: +(this.selectedChc),
         phcId: +(this.selectedPhc),
         scId: +(this.selectedSc),
@@ -552,6 +592,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.comments = addRiPtForm.value.Comments;
       this.selectedChc = addRiPtForm.value.ddlChc;
       this.selectedPhc = addRiPtForm.value.ddlPhc;
+      this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
       this.selectedSc = addRiPtForm.value.ddlSc;
       this.riCode = addRiPtForm.value.riCode;
       this.riName = addRiPtForm.value.riName;
@@ -559,7 +600,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.riptListRequest2 = {
         id:this.tempeditid,
         userId: this.user.id,
-        testingCHCId: 1,
+        testingCHCId: +(this.selectedtestingCHCId),
         chcId: +(this.selectedChc),
         phcId: +(this.selectedPhc),
         scId: +(this.selectedSc),
@@ -633,4 +674,6 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   
   }
+
+
 

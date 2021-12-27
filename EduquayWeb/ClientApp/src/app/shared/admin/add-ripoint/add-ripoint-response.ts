@@ -63,3 +63,13 @@ export interface AddIlrResponse {
     message: "string",
     ilrDetails: IlrList[];
 }
+
+export class AddtestingchcbydistrictResponse {
+    status: string;
+    message: string;
+    data: tcbydisList[];
+}
+export interface tcbydisList {
+    id: number;
+    name: string;  
+}

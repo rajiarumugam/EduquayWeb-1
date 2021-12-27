@@ -134,7 +134,7 @@
                                     </div>
                                   </div> -->
                                   <div class="form-group col-md-3">
-                                    <label class="note" [ngClass]="{'label-border-class':!StateCode.valid && StateCode.touched || addStateForm.submitted && StateCode.invalid}">{{'State Code' | translate }} <span class="manto">*</span></label>
+                                    <label class="note" [ngClass]="{'label-border-class':!StateCode.valid && StateCode.touched || addStateForm.submitted && StateCode.invalid}">{{'State Code' | translate }} <span class="manto"> *</span></label>
                                     <input class="form-control" name="StateCode" type="text" placeholder="State code" ngModel  
                                     [class.is-invalid]="!StateCode.valid && StateCode.touched || addStateForm.submitted && StateCode.invalid"
                                      #StateCode="ngModel" required>
@@ -205,12 +205,23 @@
                           <form class="text-left" (ngSubmit)="editStateForm.form.valid && editSubmit(editStateForm)" #editStateForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                <div class="form-group col-md-3">
-                                      <label class="note">{{'State Name' | translate }} <span class="manto">*</span></label>
+                                <!-- <div class="form-group col-md-3">
+                                      <label class="note">{{'State Name' | translate }} <span class="manto"> *</span></label>
                                       <input class="form-control" name="editStatename" type="text" placeholder="State Name" 
                                        #editStatename="ngModel" [(ngModel)]="statetnamedata">
 
-                                </div>
+                                </div> -->
+
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'State Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="editStatename" type="text" placeholder="State Name"
+                                  #editStatename1="ngModel"  required [(ngModel)]="statetnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                  <small class="text-danger ml-2" *ngIf="!editStatename1.valid && editStatename1.touched ">Enter State Name</small>
+                                  <!-- <div *ngIf="addScForm.submitted && scName.invalid">
+                                    <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                  </div> -->
+  
+                            </div>
 
                                 <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
@@ -223,7 +234,7 @@
                                   </div>
                                 </div> -->
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'State Code' | translate }}<span class="manto"></span></label>
+                                  <label class="note">{{'State Code' | translate }}<span class="manto"> *</span></label>
                                   <input class="form-control" name="editStateCode" type="text" placeholder="State Code" ngModel pattern="^[a-zA-Z0-9]+$"
                                   #editStateCode="ngModel" [(ngModel)]="statetcodedata" disabled="editStateCode" >
 

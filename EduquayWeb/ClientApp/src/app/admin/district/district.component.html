@@ -96,7 +96,7 @@
                     <!-- The Modal -->
                     <ng-template #addDistrictDetail let-modal>
                           <div class="modal-header">
-                            <h4 class="modal-title modaltitle">{{'AddDistrict' | translate }}</h4>
+                            <h4 class="modal-title modaltitle">{{'Add District' | translate }}</h4>
                             <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -199,7 +199,7 @@
                               <div class="form-row">
                                
                                 <div class="form-group col-md-3">
-                                    <label for="inputState">{{'State' | translate}} <span class="manto"></span></label>
+                                    <label for="inputState">{{'State' | translate}} <span class="manto"></span> *</label>
                                     <select id="inputState" class="form-control" name=DDLstate #DDLstate="ngModel" ngModel
                                      [(ngModel)]="selectedEditState" disabled='true'>
                                         <option value="">Select</option>
@@ -210,12 +210,18 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                    <label class="note">{{'District Name' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control field" name="editDistrictName" type="text" placeholder="District Name" 
-                                      autocomplete="off"  #editDistirctName="ngModel" ngModel [(ngModel)]="districtnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required >
-                                  </div>
+                                  <label class="note">{{'District Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="editDistrictName" type="text" placeholder="District Name"
+                                  #editDistrictName1="ngModel"  required [(ngModel)]="districtnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                  <small class="text-danger ml-2" *ngIf="!editDistrictName1.valid && editDistrictName1.touched ">Enter District Name</small>
+                                  <!-- <div *ngIf="addScForm.submitted && scName.invalid">
+                                    <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                  </div> -->
+  
+                            </div>
+          
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'District Code' | translate }}<span class="manto"></span></label>
+                                  <label class="note">{{'District Code' | translate }}<span class="manto"> *</span></label>
                                   <input class="form-control" name="editDistrictCode" type="text" placeholder="District Code" ngModel pattern="^[a-zA-Z0-9]+$"
                                   #editDistrictCode="ngModel" [(ngModel)]="districtcodedata" disabled="editDistrictCode" >
                                 </div>
