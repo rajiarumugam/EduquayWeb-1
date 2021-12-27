@@ -10,6 +10,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import Swal from 'sweetalert2';
 import { TokenService } from './../../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { ExcelService } from 'src/app/shared/excel.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-sa-upload-file',
@@ -40,8 +42,11 @@ export class SAUploadComponent implements OnInit {
   name = 'Angular';
   fileToUpload: any;
   imageUrl: any;
+  fileName: string = 'SheetJS.xlsx';
 
   _imageArray = [];
+
+  data;
 
   constructor(
     zone: NgZone,
@@ -50,7 +55,8 @@ export class SAUploadComponent implements OnInit {
     private errorCorrectionService: errorCorrectionService,
     private _formBuilder: FormBuilder,
     private tokenService: TokenService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private excelService:ExcelService
     ) { }
 
   ngOnInit() {
@@ -102,7 +108,6 @@ export class SAUploadComponent implements OnInit {
     }
     this.errorCorrectionService.uploadSAFiles(frmData)
     .subscribe(response => {
-      console.log(response);
       Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Validate', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
@@ -122,7 +127,6 @@ export class SAUploadComponent implements OnInit {
   {
     this.errorCorrectionService.validateuploadSAFiles()
     .subscribe(response => {
-      console.log(response);
       this.validateData = response.data;
       if(response.status === 'true')
       {
@@ -153,7 +157,6 @@ export class SAUploadComponent implements OnInit {
   {
     this.errorCorrectionService.createuploadSAFiles()
     .subscribe(response => {
-      console.log(response);
       Swal.fire({icon:'success', title: response.msg, confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
@@ -178,8 +181,31 @@ export class SAUploadComponent implements OnInit {
     console.log(i);
     this._imageArray.splice(i, 1);
   }
+  exportAsXLSX()
+  {
+    this.data = [["ANM Code Error", this.validateData.anmCodeError], 
+    ["ANM Error count", this.validateData.anmError],
+    ["Block Code Error",this.validateData.blockCodeError],
+    ["Block Error Count",this.validateData.blockError],
+    ["CHC Code Error",this.validateData.chcCodeError],
+    ["CHC Error Count",this.validateData.chcError],
+    ["District Code Error",this.validateData.districtCodeError],
+    ["District Error Code",this.validateData.districtError],
+    ["PHC Code Error",this.validateData.phcCodeError],
+    ["PHC Error Count",this.validateData.phcError],
+    ["SC Code Error",this.validateData.scCodeError],
+    ["SC Error Count",this.validateData.scError]];
+      //this.excelService.exportAsExcelFile(this.data, 'sample');
+      const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+
+      /* generate workbook and add the worksheet */
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+      /* save to file */
+      XLSX.writeFile(wb, this.fileName);
+  }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
-      
     }
 }
