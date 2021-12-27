@@ -7,6 +7,8 @@ import { AddChcResponse } from '../add-chc/add-chc-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
 import { AddScResponse } from '../add-sc/add-sc-response';
 import { IlrResponse } from './add-ripoint-response';
+import { AddtestingchcbydistrictResponse } from './add-ripoint-response';
+import { AddBlockResponse } from '../add-block/add-block-response';
 import { AddRipointRequest } from './add-ripoint-request';
 import { AddRipointResponse, AddRiPtDataresponse } from './add-ripoint-response';
 import { AddchcbydistrictResponse } from '../add-chc/add-chc-response';
@@ -22,6 +24,7 @@ export class AddRipointService {
   addRiPtApi: string = "api/v1/RI/Add";
   updateRiPtApi: string = "api/v1/SA/UpdateRISite";
   retrieveChcApi: string = "api/v1/CHC/Retrieve";
+  RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
   retrieveILrApi: string = "api/v1/ILR/Retrieve";
@@ -85,6 +88,12 @@ export class AddRipointService {
     console.log(id,'cll');
     let apiUrl = this.genericService.buildApiUrl(this.RetrieveCHCbyDistrict+id);
     return this.http.get<any>({url: apiUrl});
+  }
+  gettestingCHC(code){
+    //var user = JSON.parse(this.tokenService.getUser('lu'));
+    //this.userId = user.id;
+    let apiUrl = this.genericService.buildApiUrl(this.RetrieveTestingCHCByDistrict+code);
+    return this.http.get<AddtestingchcbydistrictResponse>({url: apiUrl });
   }
 
 }

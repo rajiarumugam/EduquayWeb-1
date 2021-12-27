@@ -172,7 +172,7 @@
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <label class="note" [ngClass]="{'label-border-class':!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid}">{{'User Type Name' | translate }} <span class="manto"> </span></label>
+                                    <label class="note" [ngClass]="{'label-border-class':!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid}">{{'User Type Name' | translate }} <span class="manto"> *</span></label>
                                     <input class="form-control" name="usertypeNamedata" type="text" placeholder="Government Id Type Name"
                                     [class.is-invalid]="!usertypeNamedata.valid && usertypeNamedata.touched || editUsertypeForm.submitted && usertypeNamedata.invalid"
                                      [(ngModel)]="usertypeNamedata" disabled="usertypeNamedata" required>

@@ -237,7 +237,7 @@
 
                                   <div class="form-group col-md-3">        
                                     <label [ngClass]="{'label-border-class':ddlChc.invalid && ddlChc.touched ||editIlrForm.submitted && ddlChc.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
-                                      class="manto"> </span></label>
+                                      class="manto"> *</span></label>
                                       <select id="inputilrPoint" class="form-control" disabled="selectedEditDistrict"
                                       name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched ||editIlrForm.submitted && ddlChc.invalid"
                                       required [(ngModel)]="selectedEditChc">
@@ -254,17 +254,19 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'ILR Name' | translate }} <span class="manto"></span></label>
-                                  <input class="form-control" name="ilrname" type="text" placeholder="Name" pattern="[a-zA-Z][a-zA-Z ]+" required 
-                                    [(ngModel)]="ilrname">
-                                  <small class="text-danger ml-2" *ngIf="!ilrname.valid && ilrname.touched ">Enter Name</small>
-                                  <div *ngIf="editIlrForm.submitted && ilrname.invalid">
-                                    <small *ngIf="ilrname.untouched" class=" ml-2 text-danger">Name is required</small>
-                                  </div>
-                                </div>
+                                  <label class="note">{{'ILR Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="ilrname" type="text" placeholder="ILR Name"
+                                  #ilrname1="ngModel"  required [(ngModel)]="ilrname" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                  <small class="text-danger ml-2" *ngIf="!ilrname1.valid && ilrname1.touched ">Enter ILR Name</small>
+                                  <!-- <div *ngIf="addScForm.submitted && scName.invalid">
+                                    <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                  </div> -->  
+                            </div>
+  
+                               
             
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'Ilr code' | translate }} <span class="manto"></span></label>
+                                  <label class="note">{{'Ilr code' | translate }} <span class="manto"> *</span></label>
                                   <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code"
                                     [class.is-invalid]="!ilrCode.valid && ilrCode.touched || editIlrForm.submitted && ilrCode.invalid"
                                     required [(ngModel)]="ilrCode" disabled="ilrCode">

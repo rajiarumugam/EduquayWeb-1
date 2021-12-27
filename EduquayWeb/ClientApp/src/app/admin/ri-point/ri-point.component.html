@@ -64,6 +64,7 @@
                               <th><span>{{'CHC' | translate }}</span></th>
                               <th><span>{{'PHC' | translate }}</span></th>
                               <th><span>{{'SC ' | translate }}</span></th>
+                              <th><span>{{'Testing chc ' | translate }}</span></th>
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -77,6 +78,7 @@
                               <td class="sid text-center">{{sample.chcName}}</td>
                               <td class="sid text-center">{{sample.phcName}}</td>
                               <td class="sid text-center">{{sample.scName}}</td>
+                              <td class="sid text-center">{{sample.testingCHCName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
@@ -200,12 +202,15 @@
                           </div>
 
                           <div class="form-group col-md-3">
-                            <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
+                            <label class="note">{{'Pincodssse' | translate }}<span class="manto"></span></label>
                             <input class="form-control" name="pincode" type="text" placeholder="pincode"
                               autocomplete="off" [(ngModel)]="pincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                               maxlength = "6" numbersOnly>
                           </div>
 
+                    
+
+                       
                               <div class="form-group col-md-3">
                                 <label [ngClass]="{'label-border-class':ddlIlr.invalid && ddlIlr.touched || addRiPtForm.submitted && ddlIlr.invalid}" for="inputilrPoint">{{'Ilr' | translate }}<span
                                     class="manto"> *</span></label>
@@ -599,6 +604,22 @@
                           autocomplete="off" [(ngModel)]="pincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                           maxlength = "6" numbersOnly>
                       </div>
+                      <div class="form-group col-md-3">
+                        <label [ngClass]="{'label-border-class':ddlTestingCHC.invalid && ddlTestingCHC.touched || addRiPtForm.submitted && ddlTestingCHC.invalid}" for="inputilrPoint">{{'Testing CHC' | translate }}<span
+                            class="manto"> *</span></label>
+                            <select id="inputilrPoint1" class="form-control"
+                            name="ddlTestingCHC" #ddlTestingCHC="ngModel" [class.is-invalid]="ddlTestingCHC.invalid && ddlTestingCHC.touched || addRiPtForm.submitted && ddlTestingCHC.invalid"
+                            required [(ngModel)]="selectedtestingCHCId" (change)="onChangetesting($event.target.value)" [disabled]="selectedDistrict === ''">
+                                <option value="">Select</option>
+                                <option *ngFor="let districtdata of tcbydisList" [(value)]="districtdata.id">
+                                    {{districtdata.name}}
+                                </option>
+                            </select>
+                              <small class=" ml-2 text-danger" *ngIf="ddlTestingCHC.invalid && ddlTestingCHC.touched ">Please choose a Testing chc</small>
+                              <div *ngIf="addRiPtForm.submitted && ddlTestingCHC.invalid">
+                                <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">Testing chc is required</small>
+                              </div>
+                  </div>
 
                           <div class="form-group col-md-3">
                             <label [ngClass]="{'label-border-class':ddlIlr.invalid && ddlIlr.touched || addRiPtForm.submitted && ddlIlr.invalid}" for="inputilrPoint">{{'Ilr' | translate }}<span

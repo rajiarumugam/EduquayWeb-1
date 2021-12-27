@@ -282,7 +282,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-      // this.isTestingFacility=addChcForm.value.isTestingFacility;
+      this.isTestingFacility=addChcForm.value.isTestingFacility;
       this.selectedtestingCHCId = addChcForm.value.ddlTestingCHC;
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
@@ -334,6 +334,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       //  this.selectedEditBlock = editChcForm.value.ddlEditBlock;
       // this.chcCodedata = editChcForm.value.chcCodedata;
       this.chcNamedata = editChcForm.value.chcNamedata;
+      this.isTestingFacility=editChcForm.value.isTestingFacility;
       this.pincodeData = editChcForm.value.pincodeData;
       this.selectedEdittestingCHCId = editChcForm.value.testingCHCId;
       this.hninId = editChcForm.value.hninId;
