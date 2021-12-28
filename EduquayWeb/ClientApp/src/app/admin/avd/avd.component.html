@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="table-responsive mb-4">
-            <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable
+            <table id="avdlist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable
               [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
               <thead>
                 <tr>
@@ -64,6 +64,7 @@
                   <th><span>{{'AVD Name' | translate }}</span></th>
                   <th><span>{{'AVD Contact No' | translate }}</span></th>
                   <!-- <th><span>{{'RIID' | translate }}</span></th> -->
+                  <th><span>{{'View' | translate }}</span></th>
                   <th><span>{{'Comments' | translate }}</span></th>
                   <th><span>{{'Active' | translate }}</span></th>
                   <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -74,10 +75,15 @@
                   <td class="sno text-center">{{i +1}}</td>
                   <td class="sname text-left">{{sample.avdName}}</td>
                   <td class="sid text-center">{{sample.contactNo}}</td>
+                  <td class="text-center">
+                    <button type="submit" class="btn search-bu" (click)=getANMDetails(sample.id)>
+                      <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+
+                  </td>
                   <!-- <td class="sid text-center">{{sample.riId}}</td> -->
                   <td class="number text-center">{{sample.comments}}</td>
                   <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
-                  <td class="text-center" *ngIf="sample.isActive!='True'">{{'InActive' | translate }}</td>
+                  <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
                   <td class="text-center">
                     <a class="" (click)="openEditAvd(editAvdDetail, sample)" role="button">
                       <i class="fas fa-pencil-square" aria-hidden="true"></i>
@@ -198,22 +204,22 @@
                   <div class="form-row">
 
                     <div class="form-group col-md-3">
-                      <label class="note">{{'AVD Name' | translate }} <span class="manto"></span></label><br/>
-                      <input class="form-control" name="avdName" type="text" placeholder="AVD Name"                        
-                        required [(ngModel)]="avdName" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                      <small class="text-danger ml-2" *ngIf="!avdName.valid && avdName.touched ">Enter AVD Name</small>
-                      <div *ngIf="editAvdForm.submitted && avdName.invalid">
-                        <small *ngIf="avdName.untouched" class=" ml-2 text-danger">AVD Name is required</small>
-                      </div>
-
-                    </div>
-   
+                      <label class="note">{{'AVD Name' | translate }} <span class="manto"> *</span></label>
+                      <input class="form-control" name="avdName" type="text" placeholder="AVD Name"
+                      #avdName1="ngModel"  required [(ngModel)]="avdName" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                      <small class="text-danger ml-2" *ngIf="!avdName1.valid && avdName1.touched ">Enter AVD Name</small>
+                      <!-- <div *ngIf="addScForm.submitted && scName.invalid">
+                        <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                      </div> -->  
+                </div>
+                    
+                
                     <div class="form-group col-md-3">
                       <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="contactNo" type="text" placeholder="contactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      <input class="form-control" name="contactNo" type="text" placeholder="contactNo"  oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                       [class.is-invalid]="!contactNo.valid && contactNo.touched || editAvdForm.submitted && contactNo.invalid"
-                      [(ngModel)]="contactNo" required >
-                      <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter contactNo</small>
+                      [(ngModel)]="contactNo" #contactNo1="ngModel" required >
+                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo</small>
                       <div *ngIf="editAvdForm.submitted && contactNo.invalid">
                         <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">contactNo is required</small>
                       </div>
@@ -259,6 +265,8 @@
                   <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
                   <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                 </div>
+
+                
               </form>
 
             </div>
@@ -274,3 +282,49 @@
 </div>
 <!--  END CONTENT AREA  -->
 <!--  END MAIN CONTAINER  -->
+
+
+<div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" id="exampleModalLabel">
+                <div class="modal-header">
+                    <h5 class="modal-title">RI</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+              
+                <div class="modal-body text-center">
+                    
+                    <table id="avdlist-tblconfig2" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                          <tr>
+                            <th>{{'SNo' | translate }}</th>                      
+                            <th>{{'RI Name' | translate }}</th>
+                            <th>{{'RI Code' | translate }}</th> 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let person of associatedANMData;index as i"  (mouseover)="person.hover=true" (mouseout)="person.hover=false">
+                            <td style="text-align: center;">{{ i + 1}}</td>                         
+                            <td>{{ person.riSite }}</td>
+                            <td>{{ person.riGovCode }}</td>                         
+                          </tr>
+                        </tbody>
+                        </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                </div>
+            </div>
+        </div>
+</div>

@@ -315,11 +315,11 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
 
-    ddlIlr() {
-      let district = this.RiPtService.getIlrList().subscribe(response => {
+    ddlIlr(id) {
+      let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
         this.ilrListResponse = response;
         if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
-          this.ilrlists = this.ilrListResponse.ilrDetails;
+          this.ilrlists = this.ilrListResponse.data;
           //this.selectedIlr = "";
           //this.selectedIlr=
         }
@@ -333,12 +333,13 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
 
-    editddlIlr() {
-      let district = this.RiPtService.getIlrList().subscribe(response => {
+    editddlIlr(id) {
+      this.selectedEditIlr = '';
+      let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
         this.ilrListResponse = response;
         if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
-          this.ilrlists = this.ilrListResponse.ilrDetails;
-          // this.selectedEditIlr = this.getstate;
+          this.ilrlists = this.ilrListResponse.data;
+          
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -414,6 +415,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       }
       else {
         this.ddlPhc(this.selectedChc);
+        this.ddlIlr(this.selectedChc);
+     
       }
     }
     onChangetesting(event) {
@@ -466,8 +469,8 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     this.selectedChc="";
     this.selectedDistrict="";
     this.riName1=" ";
-      this.ddlIlr();
-     
+    
+   
       
       // console.log(this.ddlState);
       this.disabledChc = false;
@@ -500,9 +503,9 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedPhc =sample.phcId;
       this.ddlEdtiSc(sample.phcId);
       this.selectedSc=sample.scId;
-      this.editddlIlr();
-      this.tempeditid=sample.id;
+      this.ddlIlr(sample.chcId);  
       this.selectedIlr = sample.ilrId;
+      this.tempeditid=sample.id;
       this.pincode = sample.pincode;
       this.riName1 = sample.name;
       this.comments= sample.comments;

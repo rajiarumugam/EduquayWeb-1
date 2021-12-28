@@ -27,7 +27,7 @@ export class AddRipointService {
   RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   RetrieveCHCbyDistrict="api/v1/PNDTMTPMaster/RetrieveCHC/";
-  retrieveILrApi: string = "api/v1/ILR/Retrieve";
+  RetrieveILRByCHC: string = "api/v1/WebMaster/RetrieveILRByCHC/";
   RetrieveCHCByDistrict= "api/v1/WebMaster/RetrieveCHCByDistrict";
 
   constructor(
@@ -58,8 +58,8 @@ export class AddRipointService {
     let apiUrl = this.genericService.buildApiUrl(`${this.retrieveScApi}${code}`);
     return this.http.get<AddScResponse>({url: apiUrl});
   }
-  getIlrList(){
-    let apiUrl = this.genericService.buildApiUrl(this.retrieveILrApi);
+  getIlrbychcList(id){
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveILRByCHC}${id}`);
     return this.http.get<IlrResponse>({url: apiUrl});
   }
 
