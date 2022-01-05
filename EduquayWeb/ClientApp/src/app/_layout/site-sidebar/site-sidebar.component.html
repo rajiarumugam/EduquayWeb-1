@@ -179,6 +179,7 @@
               <li routerLinkActive="active">
                   <a [routerLink]="['/app/add-users']"> {{'Users' | translate }} </a>
               </li>
+             
           <!-- <li>
                <a [routerLink]="['/app/saupload']"> {{'Upload' | translate }} </a>
               </li> -->
@@ -621,7 +622,10 @@
                     style="">
 
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/patho-report-print']"> {{'Reports' | translate }} </a>
+                        <a [routerLink]="['/app/patho-report-print']"> {{'Sample Status Report' | translate }} </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/patho-spcreport-print']"> {{'Report' | translate }} </a>
                     </li>
                 </ul>
             </li>
@@ -937,6 +941,9 @@
 
                         <li routerLinkActive="active">
                             <a [routerLink]="['/app/HPLC-DC']"> {{'HPLC Report' | translate }} </a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/app/patho-dcrreport-print']"> {{'Report' | translate }} </a>
                         </li>
                     </ul>
                 </li>

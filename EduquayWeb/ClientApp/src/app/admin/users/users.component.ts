@@ -2227,6 +2227,83 @@ this.phclistErrorMessage = err.toString();
  //swal ("Here's the title!", "...and here's the text!");
 }
 
+onSubmithaematologist(addIlrForm: NgForm){
+
+  console.log(addIlrForm.value);
+  // this.selectedUserrole = addIlrForm.value.ddlUserRole;
+  this.selectedDistrict = addIlrForm.value.ddlDistrict;
+  this.selectedBlock = addIlrForm.value.ddlBlock;
+  // this.userName = addIlrForm.value.Username;
+  this.firstName = addIlrForm.value.firstName;
+  this.middleName = addIlrForm.value.middleName;
+  this.lastName = addIlrForm.value.lastName;
+  this.contactNo1 = addIlrForm.value.contactNo1;
+  this.userGovCode = addIlrForm.value.userGovCode;
+  this.selectedState = addIlrForm.value.ddlState;
+  this.email = addIlrForm.value.email;
+  this.comments = addIlrForm.value.Comments;
+
+console.log(addIlrForm);
+  this.Userslistrequest = {
+    userTypeId:13,
+    userRoleId:17,
+      userGovCode:this.userGovCode,
+      userName:this.email,
+      password:'odisha',
+      stateId:+(this.selectedState),
+      centralLabId: 0,
+
+      molecularLabId: 0,
+      districtId: +(this.selectedDistrict),
+      blockId: +(this.selectedBlock),
+      chcId:0,
+      phcId: 0,
+      scId: 0,
+      riId:null,
+      firstName:this.firstName,
+      middleName:this.middleName,
+      lastName:this.lastName,
+      contactNo1:this.contactNo1,
+      contactNo2:null,
+      email:this.email,
+      govIdTypeId:0,
+      govIdDetails:null,
+      address:this.Address,
+      pincode:null,
+      createdBy:this.user.id ,
+      updatedBy:this.user.id ,
+      comments: this.comments,
+      isActive:"true",
+  };
+
+console.log(this.Userslistrequest);
+//Remove below 2 lines after successfully tested
+// this.showResponseMessage('Successfully registered', 's');
+// return false;
+
+
+let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+.subscribe(response => {
+   this.addPhcResponse = response;
+  console.log(response );
+  if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
+    this.showResponseMessage('Haematologist User added Sucessfully', 's')
+     this.retrirveIlrlist();
+      console.log(this.addPhcResponse.message );
+   }else{
+     this.showResponseMessage(this.addPhcResponse.message, 'e');
+           this.phclistErrorMessage = response.message;
+   }
+
+},
+(err: HttpErrorResponse) => {
+  this.showResponseMessage(err.toString(), 'e');
+this.phclistErrorMessage = err.toString();
+});
+// this.rerender();
+ //swal ("Here's the title!", "...and here's the text!");
+}
+
 onSubmitsupport(addIlrForm: NgForm){
 
   console.log(addIlrForm.value);
