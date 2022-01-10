@@ -13,14 +13,18 @@ import { user } from 'src/app/shared/auth-response';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { TokenService } from 'src/app/shared/token.service';
+import { AddIlrRequest } from 'src/app/shared/admin/add-ilr/add-ilr-request';
+import { AddIlrResponse, AddIlrDataresponse, IlrList } from 'src/app/shared/admin/add-ilr/add-ilr-response';
+import { AddDistrictResponse, DistrictList } from 'src/app/shared/admin/add-district/add-district-response';
+import { AddIlrService } from 'src/app/shared/admin/add-ilr/add-ilr.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-phc',
-  templateUrl: './phc.component.html',
-  styleUrls: ['./phc.component.css']
+  selector: 'app-ilr',
+  templateUrl: './ilr.component.html',
+  styleUrls: ['./ilr.component.css']
 })
-export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
+export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
@@ -35,13 +39,16 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     confirmationSelected: boolean ;
     phcListResponse;
-    phclists: PhcList[];
-    phcListRequest;
+    phclists: IlrList[];
+    ilrListRequest;
     addPhcResponse: AddPhcDataresponse;
     chcListResponse;
     chclists: ChcList[];
-   
-   
+    districtListResponse;
+    districtlists: DistrictList[];
+    districtName: string;
+    districtnamedata: string;
+    selectedEditDistrict: string;
     selectedChc: string;
     getstate: string;
     selectedEditChc: string = '';
@@ -55,35 +62,35 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     createdBy: number;
     updatedBy: number;
     stateCode: string;
-    phcnamedata: string;
-    districtlists;
+    chcname: string;
+    name: string;
     hninId;
   
     commentsdata: string;
     getchc: string;
     phcCode: string;
   
-    chcName: string;
+    // chcName: string;
     pincode: string;
    
    
     testingchcId : string;
     centrallablid : string;
     
-   
-    pincodeData: string;
-    phcNamedata: string;
-    phcCodedata: string;
+    
+    ilrname: string;
+    // chcName: string;
+    ilrCode: string;
     selectedEditBlock: string = '';
-    districtListResponse;
     selectedDistrict = '';
     disabledChc = false;
     getdistrict = "";
-    editPhcDetails;
+    editIlrDetails;
+  // IlrService: any;
   
     constructor(
     
-      private PhcService: AddPhcService,
+      private IlrService: AddIlrService,
       private modalService: NgbModal,
       private httpService: HttpClient,
       private _formBuilder: FormBuilder,
@@ -91,6 +98,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       private activatedRoute: ActivatedRoute,
       private tokenService: TokenService,
       private dataservice: DataService,
+      private Ilrservice: AddIlrService
     ) { }
   
     ngOnInit() {
@@ -104,7 +112,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Phc information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any ILR information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -116,14 +124,14 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirvePhclist();
+      this.retrirveIlrlist();
     }
   
-    retrirvePhclist(){
+    retrirveIlrlist(){
       this.loaderService.display(true);
       this.phclists = [];
       this.phclistErrorMessage ='';
-      let samplesList = this.PhcService.getPhcList()
+      let samplesList = this.Ilrservice.getIlrList()
       .subscribe(response => {
         this.phcListResponse = response;
         this.loaderService.display(false);
@@ -154,31 +162,65 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
 
-    ddlChc() {
+    ddlChc(id) {
+      console.log(id);
+          this.selectedChc = '';
+          
+          let district = this.IlrService.getCHCByDis(id).subscribe(response => {
+            this.chcListResponse = response;
+            console.log(this.chcListResponse);
+            if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+              this.chclists = this.chcListResponse.data;
+              this.selectedChc = "";
+            }
+            else {
+              this.phclistErrorMessage = response.message;
+            }
+          },
+            (err: HttpErrorResponse) => {
+              this.phclistErrorMessage = err.toString();
+      
+            });
+        }
 
-      this.selectedChc = '';
-      let district = this.PhcService.getChcList().subscribe(response => {
-        this.chcListResponse = response;
-        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.data;
-          this.selectedChc = "";
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
+
+
+      onChangeDistrict(event) {
   
-        });
+      if (this.selectedDistrict === '') {
+        this.selectedChc = '';
+      }
+      else {
+        this.ddlChc(this.selectedDistrict);
+        
+      }
     }
-
+  
     ddlDistrict() {
-      let district = this.PhcService.getDistrictList().subscribe(response => {
+      let district = this.Ilrservice.getDistrictList().subscribe(response => {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
           this.selectedDistrict = "";
+          console.log(this.districtlists);
+        }
+        else {
+          this.phclistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.phclistErrorMessage = err.toString();
+  
+        });
+        
+        
+    }
+    ddlEditDistrict() {
+      let district = this.Ilrservice.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+       
         }
         else {
           this.phclistErrorMessage = response.message;
@@ -190,29 +232,13 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
 
-    ddlEditDistrict() {
-      let district = this.PhcService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.data;
-            this.selectedDistrict = this.getdistrict;
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
-  
-        });
-    }
-    ddlEditChc() {
-      this.selectedEditChc = '';
-      let district = this.PhcService.getChcList().subscribe(response => {
+    ddlEditChc(id) {
+      console.log(id);
+      let district = this.Ilrservice.getCHCByDis(id).subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
-          this.selectedEditChc = this.getchc;
+          this.chclists = this.chcListResponse.data;
+          // this.selectedEditChc = this.getchc;
           
         }
         else {
@@ -224,14 +250,15 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
         });
     }
-  
+    
     districtChange()
     {
-          console.log(this.selectedDistrict);
-
+          
+          this.ddlChc(this.selectedDistrict);
           this.selectedChc = '';
-      let district = this.PhcService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+      let district = this.Ilrservice.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
+        console.log(this.chcListResponse);
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.data;
           this.selectedChc = "";
@@ -246,17 +273,19 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
         });
     }
+  
+  
 
    
-    openAddPhc(addPhcDetail) {
+    openAddIlr(addIlrDetail) {
       
       //this.ddlChc();
-      this.selectedChc="";
       this.disabledChc = false;
       this.ddlDistrict();
+
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
-        addPhcDetail, {
+        addIlrDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -264,32 +293,26 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
     }
-  
-    openEditPhc(editPhcDetail, sample) {
+
+    openEditIlr(editIlrDetail, sample) {
   
       console.log(sample);
-      //this.ddlEditChc();
-      this.editPhcDetails = sample;
-      this.getdistrict = sample.districtId;
-      this.selectedDistrict =sample.districtId;
       this.ddlEditDistrict();
-      setTimeout(() => {
-        this.districtChange();
-      }, 100);
+      this.ddlEditChc(sample.districtId);
+      this.editIlrDetails = sample;
+    
      
-      this.phcNamedata = sample.name;
-      this.pincodeData = sample.pincode;
-     
-      this.selectedEditChc = "" +(sample.chcId)
+      this.chcname = sample.chcName;
+      this.ilrname = sample.name;
+      this.selectedEditDistrict=sample.districtId
+      this.selectedEditChc =sample.chcId; 
       this.commentsdata = sample.comments;
-      this.phcCodedata = sample.phcGovCode;
-      this.hninId = sample.hninId;
+      this.ilrCode = sample.ilrCode;
       this.confirmationSelected = sample.isActive == 'True' ? true : false;
   
       this.modalService.open(
-        editPhcDetail, {
+        editIlrDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -300,38 +323,38 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    onSubmit(addPhcForm: NgForm){
+    onSubmit(addIlrForm: NgForm){
   
-      console.log(addPhcForm.value);
+      console.log(addIlrForm.value);
       
-      this.comments = addPhcForm.value.Comments;
-      this.selectedChc = addPhcForm.value.ddlChc;
-      this.phcName = addPhcForm.value.phcName;
-      this.pincode = addPhcForm.value.pincodeData;
-      this.phcCode =  addPhcForm.value.phcCode     
-      this.hninId = addPhcForm.value.hninId;
-  
+      this.comments = addIlrForm.value.Comments;
+      this.selectedChc = addIlrForm.value.ddlChc;
+      this.ilrCode = addIlrForm.value.ilrCode;
+      this.ilrname = addIlrForm.value.ilrname;
 
-      this.phcListRequest = {
+      this.ilrListRequest = {
         chcId: +(this.selectedChc),
-        hninId: this.hninId,
-        phcGovCode: this.phcCode,
-        name: this.phcName,
-        pincode: this.pincode,
-        comments: this.comments,      
+       
+        ilrCode: this.ilrCode,
+        name: this.ilrname,
+        comments: this.comments,        
         userId: this.user.id  
       };
+
+      console.log(this.ilrListRequest);
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.PhcService.addPhc(this.phcListRequest)
+      let damagedsampleCollection = this.IlrService.addIlr(this.ilrListRequest)
       .subscribe(response => {
         this.addPhcResponse = response;
+        console.log(response );
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage(this.addPhcResponse.message, 's')
-           this.retrirvePhclist();
+           this.retrirveIlrlist();
+           console.log(this.addPhcResponse.message );
         }else{
           this.showResponseMessage(this.addPhcResponse.message, 'e');
                   this.phclistErrorMessage = response.message;
@@ -345,41 +368,43 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       //swal ("Here's the title!", "...and here's the text!");
     }
   
-    editSubmit(editPhcForm: NgForm){
+    editSubmit(editIlrForm: NgForm){
   
-      console.log(editPhcForm.value);
+      console.log(editIlrForm.value);
       
-      this.commentsdata = editPhcForm.value.commentsdata;
-      this.selectedEditChc = editPhcForm.value.ddlEdChc;
-      // this.phcCodedata = editPhcForm.value.phcCodedata;
-      this.phcnamedata = editPhcForm.value.phcNamedata;
-      this.pincodeData = editPhcForm.value.pincodeData;
-       this.hninId = editPhcForm.value.hninId;
+      this.commentsdata = editIlrForm.value.commentsdata;
+      //this.selectedEditChc = editIlrForm.value.ddlChc;
+      this.selectedEditDistrict = editIlrForm.value.ddlDistrict;
+      // this.ilrCode = editIlrForm.value.ilrCode;
+      // this.chcname = editIlrForm.value.chcname;
+      this.ilrname = editIlrForm.value.ilrname;
+      console.log(editIlrForm.value.ddlEdChc);
+     
   
-      this.phcListRequest = {
-        id: this.editPhcDetails.id,
-        chcId: +(this.selectedEditChc),
-        
-        phcGovCode: this.phcCodedata,
-        name: this.phcNamedata,
-        hninId: this.hninId,
-        pincode: this.pincodeData,
+      this.ilrListRequest = {
+        id: this.editIlrDetails.id,
+       chcId: this.selectedEditChc,
+        // Dist
+        ilrCode: this.ilrCode,
+        // chcName: this.chcname,
+        name: this.ilrname,
         isActive: this.confirmationSelected,
-        
         comments: this.commentsdata,
         userId: this.user.id,
       };
-      console.log(this.phcListRequest);
+
+      console.log(this.ilrListRequest);
+  
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.PhcService.updatePhc(this.phcListRequest)
+      let damagedsampleCollection = this.IlrService.updateIlr(this.ilrListRequest)
       .subscribe(response => {
         this.addPhcResponse = response;
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage(this.addPhcResponse.message, 's')
-           this.retrirvePhclist();
+           this.retrirveIlrlist();
         }else{
           this.showResponseMessage(this.addPhcResponse.message, 'e');
                   this.phclistErrorMessage = response.message;

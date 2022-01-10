@@ -8,9 +8,24 @@ export class AddRipointRequest {
     pincode: string;
     ilrId: number;
     isActive: string;
-    comments: string;
-    latitude: string;
-    longitude: string;
+    comments: string; 
     createdBy: number;
     updatedBy: number;
+}
+
+
+export class AddRipointRequest2 {
+    testingCHCId: number;
+    chcId: number;
+    phcId: number;
+    scId: number;
+    riGovCode: string;
+    name: string;
+    pincode: string;
+    ilrId: number;
+    isActive: boolean;
+    comments: string;
+    userId: number;
+    id:number
+   
 }

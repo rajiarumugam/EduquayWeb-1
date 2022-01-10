@@ -211,8 +211,8 @@ import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/
 
 import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
 import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
-
-
+import { AVDComponent } from "./admin/avd/avd.component";
+import { UserRoleComponent } from "./admin/user-role/User-role.component";
 import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
 import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
@@ -268,7 +268,7 @@ import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.co
 import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
-
+import { UsersComponent } from "./admin/users/users.component";
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
@@ -349,6 +349,10 @@ import { UploadMainComponent } from "./upload/upload-main/upload-main.component"
 import { CHCUploadComponent } from "./upload/chc-upload/chc-upload.component";
 import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component";
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
+import { IlrComponent } from "./admin/ilr/ilr.component";
+import { TestComponent } from "./test/test.component";
+
+
 
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
@@ -367,7 +371,7 @@ const routes: Routes = [
     component: HomeLayoutComponent,
     children: [
       { path: 'login', component: LoginComponent, pathMatch: 'full'},
-      { path: 'about', component: AboutUsComponent, pathMatch: 'full'},      
+      { path: 'about', component: AboutUsComponent, pathMatch: 'full'},
       { path: 'aboutprogram', component: AboutProgramComponent, pathMatch: 'full'},
       { path: 'importantlinks', component: ImportantLinksComponent, pathMatch: 'full'},
       { path: 'forgotpassword', component: GetOtpComponent, pathMatch: 'full'},
@@ -376,11 +380,11 @@ const routes: Routes = [
     ]
   },
 
-  //Site routes goes here 
+  //Site routes goes here
   {
     path: 'app',
     component: SiteLayoutComponent,
-    
+
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full',
@@ -406,23 +410,23 @@ const routes: Routes = [
           { path: 'edit-result', component: EditResultsComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
           { path: 'confirmed-result', component: ConfirmedResultsComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'reports', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-         
+
         ]
       },
       {
         path: 'hplcpositive-bloodsample-reoprts', component: HPLCReportsMainComponent,
         children: [
-         
+
           { path: '', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-         
+
         ]
       },
       {
         path: 'cvs-reoprts', component: CVSReportsMainComponent,
         children: [
-         
+
           { path: '', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-         
+
         ]
       },
       {
@@ -475,8 +479,8 @@ const routes: Routes = [
           {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
       }*/,
-      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent }, 
-      { path: 'block-sample-collection', component: BlockSampleCollectionComponent },// resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService} 
+      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent },
+      { path: 'block-sample-collection', component: BlockSampleCollectionComponent },// resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
       { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
       { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
       { path: 'block-pickandpack', component: BlockPicknpackComponent},
@@ -489,12 +493,18 @@ const routes: Routes = [
       { path: 'add-district', component: DistrictComponent, pathMatch: 'full'},
       { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
       { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
+      { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
+      { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
+      { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
+      { path: 'add-test', component: TestComponent, pathMatch: 'full'},
+      { path: 'add-ilr', component:IlrComponent, pathMatch: 'full'},
       { path: 'add-sc', component: ScComponent, pathMatch: 'full'},
+
       { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
       { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
-      
+
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
         children:[
@@ -556,14 +566,14 @@ const routes: Routes = [
         path: 'chc-update-cbc', component: CHCUpdateCBCCHCComponent,
         children:[
           {path: '', component: CBCCHCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCCBCupdateReceivedService}},
-          
+
         ]
       },
       {
         path: 'central-update-hplc', component: HPLCUpdateNewComponent,
         children:[
           {path: '', component: HPLCReceivedNewComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCNewService}},
-          
+
         ]
       },
       /*{
@@ -632,31 +642,31 @@ const routes: Routes = [
         path: 'lmpreport', component: LMPReportMainComponent,
         children:[
           {path: '', component: LMPReportComponent, pathMatch: 'full'}
-         
+
         ]
       },
       {
         path: 'barcodereport', component: BarcodeReportMainComponent,
         children:[
           {path: '', component: BarcodeReportComponent, pathMatch: 'full'}
-         
+
         ]
       },
       {
         path: 'rchreport', component: RCHReportMainComponent,
         children:[
           {path: '', component: RCHReportComponent, pathMatch: 'full'}
-         
+
         ]
       },
       {
         path: 'sstreport', component: SSTReportMainComponent,
         children:[
           {path: '', component: SSTReportComponent, pathMatch: 'full'}
-         
+
         ]
       },
-      
+
       {
         path: 'pathologist-hplc-report/:pagename', component: DiagosisReportmainComponent,
         children:[
@@ -833,7 +843,7 @@ const routes: Routes = [
       {
         path: 'update-pregnancy', component: UpdatePregnacyMainComponent,
         children:[
-          {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'} 
+          {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'}
         ]
       },
       {
@@ -841,13 +851,13 @@ const routes: Routes = [
         children:[
           {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
           {path: 'csvstart', component: CSVspecimenStartComponent, pathMatch: 'full'}
-          
+
         ]
       },
       { path: 'view-ml-result', component: ViewResultMLComponent },
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
       { path: 'update-pregnancy-details', component: UpdatePregnacyTestresultsComponent },
-      
+
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
       { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
@@ -871,40 +881,40 @@ const routes: Routes = [
         path: 'HPLC-ANM', component: PathoreportSampleStatusMainPrintComponentANM,
         children:[
           {path: '', component: PathoreportSampleStatusPrintComponentANM, pathMatch: 'full'},
-        
+
         ]
       },
       {
         path: 'HPLC-NHM', component: PathoreportSampleStatusMainPrintComponentNHM,
         children:[
           {path: '', component: PathoreportSampleStatusPrintComponentNHM, pathMatch: 'full'},
-        
+
         ]
       },
       {
         path: 'HPLC-DC', component: PathoreportSampleStatusMainPrintComponentDC,
         children:[
           {path: '', component: PathoreportSampleStatusPrintComponentDC, pathMatch: 'full'},
-        
+
         ]
       },
       {
         path: 'nhm-report', component: NHMreportListComponent,
-       
+
       },{
         path: 'anm-report', component: ANMreportListComponent,
-       
+
       },
       {
         path: 'chc-regn-report', component: CHCRegnreportListComponent,
-       
+
       },
 {
       path: 'cl-regn-report', component: CentralLabRegnreportListComponent,
-       
+
     },
 
-      
+
       { path: 'update-post-pndtc', component: PostPndtcTestresultsComponent },
       { path: 'update-post-pndtc-no', component: PostPndtcDecisionNoComponent },
       { path: 'update-post-pndtc-awaited', component: PostPndtcDecisionAwaitedComponent },
@@ -935,8 +945,8 @@ const routes: Routes = [
       },
     ]
   },
-  
-  
+
+
   { path: '', redirectTo: '/home/login', pathMatch: 'full' },
   // { path: 'notfound', component: NotfoundComponent },
   { path: 'pageunderconstruction', component: PageUnderDevelopementComponent },
@@ -1023,7 +1033,7 @@ export const RoutingComponents = [
   MolecularSampleRcptComponent,
   ChcSamplePickpackComponent,
   CheSpouseComponent,
-  AnmSpouseComponent, 
+  AnmSpouseComponent,
   AnmSpouseComponent,
   DiagosisHPLCmainComponent,
   DiagnosisHPLCAbnormaComponent,
@@ -1193,6 +1203,11 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusPrintComponentNHM,
   PathoreportListComponent,
+  AVDComponent,
+  UserRoleComponent,
+  IlrComponent,
+  TestComponent,
+  UsersComponent,
   HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
   SAUploadComponent,

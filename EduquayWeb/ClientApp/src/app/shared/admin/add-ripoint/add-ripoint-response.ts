@@ -1,10 +1,11 @@
 export class AddRipointResponse {
     status: string;
     message: string;
-    riDetails: RiList[];
+    userRoles: RiList[];
 }
 
 export interface RiList {
+    districtId:number;
     id: number;
     testingCHCId: number;
     testingCHCName: string;
@@ -16,6 +17,8 @@ export interface RiList {
     scName: string;
     riGovCode: string;
     riSite: string;
+    name: string;
+    userId: number;
     pincode: string;
     ilrId: number;
     ilrPoint: string;
@@ -27,7 +30,37 @@ export interface RiList {
     updatedBy: number;
 }
 
-export interface AddRiPtDataresponse {
+export interface AddRiPtDataresponse {    
     status: string;
     message: string;
+    userRoles: RiList[];
+}
+
+
+export interface IlrResponse {
+    status: string;
+    message: string;
+    data: IlrList[];
+}
+
+export interface IlrList {
+    id: number;
+    name: string;
+    
+}
+
+export interface AddIlrResponse {
+    status: "string",
+    message: "string",
+    ilrDetails: IlrList[];
+}
+
+export class AddtestingchcbydistrictResponse {
+    status: string;
+    message: string;
+    data: tcbydisList[];
+}
+export interface tcbydisList {
+    id: number;
+    name: string;  
 }

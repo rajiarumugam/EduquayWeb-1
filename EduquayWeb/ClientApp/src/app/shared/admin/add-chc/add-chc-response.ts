@@ -3,6 +3,18 @@ export class AddChcResponse {
     message: string;
     chcDetails: ChcList[];
 }
+export class AddchcbyblockResponse {
+  status: string;
+  message: string;
+  data: ChcList[];
+}
+
+
+ export class AddchcbydistrictResponse {
+    status: string;
+    message: string;
+     data: ChcList[];
+ }
 
 export interface ChcList {
     id: number;
@@ -13,7 +25,7 @@ export interface ChcList {
     hninId: string;
     pincode: string;
     chcGovCode: string;
-    chcName: string;
+    name: string;
     testingCHCId: number;
     testingCHC: string;
     centralLabId: number;

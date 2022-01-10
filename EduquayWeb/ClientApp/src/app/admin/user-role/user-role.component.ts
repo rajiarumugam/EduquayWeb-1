@@ -8,7 +8,10 @@ import { Subject } from 'rxjs';
 import { AddChcResponse, ChcList } from 'src/app/shared/admin/add-chc/add-chc-response';
 import { AddPhcRequest } from 'src/app/shared/admin/add-phc/add-phc-request';
 import { AddPhcDataresponse, AddPhcResponse, PhcList } from 'src/app/shared/admin/add-phc/add-phc-response';
+import { AddUserroleDataresponse, AddUserroleResponse, UserroleList } from 'src/app/shared/admin/add-user-role/add-user-role-response';
+import { UserTypes , RetrieveUserTypeResponse } from 'src/app/shared/admin/add-masters-response';
 import { AddPhcService } from 'src/app/shared/admin/add-phc/add-phc.service';
+import { AddUserroleService } from 'src/app/shared/admin/add-user-role/add-user-role.service';
 import { user } from 'src/app/shared/auth-response';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
@@ -16,11 +19,11 @@ import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-phc',
-  templateUrl: './phc.component.html',
-  styleUrls: ['./phc.component.css']
+  selector: 'app-user-role',
+  templateUrl: './user-role.component.html',
+  styleUrls: ['./user-role.component.css']
 })
-export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
+export class UserRoleComponent implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
@@ -36,9 +39,13 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     confirmationSelected: boolean ;
     phcListResponse;
     phclists: PhcList[];
-    phcListRequest;
-    addPhcResponse: AddPhcDataresponse;
+    userlists: UserroleList[];
+    usertypelistresponse:RetrieveUserTypeResponse;
+    userroleListRequest;
+    usertypelists: UserTypes[];
+    addUserroleResponse: AddUserroleDataresponse;
     chcListResponse;
+    id: number;
     chclists: ChcList[];
    
    
@@ -48,18 +55,23 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     districtGovCode: string;
     stateName: string;
+    selectededitUsertype: string;
 
     phcName: string;
     isActive: string;
     comments: string;
     createdBy: number;
+    
     updatedBy: number;
+    selectedUsertype: string;
+
     stateCode: string;
     phcnamedata: string;
     districtlists;
+    UsertypelistErrorMessage: string;
     hninId;
   
-    commentsdata: string;
+    Comments: string;
     getchc: string;
     phcCode: string;
   
@@ -73,6 +85,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
    
     pincodeData: string;
     phcNamedata: string;
+    userrolename: string;
     phcCodedata: string;
     selectedEditBlock: string = '';
     districtListResponse;
@@ -84,6 +97,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     constructor(
     
       private PhcService: AddPhcService,
+      private UserroleService: AddUserroleService,
       private modalService: NgbModal,
       private httpService: HttpClient,
       private _formBuilder: FormBuilder,
@@ -91,6 +105,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       private activatedRoute: ActivatedRoute,
       private tokenService: TokenService,
       private dataservice: DataService,
+      private userroleService: AddUserroleService
     ) { }
   
     ngOnInit() {
@@ -104,7 +119,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Phc information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any User Role information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -116,28 +131,25 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirvePhclist();
+      this.retrirveUserrolelist();
     }
   
-    retrirvePhclist(){
+    retrirveUserrolelist(){
       this.loaderService.display(true);
-      this.phclists = [];
+      this.userlists = [];
       this.phclistErrorMessage ='';
-      let samplesList = this.PhcService.getPhcList()
+      let samplesList = this.UserroleService.getUserroleList()
       .subscribe(response => {
         this.phcListResponse = response;
+        console.log(this.userlists);
         this.loaderService.display(false);
         if(this.phcListResponse !== null){
-          if(this.phcListResponse.data.length <= 0){
+          if(this.phcListResponse.userRoles.length <= 0){
             this.phclistErrorMessage = response.message;
             
           }
           else{
-            this.phclists = this.phcListResponse.data;
-            this.phclists.forEach(element => {
-              this.getchc = '' +(element.chcId);
-             
-            });
+            this.userlists = this.phcListResponse.userRoles;
             //this.getstate = this.
             this.rerender();
             
@@ -154,109 +166,29 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
 
-    ddlChc() {
-
-      this.selectedChc = '';
-      let district = this.PhcService.getChcList().subscribe(response => {
-        this.chcListResponse = response;
-        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.data;
-          this.selectedChc = "";
+    ddlUsertype() {
+      let district = this.userroleService.getUsertypeList().subscribe(response => {
+        this.usertypelistresponse = response;
+        if (this.usertypelistresponse !== null && this.usertypelistresponse.status === "true") {
+          this.usertypelists = this.usertypelistresponse.userTypes;
+          this.selectedUsertype = "";
         }
         else {
-          this.phclistErrorMessage = response.message;
+          this.UsertypelistErrorMessage = response.message;
         }
       },
         (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
-  
-        });
-    }
-
-    ddlDistrict() {
-      let district = this.PhcService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.data;
-          this.selectedDistrict = "";
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
-  
-        });
-    }
-
-    ddlEditDistrict() {
-      let district = this.PhcService.getDistrictList().subscribe(response => {
-        this.districtListResponse = response;
-        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-          this.districtlists = this.districtListResponse.data;
-            this.selectedDistrict = this.getdistrict;
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
-  
-        });
-    }
-    ddlEditChc() {
-      this.selectedEditChc = '';
-      let district = this.PhcService.getChcList().subscribe(response => {
-        this.chcListResponse = response;
-        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.chcDetails;
-          this.selectedEditChc = this.getchc;
-          
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
+          this.UsertypelistErrorMessage = err.toString();
   
         });
     }
   
-    districtChange()
-    {
-          console.log(this.selectedDistrict);
-
-          this.selectedChc = '';
-      let district = this.PhcService.getCHCByDis(this.selectedDistrict).subscribe(response => {
-        this.chcListResponse = response;
-        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-          this.chclists = this.chcListResponse.data;
-          this.selectedChc = "";
-          this.disabledChc = true;
-        }
-        else {
-          this.phclistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.phclistErrorMessage = err.toString();
-  
-        });
-    }
-
-   
-    openAddPhc(addPhcDetail) {
-      
-      //this.ddlChc();
-      this.selectedChc="";
-      this.disabledChc = false;
-      this.ddlDistrict();
+    
+    openAdduserrole(adduserroledetail) {      
+      this.ddlUsertype();
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
-        addPhcDetail, {
+        adduserroledetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -267,73 +199,37 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     }
   
-    openEditPhc(editPhcDetail, sample) {
+    onSubmit(adduserroleForm: NgForm){
   
-      console.log(sample);
-      //this.ddlEditChc();
-      this.editPhcDetails = sample;
-      this.getdistrict = sample.districtId;
-      this.selectedDistrict =sample.districtId;
-      this.ddlEditDistrict();
-      setTimeout(() => {
-        this.districtChange();
-      }, 100);
-     
-      this.phcNamedata = sample.name;
-      this.pincodeData = sample.pincode;
-     
-      this.selectedEditChc = "" +(sample.chcId)
-      this.commentsdata = sample.comments;
-      this.phcCodedata = sample.phcGovCode;
-      this.hninId = sample.hninId;
-      this.confirmationSelected = sample.isActive == 'True' ? true : false;
-  
-      this.modalService.open(
-        editPhcDetail, {
-        centered: true,
-        size: 'xl',
-        scrollable: true,
-        backdrop:'static',
-        keyboard: false,
-        ariaLabelledBy: 'modal-basic-title'
-      });
-  
-    }
-  
-    onSubmit(addPhcForm: NgForm){
-  
-      console.log(addPhcForm.value);
+      console.log(adduserroleForm.value);
       
-      this.comments = addPhcForm.value.Comments;
-      this.selectedChc = addPhcForm.value.ddlChc;
-      this.phcName = addPhcForm.value.phcName;
-      this.pincode = addPhcForm.value.pincodeData;
-      this.phcCode =  addPhcForm.value.phcCode     
-      this.hninId = addPhcForm.value.hninId;
+      
+      this.selectedUsertype = adduserroleForm.value.ddlUsertype;
+      this.userrolename = adduserroleForm.value.userrolename;
+      this.comments = adduserroleForm.value.Comments;
   
 
-      this.phcListRequest = {
-        chcId: +(this.selectedChc),
-        hninId: this.hninId,
-        phcGovCode: this.phcCode,
-        name: this.phcName,
-        pincode: this.pincode,
-        comments: this.comments,      
-        userId: this.user.id  
+      this.userroleListRequest = {
+        userTypeId: +(this.selectedUsertype),
+        userRoleName: this.userrolename,
+        isActive: "true",
+        comments: this.comments,
+        createdBy: this.user.id  ,
+        updatedBy: this.user.id  ,       
       };
   
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.PhcService.addPhc(this.phcListRequest)
+      let damagedsampleCollection = this.userroleService.addUserrole(this.userroleListRequest)
       .subscribe(response => {
-        this.addPhcResponse = response;
-        if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-          this.showResponseMessage(this.addPhcResponse.message, 's')
-           this.retrirvePhclist();
+        this.addUserroleResponse = response;
+        if(this.addUserroleResponse !== null && this.addUserroleResponse.status == 'true'){
+          this.showResponseMessage(this.addUserroleResponse.message, 's')
+           this.retrirveUserrolelist();
         }else{
-          this.showResponseMessage(this.addPhcResponse.message, 'e');
+          this.showResponseMessage(this.addUserroleResponse.message, 'e');
                   this.phclistErrorMessage = response.message;
         }
   
@@ -345,43 +241,59 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       //swal ("Here's the title!", "...and here's the text!");
     }
   
-    editSubmit(editPhcForm: NgForm){
+    openEdituserrole(edituserroleDetail, sample) {
   
-      console.log(editPhcForm.value);
+      console.log(sample);
+      this.ddlUsertype();    
+      this.selectededitUsertype = sample.userTypeId;
+      this.userrolename= sample.userrolename,    
+      this.Comments= sample.Comments; 
+      this.confirmationSelected = sample.isActive;   
+     
+     
+
+
+      this.modalService.open(
+        edituserroleDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+  
+    }
+
+    editSubmituserrole(editUserroleform: NgForm){
+  
+      console.log(editUserroleform.value);
       
-      this.commentsdata = editPhcForm.value.commentsdata;
-      this.selectedEditChc = editPhcForm.value.ddlEdChc;
-      // this.phcCodedata = editPhcForm.value.phcCodedata;
-      this.phcnamedata = editPhcForm.value.phcNamedata;
-      this.pincodeData = editPhcForm.value.pincodeData;
-       this.hninId = editPhcForm.value.hninId;
+      this.Comments = editUserroleform.value.Comments;
+      this.selectedUsertype = editUserroleform.value.ddlUsertype;    
+      this.userrolename = editUserroleform.value.userrolename;
   
-      this.phcListRequest = {
-        id: this.editPhcDetails.id,
-        chcId: +(this.selectedEditChc),
-        
-        phcGovCode: this.phcCodedata,
-        name: this.phcNamedata,
-        hninId: this.hninId,
-        pincode: this.pincodeData,
-        isActive: this.confirmationSelected,
-        
-        comments: this.commentsdata,
+      this.userroleListRequest = {
+        id: this.id,
+        userTypeId: +(this.selectedUsertype),               
+        name: this.userrolename,     
+        isActive: this.confirmationSelected,        
+        comments: this.Comments,
         userId: this.user.id,
       };
-      console.log(this.phcListRequest);
+      console.log(this.userroleListRequest);
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
   
-      let damagedsampleCollection = this.PhcService.updatePhc(this.phcListRequest)
+      let damagedsampleCollection = this.PhcService.updatePhc(this.userroleListRequest)
       .subscribe(response => {
-        this.addPhcResponse = response;
-        if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-          this.showResponseMessage(this.addPhcResponse.message, 's')
-           this.retrirvePhclist();
+        this.addUserroleResponse = response;
+        if(this.addUserroleResponse !== null && this.addUserroleResponse.status == 'true'){
+          this.showResponseMessage(this.addUserroleResponse.message, 's')
+           this.retrirveUserrolelist();
         }else{
-          this.showResponseMessage(this.addPhcResponse.message, 'e');
+          this.showResponseMessage(this.addUserroleResponse.message, 'e');
                   this.phclistErrorMessage = response.message;
         }
   

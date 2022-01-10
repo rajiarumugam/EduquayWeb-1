@@ -26,14 +26,14 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-    
+
     loadDataTable: boolean = false;
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
-  
+
     sclistErrorMessage: string;
     user: user;
-  
+
     confirmationSelected: boolean ;
     scListResponse;
     sclists: ScList[];
@@ -43,11 +43,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     chclists: ChcList[];
     phcListResponse;
     phclists: PhcList[];
-   
+
     selectedChc: string;
     getstate: string;
     selectedEditChc: string = '';
-  
+
     districtGovCode: string;
     stateName: string;
 
@@ -68,11 +68,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     scCode: string;
     scName: string;
     pincode: string;
-    latitude: string;
-    longitude : string;
+
+
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
+
     latitudedata: string;
     pincodeData: string;
     chcNamedata: string;
@@ -89,9 +89,10 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     scAddress;
     hninId;
     editSampleData;
-  
+  ilrid: any;
+
     constructor(
-    
+
       private ScService: AddScService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -101,24 +102,24 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       private tokenService: TokenService,
       private dataservice: DataService,
     ) { }
-  
+
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "SC"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = { 
+      this.dtOptions = {
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any SC information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←' 
+            last: '', // or '←'
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -127,7 +128,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.retrirveSclist();
     }
-  
+
     retrirveSclist(){
       this.loaderService.display(true);
       this.sclists = [];
@@ -141,24 +142,24 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
             this.sclistErrorMessage = response.message;
 
             this.ddlDistrict();
-            
+
           }
           else{
             this.sclists = this.scListResponse.data;
             this.sclists.forEach(element => {
               this.getchc = '' +(element.chcId);
               this.getphc = '' +(element.phcId);
-             
+
             });
             //this.getstate = this.
             this.rerender();
-            
+
           }
         }
         else{
           this.sclistErrorMessage = response.message;
         }
-       
+
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
@@ -179,7 +180,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -188,7 +189,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         this.districtListResponse = response;
         if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
           this.districtlists = this.districtListResponse.data;
-            this.selectedDistrict = this.getdistrict;
+           // this.selectedDistrict = this.getdistrict;
         }
         else {
           this.sclistErrorMessage = response.message;
@@ -196,7 +197,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlChc() {
@@ -206,7 +207,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.chcDetails;
-          this.selectedChc = "";
+          // this.selectedChc = "";
         }
         else {
           this.sclistErrorMessage = response.message;
@@ -214,7 +215,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
 
@@ -224,7 +225,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.chcDetails;
-          this.selectedEditChc = this.getchc;
+        //  this.selectedEditChc = this.getchc;
           this.onChangeEditChc(this.getchc);
         }
         else {
@@ -233,7 +234,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlPhc(code) {
@@ -243,7 +244,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.data;
           this.selectedPhc = "";
-         
+
         }
         else {
           this.sclistErrorMessage = response.message;
@@ -251,20 +252,21 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
     ddlEdtiPhc(code) {
-      this.selectedEditPhc = '';
+    //  this.selectedEditPhc = '';
       let district = this.ScService.getPhcList(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.data;
           if(this.phclists.length > 0){
-            this.selectedEditPhc = this.getphc;
-            
+         //this.selectedEditPhc = this.getphc;
+         this.selectedEditPhc = "" +(this.editSampleData.phcId)
+
           }
-                  
+
         }
         else {
           this.sclistErrorMessage = response.message;
@@ -272,11 +274,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
     onChangeChc(event) {
-  
+
       if (this.selectedChc === '') {
         this.selectedPhc = '';
       }
@@ -285,7 +287,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
     onChangeEditChc(event) {
-  
+
       if (this.selectedEditChc === '') {
         this.selectedEditPhc = '';
       }
@@ -311,15 +313,17 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       },
         (err: HttpErrorResponse) => {
           this.sclistErrorMessage = err.toString();
-  
+
         });
     }
 
-  
+
     openAddSc(addScDetail) {
-      
+
      // this.ddlChc();
      this.ddlDistrict();
+     this.selectedChc="";
+     this.selectedPhc="";
      this.selectedDistrict = "";
       this.confirmationSelected = Boolean("True");
       this.modalService.open(
@@ -331,11 +335,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     openEditSc(editScDetail, sample) {
-  
+
       this.editSampleData = sample;
       console.log(sample);
       this.ddlDistrict();
@@ -345,15 +349,14 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       this.scNamedata = sample.name;
       this.scCodedata = sample.scGovCode;
       this.pincodeData = sample.pincode;
-      this.latitudedata = sample.latitude;
-      this.longitudedata = sample.longitude;
+
       this.selectedEditChc = "" +(sample.chcId);
       this.selectedEditPhc = "" +(sample.phcId)
       this.commentsdata = sample.comments;
       this.hninId = sample.hninId;
       this.scAddress = sample.scAddress;
-      this.confirmationSelected = Boolean(sample.isActive);
-  
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
+
       this.modalService.open(
         editScDetail, {
         centered: true,
@@ -363,42 +366,42 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-  
+
     }
-  
+
     onSubmit(addScForm: NgForm){
-  
+
       console.log(addScForm.value);
-      
+
       this.comments = addScForm.value.Comments;
       this.selectedChc = addScForm.value.ddlChc;
       this.selectedPhc = addScForm.value.ddlPhc;
       this.scCode = addScForm.value.scCode;
       this.scName = addScForm.value.scName;
       this.pincode = addScForm.value.pincodeData;
-      this.latitude = addScForm.value.latitudeData;
-      this.longitude = addScForm.value.longitudeData;
+      this.ilrid=addScForm.value.ilrid;
       this.scAddress = addScForm.value.scAddress;
       this.hninId = addScForm.value.hninId;
-  
+
       this.scListRequest = {
+        ilrid: +(this.ilrid),
         chcId: +(this.selectedChc),
         phcId: +(this.selectedPhc),
         scGovCode: this.scCode,
         name: this.scName,
         hninId: this.hninId,
-        scAddress: this.scAddress, 
+        scAddress: this.scAddress,
         pincode: this.pincode,
         comments: this.comments,
-        latitude: this.latitude,
-        longitude: this.longitude,
+
+
         userId: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.ScService.addSc(this.scListRequest)
       .subscribe(response => {
         this.addScResponse = response;
@@ -409,7 +412,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
           this.showResponseMessage(this.addScResponse.message, 'e');
                   this.sclistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -417,22 +420,22 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     editSubmit(editScForm: NgForm){
-  
+
       console.log(editScForm.value);
-      
+
       this.commentsdata = editScForm.value.commentsdata;
-      this.selectedEditPhc = editScForm.value.ddlEditChc;
-      this.selectedEditChc = editScForm.value.ddlEditPhc;
-      this.scCodedata = editScForm.value.scCodedata;
+      this.selectedEditPhc = editScForm.value.ddlEdPhc;
+      this.selectedEditChc = editScForm.value.ddlEdChc;
+      // this.scCodedata = editScForm.value.scCodedata;
       this.scNamedata = editScForm.value.scNamedata;
       this.pincodeData = editScForm.value.pincodeData;
-      this.latitudedata = editScForm.value.latitudeData;
-      this.longitudedata = editScForm.value.longitudeData;
-      this.longitudedata = editScForm.value.longitudeData;
-  
-  
+      // this.latitudedata = editScForm.value.latitudeData;
+      this.hninId = editScForm.value.hninId
+
+
+
       this.scListRequest = {
         id:this.editSampleData.id,
         chcId: +(this.selectedEditChc),
@@ -441,18 +444,17 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
         name: this.scNamedata,
         hninId: this.hninId,
         pincode: this.pincodeData,
-        scAddress: this.scAddress, 
+        scAddress: this.scAddress,
         isActive: this.confirmationSelected,
-        latitude: this.latitudedata,
-        longitude: this.longitudedata,
+        // latitude: this.latitudedata,
         comments: this.commentsdata,
         userId: this.user.id
       };
-  
+
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
-  
+
       let damagedsampleCollection = this.ScService.updateSc(this.scListRequest)
       .subscribe(response => {
         this.addScResponse = response;
@@ -463,7 +465,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
           this.showResponseMessage(this.addScResponse.message, 'e');
                   this.sclistErrorMessage = response.message;
         }
-  
+
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
@@ -471,7 +473,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
-  
+
     showResponseMessage(message: string, type: string){
       var messageType = '';
       if(type === 'e'){
@@ -483,30 +485,30 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
           if (result.value) {
             if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-             
+
             }
           }
         });
       }
     }
-  
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first      
+        // Destroy the table first
         dtInstance.clear();
         dtInstance.destroy();
-        // Call the dtTrigger to rerender again       
+        // Call the dtTrigger to rerender again
         this.dtTrigger.next();
       });
     }
-  
+
     ngAfterViewInit(): void {
       this.dtTrigger.next();
     }
-  
+
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();
     }
-  
+
   }
