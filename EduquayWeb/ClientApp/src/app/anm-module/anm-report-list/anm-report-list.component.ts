@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Output, EventEmitter,ViewChildren,QueryList, ChangeDetectorRef } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { SubjectProfileRequest, ParticularSubjectProfileRequest, anmSubjectTrackerRequest, subjectTrackerRequest } from 'src/app/shared/anm-module/subject-profile/subject-profile-request';
@@ -19,6 +19,7 @@ import { masterService } from 'src/app/shared/master/district/masterdata.service
 import { SampleCollectionService } from 'src/app/shared/anm-module/sample-collection.service';
 import { DateService } from 'src/app/shared/utility/date.service';
 
+import { CommonDataTableComponent } from "./../../shared/common-data-table/common-data-table.component";
 
 @Component({
   selector: 'app-anm-report-list',
@@ -29,11 +30,17 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
  
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
+  @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild(CommonDataTableComponent,{static:true}) commonDataTable: CommonDataTableComponent;
   loadDataTable: boolean = false;
   //dtOptions: DataTables.Settings = {};
   dtOptions: any = {};
+  dtOptions1: any = {};
+  dtOptions2: any = {};
   dtTrigger: Subject<any> = new Subject();
+  dtTrigger1: Subject<any> = new Subject<any>();
+  dtTrigger2: Subject<any> = new Subject<any>();
   @ViewChild('startPicker', { static: false }) startPicker;
   @ViewChild('endPicker', { static: false }) endPicker;
 
@@ -225,7 +232,27 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
 
+  _headerData = [['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','ShipmentDT','ShipmentNumber','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TimeoutDamaged','RecollectionDt','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TestResults','ShipmentDTTM','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TestResults','ShipmentDTTM','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TestResults','PNDT','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TestResults','PNDT','MTP','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TestResults','PNDT','MTP','CurrentStatus','Track','Profile'],
+  ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','TestResults','PNDT','MTP','CurrentStatus','Track','Profile']];
   
+  _keyData = [['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','shipmentDateTime','shipmentId','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','firstTimeReCollected','recollectionDateTime','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','testResult','chcShipmentDateTime','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','testResult','hplcPathoDiagnosis','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','testResult','pndt','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','testResult','pndt','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','testResult','pndt','mtp','currentStatus'],
+  ['subjectName','subjectId','barcodeNo','rchId','mobileNo','ga','testResult','pndt','mtp','currentStatus']]
+  tableHeader = [];
+  curentObjectKey = [];
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -238,14 +265,15 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     private PNDTCmasterService: PNDTCmasterService,
     private masterService: masterService,
     private sampleCollectionService: SampleCollectionService,
-    private DataService:DataService
+    private DataService:DataService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
 
     this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
-        
+    this.dataservice.sendData(JSON.stringify({"tableHeader": ['SNo','SubjectName','SubjectID','Barcode','RCH','Contact','GA','CurrentStatus','Track','Profile']}));
     this.loaderService.display(true);
     this.SubprofileInitializeDateRange();
 
@@ -253,138 +281,9 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.getSubjectData();
     //this.getCHCData();
 
-    this.dtOptions = {
-      pagingType: 'simple_numbers',
-      pageLength: 5,
-      processing: true,
-      stripeClasses: [],
-      lengthMenu: [5, 10, 20, 50],
-       // Declare the use of the extension in the dom parameter
-       dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
-       "<'row'<'col-sm-12'tr>>" +
-       "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
-       // Configure the buttons
-         buttons: [
-           {
-             titleAttr: 'Download as Excel',     
-             extend: 'excelHtml5',
-             title: 'Report - Sample Status',
-             className: 'custom-btn',
-             text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-           }/*,
-         {
-           titleAttr: 'Download as PDF',
-           extend: 'pdfHtml5',
-           title: 'Report - Sample Status',
-           orientation: 'landscape',
-           pageSize: 'LEGAL',
-           className: 'custom-btn',
-           margin: [5,5,5,5],
-           //filename: 'dt_custom_pdf',
-          customize: function(doc) {doc.styles.tableHeader.vertical = 'middle'
-               //Remove the title created by datatTables
-               
-						doc.content.splice(0,1);
-						//Create a date string that we use in the footer. Format is dd-mm-yyyy
-						var now = new Date();
-            var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
-            doc.pageMargins = [20,60,20,30];
-						// Set the font size fot the entire document
-						doc.defaultStyle.fontSize = 10;
-						// Set the fontsize for the table header
-            doc.styles.tableHeader.fontSize = 11;
-            doc.styles.tableHeader.alignment = 'center'
-						// Create a header object with 3 columns
-						// Left side: Logo
-						// Middle: brandname
-						// Right side: A document title
-						doc['header']=(function() {
-							return {
-								columns: [
-									// {
-									// 	//image: logo,
-									// 	width: 24
-									// },
-									// {
-									// 	alignment: 'left',
-									// 	italics: true,
-									// 	text: 'dataTables',
-									// 	fontSize: 18,
-									// 	margin: [10,0]
-									// },
-									// {
-									// 	alignment: 'right',
-									// 	fontSize: 14,
-									// 	text: 'Custom PDF export with dataTables'
-									// }
-								],
-								margin: 20
-							}
-						});
-						// Create a footer object with 2 columns
-						// Left side: report creation date
-						// Right side: current page and total pages
-						doc['footer']=(function(page, pages) {
-							return {
-								columns: [
-									{
-										alignment: 'left',
-										text: ['Created on: ', { text: jsDate.toString() }]
-									},
-									{
-										alignment: 'right',
-										text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
-									}
-								],
-								margin: 20
-							}
-						});
-						// Change dataTable layout (Table styling)
-						// To use predefined layouts uncomment the line below and comment the custom lines below
-						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
-						var objLayout = {};
-						objLayout['hLineWidth'] = function(i) { return .5; };
-						objLayout['vLineWidth'] = function(i) { return .5; };
-						objLayout['hLineColor'] = function(i) { return '#aaa'; };
-						objLayout['vLineColor'] = function(i) { return '#aaa'; };
-						objLayout['paddingLeft'] = function(i) { return 4; };
-						objLayout['paddingRight'] = function(i) { return 4; };
-						doc.content[0].layout = objLayout;
-				},				
-          exportOptions: {
-              columns: ':visible'
-          },
-           text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
-         },*/
-         
-         // {
-         //   titleAttr: 'Download as CSV',     
-         //   extend: 'csvHtml5',
-         //   className: 'custom-btn fa fa-file-text-o',
-         //   text: ''
-         // },
-         // {
-         // titleAttr: 'Print',     
-         // extend: 'print',
-         // className: 'custom-btn fa fa-print',
-         // text: ''
-         // }
- 
-         ], 
-      language: {
-        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
-        searchPlaceholder: "Search...",
-        lengthMenu: "Records / Page :  _MENU_",
-        paginate: {
-          first: '',
-          last: '', // or '←' 
-          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        }, 
-      }   
-    };
 
-    console.log(this.SubjectProfileService.subjectprofileListApi);
+    this.tableHeader = this._headerData[0];
+    this.curentObjectKey = this._keyData[0];
     var _obj = {
       fromDate: '',
       toDate: '',
@@ -397,16 +296,20 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getANMReportList(_obj)
       .subscribe(response => {
-        console.log(response);
         this.anmsubjectProfileResponse = response;
         this.loaderService.display(false);
         if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
           if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
             this.subjectprofilelistErrorMessage = response.message;
+            this.subjectprofileLists = response['data'];
+            this.cdr.detectChanges();
+            this.commonDataTable.resetTableFromParent();
           }
           else {
             this.subjectprofileLists = response['data'];
-            this.rerender();
+            this.cdr.detectChanges();
+            this.commonDataTable.resetTableFromParent();
+            //this.rerender();
           }
         }
         else {
@@ -440,7 +343,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.ANMdata = [];
     this.selectedAnm = null;
     this.sampleCollectionService.getSubjectType().subscribe(response => {
-      console.log(response);
       this.subjectData = response['subjectTypes'];
       this.loaderService.display(false);
     },
@@ -456,7 +358,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.selectedAnm = null;
     this.PNDTCmasterService.getCHCByBlock(this.selectedBlock)
     .subscribe(response => {
-      console.log(response);
       this.CHCdata = response['data'];
       this.loaderService.display(false);
     },
@@ -470,7 +371,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.loaderService.display(true);
     this.PNDTCmasterService.getANMByCHC(this.selectedchc)
     .subscribe(response => {
-      console.log(response);
       this.ANMdata = response['data'];
       this.loaderService.display(false);
     },
@@ -484,7 +384,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.loaderService.display(true);
     this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
     .subscribe(response => {
-      console.log(response);
       this.ANMdata = response['data'];
       this.loaderService.display(false);
     },
@@ -518,12 +417,16 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
           if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
             this.subjectprofilelistErrorMessage = response.message;
-            this.subjectprofileLists = [];
-            this.rerender();
+            this.subjectprofileLists = response['data'];
+            this.cdr.detectChanges();
+            this.commonDataTable.resetTableFromParent();
+           // this.rerender();
           }
           else {
             this.subjectprofileLists = response['data'];
-            this.rerender();
+            this.commonDataTable.resetTableFromParent();
+            //this.cdr.detectChanges();
+           // this.rerender();
           }
         }
         else {
@@ -533,7 +436,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
         (err: HttpErrorResponse) => {
           this.subjectprofilelistErrorMessage = err.toString();
         });
-        console.log(maintab);
         if(maintab === 1)
         {
           this.anmSubjectBadgeProfileListCount(1,1,1);
@@ -613,8 +515,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getANMReportList(_obj)
       .subscribe(response => {
-        
-       console.log(response['data'].length);
        if(maintab ===1)
        {
             if(subtab === 1)
@@ -743,11 +643,11 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
               if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
                 this.subjectprofilelistErrorMessage = response.message;
                 this.subjectprofileLists = [];
-                  this.rerender();
+                  //this.rerender();
               }
               else {
                 this.subjectprofileLists = response['data'];
-                this.rerender();
+                this.cdr.detectChanges();
               }
             }
             else {
@@ -767,7 +667,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   
 
   opensubjectdetail(subjectinfo ){
-    console.log(subjectinfo);
     this.DataService.setdata({'anmreportData':subjectinfo});
     this.DataService.setdata({'reportPreviouspage':"ANM"});
     this.subjectid = subjectinfo.subjectId;
@@ -808,7 +707,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       const selectedDate = changes[0].getTime();
       this.anmSPFromDate = moment(new Date(selectedDate)).format("DD/MM/YYYY");
       const monthLaterDate = selectedDate + (this.DAY * 30);
-      // console.log(monthLaterDate > Date.now() ? new Date() : new Date(monthLaterDate));
       if (changes > this.dateform.controls.toDate.value) {
         this.endPicker.flatpickr.set({
           defaultDate: new Date(Date.now()),
@@ -824,7 +722,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
 
     // // End Date Changes
     this.dateform.controls.toDate.valueChanges.subscribe(changes => {
-      console.log('end: ', changes);
       if (!changes[0]) return;
       const selectedDate1 = changes[0].getTime();
       this.anmSPToDate = moment(new Date(selectedDate1)).format("DD/MM/YYYY");
@@ -834,13 +731,24 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    /*this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first   
       dtInstance.clear();   
       dtInstance.destroy();
       // Call the dtTrigger to rerender again       
       this.dtTrigger.next();
+    });*/
+    this.dtElements.forEach((dtElement: DataTableDirective) => {
+      if (dtElement.dtInstance)
+        dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+        });
     });
+    setTimeout(() => {
+      this.dtTrigger1.next();
+      this.dtTrigger2.next();
+    });
+
   }   
 
   /*ngAfterViewInit(): void {
@@ -848,19 +756,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   }   */
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (that.search() !== this['value']) {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
+   
  
   }
 
@@ -869,6 +765,8 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
   {
       this.maintabSelected = i;
       this.mainsubtabSelected = j;
+      this.tableHeader = this._headerData[i-1];
+      this.curentObjectKey = this._keyData[i-1];
       this.anmSubjectProfileList(1,i,j);
   }
   ngOnDestroy(): void {
@@ -876,8 +774,7 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
     this.dtTrigger.unsubscribe();
   }
 
-  openpopup(index, subjectinfo){
-
+  openpopup(subjectinfo){
     console.log(subjectinfo);
     this.loaderService.display(true);
     var _obj = {
@@ -888,7 +785,6 @@ export class ANMreportListComponent implements AfterViewInit, OnDestroy, OnInit 
       .subscribe(response => {
         var _response = response.subjectsDetail[0];
 
-        console.log(this.SubjectProfileService.subjectProfileApi);
     this.childSubjectTypeId = _response.primaryDetail.childSubjectTypeId;
     this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
     this.firstName = _response.primaryDetail.firstName;

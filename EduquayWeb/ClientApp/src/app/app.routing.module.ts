@@ -353,6 +353,8 @@ import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
 
+
+import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -1193,7 +1195,8 @@ export const RoutingComponents = [
   PathoreportListComponent,
   HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
-  SAUploadComponent
+  SAUploadComponent,
+  CommonDataTableComponent
 ];
 
 
