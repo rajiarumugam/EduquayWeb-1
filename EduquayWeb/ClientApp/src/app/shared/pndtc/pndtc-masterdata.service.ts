@@ -27,6 +27,7 @@ export class PNDTCmasterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+
   getDistrictBasedCHC(district): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBASEDDISTRICT+district);
     return this._http
@@ -107,6 +108,24 @@ export class PNDTCmasterService {
   }
   getCHCByBlock(did): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBYBLOCK+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getPhcByChc(did): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPHCBYCHC+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getChcbydistrict(id): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBYDISTRICT+id);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getANMByPHC(did): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEANMBYPHC+did);
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
