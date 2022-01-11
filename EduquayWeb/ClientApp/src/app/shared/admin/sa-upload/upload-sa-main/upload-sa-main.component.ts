@@ -3,6 +3,7 @@ import { DataService } from './../../../../shared/data.service';
 import { Subscription } from 'rxjs';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
+import { ExcelService } from 'src/app/shared/excel.service';
 
 @Component({
   selector: 'app-sa-upload-main',
@@ -14,7 +15,7 @@ export class UploadSAMainComponent implements OnInit {
   startPickCount = 0;
   subscription: Subscription;
   currentPage = "";
-  constructor(private DataService:DataService,private router: Router) { }
+  constructor(private DataService:DataService,private router: Router,private excelService:ExcelService) { }
 
   ngOnInit() {
 
@@ -46,6 +47,8 @@ export class UploadSAMainComponent implements OnInit {
   {
     console.log(event);
   }
+
+  
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();

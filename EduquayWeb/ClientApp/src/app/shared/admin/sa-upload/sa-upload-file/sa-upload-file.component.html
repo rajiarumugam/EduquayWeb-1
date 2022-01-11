@@ -5,7 +5,7 @@
     </tr>
    
   </table>
-<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.ms-excel" />
+<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 <button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
 <div class="table-responsive mt-5" *ngIf = "showValidationError">
@@ -47,7 +47,7 @@
   <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
 </div>
 
-<div class="table-responsive mt-5" *ngIf = "showValidationError">
+<!--<div class="table-responsive mt-5" *ngIf = "showValidationError">
   <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
       <thead>
           <tr>
@@ -72,6 +72,7 @@
       </tbody>
   </table>
 
+
   <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
   <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
 </div>
@@ -86,6 +87,7 @@
   </div>
 </div>
 </div>
+
 <div class="table-responsive mt-5" *ngIf = "showValidationError">
   <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions">
     <thead>
@@ -104,38 +106,56 @@
               <td class="text-left">{{validateData?.anmCodeError}}</td>
           </tr>
           <tr>
+
             <td class="sno text-center">{{2}}</td>
             <td class="text-left">{{'Block  ' | translate}}</td>
             <td class="text-left">{{validateData?.blockError}}</td>
+
               <td class="text-left">{{validateData?.blockCodeError}}</td>
           </tr>
-
+          <tr>
+            <td class="text-left">{{'Block Error Count' | translate}}</td>
+              <td class="text-left">{{validateData?.blockError}}</td>
+          </tr>
           <tr>
             <td class="sno text-center">{{3}}</td>
             <td class="text-left">{{'CHC ' | translate}}</td>
             <td class="text-left">{{validateData?.chcError}}</td>
               <td class="text-left">{{validateData?.chcCodeError}}</td>
           </tr>
-
+          <tr>
+            <td class="text-left">{{'CHC Error Count' | translate}}</td>
+              <td class="text-left">{{validateData?.chcError}}</td>
+          </tr>
           <tr>
             <td class="sno text-center">{{4}}</td>
             <td class="text-left">{{'District ' | translate}}</td>
               <td class="text-left">{{validateData?.districtError}}</td>
               <td class="text-left">{{validateData?.districtCodeError}}</td>
           </tr>
-
+          <tr>
+            <td class="text-left">{{'District Error Code' | translate}}</td>
+              <td class="text-left">{{validateData?.districtError}}</td>
+          </tr>
           <tr>
             <td class="sno text-center">{{5}}</td>
             <td class="text-left">{{'PHC ' | translate}}</td>
               <td class="text-left">{{validateData?.phcError}}</td>
               <td class="text-left">{{validateData?.phcCodeError}}</td>
           </tr>
-
+          <tr>
+            <td class="text-left">{{'PHC Error Count' | translate}}</td>
+              <td class="text-left">{{validateData?.phcError}}</td>
+          </tr>
           <tr>
             <td class="sno text-center">{{6}}</td>
             <td class="text-left">{{'SC ' | translate}}</td>
               <td class="text-left">{{validateData?.scError}}</td>
               <td class="text-left">{{validateData?.scCodeError}}</td>
+          </tr>
+          <tr>
+            <td class="text-left">{{'SC Error Count' | translate}}</td>
+              <td class="text-left">{{validateData?.scError}}</td>
           </tr>
       </tbody>
   </table>
