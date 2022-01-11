@@ -12,7 +12,11 @@ h5.float-left {
     font-size: 25px;
 }
 
-
+.exportasxlsx[_ngcontent-ng-cli-universal-c4] {
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .modaltitle {
     color: #1b55e2;
     font-weight: 600;
@@ -313,9 +317,11 @@ vertical-align: middle;
     color: white;
   }
 
+
   .exportasxlsx
 {
     float: right;
     margin-top: 20px;
     margin-bottom: 20px
 }
+

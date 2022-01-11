@@ -1,11 +1,11 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-
+import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
 import { HomeHeaderComponent } from './_layout/home-header/home-header.component';
 import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
-
+import { DistrictreportListComponent } from "./district-coordinator/district-report-list/district-report-list.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
@@ -43,7 +43,7 @@ import { SampleCollectionResolverService } from "./shared/anm-module/sample-coll
 import { ShipmentlogResolverService } from "./shared/anm-module/shipmentlog/shipmentlog-resolver.service";
 import { PicknpackResolverService } from "./shared/anm-module/picnpack/picknpack-resolver.service";
 import { DamagedSamplesResolverService } from "./shared/anm-module/notifications/damaged-samples/damaged-samples-resolver.service";
-
+import { CounsellorMtpreportListComponent } from "./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.component";
 
 import { CheSubjectRegistrationComponent } from './chc-module/registration/chc-subject-registration/chc-subject-registration.component'
 import { BlockSubjectRegistrationComponent } from './chc-module/registration/block-subject-registration/block-subject-registration.component';
@@ -129,7 +129,7 @@ import { CentralPickPackStartComponent } from "./central-lab/pickandpack/central
 
 import { ChcSampleShipmentlogComponent } from "./chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component";
 import { ChcSampleShipmentlogResolverService } from "./shared/chc-sample/chc-sample-shipmentlog/chc-sample-shipmentlog-resolver.service";
-
+import { StatereportListComponent } from "./pathologist/state-report-list/state-report-list.component";
 import { CentralShipmentMainComponent } from "./central-lab/shipment-log/central-shipment-log-main/central-shipment-log-main.component";
 import { CentralCentralShipmentComponent } from "./central-lab/shipment-log/central-shipment-log/central-shipment-log.component";
 import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-view-shipment/chc-sample-view-shipment.component";
@@ -212,7 +212,9 @@ import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/
 import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
 import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
 import { AVDComponent } from "./admin/avd/avd.component";
-import { UserRoleComponent } from "./admin/user-role/User-role.component";
+
+// import { UserRoleComponent } from "./admin/User-role/User-role.component";
+
 import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
 import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
@@ -240,7 +242,6 @@ import { PathoreportSampleStatusComponent } from "./pathologist/repot-sample-sta
 import { PathoreportSampleStatusMainComponent } from './pathologist/repot-sample-status/patho-repot-sample-status-main/patho-repot-sample-status-main.component';
 import { PathoReportResolverService } from "./shared/pathologist/patho-report-resolver.service";
 import { PathoReportPrintResolverService } from "./shared/pathologist/patho-report-print-resolver.service";
-
 import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
 import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
 import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
@@ -268,11 +269,12 @@ import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.co
 import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+
 import { UsersComponent } from "./admin/users/users.component";
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
-import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
 
+import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
 import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 
 import { PathoreportSampleStatusPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
@@ -494,7 +496,7 @@ const routes: Routes = [
       { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
       { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
       { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
-      { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
+      // { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
       { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
       { path: 'add-test', component: TestComponent, pathMatch: 'full'},
@@ -707,12 +709,15 @@ const routes: Routes = [
         children:[
           {path: '', component: PathoreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportResolverService}}
         ]
-      },{
+      },
+      {
         path: 'patho-report-print', component: PathoreportSampleStatusMainPrintComponent,
         children:[
           {path: '', component: PathoreportSampleStatusPrintComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportPrintResolverService}}
         ]
       },
+     
+     
       {
         path: 'central-shipment', component: CentralShipmentMainComponent,
         children:[
@@ -878,6 +883,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'counsellor-report', component: CounsellorreportListComponent,
+      },
+
+      {
+        path: 'counsellor-mtp-report', component: CounsellorMtpreportListComponent,
+      },
+
+    
+      {
         path: 'HPLC-ANM', component: PathoreportSampleStatusMainPrintComponentANM,
         children:[
           {path: '', component: PathoreportSampleStatusPrintComponentANM, pathMatch: 'full'},
@@ -897,6 +911,14 @@ const routes: Routes = [
           {path: '', component: PathoreportSampleStatusPrintComponentDC, pathMatch: 'full'},
 
         ]
+      },
+      {
+        path: 'state-report', component: StatereportListComponent,
+
+      },
+      {
+        path: 'district-report', component: DistrictreportListComponent,
+
       },
       {
         path: 'nhm-report', component: NHMreportListComponent,
@@ -978,9 +1000,11 @@ export const RoutingComponents = [
   SiteLayoutComponent,
   SiteSidebarComponent,
   DashboardComponent,
+  StatereportListComponent,
   AnmNotificationComponent,
   AnmDamagedSamplesComponent,
   AnmUnsentSamplesComponent,
+  CounsellorreportListComponent,
   AnmTimeoutSamplesComponent,
   AnmPositiveSubjectsComponent,
   AnmPndReferralComponent,
@@ -1051,16 +1075,19 @@ export const RoutingComponents = [
   ChcStartPickpackComponent,
   ChcSubjectProfileListComponent,
   DiagnosisHPLCAbEditComponent,
+  CounsellorMtpreportListComponent,
   PrePndtcMainComponent,
   PrePndtcToBeScheduledComponent,
   PrePndtcScheduledComponent,
   PndTestingMainComponent,
   pndTestingComponent,
+  // PathoreportStatusCoordinatorMainPrintComponent,
   PndTestingResultsMainComponent,
   PNDTestingResultsComponent,
   pndNotCompleteComponent,
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
+  DistrictreportListComponent,
   UpdateDecisionYesPndtComponent,
   UpdateDecisionPendingPndtComponent,
   SchedulePostPndtcMainComponent,
@@ -1115,6 +1142,7 @@ export const RoutingComponents = [
   DiagosisReportComponent1,
   GetOtpComponent,
   ChcSubjectProfileComponent,
+ 
   AnmChcSubjectProfileComponent,
   PathoreportSampleStatusComponent,
   PathoreportSampleStatusMainComponent,
@@ -1201,10 +1229,12 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainPrintComponentDC,
   PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
+  PathoreportSampleStatusMainPrintComponent,
+
   PathoreportSampleStatusPrintComponentNHM,
   PathoreportListComponent,
   AVDComponent,
-  UserRoleComponent,
+  // UserRoleComponent,
   IlrComponent,
   TestComponent,
   UsersComponent,

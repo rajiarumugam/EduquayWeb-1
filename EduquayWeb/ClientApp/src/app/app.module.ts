@@ -11,7 +11,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NumberDirective } from './shared/directive/numbers-only.directive';
 import { TextSearchPipe } from './shared/directive/text-search.pipe';
 import { SelectDropdownComponent } from "./shared/directive/select-dropdown/select-dropdown.component";
-
+// import * as $ from "jquery";
+// import * as bootstrap from "bootstrap";
 import { AuthInterceptorServiceService } from './interceptors/auth-interceptor-service';
 import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
 import { AuthGuard } from './shared/auth.guard';
@@ -25,7 +26,6 @@ import { AnmCollectionComponent } from './anm-module/anm-collection/anm-collecti
 import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component';
 import { DataTablesModule } from 'angular-datatables';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
-
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,10 +35,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'; 
-
 //import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
-
 import { DataService } from './shared/data.service';
+import { StatereportListComponent } from './pathologist/state-report-list/state-report-list.component';
 import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component';
 import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.component';
 import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipmentlog.component';
@@ -58,7 +57,6 @@ import { ChcPendingPickpackComponent } from './chc-sample-module/chc-sample-pick
 import { ChcStartPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component';
 import { AppPasswordDirective } from './shared/directive/app-password.directive';
 import { CookieService } from 'ngx-cookie-service';
-
 import { LoaderService } from './shared/loader/loader.service';
 import { AboutUsComponent } from './landing-page/about-us/about-us.component';
 import { AboutProgramComponent } from './landing-page/about-program/about-program.component';
@@ -87,7 +85,6 @@ import { PostCounsellingDecisionYesComponent } from './pndtc/counselling-post-pn
 import { PostCounsellingDecisionNoComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component';
 import { PostCounsellingDecisionPendingComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component';
 import { PostPndtcDecisionYesComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-yes/post-pndtc-decision-yes.component';
-
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PostPndtcDecisionNoComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component';
 import { PostPndtcDecisionAwaitedComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-awaited/post-pndtc-decision-awaited.component';
@@ -111,8 +108,7 @@ import { BlockComponent } from './admin/block/block.component';
 import { ChcComponent } from './admin/chc/chc.component';
 import { PhcComponent } from './admin/phc/phc.component';
 import { AVDComponent } from './admin/avd/avd.component';
-import { UserRoleComponent } from './admin/user-role/user-role.component';
-
+// import { UserRoleComponent } from './admin/user-role/user-role.component';
 import { IlrComponent } from './admin/ilr/ilr.component';
 import { ScComponent } from './admin/sc/sc.component';
 import { RiPointComponent } from './admin/ri-point/ri-point.component';
@@ -120,10 +116,7 @@ import { FacilityTypeComponent } from './admin/facility-type/facility-type.compo
 import { HNINComponent } from './admin/hnin/hnin.component';
 import { GvtIdTypeComponent } from './admin/gvt-id-type/gvt-id-type.component';
 import { UserTypeComponent } from './admin/user-type/user-type.component';
-
 import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
-
-
 import { TabsComponent } from './nhm/tabs/tabs.component';
 import { TabComponent } from './nhm/tabs/tab.component';
 import { UpdateResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component';
@@ -134,6 +127,7 @@ import { CvsNotificationComponent } from './molecular-lab-results/cvs-specimen/c
 import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component';
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
+
 
 
 
@@ -187,6 +181,7 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     ToBeCounselledComponent,
     CounselledDecisionYesComponent,
     CounselledDecisionNoComponent,
+    StatereportListComponent,
     CounselledDecisionAwaitedComponent,
     UpdateDetailTestresultsComponent,
     UpdateDecisionNoPndtComponent,
@@ -209,6 +204,8 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     UnsentSamplesComponent,
     SampleTimeoutComponent,
     PositiveSubjectsComponent,
+    // PathoreportStatusCoordinatorMainPrintComponent,
+    // PathoreportStatusCoordinatorPrintComponent,
     PndtReferralComponent,
     MtpReferralComponent,
     PostMtpFollowupComponent,
@@ -223,10 +220,9 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     PhcComponent,
     TestComponent,
     AVDComponent,
-    UserRoleComponent,
+    // UserRoleComponent,
     IlrComponent,
-    ScComponent,
-    
+    ScComponent,  
     RiPointComponent,
     FacilityTypeComponent,
     HNINComponent,
@@ -237,6 +233,7 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     TabComponent,
     UpdateResultsComponent,
     EditResultsComponent,
+   
     ConfirmedResultsComponent,
     MlrNotificationComponent,
     CvsNotificationComponent,
