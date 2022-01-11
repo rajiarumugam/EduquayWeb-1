@@ -12,6 +12,9 @@ import { ENDPOINT } from '../../../app.constant';
   providedIn: 'root'
 })
 export class SubjectProfileService {
+  PNDTREPORTSDETAIL(_obj: { fromDate: string; toDate: string; districtId: number; chcId: number; phcId: number; anmId: number; userInput: string; searchType: any; searchSection: number; status: any; }) {
+    throw new Error('Method not implemented.');
+  }
 
   subjectProfileApi: string = "api/v1/Subject/Retrieve";
   religionNameApi: string = "api/v1/WebMaster/RetrieveReligion";
@@ -92,6 +95,11 @@ export class SubjectProfileService {
 
 
   getNHMReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.NHM.PNDTREPORTSDETAIL);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+
+  getPNDTReportList(postData){
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.NHM.GETNHMREPORTS);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }

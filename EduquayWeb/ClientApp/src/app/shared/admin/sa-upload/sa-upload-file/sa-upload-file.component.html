@@ -75,35 +75,66 @@
   <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
   <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
 </div>
+<div *ngIf = "showValidationError">
+<div class="col-md-12">
+  <div class="justify-between">
+<div class="col-md-12">
+  <div class="headertit">
+    <h5 class="float-center">{{'Error Report' | translate }}</h5>
+  </div>
+</div>
+  </div>
+</div>
+</div>
 <div class="table-responsive mt-5" *ngIf = "showValidationError">
-  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions">
+    <thead>
+      <tr>
+        <th><span>{{'SNo' | translate }}</span></th>
+        <th><span>{{'Column Name' | translate }}</span></th>
+          <th><span>{{'Error Count' | translate }}</span></th>                              
+          <th><span>{{'Error ' | translate }}</span></th>
+        </tr>
+      </thead>
       <tbody>
           <tr>
-            <td class="text-left">{{'ANM Code Error' | translate}}</td>
+            <td class="sno text-center">{{1}}</td>
+            <td class="text-left">{{'ANM' | translate}}</td>
+            <td class="text-left">{{validateData?.anmError}}</td>
               <td class="text-left">{{validateData?.anmCodeError}}</td>
           </tr>
           <tr>
-            <td class="text-left">{{'Block Code Error' | translate}}</td>
+            <td class="sno text-center">{{2}}</td>
+            <td class="text-left">{{'Block  ' | translate}}</td>
+            <td class="text-left">{{validateData?.blockError}}</td>
               <td class="text-left">{{validateData?.blockCodeError}}</td>
           </tr>
 
           <tr>
-            <td class="text-left">{{'CHC Code Error' | translate}}</td>
+            <td class="sno text-center">{{3}}</td>
+            <td class="text-left">{{'CHC ' | translate}}</td>
+            <td class="text-left">{{validateData?.chcError}}</td>
               <td class="text-left">{{validateData?.chcCodeError}}</td>
           </tr>
 
           <tr>
-            <td class="text-left">{{'District Code Error' | translate}}</td>
+            <td class="sno text-center">{{4}}</td>
+            <td class="text-left">{{'District ' | translate}}</td>
+              <td class="text-left">{{validateData?.districtError}}</td>
               <td class="text-left">{{validateData?.districtCodeError}}</td>
           </tr>
 
           <tr>
-            <td class="text-left">{{'PHC Code Error' | translate}}</td>
+            <td class="sno text-center">{{5}}</td>
+            <td class="text-left">{{'PHC ' | translate}}</td>
+              <td class="text-left">{{validateData?.phcError}}</td>
               <td class="text-left">{{validateData?.phcCodeError}}</td>
           </tr>
 
           <tr>
-            <td class="text-left">{{'SC Code Error' | translate}}</td>
+            <td class="sno text-center">{{6}}</td>
+            <td class="text-left">{{'SC ' | translate}}</td>
+              <td class="text-left">{{validateData?.scError}}</td>
               <td class="text-left">{{validateData?.scCodeError}}</td>
           </tr>
       </tbody>

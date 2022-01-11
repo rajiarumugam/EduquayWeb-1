@@ -103,7 +103,10 @@ export const ENDPOINT = {
         "RETRIVEMTPDISCHARECONDITION":"api/v1/PNDTMTPMaster/RetrieveMTPDischargeConditions",
         "RETRIVEBLOCKBYDISTRICT":"api/v1/WebMaster/RetrieveBlockByDistrict/",
         "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
+        "RETRIVEPHCBYCHC":"api/v1/WebMaster/RetrievePHCByCHC/",
+        "RETRIVECHCBYDISTRICT":"api/v1/WebMaster/RetrieveCHCByDistrict/",
         "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/",
+        "RETRIVEANMBYPHC":"api/v1/WebMaster/RetrieveANMByPHC/",
         "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/"
     },
     "MTP":
@@ -127,6 +130,7 @@ export const ENDPOINT = {
     },
     "NHM":{
         "GETNHMREPORTS":"api/v1/NHMReports/NHMReportsDetail",
+        "PNDTREPORTSDETAIL":"api/v1/NHMReports/PNDTReportsDetail",
         "CHCRECEIPTREPORTSDETAIL":"api/v1/CHCReceiptProcessing/CHCReceiptReportsDetail",
         "CLRECEIPTREPORTSDETAIL":"api/v1/CentralLab/CLReceiptReportsDetail"
     },

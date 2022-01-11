@@ -37,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'; 
 //import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { DataService } from './shared/data.service';
+import { StatereportListComponent } from './pathologist/state-report-list/state-report-list.component';
 import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component';
 import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.component';
 import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipmentlog.component';
@@ -98,8 +99,7 @@ import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-follow
 import { GetOtpComponent } from './auth/forgot-password/get-otp/get-otp.component';
 import { ResetPasswordComponent } from './auth/forgot-password/reset-password/reset-password.component';
 import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.component';
-// import { PathoreportStateCoordinatorMainPrintComponent } from './pathologist/repot-patho-state-coordinator/patho-repot-state-coordinator-print-main/patho-repot-state-coordinator-print-main.component';
-// import { PathoreportStateCoordinatorPrintComponent } from './pathologist/repot-patho-state-coordinator/patho-repot-state-coordinator-print/patho-repot-state-coordinator-print.component';
+
 import {NgxPrintModule} from 'ngx-print';
 import { SubjectTrackerComponent } from './anm-module/subject-tracker/subject-tracker.component';
 import { StateComponent } from './admin/state/state.component';
@@ -127,8 +127,7 @@ import { CvsNotificationComponent } from './molecular-lab-results/cvs-specimen/c
 import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component';
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
-import { PathoreportDistrcitCoordinatorPrintComponent } from './pathologist/repot-patho-district-coordinator/patho-repot-district-coordinator-print/patho-repot-district-coordinator-print.component';
-import { PathoreportDistrictCoordinatorMainPrintComponent } from './pathologist/repot-patho-district-coordinator/patho-repot-district-coordinator-print-main/patho-repot-district-coordinator-print-main.component';
+
 
 
 
@@ -182,6 +181,7 @@ import { PathoreportDistrictCoordinatorMainPrintComponent } from './pathologist/
     ToBeCounselledComponent,
     CounselledDecisionYesComponent,
     CounselledDecisionNoComponent,
+    StatereportListComponent,
     CounselledDecisionAwaitedComponent,
     UpdateDetailTestresultsComponent,
     UpdateDecisionNoPndtComponent,
@@ -233,6 +233,7 @@ import { PathoreportDistrictCoordinatorMainPrintComponent } from './pathologist/
     TabComponent,
     UpdateResultsComponent,
     EditResultsComponent,
+   
     ConfirmedResultsComponent,
     MlrNotificationComponent,
     CvsNotificationComponent,

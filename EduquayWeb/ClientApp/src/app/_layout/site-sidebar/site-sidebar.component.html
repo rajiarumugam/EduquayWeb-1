@@ -625,7 +625,7 @@
                         <a [routerLink]="['/app/patho-report-print']"> {{'Sample Status Report' | translate }} </a>
                     </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/patho-spcreport-print']"> {{'Report' | translate }} </a>
+                        <a [routerLink]="['/app/state-report']"> {{'Report' | translate }} </a>
                     </li>
                 </ul>
             </li>
@@ -696,6 +696,13 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/counselling-post-pndt']"> {{'CounsellingPostPNDT' | translate }}</a>
                     </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/counsellor-report']"> {{'Report-PND' | translate }} </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/counsellor-mtp-report']"> {{'Report-MTP' | translate }} </a>
+                    </li>
+
 
 
 
@@ -917,7 +924,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu" *ngIf="user.userRole === 'DC'">
+                <li class="menu" *ngIf="user.userRole === 'chcmo1'">
                     <a href="#dc" data-toggle="collapse" attr.data-active="{{module === 'dc'}}" attr.aria-expanded="{{module === 'dc'}}"  class="dropdown-toggle">
                         <div class="">
                             <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -943,7 +950,7 @@
                             <a [routerLink]="['/app/HPLC-DC']"> {{'HPLC Report' | translate }} </a>
                         </li>
                         <li routerLinkActive="active">
-                            <a [routerLink]="['/app/patho-dcrreport-print']"> {{'Report' | translate }} </a>
+                            <a [routerLink]="['/app/district-report']"> {{'Report' | translate }} </a>
                         </li>
                     </ul>
                 </li>

@@ -1,0 +1,232 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="view-sub-profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        <!-- <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                            [routerLink]="['/app/anm-shipment']" role="button" ngbTooltip="Shipment log" placement="right"><i
+                                    class="fas fa-chevron-left pNav-left"></i></a></div> -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">{{'Counsellor Report - PND' | translate }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+            <!-- <app-anm-chc-subject-profile #anmchcsubjectprofile></app-anm-chc-subject-profile> -->
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                            
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div *ngIf="subjectprofilelistErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': subjectprofilelistErrorMessage ==='', 'alert-danger': subjectprofilelistErrorMessage !== ''}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{subjectprofilelistErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row mt-4" [formGroup]="dateform">
+                            <div class="row" style="width:100%;">
+                                <div class="form-group col-md-2">
+                                <label for="inputFromdate">{{'FromDate' | translate }}
+                                </label>
+                                <div class="form-group mb-0">
+                                   
+                                    <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
+                                    [config]="startOptions" placeholder="Select Date.." formControlName="fromDate">
+                                    </ng2-flatpickr>
+                                </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                <label for="inputTodate">{{'ToDate' | translate }}</label>
+                                <div class="form-group mb-0">
+                                 
+                                    <ng2-flatpickr id="scToDate" name="toDate" class="form-control flatpickr flatpickr-input active" #endPicker
+                                    [config]="endOptions" placeholder="Select Date.." formControlName="toDate"></ng2-flatpickr>
+                                </div>
+                                </div>
+
+                           
+                    
+                                <div class="form-group col-md-2" >
+                                    <label for="inputTodate">{{'District' | translate }}</label>
+                                    <div class="form-group mb-0">
+                                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)" formControlName = "district"  >
+                                            <option [ngValue]="null">Select District</option>
+                                            <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                  
+                                <div class="form-group col-md-2">
+                                    <label for="inputTodate">{{'CHC' | translate }}</label>
+                                    <div class="form-group mb-0">
+                                        <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" (change)="onChangechc($event.target.value)" >
+                                            <option [ngValue]="null">Select CHC</option>
+                                            <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>   
+
+                                <div class="form-group col-md-2">
+                                    <label for="inputTodate">{{'PHC' | translate }}</label>
+                                    <div class="form-group mb-0">
+                                        <select [attr.disabled]="selectedchc === null ? '' : null" id="inputPHC" class="form-control" required [(ngModel)]="selectedphc" formControlName = "chc" (change)="getANMData()" >
+                                            <option [ngValue]="null">Select PHC</option>
+                                            <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>   
+                               
+
+                                <div class="form-group col-md-2">
+                                    <label for="inputTodate">{{'ANM' | translate }}</label>
+                                    <div class="form-group mb-0">
+                                        <select id="inputDistrict" class="form-control" [(ngModel)]="selectedAnm" [attr.disabled]="selectedchc === null ? '' : null" formControlName = "anm" >
+                                            <option [ngValue]="null">Select ANM</option>
+                                            <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
+                                        </select>
+                                    </div>
+
+                                    <a (click)="anmSubjectProfileList(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
+                                        <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                                </div>    
+                            </div>                      
+                        </div>
+                        <!-- <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                        <div class="form-row float-right">
+                            <div class="col-md-5">
+                                <a class=" mr-5 btn btn-primary" (click)="openAddChc(addChcDetail)"
+                                role="button">
+                                   PND
+                                </a>
+                            </div> -->          
+
+                         
+                            <!-- <div class="col-md-5">
+                                <a class="float-right mr-5  btn btn-primary" (click)="openAddChc(addChcDetail)"
+                                role="button">
+                                   MTP
+                                </a>
+                            </div>
+                          </div>
+                        </div> -->    
+
+                        <div class="custm-tab">
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
+                                    <p>{{'Scheduling Pending' | translate }}</p>
+                            </div>
+                            
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);"> 
+                                <p>{{'Scheduled Counselling' | translate }}</p>
+                            </div>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);"> 
+                                <p>{{'Completed' | translate }}</p>
+                            </div>                       
+                        </div>
+                        
+                        <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);"> 
+                                    <p>{{' Pending' | translate }} </p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);"> 
+                                <p>{{' Completed' | translate }} </p>
+                            </div>                           
+                        </div>
+
+                        <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);"> 
+                                    <p>{{'Agreed' | translate }} </p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);"> 
+                                <p>{{'Disagreed' | translate }} </p>
+                            </div>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);"> 
+                                <p>{{'Decision Pending' | translate }} </p>
+                            </div>
+                        </div>
+                       
+                        
+                        <div class="table-responsive mt-4" style="margin-top:0px !important;">
+                            <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
+                                [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">                               
+                                <thead>
+                                    <tr>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'Subject Name ' | translate }}</span></th>
+                                        <th><span>{{'Subject ID' | translate }}</span></th>                                 
+                                        <th><span>{{'SubjectType' | translate }}</span></th>
+                                        <th><span>{{'Gender' | translate }}</span></th>
+                                        <th><span>{{'Contact' | translate }}</span></th>
+                                        <th><span>{{'ANM' | translate }}</span></th>
+                                        <th><span >{{'Barcode' | translate }}</span></th>
+                                        <th><span >{{'Gestational Age' | translate }}</span></th>
+                                        <th><span>{{'Test Results ' | translate }}</span></th>
+                                        <th><span >{{'Status' | translate }}</span></th>
+                                        <th><span >{{'Tracker' | translate }}</span></th>
+                                        <th><span>{{'Profile' | translate }}</span></th>                                    
+                                      </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
+                                        <td style="text-align: center">{{i +1}}</td>
+                                        <td style="text-align: left">{{subjectinfo.anmId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.subjectId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.subjectType}}</td>
+                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
+                                        <td style="text-align: left">{{subjectinfo.barcode}}</td>
+                                        <td class="text-left sname">{{subjectinfo.dateOfRegister}}</td>
+                                        <td style="text-align: center">{{subjectinfo.ri}}</td>
+                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
+                                        <td class="text-left sname">{{subjectinfo.village}}</td>
+                                        <td style="text-align: center">{{subjectinfo.ga}}</td>                                                                       
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                  <!---Tracker Popup-->
+        
+
+        </div>
+
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+
+
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
