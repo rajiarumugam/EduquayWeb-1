@@ -37,7 +37,7 @@
             <!-- <app-anm-chc-subject-profile #anmchcsubjectprofile></app-anm-chc-subject-profile> -->
                 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                     <div class="widget-content widget-content-area br-6">
-                            
+
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div *ngIf="subjectprofilelistErrorMessage" class="alert mt-3 mb-2"
@@ -48,14 +48,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-row mt-4" [formGroup]="dateform">
                             <div class="row" style="width:100%;">
                                 <div class="form-group col-md-2">
                                 <label for="inputFromdate">{{'FromDate' | translate }}
                                 </label>
                                 <div class="form-group mb-0">
-                                   
+
                                     <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
                                     [config]="startOptions" placeholder="Select Date.." formControlName="fromDate">
                                     </ng2-flatpickr>
@@ -64,15 +64,15 @@
                                 <div class="form-group col-md-2">
                                 <label for="inputTodate">{{'ToDate' | translate }}</label>
                                 <div class="form-group mb-0">
-                                 
+
                                     <ng2-flatpickr id="scToDate" name="toDate" class="form-control flatpickr flatpickr-input active" #endPicker
                                     [config]="endOptions" placeholder="Select Date.." formControlName="toDate"></ng2-flatpickr>
                                 </div>
                                 </div>
 
-                           
-                    
-                                <div class="form-group col-md-2" >
+
+
+                                <div class="form-group col-md-2" *ngIf='false' >
                                     <label for="inputTodate">{{'District' | translate }}</label>
                                     <div class="form-group mb-0">
                                         <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)" formControlName = "district"  >
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
 
-                                  
+
                                 <div class="form-group col-md-2">
                                     <label for="inputTodate">{{'CHC' | translate }}</label>
                                     <div class="form-group mb-0">
@@ -91,7 +91,7 @@
                                             <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
                                         </select>
                                     </div>
-                                </div>   
+                                </div>
 
                                 <div class="form-group col-md-2">
                                     <label for="inputTodate">{{'PHC' | translate }}</label>
@@ -101,8 +101,8 @@
                                             <option [value]="phc.id" *ngFor="let phc of PHCdata">{{phc.name}}</option>
                                         </select>
                                     </div>
-                                </div>   
-                               
+                                </div>
+
 
                                 <div class="form-group col-md-2">
                                     <label for="inputTodate">{{'ANM' | translate }}</label>
@@ -115,8 +115,8 @@
 
                                     <a (click)="anmSubjectProfileList(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
                                         <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                                </div>    
-                            </div>                      
+                                </div>
+                            </div>
                         </div>
                         <!-- <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="form-row float-right">
@@ -126,8 +126,8 @@
                                    PND
                                 </a>
                             </div> -->
-                          
-                         
+
+
                             <!-- <div class="col-md-5">
                                 <a class="float-right mr-5  btn btn-primary" (click)="openAddChc(addChcDetail)"
                                 role="button">
@@ -136,50 +136,50 @@
                             </div>
                           </div>
                         </div> -->
-                      
+
 
                         <div class="custm-tab">
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Scheduling Pending' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
                                 <p>{{'Scheduled Counselling' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
                                 <p>{{'Completed' | translate }}</p>
-                            </div>                       
+                            </div>
                         </div>
-                        
+
                         <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);">
                                     <p>{{' Pending' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);">
                                 <p>{{' Completed' | translate }} </p>
-                            </div>                           
+                            </div>
                         </div>
 
                         <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);">
                                     <p>{{'Agreed' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);">
                                 <p>{{'Disagreed' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
                                 <p>{{'Decision Pending' | translate }} </p>
                             </div>
                         </div>
-                       
-                        
+
+
                         <div class="table-responsive mt-4" style="margin-top:0px !important;">
                             <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
-                                [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">                               
+                                [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                                 <thead>
                                     <tr>
                                         <th><span>{{'SNo' | translate }}</span></th>
                                         <th><span>{{'Subject Name ' | translate }}</span></th>
-                                        <th><span>{{'Subject ID' | translate }}</span></th>                                 
+                                        <th><span>{{'Subject ID' | translate }}</span></th>
                                         <th><span>{{'SubjectType' | translate }}</span></th>
                                         <th><span>{{'Gender' | translate }}</span></th>
                                         <th><span>{{'Contact' | translate }}</span></th>
@@ -189,7 +189,7 @@
                                         <th><span>{{'Test Results ' | translate }}</span></th>
                                         <th><span >{{'Status' | translate }}</span></th>
                                         <th><span >{{'Tracker' | translate }}</span></th>
-                                        <th><span>{{'Profile' | translate }}</span></th>                                    
+                                        <th><span>{{'Profile' | translate }}</span></th>
                                       </tr>
                                 </thead>
                                 <tbody>
@@ -206,7 +206,7 @@
                                         <td style="text-align: center">{{subjectinfo.ri}}</td>
                                         <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
                                         <td class="text-left sname">{{subjectinfo.village}}</td>
-                                        <td style="text-align: center">{{subjectinfo.ga}}</td>                                                                       
+                                        <td style="text-align: center">{{subjectinfo.ga}}</td>
                                     </tr>
 
                                 </tbody>
@@ -215,7 +215,7 @@
                     </div>
                 </div>
                   <!---Tracker Popup-->
-        
+
 
         </div>
 
