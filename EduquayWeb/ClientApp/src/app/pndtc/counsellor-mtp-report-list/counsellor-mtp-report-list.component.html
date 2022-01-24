@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">{{'Counsellor Report - PND' | translate }}</h5>
+                            <h5 class="float-center">{{'Counsellor Report - MTP' | translate }}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -181,32 +181,30 @@
                                         <th><span>{{'Subject Name ' | translate }}</span></th>
                                         <th><span>{{'Subject ID' | translate }}</span></th>
                                         <th><span>{{'SubjectType' | translate }}</span></th>
-                                        <th><span>{{'Gender' | translate }}</span></th>
+                                        <!-- <th><span>{{'Gender' | translate }}</span></th> -->
                                         <th><span>{{'Contact' | translate }}</span></th>
                                         <th><span>{{'ANM' | translate }}</span></th>
                                         <th><span >{{'Barcode' | translate }}</span></th>
                                         <th><span >{{'Gestational Age' | translate }}</span></th>
                                         <th><span>{{'Test Results ' | translate }}</span></th>
                                         <th><span >{{'Status' | translate }}</span></th>
-                                        <th><span >{{'Tracker' | translate }}</span></th>
-                                        <th><span>{{'Profile' | translate }}</span></th>
+
                                       </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
                                         <td style="text-align: center">{{i +1}}</td>
-                                        <td style="text-align: left">{{subjectinfo.anmId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
+                                        <td style="text-align: left">{{subjectinfo.firstName}}</td>
                                         <td style="text-align: center">{{subjectinfo.subjectId}}</td>
                                         <td style="text-align: center">{{subjectinfo.subjectType}}</td>
-                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
-                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
+                                        <!-- <td style="text-align: center">{{subjectinfo.subjectType}}</td> -->
+                                        <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
+                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
                                         <td style="text-align: left">{{subjectinfo.barcode}}</td>
-                                        <td class="text-left sname">{{subjectinfo.dateOfRegister}}</td>
-                                        <td style="text-align: center">{{subjectinfo.ri}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
-                                        <td class="text-left sname">{{subjectinfo.village}}</td>
-                                        <td style="text-align: center">{{subjectinfo.ga}}</td>
+                                        <td class="text-left sname">{{subjectinfo.ga}}</td>
+                                        <td style="text-align: center">{{subjectinfo.hplcPathoLabResult}}</td>
+                                        <td style="text-align: left">{{subjectinfo.mtpService}}</td>
+
                                     </tr>
 
                                 </tbody>

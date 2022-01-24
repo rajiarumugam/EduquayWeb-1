@@ -401,9 +401,8 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
     this.loaderService.display(true);
     this.PNDTCmasterService.getPhcByChc(this.selectedphc)
     .subscribe(response => { 
-      this.selectedchc=this.user.chcId;   
-        
-      this.selectedphc = this.user.phcId;
+      // this.selectedchc=this.user.chcId;        
+      // this.selectedphc = this.user.phcId;
       this.ANMdata = response['data'];
       this.loaderService.display(false);
     },
