@@ -12,6 +12,7 @@ import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/
 import { PathoreportSampleStatusPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { PathoreportSampleStatusMainPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { HomeComponent } from "./home/home.component";
+import { CounsellorPhcreportListComponent } from "./pndtc/counsellor-phc-report-list/counsellor-phc-report-list.component";
 import { CounterComponent } from "./counter/counter.component";
 import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { LoginComponent } from "./auth/login/login.component";
@@ -181,7 +182,7 @@ import { pndTestingSummaryComponent } from "./pndtc/pnd-testing/pnd-testing-summ
 import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolver.service";
 import { PndSummaryViewComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view/pnd-testing-summary-view.component";
 import { PndSummaryViewMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view-main/pnd-testing-summary-view-main.component";
-
+import { CounsellorChcreportListComponent } from "./pndtc/counsellor-chc-report-list/counsellor-chc-report-list.component";
 import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
 import { MTPPendingComponent } from "./mtp/mtp-service/mtp-sevice-pending/mtp-sevice-pending.component";
 import { MTPServiceCompletedComponent } from "./mtp/mtp-service/mtp-sevice-completed/mtp-sevice-completed.component";
@@ -890,6 +891,13 @@ const routes: Routes = [
         path: 'counsellor-mtp-report', component: CounsellorMtpreportListComponent,
       },
 
+      {
+        path: 'counsellor-chc-report', component: CounsellorChcreportListComponent,
+      },
+      {
+        path: 'counsellor-phc-report', component: CounsellorPhcreportListComponent,
+      },
+
     
       {
         path: 'HPLC-ANM', component: PathoreportSampleStatusMainPrintComponentANM,
@@ -1022,6 +1030,7 @@ export const RoutingComponents = [
   AnmStudentRegistrationComponent,
   AnmWalkinLt18RegistrationComponent,
   AnmWalkinGt18RegistrationComponent,
+  CounsellorChcreportListComponent,
   AnmViewShipmentdetailsComponent,
   ChcSampleCollectionComponent,
   WalkinRegistrationComponent,
@@ -1088,6 +1097,7 @@ export const RoutingComponents = [
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
   DistrictreportListComponent,
+  CounsellorPhcreportListComponent,
   UpdateDecisionYesPndtComponent,
   UpdateDecisionPendingPndtComponent,
   SchedulePostPndtcMainComponent,
