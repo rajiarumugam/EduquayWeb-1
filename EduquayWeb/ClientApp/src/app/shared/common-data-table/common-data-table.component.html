@@ -1,0 +1,43 @@
+<div class="table-responsive mt-4" style="margin-top:0px !important;">
+    <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
+    [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <thead>
+            <tr>
+                <!--<th><span>{{'SNo' | translate }}</span></th>
+                <th><span>{{'SubjectName' | translate }}</span></th>
+                <th><span>{{'SubjectID' | translate }}</span></th>
+                <th><span>{{'Barcode' | translate }}</span></th>
+                <th><span >{{'RCH' | translate }}</span></th>
+                <th><span >{{'Contact' | translate }}</span></th>
+                <th><span >{{'GA' | translate }}</span></th>
+                <th><span>{{'CurrentStatus' | translate }}</span></th>
+                <th><span >{{'Track' | translate }}</span></th>
+                <th><span >{{'Profile' | translate }}</span></th>-->
+                <th *ngFor="let header of tableHeader; index as i"><span>{{header}}</span></th>
+              </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
+                <td style="text-align: center">{{i +1}}</td>
+                <td style="text-align: left" *ngFor="let okey of objkey; index as j">{{subjectinfo[okey]}}</td>
+                <!--<td style="text-align: left">{{subjectinfo.objkey[0]}}</td>-->
+                <!--<td style="text-align: left">{{subjectinfo[objkey[0]]}}</td>
+                <td style="text-align: center">{{subjectinfo.subjectId}}</td>
+                <td style="text-align: center">{{subjectinfo.barcodeNo}}</td>
+                <td style="text-align: center">{{subjectinfo.rchId}}</td>
+                <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
+                <td style="text-align: center">{{subjectinfo.ga}}</td>
+                <td style="text-align: center">{{subjectinfo.currentStatus}}</td>-->
+                <td style="text-align: center"><a (click)="openTrackpopup(subjectinfo)">
+                    <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+                 </a></td>
+                <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                    <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
+                </td>
+               
+            </tr>
+
+        </tbody>
+    </table>
+</div>
