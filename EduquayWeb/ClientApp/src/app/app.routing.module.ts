@@ -213,7 +213,9 @@ import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/
 import { ViewCaseSheetComponent } from "./molecular-lab/view-case-sheet/view-case-sheet/view-case-sheet.component";
 import { ViewCaseSheetMainComponent } from "./molecular-lab/view-case-sheet/view-case-sheet-main/view-case-sheet-maincomponent";
 import { AVDComponent } from "./admin/avd/avd.component";
+
 // import { UserRoleComponent } from "./admin/User-role/User-role.component";
+
 import { CentralLabreportSampleStatusComponent } from "./central-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { CentralLabreportSampleStatusMainComponent } from "./central-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
 import { CHCreportSampleStatusComponent } from "./chc-sample-module/repot-sample-status/repot-sample-status/repot-sample-status.component";
@@ -358,6 +360,8 @@ import { TestComponent } from "./test/test.component";
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
 
+
+import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -1246,8 +1250,8 @@ export const RoutingComponents = [
   UsersComponent,
   HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
-  SAUploadComponent
-
+  SAUploadComponent,
+  CommonDataTableComponent
 ];
 
 
