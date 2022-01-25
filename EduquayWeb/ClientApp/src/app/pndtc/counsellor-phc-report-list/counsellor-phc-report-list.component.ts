@@ -132,6 +132,7 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
   ANMdata;
   erroMessage;
   selectedphc;
+  selectedphcTemp;
   CHCdata;
   districts;
   selectedDistrict = null;
@@ -235,7 +236,7 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
         }
         else
             this.showChc = true;
-            this.selectedphc = this.user.phcId;
+            
 
          if(this.selectedphc != null)
         {
@@ -244,7 +245,10 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
           
         }
         else
+        {this.selectedphc = this.user.phcId;
             this.showChc = true;
+
+        }
           
     this.loaderService.display(true);
     this.SubprofileInitializeDateRange();
@@ -381,6 +385,8 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
   getPhcData(id){
     this.loaderService.display(true);
     this.ANMdata = [];
+   console.log(this.selectedphc,id,'called get phc data')
+   
     this.selectedAnm = null;
     this.PNDTCmasterService.getPhcByChc(id)
     .subscribe(response => {
@@ -396,13 +402,13 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
    
     console.log(this.PHCdata);
   }
-
-  getANMData(){
+ getANMData(){
+    if(this.selectedphc!=null){
     this.loaderService.display(true);
-    this.PNDTCmasterService.getPhcByChc(this.selectedphc)
-    .subscribe(response => { 
-      // this.selectedchc=this.user.chcId;        
-      // this.selectedphc = this.user.phcId;
+    this.PNDTCmasterService.getANMByPHC(this.selectedphc)
+    .subscribe(response => {
+      this.selectedphc = this.user.phcId;
+      console.log(response);
       this.ANMdata = response['data'];
       this.loaderService.display(false);
     },
@@ -410,28 +416,14 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
       this.ANMdata = [];
       this.erroMessage = err.toString();
     });
-    console.log(this.ANMdata,"anmtest");
   }
-  
-  // getANMData(){
-  //   if(this.selectedphc!=null){
-  //   this.loaderService.display(true);
-  //   this.PNDTCmasterService.getANMByPHC(this.selectedphc)
-  //   .subscribe(response => {
-  //     console.log(response);
-  //     this.ANMdata = response['data'];
-  //     this.loaderService.display(false);
-  //   },
-  //   (err: HttpErrorResponse) =>{
-  //     this.ANMdata = [];
-  //     this.erroMessage = err.toString();
-  //   });
-  // }
-  // else{
-  //   this.ANMdata=[];
-  //   this.selectedAnm =null;
-  // }
-  // }
+  else{
+    this.ANMdata=[];
+    this.selectedAnm =null;
+  }
+  }
+ 
+ 
 
   blockselected(event)
   {
@@ -439,7 +431,8 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
   }
   onChangechc(event)
   {
-    this.getPhcData(this.userId);
+    this.getPhcData(this.selectedchc);
+    console.log(this.selectedchc,'on Change chc calling')
   }
 
   onChangeanm(event)
@@ -761,6 +754,7 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
       block: [''],
       district: [''],
       chc: [''],
+      phc:[''],
       anm: [''],
     });
 
