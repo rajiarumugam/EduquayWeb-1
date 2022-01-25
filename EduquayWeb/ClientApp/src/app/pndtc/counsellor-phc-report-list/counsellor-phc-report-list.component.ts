@@ -304,37 +304,35 @@ export class CounsellorPhcreportListComponent implements AfterViewInit, OnDestro
     }
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
-      .subscribe(response => {
-        console.log(response);
-        this.anmsubjectProfileResponse = response;
-        this.loaderService.display(false);
-        if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
-          if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
-            this.subjectprofilelistErrorMessage = response.message;
-          }
-          else {
-            this.subjectprofileLists = response['data'];
-            this.rerender();
-          }
-        }
-        else {
+    .subscribe(response => {
+      console.log(response);
+      this.anmsubjectProfileResponse = response;
+      this.loaderService.display(false);
+      if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
+        if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
           this.subjectprofilelistErrorMessage = response.message;
         }
-      },
-        (err: HttpErrorResponse) => {
-          this.subjectprofilelistErrorMessage = err.toString();
-        });
+        else {
+          this.subjectprofileLists = response['data'];
+          this.rerender();
+        }
+      }
+      else {
+        this.subjectprofilelistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.subjectprofilelistErrorMessage = err.toString();
+      });
 
-         
-        this.anmSubjectBadgeProfileListCount(1,1,1);
-        this.anmSubjectBadgeProfileListCount(1,1,2);
-        this.anmSubjectBadgeProfileListCount(1,1,3);
-      //  this.selectedchc=this.user.chcId;
-        // this.selectedphc = this.user.phcId;
-     
-        //this.phcChange();
-        
-  }
+       
+      this.anmSubjectBadgeProfileListCount(1,1,1);
+      this.anmSubjectBadgeProfileListCount(1,1,2);
+      this.anmSubjectBadgeProfileListCount(1,1,3);
+     this.selectedchc = this.user.chcId;
+      //this.phcChange();
+      
+}
 
   getDistrictData(){
     this.PNDTCmasterService.getPNDTCDistrict()
