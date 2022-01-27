@@ -201,7 +201,7 @@ export class CounsellorChcreportListComponent implements AfterViewInit, OnDestro
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     
-    console.log(this.user.id,"Userid");
+    console.log(this.user,"Userid");
     
     this.selectedDistrict = this.user.districtId === 0 ? null : this.user.districtId;
 
@@ -279,6 +279,7 @@ export class CounsellorChcreportListComponent implements AfterViewInit, OnDestro
       districtId: this.user.districtId === 0 ? 0 : this.user.districtId,
       blockId:this.user.blockId === 0 ? 0 : this.user.blockId,
       chcId:0,
+      PhcId:0,
       anmId:0,
       /*userInput:"",
       searchType:1*/

@@ -3,6 +3,7 @@ import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, View
 import { FormBuilder, NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AddBlockResponse, BlockList } from 'src/app/shared/admin/add-block/add-block-response';
@@ -15,9 +16,11 @@ import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
+
 import { AddAvdRequest } from 'src/app/shared/admin/add-avd/add-avd-request';
 import { AddAvdResponse, AddAvdDataresponse,AvdList } from 'src/app/shared/admin/add-avd/add-avd-response';
 import { AddAvdService } from 'src/app/shared/admin/add-avd/add-avd.service';
+
 
 @Component({
   selector: 'app-avd',
@@ -59,6 +62,7 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
     districtName: string;
     isActive: string;
     comments: string;
+
     createdBy: number;
     updatedBy: number;
     stateCode: string;
@@ -71,17 +75,25 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
     blockCodedata: string;
     selectedBlock: string = '';
     contactNo:number;
-    contactno: number;
+    
     contact:string;
+    selectedsc = null;
     riId: string;
+    selectedassociatedANM;
+    selectedAssociatedANMID;
+    selectedripoint = null;
+    selectedTestingchc = null;
    tempeditid:number;
     longitude : string;
     testingchcId : string;
     centrallablid : string;
     longitudedata: string;
     latitudedata: string;
+    associatedCount = 0;
     riid: string;
+    editriid: string;
     id: number;
+    associatedANMData = [];
     c: number;
     avdName: string;
     name:string;
@@ -93,6 +105,7 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
 
 
     constructor(
+      private AddAvdService: AddAvdService,
       private ChcService: AddChcService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -110,12 +123,13 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = {
         pagingType: 'simple_numbers',
+        retrieve: true,
         pageLength: 20,
         processing: true,
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any Block information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any AVD information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -126,8 +140,10 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
           },
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
+        
       };
-      this.retrirveAvdlist();
+      this.retrirveAvdlist(); 
+
     }
 
     retrirveAvdlist(){
@@ -216,6 +232,7 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
       this.contactNo = sample.contactNo;
       this.avdName = sample.avdName;
       this.riid = "0";
+      // this.editriid = sample.riId;
       this.id = sample.id;
       // this.selectedEditBlock = "" +(sample.blockId)
       this.commentsdata = sample.comments;
@@ -246,7 +263,7 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
       this.avdListRequest = {
 
         avdName: this.avdName,
-        contactNo: +(this.contactNo),
+        contactNo: this.contactNo,
         riId: "0",
         comments: this.comments,
         userId: this.user.id
@@ -288,7 +305,7 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
             this.avdListRequest = {
               id:   this.tempeditid,
               name: this.avdName,
-              contact:""+this.contactNo,
+              contact:this.contactNo,
               riId: "0",
               comments: this.commentsdata,
               isActive: this.confirmationSelected,
@@ -332,6 +349,29 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
             }
           }
 
+          
+          
+          // getANMDetails(Avdid)
+          // {
+          //   this.loaderService.display(true);
+          //     this.AddAvdService.getriviewavd(Avdid)
+          //   .subscribe(response => {
+          //   console.log(response);
+          //   this.loaderService.display(false);
+          //   this.associatedANMData = response.ri;
+          //   if(this.associatedCount === 0)
+          //       this.dtTrigger.next();
+          //   else
+          //       this.rerender();
+          //   this.associatedCount++;
+          //   $('#fadeinModal').modal('show');
+          //   },
+          //   (err: HttpErrorResponse) =>{
+          //   });
+            
+          // }
+           
+
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
@@ -352,3 +392,4 @@ export class AVDComponent  implements AfterViewInit, OnDestroy, OnInit {
     }
 
   }
+
