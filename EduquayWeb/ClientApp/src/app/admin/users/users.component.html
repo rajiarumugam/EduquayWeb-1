@@ -168,11 +168,10 @@
                                      </div>
 
                                      <div class="form-group col-md-3">
-                                      <label class="note">{{'Middle Name' | translate }}<span class="manto"></span></label>
-                                      <input class="form-control field" name="middleName" type="text" placeholder="Middle Name"
-                                        autocomplete="off"  [(ngModel)]="middleName"   >
-                                    </div>
-
+                                      <label class="note">{{'Middle Name' | translate }}<span class="manto"> </span></label>
+                                      <input class="form-control" name="middleName" type="text" placeholder="Middle Name" autocomplete="off" ngModel
+                                       #middleName="ngModel" >
+                                     </div>
 
                                        <div class="form-group col-md-3">
                                         <label class="note">{{'Last Name' | translate }}<span class="manto"> *</span></label>
@@ -187,12 +186,12 @@
 
                                        <div class="form-group col-md-3">
                                         <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                        <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                        <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                         [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                          #contactNo1="ngModel" required >
-                                        <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                        <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                         <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                          <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                          <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                         </div>
                                        </div>
 
@@ -693,12 +692,12 @@
 
                                      <div class="form-group col-md-3">
                                       <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                      <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                      <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                       [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                        #contactNo1="ngModel" required >
-                                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                       <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                       </div>
                                      </div>
 
@@ -1064,7 +1063,7 @@
                                               required [(ngModel)]="selectedUserrole">
                                                   <option value="">Select</option>
                                                   <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                                                      {{Userrole.comments}
+                                                      {{Userrole.comments}}
                                                   </option>
                                               </select>
                                                 <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
@@ -1172,12 +1171,12 @@
 
                                              <div class="form-group col-md-3">
                                               <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                              <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                              <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                               [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                                #contactNo1="ngModel" required >
-                                              <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                              <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                               <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                                <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                                <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                               </div>
                                              </div>
 
@@ -1582,7 +1581,7 @@
                                               required [(ngModel)]="selectedUserrole">
                                                   <option value="">Select</option>
                                                   <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                                                      {{Userrole.userRoleName}}
+                                                      {{Userrole.comments}}
                                                   </option>
                                               </select>
                                                 <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
@@ -1671,12 +1670,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -1899,7 +1898,7 @@
 
                                          <div class="form-group col-md-3">
                                           <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="mobileNo" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                          <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                           [class.is-invalid]="!mobileNo.valid && mobileNo.touched || edithplcform.submitted && mobileNo.invalid"
                                           #mobileNo1="ngModel" required >
                                           <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter ContactNo</small>
@@ -2108,12 +2107,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -2293,7 +2292,7 @@
 
                                          <div class="form-group col-md-3">
                                           <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                          <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                           [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editpndtcForm.submitted && mobileNo.invalid"
                                            required >
                                           <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
@@ -2489,12 +2488,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -2680,7 +2679,7 @@
 
                                          <div class="form-group col-md-3">
                                           <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                          <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                           [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editmtpForm.submitted && mobileNo.invalid"
                                             required >
                                           <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
@@ -2876,12 +2875,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -2903,7 +2902,7 @@
                                                 <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                 [class.is-invalid]="!email.valid && email.touched || addIlrForm.submitted && email.invalid"
                                                  #email="ngModel" required>
-                                                <small class="text-danger ml-2" *ngIf="!email1.valid && email1.touched ">Enter Email</small>
+                                                <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
                                                 <div *ngIf="addIlrForm.submitted && email.invalid">
                                                   <small *ngIf="email.untouched" class=" ml-2 text-danger">Email is required</small>
                                                 </div>
@@ -3088,7 +3087,7 @@
 
                                          <div class="form-group col-md-3">
                                           <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                          <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                           [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editdcForm.submitted && mobileNo.invalid"
                                             required >
                                           <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
@@ -3213,7 +3212,7 @@
                                               required [(ngModel)]="selectedUserrole">
                                                   <option value="">Select</option>
                                                   <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                                                      {{Userrole.userRoleName}}
+                                                      {{Userrole.comments}}
                                                   </option>
                                               </select>
                                                 <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
@@ -3300,12 +3299,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -3707,12 +3706,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -4116,12 +4115,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -4352,7 +4351,7 @@
 
                                          <div class="form-group col-md-3">
                                           <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="mobileNo" type="text" placeholder="contactNo1" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                          <input class="form-control" name="mobileNo" type="text" placeholder="contactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                           [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editnhmForm.submitted && mobileNo.invalid"
                                             required >
                                           <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
@@ -4548,12 +4547,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -4937,12 +4936,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
 
@@ -5324,12 +5323,12 @@
 
                                            <div class="form-group col-md-3">
                                             <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                            <input class="form-control" name="contactNo1" type="text" placeholder="contactNo1" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                            <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                                             [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                              #contactNo1="ngModel" required >
-                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo1</small>
+                                            <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
                                             <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contactNo1 is required</small>
+                                              <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                             </div>
                                            </div>
                                              <div class="form-group col-md-3">

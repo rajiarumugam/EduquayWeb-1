@@ -1935,7 +1935,7 @@ onSubmitmolecular(addIlrForm: NgForm){
 console.log(addIlrForm);
   this.Userslistrequest = {
     userTypeId:9,
-    userRoleId:+(this.userRole),
+    userRoleId:+(this.selectedUserrole),
       userGovCode:this.userGovCode,
       userName:this.email,
       password:'odisha',
