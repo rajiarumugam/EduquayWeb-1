@@ -359,6 +359,8 @@ import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-up
 
 
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
+import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -904,6 +906,12 @@ const routes: Routes = [
       },{
         path: 'anm-report', component: ANMreportListComponent,
 
+      },{
+        path: 'counsellor-report', component: CounsellorreportListComponent,
+
+      },{
+        path: 'mtp-report', component: MTPreportListComponent,
+
       },
       {
         path: 'chc-regn-report', component: CHCRegnreportListComponent,
@@ -1211,7 +1219,9 @@ export const RoutingComponents = [
   HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
   SAUploadComponent,
-  CommonDataTableComponent
+  CommonDataTableComponent,
+  MTPreportListComponent,
+  CounsellorreportListComponent
 ];
 
 

@@ -112,6 +112,16 @@ export class SubjectProfileService {
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
 
+  getPNDTReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.PNDTREPORTDETAIL);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+
+  getMTPReportList(postData){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.MTPReportsDetail);
+    return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
+  }
+
   getCHCReportList(postData){
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.REPORTS.CHCREPORTSDETAIL);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
