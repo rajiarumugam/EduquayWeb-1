@@ -108,7 +108,7 @@ export class PathoreportSampleStatusPrintComponentDC implements AfterViewInit, O
       })
     }
 
-    this.dataservice.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "District Coordinator", "page": "Report - Sample Status"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getSampleStatusData();
     //this.getCHCData();
