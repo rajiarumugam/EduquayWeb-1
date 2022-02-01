@@ -197,7 +197,7 @@ export class CounsellorChcreportListComponent implements AfterViewInit, OnDestro
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "Schedule & Counsel (Pre-PNDT)", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     

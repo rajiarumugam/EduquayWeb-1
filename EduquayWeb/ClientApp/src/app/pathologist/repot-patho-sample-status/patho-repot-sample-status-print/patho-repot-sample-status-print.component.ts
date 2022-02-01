@@ -103,7 +103,7 @@ export class PathoreportSampleStatusPrintComponent implements AfterViewInit, OnD
       })
     }
 
-    this.dataservice.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report - Sample Status"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "SPC", "page": "Report - Sample Status"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.getSampleStatusData();
     //this.getCHCData();

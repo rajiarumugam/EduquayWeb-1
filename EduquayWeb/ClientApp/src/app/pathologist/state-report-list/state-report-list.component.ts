@@ -187,7 +187,7 @@ export class StatereportListComponent implements AfterViewInit, OnDestroy, OnIni
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "STATE", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "SPC", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     this.selectedDistrict = this.user.districtId === 0 ? null : this.user.districtId;
