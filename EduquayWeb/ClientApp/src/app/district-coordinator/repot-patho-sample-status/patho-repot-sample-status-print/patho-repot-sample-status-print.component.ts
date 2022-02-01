@@ -180,10 +180,10 @@ export class PathoreportSampleStatusPrintComponentDC implements AfterViewInit, O
     .subscribe(response => {
       this.districts1 = response['data'];
       this.districts1.forEach(function(val,i){
-        console.log(val.id,this.user.districtId,Number(val.id) ===Number(this.user.districtId),typeof(this.user.districtId),typeof(val.id))
+        // console.log(val.id,this.user.districtId,Number(val.id) ===Number(this.user.districtId),typeof(this.user.districtId),typeof(val.id))
         if(val.id ===this.user.districtId)
         {
-          console.log("oejojoejo",val.id)
+          // console.log("oejojoejo",val.id)
           this.districts.push(val);
         }
     },this);

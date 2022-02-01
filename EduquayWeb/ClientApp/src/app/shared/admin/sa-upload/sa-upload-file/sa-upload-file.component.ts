@@ -31,6 +31,7 @@ export class SAUploadComponent implements OnInit {
   centralPickpackPendingData = [];
   pickpackStartList = [];
   searchbarcode;
+  dtOptions: any = {};
   secondFormCheck = false;
   secondFormGroup: FormGroup;
   selectedRevisedBarcode;
@@ -59,8 +60,35 @@ export class SAUploadComponent implements OnInit {
     private excelService:ExcelService
     ) { }
 
+    
   ngOnInit() {
+    this.dtOptions = {
+       // Declare the use of the extension in the dom parameter
+       dom: "<'row mt-3'<'col-sm-11 float-right'><'col-sm-1 float-right'B>>" +
+       "<'row'<'col-sm-12'tr>>" +
+       "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+       // Configure the buttons
 
+         buttons: [
+           {
+             titleAttr: 'Download as Excel',
+             extend: 'excelHtml5',
+             title: 'Error-Report',
+             className: 'custom-btn',
+             text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+           }
+
+         ],
+      language: {
+       
+        paginate: {
+          first: '',
+          last: '', // or '←'
+          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        },
+      }
+    };
     this.DataService.sendData(JSON.stringify({"module": "Upload", "page": "Bluk Upload"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
@@ -69,6 +97,7 @@ export class SAUploadComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       barcode: ['', Validators.required]
     });
+    
     this.centralReceiptsData = [];
     //this.getErrorDetailst();
   }
