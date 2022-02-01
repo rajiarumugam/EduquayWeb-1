@@ -15,17 +15,16 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
 import { PNDTCmasterService } from "../../shared/pndtc/pndtc-masterdata.service";
-import { variable } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
-  selector: 'app-counsellor-mtp-report-list',
-  templateUrl: './counsellor-mtp-report-list.component.html',
-  styleUrls: ['./counsellor-mtp-report-list.component.css']
+  selector: 'app-counsellor-chc-report-list',
+  templateUrl: './counsellor-chc-report-list.component.html',
+  styleUrls: ['./counsellor-chc-report-list.component.css']
 })
-export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestroy, OnInit {
+export class CounsellorChcreportListComponent implements AfterViewInit, OnDestroy, OnInit {
 
-
+ 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
@@ -82,6 +81,7 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
     maxDate: new Date(Date.now())
   };
 
+  
   spouseSubjectIdValue: string;
   spouseSamplingStatus: boolean;
   uniqueSubjectId: string;
@@ -132,49 +132,57 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
   erroMessage;
   selectedphc  =false;
   CHCdata;
-  PHCdata;
   districts;
   selectedDistrict = null;
   blocklists;
+  PHCdata;
   selectedBlock = null;
-  selectedchc = null;
+  selectedchc ;
   selectedAnm = null;
   showDistrict = true;
-  showChc = true;
+  showBlock = true;
   globalTimeout = null;
   maintabSelected = 1;
   mainsubtabSelected = 1;
+
   chcsamplingstatusCount = '0';
   chcsampledCount = '0';
   chcnotsampledount = '0';
+
   chcsCBCResultsCount = '0';
   chcCBCPositiveCount = '0';
   chcCBCNegativeCount = "0";
   chcSSTResultCount = "0";
   chcSSTPositiveCount = "0";
   chcSSTNegativeCount = "0";
+
   HPLCResultCount = "0";
   HPLCAbnormalCount = "0";
   HPLCNormalCount = "0";
+  showChc = true;
   registeredCount = "0";
   notregisteredCount = "0";
+
   counselledPNDTDisagreedCount = "0";
   counselledPNDTAgreedCount = "0";
   counsellingpendingCount = "0";
   counselledPNDTDecisionPendingCount = "0";
+
   PNDTpendingCount = "0";
   PNDTcompletedCount = "0";
   PNDTNormalCount = "0";
   PNDTAffectedCount = "0";
   PNDTcarrierCount = "0";
+
   PNDcounsellingpendingCount = "0";
   PNDcounsellingMTPAgreedCount = "0";
   PNDcounsellingMTPDecisionPendingCount = "0";
   PNDCounselledMTPDisagreedCount = "0";
+
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
 
-
+  
 
   constructor(
     private SubjectProfileService: SubjectProfileService,
@@ -192,27 +200,39 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
     this.dataservice.sendData(JSON.stringify({ "module": "Schedule & Counsel (Pre-PNDT)", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
+    
+    console.log(this.user,"Userid");
+    
     this.selectedDistrict = this.user.districtId === 0 ? null : this.user.districtId;
 
-    console.log(this.selectedDistrict);
+    console.log(this.selectedDistrict,"selecteddistrict");
     if(this.selectedDistrict != null)
     {
       this.showDistrict = false;
-      this.getCHCData();
-    }
+      this.getBlockData();
+    } 
     else
         this.showDistrict = true;
 
-    this.selectedchc = null ;
-
-    if(this.selectedchc != null)
+    this.selectedBlock = this.user.blockId === 0 ? null : this.user.blockId;
+  
+    if(this.selectedBlock != null)
     {
-
-      this.getPhcData();
-    }
+      this.showBlock = false;
+      this.getCHCData(this.user.blockId);
+    } 
     else
-        this.showChc = true;
+        this.showBlock = true;
+        this.selectedchc = this.user.chcId === 0 ? null : this.user.chcId;
 
+        if(this.selectedchc != null)
+        {
+    
+          this.getPhcData();
+        }
+        else
+            this.showChc = true;
+        
     this.loaderService.display(true);
     this.SubprofileInitializeDateRange();
 
@@ -232,25 +252,24 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
        // Configure the buttons
          buttons: [
            {
-             titleAttr: 'Download as Excel',
+             titleAttr: 'Download as Excel',     
              extend: 'excelHtml5',
              title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-           }
-
-         ],
+           } 
+         ], 
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
         lengthMenu: "Records / Page :  _MENU_",
         paginate: {
           first: '',
-          last: '', // or '←'
+          last: '', // or '←' 
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        },
-      }
+        }, 
+      }   
     };
 
     console.log(this.SubjectProfileService.subjectprofileListApi);
@@ -258,16 +277,17 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
       fromDate: '',
       toDate: '',
       districtId: this.user.districtId === 0 ? 0 : this.user.districtId,
-      chcId:this.user.districtId === 0 ? 0 : this.user.chcId,
-      phcId:this.user.chcId === 0 ? 0 : this.user.phcId,
+      blockId:this.user.blockId === 0 ? 0 : this.user.blockId,
+      chcId:0,
+      PhcId:0,
       anmId:0,
       /*userInput:"",
       searchType:1*/
-      "searchSection":5,
+      "searchSection":this.maintabSelected,
       "status":1
     }
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getPNDTReportList(_obj)
+    let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
       .subscribe(response => {
         console.log(response);
         this.anmsubjectProfileResponse = response;
@@ -289,16 +309,16 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
           this.subjectprofilelistErrorMessage = err.toString();
         });
 
-
+         
         this.anmSubjectBadgeProfileListCount(1,1,1);
         this.anmSubjectBadgeProfileListCount(1,1,2);
         this.anmSubjectBadgeProfileListCount(1,1,3);
-
+       this.selectedchc = this.user.chcId;
         //this.phcChange();
+        
   }
 
   getDistrictData(){
-    this.selectedDistrict =null;
     this.PNDTCmasterService.getPNDTCDistrict()
     .subscribe(response => {
       console.log(response);
@@ -309,6 +329,39 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
       this.districts = [];
       //this.erroMessage = err.toString();
     });
+  }
+  getBlockData(){
+    this.loaderService.display(true);
+    this.ANMdata = [];
+    this.selectedAnm = null;
+    this.PNDTCmasterService.getBlockByDistrict(this.selectedDistrict)
+    .subscribe(response => {
+      console.log(response);
+      this.blocklists = response['data'];
+      this.loaderService.display(false);
+    },
+    (err: HttpErrorResponse) =>{
+      this.blocklists = [];
+      this.erroMessage = err.toString();
+    });
+  }
+
+  getCHCData(id){
+    this.loaderService.display(true);
+    this.ANMdata = [];
+    this.selectedAnm = null;
+    this.PNDTCmasterService.getCHCByBlock(id)
+    .subscribe(response => {
+      console.log(response);
+      this.selectedchc = this.user.chcId;
+      this.CHCdata = response['data'];
+      this.loaderService.display(false);
+    },
+    (err: HttpErrorResponse) =>{
+      this.CHCdata = [];
+      this.erroMessage = err.toString();
+    });
+    console.log(this.CHCdata);
   }
 
   getPhcData(){
@@ -337,35 +390,6 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
   }
   }
 
-  getCHCData(){
-
-    if(this.selectedDistrict !=null){
-      this.loaderService.display(true);
-      this.ANMdata = [];
-    this.PNDTCmasterService.getChcbydistrict(this.selectedDistrict)
-    .subscribe(response => {
-      console.log(response);
-      this.CHCdata = response['data'];
-      this.loaderService.display(false);
-    },
-
-    (err: HttpErrorResponse) =>{
-      this.CHCdata = [];
-      this.erroMessage = err.toString();
-    });
-  }
-  else
-  {
-    this.CHCdata = [];
-      this.PHCdata = [];
-      this.ANMdata = [];
-      this.selectedchc = null;
-    this.selectedphc=null;
-    this.selectedAnm=null;
-
-  }
-  }
-
   getANMData(){
     if(this.selectedphc!=null){
     this.loaderService.display(true);
@@ -386,7 +410,14 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
   }
   }
 
-
+  blockselected(event)
+  {
+    this.getCHCData(this.userId);
+  }
+  onChangechc(event)
+  {
+    this.getPhcData( );
+  }
 
   phcChange(){
     this.loaderService.display(true);
@@ -404,52 +435,25 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
   }
 
   anmSubjectProfileList(id,maintab,subtab) {
-     var callingvariable;
+     
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.subjectprofileLists=[];
-    if (maintab == 1)
-    {
-      callingvariable = 6;
-    }
-    else if (maintab == 2 && subtab == 1 )
-    {
-      callingvariable =7;
-    }
-    else if (maintab == 2 && subtab == 2 )
-    {
-      callingvariable =8;
-    }
-    else if (maintab == 3 && subtab == 1 )
-    {
-      callingvariable =3;
-    }
-    else if (maintab == 3 && subtab == 2 )
-    {
-      callingvariable =4;
-    }
-    else if (maintab == 3 && subtab == 3 )
-    {
-      callingvariable =5;
-    }
-    console.log(callingvariable,'Test Check')
     var _obj = {
       fromDate: this.anmSPFromDate !== '' ? this.anmSPFromDate : '',
       toDate: this.anmSPToDate !== '' ? this.anmSPToDate : '',
       districtId: this.selectedDistrict === null ? 0 : Number(this.selectedDistrict),
+      blockId: this.selectedBlock === null ? 0 : Number(this.selectedBlock),
       chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
-      phcId: this.selectedphc === null ? 0 : Number(this.selectedphc),
       anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
       userInput:"",
-
-      searchSection:5,
-      status:callingvariable
+      searchType:id,
+      "searchSection":maintab,
+      "status":subtab
     }
-
-
-
+   
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getPNDTReportList(_obj)
+    let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
       .subscribe(response => {
         this.anmsubjectProfileResponse = response;
         this.loaderService.display(false);
@@ -474,20 +478,25 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
         console.log(maintab);
         if(maintab === 1)
         {
-          this.anmSubjectBadgeProfileListCount(1,5,6);
-
+          this.anmSubjectBadgeProfileListCount(1,1,1);
+          this.anmSubjectBadgeProfileListCount(1,1,2);
+          this.anmSubjectBadgeProfileListCount(1,1,3);
         }
         if(maintab === 2)
         {
-          this.anmSubjectBadgeProfileListCount(1,5,7);
-          this.anmSubjectBadgeProfileListCount(1,5,8);
+          this.anmSubjectBadgeProfileListCount(1,2,1);
+          this.anmSubjectBadgeProfileListCount(1,2,2);
+          this.anmSubjectBadgeProfileListCount(1,2,3);
+          this.anmSubjectBadgeProfileListCount(1,2,4);
+          this.anmSubjectBadgeProfileListCount(1,2,5);
+          this.anmSubjectBadgeProfileListCount(1,2,6);
         }
         if(maintab === 3)
         {
-           this.anmSubjectBadgeProfileListCount(1,5,3);
-          this.anmSubjectBadgeProfileListCount(1,5,4);
-          this.anmSubjectBadgeProfileListCount(1,5,4);
-
+          this.anmSubjectBadgeProfileListCount(1,3,1);
+          this.anmSubjectBadgeProfileListCount(1,3,2);
+          this.anmSubjectBadgeProfileListCount(1,3,3);
+         
         }
         if(maintab === 4)
         {
@@ -520,14 +529,14 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
         {
           this.anmSubjectBadgeProfileListCount(1,8,1);
           this.anmSubjectBadgeProfileListCount(1,8,2);
-
+         
         }
 
 
   }
 
   anmSubjectBadgeProfileListCount(id,maintab,subtab) {
-
+     
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.subjectprofileLists=[];
@@ -539,15 +548,15 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
       chcId: this.selectedchc === null ? 0 : Number(this.selectedchc),
       anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
       userInput:"",
-
-      searchSection:5,
-      status:subtab
+      searchType:id,
+      "searchSection":maintab,
+      "status":subtab
     }
-
+   
     //this.subjectprofileItem = new SubjectProfileList();
-    let subProfile = this.SubjectProfileService.getPNDTReportList(_obj)
+    let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
       .subscribe(response => {
-
+        
        console.log(response['data'].length);
        if(maintab ===1)
        {
@@ -623,7 +632,7 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
             if(subtab === 2)
                   this.PNDcounsellingMTPAgreedCount = response['data'].length;
             if(subtab === 3)
-                  this.PNDCounselledMTPDisagreedCount = response['data'].length;
+                  this.PNDCounselledMTPDisagreedCount = response['data'].length;      
             if(subtab === 4)
                   this.PNDcounsellingMTPDecisionPendingCount = response['data'].length;
        }
@@ -633,7 +642,7 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
                   this.MTPpendingCount = response['data'].length;
             if(subtab === 2)
                   this.MTPcompletedCount = response['data'].length;
-
+           
        }
        this.loaderService.display(false);
       },
@@ -644,7 +653,7 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
   }
 
   anmSubjectProfileList1(id,maintab,subtab) {
-
+     
     if(this.searchsubjectid != null || this.searchsubjectid != undefined)
     {
         this.loaderService.display(true);
@@ -659,12 +668,12 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
           anmId: 0,
           userInput:this.searchsubjectid,
           searchType:id,
-          searchSection:0,
-          status:0
+          "searchSection":0,
+          "status":0
         }
-
+      
         //this.subjectprofileItem = new SubjectProfileList();
-        let subProfile = this.SubjectProfileService.getPNDTReportList(_obj)
+        let subProfile = this.SubjectProfileService.getNHMReportList(_obj)
           .subscribe(response => {
             this.anmsubjectProfileResponse = response;
             this.loaderService.display(false);
@@ -693,7 +702,7 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
           }
 
   }
-
+  
 
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
@@ -705,18 +714,18 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
     }
-
+    
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {
     //     // var subjectid = element.primaryDetail.uniqueSubjectId;
-    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);
+    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);    
     // });
   //}
-
+    
   }
 
   SubprofileInitializeDateRange() {
-
+    
     this.dateform = this._formBuilder.group({
       fromDate: [''],
       toDate: [''],
@@ -759,23 +768,17 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.clear();
+      // Destroy the table first   
+      dtInstance.clear();   
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
+      // Call the dtTrigger to rerender again       
       this.dtTrigger.next();
     });
-  }
+  }   
 
-  onChangeDistrict(event)
-   {
-      this.getCHCData( );
-  }
-
-
-  onChangechc(event)
+  districtselected(event)
   {
-    this.getPhcData( );
+      this.getBlockData();
   }
 
   /*ngAfterViewInit(): void {
@@ -796,9 +799,235 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
         });
       });
     });
-
+ 
   }
 
+  openpopup(index, subjectinfo){
+
+    console.log(subjectinfo);
+    this.loaderService.display(true);
+    var _obj = {
+      "userid":this.user.id,
+      "userInput":subjectinfo.subjectId
+    }
+    let subProfile = this.SubjectProfileService.getparticularanmSubjectProfileList(_obj)
+      .subscribe(response => {
+        var _response = response.subjectsDetail[0];
+
+        console.log(this.SubjectProfileService.subjectProfileApi);
+    this.childSubjectTypeId = _response.primaryDetail.childSubjectTypeId;
+    this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+    this.firstName = _response.primaryDetail.firstName;
+    this.lastName = _response.primaryDetail.lastName;
+    this.gender = _response.primaryDetail.gender;
+    this.age = _response.primaryDetail.age;
+    this.barcodes = _response.pregnancyDetail.barcodes;
+    this.lmpDate = _response.pregnancyDetail.lmpDate;
+    this.ga = _response.pregnancyDetail.gestationalperiod
+    this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
+    this.spouseFirstName = _response.primaryDetail.spouseFirstName;
+    this.spouseLastName = _response.primaryDetail.spouseLastName;
+
+    if((_response.primaryDetail.childSubjectTypeId === 1 && _response.primaryDetail.spouseSubjectId === '') ||(_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.spouseSubjectId === '' && _response.primaryDetail.gender === "Female")){
+      this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+
+    let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+        if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+          //   this.subjectprofilelistErrorMessage = response.message;
+          // }
+          // else {
+            this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+            this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+            //this.rerender();
+          }
+        //}
+        else {
+          this.subjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
+
+
+    }
+    else if((_response.primaryDetail.childSubjectTypeId === 1 && _response.primaryDetail.spouseSubjectId !== '' ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.spouseSubjectId !== '' && _response.primaryDetail.gender === "Female")){
+      this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+  
+     
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+     
+      let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+         
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+       
+              if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              //this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingSubjectRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+              .subscribe(response => {
+                this.trackingSubjectResponse = response;
+                if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+                  // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+                  //   this.subjectprofilelistErrorMessage = response.message;
+                  // }
+                  // else {
+                    this.subjectTrackerItem = this.trackingSubjectResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              })
+              
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+    else if((_response.primaryDetail.childSubjectTypeId === 2 ) || (_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId !== '')){
+      this.spouseSubjectId = _response.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+  
+      this.trackingSubjectRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }      
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)      
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;        
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingAnmSubjectTrackerRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+              .subscribe(response => {
+                this.trackingAnmSubjectTrackerResponse = response;
+                if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                  this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              });
+              
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(_response.primaryDetail.childSubjectTypeId === 4 && _response.primaryDetail.gender === "Male" && _response.primaryDetail.spouseSubjectId === ''){
+        this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+        this.trackingSubjectRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingSubjectRequest)
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+              //this.rerender();
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(_response.primaryDetail.childSubjectTypeId === 3){
+        this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
+        this.trackingAnmSubjectTrackerRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+
+              this.loaderService.display(false);
+              
+              //this.rerender();
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+        
+      },
+      (err: HttpErrorResponse) => {
+        this.subjectprofilelistErrorMessage = err.toString();
+      });      
+   
+   
+    
+    
+      $('#fadeinModal').modal('show');
+       
+  
+  }
 
   custumTabClick(i,j)
   {

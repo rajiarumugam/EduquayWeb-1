@@ -112,6 +112,12 @@ export class PNDTCmasterService {
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
 
+  getCHC(did): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHC+did);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
   getPhcByChc(did): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVEPHCBYCHC+did);
     return this._http

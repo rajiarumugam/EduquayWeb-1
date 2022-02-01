@@ -179,7 +179,7 @@
               <li routerLinkActive="active">
                   <a [routerLink]="['/app/add-users']"> {{'Users' | translate }} </a>
               </li>
-             
+
           <!-- <li>
                <a [routerLink]="['/app/saupload']"> {{'Upload' | translate }} </a>
               </li> -->
@@ -649,18 +649,20 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/molecularlab-cvs']"> {{'SampleReceiptCVSSpecimen' | translate }} </a>
                     </li>
-                    <!--<li>
-                        <a href="receivedmanualshipment.html"> Sample Rcpt - Manual </a>
-                    </li>-->
-                    <!--<li routerLinkActive="active">
-                        <a [routerLink]="['/app/update-molecular-result']"> {{'UpdateMolResults' | translate }} </a>
-                    </li>
                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/view-case-sheet']"> View Case Sheet </a>
-                    </li>
+                      <a [routerLink]="['/app/mol-blood-recp-report']"> {{'Blood Sample Receipt Report' | translate }} </a>
+                  </li>
+                  <li routerLinkActive="active">
+                    <a [routerLink]="['/app/mol-cvs-recp-report']"> {{'CVS Receipt Report' | translate }} </a>
+                </li>
+                <li routerLinkActive="active">
+                  <a [routerLink]="['/app/mol-cvs-report']"> {{'CVS Result Report' | translate }} </a>
+              </li>
+                <!-- mol-cvs-report -->
+
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/molecular-report']"> {{'ReportSampleStatus' | translate }} </a>
-                    </li>-->
+                    </li>
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'COUNSELLOR'">
@@ -702,10 +704,18 @@
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/counsellor-mtp-report']"> {{'Report-MTP' | translate }} </a>
                     </li>
+                    <li routerLinkActive="active">
+                      <a [routerLink]="['/app/PNDTPickandPackReport']"> {{'Report-PNDT Pick and Pack' | translate }} </a>
+                  </li>
+                    <!-- PNDTPickandPackReport -->
 
 
                     <li routerLinkActive="active">
                         <a [routerLink]="['/app/counsellor-report']"> {{'Report' | translate }}</a>
+                        <a [routerLink]="['/app/counsellor-chc-report']"> {{'Report-CHC' | translate }} </a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/counsellor-phc-report']"> {{'Report-PHC' | translate }} </a>
                     </li>
 
                 </ul>
@@ -729,6 +739,9 @@
                 <li routerLinkActive="active">
                     <a [routerLink]="['/app/update-pregnancy']"> {{'UpdatePregnancyContinue' | translate }}</a>
                 </li>
+                <li routerLinkActive="active">
+                  <a [routerLink]="['/app/hem-report']"> {{'Report' | translate }}</a>
+              </li>
                <!-- <li routerLinkActive="active">
                     <a [routerLink]="['/app/schedule-post-pndtc']"> {{'SchedulePostPNDTcounselling' | translate }}</a>
                 </li>
@@ -766,6 +779,9 @@
                         <li routerLinkActive="active">
                             <a [routerLink]="['/app/pndtc-summary']">  {{'PNDSummaryReport' | translate }}  </a>
                         </li>
+                        <li routerLinkActive="active">
+                          <a [routerLink]="['/app/pndtreport']">  {{'Report' | translate }}  </a>
+                      </li>
                     </ul>
                 </li>
                 <li class="menu" *ngIf="user.userRole === 'MTPOBSTETRICIAN'"><!--*ngIf="user.userRole === 'MTPOBSTETRICIAN'"-->
@@ -799,6 +815,8 @@
                         <li routerLinkActive="active">
                             <a [routerLink]="['/app/mtp-report']"> {{'Report' | translate }}  </a>
                         </li>
+                          <a [routerLink]="['/app/mtpreport']"> {{'MTP Report' | translate }}  </a>
+                      </li>
 
                     </ul>
                 </li>
@@ -826,6 +844,9 @@
                         <li routerLinkActive="active">
                             <a [routerLink]="['/app/cvs-specimen']"> {{'CVS Specimen' | translate }} </a>
                         </li>
+
+
+                        <!-- mol-blood-recp-report -->
                     </ul>
                 </li>
 
@@ -929,7 +950,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu" *ngIf="user.userRole === 'chcmo1'">
+                <li class="menu" *ngIf="user.userRole === 'DC'">
                     <a href="#dc" data-toggle="collapse" attr.data-active="{{module === 'dc'}}" attr.aria-expanded="{{module === 'dc'}}"  class="dropdown-toggle">
                         <div class="">
                             <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"

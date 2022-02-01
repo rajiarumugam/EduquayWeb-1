@@ -94,12 +94,12 @@ export class SubjectProfileService {
   }
 
 
-  getNHMReportList(postData){
+  getPNDTReportList(postData){
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.NHM.PNDTREPORTSDETAIL);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }
 
-  getPNDTReportList(postData){
+  getNHMReportList(postData){
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.NHM.GETNHMREPORTS);
     return this.http.post<RetrieveSubjectProfileList>({url: apiUrl, body: postData});
   }

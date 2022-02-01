@@ -105,6 +105,7 @@ export const ENDPOINT = {
         "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
         "RETRIVEPHCBYCHC":"api/v1/WebMaster/RetrievePHCByCHC/",
         "RETRIVECHCBYDISTRICT":"api/v1/WebMaster/RetrieveCHCByDistrict/",
+        "RETRIVECHC":"api/v1/PNDTMTPMaster/RetrieveCHC/",
         "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/",
         "RETRIVEANMBYPHC":"api/v1/WebMaster/RetrieveANMByPHC/",
         "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/"

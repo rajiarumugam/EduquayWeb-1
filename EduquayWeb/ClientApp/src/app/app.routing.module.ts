@@ -12,6 +12,7 @@ import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/
 import { PathoreportSampleStatusPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { PathoreportSampleStatusMainPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { HomeComponent } from "./home/home.component";
+import { CounsellorPhcreportListComponent } from "./pndtc/counsellor-phc-report-list/counsellor-phc-report-list.component";
 import { CounterComponent } from "./counter/counter.component";
 import { FetchDataComponent } from "./fetch-data/fetch-data.component";
 import { LoginComponent } from "./auth/login/login.component";
@@ -181,7 +182,7 @@ import { pndTestingSummaryComponent } from "./pndtc/pnd-testing/pnd-testing-summ
 import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolver.service";
 import { PndSummaryViewComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view/pnd-testing-summary-view.component";
 import { PndSummaryViewMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view-main/pnd-testing-summary-view-main.component";
-
+import { CounsellorChcreportListComponent } from "./pndtc/counsellor-chc-report-list/counsellor-chc-report-list.component";
 import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
 import { MTPPendingComponent } from "./mtp/mtp-service/mtp-sevice-pending/mtp-sevice-pending.component";
 import { MTPServiceCompletedComponent } from "./mtp/mtp-service/mtp-sevice-completed/mtp-sevice-completed.component";
@@ -353,6 +354,7 @@ import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component"
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
 import { IlrComponent } from "./admin/ilr/ilr.component";
 import { TestComponent } from "./test/test.component";
+//import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pndtobs-report-list.component";
 
 
 
@@ -362,7 +364,14 @@ import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-up
 
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
 import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+
 //import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
+/*import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
+import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
+import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
+import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
+import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
+import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";*/
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -718,8 +727,8 @@ const routes: Routes = [
           {path: '', component: PathoreportSampleStatusPrintComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportPrintResolverService}}
         ]
       },
-     
-     
+
+
       {
         path: 'central-shipment', component: CentralShipmentMainComponent,
         children:[
@@ -760,6 +769,25 @@ const routes: Routes = [
           {path: '', component: UpdateMolResultViewComponent, pathMatch: 'full'}
         ]
       },
+      /*{
+        path: 'mol-blood-recp-report', component: MolecularBloodSampleReciptComponent,
+        children:[
+          {path: '', component:MolecularBloodSampleReciptComponent, pathMatch: 'full'}
+        ]
+      },*/
+      /*{
+        path: 'mol-cvs-report', component:MolecularCVSReport,
+        children:[
+          {path: '', component:MolecularCVSReport, pathMatch: 'full'}
+        ]
+      },*/
+      // MolecularCVSReport
+      /*{
+        path: 'mol-cvs-recp-report', component:MolecularCVSSampleReciptComponent,
+        children:[
+          {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
+        ]
+      },*/
       {
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
@@ -767,11 +795,18 @@ const routes: Routes = [
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
         ]
       },
+      /*{
+        path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
+        children:[
+          {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
+        ]
+      },*/
       {
         path: 'pndtc-testing', component: PndTestingMainComponent,
         children:[
           {path: '', component: pndTestingComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}},
-          {path: 'notcompleted', component: pndNotCompleteComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCCompletedResolverService}}
+          {path: 'notcompleted', component: pndNotCompleteComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCCompletedResolverService}},
+
         ]
       },
       {
@@ -780,6 +815,13 @@ const routes: Routes = [
           {path: '', component: PNDTestingResultsComponent, pathMatch: 'full'}
         ]
       },
+      /*{
+        path: 'pndtreport', component: PNDTOBSreportListComponent,
+        children:[
+          {path: '', component: PNDTOBSreportListComponent, pathMatch: 'full'}
+
+        ]
+      },*/
       {
         path: 'pndtc-summary', component: PndTestingSummaryMainComponent,
         children:[
@@ -798,7 +840,13 @@ const routes: Routes = [
         children:[
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
         ]
-      },{
+      },
+     /* {
+        path: 'mtpreport', component: MTPOBSreportListComponent,
+        children:[
+          {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
+        ]
+      },*/{
         path: 'view-case-sheet', component: ViewCaseSheetMainComponent,
         children:[
           {path: '', component: ViewCaseSheetComponent, pathMatch: 'full'}
@@ -852,7 +900,12 @@ const routes: Routes = [
         children:[
           {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'}
         ]
-      },
+      }/*,
+      {path: 'hem-report', component: HEMreportListComponent,
+      children:[
+        {path: '', component: HEMreportListComponent, pathMatch: 'full'}
+      ]
+    }*/,
       {
         path: 'csv-specimen', component: CSVSpecimenMainComponent,
         children:[
@@ -892,7 +945,15 @@ const routes: Routes = [
         path: 'counsellor-mtp-report', component: CounsellorMtpreportListComponent,
       },
 
-    
+
+      {
+        path: 'counsellor-chc-report', component: CounsellorChcreportListComponent,
+      },
+      {
+        path: 'counsellor-phc-report', component: CounsellorPhcreportListComponent,
+      },
+
+
       {
         path: 'HPLC-ANM', component: PathoreportSampleStatusMainPrintComponentANM,
         children:[
@@ -1030,6 +1091,7 @@ export const RoutingComponents = [
   AnmStudentRegistrationComponent,
   AnmWalkinLt18RegistrationComponent,
   AnmWalkinGt18RegistrationComponent,
+  CounsellorChcreportListComponent,
   AnmViewShipmentdetailsComponent,
   ChcSampleCollectionComponent,
   WalkinRegistrationComponent,
@@ -1096,6 +1158,7 @@ export const RoutingComponents = [
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
   DistrictreportListComponent,
+  CounsellorPhcreportListComponent,
   UpdateDecisionYesPndtComponent,
   UpdateDecisionPendingPndtComponent,
   SchedulePostPndtcMainComponent,
@@ -1150,7 +1213,7 @@ export const RoutingComponents = [
   DiagosisReportComponent1,
   GetOtpComponent,
   ChcSubjectProfileComponent,
- 
+
   AnmChcSubjectProfileComponent,
   PathoreportSampleStatusComponent,
   PathoreportSampleStatusMainComponent,
@@ -1251,7 +1314,14 @@ export const RoutingComponents = [
   SAUploadComponent,
   CommonDataTableComponent,
   MTPreportListComponent,
-  CounsellorreportListComponent
+  CounsellorreportListComponent/*,
+  PNDTOBSreportListComponent,
+  MTPOBSreportListComponent,
+  HEMreportListComponent,
+  CounsellorpnpreportListComponent,
+  MolecularBloodSampleReciptComponent,
+  MolecularCVSSampleReciptComponent,
+  MolecularCVSReport*/
 ];
 
 

@@ -243,7 +243,7 @@ export class PathoreportListComponent implements AfterViewInit, OnDestroy, OnIni
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "Pathologist - HPLC", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
         
     this.loaderService.display(true);

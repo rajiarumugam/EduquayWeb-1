@@ -64,7 +64,7 @@
                   <th><span>{{'AVD Name' | translate }}</span></th>
                   <th><span>{{'AVD Contact No' | translate }}</span></th>
                   <!-- <th><span>{{'RIID' | translate }}</span></th> -->
-                  <th><span>{{'View' | translate }}</span></th>
+                  <!-- <th><span>{{'View' | translate }}</span></th> -->
                   <th><span>{{'Comments' | translate }}</span></th>
                   <th><span>{{'Active' | translate }}</span></th>
                   <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -75,11 +75,11 @@
                   <td class="sno text-center">{{i +1}}</td>
                   <td class="sname text-left">{{sample.avdName}}</td>
                   <td class="sid text-center">{{sample.contactNo}}</td>
-                  <td class="text-center">
+                  <!-- <td class="text-center">
                     <button type="submit" class="btn search-bu" (click)=getANMDetails(sample.id)>
                       <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
 
-                  </td>
+                  </td> -->
                   <!-- <td class="sid text-center">{{sample.riId}}</td> -->
                   <td class="number text-center">{{sample.comments}}</td>
                   <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>

@@ -187,7 +187,7 @@ export class DistrictreportListComponent implements AfterViewInit, OnDestroy, On
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "District Coordinator", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     this.selectedDistrict = this.user.districtId === 0 ? null : this.user.districtId;
