@@ -367,7 +367,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "Master", "page": "Users"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     this.loaderService.display(true);

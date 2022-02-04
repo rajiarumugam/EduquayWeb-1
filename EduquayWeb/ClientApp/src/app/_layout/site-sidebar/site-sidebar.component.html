@@ -179,7 +179,9 @@
               <li routerLinkActive="active">
                   <a [routerLink]="['/app/add-users']"> {{'Users' | translate }} </a>
               </li>
-
+              <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-admin-users']"> {{'Users-Copy' | translate }} </a>
+            </li>
           <!-- <li>
                <a [routerLink]="['/app/saupload']"> {{'Upload' | translate }} </a>
               </li> -->
@@ -708,7 +710,7 @@
                       <a [routerLink]="['/app/PNDTPickandPackReport']"> {{'Report-PNDT Pick and Pack' | translate }} </a>
                   </li>
                     <!-- PNDTPickandPackReport -->
-
+                     <li>
 
                         <a [routerLink]="['/app/counsellor-chc-report']"> {{'Report-CHC' | translate }} </a>
                     </li>
