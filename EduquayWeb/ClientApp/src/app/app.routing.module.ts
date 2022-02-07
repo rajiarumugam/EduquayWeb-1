@@ -354,7 +354,7 @@ import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component"
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
 import { IlrComponent } from "./admin/ilr/ilr.component";
 import { TestComponent } from "./test/test.component";
-import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pndtobs-report-list.component";
+//import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pndtobs-report-list.component";
 
 
 
@@ -363,12 +363,15 @@ import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-up
 
 
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
-import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
+import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+
+//import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
+/*import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
 import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
 import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
 import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
 import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
-import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";
+import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";*/
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -766,25 +769,25 @@ const routes: Routes = [
           {path: '', component: UpdateMolResultViewComponent, pathMatch: 'full'}
         ]
       },
-      {
+      /*{
         path: 'mol-blood-recp-report', component: MolecularBloodSampleReciptComponent,
         children:[
           {path: '', component:MolecularBloodSampleReciptComponent, pathMatch: 'full'}
         ]
-      },
-      {
+      },*/
+      /*{
         path: 'mol-cvs-report', component:MolecularCVSReport,
         children:[
           {path: '', component:MolecularCVSReport, pathMatch: 'full'}
         ]
-      },
+      },*/
       // MolecularCVSReport
-      {
+      /*{
         path: 'mol-cvs-recp-report', component:MolecularCVSSampleReciptComponent,
         children:[
           {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
         ]
-      },
+      },*/
       {
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
@@ -792,12 +795,12 @@ const routes: Routes = [
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
         ]
       },
-      {
+      /*{
         path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
         children:[
           {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
         ]
-      },
+      },*/
       {
         path: 'pndtc-testing', component: PndTestingMainComponent,
         children:[
@@ -812,13 +815,13 @@ const routes: Routes = [
           {path: '', component: PNDTestingResultsComponent, pathMatch: 'full'}
         ]
       },
-      {
+      /*{
         path: 'pndtreport', component: PNDTOBSreportListComponent,
         children:[
           {path: '', component: PNDTOBSreportListComponent, pathMatch: 'full'}
 
         ]
-      },
+      },*/
       {
         path: 'pndtc-summary', component: PndTestingSummaryMainComponent,
         children:[
@@ -838,12 +841,12 @@ const routes: Routes = [
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
         ]
       },
-      {
+     /* {
         path: 'mtpreport', component: MTPOBSreportListComponent,
         children:[
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
         ]
-      },{
+      },*/{
         path: 'view-case-sheet', component: ViewCaseSheetMainComponent,
         children:[
           {path: '', component: ViewCaseSheetComponent, pathMatch: 'full'}
@@ -897,12 +900,12 @@ const routes: Routes = [
         children:[
           {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'}
         ]
-      },
+      }/*,
       {path: 'hem-report', component: HEMreportListComponent,
       children:[
         {path: '', component: HEMreportListComponent, pathMatch: 'full'}
       ]
-    },
+    }*/,
       {
         path: 'csv-specimen', component: CSVSpecimenMainComponent,
         children:[
@@ -985,6 +988,12 @@ const routes: Routes = [
 
       },{
         path: 'anm-report', component: ANMreportListComponent,
+
+      },{
+        path: 'counsellor-report', component: CounsellorreportListComponent,
+
+      },{
+        path: 'mtp-report', component: MTPreportListComponent,
 
       },
       {
@@ -1304,13 +1313,15 @@ export const RoutingComponents = [
   UploadSAMainComponent,
   SAUploadComponent,
   CommonDataTableComponent,
+  MTPreportListComponent,
+  CounsellorreportListComponent/*,
   PNDTOBSreportListComponent,
   MTPOBSreportListComponent,
   HEMreportListComponent,
   CounsellorpnpreportListComponent,
   MolecularBloodSampleReciptComponent,
   MolecularCVSSampleReciptComponent,
-  MolecularCVSReport
+  MolecularCVSReport*/
 ];
 
 
