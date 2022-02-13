@@ -82,6 +82,7 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
   ngOnInit() {
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
     this.getuserHPLCData();
+    
   }
 
 
@@ -95,7 +96,7 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
       let adddamagedsample = this.authService.retrievehplcByBarcode(_hplcUserDetails)
       .subscribe(response => {
        console.log(response);
-
+       this.printPdf();
         this.printArray = response.subjects[0];
       },
       (err: HttpErrorResponse) =>{
