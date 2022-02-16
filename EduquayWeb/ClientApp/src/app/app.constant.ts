@@ -175,6 +175,7 @@ export const ENDPOINT = {
         "UploadCBCHPLCFiles":"api/v1/Support/UploadCBCHPLCFiles",
         "UploadSAFiles":"api/v1/Support/BulkUpload",
         "ValidateBulkUpload":"api/v1/Support/ValidateBulkUpload",
+        "ValidateBulkUploadNew":"api/v1/Support/ValidateBulkUploadNew",
         "CreateBulkUpload":"api/v1/Support/CreateBulkUpload"
     }
 

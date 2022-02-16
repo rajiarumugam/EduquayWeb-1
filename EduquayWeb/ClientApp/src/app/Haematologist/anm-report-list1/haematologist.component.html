@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="headertit">
-                            <h5 class="float-center">{{'Report' | translate }}</h5>
+                            <h5 class="float-center">{{'Heaematologist Report' | translate }}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -95,41 +95,46 @@
                                 </div>
 
                                 <div class="form-group col-md-1">
-                                    <a (click)="anmSubjectProfileList(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
+                                    <a (click)="anmSubjectProfileList1(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
                                         <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
                                 </div>
                             </div>
-
+                            <!--<div class="row" style="width:100%;">
+                                <div class="form-group col-md-12 mt-12 ml-12" style="text-align: center !important;padding: 0;margin: 0 !important;">
+                                    <b>(or)</b>
+                                </div>
+                            </div>
+                            <div class="row" style="width:100%;">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 filtered-list-search mt-2">
+                                    <form class="form-inline my-2 my-lg-0">
+                                        <label for="inputSearch" class="ml-3"><span class="note">{{'SearchbyRCHId/SubjectName/SubjectId/ContactNumber' | translate }} </span></label>
+                                        <div class="w-100">
+                                            <input type="text" class="w-100 form-control product-search br-30"
+                                            name="searchsubjectid" type="text" placeholder="Search"
+                                            [(ngModel)]="searchsubjectid" autocomplete="off">
+                                        <a (click)="anmSubjectProfileList1(2,maintabSelected,mainsubtabSelected)"><button class="btn btn-primary" type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-search">
+                                                        <circle cx="11" cy="11" r="8"></circle>
+                                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                    </svg>
+                                                </button></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>-->
                         </div>
 
                         <div class="custm-tab">
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
-                                    <p>{{'Sampling' | translate }}</p>
+                                    <p>{{'Pending' | translate }}</p>
                             </div>
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
-                                <p>{{'Shipment' | translate }}</p>
+                                <p>{{'Completed' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
-                                <p>{{'TimeoutorDamaged' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);">
-                                <p>{{'CHC' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);">
-                                <p>{{'HPLCStatus' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
-                                <p>{{'PNDTCounselling' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);">
-                                <p>{{'PNDTDone' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);">
-                                <p>{{'MTPCounselling' | translate }}</p>
-                            </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 9 ? true : false}" (click)="custumTabClick(9,1);">
-                                <p>{{'MTPDone' | translate }}</p>
-                            </div>
+
                         </div>
 
                         <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
