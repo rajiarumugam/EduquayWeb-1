@@ -611,6 +611,9 @@
 "Test Status":"Test Status",
 "Test DT / TM":"Test DT / TM",
 "Central Lab Report":"Central Lab Report",
-"Report - HPLC":"Report - HPLC"
+"Report - HPLC":"Report - HPLC",
+"MTP Scheduled DtTm":"MTP Scheduled DtTm",
+"Scheduling Pending":"Scheduling pending",
+"Counselling Completed":"Counselling Completed"
 
 }

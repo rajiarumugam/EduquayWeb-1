@@ -140,7 +140,9 @@ export const ENDPOINT = {
         "ANMREPORTDETAIL":"api/v1/ANMReport/ANMReportsDetail",
         "CHCREPORTSDETAIL":"api/v1/CHCReport/CHCReportsDetail",
         "RETRIVEPARTICULARCHC":"api/v1/Subject/RetrieveParticularCHCSubjectList",
-        "RETRIVEPARTICULARPATHOLOGIST":"api/v1/Pathologist/RetrievePathologistReportsDetail"
+        "RETRIVEPARTICULARPATHOLOGIST":"api/v1/Pathologist/RetrievePathologistReportsDetail",
+        "MTPReportsDetail":"api/v1/ANMReport/MTPReportsDetail",
+        "PNDTREPORTDETAIL":"api/v1/NHMReports/PNDTReportsDetail",
     },
     "ERRORCORRECTION":
     {
@@ -173,6 +175,7 @@ export const ENDPOINT = {
         "UploadCBCHPLCFiles":"api/v1/Support/UploadCBCHPLCFiles",
         "UploadSAFiles":"api/v1/Support/BulkUpload",
         "ValidateBulkUpload":"api/v1/Support/ValidateBulkUpload",
+        "ValidateBulkUploadNew":"api/v1/Support/ValidateBulkUploadNew",
         "CreateBulkUpload":"api/v1/Support/CreateBulkUpload"
     }
 

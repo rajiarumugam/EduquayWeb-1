@@ -63,17 +63,17 @@ export class errorCorrectionService {
     let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIEVELMPERRORCORRECTION)
     return this.http.post<any>({url:apiUrl,body:obj});
   }
-  
+
   updateLMP(obj){
-  
-  
+
+
     let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.UPDATELMP)
     console.log(apiUrl);
     return this.http.post<any>({url:apiUrl,body:obj});
   }
   getSSTErrorDetails(obj){
     let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORCORRECTION.RETRIEVESSTERRORCORRECTION)
-    
+
     return this.http.post<any>({url:apiUrl,body:obj});
 
   }
@@ -82,7 +82,7 @@ export class errorCorrectionService {
     return this.http.post<any>({url:apiUrl,body:obj});
   }
   getBarcodeErrorReport(obj){
-    
+
       let apiUrl =this.genericService.buildApiUrl(ENDPOINT.ERRORREPORT.BARCODEERRORREPORT)
       return this.http.post<any>({url:apiUrl,body:obj});
     }
@@ -133,9 +133,13 @@ export class errorCorrectionService {
     let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.UploadSAFiles)
     return this.http.post<any>({url:apiUrl,body:obj});
   }
-  
-  validateuploadSAFiles(){
+
+  validateuploadSAFilesOld(){
     let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.ValidateBulkUpload)
+    return this.http.post<any>({url:apiUrl,body:{}});
+  }
+  validateuploadSAFiles(){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.ValidateBulkUploadNew)
     return this.http.post<any>({url:apiUrl,body:{}});
   }
   createuploadSAFiles(){

@@ -363,13 +363,21 @@ import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-up
 
 
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
-import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
-//import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
-// import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
-// import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
-// import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
-// import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
-// import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";
+
+import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+
+//import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
+import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
+import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
+import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
+import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
+import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
+import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";
+import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pndtobs-report-list.component";
+import { HEMreportListComponent1 } from "./Haematologist/anm-report-list1/haematologist.component";
+import { DeactivateanmComponent } from "./errorcorrection/deactivate-anm/deactivate-anm/deactivate-anm.component";
+import { DeactivateanmMainComponent } from "./errorcorrection/deactivate-anm/deactivate-anm-main/deactivate-anm-main.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -544,21 +552,7 @@ const routes: Routes = [
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
       { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent}, // resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}
       { path: 'chc-sample-viewshipment', component: ChcSampleViewShipmentComponent, pathMatch: 'full'},
-      // {
-      //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
-      //   children:[
-      //     {path: '', component: ChcPendingPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
-      //     {path: 'start', component: ChcStartPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}}
-      //   ]
-      // },
-      // {
-      //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
-      //   children:[
-      //     {path: '', component: ChcPendingPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
-      //     {path: 'startpickpack', component: ChcStartPickpackComponent, pathMatch: 'full', resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}},
 
-      //   ]
-      // },
       {
         path: 'chc-update-sst', component: CHCUpdateSSTComponent,
         children:[
@@ -567,13 +561,7 @@ const routes: Routes = [
           {path: 'negative', component: SSTUpdateNegativeComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateSSTReceivedService}}
         ]
       },
-      /*{
-        path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
-        children:[
-          {path: '', component: CBCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}},
-          {path: 'upload', component: CBCUploadComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateReceivedService}}
-        ]
-      },*/
+
       {
         path: 'chc-update-cbc', component: CHCUpdateCBCCHCComponent,
         children:[
@@ -768,25 +756,27 @@ const routes: Routes = [
           {path: '', component: UpdateMolResultViewComponent, pathMatch: 'full'}
         ]
       },
-      // {
-      //   path: 'mol-blood-recp-report', component: MolecularBloodSampleReciptComponent,
-      //   children:[
-      //     {path: '', component:MolecularBloodSampleReciptComponent, pathMatch: 'full'}
-      //   ]
-      // },
-      // {
-      //   path: 'mol-cvs-report', component:MolecularCVSReport,
-      //   children:[
-      //     {path: '', component:MolecularCVSReport, pathMatch: 'full'}
-      //   ]
-      // },
-      // // MolecularCVSReport
-      // {
-      //   path: 'mol-cvs-recp-report', component:MolecularCVSSampleReciptComponent,
-      //   children:[
-      //     {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
-      //   ]
-      // },
+
+     {
+        path: 'mol-blood-recp-report', component: MolecularBloodSampleReciptComponent,
+        children:[
+          {path: '', component:MolecularBloodSampleReciptComponent, pathMatch: 'full'}
+        ]
+      },
+    {
+        path: 'mol-cvs-report', component:MolecularCVSReport,
+        children:[
+          {path: '', component:MolecularCVSReport, pathMatch: 'full'}
+        ]
+      },
+      // MolecularCVSReport
+     {
+        path: 'mol-cvs-recp-report', component:MolecularCVSSampleReciptComponent,
+        children:[
+          {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
+        ]
+      },
+
       {
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
@@ -794,12 +784,15 @@ const routes: Routes = [
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
         ]
       },
-      // {
-      //   path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
-      //   children:[
-      //     {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
-      //   ]
-      // },
+
+    {
+        path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
+        children:[
+          {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
+        ]
+      },
+
+
       {
         path: 'pndtc-testing', component: PndTestingMainComponent,
         children:[
@@ -814,10 +807,12 @@ const routes: Routes = [
           {path: '', component: PNDTestingResultsComponent, pathMatch: 'full'}
         ]
       },
-      // {
-      //   path: 'pndtreport', component: PNDTOBSreportListComponent,
-      //   children:[
-      //     {path: '', component: PNDTOBSreportListComponent, pathMatch: 'full'}
+
+    {
+        path: 'pndtreport', component: PNDTOBSreportListComponent,
+        children:[
+          {path: '', component: PNDTOBSreportListComponent, pathMatch: 'full'}
+
 
       //   ]
       // },
@@ -847,6 +842,14 @@ const routes: Routes = [
       //   ]
       // },
       {
+
+        path: 'mtpreport', component: MTPOBSreportListComponent,
+        children:[
+          {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
+        ]
+      },
+      {
+
         path: 'view-case-sheet', component: ViewCaseSheetMainComponent,
         children:[
           {path: '', component: ViewCaseSheetComponent, pathMatch: 'full'}
@@ -900,6 +903,13 @@ const routes: Routes = [
         children:[
           {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'}
         ]
+
+      }/*,
+      {path: 'hem-report', component: HEMreportListComponent,
+      children:[
+        {path: '', component: HEMreportListComponent, pathMatch: 'full'}
+      ]
+    }*/,
       },
     //   {path: 'hem-report', component: HEMreportListComponent,
     //   children:[
@@ -988,6 +998,12 @@ const routes: Routes = [
 
       },{
         path: 'anm-report', component: ANMreportListComponent,
+
+      },{
+        path: 'counsellor-report', component: CounsellorreportListComponent,
+
+      },{
+        path: 'mtp-report', component: MTPreportListComponent,
 
       },
       {
@@ -1313,14 +1329,20 @@ export const RoutingComponents = [
   UploadSAMainComponent,
   SAUploadComponent,
   CommonDataTableComponent,
-  CommonUsersTableComponent
-  // PNDTOBSreportListComponent,
-  // MTPOBSreportListComponent,
-  // HEMreportListComponent,
-  // CounsellorpnpreportListComponent,
-  // MolecularBloodSampleReciptComponent,
-  // MolecularCVSSampleReciptComponent,
-  // MolecularCVSReport
+
+  MTPreportListComponent,
+  CounsellorreportListComponent,
+  PNDTOBSreportListComponent,
+  MTPOBSreportListComponent,
+  HEMreportListComponent,
+  CounsellorpnpreportListComponent,
+  MolecularBloodSampleReciptComponent,
+  MolecularCVSSampleReciptComponent,
+  MolecularCVSReport,
+  HEMreportListComponent1,
+  DeactivateanmComponent,
+  DeactivateanmMainComponent
+
 ];
 
 

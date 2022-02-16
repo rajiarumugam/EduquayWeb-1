@@ -2,7 +2,7 @@ import { Component, OnInit, Pipe, NgZone, ViewChild, ElementRef } from '@angular
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-declare var $: any 
+declare var $: any
 import { DataService } from './../../../../shared/data.service';
 import { errorCorrectionService } from 'src/app/shared/errorcorrection/error-correction.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -23,8 +23,11 @@ export class SAUploadComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('inputFile', {static: false}) myInputVariable: ElementRef;
   errorMessage: string;
-  errorSpouseMessage: string;
+  ErrorCount;
 
+  errorSpouseMessage: string;
+  curDate=new Date();
+  SheetName:string;
   centralReceiptsData: any[] = [];
   popupData:any;
   processingDate;
@@ -38,6 +41,7 @@ export class SAUploadComponent implements OnInit {
   barcodeValid = false;
   user;
   validateData;
+  countMain1Sub1;
   showValidationError = false;
 
   name = 'Angular';
@@ -60,8 +64,15 @@ export class SAUploadComponent implements OnInit {
     private excelService:ExcelService
     ) { }
 
-    
+
   ngOnInit() {
+
+    var today1 = new Date();
+var dd = String(today1.getDate()).padStart(2, '0');
+var mm = String(today1.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today1.getFullYear();
+
+var today = mm + '/' + dd + '/' + yyyy;
     this.dtOptions = {
        // Declare the use of the extension in the dom parameter
        dom: "<'row mt-3'<'col-sm-11 float-right'><'col-sm-1 float-right'B>>" +
@@ -73,14 +84,14 @@ export class SAUploadComponent implements OnInit {
            {
              titleAttr: 'Download as Excel',
              extend: 'excelHtml5',
-             title: 'Error-Report',
+             title: ' Bulk Upload TSCOD Error-Report   ' +today,
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
            }
 
          ],
       language: {
-       
+
         paginate: {
           first: '',
           last: '', // or '←'
@@ -92,20 +103,23 @@ export class SAUploadComponent implements OnInit {
     this.DataService.sendData(JSON.stringify({"module": "Upload", "page": "Bluk Upload"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
-    
-    
+
+
     this.secondFormGroup = this._formBuilder.group({
       barcode: ['', Validators.required]
     });
-    
+
     this.centralReceiptsData = [];
     //this.getErrorDetailst();
   }
 
     handleFileInput(file: FileList) {
+
     this.fileToUpload = file.item(0);
     var _fileList = file.item(0).name.split('.');
-    console.log(_fileList[_fileList.length-1]);
+    this.SheetName=file.item(0).name;
+    this.SheetName=this.SheetName.concat("    ","Sheet 1")
+
     if(_fileList[_fileList.length-1] === 'csv' || _fileList[_fileList.length-1] === 'xlsx' || _fileList[_fileList.length-1] === 'xls')
     {
       this._imageArray.push(file.item(0));
@@ -116,6 +130,7 @@ export class SAUploadComponent implements OnInit {
         this.imageUrl = event.target.result;
       }
     }
+
     else
     {
 
@@ -123,7 +138,14 @@ export class SAUploadComponent implements OnInit {
       this.myInputVariable.nativeElement.value = '';
       return;
     }
-    
+    if (this._imageArray.length>1){
+      Swal.fire({icon:'error', title: "Please upload only one file.", confirmButtonText: 'Close', allowOutsideClick: false});
+      this.deleteFile(1)
+       return;
+
+    }
+
+
     //reader.readAsDataURL(this.fileToUpload);
   }
 
@@ -132,7 +154,7 @@ export class SAUploadComponent implements OnInit {
     this.showValidationError = false;
     var _obj = {};
     const frmData = new FormData();
-    for (var i = 0; i < this._imageArray.length; i++) { 
+    for (var i = 0; i < this._imageArray.length; i++) {
       frmData.append("formFiles", this._imageArray[i]);
     }
     this.errorCorrectionService.uploadSAFiles(frmData)
@@ -144,7 +166,7 @@ export class SAUploadComponent implements OnInit {
           //this.resetData();
         }
       });
-      
+
     },
       (err: HttpErrorResponse) => {
         this.loaderService.display(false);
@@ -157,8 +179,10 @@ export class SAUploadComponent implements OnInit {
     this.errorCorrectionService.validateuploadSAFiles()
     .subscribe(response => {
       this.validateData = response.data;
+      console.log(this.validateData);
       if(response.status === 'true')
       {
+        setTimeout(() => {
           Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Create', allowOutsideClick: false})
           .then((result) => {
             if (result.value) {
@@ -166,17 +190,28 @@ export class SAUploadComponent implements OnInit {
             // this.resetData();
             }
           });
+
+        }, 1000)
+        //Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Create', allowOutsideClick: false})
+
+
+
+
       }
       else{
           this.showValidateData();
+          this.countMain1Sub1=response.data.length;
+          Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'View Error Report', allowOutsideClick: false})
+
           this.showValidationError = true;
       }
     },
       (err: HttpErrorResponse) => {
         this.loaderService.display(false);
         Swal.fire({icon:'error', title: err.toString(), confirmButtonText: 'Close', allowOutsideClick: false})
-        //this.showResponseMessage(err.toString(), 'e');
+
       });
+
   }
   showValidateData()
   {
@@ -186,13 +221,13 @@ export class SAUploadComponent implements OnInit {
   {
     this.errorCorrectionService.createuploadSAFiles()
     .subscribe(response => {
-      Swal.fire({icon:'success', title: response.msg, confirmButtonText: 'Close', allowOutsideClick: false})
+      Swal.fire({icon:'success', title:'Data uploaded to main database”​', confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.resetData();
         }
       });
-      
+
     },
       (err: HttpErrorResponse) => {
         this.loaderService.display(false);
@@ -210,30 +245,7 @@ export class SAUploadComponent implements OnInit {
     console.log(i);
     this._imageArray.splice(i, 1);
   }
-  exportAsXLSX()
-  {
-    this.data = [["ANM Code Error", this.validateData.anmCodeError], 
-    ["ANM Error count", this.validateData.anmError],
-    ["Block Code Error",this.validateData.blockCodeError],
-    ["Block Error Count",this.validateData.blockError],
-    ["CHC Code Error",this.validateData.chcCodeError],
-    ["CHC Error Count",this.validateData.chcError],
-    ["District Code Error",this.validateData.districtCodeError],
-    ["District Error Code",this.validateData.districtError],
-    ["PHC Code Error",this.validateData.phcCodeError],
-    ["PHC Error Count",this.validateData.phcError],
-    ["SC Code Error",this.validateData.scCodeError],
-    ["SC Error Count",this.validateData.scError]];
-      //this.excelService.exportAsExcelFile(this.data, 'sample');
-      const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
 
-      /* generate workbook and add the worksheet */
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  
-      /* save to file */
-      XLSX.writeFile(wb, this.fileName);
-  }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
     }

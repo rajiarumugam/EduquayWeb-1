@@ -37,7 +37,7 @@
             <!-- <app-anm-chc-subject-profile #anmchcsubjectprofile></app-anm-chc-subject-profile> -->
                 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                     <div class="widget-content widget-content-area br-6">
-                            
+
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div *ngIf="subjectprofilelistErrorMessage" class="alert mt-3 mb-2"
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-row mt-4" [formGroup]="dateform">
                             <div class="row" style="width:100%;">
                                 <div class="form-group col-md-2">
@@ -84,7 +84,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="inputTodate">{{'SubjectType' | translate }}</label>
                                     <div class="form-group mb-0">
-                                        <select id="inputilrPoint" class="form-control" formControlName = "block" 
+                                        <select id="inputilrPoint" class="form-control" formControlName = "block"
                                         [(ngModel)]="selectedBlock">
                                             <option [ngValue]="null">Select</option>
                                             <option *ngFor="let blockdata of subjectData" [(value)]="blockdata.id">
@@ -92,187 +92,162 @@
                                             </option>
                                         </select>
                                     </div>
-                                </div>    
-                                 
+                                </div>
+
                                 <div class="form-group col-md-1">
                                     <a (click)="anmSubjectProfileList(1,maintabSelected,mainsubtabSelected)" style="position: absolute;right: 0;top: 18px;"><button type="submit" class="btn search-bu">
                                         <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                                </div>    
-                            </div>
-                            <!--<div class="row" style="width:100%;">
-                                <div class="form-group col-md-12 mt-12 ml-12" style="text-align: center !important;padding: 0;margin: 0 !important;">
-                                    <b>(or)</b>
                                 </div>
                             </div>
-                            <div class="row" style="width:100%;">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 filtered-list-search mt-2">
-                                    <form class="form-inline my-2 my-lg-0">
-                                        <label for="inputSearch" class="ml-3"><span class="note">{{'SearchbyRCHId/SubjectName/SubjectId/ContactNumber' | translate }} </span></label>
-                                        <div class="w-100">
-                                            <input type="text" class="w-100 form-control product-search br-30"
-                                            name="searchsubjectid" type="text" placeholder="Search"
-                                            [(ngModel)]="searchsubjectid" autocomplete="off">
-                                        <a (click)="anmSubjectProfileList1(2,maintabSelected,mainsubtabSelected)"><button class="btn btn-primary" type="submit">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                        class="feather feather-search">
-                                                        <circle cx="11" cy="11" r="8"></circle>
-                                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                    </svg>
-                                                </button></a>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>-->
+
                         </div>
 
                         <div class="custm-tab">
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Sampling' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
                                 <p>{{'Shipment' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
                                 <p>{{'TimeoutorDamaged' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);">
                                 <p>{{'CHC' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);">
                                 <p>{{'HPLCStatus' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
                                 <p>{{'PNDTCounselling' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);">
                                 <p>{{'PNDTDone' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);">
                                 <p>{{'MTPCounselling' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 9 ? true : false}" (click)="custumTabClick(9,1);"> 
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 9 ? true : false}" (click)="custumTabClick(9,1);">
                                 <p>{{'MTPDone' | translate }}</p>
                             </div>
                         </div>
 
                         <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Collected' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain1Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(1,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(1,2);">
                                 <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain1Sub2}}</span></p>
                             </div>
                         </div>
 
                         <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);">
                                     <p>{{'Shipped' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);">
                                 <p>{{'ShipmentPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub2}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);">
                                     <p>{{'Recollected' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);">
                                 <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub2}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 4 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(4,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(4,1);">
                                     <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(4,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(4,2);">
                                 <p>{{'CBC/SST +ve' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(4,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(4,3);">
                                 <p>{{'Negative' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub3}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(4,4);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(4,4);">
                                 <p>{{'Shipmentdone' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub4}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(4,5);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(4,5);">
                                 <p>{{'ShipmentPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub5}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 5 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(5,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(5,1);">
                                     <p>{{'TestPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain5Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(5,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(5,2);">
                                 <p>{{'DiagnosisPending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain5Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(5,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(5,3);">
                                 <p>{{'Abnormal' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain5Sub3}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(5,4);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(5,4);">
                                 <p>{{'Normal' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain5Sub4}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 6 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(6,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(6,1);">
                                     <p>{{'YettoSchedule' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(6,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(6,2);">
                                 <p>{{'counsellingpending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(6,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(6,3);">
                                 <p>{{'Agreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub3}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(6,4);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(6,4);">
                                 <p>{{'Disagreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub4}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(6,5);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(6,5);">
                                 <p>{{'DecAwaited' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub5}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 7 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(7,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(7,1);">
                                     <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(7,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(7,2);">
                                 <p>{{'Positive' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(7,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(7,3);">
                                 <p>{{'Negative' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub3}}</span></p>
                             </div>
-                            
+
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 8 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(8,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(8,1);">
                                     <p>{{'YettoSchedule' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(8,2);">
                                 <p>{{'counsellingpending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(8,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(8,3);">
                                 <p>{{'Agreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub3}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(8,4);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(8,4);">
                                 <p>{{'Disagreed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub4}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(8,5);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(8,5);">
                                 <p>{{'DecAwaited' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub5}}</span></p>
                             </div>
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 9 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(9,1);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(9,1);">
                                     <p>{{'pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub1}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(9,2);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(9,2);">
                                 <p>{{'Positive' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub2}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(9,3);"> 
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(9,3);">
                                 <p>{{'Negative' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub3}}</span></p>
                             </div>
 
                         </div>
                         <common-data-table [tableHeader]="tableHeader" [objkey]="curentObjectKey" [subjectprofileLists]="subjectprofileLists" (openpopup)="openpopup($event);" (opensubjectdetails)="opensubjectdetail($event);"></common-data-table>
-                        
+
                     </div>
                 </div>
                   <!---Tracker Popup-->
@@ -291,12 +266,12 @@
                                       <line x1="6" y1="6" x2="18" y2="18"></line>
                                   </svg>
                               </button>
-                          </div> 
+                          </div>
                           <div class="modal-body">
                              <div class="d-flex flex-row mb-4" *ngIf="(childSubjectTypeId === 1) || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Female')">
                                  <div class="mr-3">
                                      <b>ANW: </b>
-                                 </div>                               
+                                 </div>
                                  <div class="mr-3">
                                      <span><strong>{{'SubjectInfo' | translate }} :</strong> {{firstName}} {{lastName}}, {{gender | slice:0:1}}, {{age}} yrs</span>
                                  </div>
@@ -319,7 +294,7 @@
                              <div class="d-flex flex-row mb-4" *ngIf="(childSubjectTypeId === 2) || (subjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')">
                                <div class="mr-3">
                                    <b>ANW: </b>
-                               </div>                               
+                               </div>
                                <div class="mr-3">
                                    <span><strong>{{'SubjectInfo' | translate }} :</strong> {{spouseFirstName}} {{spouseLastName}}, F</span>
                                </div>
@@ -339,7 +314,7 @@
                                        {{ga}}</span>
                                </div>
                            </div>
-                            
+
                              <div class="d-flex flex-row mb-4" *ngIf="childSubjectTypeId === 3">
                                <div class="mr-3">
                                    <b>{{'Age < 18' | translate }} : </b>
@@ -350,35 +325,35 @@
                                  <div class="mr-3">
                                      <strong>{{'SubjectName' | translate }} :</strong> {{firstName}} {{lastName}}
                                  </div>
-                               
+
                              </div>
                               <div class="col-lg-12 mt-3" style="overflow-x: scroll;">
-                                  <div class="main-box no-header clearfix"> 
-                                                                
+                                  <div class="main-box no-header clearfix">
+
                                       <div class="d-flex flex-row">
                                          <!-- <div>
-                                             <div class="d-flex flex-column">                                                 
+                                             <div class="d-flex flex-column">
                                                  <div class="mt-2">
                                                      <b>ANW</b>
                                                  </div>
                                                  <div class="mt-2">
                                                      <b>Spouse</b>
                                                  </div>
-                                             </div> 
+                                             </div>
                                          </div> -->
                                           <div>
                                               <div class="d-flex flex-column">
                                                  <div class="" *ngIf="(anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)
                                                  || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Female') || (subjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')">
                                                      <b>ANW</b>
-                                                 </div>                                                 
+                                                 </div>
                                                   <div class="" *ngIf="(anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)
                                                   || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Female') || (subjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')">
-                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRldyV1lr6X3UgB1nlGB3qrKIZ-NUELxLW4ZiAo6J6KWCdCfo44ELm3aZnmv-Ru7-QzcG6JNFK7tZvn/pub?w=40&h=100">                                       
+                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRldyV1lr6X3UgB1nlGB3qrKIZ-NUELxLW4ZiAo6J6KWCdCfo44ELm3aZnmv-Ru7-QzcG6JNFK7tZvn/pub?w=40&h=100">
                                                   </div>
                                                   <div class="" *ngIf="anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 3">
                                                     <b>Age < 18</b>
-                                                </div>                                                 
+                                                </div>
                                                  <div class="" *ngIf="anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 3">
                                                     <i class="fa fa-child child-reg" aria-hidden="true"></i>
                                                      <!-- <img src="https://docs.google.com/drawings/d/e/2PACX-1vRldyV1lr6X3UgB1nlGB3qrKIZ-NUELxLW4ZiAo6J6KWCdCfo44ELm3aZnmv-Ru7-QzcG6JNFK7tZvn/pub?w=40&h=100">-->
@@ -395,7 +370,7 @@
                                                  <div class="" *ngIf="(anmSubjectTrackerItem?.hplcResult === '' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult !== 'Positive' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1)">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vTAvN_xJKVwIiEB9rFXSb6znHtv-jGenDKrSeDUkVpzzn-oBrq2JLg2tEcefFBEGEH3eI-A2R8fds65/pub?w=40&h=100">
                                                   </div>
-                                                  <div class="mt-1" *ngIf="(anmSubjectTrackerItem?.hplcResult === '' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1) 
+                                                  <div class="mt-1" *ngIf="(anmSubjectTrackerItem?.hplcResult === '' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1)
                                                   || (anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult !== 'Positive' && anmSubjectTrackerItem?.spouseSubjectId === '' && childSubjectTypeId === 1)">
                                                      <b>Spouse</b>
                                                  </div>
@@ -408,24 +383,24 @@
                                                  <!-- <div class="ml-3">
                                                      <div>{{anmSubjectTrackerItem?.dateofRegistration}}</div>
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row  transform-anw">
                                                          <!-- <div class="transform"> -->
                                                          <div *ngIf="(anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)
-                                                         || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Female') || (subjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && gender === 'Male') || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 3)"> 
+                                                         || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Female') || (subjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && gender === 'Male') || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 3)">
                                                              <img [ngClass]="{'blink_me-1': anmSubjectTrackerItem?.samplingStatus === false, 'blink_me-2': anmSubjectTrackerItem?.samplingStatus === false && childSubjectTypeId === 3}"
                                                              src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                          </div>
                                                          <!-- <div style="border: 1px solid #000; width:100px; height:100px;">
                                                              <div id="hr" style="border-top:1px solid #ff00ff; height:100px; margin-left:-140px;">   </div>
                                                          </div> -->
-                                                         
+
                                                          <div class="rotatetransfrm" *ngIf="(anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2) || (anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 3)">
                                                              {{anmSubjectTrackerItem?.dateofRegistration}}</div>
                                                              <div class="rotatetransfrm" *ngIf="(anmSubjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4  && gender === 'Female' ) || (anmSubjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 ) || (subjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')">
                                                                  {{anmSubjectTrackerItem?.dateofRegistration}}</div>
                                                      <!-- </div> -->
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                   <div>
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vQRDXv4V8QXbN-HwxemLDKNGUhvBiJk-VkUilHADQGFy9tzfqtQvl-h4S520WuIqfIgAzxbALXuKY2q/pub?w=110&h=50">
@@ -436,7 +411,7 @@
                                                   <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '') || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)">
                                                      <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === false && subjectTrackerItem?.spouseSubjectId !== ''}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)
                                                      || (anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4) || (subjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')">
                                                          <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 1) || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)
@@ -444,19 +419,19 @@
                                                              <img [ngClass]="{'blink_me-1': subjectTrackerItem?.samplingStatus === false && subjectTrackerItem?.spouseSubjectId !== '', 'blink_me-2': subjectTrackerItem?.samplingStatus === false && subjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Male'}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                          </div>
                                                          <div class="rotatetransfrmspouse">
-                                                             <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.spouseSubjectId !== '') 
+                                                             <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.spouseSubjectId !== '')
                                                              || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2) || (subjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')
                                                              || (subjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Male')">
                                                              {{subjectTrackerItem?.dateofRegistration}}</div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === ""  && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div>
                                                  <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '') || (subjectTrackerItem?.spouseSubjectId !== ''  && childSubjectTypeId === 2)">{{subjectTrackerItem?.dateofRegistration}}</div> -->
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--Collection-->
@@ -473,7 +448,7 @@
                                                                  <div class="" [hidden]="!anmSubjectTrackerItem?.sampleCollectionDateTime">{{anmSubjectTrackerItem?.sampleCollectionDateTime | slice:0:10}} </div>
                                                                  <div class="" [hidden]="!childsubjectTrackerItem?.sampleCollectionDateTime">{{anmSubjectTrackerItem?.sampleCollectionDateTime | slice:0:10}} </div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div>
                                                  <!-- <div>
                                                      <div class="d-flex flex-row">
@@ -483,7 +458,7 @@
                                                          <div class="rotatetransfrm">
                                                                  <div class="" [hidden]="anmSubjectTrackerItem?.sampleCollectionDateTime">&nbsp;&nbsp;</div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div> -->
                                                   <div class=" transform-anw" *ngIf="anmSubjectTrackerItem?.samplingStatus === false || (childsubjectTrackerItem?.samplingStatus === false && childSubjectTypeId === 3)">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
@@ -494,32 +469,32 @@
                                                   <div *ngIf="anmSubjectTrackerItem?.samplingStatus === false || (childsubjectTrackerItem?.samplingStatus === true && childSubjectTypeId === 3)">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vRS_HMagMdc8ducXJ6DyTu5tbzu1A_6iColOBXMAd2U4zNX6zOB5-zVNQlMyBkWaj93cwzOVc4dClqK/pub?w=110&h=50">
                                                   </div>
-                                                  <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true) 
+                                                  <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true)
                                                   || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)">
                                                      <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === true && subjectTrackerItem?.shipmentToTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
-                                                     <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true) 
+                                                 <div>
+                                                     <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true)
                                                      || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)
                                                      || (anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4 && subjectTrackerItem?.samplingStatus === true) || (subjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Male' && subjectTrackerItem?.samplingStatus === true)">
-                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true) 
+                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true)
                                                          || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)">
                                                             <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === true && subjectTrackerItem?.shipmentToTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                         </div>
                                                          <div class="rotatetransfrmspouse">
-                                                             <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true) 
+                                                             <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true)
                                                              || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.samplingStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.sampleCollectionDateTime | slice:0:10}}
                                                              </div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.samplingStatus === false) ||
                                                  (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div>
-                                                 
+
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--ShipmentT.chc-->
@@ -535,8 +510,8 @@
                                                                  <div class="" [hidden]="!anmSubjectTrackerItem?.shipmentToTestingCHCDateTime">{{anmSubjectTrackerItem?.shipmentToTestingCHCDateTime | slice:0:10}}</div>
                                                                  <div class="" [hidden]="!childsubjectTrackerItem?.shipmentToTestingCHCDateTime">{{anmSubjectTrackerItem?.shipmentToTestingCHCDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
-                                                 </div> 
+                                                     </div>
+                                                 </div>
                                                  <!-- <div *ngIf="anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true">
                                                       <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.shipmentToTestingCHCStatus === true && anmSubjectTrackerItem?.receivedAtTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                   </div> -->
@@ -553,7 +528,7 @@
                                                   || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToTestingCHCStatus === true  && childSubjectTypeId === 2)">
                                                      <img [ngClass]="{'blink_me': subjectTrackerItem?.samplingStatus === true && subjectTrackerItem?.shipmentToTestingCHCStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToTestingCHCStatus === true)
                                                      || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToTestingCHCStatus === true  && childSubjectTypeId === 2)">
                                                          <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToTestingCHCStatus === true)
@@ -565,7 +540,7 @@
                                                               || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToTestingCHCStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.shipmentToTestingCHCDateTime | slice:0:10}}
                                                              </div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <!-- <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "")
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToTestingCHCStatus === false  && childSubjectTypeId === 2)'>
@@ -575,9 +550,9 @@
                                                  (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div>
-                                                 
+
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--ReceivedT.chc-->
@@ -594,8 +569,8 @@
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.receivedAtTestingCHCDateTime">{{anmSubjectTrackerItem?.receivedAtTestingCHCDateTime | slice:0:10}}</div>
                                                              <div class="" [hidden]="!childsubjectTrackerItem?.receivedAtTestingCHCDateTime">{{anmSubjectTrackerItem?.receivedAtTestingCHCDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
-                                                 </div>  
+                                                     </div>
+                                                 </div>
                                                  <!-- <div *ngIf="anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true">
                                                       <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.receivedAtTestingCHCStatus === true && anmSubjectTrackerItem?.cbcStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                   </div> -->
@@ -612,7 +587,7 @@
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtTestingCHCStatus === true  && childSubjectTypeId === 2)">
                                                      <img [ngClass]="{'blink_me': subjectTrackerItem?.receivedAtTestingCHCStatus === true && subjectTrackerItem?.cbcStatus === false}"src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtTestingCHCStatus === true)
                                                      || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtTestingCHCStatus === true  && childSubjectTypeId === 2)">
                                                          <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtTestingCHCStatus === true)
@@ -624,7 +599,7 @@
                                                              || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtTestingCHCStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.receivedAtTestingCHCDateTime | slice:0:10}}
                                                              </div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.receivedAtTestingCHCStatus === false) ||
                                                  (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
@@ -634,16 +609,16 @@
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtTestingCHCStatus === false  && childSubjectTypeId === 2)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div> -->
-                                                 
+
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--cbc/sst-->
                                               <div class="d-flex flex-column">
                                                  <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.cbcDateTime">&nbsp;&nbsp;</div>
                                                  <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.cbcDateTime">{{anmSubjectTrackerItem?.cbcDateTime | slice:0:10}}</div> -->
-                                                 
+
                                                   <div class="transform-anw" *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.cbcResult !== 'Positive') && (anmSubjectTrackerItem?.sstStatus === true && anmSubjectTrackerItem?.sstResult !== 'Positive')">
                                                      <!-- <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100"> -->
                                                      <img [ngClass]="{'blink_me-1': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false, 'blink_me-2': anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false && childsubjectTrackerItem === 3 }" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
@@ -663,8 +638,8 @@
                                                              <div class="" *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.sstStatus === false)">{{anmSubjectTrackerItem?.cbcDateTime | slice:0:10}}</div>
                                                              <div class="" *ngIf="(anmSubjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.sstStatus === true)">{{anmSubjectTrackerItem?.cbcDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
-                                                 </div> 
+                                                     </div>
+                                                 </div>
                                                   <!-- <div *ngIf="anmSubjectTrackerItem?.cbcStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                   </div> -->
@@ -731,33 +706,33 @@
                                                  || (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div>
-                                                   <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '') && (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )  
+                                                   <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '') && (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )
                                                    || (subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive'  && childSubjectTypeId === 2 )">
                                                     <img [ngClass]="{'blink_me': subjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vSnv3X7UZksDRJ9q1Icy5JTxDsyByCZ0C3UgaBG3-3Q25TndJkTo4tKrQ7BpLlLgbT817q8-al10LIO/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
-                                                     <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive' && subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive' && childSubjectTypeId === 1) 
-                                                     || (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )  
+                                                 <div>
+                                                     <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive' && subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive' && childSubjectTypeId === 1)
+                                                     || (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )
                                                      || (subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive'  && childSubjectTypeId === 2 )">
-                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive' && subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive' && childSubjectTypeId === 1) 
-                                                         || (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )  
+                                                         <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive' && subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive' && childSubjectTypeId === 1)
+                                                         || (subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.cbcResult === 'Positive'  && childSubjectTypeId === 2 )
                                                          || (subjectTrackerItem?.sstStatus === true && subjectTrackerItem?.sstResult === 'Positive'  && childSubjectTypeId === 2 )">
                                                              <img [ngClass]="{'blink_me': subjectTrackerItem?.cbcStatus === true && anmSubjectTrackerItem?.shipmentToCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vSnv3X7UZksDRJ9q1Icy5JTxDsyByCZ0C3UgaBG3-3Q25TndJkTo4tKrQ7BpLlLgbT817q8-al10LIO/pub?w=70&h=100">
                                                          </div>
                                                          <div class="rotatetransfrmspouse">
                                                              <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.sstStatus === false)
                                                              || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.sstStatus === false && childSubjectTypeId === 2)">{{subjectTrackerItem?.cbcDateTime | slice:0:10}}
-                                                             </div> 
+                                                             </div>
                                                              <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.sstStatus === true)
                                                              || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.cbcStatus === true && subjectTrackerItem?.sstStatus === true && childSubjectTypeId === 2)">{{subjectTrackerItem?.cbcDateTime | slice:0:10}}
-                                                             </div>                   
+                                                             </div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
-                                                 
-                                             
+
+
                                              </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--ShipmentC.lab-->
@@ -772,8 +747,8 @@
                                                          <div class="rotatetransfrm">
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.chcShipmentDateTime">{{anmSubjectTrackerItem?.chcShipmentDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
-                                                 </div> 
+                                                     </div>
+                                                 </div>
                                                  <!-- <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === true">
                                                       <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.shipmentToCentralLabStatus === true && anmSubjectTrackerItem?.receivedAtCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vQ2sT4hWrAwOVBHkCw4NuAIoaMTT9NeY4yOu7pr4i8quJkhCQP5de5Q-b4YDZ_xW8yue-tILrhE9IV_/pub?w=70&h=100">
                                                   </div> -->
@@ -786,12 +761,12 @@
                                                   <div *ngIf="anmSubjectTrackerItem?.shipmentToCentralLabStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vSBESC7hZkuH1EYFvDa6oIMXZx3pM7A2DoB9Sxkql6zNMsnZYlwNy7dVZoisoA4WMlJdgS03iu5W9YA/pub?w=110&h=50">
                                                   </div>
-   
+
                                                   <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true)
                                                   || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">
                                                      <img [ngClass]="{'blink_me': subjectTrackerItem?.shipmentToCentralLabStatus === true && subjectTrackerItem?.receivedAtCentralLabStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true)
                                                      || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">
                                                          <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true)
@@ -803,7 +778,7 @@
                                                               || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.chcShipmentDateTime | slice:0:10}}
                                                              </div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.shipmentToCentralLabStatus === false)
                                                  || (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
@@ -811,11 +786,11 @@
                                                  </div>
                                                  <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true)
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.shipmentToCentralLabStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.chcShipmentDateTime | slice:0:10}}</div> -->
-                                              </div> 
-                                              
+                                              </div>
+
                                           </div>
-                                          <div>   
-                                              <!--receivedC.lab-->                       
+                                          <div>
+                                              <!--receivedC.lab-->
                                               <div class="d-flex flex-column">
                                                  <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.receivedAtCentralLabDateTime">&nbsp;&nbsp;</div>
                                                  <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.receivedAtCentralLabDateTime">{{anmSubjectTrackerItem?.receivedAtCentralLabDateTime | slice:0:10}}</div> -->
@@ -830,7 +805,7 @@
                                                          <div class="rotatetransfrm">
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.receivedAtCentralLabDateTime">{{anmSubjectTrackerItem?.receivedAtCentralLabDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div>
                                                   <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.receivedAtCentralLabStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
@@ -845,7 +820,7 @@
                                                   || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">
                                                      <img [ngClass]="{'blink_me': subjectTrackerItem?.receivedAtCentralLabStatus === true && subjectTrackerItem?.hplcTestStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true)
                                                      || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">
                                                          <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true)
@@ -856,7 +831,7 @@
                                                              <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true)
                                                              || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.receivedAtCentralLabDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.receivedAtCentralLabStatus === false)
                                                  || (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
@@ -865,7 +840,7 @@
                                                  <!-- <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true)
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.receivedAtCentralLabStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.receivedAtCentralLabDateTime | slice:0:10}}</div> -->
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--PathoSubjectstatus-->
@@ -875,12 +850,12 @@
                                                   <!-- <div *ngIf="anmSubjectTrackerItem?.hplcTestStatus === true && anmSubjectTrackerItem?.hplcResult !== 'Positive'">
                                                       <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.hplcTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
                                                   </div> -->
-                                                 
+
                                                          <div *ngIf="anmSubjectTrackerItem?.hplcTestStatus === true && anmSubjectTrackerItem?.hplcResult !== 'Positive'">
                                                              <img [ngClass]="{'blink_me-1': anmSubjectTrackerItem?.hplcTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive', 'blink_me-2': anmSubjectTrackerItem?.hplcTestStatus === true && anmSubjectTrackerItem?.prePNDTCounsellingStatus === false && anmSubjectTrackerItem?.hplcResult === 'Positive && childsubjectTrackerItem === 3'}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=50&h=100">
                                                          </div>
-                                                        
-                                                     
+
+
                                                   <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.hplcTestStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                   </div>
@@ -894,8 +869,8 @@
                                                          </div>
                                                       </div>
                                                  </div>
-                                                
-                                                    
+
+
                                                   <div *ngIf="anmSubjectTrackerItem?.hplcTestStatus === true">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vT73cpEp1o6H5WdSelZ7e9fl0BUfmhPLbtifxdsv2yZ4M-jhpeMkvv2U5bcK66kYV6q16SA-o8POO2k/pub?w=110&h=50">
                                                   </div>
@@ -906,7 +881,7 @@
                                                   || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                  </div>
-                                                 <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                 <div *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") ||
                                                  (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === false  && childSubjectTypeId === 2)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div> -->
@@ -914,9 +889,9 @@
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vQaT5CdISWGcTDp-w63fD9UGXDk20srFw7osQDKU_CC5pR-KaOmSD8iCCB9aQaAB1G4knw5ppKc9A8i/pub?w=70&h=100">
                                                  </div> -->
-                                                 <div> 
+                                                 <div>
                                                      <div class="d-flex flex-row transform-spouse" *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true)
-                                                     || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)"> 
+                                                     || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)">
                                                          <div *ngIf="(anmSubjectTrackerItem?.hplcResult === 'Positive' && anmSubjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true)
                                                          || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)">
                                                              <img src="https://docs.google.com/drawings/d/e/2PACX-1vSnv3X7UZksDRJ9q1Icy5JTxDsyByCZ0C3UgaBG3-3Q25TndJkTo4tKrQ7BpLlLgbT817q8-al10LIO/pub?w=70&h=100">
@@ -926,17 +901,17 @@
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.hplcTestedDateTime | slice:0:10}}
                                              </div>
                                                          </div>
-                                                     </div>                                                                                                       
+                                                     </div>
                                                  </div>
                                                  <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.hplcTestStatus === false)
                                                  || (anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1) || (anmSubjectTrackerItem?.hplcResult === "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "" && childSubjectTypeId === 1)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div>
-                                                 <!-- <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") || 
+                                                 <!-- <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") ||
                                                  (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === false  && childSubjectTypeId === 2)'>
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                  </div> -->
-                                                   <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") && 
+                                                   <div class="transform-spouse" *ngIf='(anmSubjectTrackerItem?.hplcResult !== "Positive" && anmSubjectTrackerItem?.spouseSubjectId === "") &&
                                                    (subjectTrackerItem?.spouseSubjectId !== "" && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)'>
                                                     <img src="https://docs.google.com/drawings/d/e/2PACX-1vTA2kS8XsZZ_6mMcWtpGxvxWumLBetki_F9NcV2f8bfr_x7ZPOI3pZHtiWOyM5-1vuSfsELerIaGzQy/pub?w=70&h=100">
                                                  </div>
@@ -944,7 +919,7 @@
                                                  || (subjectTrackerItem?.spouseSubjectId !== '' && subjectTrackerItem?.hplcTestStatus === true  && childSubjectTypeId === 2)">{{subjectTrackerItem?.hplcDiagnosisDateTime | slice:0:10}}
                                              </div> -->
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--Pre-PNDTC-->
@@ -962,7 +937,7 @@
                                                          <div class="rotatetransfrm">
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.prePNDTCounsellingDateTime">{{anmSubjectTrackerItem?.prePNDTCounsellingDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div>
                                                   <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
@@ -973,21 +948,21 @@
                                                   <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRtQaH-7Gk_VLwLX99UOTTQEltIqNxRan7pENrUEItqTkrcKKHHAvuba5hLIHTuRmcPBsTLS791qpfp/pub?w=110&h=50">
                                                   </div>
-                                                  <!-- <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true"> 
+                                                  <!-- <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === true">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vTapspd2eUR5Tg7uvhJWw9gU1t1SqeSBoqKnyNToshodZgLg2El8LJTXNskXmxpKn0ledU7IHoxR0h_/pub?w=70&h=100">
                                                   </div>
                                                   <div *ngIf="anmSubjectTrackerItem?.prePNDTCounsellingStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vTsMzBcic6Asj5q3IHDZbXPrTiCti50-mgKogikyusovZ95Vp4cAimepOX0AYw_PFukaHapzR7luadA/pub?w=70&h=100">
                                                   </div> -->
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <!--PNDT-->
                                               <div class="d-flex flex-column">
                                                  <!-- <div class="ml-3" [hidden]="anmSubjectTrackerItem?.pndtDateTime">&nbsp;&nbsp;</div>
                                                  <div class="ml-3" [hidden]="!anmSubjectTrackerItem?.pndtDateTime">{{anmSubjectTrackerItem?.pndtDateTime | slice:0:10}}</div> -->
-                                                 
+
                                                   <!-- <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.pndtStatus !== 'Positive'">
                                                      <img [ngClass]="{'blink_me': anmSubjectTrackerItem?.pndTestStatus === true && anmSubjectTrackerItem?.postPNDTCounsellingStatus === false}" src="https://docs.google.com/drawings/d/e/2PACX-1vS3TNl_jGYWq_JnflHjGrjRlnsMikE1mxze_-huvnsBiFRXc7WzHiaY-XC9_3yhFceMh7RqONjpqtT7/pub?w=70&h=100">
                                                  </div> -->
@@ -999,7 +974,7 @@
                                                          <div class="rotatetransfrm">
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.pndtDateTime">{{anmSubjectTrackerItem?.pndtDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div>
                                                  <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.pndTestStatus === false">
                                                      <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
@@ -1012,19 +987,19 @@
                                                         <div class="rotatetransfrm">
                                                             <div class="" [hidden]="!anmSubjectTrackerItem?.pndtDateTime">{{anmSubjectTrackerItem?.pndtDateTime | slice:0:10}}</div>
                                                         </div>
-                                                    </div> 
+                                                    </div>
                                                 </div>
-                                              
+
                                                   <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === true">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vRJbNQ_8QL0XiGvrFboAreSDfWqa_MKRRFwFG9RZx6S-y5HaiB-USdTVZYiJR42-9rZ0yKwYdg9ujDS/pub?w=110&h=50">
                                                   </div>
                                                   <div *ngIf="anmSubjectTrackerItem?.pndTestStatus === false">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSGt_CHr4Qcsx-QKMpiajOdn7er2p8trxJunib21d6L-VBYVo_Dam2gE1OtIm5B_MWJ1rCnN4klH5T9/pub?w=110&h=50">
                                                   </div>
-                                                 
-                                                 
+
+
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <div class="d-flex flex-column">
@@ -1041,7 +1016,7 @@
                                                          <div class="rotatetransfrm">
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.postPNDTCounsellingDateTime">{{anmSubjectTrackerItem?.postPNDTCounsellingDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div>
                                                   <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
@@ -1052,9 +1027,9 @@
                                                   <div *ngIf="anmSubjectTrackerItem?.postPNDTCounsellingStatus === false">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vSzu7wgF2m1nohBglxwAuenWjlE8Y7Hh10WscEOUneOylgScy27YBonY8y6zBBK1R6QqSBzRAoeVIFm/pub?w=110&h=50">
                                                   </div>
-                                                 
+
                                               </div>
-                                              
+
                                           </div>
                                           <div>
                                               <div class="d-flex flex-column">
@@ -1071,30 +1046,30 @@
                                                          <div class="rotatetransfrm">
                                                              <div class="" [hidden]="!anmSubjectTrackerItem?.mtpDateTime">{{anmSubjectTrackerItem?.mtpDateTime | slice:0:10}}</div>
                                                          </div>
-                                                     </div> 
+                                                     </div>
                                                  </div>
                                                   <div class="transform-anw" *ngIf="anmSubjectTrackerItem?.mtpStatus === false">
                                                       <img src="https://docs.google.com/drawings/d/e/2PACX-1vRdpAjN1utwZh-Lqa2zWHounTR9lBcf5fuRgPxIaNh3KsIpeszJTuVBR_L37qQb0eSYlsnn9eJDl6J6/pub?w=70&h=100">
                                                   </div>
-                                                  <div *ngIf="anmSubjectTrackerItem?.mtpStatus === true"> 
+                                                  <div *ngIf="anmSubjectTrackerItem?.mtpStatus === true">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vTEUkrCB7FK7_l8NlLjEfFh0FG74mwbWBO3n_zmlA7lmaUBfSDxjAdeGw2uI8xlH7ZV_u-Yt8l9zqQd/pub?w=110&h=50">
                                                   </div>
-                                                  <div *ngIf="anmSubjectTrackerItem?.mtpStatus === false"> 
+                                                  <div *ngIf="anmSubjectTrackerItem?.mtpStatus === false">
                                                       <img  src="https://docs.google.com/drawings/d/e/2PACX-1vQLueRsoFvh6rsX1xhKBz7lW9Nb7r7J_tRkQrNavJifdBGvQvU5mEGWEcn795SMn27ucwEXNLrrsj_k/pub?w=110&h=50">
                                                   </div>
                                               </div>
-                                              
+
                                           </div>
                                       </div>
-   
-                                     
+
+
                                       <div class="row float-right">
-                                        
+
                                           <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                                       </div>
                                   </div>
                               </div>
-   
+
                               <div class="d-flex flex-row mt-2" *ngIf="childSubjectTypeId === 1 && anmSubjectTrackerItem?.spouseSubjectId !== ''">
                                  <div class="mr-3">
                                      <b>{{'Spouse' | translate }} : </b>
@@ -1105,14 +1080,14 @@
                                  <div class="mr-3">
                                      <strong>{{'SubjectName' | translate }} :</strong> {{spouseFirstName}} {{spouseLastName}}
                                  </div>
-                               
+
                              </div>
                              <div class="d-flex flex-row mt-2" *ngIf="childSubjectTypeId === 1 && anmSubjectTrackerItem?.spouseSubjectId === ''">
                                <div class="mr-3">
                                    <b>{{'Spouse' | translate }} : </b>NOT REGISTERED YET
-    
+
                                </div>
-                               
+
                            </div>
                              <div class="d-flex flex-row mt-2" *ngIf="childSubjectTypeId === 2 || (subjectTrackerItem?.subjectId !== '' && childSubjectTypeId === 4 && gender === 'Male') || (anmSubjectTrackerItem?.spouseSubjectId !== '' && childSubjectTypeId === 4)">
                                <div class="mr-3">
@@ -1124,17 +1099,17 @@
                                <div class="mr-3">
                                    <strong>{{'SubjectName' | translate }} :</strong> {{firstName}} {{lastName}}
                                </div>
-                             
+
                            </div>
                           </div>
                       </div>
                   </div>
-                  
+
                   </div>
-                
-                 
-            
-          
+
+
+
+
 
         </div>
 

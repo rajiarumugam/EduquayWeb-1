@@ -15,15 +15,14 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
 import { PNDTCmasterService } from "../../shared/pndtc/pndtc-masterdata.service";
-import { variable } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
-  selector: 'app-counsellor-mtp-report-list',
-  templateUrl: './counsellor-mtp-report-list.component.html',
-  styleUrls: ['./counsellor-mtp-report-list.component.css']
+  selector: 'app-counsellor-report-list',
+  templateUrl: './counsellor-pnpreport-list.component.html',
+  styleUrls: ['./counsellor-pnpreport-list.component.css']
 })
-export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestroy, OnInit {
+export class CounsellorpnpreportListComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
@@ -189,7 +188,7 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({ "module": "Schedule & Counsel (Pre-PNDT)", "page": "Report"}));
+    this.dataservice.sendData(JSON.stringify({ "module": "NHM", "page": "Report"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
 
     this.selectedDistrict = this.user.districtId === 0 ? null : this.user.districtId;
@@ -404,35 +403,18 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
   }
 
   anmSubjectProfileList(id,maintab,subtab) {
+    if(subtab == 1){
+      subtab=6
+    }
+    if(subtab == 2){
+      subtab=7
+    }
      var callingvariable;
     this.loaderService.display(true);
     this.subjectprofilelistErrorMessage = '';
     this.subjectprofileLists=[];
-    if (maintab == 1 && subtab == 1 )
-    {
-      callingvariable = 6;
-    }
-    else if (maintab == 1 && subtab == 2 )
-    {
-      callingvariable =7;
-    }
-    else if (maintab == 2  )
-    {
-      callingvariable =8;
-    }
-    else if (maintab == 3 && subtab == 1 )
-    {
-      callingvariable =3;
-    }
-    else if (maintab == 3 && subtab == 2 )
-    {
-      callingvariable =4;
-    }
-    else if (maintab == 3 && subtab == 3 )
-    {
-      callingvariable =5;
-    }
-    console.log(callingvariable,'Test Check')
+
+    console.log(subtab,'Test Check')
     var _obj = {
       fromDate: this.anmSPFromDate !== '' ? this.anmSPFromDate : '',
       toDate: this.anmSPToDate !== '' ? this.anmSPToDate : '',
@@ -442,8 +424,8 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
       anmId: this.selectedAnm === null ? 0 : Number(this.selectedAnm),
       userInput:"",
 
-      searchSection:5,
-      status:callingvariable
+      searchSection:1,
+      status:subtab
     }
 
 
@@ -474,7 +456,8 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
         console.log(maintab);
         if(maintab === 1)
         {
-          this.anmSubjectBadgeProfileListCount(1,5,6);
+          this.anmSubjectBadgeProfileListCount(1,1,1);
+          this.anmSubjectBadgeProfileListCount(1,1,2);
 
         }
         if(maintab === 2)
