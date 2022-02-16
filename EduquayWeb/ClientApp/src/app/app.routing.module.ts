@@ -272,7 +272,7 @@ import { UserTypeComponent } from "./admin/user-type/user-type.component";
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 
 import { UsersComponent } from "./admin/users/users.component";
-
+import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 
 import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
@@ -363,6 +363,7 @@ import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-up
 
 
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
+
 import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
 
 //import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
@@ -376,6 +377,7 @@ import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pnd
 import { HEMreportListComponent1 } from "./Haematologist/anm-report-list1/haematologist.component";
 import { DeactivateanmComponent } from "./errorcorrection/deactivate-anm/deactivate-anm/deactivate-anm.component";
 import { DeactivateanmMainComponent } from "./errorcorrection/deactivate-anm/deactivate-anm-main/deactivate-anm-main.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -513,6 +515,7 @@ const routes: Routes = [
       { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
       // { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
       { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
+     
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
       { path: 'add-test', component: TestComponent, pathMatch: 'full'},
       { path: 'add-ilr', component:IlrComponent, pathMatch: 'full'},
@@ -753,6 +756,7 @@ const routes: Routes = [
           {path: '', component: UpdateMolResultViewComponent, pathMatch: 'full'}
         ]
       },
+
      {
         path: 'mol-blood-recp-report', component: MolecularBloodSampleReciptComponent,
         children:[
@@ -772,6 +776,7 @@ const routes: Routes = [
           {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
         ]
       },
+
       {
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
@@ -779,12 +784,15 @@ const routes: Routes = [
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
         ]
       },
+
     {
         path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
         children:[
           {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
         ]
       },
+
+
       {
         path: 'pndtc-testing', component: PndTestingMainComponent,
         children:[
@@ -799,13 +807,15 @@ const routes: Routes = [
           {path: '', component: PNDTestingResultsComponent, pathMatch: 'full'}
         ]
       },
+
     {
         path: 'pndtreport', component: PNDTOBSreportListComponent,
         children:[
           {path: '', component: PNDTOBSreportListComponent, pathMatch: 'full'}
 
-        ]
-      },
+
+      //   ]
+      // },
       {
         path: 'pndtc-summary', component: PndTestingSummaryMainComponent,
         children:[
@@ -825,13 +835,21 @@ const routes: Routes = [
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
         ]
       },
+      // {
+      //   path: 'mtpreport', component: MTPOBSreportListComponent,
+      //   children:[
+      //     {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
+      //   ]
+      // },
       {
+
         path: 'mtpreport', component: MTPOBSreportListComponent,
         children:[
           {path: '', component: MTPTestingResultsComponent, pathMatch: 'full'}
         ]
       },
       {
+
         path: 'view-case-sheet', component: ViewCaseSheetMainComponent,
         children:[
           {path: '', component: ViewCaseSheetComponent, pathMatch: 'full'}
@@ -885,12 +903,19 @@ const routes: Routes = [
         children:[
           {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'}
         ]
+
       }/*,
       {path: 'hem-report', component: HEMreportListComponent,
       children:[
         {path: '', component: HEMreportListComponent, pathMatch: 'full'}
       ]
     }*/,
+      },
+    //   {path: 'hem-report', component: HEMreportListComponent,
+    //   children:[
+    //     {path: '', component: HEMreportListComponent, pathMatch: 'full'}
+    //   ]
+    // },
       {
         path: 'csv-specimen', component: CSVSpecimenMainComponent,
         children:[
@@ -982,6 +1007,10 @@ const routes: Routes = [
 
       },
       {
+        path: 'add-admin-users', component: AdminUsersListComponent,
+
+      },
+      {
         path: 'chc-regn-report', component: CHCRegnreportListComponent,
 
       },
@@ -1060,6 +1089,7 @@ export const RoutingComponents = [
   AnmUnsentSamplesComponent,
   CounsellorreportListComponent,
   AnmTimeoutSamplesComponent,
+
   AnmPositiveSubjectsComponent,
   AnmPndReferralComponent,
   AnmMtpReferralComponent,
@@ -1280,6 +1310,7 @@ export const RoutingComponents = [
   UploadMainComponent,
   CHCUploadComponent,
   HPLCUploadComponent,
+  AdminUsersListComponent,
   PathoreportSampleStatusMainPrintComponentANM,
   PathoreportSampleStatusPrintComponentANM,
   PathoreportSampleStatusMainPrintComponentDC,
@@ -1298,6 +1329,7 @@ export const RoutingComponents = [
   UploadSAMainComponent,
   SAUploadComponent,
   CommonDataTableComponent,
+
   MTPreportListComponent,
   CounsellorreportListComponent,
   PNDTOBSreportListComponent,
@@ -1310,6 +1342,7 @@ export const RoutingComponents = [
   HEMreportListComponent1,
   DeactivateanmComponent,
   DeactivateanmMainComponent
+
 ];
 
 
