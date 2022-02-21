@@ -17,6 +17,46 @@ h5.float-left {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.custum-tab-one,.custum-tab-two
+{
+  display: inline-block;
+  padding: 10px 10px;
+    font-size: 16px;
+    margin-right: 0px;
+    cursor:pointer;
+    border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+   
+}
+
+.custum-tab-one.tabselected,.custum-tab-one:hover
+{
+  /*border-top: 3px solid #1b55e2;
+  color:#1b55e2 !important;*/
+  border-top: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  background: #1b55e2 !important;
+  color:#ffffff;
+}
+.custum-tab-two.tabselected,.custum-tab-two:hover
+{
+  /*border-bottom: 3px solid #1b55e2;
+  color:#1b55e2 !important;*/
+  border-top: 1px solid #eeeeee;
+  border-left: 1px solid #eeeeee;
+  border-right: 1px solid #eeeeee;
+  background: #1b55e2 !important;
+  color:#ffffff;
+}
+.custum-tab-one p,.custum-tab-two p{
+  margin:0;
+}
+.custum-tab-one.tabselected p,.custum-tab-two.tabselected p,.custum-tab-one:hover p,.custum-tab-two:hover p{
+  color:#ffffff !important;
+}
+
 .modaltitle {
     color: #1b55e2;
     font-weight: 600;

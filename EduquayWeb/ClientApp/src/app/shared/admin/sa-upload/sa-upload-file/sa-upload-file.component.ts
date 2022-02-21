@@ -3,6 +3,9 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 declare var $: any
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import { DataService } from './../../../../shared/data.service';
 import { errorCorrectionService } from 'src/app/shared/errorcorrection/error-correction.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,19 +21,24 @@ import * as XLSX from 'xlsx';
   templateUrl: './sa-upload-file.component.html',
   styleUrls: ['./sa-upload-file.component.css']
 })
+
+@Injectable({ providedIn: 'root' })
+
 export class SAUploadComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('inputFile', {static: false}) myInputVariable: ElementRef;
   errorMessage: string;
   ErrorCount;
-
+path:any;
   errorSpouseMessage: string;
   curDate=new Date();
   SheetName:string;
   centralReceiptsData: any[] = [];
   popupData:any;
   processingDate;
+  maintabSelected = 1;
+  mainsubtabSelected = 1;
   centralPickpackPendingData = [];
   pickpackStartList = [];
   searchbarcode;
@@ -61,7 +69,9 @@ export class SAUploadComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private tokenService: TokenService,
     private loaderService: LoaderService,
-    private excelService:ExcelService
+    private excelService:ExcelService,
+    private UsersService:ExcelService,
+   
     ) { }
 
 
@@ -100,6 +110,7 @@ var today = mm + '/' + dd + '/' + yyyy;
         },
       }
     };
+
     this.DataService.sendData(JSON.stringify({"module": "Upload", "page": "Bluk Upload"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
@@ -111,8 +122,10 @@ var today = mm + '/' + dd + '/' + yyyy;
 
     this.centralReceiptsData = [];
     //this.getErrorDetailst();
-  }
-
+  }  
+  
+  
+ 
     handleFileInput(file: FileList) {
 
     this.fileToUpload = file.item(0);
@@ -149,6 +162,19 @@ var today = mm + '/' + dd + '/' + yyyy;
     //reader.readAsDataURL(this.fileToUpload);
   }
 
+  downloadMyFile(){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'http://tands.eduquay.com/assets/assets/img/menu/TSCOD Master Data Template - New.xlsx');
+    link.setAttribute('download', `TSCOD Master Data Template - New.xlsx`);
+    document.body.appendChild(link)
+;
+    link.click();
+    link.remove();
+}
+
+
+
   uploadFiles()
   {
     this.showValidationError = false;
@@ -159,7 +185,13 @@ var today = mm + '/' + dd + '/' + yyyy;
     }
     this.errorCorrectionService.uploadSAFiles(frmData)
     .subscribe(response => {
-      Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Validate', allowOutsideClick: false})
+      Swal.fire(
+        {icon:'success', title: response.message, confirmButtonText: 'Validate Data', allowOutsideClick: false,
+        allowEscapeKey: false, 
+        onOpen: () => {
+          Swal.showLoading()
+          setTimeout(() => { Swal.hideLoading() }, 5000)
+        },})
       .then((result) => {
         if (result.value) {
           this.validateBulkUpload();
@@ -183,7 +215,7 @@ var today = mm + '/' + dd + '/' + yyyy;
       if(response.status === 'true')
       {
         setTimeout(() => {
-          Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Create', allowOutsideClick: false})
+          Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Move to Database', allowOutsideClick: false})
           .then((result) => {
             if (result.value) {
               this.createBulkUpload();
@@ -201,7 +233,7 @@ var today = mm + '/' + dd + '/' + yyyy;
       else{
           this.showValidateData();
           this.countMain1Sub1=response.data.length;
-          Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'View Error Report', allowOutsideClick: false})
+          Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'Error Report', allowOutsideClick: false})
 
           this.showValidationError = true;
       }
@@ -217,11 +249,12 @@ var today = mm + '/' + dd + '/' + yyyy;
   {
 
   }
+  
   createBulkUpload()
   {
     this.errorCorrectionService.createuploadSAFiles()
     .subscribe(response => {
-      Swal.fire({icon:'success', title:'Data uploaded to main database”​', confirmButtonText: 'Close', allowOutsideClick: false})
+      Swal.fire({icon:'success', title:'Data uploaded successfully to the main database. Kindly check the TSCOD Admin module.', confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.resetData();
@@ -234,6 +267,13 @@ var today = mm + '/' + dd + '/' + yyyy;
         Swal.fire({icon:'error', title: err.toString(), confirmButtonText: 'Close', allowOutsideClick: false})
         //this.showResponseMessage(err.toString(), 'e');
       });
+  }
+
+  custumTabClick(i,j)
+  {
+      this.maintabSelected = i;
+      this.mainsubtabSelected = j;
+      // this.anmSubjectProfileList(1,i,j);
   }
   resetData()
   {
