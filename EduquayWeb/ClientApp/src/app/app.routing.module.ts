@@ -377,6 +377,7 @@ import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pnd
 import { HEMreportListComponent1 } from "./Haematologist/anm-report-list1/haematologist.component";
 import { DeactivateanmComponent } from "./errorcorrection/deactivate-anm/deactivate-anm/deactivate-anm.component";
 import { DeactivateanmMainComponent } from "./errorcorrection/deactivate-anm/deactivate-anm-main/deactivate-anm-main.component";
+import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -813,7 +814,7 @@ const routes: Routes = [
         children:[
           {path: '', component: PNDTOBSreportListComponent, pathMatch: 'full'}
 
-
+        ]},
       //   ]
       // },
       {
@@ -910,7 +911,7 @@ const routes: Routes = [
         {path: '', component: HEMreportListComponent, pathMatch: 'full'}
       ]
     }*/,
-      },
+     // },
     //   {path: 'hem-report', component: HEMreportListComponent,
     //   children:[
     //     {path: '', component: HEMreportListComponent, pathMatch: 'full'}
@@ -1329,6 +1330,7 @@ export const RoutingComponents = [
   UploadSAMainComponent,
   SAUploadComponent,
   CommonDataTableComponent,
+  CommonUsersTableComponent,
 
   MTPreportListComponent,
   CounsellorreportListComponent,

@@ -8,7 +8,7 @@
 <input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 <button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
-
+<button class="btn btn-primary"  style="padding: 10px 30px;margin-top:20px;margin-left:20px;" (click)="downloadMyFile();">Download</button>
 
 
 
@@ -19,6 +19,34 @@
   <div class="headertit">
     <h5 class="float-center">{{'Error Report ' | translate }}   <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain1Sub1}}</span> </h5>
 
+  </div>
+  <div class="col-xl-12 col-lg-12 col-sm-12  pt-4">
+  <div class="form-row">
+    <div class="custm-tab">
+      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);">
+        <p>{{'All Errors' | translate }}</p>
+      </div>
+      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
+        <p>{{'District' | translate }}</p>
+  </div>
+  <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
+    <p>{{'Block' | translate }}</p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
+  <p>{{'CHC' | translate }}</p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);">
+  <p>{{'PHC' | translate }}</p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);">
+  <p>{{'SC' | translate }}</p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
+  <p>{{'ANM' | translate }}</p>
+</div>
+
+</div>
+  
   </div>
 </div>
   </div>
@@ -35,16 +63,21 @@
         <th><span>{{'Error Location' | translate }}</span></th>
           <th><span>{{'Error Message' | translate }}</span></th>
           <th><span>{{'Invalid Data' | translate }}</span></th>
+          
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let subjectinfo of validateData; index as i">
+        <tr *ngFor="let subjectinfo of validateData|tableFilter : maintabSelected ; index as i">
+        
           <td style="text-align: center">{{i +1}}</td>
           <td style="text-align: center">{{subjectinfo.errorColumnNo}}</td>
           <td style="text-align: center">{{SheetName +'     Column - ' +subjectinfo.errorColumn }}</td>
 
           <td style="text-align: center">{{subjectinfo.errorMessage}}</td>
           <td style="text-align: center">{{subjectinfo.errorData}}</td>
+          
+          </tr>
+         
       </tbody>
   </table>
 
