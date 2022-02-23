@@ -6,9 +6,9 @@
 
   </table>
 <input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
+<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
-<button class="btn btn-primary"  style="padding: 10px 30px;margin-top:20px;margin-left:20px;" (click)="downloadMyFile();">Download Template</button>
+<button class="btn btn-primary"  style="padding: 10px 30px;margin:20px;" (click)="downloadMyFile();">Download Template</button>
 
 
 
@@ -24,25 +24,41 @@
   <div class="form-row">
     <div class="custm-tab">
       <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);">
-        <p>{{'All Errors' | translate }}</p>
+        <p >{{'All Errors' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub1}}</span></p>
       </div>
       <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
-        <p>{{'District' | translate }}</p>
+        <p>{{'District' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
   </div>
   <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
-    <p>{{'Block' | translate }}</p>
+    <p>{{'Block' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub1}}</span></p>
 </div>
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
-  <p>{{'CHC' | translate }}</p>
+  <p>{{'CHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub1}}</span></p>
 </div>
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);">
-  <p>{{'PHC' | translate }}</p>
+  <p>{{'PHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain5Sub1}}</span></p>
 </div>
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);">
-  <p>{{'SC' | translate }}</p>
+  <p>{{'SC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub1}}</span></p>
 </div>
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
-  <p>{{'ANM' | translate }}</p>
+  <p>{{'ANM' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub1}}</span></p>
+</div>
+
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);">
+  <p>{{'Testing CHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 9 ? true : false}" (click)="custumTabClick(9,1);">
+  <p>{{'HPLC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain10Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 10 ? true : false}" (click)="custumTabClick(10,1);">
+  <p>{{'Molecular' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain11Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 11 ? true : false}" (click)="custumTabClick(11,1);">
+  <p>{{'PNDT' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain12Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 12 ? true : false}" (click)="custumTabClick(12,1);">
+  <p>{{'MTP' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain13Sub1}}</span></p>
 </div>
 
 </div>

@@ -50,6 +50,18 @@ path:any;
   user;
   validateData;
   countMain1Sub1;
+  countMain2Sub1;
+  countMain3Sub1;
+  countMain4Sub1;
+  countMain5Sub1;
+  countMain6Sub1;
+  countMain7Sub1;
+  countMain8Sub1;
+  countMain9Sub1;
+  countMain10Sub1;
+  countMain11Sub1;
+  countMain12Sub1;
+  countMain13Sub1;
   showValidationError = false;
 
   name = 'Angular';
@@ -196,6 +208,9 @@ var today = mm + '/' + dd + '/' + yyyy;
         if (result.value) {
           this.validateBulkUpload();
           //this.resetData();
+          this.maintabSelected=7;
+          this.deleteFile(1);
+          
         }
       });
 
@@ -232,9 +247,22 @@ var today = mm + '/' + dd + '/' + yyyy;
       }
       else{
          this.maintabSelected=1;
-         this.deleteFile(1);
+         this.resetData();
           this.showValidateData();
-          this.countMain1Sub1=response.data.length;
+          this.countMain1Sub1=response.data.length;    
+          this.countMain2Sub1=response.data.filter(item => item.errorColumn=='B'|| item.errorColumn=='C').length; 
+          this.countMain3Sub1=response.data.filter(item => item.errorColumn =='E'|| item.errorColumn =='D').length; 
+          this.countMain4Sub1=response.data.filter(item => item.errorColumn =='F'||item.errorColumn =='G').length;       
+          this.countMain5Sub1=response.data.filter(item => item.errorColumn =='H'|| item.errorColumn =='I').length; 
+          this.countMain6Sub1=response.data.filter(item => item.errorColumn =='J' || item.errorColumn =='K').length; 
+          this.countMain7Sub1=response.data.filter(item => item.errorColumn =='O' || item.errorColumn =='P').length; 
+          this.countMain8Sub1=response.data.filter(item => item.errorColumn ==item.errorColumn).length; 
+          this.countMain9Sub1=response.data.filter(item => item.errorColumn =='W' || item.errorColumn =='X').length; 
+          this.countMain10Sub1=response.data.filter(item =>item.errorColumn =='Y' || item.errorColumn =='Z').length; 
+          this.countMain11Sub1=response.data.filter(item =>item.errorColumn =='AA' || item.errorColumn =='AB').length; 
+          this.countMain12Sub1=response.data.filter(item => item.errorColumn =='AC' || item.errorColumn =='AD').length; 
+          this.countMain13Sub1=response.data.filter(item =>item.errorColumn =='AE' || item.errorColumn =='AF').length;
+
           Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'Error Report', allowOutsideClick: false})
 
           this.showValidationError = true;
