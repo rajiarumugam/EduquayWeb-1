@@ -250,18 +250,18 @@ var today = mm + '/' + dd + '/' + yyyy;
          this.resetData();
           this.showValidateData();
           this.countMain1Sub1=response.data.length;    
-          this.countMain2Sub1=response.data.filter(item => item.errorColumn=='B'|| item.errorColumn=='C').length; 
-          this.countMain3Sub1=response.data.filter(item => item.errorColumn =='E'|| item.errorColumn =='D').length; 
-          this.countMain4Sub1=response.data.filter(item => item.errorColumn =='F'||item.errorColumn =='G').length;       
-          this.countMain5Sub1=response.data.filter(item => item.errorColumn =='H'|| item.errorColumn =='I').length; 
-          this.countMain6Sub1=response.data.filter(item => item.errorColumn =='J' || item.errorColumn =='K').length; 
-          this.countMain7Sub1=response.data.filter(item => item.errorColumn =='O' || item.errorColumn =='P').length; 
+          this.countMain2Sub1=response.data.filter(item => item.errorColumn=='B'|| item.errorColumn=='C'  || item.errorColumn=='B&C').length; 
+          this.countMain3Sub1=response.data.filter(item => item.errorColumn =='E'|| item.errorColumn =='D'  || item.errorColumn=='E&D').length; 
+          this.countMain4Sub1=response.data.filter(item => item.errorColumn =='F'||item.errorColumn =='G'  || item.errorColumn=='F&G').length;       
+          this.countMain5Sub1=response.data.filter(item => item.errorColumn =='H'|| item.errorColumn =='I' || item.errorColumn=='H&I').length; 
+          this.countMain6Sub1=response.data.filter(item => item.errorColumn =='J' || item.errorColumn =='K' || item.errorColumn=='J&K').length; 
+          this.countMain7Sub1=response.data.filter(item => item.errorColumn =='O' || item.errorColumn =='P' || item.errorColumn=='O&P').length; 
           this.countMain8Sub1=response.data.filter(item => item.errorColumn ==item.errorColumn).length; 
-          this.countMain9Sub1=response.data.filter(item => item.errorColumn =='W' || item.errorColumn =='X').length; 
-          this.countMain10Sub1=response.data.filter(item =>item.errorColumn =='Y' || item.errorColumn =='Z').length; 
-          this.countMain11Sub1=response.data.filter(item =>item.errorColumn =='AA' || item.errorColumn =='AB').length; 
-          this.countMain12Sub1=response.data.filter(item => item.errorColumn =='AC' || item.errorColumn =='AD').length; 
-          this.countMain13Sub1=response.data.filter(item =>item.errorColumn =='AE' || item.errorColumn =='AF').length;
+          this.countMain9Sub1=response.data.filter(item => item.errorColumn =='W' || item.errorColumn =='X' || item.errorColumn=='W&X').length; 
+          this.countMain10Sub1=response.data.filter(item =>item.errorColumn =='Y' || item.errorColumn =='Z' || item.errorColumn=='Y&Z').length; 
+          this.countMain11Sub1=response.data.filter(item =>item.errorColumn =='AA' || item.errorColumn =='AB' || item.errorColumn=='AA&AB').length; 
+          this.countMain12Sub1=response.data.filter(item => item.errorColumn =='AC' || item.errorColumn =='AD' || item.errorColumn=='AC&AD').length; 
+          this.countMain13Sub1=response.data.filter(item =>item.errorColumn =='AE' || item.errorColumn =='AF' || item.errorColumn=='AE&AF').length;
 
           Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'Error Report', allowOutsideClick: false})
 
