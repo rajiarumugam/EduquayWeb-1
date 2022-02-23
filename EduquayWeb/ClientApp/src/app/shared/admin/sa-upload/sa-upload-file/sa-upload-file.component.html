@@ -8,7 +8,7 @@
 <input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 <button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
-<button class="btn btn-primary"  style="padding: 10px 30px;margin-top:20px;margin-left:20px;" (click)="downloadMyFile();">Download</button>
+<button class="btn btn-primary"  style="padding: 10px 30px;margin-top:20px;margin-left:20px;" (click)="downloadMyFile();">Download Template</button>
 
 
 
@@ -46,7 +46,7 @@
 </div>
 
 </div>
-  
+
   </div>
 </div>
   </div>
@@ -63,21 +63,21 @@
         <th><span>{{'Error Location' | translate }}</span></th>
           <th><span>{{'Error Message' | translate }}</span></th>
           <th><span>{{'Invalid Data' | translate }}</span></th>
-          
+
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let subjectinfo of validateData|tableFilter : maintabSelected ; index as i">
-        
+
           <td style="text-align: center">{{i +1}}</td>
           <td style="text-align: center">{{subjectinfo.errorColumnNo}}</td>
           <td style="text-align: center">{{SheetName +'     Column - ' +subjectinfo.errorColumn }}</td>
 
           <td style="text-align: center">{{subjectinfo.errorMessage}}</td>
           <td style="text-align: center">{{subjectinfo.errorData}}</td>
-          
+
           </tr>
-         
+
       </tbody>
   </table>
 

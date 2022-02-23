@@ -37,7 +37,7 @@ path:any;
   centralReceiptsData: any[] = [];
   popupData:any;
   processingDate;
-  maintabSelected = 1;
+  maintabSelected = 7;
   mainsubtabSelected = 1;
   centralPickpackPendingData = [];
   pickpackStartList = [];
@@ -71,7 +71,7 @@ path:any;
     private loaderService: LoaderService,
     private excelService:ExcelService,
     private UsersService:ExcelService,
-   
+
     ) { }
 
 
@@ -111,7 +111,7 @@ var today = mm + '/' + dd + '/' + yyyy;
       }
     };
 
-    this.DataService.sendData(JSON.stringify({"module": "Upload", "page": "Bluk Upload"}));
+    this.DataService.sendData(JSON.stringify({"module": "Upload", "page": "Bulk Upload"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.loaderService.display(false);
 
@@ -122,10 +122,10 @@ var today = mm + '/' + dd + '/' + yyyy;
 
     this.centralReceiptsData = [];
     //this.getErrorDetailst();
-  }  
-  
-  
- 
+  }
+
+
+
     handleFileInput(file: FileList) {
 
     this.fileToUpload = file.item(0);
@@ -147,7 +147,7 @@ var today = mm + '/' + dd + '/' + yyyy;
     else
     {
 
-      Swal.fire({icon:'error', title: "Please upload Excel or CSV file only.", confirmButtonText: 'Close', allowOutsideClick: false});
+      Swal.fire({icon:'error', title: "Please upload excel file with the given template​", confirmButtonText: 'Close', allowOutsideClick: false});
       this.myInputVariable.nativeElement.value = '';
       return;
     }
@@ -187,10 +187,10 @@ var today = mm + '/' + dd + '/' + yyyy;
     .subscribe(response => {
       Swal.fire(
         {icon:'success', title: response.message, confirmButtonText: 'Validate Data', allowOutsideClick: false,
-        allowEscapeKey: false, 
+        allowEscapeKey: false,
         onOpen: () => {
           Swal.showLoading()
-          setTimeout(() => { Swal.hideLoading() }, 5000)
+          setTimeout(() => { Swal.hideLoading() }, 3000)
         },})
       .then((result) => {
         if (result.value) {
@@ -231,6 +231,8 @@ var today = mm + '/' + dd + '/' + yyyy;
 
       }
       else{
+         this.maintabSelected=1;
+         this.deleteFile(1);
           this.showValidateData();
           this.countMain1Sub1=response.data.length;
           Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'Error Report', allowOutsideClick: false})
@@ -249,7 +251,7 @@ var today = mm + '/' + dd + '/' + yyyy;
   {
 
   }
-  
+
   createBulkUpload()
   {
     this.errorCorrectionService.createuploadSAFiles()
