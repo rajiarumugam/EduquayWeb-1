@@ -19,8 +19,8 @@ import { LoginComponent } from "./auth/login/login.component";
 import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { AuthGuard } from "./shared/auth.guard";
-import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
-import { LoadScriptDirective } from "./shared/load-script.directive";
+//import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
+
 import { SampleCollectionComponent } from "./anm-module/sample-collection/sample-collection.component";
 import { AnmNotificationComponent } from "./anm-module/anm-notification/anm-notification.component";
 import { AnmDamagedSamplesComponent } from './anm-module/anm-damaged-samples/anm-damaged-samples.component';
@@ -275,22 +275,15 @@ import { UsersComponent } from "./admin/users/users.component";
 import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 
-import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
+
 import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 
 import { PathoreportSampleStatusPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
-import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
-import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
-import { EditResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component";
-import { ConfirmedResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component";
-import { CvsNotificationComponent } from "./molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component";
-import { CvsUpdateresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component";
-import { CvsEditresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component";
-import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component";
+
 import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
 import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
 import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
-import { HPLCPosPrintComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print/hplc-pos-bloodsamples-reports-print.component";
+
 
 import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
 import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
@@ -331,9 +324,9 @@ import { RCHReportMainComponent } from "./errorreport/rch/rch-report-main/rch-re
 import { SSTReportComponent } from "./errorreport/sst/sst-report/sst-report.component";
 
 import { SSTReportMainComponent } from "./errorreport/sst/sst-report-main/sst-report-main.component";
-import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
-import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
-import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
+//import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
+//import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
+//import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
 
 
 import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
@@ -366,6 +359,23 @@ import { CommonDataTableComponent } from "./shared/common-data-table/common-data
 
 import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
 
+
+
+
+/*import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
+import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
+import { EditResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component";
+import { ConfirmedResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component";
+import { HPLCPosPrintComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print/hplc-pos-bloodsamples-reports-print.component";*/
+
+
+/*import { CvsNotificationComponent } from "./molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component";
+import { CvsUpdateresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component";
+import { CvsEditresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component";
+import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component";*/
+
+//import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
+
 //import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
 import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
 import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
@@ -384,7 +394,8 @@ const routes: Routes = [
   { path: 'counter', component: CounterComponent },
   { path: 'fetch-data', component: FetchDataComponent },
   {
-    path: 'hplc-report-print', component: HplcreportSampleStatusPrintComponent,pathMatch: 'full'
+    path: 'hplc-report-print',
+    loadChildren: () => import('./hplcreport/hplc-repot-sample-status-print.module').then(m => m.HplcreportSampleStatusPrintModule)
   },
   {
     path: 'home',
@@ -424,32 +435,29 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'molecular-lab-result', component: MlrNotificationComponent,
-        children: [
-          { path: '', component: UpdateResultsComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'edit-result', component: EditResultsComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
-          { path: 'confirmed-result', component: ConfirmedResultsComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-          { path: 'reports', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-
-        ]
+        path: 'molecular-lab-result',
+        loadChildren: () => import('./molecular-lab-results/molecular-lab-results.module').then(m => m.MolecularLabResultModule)
       },
       {
-        path: 'hplcpositive-bloodsample-reoprts', component: HPLCReportsMainComponent,
+        path: 'cvs-specimen',
+        loadChildren: () => import('./molecular-lab-results/cvs-specimen.module').then(m => m.CVSSpecimenModule)
+        /* component: CvsNotificationComponent,
         children: [
-
-          { path: '', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-
-        ]
+          { path: '', component: CvsUpdateresultComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'cvs-edit-result', component: CvsEditresultComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
+          { path: 'cvs-confirmed-result', component: CvsConfirmedresultComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+          { path: 'reports', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+        ]*/
       },
-      {
+      /*{
         path: 'cvs-reoprts', component: CVSReportsMainComponent,
         children: [
 
           { path: '', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
 
         ]
-      },
-      {
+      },*/
+     /* {
         path: 'cvs-specimen', component: CvsNotificationComponent,
         children: [
           { path: '', component: CvsUpdateresultComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
@@ -457,7 +465,7 @@ const routes: Routes = [
           { path: 'cvs-confirmed-result', component: CvsConfirmedresultComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'reports', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
         ]
-      },
+      },*/
       {
         path: 'chc-notification', component: ChcNotificationComponent,
         children: [
@@ -1067,7 +1075,6 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const RoutingComponents = [
-  LoadScriptDirective,
   NotfoundComponent,
   PageUnderDevelopementComponent,
   HomeComponent,
@@ -1082,7 +1089,6 @@ export const RoutingComponents = [
   HomeLayoutComponent,
   SiteHeaderComponent,
   SiteLayoutComponent,
-  SiteSidebarComponent,
   DashboardComponent,
   StatereportListComponent,
   AnmNotificationComponent,
@@ -1255,14 +1261,10 @@ export const RoutingComponents = [
   UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
   PathoreportSampleStatusPrintComponent,
-  MlrNotificationComponent,
-  UpdateResultsComponent,
-  EditResultsComponent,
-  ConfirmedResultsComponent,
-  CvsNotificationComponent,
+ /* CvsNotificationComponent,
   CvsUpdateresultComponent,
   CvsEditresultComponent,
-  CvsConfirmedresultComponent,
+  CvsConfirmedresultComponent,*/
   ANMreportListComponent,
   AnmReportProfileComponent,
   CHCreportListComponent,
@@ -1284,10 +1286,6 @@ export const RoutingComponents = [
   RCHCorrectionComponent,
   LMPCorrectionMainComponent,
   LMPCorrectionComponent,
-  HPLCPosPrintComponent,
-  HPLCReportsMainComponent,
-  CVSReportsMainComponent,
-  CVSPosPrintComponent,
   BlockSubjectRegistrationComponent,
   BlockAwRegistrationComponent,
   BlockSubjecttRegistrationComponent,
@@ -1326,7 +1324,6 @@ export const RoutingComponents = [
   IlrComponent,
   TestComponent,
   UsersComponent,
-  HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
   SAUploadComponent,
   CommonDataTableComponent,

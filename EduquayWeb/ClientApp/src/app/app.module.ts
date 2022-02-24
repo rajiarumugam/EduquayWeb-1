@@ -119,20 +119,21 @@ import { UserTypeComponent } from './admin/user-type/user-type.component';
 import { timeStampPipe } from "./shared/pipe/timetamp.pipe";
 import { TabsComponent } from './nhm/tabs/tabs.component';
 import { TabComponent } from './nhm/tabs/tab.component';
-import { UpdateResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component';
-import { EditResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component';
-import { ConfirmedResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component';
-import { MlrNotificationComponent } from './molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component';
-import { CvsNotificationComponent } from './molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component';
-import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component';
+//import { UpdateResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component';
+//import { EditResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component';
+//import { ConfirmedResultsComponent } from './molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component';
+//import { MlrNotificationComponent } from './molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component';
+//import { CvsNotificationComponent } from './molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component';
+/*import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component';
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
+
+import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';*/
+
 import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterPipe';
 
-
-
-
-
+import { LoadScriptDirective } from "./shared/load-script.directive";
+import {SharedModule} from './_layout/shared.module';
 
 
 // const ngWizardConfig: NgWizardConfig = {
@@ -144,6 +145,7 @@ import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterP
     TableFilterPipe,
     AppComponent,
     NavMenuComponent,
+    LoadScriptDirective,
     RoutingComponents,
     TestComponent,
     AnmShipmentComponent,
@@ -232,7 +234,8 @@ import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterP
     UserTypeComponent,
     timeStampPipe,
     TabsComponent,
-    TabComponent,
+    TabComponent/*,
+    SiteSidebarComponent
     UpdateResultsComponent,
     EditResultsComponent,
    
@@ -241,7 +244,7 @@ import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterP
     CvsNotificationComponent,
     CvsUpdateresultComponent,
     CvsEditresultComponent,
-    CvsConfirmedresultComponent,
+    CvsConfirmedresultComponent,*/
     
   ],
   imports: [
@@ -270,7 +273,8 @@ import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterP
     Ng2FlatpickrModule,
     NgMultiSelectDropDownModule.forRoot(),
     FileUploadModule,
-    NgxPrintModule
+    NgxPrintModule,
+    SharedModule
    
   ],
   providers: [

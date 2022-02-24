@@ -817,7 +817,8 @@
                     </ul>
                 </li>
                 <li class="menu" *ngIf="user.userRole === 'MOLECULARDR'">
-                    <a href="#mlr" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+                    
+                        <a href="#mlr" data-toggle="collapse"  attr.data-active="{{module === 'mlr'}}" attr.aria-expanded="{{module === 'mlr'}}" class="dropdown-toggle">
                         <div class="">
                             <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -833,12 +834,12 @@
                             </svg>
                         </div>
                     </a>
-                    <ul class="submenu list-unstyled collapse show" id="mlr" data-parent="#accordionExample">
-                        <li routerLinkActive="active">
-                            <a [routerLink]="['/app/molecular-lab-result']"> {{'HPLC Positive Blood Sample' | translate }} </a>
+                    <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'mlr'}" id="mlr" data-parent="#accordionExample">
+                        <li [ngClass]="{'active': (module === 'mlr' && subMenu === 'hplc') ? true : false}">
+                            <a [routerLink]="['/app/molecular-lab-result']"> {{'HPLC Positive Blood Sample' | translate }}</a>
                         </li>
-                        <li routerLinkActive="active">
-                            <a [routerLink]="['/app/cvs-specimen']"> {{'CVS Specimen' | translate }} </a>
+                        <li [ngClass]="{'active': (module === 'mlr' && subMenu === 'cvs') ? true : false}">
+                            <a [routerLink]="['/app/cvs-specimen']"> {{'CVS Specimen' | translate }}</a>
                         </li>
 
 
@@ -847,7 +848,7 @@
                 </li>
 
                 <li class="menu" *ngIf="user.userRole === 'MOLECULARDR'">
-                    <a href="#mlr" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+                        <a href="#mlr1" data-toggle="collapse"  attr.data-active="{{module === 'mlr1'}}" attr.aria-expanded="{{module === 'mlr1'}}" class="dropdown-toggle">
                         <div class="">
                             <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -863,12 +864,12 @@
                             </svg>
                         </div>
                     </a>
-                    <ul class="submenu list-unstyled collapse show" id="mlr" data-parent="#accordionExample">
-                        <li routerLinkActive="active">
-                            <a [routerLink]="['/app/hplcpositive-bloodsample-reoprts']"> {{'HPLC Positive Blood Sample' | translate }} </a>
+                    <ul class="submenu list-unstyled collapse" [ngClass]="{'show': module === 'mlr1'}" id="mlr1" data-parent="#accordionExample">
+                        <li [ngClass]="{'active': (module === 'mlr1' && subMenu === 'hplc') ? true : false}">
+                            <a [routerLink]="['/app/molecular-lab-result/hplcpositive-bloodsample-reoprts']"> {{'HPLC Positive Blood Sample' | translate }}</a>
                         </li>
-                        <li routerLinkActive="active">
-                            <a [routerLink]="['/app/cvs-reoprts']"> {{'CVS Specimen' | translate }} </a>
+                        <li [ngClass]="{'active': (module === 'mlr1' && subMenu === 'cvs') ? true : false}">
+                            <a [routerLink]="['/app/cvs-specimen/cvs-reoprts']"> {{'CVS Specimen' | translate }}</a>
                         </li>
                     </ul>
                 </li>
