@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
-import { HomeHeaderComponent } from './_layout/home-header/home-header.component';
-import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
+//import { HomeHeaderComponent } from './_layout/home-header/home-header.component';
+//import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { DistrictreportListComponent } from "./district-coordinator/district-report-list/district-report-list.component";
@@ -11,12 +11,11 @@ import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordina
 import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { PathoreportSampleStatusPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { PathoreportSampleStatusMainPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
-import { HomeComponent } from "./home/home.component";
 import { CounsellorPhcreportListComponent } from "./pndtc/counsellor-phc-report-list/counsellor-phc-report-list.component";
-import { CounterComponent } from "./counter/counter.component";
-import { FetchDataComponent } from "./fetch-data/fetch-data.component";
-import { LoginComponent } from "./auth/login/login.component";
-import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
+//import { CounterComponent } from "./counter/counter.component";
+//import { FetchDataComponent } from "./fetch-data/fetch-data.component";
+//import { LoginComponent } from "./auth/login/login.component";
+//import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { AuthGuard } from "./shared/auth.guard";
 //import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
@@ -60,7 +59,7 @@ import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolve
 import { CHCPickAndPackResolverService } from "./shared/centrallab/central-pickandpack-resolver.service";
 import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
 import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
-import { ChcSampleCollectionComponent } from "./chc-module/chc-sample-collection/chc-sample-collection.component";
+//import { ChcSampleCollectionComponent } from "./chc-module/chc-sample-collection/chc-sample-collection.component";
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
@@ -138,9 +137,9 @@ import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-v
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { PageUnderDevelopementComponent } from "./page-under-developement/page-under-developement.component";
-import { AboutUsComponent } from "./landing-page/about-us/about-us.component";
-import { AboutProgramComponent } from "./landing-page/about-program/about-program.component";
-import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
+//import { AboutUsComponent } from "./landing-page/about-us/about-us.component";
+//import { AboutProgramComponent } from "./landing-page/about-program/about-program.component";
+//import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
 import { ChcSubjectProfileListComponent } from "./chc-module/chc-subject-profile-list/chc-subject-profile-list.component";
 import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile-list/anm-subject-profile-list.component";
 import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
@@ -236,7 +235,7 @@ import { HPLCUpdateNewComponent } from "./central-lab/HPLC-update-new/HPLC-updat
 import { HPLCReceivedNewComponent } from './central-lab/HPLC-update-new/HPLC-update-new-received/HPLC-update-new-received.component';
 import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-chc/chc-update-cbc-chc.component";
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
-import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
+//import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
 import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.component";
 
 import { PathoreportSampleStatusComponent } from "./pathologist/repot-sample-status/patho-repot-sample-status/patho-repot-sample-status.component";
@@ -245,7 +244,7 @@ import { PathoReportResolverService } from "./shared/pathologist/patho-report-re
 import { PathoReportPrintResolverService } from "./shared/pathologist/patho-report-print-resolver.service";
 import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
 import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
-import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
+//import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
 
 import { CHCNotificationMainComponent } from "./chc-sample-module/chc-notification/chc-notification-main/chc-notification-main.component";
 import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-profile-tracking/anm-subject-profile-tracking.component";
@@ -390,14 +389,13 @@ import { DeactivateanmMainComponent } from "./errorcorrection/deactivate-anm/dea
 import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, pathMatch: 'full' },
-  { path: 'counter', component: CounterComponent },
-  { path: 'fetch-data', component: FetchDataComponent },
+  { path: 'counter', loadChildren: () => import('./counter/counter.module').then(m => m.CounterModule)},
+  { path: 'fetch-data', loadChildren: () => import('./fetch-data/fetch-data.module').then(m => m.FetchDataModule)},
   {
     path: 'hplc-report-print',
     loadChildren: () => import('./hplcreport/hplc-repot-sample-status-print.module').then(m => m.HplcreportSampleStatusPrintModule)
   },
-  {
+  /*{
     path: 'home',
     component: HomeLayoutComponent,
     children: [
@@ -409,8 +407,11 @@ const routes: Routes = [
       { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'},
       { path: 'hplclogin', component: HplcLoginComponent, pathMatch: 'full'}
     ]
+  },*/
+  {
+    path: 'home',
+    loadChildren: () => import('./auth/home.module').then(m => m.HomeModule)
   },
-
   //Site routes goes here
   {
     path: 'app',
@@ -507,9 +508,9 @@ const routes: Routes = [
           {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
       }*/,
-      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent },
+      { path: 'chc-sample-collection', loadChildren: () => import('./chc-module/chc-sample-collection/chc-sample-collection.module').then(m => m.ChcSampleCollectionModule) },
       { path: 'block-sample-collection', component: BlockSampleCollectionComponent },// resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
-      { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
+      { path: 'chc-sample-collection/:subtype', loadChildren: () => import('./chc-module/chc-sample-collection/chc-sample-collection.module').then(m => m.ChcSampleCollectionModule) }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
       { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
       { path: 'block-pickandpack', component: BlockPicknpackComponent},
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent }, // resolve: {chcshipmentLogData: ChcShipmentlogResolverService}
@@ -1077,16 +1078,6 @@ export class AppRoutingModule { }
 export const RoutingComponents = [
   NotfoundComponent,
   PageUnderDevelopementComponent,
-  HomeComponent,
-  AboutUsComponent,
-  AboutProgramComponent,
-  ImportantLinksComponent,
-  CounterComponent,
-  FetchDataComponent,
-  LoginComponent,
-  HplcLoginComponent,
-  HomeHeaderComponent,
-  HomeLayoutComponent,
   SiteHeaderComponent,
   SiteLayoutComponent,
   DashboardComponent,
@@ -1115,7 +1106,6 @@ export const RoutingComponents = [
   AnmWalkinGt18RegistrationComponent,
   CounsellorChcreportListComponent,
   AnmViewShipmentdetailsComponent,
-  ChcSampleCollectionComponent,
   WalkinRegistrationComponent,
   CheSubjectRegistrationComponent,
   ChcpregnantRegistrationComponent,
@@ -1233,7 +1223,6 @@ export const RoutingComponents = [
   HPLCUpdateNewComponent,
   HPLCReceivedNewComponent,
   DiagosisReportComponent1,
-  GetOtpComponent,
   ChcSubjectProfileComponent,
 
   AnmChcSubjectProfileComponent,
@@ -1241,7 +1230,6 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainComponent,
   ViewReportPathoMainMainComponent,
   ViewPathoReportComponent,
-  ResetLoginComponent,
   CHCNotificationMainComponent,
   AnmSubjectProfileTrackingComponent,
   ViewCLReportComponent,

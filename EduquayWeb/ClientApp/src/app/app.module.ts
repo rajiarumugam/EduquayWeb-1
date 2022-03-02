@@ -4,7 +4,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+//import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AppRoutingModule, RoutingComponents } from './app.routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -58,9 +58,9 @@ import { ChcStartPickpackComponent } from './chc-sample-module/chc-sample-pickpa
 import { AppPasswordDirective } from './shared/directive/app-password.directive';
 import { CookieService } from 'ngx-cookie-service';
 import { LoaderService } from './shared/loader/loader.service';
-import { AboutUsComponent } from './landing-page/about-us/about-us.component';
-import { AboutProgramComponent } from './landing-page/about-program/about-program.component';
-import { ImportantLinksComponent } from './landing-page/important-links/important-links.component';
+//import { AboutUsComponent } from './landing-page/about-us/about-us.component';
+//import { AboutProgramComponent } from './landing-page/about-program/about-program.component';
+//import { ImportantLinksComponent } from './landing-page/important-links/important-links.component';
 import { ChcSubjectProfileListComponent } from './chc-module/chc-subject-profile-list/chc-subject-profile-list.component';
 import { AnmSubjectProfileListComponent } from './anm-module/anm-subject-profile-list/anm-subject-profile-list.component';
 import { PrePndtcMainComponent } from './pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component';
@@ -96,9 +96,9 @@ import { PositiveSubjectsComponent } from './district-coordinator/positive-subje
 import { PndtReferralComponent } from './district-coordinator/pndt-referral/pndt-referral.component';
 import { MtpReferralComponent } from './district-coordinator/mtp-referral/mtp-referral.component';
 import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-followup/post-mtp-followup.component';
-import { GetOtpComponent } from './auth/forgot-password/get-otp/get-otp.component';
+//import { GetOtpComponent } from './auth/forgot-password/get-otp/get-otp.component';
 import { ResetPasswordComponent } from './auth/forgot-password/reset-password/reset-password.component';
-import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.component';
+//import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.component';
 
 import {NgxPrintModule} from 'ngx-print';
 import { SubjectTrackerComponent } from './anm-module/subject-tracker/subject-tracker.component';
@@ -134,6 +134,7 @@ import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterP
 
 import { LoadScriptDirective } from "./shared/load-script.directive";
 import {SharedModule} from './_layout/shared.module';
+//import { HomeHeaderModule } from './_layout/home-header/home-header.module';
 
 
 // const ngWizardConfig: NgWizardConfig = {
@@ -144,7 +145,6 @@ import {SharedModule} from './_layout/shared.module';
   declarations: [
     TableFilterPipe,
     AppComponent,
-    NavMenuComponent,
     LoadScriptDirective,
     RoutingComponents,
     TestComponent,
@@ -173,9 +173,6 @@ import {SharedModule} from './_layout/shared.module';
     ChcPendingPickpackComponent,
     ChcStartPickpackComponent,
     AppPasswordDirective,
-    AboutUsComponent,
-    AboutProgramComponent,
-    ImportantLinksComponent,
     ChcSubjectProfileListComponent,
     AnmSubjectProfileListComponent,
     PrePndtcMainComponent,
@@ -213,9 +210,7 @@ import {SharedModule} from './_layout/shared.module';
     PndtReferralComponent,
     MtpReferralComponent,
     PostMtpFollowupComponent,
-    GetOtpComponent,
     ResetPasswordComponent,
-    ResetLoginComponent,
     SubjectTrackerComponent,
     StateComponent,
     DistrictComponent,
