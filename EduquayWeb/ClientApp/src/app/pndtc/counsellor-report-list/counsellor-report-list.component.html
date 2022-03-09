@@ -128,72 +128,83 @@
                         </div>
 
                         <div class="custm-tab">
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1,6);"> 
-                                    <p>{{'Scheduling pending' | translate }}</p>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
+                                    <p>{{'Schedule Counselling' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1,7);"> 
-                                <p>{{'Scheduled' | translate }}</p>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
+                                <p>{{'Counselling Pending' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1,3);"> 
-                                <p>{{'Counselling Completed' | translate }}</p>
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
+                                <p>{{'Counselling Completed(10009)' | translate }}</p>
                             </div>
                         </div>
-
                        
 
-                        <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1,7);"> 
-                                    <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
+                        <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
+                                    <p>{{' Pending' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2,8);"> 
-                                <p>{{'Completed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub2}}</span></p>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(1,2);">
+                                <p>{{' Completed' | translate }} </p>
                             </div>
                         </div>
+  
                         <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1,3);"> 
-                                    <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub1}}</span></p>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);">
+                                    <p>{{'Agreed' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2,4);"> 
-                                <p>{{'Yes' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub2}}</span></p>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);">
+                                <p>{{'Disagreed' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,3,5);"> 
-                                <p>{{'No' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub2}}</span></p>
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
+                                <p>{{'Decision Pending' | translate }} </p>
                             </div>
                         </div>
-
+  
                         <!--<common-data-table [tableHeader]="tableHeader" [objkey]="curentObjectKey" [subjectprofileLists]="subjectprofileLists" (openpopup)="openpopup($event);" (opensubjectdetails)="opensubjectdetail($event);"></common-data-table>-->
                         <div class="table-responsive mb-4">
                             <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                               <thead>
                                 <tr>
                                     <th><span>{{'SNo' | translate }}</span></th>
-                                    <th><span>{{'SubjectName' | translate }}</span></th>
-                                    <th><span>{{'SubjectID' | translate }}</span></th>
-                                    <th><span>{{'Barcode' | translate }}</span></th>
-                                    <th><span >{{'RCH' | translate }}</span></th>
-                                    <th><span >{{'Contact' | translate }}</span></th>
-                                    <th><span >{{'GA' | translate }}</span></th>
-                                    <!--<th><span>{{'CurrentStatus' | translate }}</span></th>-->
-                                    <th><span >{{'Track' | translate }}</span></th>
+                                    <th><span>{{'Subject Name ' | translate }}</span></th>
+                                    <th><span>{{'Subject ID' | translate }}</span></th>
+                                    <th><span>{{'SubjectType' | translate }}</span></th>
+                                    <th><span>{{'Gender' | translate }}</span></th> 
+                                    <th><span>{{'Contact' | translate }}</span></th>
+                                    <th><span>{{'ANM' | translate }}</span></th>
+                                    <th><span >{{'Barcode' | translate }}</span></th>
+                                    <th><span >{{'Gestational Age' | translate }}</span></th>
+                                    <th><span>{{'Test Results ' | translate }}</span></th>
+                                    <th><span >{{'Status' | translate }}</span></th>
+                                    <th><span >{{'Tracker' | translate }}</span></th>
                                     <th><span >{{'Profile' | translate }}</span></th>
                                 </tr>
                                 
                               </thead>
                               <tbody>
                                 <tr *ngFor="let sample of subjectprofileLists; index as i">
-                                  <td class="sno text-center">{{i +1}}</td>
-                                  <td class="sname text-left">{{sample.anmName}}</td>
-                                  <td class="sid text-center">{{sample.subjectId}}</td>
-                                  <td class="sid text-center">{{sample.barcode}}</td>
-                                  <td class="number text-center">{{sample.rchId}}</td>
-                                  <td class="number text-center">{{sample.mobileNo}}</td>
-                                  <td class="number text-center">{{sample.ga}}</td>
-                                  <td style="text-align: center"><a (click)="openTrackpopup(subjectinfo)">
-                                    <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
-                                 </a></td>
-                                <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
-                                    <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
-                                </td>
+                                    <td style="text-align: center">{{i +1}}</td>
+                                    <td style="text-align: left">{{subjectinfo.firstName}}</td>
+                                    <td style="text-align: center">{{subjectinfo.subjectId}}</td>
+                                    <td style="text-align: center">{{subjectinfo.subjectType}}</td>
+                                    <td style="text-align: center">{{subjectinfo.gender}}</td>
+                                    <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
+                                    <td style="text-align: center">{{subjectinfo.anmName}}</td>
+                                    <td style="text-align: left">{{subjectinfo.barcode}}</td>
+                                    <td class="text-left sname">{{subjectinfo.ga}}</td>
+                                    <td style="text-align: center">{{subjectinfo.hplcPathoLabResult}}</td>
+                                    <td style="text-align: left">{{subjectinfo.mtpService}}</td>
+                                    <td style="text-align: center"><a (click)="openTrackpopup(subjectinfo)">
+                                      <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+                                   </a></td>
+                                
+                                          <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                              <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                                          </td>
+                                          <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                                              <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+                                           </a></td>
                                 </tr>
                               </tbody>
                             </table>

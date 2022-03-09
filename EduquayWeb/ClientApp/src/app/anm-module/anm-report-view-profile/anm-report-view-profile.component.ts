@@ -205,7 +205,8 @@ export class AnmReportProfileComponent implements OnInit {
         this.router.navigateByUrl(`app/anm-report`);
       if(this.user.userRole === "CHCLTLEVEL1" || this.user.userRole === "CHCSRLT")
         this.router.navigateByUrl(`app/chc-main-report`);
-      
+        if(this.user.userRole === "MTPOBSTETRICIAN")
+        this.router.navigateByUrl(`app/mtpreport`);
     }
     
     this.loaderService.display(true);
