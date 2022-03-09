@@ -137,7 +137,7 @@
 
                         </div>
 
-                        <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
+                        <!-- <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Collected' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain1Sub1}}</span></p>
                             </div>
@@ -250,7 +250,7 @@
                                 <p>{{'Negative' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub3}}</span></p>
                             </div>
 
-                        </div>
+                        </div> -->
                         <common-data-table [tableHeader]="tableHeader" [objkey]="curentObjectKey" [subjectprofileLists]="subjectprofileLists" (openpopup)="openpopup($event);" (opensubjectdetails)="opensubjectdetail($event);"></common-data-table>
 
                     </div>

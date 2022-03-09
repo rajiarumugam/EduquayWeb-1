@@ -16,7 +16,7 @@ import * as moment from 'moment';
 declare var $: any;
 import { PNDTCmasterService } from "../../shared/pndtc/pndtc-masterdata.service";
 
-
+1
 @Component({
   selector: 'app-nhm-report-list',
   templateUrl: './nhm-report-list.component.html',
