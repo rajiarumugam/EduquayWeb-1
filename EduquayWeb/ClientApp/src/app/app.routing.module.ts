@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
+//import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
 //import { HomeHeaderComponent } from './_layout/home-header/home-header.component';
 //import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
@@ -43,7 +43,7 @@ import { SampleCollectionResolverService } from "./shared/anm-module/sample-coll
 import { ShipmentlogResolverService } from "./shared/anm-module/shipmentlog/shipmentlog-resolver.service";
 import { PicknpackResolverService } from "./shared/anm-module/picnpack/picknpack-resolver.service";
 import { DamagedSamplesResolverService } from "./shared/anm-module/notifications/damaged-samples/damaged-samples-resolver.service";
-import { CounsellorMtpreportListComponent } from "./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.component";
+//import { CounsellorMtpreportListComponent } from "./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.component";
 
 import { CheSubjectRegistrationComponent } from './chc-module/registration/chc-subject-registration/chc-subject-registration.component'
 import { BlockSubjectRegistrationComponent } from './chc-module/registration/block-subject-registration/block-subject-registration.component';
@@ -142,27 +142,27 @@ import { PageUnderDevelopementComponent } from "./page-under-developement/page-u
 //import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
 import { ChcSubjectProfileListComponent } from "./chc-module/chc-subject-profile-list/chc-subject-profile-list.component";
 import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile-list/anm-subject-profile-list.component";
-import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
-import { PrePndtcToBeScheduledComponent } from "./pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component";
-import { PrePndtcScheduledComponent } from "./pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component";
-import { CounsellingPrePndtMainComponent } from "./pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component";
-import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component";
-import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
-import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
-import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
+//import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
+//import { PrePndtcToBeScheduledComponent } from "./pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component";
+//import { PrePndtcScheduledComponent } from "./pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component";
+//import { CounsellingPrePndtMainComponent } from "./pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component";
+//import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component";
+//import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
+//import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
+//import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
 import { UpdateDetailTestresultsComponent } from "./pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component";
 import { UpdateDecisionNoPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component";
 import { UpdateDecisionYesPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component";
 import { UpdateDecisionPendingPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component";
-import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component";
-import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
-import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
-import { CounsellingPostPndtMainComponent } from "./pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component";
-import { ToBePostPndtCounselledComponent } from "./pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component";
+//import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component";
+//import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
+//import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
+//import { CounsellingPostPndtMainComponent } from "./pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component";
+//import { ToBePostPndtCounselledComponent } from "./pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component";
 import { PostPndtcTestresultsComponent } from "./pndtc/counselling-post-pndt/post-pndtc-testresults/post-pndtc-testresults.component";
-import { PostCounsellingDecisionYesComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component";
-import { PostCounsellingDecisionNoComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component";
-import { PostCounsellingDecisionPendingComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component";
+//import { PostCounsellingDecisionYesComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component";
+//import { PostCounsellingDecisionNoComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component";
+//import { PostCounsellingDecisionPendingComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component";
 import { PostPndtcDecisionYesComponent } from "./pndtc/counselling-post-pndt/post-pndtc-decision-yes/post-pndtc-decision-yes.component";
 
 import { PndTestingMainComponent } from "./pndtc/pnd-testing/pnd-testing-main/pnd-testing-main.component";
@@ -227,9 +227,9 @@ import { MolucularLabReportResolverService } from "./shared/molecularlab/mi-repo
 
 import { CHCReportResolverService } from "./shared/chc-sample/chc-report-resolver.service";
 import { ToBeSchedulingResolverService } from "./shared/pndtc/schedule-pre-pndtc/to-be-scheduling-resolver.service";
-import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/scheduled-resolver.service";
-import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
-import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
+//import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/scheduled-resolver.service";
+//import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
+//import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
 
 import { HPLCUpdateNewComponent } from "./central-lab/HPLC-update-new/HPLC-update-new/HPLC-update-new.component";
 import { HPLCReceivedNewComponent } from './central-lab/HPLC-update-new/HPLC-update-new-received/HPLC-update-new-received.component';
@@ -284,9 +284,9 @@ import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/
 import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
 
 
-import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
+/*import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
 import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
-import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";
+import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";*/
 
 import { ScheduleShipmentMainComponent } from "./pndtc/shipment-log/schedule-shipment-log-main/schedule-shipment-log-main.component";
 import { ScheduleShipmentComponent } from "./pndtc/shipment-log/schedule-shipment-log/schedule-shipment-log.component";
@@ -378,7 +378,7 @@ import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specime
 //import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
 import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
 import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
-import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
+//import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
 import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
 import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
 import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";
@@ -732,6 +732,10 @@ const routes: Routes = [
           {path: '', component: CentralCentralShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabShipmentResolverService}}
         ]
       },
+      /*{
+        path: 'schedule-shipment',
+        loadChildren: () => import('./pndtc/shipment-log/shipment-log.module').then(m => m.ShipmentLogModule)
+      },*/
       {
         path: 'schedule-shipment', component: ScheduleShipmentMainComponent,
         children:[
@@ -786,20 +790,21 @@ const routes: Routes = [
           {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
         ]
       },
-
       {
+        path: 'schedule-pre-pndtc',
+        loadChildren: () => import('./pndtc/schedule/schedule.module').then(m => m.ScheduleModule)
+      },
+      /*{
         path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
         children:[
           {path: '', component: PrePndtcToBeScheduledComponent, pathMatch: 'full', resolve: {tobeScheduling: ToBeSchedulingResolverService}},
           {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
         ]
-      },
+      },*/
 
     {
-        path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
-        children:[
-          {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
-        ]
+        path: 'PNDTPickandPackReport', loadChildren: () => import('./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.module').then(m => m.CounsellingpnpreportListModule)
+        
       },
 
 
@@ -900,6 +905,10 @@ const routes: Routes = [
         path: 'view-pndtc-summary', component: PndSummaryViewComponent,
       },*/
       {
+        path: 'counselling-pre-pndt', loadChildren: () => import('./pndtc/counselling-pre-pndt/counselling-pre-pndt.module').then(m => m.CounsellingPrePMDTModule)
+      },
+        
+      /*{
         path: 'counselling-pre-pndt', component: CounsellingPrePndtMainComponent,
         children:[
           {path: '', component: ToBeCounselledComponent, pathMatch: 'full'},
@@ -907,7 +916,7 @@ const routes: Routes = [
           {path: 'counselledno', component: CounselledDecisionNoComponent, pathMatch: 'full'},
           {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
         ]
-      },
+      },*/
       {
         path: 'update-pregnancy', component: UpdatePregnacyMainComponent,
         children:[
@@ -927,12 +936,7 @@ const routes: Routes = [
     //   ]
     // },
       {
-        path: 'csv-specimen', component: CSVSpecimenMainComponent,
-        children:[
-          {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
-          {path: 'csvstart', component: CSVspecimenStartComponent, pathMatch: 'full'}
-
-        ]
+        path: 'csv-specimen', loadChildren: () => import('./pndtc/counselling-pre-pndt/csv-specimen.module').then(m => m.CVSSpecimenModule)
       },
       { path: 'view-ml-result', component: ViewResultMLComponent },
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
@@ -941,14 +945,22 @@ const routes: Routes = [
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
       { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
+     
       {
+        path: 'schedule-post-pndtc', loadChildren: () => import('./pndtc/schedule-post-pndtc/schedule-post-pndtc.module').then(m => m.SchedulePostPndtcModule)
+      },
+      /*{
         path: 'schedule-post-pndtc', component: SchedulePostPndtcMainComponent,
         children:[
           {path: '', component: SchedulePostPndtcToBeScheduledComponent, pathMatch: 'full', resolve: {postScheduling: PostSchedulingResolverService}},
           {path: 'scheduled', component: SchedulePostPndtcScheduledComponent, pathMatch: 'full', resolve: {postScheduled: PostScheduledResolverService}},
         ]
-      },
+      },*/
+
       {
+        path: 'counselling-post-pndt', loadChildren: () => import('./pndtc/counselling-post-pndt/counselling-post-pndt.module').then(m => m.CounsellingPostPNDTModule)
+      },
+      /*{
         path: 'counselling-post-pndt', component: CounsellingPostPndtMainComponent,
         children:[
           {path: '', component: ToBePostPndtCounselledComponent, pathMatch: 'full'},
@@ -956,13 +968,13 @@ const routes: Routes = [
           {path: 'counselledno', component: PostCounsellingDecisionNoComponent, pathMatch: 'full'},
           {path: 'counselledawaited', component: PostCounsellingDecisionPendingComponent, pathMatch: 'full'}
         ]
-      },
+      },*/
       {
-        path: 'counsellor-report', component: CounsellorreportListComponent,
+        path: 'counsellor-report', loadChildren: () => import('./pndtc/counsellor-report-list/counsellor-report-list.module').then(m => m.CounsellorreportListModule)
       },
 
       {
-        path: 'counsellor-mtp-report', component: CounsellorMtpreportListComponent,
+        path: 'counsellor-mtp-report', loadChildren: () => import('./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.module').then(m => m.CounsellingMTPReportModule),
       },
 
 
@@ -1008,9 +1020,6 @@ const routes: Routes = [
 
       },{
         path: 'anm-report', component: ANMreportListComponent,
-
-      },{
-        path: 'counsellor-report', component: CounsellorreportListComponent,
 
       },{
         path: 'mtp-report', component: MTPreportListComponent,
@@ -1085,7 +1094,6 @@ export const RoutingComponents = [
   AnmNotificationComponent,
   AnmDamagedSamplesComponent,
   AnmUnsentSamplesComponent,
-  CounsellorreportListComponent,
   AnmTimeoutSamplesComponent,
 
   AnmPositiveSubjectsComponent,
@@ -1157,10 +1165,6 @@ export const RoutingComponents = [
   ChcStartPickpackComponent,
   ChcSubjectProfileListComponent,
   DiagnosisHPLCAbEditComponent,
-  CounsellorMtpreportListComponent,
-  PrePndtcMainComponent,
-  PrePndtcToBeScheduledComponent,
-  PrePndtcScheduledComponent,
   PndTestingMainComponent,
   pndTestingComponent,
   // PathoreportStatusCoordinatorMainPrintComponent,
@@ -1173,19 +1177,11 @@ export const RoutingComponents = [
   CounsellorPhcreportListComponent,
   UpdateDecisionYesPndtComponent,
   UpdateDecisionPendingPndtComponent,
-  SchedulePostPndtcMainComponent,
-  SchedulePostPndtcScheduledComponent,
-  SchedulePostPndtcToBeScheduledComponent,
   PndTestingSummaryMainComponent,
   pndTestingSummaryComponent,
   PndSummaryViewComponent,
   PndSummaryViewMainComponent,
-  CounsellingPostPndtMainComponent,
-  ToBePostPndtCounselledComponent,
   PostPndtcTestresultsComponent,
-  PostCounsellingDecisionYesComponent,
-  PostCounsellingDecisionNoComponent,
-  PostCounsellingDecisionPendingComponent,
   PostPndtcDecisionYesComponent,
   MTPServicMainComponent,
   MTPPendingComponent,
@@ -1256,9 +1252,6 @@ export const RoutingComponents = [
   ANMreportListComponent,
   AnmReportProfileComponent,
   CHCreportListComponent,
-  CSVspecimenComponent,
-  CSVSpecimenMainComponent,
-  CSVspecimenStartComponent,
   ScheduleShipmentMainComponent,
   ScheduleShipmentComponent,
   MolecularSampleRcptCVCComponent,
@@ -1316,13 +1309,10 @@ export const RoutingComponents = [
   SAUploadComponent,
   CommonDataTableComponent,
   CommonUsersTableComponent,
-
   MTPreportListComponent,
-  CounsellorreportListComponent,
   PNDTOBSreportListComponent,
   MTPOBSreportListComponent,
   HEMreportListComponent,
-  CounsellorpnpreportListComponent,
   MolecularBloodSampleReciptComponent,
   MolecularCVSSampleReciptComponent,
   MolecularCVSReport,

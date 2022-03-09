@@ -63,27 +63,27 @@ import { LoaderService } from './shared/loader/loader.service';
 //import { ImportantLinksComponent } from './landing-page/important-links/important-links.component';
 import { ChcSubjectProfileListComponent } from './chc-module/chc-subject-profile-list/chc-subject-profile-list.component';
 import { AnmSubjectProfileListComponent } from './anm-module/anm-subject-profile-list/anm-subject-profile-list.component';
-import { PrePndtcMainComponent } from './pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component';
-import { PrePndtcToBeScheduledComponent } from './pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component';
-import { PrePndtcScheduledComponent } from './pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component';
-import { CounsellingPrePndtMainComponent } from './pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component';
-import { ToBeCounselledComponent } from './pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component';
-import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component';
-import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
-import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
+//import { PrePndtcMainComponent } from './pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component';
+//import { PrePndtcToBeScheduledComponent } from './pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component';
+//import { PrePndtcScheduledComponent } from './pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component';
+//import { CounsellingPrePndtMainComponent } from './pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component';
+//import { ToBeCounselledComponent } from './pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component';
+//import { CounselledDecisionYesComponent } from './pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component';
+//import { CounselledDecisionNoComponent } from './pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component';
+//import { CounselledDecisionAwaitedComponent } from './pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component';
 import { UpdateDetailTestresultsComponent } from './pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component';
 import { UpdateDecisionNoPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component';
 import { UpdateDecisionYesPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component';
 import { UpdateDecisionPendingPndtComponent } from './pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component';
-import { SchedulePostPndtcMainComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component';
-import { SchedulePostPndtcScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component';
-import { SchedulePostPndtcToBeScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component';
-import { CounsellingPostPndtMainComponent } from './pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component';
-import { ToBePostPndtCounselledComponent } from './pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component';
+//import { SchedulePostPndtcMainComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component';
+//import { SchedulePostPndtcScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component';
+//import { SchedulePostPndtcToBeScheduledComponent } from './pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component';
+//import { CounsellingPostPndtMainComponent } from './pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component';
+//import { ToBePostPndtCounselledComponent } from './pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component';
 import { PostPndtcTestresultsComponent } from './pndtc/counselling-post-pndt/post-pndtc-testresults/post-pndtc-testresults.component';
-import { PostCounsellingDecisionYesComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component';
-import { PostCounsellingDecisionNoComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component';
-import { PostCounsellingDecisionPendingComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component';
+//import { PostCounsellingDecisionYesComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component';
+//import { PostCounsellingDecisionNoComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component';
+//import { PostCounsellingDecisionPendingComponent } from './pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component';
 import { PostPndtcDecisionYesComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-yes/post-pndtc-decision-yes.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PostPndtcDecisionNoComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component';
@@ -175,28 +175,12 @@ import {SharedModule} from './_layout/shared.module';
     AppPasswordDirective,
     ChcSubjectProfileListComponent,
     AnmSubjectProfileListComponent,
-    PrePndtcMainComponent,
-    PrePndtcToBeScheduledComponent,
-    PrePndtcScheduledComponent,
-    CounsellingPrePndtMainComponent,
-    ToBeCounselledComponent,
-    CounselledDecisionYesComponent,
-    CounselledDecisionNoComponent,
     StatereportListComponent,
-    CounselledDecisionAwaitedComponent,
     UpdateDetailTestresultsComponent,
     UpdateDecisionNoPndtComponent,
     UpdateDecisionYesPndtComponent,
     UpdateDecisionPendingPndtComponent,
-    SchedulePostPndtcMainComponent,
-    SchedulePostPndtcScheduledComponent,
-    SchedulePostPndtcToBeScheduledComponent,
-    CounsellingPostPndtMainComponent,
-    ToBePostPndtCounselledComponent,
     PostPndtcTestresultsComponent,
-    PostCounsellingDecisionYesComponent,
-    PostCounsellingDecisionNoComponent,
-    PostCounsellingDecisionPendingComponent,
     PostPndtcDecisionYesComponent,
     PostPndtcDecisionNoComponent,
     PostPndtcDecisionAwaitedComponent,
