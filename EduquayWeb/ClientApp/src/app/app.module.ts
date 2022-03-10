@@ -88,14 +88,14 @@ import { PostPndtcDecisionYesComponent } from './pndtc/counselling-post-pndt/pos
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PostPndtcDecisionNoComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component';
 import { PostPndtcDecisionAwaitedComponent } from './pndtc/counselling-post-pndt/post-pndtc-decision-awaited/post-pndtc-decision-awaited.component';
-import { DistrictCoordinatorMainComponent } from './district-coordinator/district-coordinator-main/district-coordinator-main.component';
+/*import { DistrictCoordinatorMainComponent } from './district-coordinator/district-coordinator-main/district-coordinator-main.component';
 import { DamagedSamplesComponent } from './district-coordinator/damaged-samples/damaged-samples.component';
 import { UnsentSamplesComponent } from './district-coordinator/unsent-samples/unsent-samples.component';
 import { SampleTimeoutComponent } from './district-coordinator/sample-timeout/sample-timeout.component';
 import { PositiveSubjectsComponent } from './district-coordinator/positive-subjects/positive-subjects.component';
 import { PndtReferralComponent } from './district-coordinator/pndt-referral/pndt-referral.component';
 import { MtpReferralComponent } from './district-coordinator/mtp-referral/mtp-referral.component';
-import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-followup/post-mtp-followup.component';
+import { PostMtpFollowupComponent } from './district-coordinator/post-mtp-followup/post-mtp-followup.component';*/
 //import { GetOtpComponent } from './auth/forgot-password/get-otp/get-otp.component';
 import { ResetPasswordComponent } from './auth/forgot-password/reset-password/reset-password.component';
 //import { ResetLoginComponent } from './auth/reset-login/reset-login/reset-login.component';
@@ -184,16 +184,8 @@ import {SharedModule} from './_layout/shared.module';
     PostPndtcDecisionYesComponent,
     PostPndtcDecisionNoComponent,
     PostPndtcDecisionAwaitedComponent,
-    DistrictCoordinatorMainComponent,
-    DamagedSamplesComponent,
-    UnsentSamplesComponent,
-    SampleTimeoutComponent,
-    PositiveSubjectsComponent,
     // PathoreportStatusCoordinatorMainPrintComponent,
     // PathoreportStatusCoordinatorPrintComponent,
-    PndtReferralComponent,
-    MtpReferralComponent,
-    PostMtpFollowupComponent,
     ResetPasswordComponent,
     SubjectTrackerComponent,
     StateComponent,

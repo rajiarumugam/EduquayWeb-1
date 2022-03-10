@@ -5,10 +5,10 @@ import { NgModule } from "@angular/core";
 //import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
-import { DistrictreportListComponent } from "./district-coordinator/district-report-list/district-report-list.component";
+//import { DistrictreportListComponent } from "./district-coordinator/district-report-list/district-report-list.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
-import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+/*import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";*/
 import { PathoreportSampleStatusPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { PathoreportSampleStatusMainPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 import { CounsellorPhcreportListComponent } from "./pndtc/counsellor-phc-report-list/counsellor-phc-report-list.component";
@@ -182,19 +182,19 @@ import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolv
 import { PndSummaryViewComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view/pnd-testing-summary-view.component";
 import { PndSummaryViewMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view-main/pnd-testing-summary-view-main.component";
 import { CounsellorChcreportListComponent } from "./pndtc/counsellor-chc-report-list/counsellor-chc-report-list.component";
-import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
+/*import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
 import { MTPPendingComponent } from "./mtp/mtp-service/mtp-sevice-pending/mtp-sevice-pending.component";
 import { MTPServiceCompletedComponent } from "./mtp/mtp-service/mtp-sevice-completed/mtp-sevice-completed.component";
 import { MTPPendingResolverService } from "./shared/mtp/mtp-pending-resolver.service";
-import { MTPCompletedResolverService } from "./shared/mtp/mtp-completed-resolver.service";
+import { MTPCompletedResolverService } from "./shared/mtp/mtp-completed-resolver.service";*/
 import { MTPTestingResultsComponent } from "./mtp/mtp-service/mtp-testing-results/mtp-testing-results.component";
 import { MtpTestingResultsMainComponent } from "./mtp/mtp-service/mtp-testing-results-main/mtp-testing-results-main.component";
-import { MtpTestingSummaryMainComponent } from "./mtp/mtp-service/mtp-testing-summary-main/mtp-testing-summary-main.component";
-import { mtpTestingSummaryComponent } from "./mtp/mtp-service/mtp-testing-summary/mtp-testing-summary.component";
+//import { MtpTestingSummaryMainComponent } from "./mtp/mtp-service/mtp-testing-summary-main/mtp-testing-summary-main.component";
+//import { mtpTestingSummaryComponent } from "./mtp/mtp-service/mtp-testing-summary/mtp-testing-summary.component";
 import { MTPSummaryResolverService } from "./shared/mtp/mtp-summary-resolver.service";
 import { MtpSummaryViewMainComponent } from "./mtp/mtp-service/mtp-testing-summary-view-main/mtp-testing-summary-view-main.component";
 import { MtpSummaryViewComponent } from "./mtp/mtp-service/mtp-testing-summary-view/mtp-testing-summary-view.component";
-import { DistrictCoordinatorMainComponent } from "./district-coordinator/district-coordinator-main/district-coordinator-main.component";
+/*import { DistrictCoordinatorMainComponent } from "./district-coordinator/district-coordinator-main/district-coordinator-main.component";
 import { DamagedSamplesComponent } from "./district-coordinator/damaged-samples/damaged-samples.component";
 import { UnsentSamplesComponent } from "./district-coordinator/unsent-samples/unsent-samples.component";
 import { SampleTimeoutComponent } from "./district-coordinator/sample-timeout/sample-timeout.component";
@@ -202,7 +202,7 @@ import { PositiveSubjectsComponent } from "./district-coordinator/positive-subje
 import { PndtReferralComponent } from "./district-coordinator/pndt-referral/pndt-referral.component";
 import { MtpReferralComponent } from "./district-coordinator/mtp-referral/mtp-referral.component";
 import { PostMtpFollowupComponent } from "./district-coordinator/post-mtp-followup/post-mtp-followup.component";
-
+*/
 
 import { ReportSampleStatusComponent } from "./molecular-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
 import { ReportSampleStatusMainComponent } from "./molecular-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
@@ -354,9 +354,9 @@ import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/u
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
 
 
-import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
+//import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
 
-import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+//import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
 
 
 
@@ -838,12 +838,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'mtp-service', loadChildren: () => import('./mtp/mtp-service/mtp-service.module').then(m => m.MTPServiceModule)
+        
+      },/*
+      {
         path: 'mtp-service', component: MTPServicMainComponent,
         children:[
           {path: '', component: MTPPendingComponent, pathMatch: 'full', resolve: {MTPTesting: MTPPendingResolverService}},
           {path: 'completed', component: MTPServiceCompletedComponent, pathMatch: 'full', resolve: {MTPTesting: MTPCompletedResolverService}}
         ]
-      },
+      },*/
       {
         path: 'mtp-testing-result', component: MtpTestingResultsMainComponent,
         children:[
@@ -871,11 +875,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'mtp-summary', loadChildren: () => import('./mtp/mtp-service/mtp-summary.module').then(m => m.MTPSummaryModule)
+      },
+      
+      /*{
         path: 'mtp-summary', component: MtpTestingSummaryMainComponent,
         children:[
           {path: '', component: mtpTestingSummaryComponent, pathMatch: 'full', resolve: {mtpTestingData: MTPSummaryResolverService}}
         ]
-      },
+      },*/
       {
         path: 'view-mtp-summary', component: MtpSummaryViewMainComponent,
         children:[
@@ -1001,18 +1009,14 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'HPLC-DC', component: PathoreportSampleStatusMainPrintComponentDC,
-        children:[
-          {path: '', component: PathoreportSampleStatusPrintComponentDC, pathMatch: 'full'},
-
-        ]
+        path: 'HPLC-DC', loadChildren: () => import('./district-coordinator/repot-patho-sample-status/repot-patho-sample-status.module').then(m => m.PathoreportSampleStatusModule),
       },
       {
         path: 'state-report', component: StatereportListComponent,
 
       },
       {
-        path: 'district-report', component: DistrictreportListComponent,
+        path: 'district-report', loadChildren: () => import('./district-coordinator/district-report-list/district-report-list.module').then(m => m.DistrictReportListModule),
 
       },
       {
@@ -1022,8 +1026,7 @@ const routes: Routes = [
         path: 'anm-report', component: ANMreportListComponent,
 
       },{
-        path: 'mtp-report', component: MTPreportListComponent,
-
+        path: 'mtp-report', loadChildren: () => import('./mtp/mtp-report-list/mtp-report-list.module').then(m => m.MTPReportListModule),
       },
       {
         path: 'add-admin-users', component: AdminUsersListComponent,
@@ -1056,16 +1059,8 @@ const routes: Routes = [
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
       {path: 'anm-profiletracking', component: AnmSubjectProfileTrackingComponent},
-      { path: 'dc-notification', component: DistrictCoordinatorMainComponent,
-      children:[
-        {path: '', component: DamagedSamplesComponent, pathMatch: 'full'},
-        {path: 'unsent-samples', component: UnsentSamplesComponent, pathMatch: 'full'},
-        {path: 'sample-timeout', component: SampleTimeoutComponent, pathMatch: 'full'},
-        {path: 'positive-subjects', component: PositiveSubjectsComponent, pathMatch: 'full'},
-        {path: 'pndt-referral', component: PndtReferralComponent, pathMatch: 'full'},
-        {path: 'mtp-referral', component: MtpReferralComponent, pathMatch: 'full'},
-        {path: 'postmtp-follow-up', component: PostMtpFollowupComponent, pathMatch: 'full'}
-      ]
+     
+      { path: 'dc-notification', loadChildren: () => import('./district-coordinator/dc-notification.module').then(m => m.DCNotificationModule)
       },
     ]
   },
@@ -1173,7 +1168,6 @@ export const RoutingComponents = [
   pndNotCompleteComponent,
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
-  DistrictreportListComponent,
   CounsellorPhcreportListComponent,
   UpdateDecisionYesPndtComponent,
   UpdateDecisionPendingPndtComponent,
@@ -1183,25 +1177,12 @@ export const RoutingComponents = [
   PndSummaryViewMainComponent,
   PostPndtcTestresultsComponent,
   PostPndtcDecisionYesComponent,
-  MTPServicMainComponent,
-  MTPPendingComponent,
-  MTPServiceCompletedComponent,
   MTPTestingResultsComponent,
   MtpTestingResultsMainComponent,
-  MtpTestingSummaryMainComponent,
-  mtpTestingSummaryComponent,
   MtpSummaryViewMainComponent,
   MtpSummaryViewComponent,
   PostPndtcDecisionNoComponent,
   PostPndtcDecisionAwaitedComponent,
-  DistrictCoordinatorMainComponent,
-  DamagedSamplesComponent,
-  UnsentSamplesComponent,
-  SampleTimeoutComponent,
-  PositiveSubjectsComponent,
-  PndtReferralComponent,
-  MtpReferralComponent,
-  PostMtpFollowupComponent,
   ReportSampleStatusComponent,
   ReportSampleStatusMainComponent,
   UpdateMolResultComponent,
@@ -1293,8 +1274,6 @@ export const RoutingComponents = [
   AdminUsersListComponent,
   PathoreportSampleStatusMainPrintComponentANM,
   PathoreportSampleStatusPrintComponentANM,
-  PathoreportSampleStatusMainPrintComponentDC,
-  PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusMainPrintComponent,
 
@@ -1307,9 +1286,7 @@ export const RoutingComponents = [
   UsersComponent,
   UploadSAMainComponent,
   SAUploadComponent,
-  CommonDataTableComponent,
   CommonUsersTableComponent,
-  MTPreportListComponent,
   PNDTOBSreportListComponent,
   MTPOBSreportListComponent,
   HEMreportListComponent,
