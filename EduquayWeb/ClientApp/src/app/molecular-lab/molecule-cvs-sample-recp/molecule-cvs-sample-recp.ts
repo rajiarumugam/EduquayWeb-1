@@ -191,7 +191,8 @@ export class MolecularCVSSampleReciptComponent implements AfterViewInit, OnDestr
     private tokenService: TokenService,
     private dataservice: DataService,
     private router: Router,
-    private PNDTCmasterService: PNDTCmasterService
+    private PNDTCmasterService: PNDTCmasterService,
+    private DataService:DataService
   ) { }
 
   ngOnInit() {
@@ -657,16 +658,20 @@ export class MolecularCVSSampleReciptComponent implements AfterViewInit, OnDestr
   }
 
 
-  opensubjectdetail(subjectinfo: SubjectProfileList ){
+  opensubjectdetail(subjectinfo ){
+    this.DataService.setdata({'anmreportData':subjectinfo});
+    this.DataService.setdata({'reportPreviouspage':"ANM"});
+    this.subjectid = subjectinfo.subjectId;
+      this.router.navigateByUrl(`/app/view-anm-report?q=${this.subjectid}`);
 
-    if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
+    /*if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${this.subjectid}`);
     }
     else if(subjectinfo.primaryDetail.registeredFrom === 'CHC'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
-    }
+    }*/
 
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {
@@ -676,7 +681,6 @@ export class MolecularCVSSampleReciptComponent implements AfterViewInit, OnDestr
   //}
 
   }
-
   SubprofileInitializeDateRange() {
 
     this.dateform = this._formBuilder.group({

@@ -148,10 +148,10 @@
 
                         <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
-                                    <p>{{' Pending' | translate }} </p>
+                                    <p>{{' Shipped' | translate }} </p>
                             </div>
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(1,2);">
-                                <p>{{'Shipped' | translate }} </p>
+                                <p>{{'Shipment Pending' | translate }} </p>
                             </div>
                         </div>
 
@@ -175,15 +175,14 @@
                                     <tr>
                                         <th><span>{{'SNo' | translate }}</span></th>
                                         <th><span>{{'Subject Name ' | translate }}</span></th>
-                                        <th><span>{{'Subject ID' | translate }}</span></th>
-                                        <th><span>{{'SubjectType' | translate }}</span></th>
-                                        <th><span>{{'Gender' | translate }}</span></th>
-                                        <th><span>{{'Contact' | translate }}</span></th>
-                                        <th><span>{{'ANM' | translate }}</span></th>
-                                        <th><span >{{'Barcode' | translate }}</span></th>
-                                        <th><span >{{'Gestational Age' | translate }}</span></th>
-                                        <th><span>{{'Test Results ' | translate }}</span></th>
-                                        <th><span >{{'Status' | translate }}</span></th>
+                                        <th><span>{{'RCH ID' | translate }}</span></th>
+                                        <th><span>{{'Foetus Name' | translate }}</span></th>
+                                        <th><span>{{'Sample Ref ID' | translate }}</span></th>
+                                        <th><span>{{'CVS Specimen Ref ID' | translate }}</span></th>
+                                        <th><span>{{'Specimen Collection Date' | translate }}</span></th>
+                                        <th><span >{{'Shipment DT' | translate }}</span></th>
+                                        <th><span >{{'Shipment ID' | translate }}</span></th>
+                                        <th><span>{{'Current Status' | translate }}</span></th>                                       
                                         <th><span >{{'Tracker' | translate }}</span></th>
                                         <th><span>{{'Profile' | translate }}</span></th>
                                       </tr>
@@ -191,18 +190,22 @@
                                 <tbody>
                                     <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
                                         <td style="text-align: center">{{i +1}}</td>
-                                        <td style="text-align: left">{{subjectinfo.anmId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
-                                        <td style="text-align: center">{{subjectinfo.subjectId}}</td>
-                                        <td style="text-align: center">{{subjectinfo.subjectType}}</td>
+                                        <td style="text-align: left">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.foetusName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.sampleRefId}}</td>
                                         <td class="text-left sname">{{subjectinfo.firstName}}</td>
                                         <td style="text-align: center">{{subjectinfo.rchId}}</td>
                                         <td style="text-align: left">{{subjectinfo.barcode}}</td>
-                                        <td class="text-left sname">{{subjectinfo.dateOfRegister}}</td>
+                                        <td class="text-left sname">{{subjectinfo.shipmentId}}</td>
                                         <td style="text-align: center">{{subjectinfo.ri}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
-                                        <td class="text-left sname">{{subjectinfo.village}}</td>
-                                        <td style="text-align: center">{{subjectinfo.ga}}</td>
+                                        <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                                            <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+                                         </a></td>
+
+                                        <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                            <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
+                                        </td>
                                     </tr>
 
                                 </tbody>
