@@ -9,8 +9,8 @@ import { AppRoutingModule, RoutingComponents } from './app.routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NumberDirective } from './shared/directive/numbers-only.directive';
-import { TextSearchPipe } from './shared/directive/text-search.pipe';
-import { SelectDropdownComponent } from "./shared/directive/select-dropdown/select-dropdown.component";
+//import { TextSearchPipe } from './shared/directive/text-search.pipe';
+
 // import * as $ from "jquery";
 // import * as bootstrap from "bootstrap";
 import { AuthInterceptorServiceService } from './interceptors/auth-interceptor-service';
@@ -21,18 +21,11 @@ import { ConstantService } from './shared/constant.service';
 import { GenericService } from './shared/generic.service';
 import { TestComponent } from './test/test.component';
 import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.component';
-import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
+//import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
 import { AnmCollectionComponent } from './anm-module/anm-collection/anm-collection.component';
 import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component';
 import { DataTablesModule } from 'angular-datatables';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'; 
 //import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
@@ -42,12 +35,12 @@ import { AnmPostMtpFollowupComponent } from './anm-module/anm-post-mtp-followup/
 import { ChcPicknpackComponent } from './chc-module/chc-picknpack/chc-picknpack.component';
 import { ChcShipmentlogComponent } from './chc-module/chc-shipmentlog/chc-shipmentlog.component';
 import { ChcViewShipmentdetailsComponent } from './chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component';
-import { ChcSubjectProfileComponent } from './chc-module/chc-subject-profile/chc-subject-profile.component';
-import { ChcDamagedSamplesComponent } from './chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component';
-import { ChcUnsentSamplesComponent } from './chc-module/chc-notification/chc-unsent-samples/chc-unsent-samples.component';
-import { ChcTimeoutSamplesComponent } from './chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component';
-import { ChcNotificationComponent } from './chc-module/chc-notification/chc-notification/chc-notification.component';
-import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component';
+//import { ChcSubjectProfileComponent } from './chc-module/chc-subject-profile/chc-subject-profile.component';
+//import { ChcDamagedSamplesComponent } from './chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component';
+//import { ChcUnsentSamplesComponent } from './chc-module/chc-notification/chc-unsent-samples/chc-unsent-samples.component';
+//import { ChcTimeoutSamplesComponent } from './chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component';
+//import { ChcNotificationComponent } from './chc-module/chc-notification/chc-notification/chc-notification.component';
+//import { ChcPositiveSubjectComponent } from './chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component';
 import { ChcSamplePickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component';
 import { PageUnderDevelopementComponent} from './page-under-developement/page-under-developement.component';
 import { ChcSampleCollectionComponent } from './chc-module/chc-sample-collection/chc-sample-collection.component';
@@ -61,7 +54,7 @@ import { LoaderService } from './shared/loader/loader.service';
 //import { AboutUsComponent } from './landing-page/about-us/about-us.component';
 //import { AboutProgramComponent } from './landing-page/about-program/about-program.component';
 //import { ImportantLinksComponent } from './landing-page/important-links/important-links.component';
-import { ChcSubjectProfileListComponent } from './chc-module/chc-subject-profile-list/chc-subject-profile-list.component';
+//import { ChcSubjectProfileListComponent } from './chc-module/chc-subject-profile-list/chc-subject-profile-list.component';
 import { AnmSubjectProfileListComponent } from './anm-module/anm-subject-profile-list/anm-subject-profile-list.component';
 //import { PrePndtcMainComponent } from './pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component';
 //import { PrePndtcToBeScheduledComponent } from './pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component';
@@ -149,7 +142,6 @@ import {SharedModule} from './_layout/shared.module';
     RoutingComponents,
     TestComponent,
     AnmShipmentComponent,
-    AnmSubjectProfileComponent,
     AnmCollectionComponent,
     AnmViewShipmentdetailsComponent,
     NumberDirective,
@@ -157,14 +149,6 @@ import {SharedModule} from './_layout/shared.module';
     ChcPicknpackComponent,
     ChcShipmentlogComponent,
     ChcViewShipmentdetailsComponent,
-    ChcSubjectProfileComponent,
-    ChcDamagedSamplesComponent,
-    ChcUnsentSamplesComponent,
-    ChcTimeoutSamplesComponent,               
-    ChcNotificationComponent,
-    ChcPositiveSubjectComponent,
-    SelectDropdownComponent,
-    TextSearchPipe,
     ChcSamplePickpackComponent,
     PageUnderDevelopementComponent,
     ChcSampleCollectionComponent,
@@ -173,7 +157,6 @@ import {SharedModule} from './_layout/shared.module';
     ChcPendingPickpackComponent,
     ChcStartPickpackComponent,
     AppPasswordDirective,
-    ChcSubjectProfileListComponent,
     AnmSubjectProfileListComponent,
     StatereportListComponent,
     UpdateDetailTestresultsComponent,
@@ -233,13 +216,6 @@ import {SharedModule} from './_layout/shared.module';
     NgbModule,
     DataTablesModule,
     BrowserAnimationsModule,
-    MatStepperModule,
-    MatInputModule,
-    MatButtonModule,
-    MatAutocompleteModule,
-    MatIconModule,
-    MatCardModule,
-    MatSliderModule,
     ReactiveFormsModule,
     Ng2FlatpickrModule,
     NgMultiSelectDropDownModule.forRoot(),

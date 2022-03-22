@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { DataService } from '../../../shared/data.service';
 import { Subscription } from 'rxjs';
 import { Router, RoutesRecognized } from '@angular/router';
