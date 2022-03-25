@@ -5,12 +5,20 @@
     </tr>
 
   </table>
+
+  
 <input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 <button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
 <button class="btn btn-primary"  style="padding: 10px 30px;margin:20px;" (click)="downloadMyFile();">Download Template</button>
 
-
+<div class="step-nav-container">
+  <ul class="step-menu">
+    <li role="button" [ngClass]="{'step-complete':uploadComplete}">Upload </li>
+    <li role="button" [ngClass]="{'step-error':dataValidationError,'step-complete':dataValidationComplete}">Validation  </li>
+    <li role="button" [ngClass]="{'step-complete':dataCreatedDone}">Data Created</li>
+  </ul>
+</div>
 
 <div *ngIf = "showValidationError">
 <div class="col-md-12">
@@ -70,8 +78,9 @@
 </div>
 
 
-<div class="table-responsive mt-5" *ngIf = "showValidationError">
-  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions">
+<div class="table-responsive mt-5" *ngIf  = "showValidationError">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable
+  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead>
       <tr>
         <th><span>{{'SNo' | translate }}</span></th>
@@ -83,7 +92,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let subjectinfo of validateData|tableFilter : maintabSelected ; index as i">
+        <tr *ngFor="let subjectinfo of validateData ; index as i">
 
           <td style="text-align: center">{{i +1}}</td>
           <td style="text-align: center">{{subjectinfo.errorColumnNo}}</td>
