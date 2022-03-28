@@ -128,6 +128,7 @@ import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/c
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
 import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterPipe';
+import { PndtLocationComponent } from './admin/pndt-location/pndt-location.component';
 
 
 
@@ -153,6 +154,7 @@ import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterP
     NumberDirective,
     AnmPostMtpFollowupComponent,
     ChcPicknpackComponent,
+    PndtLocationComponent,
     ChcShipmentlogComponent,
     ChcViewShipmentdetailsComponent,
     ChcSubjectProfileComponent,

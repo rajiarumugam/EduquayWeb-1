@@ -1,0 +1,266 @@
+
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="admin" subMenum="sample-collection"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="row layout-top-spacing">
+            <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        <div class="float-left mb-4">
+                            <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-district']" role="button"
+                            ngbTooltip="District" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                          </div>
+                    </div>
+                    <!-- <h5 class="float-left">Sample Collection</h5> -->
+                    <div class="col-md-4">
+                      <div class="headertit">
+                        <h5 class="float-center">{{'HPLC' | translate }}</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="float-right mb-4">
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-chc']" role="button"
+                        ngbTooltip="CHC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div *ngIf="HPLClistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': HPLClistErrorMessage ==='No sample data  found', 'alert-danger': HPLClistErrorMessage !== 'No sample data  found'}">
+                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{HPLClistErrorMessage}}
+                            </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-12">
+                            <a class="float-right mr-5" (click)="openAddHPLC(addHPLCDetail)"
+                            role="button">
+                                <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                      </div>
+                      <div class="table-responsive mb-4">
+                        <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                          <thead>
+                            <tr>
+                              <th><span>{{'SNo' | translate }}</span></th>
+                              <th><span>{{'HPLC Name' | translate }}</span></th>
+                              <th><span>{{'HPLC Code' | translate }}</span></th>
+                              <th><span>{{'District Name' | translate }}</span></th>
+                              <th><span>{{'Comments' | translate }}</span></th>
+                              <th><span>{{'Active' | translate }}</span></th>
+                              <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let sample of HPLClists; index as i">
+                              <td class="sno text-center">{{i +1}}</td>
+                              <td class="sname text-left">{{sample.hplcName}}</td>
+                              <td class="sid text-center">{{sample.hplcCode}}</td>
+                              <td class="sid text-center">{{sample.districtname}}</td>
+                              <td class="number text-center">{{sample.comments}}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+            
+                              <td class="text-center">
+                                <a class="" (click)="openEditHPLC(editHPLCDetail, sample)"
+                                role="button">
+                                    <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                                  </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+
+                    <!-- The Modal -->
+                    <ng-template #addHPLCDetail let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title modaltitle">{{'Add HPLC' | translate }}</h4>
+                            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                              </svg>
+                            </button>
+                          </div>
+                          <div class="modal-body form-body">
+                            <form class="text-left" (ngSubmit)="addHPLCForm.form.valid && onSubmit(addHPLCForm)" #addHPLCForm="ngForm" novalidate>
+                              <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                                <div class="form-row">
+                                  <div class="form-group col-md-3">
+
+                                        <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addHPLCForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                                            class="manto"> *</span></label>
+                                            <select id="inputilrPoint" class="form-control"
+                                            name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addHPLCForm.submitted && ddlDistrict.invalid"
+                                            required [(ngModel)]="selectedDistrict">
+                                                <option value="">Select</option>
+                                                <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                                    {{districtdata.name}}
+                                                </option>
+                                            </select>
+                                              <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
+                                              <div *ngIf="addHPLCForm.submitted && ddlDistrict.invalid">
+                                                <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                              </div>
+
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label class="note" [ngClass]="{'label-border-class':!hplcName.valid && hplcName.touched || addHPLCForm.submitted && hplcName.invalid}">{{'HPLC Name' | translate }} <span class="manto">*</span></label>
+                                    <input class="form-control" name="hplcName" type="text" placeholder="HPLC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                    [class.is-invalid]="!hplcName.valid && hplcName.touched || addHPLCForm.submitted && hplcName.invalid"
+                                     #hplcName="ngModel" required>
+                                    <small class="text-danger ml-2" *ngIf="!hplcName.valid && hplcName.touched ">Enter HPLC Name</small>
+                                    <div *ngIf="addHPLCForm.submitted && hplcName.invalid">
+                                      <small *ngIf="hplcName.untouched" class=" ml-2 text-danger">HPLC Name is required</small>
+                                    </div>
+                              </div>
+             
+                                  <div class="form-group col-md-3">
+                                    <label class="note">{{'HPLC Code' | translate }}<span class="manto"> *</span></label>
+                                    <input class="form-control" name="hplcCode" type="text" placeholder="HPLC Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                                    #hplcCode ="ngModel" [class.is-invalid]="!hplcCode.valid && hplcCode.touched || addHPLCForm.submitted && hplcCode.invalid">
+                                    <small class="text-danger ml-2" *ngIf="!hplcCode.valid && hplcCode.touched ">Enter HPLC Code</small>
+                                    <div *ngIf="addHPLCForm.submitted && hplcCode.invalid">
+                                    <small *ngIf="hplcCode.untouched" class=" ml-2 text-danger">HPLC Code is required</small>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group col-md-3">
+                                    <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                    <div class="n-chk">
+                                        <label class="new-control new-checkbox checkbox-outline-primary">
+                                          <input type="checkbox" class="new-control-input checkbox"
+                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
+                                          <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                        </label>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-row mt-4">
+                                  <div class="form-group col-md-12">
+                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                     rows="2"
+                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                                <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                                <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                              </div>
+                            </form>
+                          </div>
+
+                       </ng-template>
+
+                       <ng-template #editHPLCDetail let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title modaltitle">{{'Edit HPLC' | translate }}</h4>
+                          <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="modal-body form-body">
+                          <form class="text-left" (ngSubmit)="editHPLCForm.form.valid && editSubmit(editHPLCForm)" #editHPLCForm="ngForm" novalidate>
+                            <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                              <div class="form-row">
+                          
+                                <div class="form-group col-md-3">
+                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span> *</label>
+                                    <select id="inputilrPoint" class="form-control"
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict"  >
+                                        <option value="">Select</option>
+                                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                            {{districtdata.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'HPLC Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="edithplcName" type="text" placeholder="HPLC Name"
+                                  #edithplcName1="ngModel"  required [(ngModel)]="HPLCnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                  <small class="text-danger ml-2" *ngIf="!edithplcName1.valid && edithplcName1.touched ">Enter HPLC Name</small>  
+                            </div>
+                                
+                                
+
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'HPLC Code' | translate }}<span class="manto"></span> *</label>
+                                  <input class="form-control" name="edithplcCode" type="text" placeholder="HPLC Code" ngModel pattern="^[a-zA-Z0-9]+$"
+                                  #edithplcCode="ngModel" [(ngModel)]="hplcCodedata" disabled="editDistrictCode" >
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                  <div class="n-chk">
+                                      <label class="new-control new-checkbox checkbox-outline-primary">
+                                        <input type="checkbox" class="new-control-input checkbox"
+                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
+                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                      </label>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="form-row mt-4">
+                                <div class="form-group col-md-12">
+                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
+                                   rows="2" [(ngModel)]="commentsdata"
+                                  placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="modal-footer">
+                              <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                              <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                              <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                            </div>
+                          </form>
+
+                        </div>
+
+                     </ng-template>
+                </div>
+                <!--  END CONTENT AREA  -->
+            </div>
+            <!-- END MAIN CONTAINER -->
+        </div>
+
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+<!--  END MAIN CONTAINER  -->

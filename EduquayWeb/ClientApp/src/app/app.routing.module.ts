@@ -45,7 +45,7 @@ import { ShipmentlogResolverService } from "./shared/anm-module/shipmentlog/ship
 import { PicknpackResolverService } from "./shared/anm-module/picnpack/picknpack-resolver.service";
 import { DamagedSamplesResolverService } from "./shared/anm-module/notifications/damaged-samples/damaged-samples-resolver.service";
 import { CounsellorMtpreportListComponent } from "./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.component";
-
+import { HPLCComponent } from "./admin/hplc/hplc.component";
 import { CheSubjectRegistrationComponent } from './chc-module/registration/chc-subject-registration/chc-subject-registration.component'
 import { BlockSubjectRegistrationComponent } from './chc-module/registration/block-subject-registration/block-subject-registration.component';
 import { WalkinRegistrationComponent } from './chc-module/registration/walkin-registration/walkin-registration.component';
@@ -253,7 +253,7 @@ import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-pro
 import { ViewCLReportComponent } from "./central-lab/view-report-sample/cl-view-report-sample/cl-view-report-sample.component";
 import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/cl-view-report-sample-main/cl-view-report-sample-main.component";
 import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
-
+ import { MTPComponent } from "./admin/mtp/mtp.component";
 import { CentralNotificationMainComponent } from "./central-lab/central-notification/central-notification-main/central-notification-main.component";
 import { StateComponent } from "./admin/state/state.component";
 import { DistrictComponent } from "./admin/district/district.component";
@@ -378,6 +378,10 @@ import { HEMreportListComponent1 } from "./Haematologist/anm-report-list1/haemat
 import { DeactivateanmComponent } from "./errorcorrection/deactivate-anm/deactivate-anm/deactivate-anm.component";
 import { DeactivateanmMainComponent } from "./errorcorrection/deactivate-anm/deactivate-anm-main/deactivate-anm-main.component";
 import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
+import { PndtLocationComponent } from "./admin/pndt-location/pndt-location.component";
+import { MolecularlabComponent } from "./admin/molecularlab/molecularlab.component";
+
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -523,6 +527,10 @@ const routes: Routes = [
       { path: 'add-sc', component: ScComponent, pathMatch: 'full'},
 
       { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
+      { path: 'add-pndt', component: PndtLocationComponent, pathMatch: 'full'},
+      { path: 'add-mtp', component: MTPComponent, pathMatch: 'full'},
+      { path: 'add-hplc', component: HPLCComponent, pathMatch: 'full'},
+      { path: 'add-molecular', component: MolecularlabComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
       { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
 
@@ -1129,6 +1137,7 @@ export const RoutingComponents = [
   ChcShipmentlogComponent,
   ChcViewShipmentdetailsComponent,
   AssociatedANMComponent,
+  MolecularlabComponent,
   ChcDamagedSamplesComponent,
   ChcNotificationComponent,
   ChcUnsentSamplesComponent,
@@ -1229,7 +1238,8 @@ export const RoutingComponents = [
   DiagosisReportComponent1,
   GetOtpComponent,
   ChcSubjectProfileComponent,
-
+  HPLCComponent,
+  MTPComponent,
   AnmChcSubjectProfileComponent,
   PathoreportSampleStatusComponent,
   PathoreportSampleStatusMainComponent,
@@ -1251,6 +1261,8 @@ export const RoutingComponents = [
   ScComponent,
   RiPointComponent,
   GvtIdTypeComponent,
+  PndtLocationComponent,
+  MTPComponent,
   NHMreportListComponent,
   UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
@@ -1343,7 +1355,8 @@ export const RoutingComponents = [
   MolecularCVSReport,
   HEMreportListComponent1,
   DeactivateanmComponent,
-  DeactivateanmMainComponent
+  DeactivateanmMainComponent,
+  
 
 ];
 

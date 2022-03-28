@@ -6,8 +6,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { AddDistrictRequest } from 'src/app/shared/admin/add-district/add-district-request';
-import { AddDistrictDataresponse, AddDistrictResponse, DistrictList } from 'src/app/shared/admin/add-district/add-district-response';
-import { AddDistrictService } from 'src/app/shared/admin/add-district/add-district.service';
+
+import { PndtList } from 'src/app/shared/admin/add-pndtlocation/add-pndtlocation-response';
+import { AddPNDTService } from 'src/app/shared/admin/add-pndtlocation/add-pndtlocation.service';
 import { StateList, StateResponse } from 'src/app/shared/admin/state/state-response';
 
 import { user } from 'src/app/shared/auth-response';
@@ -18,11 +19,11 @@ import Swal from 'sweetalert2';
 
 
 @Component({
-  selector: 'app-district',
-  templateUrl: './district.component.html',
-  styleUrls: ['./district.component.css']
+  selector: 'app-pndt-location',
+  templateUrl: './pndt-location.component.html',
+  styleUrls: ['./pndt-location.component.css']
 })
-export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
+export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
@@ -32,34 +33,34 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
 
-    districtlistErrorMessage: string;
+    pndtlistErrorMessage: string;
     user: user;
     confirmationSelected: boolean ;
-    districtListResponse;
-    districtlists: DistrictList[];
-    addDistrictRequest: AddDistrictRequest;
-    addDistrictResponse;
-    stateListResponse: StateResponse;
+    pndtListResponse;
+    pndtlists: PndtList[];
+    addpndtRequest: AddDistrictRequest;
+    addPNDTResponse
     statelists: StateList[];
     selectedState: string;
     getstate: string;
     selectedEditState: string;
-    districtGovCode: string;
+    pndtCode: string;
     stateName: string;
-    districtName: string;
+    pndtlocationName: string;
     isActive: string;
+    
     comments: string;
     createdBy: number;
     updatedBy: number;
     stateCode: string;
     statetnamedata: string;
-    districtcodedata: string;
-    districtnamedata: string;
+    pndtcodedata: string;
+    pndtlocationNamedata: string;
     commentsdata: string;1
-    selectedDistrictData;
+    selectedPNDTData;
 
     constructor(
-      private DistrictService: AddDistrictService,
+      private PNDTService: AddPNDTService,
       private modalService: NgbModal,
       private httpService: HttpClient,
       private _formBuilder: FormBuilder,
@@ -80,7 +81,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
         language: {
-          search: '<div><span class="note">Search by any District information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any PNDT information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -92,61 +93,47 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirveDistrictlist();
+      this.retrievePNDTlist();
+      this.rerender();
     }
 
-    retrirveDistrictlist(){
+    retrievePNDTlist(){
+      console.log("testing")
       this.loaderService.display(true);
-      this.districtlists = [];
-      this.districtlistErrorMessage ='';
-      let samplesList = this.DistrictService.getDistrictList()
+      this.pndtlists = [];
+      this.pndtlistErrorMessage ='';
+      let samplesList = this.PNDTService.getallPNDTList()
       .subscribe(response => {
-        this.districtListResponse = response;
+        this.pndtListResponse = response;
         this.loaderService.display(false);
-        if(this.districtListResponse !== null && this.districtListResponse.status === "true"){
-          if(this.districtListResponse.data.length <= 0){
-            this.districtlistErrorMessage = response.message;
+        if(this.pndtListResponse !== null && this.pndtListResponse.status === "true"){
+          if(this.pndtListResponse.data.length <= 0){
+            this.pndtlistErrorMessage = response.message;
           }
           else{
-            this.districtlists = this.districtListResponse.data;
-            this.districtlists.forEach(element => {
-              this.getstate = element.stateId;
-            });
-            this.rerender();
+            this.pndtlists = this.pndtListResponse.data;
+           
+            
+            
           }
         }
         else{
-          this.districtlistErrorMessage = response.message;
+          this.pndtlistErrorMessage = response.message;
         }
       },
       (err: HttpErrorResponse) => {
         if (this.loadDataTable) this.rerender();
-        this.districtlistErrorMessage = err.toString();
+        this.pndtlistErrorMessage = err.toString();
       });
     }
 
-    ddlState() {
-      let district = this.DistrictService.getStateList().subscribe(response => {
-        this.stateListResponse = response;
-        if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
-          this.statelists = this.stateListResponse.data;
-          this.selectedState = "";
-        }
-        else {
-          this.districtlistErrorMessage = response.message;
-        }
-      },
-        (err: HttpErrorResponse) => {
-          this.districtlistErrorMessage = err.toString();
+    
 
-        });
-    }
+    openAddPNDT(addPNDTDetail) {
 
-    openAddDistrict(addDistrictDetail) {
-
-      this.ddlState();
+     
       this.modalService.open(
-        addDistrictDetail, {
+        addPNDTDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -157,19 +144,19 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
 
     }
 
-    openEditDistrict(editDistrictDetail, sample) {
+    openEditPNDT(editPNDTDetail, sample) {
 
       console.log(sample);
-      this.ddlState();
-      this.selectedDistrictData = sample;
-      this.districtnamedata = sample.name;
-      this.districtcodedata = sample.districtGovCode;
-      this.selectedEditState = sample.stateId;
+     
+      this.selectedPNDTData = sample;
+      this.pndtlocationNamedata = sample.pndtlocationName;
+      this.pndtcodedata = sample.pndtCode;
+    
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
       this.modalService.open(
-        editDistrictDetail, {
+        editPNDTDetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -180,76 +167,74 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
 
     }
 
-    onSubmit(addDistrictForm: NgForm){
+    onSubmit(addPndtForm: NgForm){
 
-      console.log(addDistrictForm.value);
-      this.stateName = addDistrictForm.value.statename;
-      this.districtGovCode = addDistrictForm.value.districtCode;
-      this.districtName = addDistrictForm.value.districtname;
-      this.comments = addDistrictForm.value.Comments;
-      this.selectedState = addDistrictForm.value.ddlState;
+      console.log(addPndtForm.value);
+      this.pndtCode = addPndtForm.value.pndtCode;
+      this.pndtlocationName = addPndtForm.value.pndtlocationName;
+      this.comments = addPndtForm.value.Comments;
+     
 
       var _obj = {
-        districtGovCode: this.districtGovCode,
-        name: this.districtName,
-        stateId: +(this.selectedState),
+        pndtCode: this.pndtCode,
+        pndtlocationName: this.pndtlocationName,
         comments: this.comments,
-        userId: this.user.id
+        userId: this.user.id+"",
+        isactive:this.confirmationSelected+""
       };
 
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
 
-      let damagedsampleCollection = this.DistrictService.addDistrict(_obj)
+      let damagedsampleCollection = this.PNDTService.addpndt(_obj)
       .subscribe(response => {
-        this.addDistrictResponse = response;
-        if(this.addDistrictResponse !== null && this.addDistrictResponse.status === "true"){
-          this.showResponseMessage(this.addDistrictResponse.message, 's')
-           this.retrirveDistrictlist();
+        this.addPNDTResponse = response;
+        if(this.addPNDTResponse !== null && this.addPNDTResponse.status === "true"){
+          this.showResponseMessage(this.addPNDTResponse.message, 's')
+           this.retrievePNDTlist();
         }else{
-          this.showResponseMessage(this.addDistrictResponse.message, 'e');
-                  this.districtlistErrorMessage = response['message'];
+          this.showResponseMessage(this.addPNDTResponse.message, 'e');
+                  this.pndtlistErrorMessage = response['message'];
         }
 
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
-        this.districtlistErrorMessage = err.toString();
+        this.pndtlistErrorMessage = err.toString();
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
 
-    editSubmit(editDistrictForm: NgForm){
+    editSubmit(editPNDTForm: NgForm){
       var _obj = {
-        id:this.selectedDistrictData.id,
-        districtGovCode: this.districtcodedata,
-        name: this.districtnamedata,
-        stateId: this.selectedEditState,
-        isActive: this.confirmationSelected,
+        id:this.selectedPNDTData.id,
+        pndtCode: this.pndtcodedata,
+        pndtlocationName: this.pndtlocationNamedata,       
+        isActive: this.confirmationSelected+"",
         comments: this.commentsdata,
-        userId: this.user.id,
+        userId: this.user.id+"",
       };
 
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;
 
-      let damagedsampleCollection = this.DistrictService.updateDistrict(_obj)
+      let damagedsampleCollection = this.PNDTService.updatePNDT(_obj)
       .subscribe(response => {
-        this.addDistrictResponse = response;
-        if(this.addDistrictResponse !== null && this.addDistrictResponse.status === "true"){
-          this.showResponseMessage(this.addDistrictResponse.message, 's')
-           this.retrirveDistrictlist();
+        this.addPNDTResponse = response;
+        if(this.addPNDTResponse !== null && this.addPNDTResponse.status === "true"){
+          this.showResponseMessage(this.addPNDTResponse.message, 's')
+           this.retrievePNDTlist();
         }else{
-          this.showResponseMessage(this.addDistrictResponse.message, 'e');
-                  this.districtlistErrorMessage = response.string;
+          this.showResponseMessage(this.addPNDTResponse.message, 'e');
+                  this.pndtlistErrorMessage = response.string;
         }
 
       },
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
-        this.districtlistErrorMessage = err.toString();
+        this.pndtlistErrorMessage = err.toString();
       });
       //swal ("Here's the title!", "...and here's the text!");
     }
