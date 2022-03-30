@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
 import { ExcelService } from 'src/app/shared/excel.service';
+import { uploadSharedService } from './../../uploadshared.service';
 
 @Component({
   selector: 'app-sa-upload-main',
@@ -15,11 +16,27 @@ export class UploadSAMainComponent implements OnInit {
   startPickCount = 0;
   subscription: Subscription;
   currentPage = "";
-  constructor(private DataService:DataService,private router: Router,private excelService:ExcelService) { }
+  buttonClickedSubscription: Subscription;
+  allowDataCreation = true;
+  constructor(private DataService:DataService,private router: Router,private excelService:ExcelService,private uploadSharedService: uploadSharedService) { }
 
   ngOnInit() {
 
     //this.dataservice.sendData(JSON.stringify({"module": "Central Lab", "page": "Pick & Pack"}));
+
+    this.buttonClickedSubscription = this.uploadSharedService.getButtonClicked().subscribe((event:any) => {
+      if(event.screen) {
+        this.currentPage = event.screen;
+        console.log(this.currentPage)
+      }
+       
+      if(event.allowDataCreation) {
+        this.allowDataCreation = false;
+      }else {
+        this.allowDataCreation = true;
+      }
+      console.log(event)
+    });
 
     this.router.events
     .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
@@ -40,14 +57,35 @@ export class UploadSAMainComponent implements OnInit {
           this.startPickCount = JSON.parse(x).startpickCount;
       }
     });
-    this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
+    //this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
   }
 
   receivedSamples(event)
   {
     console.log(event);
   }
-
+  stageChange(event) {
+    console.log(event);
+  }
+  uploadFile() {
+    this.uploadSharedService.emitChange("upload");
+  }
+  validationFile() {
+    this.uploadSharedService.emitChange("validation");
+  }
+  datacreationFile() {
+    this.uploadSharedService.emitChange("datacreation");
+  }
+  downloadMyFile(){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'http://tands.eduquay.com/assets/assets/img/menu/TSCOD Master Data Template - New.xlsx');
+    link.setAttribute('download', `TSCOD Master Data Template - New.xlsx`);
+    document.body.appendChild(link)
+;
+    link.click();
+    link.remove();
+}
   
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

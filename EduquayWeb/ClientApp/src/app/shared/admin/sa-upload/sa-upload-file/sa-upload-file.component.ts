@@ -1,6 +1,6 @@
-import { Component, OnInit, Pipe, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Pipe, NgZone, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 declare var $: any
 import {Injectable} from '@angular/core';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { TokenService } from './../../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { ExcelService } from 'src/app/shared/excel.service';
+import { uploadSharedService } from './../../uploadshared.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -28,6 +29,7 @@ export class SAUploadComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('inputFile', {static: false}) myInputVariable: ElementRef;
+  @Output() onStageChange: EventEmitter<any> = new EventEmitter<any>();
   dtTrigger: Subject<any> = new Subject();
   errorMessage: string;
   ErrorCount;
@@ -70,7 +72,7 @@ export class SAUploadComponent implements OnInit {
   showValidationError = false;
 
   baseErrorData = [];
-
+  currentPage = "upload";
   name = 'Angular';
   fileToUpload: any;
   imageUrl: any;
@@ -90,18 +92,33 @@ export class SAUploadComponent implements OnInit {
     private loaderService: LoaderService,
     private excelService:ExcelService,
     private UsersService:ExcelService,
+    private router: Router,
+    private uploadSharedService: uploadSharedService
 
     ) { }
 
 
   ngOnInit() {
-
+    this.onStageChange.emit('upload');
+    this.uploadSharedService.buttonClicked.next({'screen':'upload'});
+    this.currentPage = "upload";
     var today1 = new Date();
-var dd = String(today1.getDate()).padStart(2, '0');
-var mm = String(today1.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today1.getFullYear();
+    var dd = String(today1.getDate()).padStart(2, '0');
+    var mm = String(today1.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today1.getFullYear();
 
-var today = mm + '/' + dd + '/' + yyyy;
+    var today = mm + '/' + dd + '/' + yyyy;
+
+    this.uploadSharedService.changeEmitted$.subscribe(text => {
+      console.log(text);
+      this.currentPage = text;
+      if(text === 'upload') {
+        this.showValidationError = false;
+        this.validateData = [];
+        this.baseErrorData = [];
+      }
+    });
+
 this.dtOptions = {
   pagingType: 'simple_numbers',
   retrieve: true,
@@ -145,9 +162,10 @@ this.dtOptions = {
     var _fileList = file.item(0).name.split('.');
     this.SheetName=file.item(0).name;
     this.SheetName=this.SheetName.concat("    ","Sheet 1")
-
+    
     if(_fileList[_fileList.length-1] === 'csv' || _fileList[_fileList.length-1] === 'xlsx' || _fileList[_fileList.length-1] === 'xls')
     {
+      this._imageArray = [];
       this._imageArray.push(file.item(0));
       this.myInputVariable.nativeElement.value = '';
       //Show image preview
@@ -190,7 +208,7 @@ this.dtOptions = {
 
   uploadFiles()
   {
-    this.showValidationError = true;
+    
     var _obj = {};
     const frmData = new FormData();
     for (var i = 0; i < this._imageArray.length; i++) {
@@ -213,7 +231,6 @@ this.dtOptions = {
           //this.resetData();
           this.maintabSelected=7;
           this.deleteFile(1);
-          
         }
       });
 
@@ -227,6 +244,11 @@ this.dtOptions = {
   }
   validateBulkUpload()
   {
+    //this.router.navigate(['/app/saupload/validation']);
+    //this.onStageChange.emit('validation');
+
+    this.uploadSharedService.buttonClicked.next({'screen':'validation'});
+    this.currentPage = "validation";
     this.errorCorrectionService.validateuploadSAFiles()
     .subscribe(response => {
       this.validateData = response.data;
@@ -254,7 +276,7 @@ this.dtOptions = {
       }
       else{
          this.maintabSelected=1;
-
+         this.showValidationError = true;
          this.dataValidationComplete = false;
         this.dataValidationError = true;
          this.resetData();
@@ -278,6 +300,7 @@ this.dtOptions = {
           this.showValidationError = true;
           setTimeout(() => {
             this.custumTabClick(1,1);
+            this.uploadSharedService.buttonClicked.next({'allowDataCreation':'false'});
           }, 1);
          
       }
@@ -298,8 +321,11 @@ this.dtOptions = {
 
   createBulkUpload()
   {
+    this.uploadSharedService.buttonClicked.next({'screen':'datacreation'});
+    this.currentPage = "datacreation";
     this.errorCorrectionService.createuploadSAFiles()
     .subscribe(response => {
+     
       Swal.fire({icon:'success', title:'Data uploaded successfully to the main database. Kindly check the TSCOD Admin module.', confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
@@ -368,7 +394,7 @@ this.dtOptions = {
   resetData()
   {
     this._imageArray = [];
-    this.myInputVariable.nativeElement.value = '';
+    //this.myInputVariable.nativeElement.value = '';
   }
   deleteFile(i)
   {
