@@ -750,9 +750,9 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'molecular-report', component: ReportSampleStatusMainComponent,
+        path: 'molecular-report', component: ReportSampleStatusComponent,
         children:[
-          {path: '', component: ReportSampleStatusComponent, pathMatch: 'full', resolve: {mlReport: MolucularLabReportResolverService}}
+          {path: '', component:ReportSampleStatusComponent, pathMatch: 'full'}
         ]
       },{
         path: 'update-molecular-result', component: UpdateMolResultMainComponent,

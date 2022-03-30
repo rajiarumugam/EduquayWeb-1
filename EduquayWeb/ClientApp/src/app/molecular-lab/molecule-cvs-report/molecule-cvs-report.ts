@@ -455,58 +455,18 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
         {
           this.anmSubjectBadgeProfileListCount(1,1,1);
           this.anmSubjectBadgeProfileListCount(1,1,2);
-          this.anmSubjectBadgeProfileListCount(1,1,3);
+         
         }
         if(maintab === 2)
         {
-          this.anmSubjectBadgeProfileListCount(1,2,1);
-          this.anmSubjectBadgeProfileListCount(1,2,2);
           this.anmSubjectBadgeProfileListCount(1,2,3);
           this.anmSubjectBadgeProfileListCount(1,2,4);
           this.anmSubjectBadgeProfileListCount(1,2,5);
           this.anmSubjectBadgeProfileListCount(1,2,6);
+          this.anmSubjectBadgeProfileListCount(1,2,7);
+          this.anmSubjectBadgeProfileListCount(1,2,8);
         }
-        if(maintab === 3)
-        {
-          this.anmSubjectBadgeProfileListCount(1,3,1);
-          this.anmSubjectBadgeProfileListCount(1,3,2);
-          this.anmSubjectBadgeProfileListCount(1,3,3);
-
-        }
-        if(maintab === 4)
-        {
-          this.anmSubjectBadgeProfileListCount(1,4,1);
-          this.anmSubjectBadgeProfileListCount(1,4,2);
-        }
-        if(maintab === 5)
-        {
-          this.anmSubjectBadgeProfileListCount(1,5,1);
-          this.anmSubjectBadgeProfileListCount(1,5,2);
-          this.anmSubjectBadgeProfileListCount(1,5,3);
-          this.anmSubjectBadgeProfileListCount(1,5,4);
-        }
-        if(maintab === 6)
-        {
-          this.anmSubjectBadgeProfileListCount(1,6,1);
-          this.anmSubjectBadgeProfileListCount(1,6,2);
-          this.anmSubjectBadgeProfileListCount(1,6,3);
-          this.anmSubjectBadgeProfileListCount(1,6,4);
-          this.anmSubjectBadgeProfileListCount(1,6,5);
-        }
-        if(maintab === 7)
-        {
-          this.anmSubjectBadgeProfileListCount(1,7,1);
-          this.anmSubjectBadgeProfileListCount(1,7,2);
-          this.anmSubjectBadgeProfileListCount(1,7,3);
-          this.anmSubjectBadgeProfileListCount(1,7,4);
-        }
-        if(maintab === 8)
-        {
-          this.anmSubjectBadgeProfileListCount(1,8,1);
-          this.anmSubjectBadgeProfileListCount(1,8,2);
-
-        }
-
+       
 
   }
 
@@ -566,85 +526,24 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
 
             if(subtab === 2)
                   this.chcsampledCount = response['data'].length;
-            if(subtab === 3)
-                  this.chcnotsampledount = response['data'].length;
+         
        }
        if(maintab ===2)
        {
-            if(subtab === 1)
-                  this.chcsCBCResultsCount = response['data'].length;
-            if(subtab === 2)
-                  this.chcCBCPositiveCount = response['data'].length;
             if(subtab === 3)
-                  this.chcCBCNegativeCount = response['data'].length;
+                  this.chcsCBCResultsCount = response['data'].length;
             if(subtab === 4)
-                  this.chcSSTResultCount = response['data'].length;
+                  this.chcCBCPositiveCount = response['data'].length;
             if(subtab === 5)
-                  this.chcSSTPositiveCount = response['data'].length;
+                  this.chcCBCNegativeCount = response['data'].length;
             if(subtab === 6)
+                  this.chcSSTResultCount = response['data'].length;
+            if(subtab === 7)
+                  this.chcSSTPositiveCount = response['data'].length;
+            if(subtab === 8)
                   this.chcSSTNegativeCount = response['data'].length;
        }
-       if(maintab ===3)
-       {
-            if(subtab === 1)
-                  this.HPLCResultCount = response['data'].length;
-            if(subtab === 2)
-                  this.HPLCAbnormalCount = response['data'].length;
-            if(subtab === 3)
-                  this.HPLCNormalCount = response['data'].length;
-       }
-
-       if(maintab ===4)
-       {
-            if(subtab === 1)
-                  this.registeredCount = response['data'].length;
-            if(subtab === 2)
-                  this.notregisteredCount = response['data'].length;
-       }
-
-       if(maintab ===5)
-       {
-            if(subtab === 1)
-                  this.counsellingpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.counselledPNDTAgreedCount = response['data'].length;
-            if(subtab === 3)
-                  this.counselledPNDTDisagreedCount = response['data'].length;
-            if(subtab === 4)
-                  this.counselledPNDTDecisionPendingCount = response['data'].length;
-       }
-       if(maintab ===6)
-       {
-            if(subtab === 1)
-                  this.PNDTpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.PNDTcompletedCount = response['data'].length;
-            if(subtab === 3)
-                  this.PNDTNormalCount = response['data'].length;
-            if(subtab === 4)
-                  this.PNDTAffectedCount = response['data'].length;
-            if(subtab === 5)
-                  this.PNDTcarrierCount = response['data'].length;
-       }
-       if(maintab ===7)
-       {
-            if(subtab === 1)
-                  this.PNDcounsellingpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.PNDcounsellingMTPAgreedCount = response['data'].length;
-            if(subtab === 3)
-                  this.PNDCounselledMTPDisagreedCount = response['data'].length;
-            if(subtab === 4)
-                  this.PNDcounsellingMTPDecisionPendingCount = response['data'].length;
-       }
-       if(maintab ===8)
-       {
-            if(subtab === 1)
-                  this.MTPpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.MTPcompletedCount = response['data'].length;
-
-       }
+       
        this.loaderService.display(false);
       },
         (err: HttpErrorResponse) => {

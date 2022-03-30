@@ -147,7 +147,7 @@
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Damaged Samples' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,3);">
                               <p>{{'Molecualr Lab Result' | translate }}</p>
                               </div>
                       </div>
@@ -163,22 +163,22 @@
 
                         </div>
                         <div class="custm-tab" *ngIf="maintabSelected == 2 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(2,1);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(2,3);">
                                     <p>{{'Pending' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcsCBCResultsCount}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(2,2);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(2,4);">
                                 <p>{{'Completed' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcCBCPositiveCount}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(2,3);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(2,5);">
                                 <p>{{'Heterozygous' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcCBCNegativeCount}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(2,4);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 6 ? true : false}" (click)="custumTabClick(2,6);">
                                 <p>{{'Homozygous' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcSSTResultCount}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(2,5);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 7 ? true : false}" (click)="custumTabClick(2,7);">
                                 <p>{{'Compound Heterozygous' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcSSTPositiveCount}}</span></p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 6 ? true : false}" (click)="custumTabClick(2,6);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 8 ? true : false}" (click)="custumTabClick(2,8);">
                                 <p>{{'Not Identified' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{chcSSTNegativeCount}}</span></p>
                             </div>
                         </div>
@@ -197,13 +197,21 @@
                                     <tr>
                                         <th><span>{{'SNo' | translate }}</span></th>
                                         <th><span>{{'Subject Name' | translate }}</span></th>
-                                        <th><span>{{'Subject ID' | translate }}</span></th>
-                                        <th><span>{{'Barcode' | translate }}</span></th>
+                                        <th><span>{{'Subject ID' | translate }}</span></th>                                      
                                         <th><span>{{'RCH' | translate }}</span></th>
-                                        <th><span>{{'Central Lab Shipped Date' | translate }}</span></th>
-                                        <th><span>{{'LT Recd DT/TM' | translate }}</span></th>
-                                        <th><span>{{'Sample' | translate }}</span></th>
-                                        <th><span >{{'Processed/Unprocessed' | translate }}</span></th>
+                                        <th><span>{{'Gestational Age' | translate }}</span></th>   
+                                        <th><span>{{'HPLC Results' | translate }}</span></th>
+                                        <th><span>{{'Foetus Name' | translate }}</span></th>
+                                        <th><span>{{'Sample Ref ID' | translate }}</span></th>
+                                        <th><span>{{'CVS Specimen Ref ID' | translate }}</span></th>
+                                        <th><span>{{'PNDTC Shipped Date' | translate }}</span></th>   
+                                        <th><span>{{'NC Recvd DT/Tm' | translate }}</span></th>  
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span>{{'Test Status ' | translate }}</span></th>  
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span >{{'Zygosity' | translate }}</span></th>     
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span >{{'Mutation' | translate }}</span></th>  
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span >{{'Mol Test Result' | translate }}</span></th>      
+                                        <th><span>{{'Sample Processed/Unprocessed' | translate }}</span></th>  
+                                        <th><span>{{'Tracker' | translate }}</span></th>                                   
                                         <th><span >{{'Profile' | translate }}</span></th>                                                                        
                                       </tr>
 
@@ -219,7 +227,17 @@
                                         <td style="text-align: center">{{subjectinfo.rchId}}</td>
                                         <td style="text-align: left">{{subjectinfo.barcode}}</td>
                                         <td class="text-left sname">{{subjectinfo.dateOfRegister}}</td>
-
+                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.rchId}}</td> 
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span>{{'subjectinfo.rchId ' | translate }}</span></th>  
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span >{{'subjectinfo.rchId' | translate }}</span></th>     
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span >{{'subjectinfo.rchId' | translate }}</span></th>  
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1 || mainsubtabSelected == 2}"><span >{{'subjectinfo.rchId' | translate }}</span></th> 
+                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
+                                        <td class="text-left sname">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.rchId}}</td>
                                         <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
                                             <i class="fa fa-user text-primary" aria-hidden="true"></i></a>
                                         </td>

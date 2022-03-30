@@ -23,12 +23,9 @@
   <div class="col-xl-12 col-lg-12 col-sm-12  pt-4">
   <div class="form-row">
     <div class="custm-tab">
-      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);">
+      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);" >
         <p >{{'All Errors' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub1}}</span></p>
-      </div>
-      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
-        <p>{{'District' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
-  </div>
+      </div>      
   <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
     <p>{{'Block' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub1}}</span></p>
 </div>
@@ -44,7 +41,9 @@
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
   <p>{{'ANM' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub1}}</span></p>
 </div>
-
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);" >
+  <p>{{'District' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
+</div>
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);">
   <p>{{'Testing CHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub1}}</span></p>
 </div>
@@ -83,7 +82,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let subjectinfo of validateData|tableFilter : maintabSelected ; index as i">
+        <tr *ngFor="let subjectinfo of TempErrorList ; index as i">
 
           <td style="text-align: center">{{i +1}}</td>
           <td style="text-align: center">{{subjectinfo.errorColumnNo}}</td>

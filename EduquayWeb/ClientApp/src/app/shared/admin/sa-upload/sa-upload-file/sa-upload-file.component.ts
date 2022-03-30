@@ -26,6 +26,7 @@ import * as XLSX from 'xlsx';
 
 export class SAUploadComponent implements OnInit {
 
+  dtTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('inputFile', {static: false}) myInputVariable: ElementRef;
   errorMessage: string;
@@ -34,6 +35,7 @@ path:any;
   errorSpouseMessage: string;
   curDate=new Date();
   SheetName:string;
+  TempErrorList;
   centralReceiptsData: any[] = [];
   popupData:any;
   processingDate;
@@ -137,7 +139,74 @@ var today = mm + '/' + dd + '/' + yyyy;
   }
 
 
+  anmSubjectProfileList(id,maintab,subtab)
 
+  {
+    this.TempErrorList=[];
+    if(maintab==1)
+    {
+     
+     this. TempErrorList =  this.validateData.filter(item => item.errorColumn ==item.errorColumn)  ;
+  
+    }
+    else  if(maintab==2){
+  
+        this. TempErrorList =  this.validateData.filter(item => item.errorColumn =='E'|| item.errorColumn =='D'  || item.errorColumn=='E&D')  ;
+  
+    }
+    else  if(maintab==3){
+  
+        this. TempErrorList = this.validateData.filter(item => item.errorColumn =='F'||item.errorColumn =='G' || item.errorColumn=='F&G' )  ;
+  
+    }
+    else  if(maintab==4){
+  
+        this. TempErrorList = this.validateData.filter(item => item.errorColumn =='H'|| item.errorColumn =='I' || item.errorColumn=='H&I')  ;
+  
+    }
+    else  if(maintab==5){
+  
+        this. TempErrorList =  this.validateData.filter(item => item.errorColumn =='J' || item.errorColumn =='K' || item.errorColumn=='J&K')  ;
+  
+    }
+    else  if(maintab==6){
+  
+        this. TempErrorList =  this.validateData.filter(item => item.errorColumn =='O' || item.errorColumn =='P' || item.errorColumn=='O&P')  ;
+  
+    }
+    else  if(maintab==7){
+  
+      this. TempErrorList =  this.validateData.filter(item => item.errorColumn=='B'|| item.errorColumn=='C' || item.errorColumn=='B&C')  ;
+  
+    }
+    else  if(maintab==8){
+  
+      this. TempErrorList =  this.validateData.filter(item => item.errorColumn =='W' || item.errorColumn =='X' || item.errorColumn=='W&X')  ;
+  
+  }
+  else  if(maintab==9){
+  
+    this. TempErrorList = this.validateData.filter(item =>item.errorColumn =='Y' || item.errorColumn =='Z' || item.errorColumn=='Y&BZ')  ;
+  
+  }
+  else  if(maintab==10){
+  
+    this. TempErrorList = this.validateData.filter(item =>item.errorColumn =='AA' || item.errorColumn =='AB' || item.errorColumn=='AA&AB')  ;
+  
+  }
+  else  if(maintab==11){
+  
+    this. TempErrorList = this.validateData.filter(item => item.errorColumn =='AC' || item.errorColumn =='AD' || item.errorColumn=='AC&AD')  ;
+  
+  }
+  else  if(maintab==12){
+  
+    this. TempErrorList = this.validateData.filter(item =>item.errorColumn =='AE' || item.errorColumn =='AF' || item.errorColumn=='AE&AF')  ;
+  
+  }
+  
+  this.rerender();
+  }
     handleFileInput(file: FileList) {
 
     this.fileToUpload = file.item(0);
@@ -265,6 +334,9 @@ var today = mm + '/' + dd + '/' + yyyy;
 
           Swal.fire({icon:'error', title: 'Data validated successfully. Errors identified in the file uploaded. Please check the error report', confirmButtonText: 'Error Report', allowOutsideClick: false})
 
+ this. TempErrorList =  this.validateData.filter(item => item.errorColumn ==item.errorColumn)  ;
+    //  this. TempErrorList =  this.validateData.filter(item => item.errorColumn =='E'|| item.errorColumn =='D'  || item.errorColumn=='E&D')  ;
+
           this.showValidationError = true;
       }
     },
@@ -303,7 +375,7 @@ var today = mm + '/' + dd + '/' + yyyy;
   {
       this.maintabSelected = i;
       this.mainsubtabSelected = j;
-      // this.anmSubjectProfileList(1,i,j);
+      this.anmSubjectProfileList(1,i,j);
   }
   resetData()
   {
@@ -316,7 +388,21 @@ var today = mm + '/' + dd + '/' + yyyy;
     this._imageArray.splice(i, 1);
   }
 
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+   
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
     ngOnDestroy(): void {
+      this.dtTrigger.unsubscribe();
+
       // Do not forget to unsubscribe the event
+    }
+    ngAfterViewInit(): void {
+      this.dtTrigger.next();
     }
 }

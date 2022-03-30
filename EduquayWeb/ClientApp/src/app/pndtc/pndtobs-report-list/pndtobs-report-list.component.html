@@ -196,9 +196,9 @@
                                         <th><span>{{'Sample Ref ID' | translate }}</span></th>
                                         <th><span >{{'CVS Specimen Ref ID' | translate }}</span></th>
                                         <th><span>{{'Status' | translate }}</span></th>
-                                        <th><span>{{'PNDT  Scheduled DtTm' | translate }}</span></th>
-                                        <th><span >{{'Molecular Lab Results' | translate }}</span></th>
-                                        <th><span >{{'Molecular Lab Report' | translate }}</span></th>
+                                        <th ><span>{{'PNDT  Scheduled DtTm' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 6}"><span>{{'Molecular Lab Results' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 6}"><span>{{'Molecular Lab Report' | translate }}</span></th>                     
                                         <th><span >{{'Tracker' | translate }}</span></th>
                                         <th><span >{{'Profile' | translate }}</span></th> 
                                       </tr>
@@ -216,9 +216,9 @@
                                         <td style="text-align: left">{{subjectinfo.sampleRefId}}</td>
                                         <td class="text-left sname">{{subjectinfo.cvsSampleRefId}}</td>
                                         <td style="text-align: center">{{subjectinfo.mtpService}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
-                                        <td style="text-align: left">{{subjectinfo.mobileNo}}</td>
+                                        <th><span>{{'subjectinfo.mobileNo' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 6}"><span>{{'subjectinfo.mobileNo' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 6}"><span>{{'subjectinfo.mobileNo' | translate }}</span></th>                    
                                
                                         <!-- <td style="text-align: center"><a (click)="openTrackpopup(subjectinfo)">
                                     <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>

@@ -437,10 +437,12 @@ export class CounsellorreportListComponent implements AfterViewInit, OnDestroy, 
           this.anmSubjectBadgeProfileListCount(1,2,7);
           this.anmSubjectBadgeProfileListCount(1,2,8);
         }
-        if(maintab === 3) {
-          this.anmSubjectBadgeProfileListCount(1,3,3);
-          this.anmSubjectBadgeProfileListCount(1,3,4);
-          this.anmSubjectBadgeProfileListCount(1,3,5);
+        if(maintab === 3)
+        {
+           this.anmSubjectBadgeProfileListCount(1,5,3);
+          this.anmSubjectBadgeProfileListCount(1,5,4);
+          this.anmSubjectBadgeProfileListCount(1,5,4);
+
         }
   }
 
@@ -464,23 +466,23 @@ export class CounsellorreportListComponent implements AfterViewInit, OnDestroy, 
       .subscribe(response => {
        if(maintab ===1)
        {
-         
+        if(subtab === 1)
+        this.countMain2Sub1 = response['data'].length;
+  if(subtab === 2)
+        this.countMain2Sub2 = response['data'].length; 
        }
        if(maintab ===2)
        {
-            if(subtab === 1)
-                  this.countMain2Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain2Sub2 = response['data'].length;
+          
 
        }
        if(maintab ===3)
        {
-            if(subtab === 1)
-                  this.countMain3Sub1 = response['data'].length;
-            if(subtab === 2)
-                  this.countMain3Sub2 = response['data'].length;
             if(subtab === 3)
+                  this.countMain3Sub1 = response['data'].length;
+            if(subtab === 4)
+                  this.countMain3Sub2 = response['data'].length;
+            if(subtab === 5)
                   this.countMain3Sub3 = response['data'].length;
        }
        this.loaderService.display(false);
