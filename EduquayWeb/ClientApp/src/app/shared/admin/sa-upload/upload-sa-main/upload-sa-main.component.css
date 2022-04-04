@@ -50,3 +50,11 @@ h5.float-left {
   border-bottom: none;
   border-top: none;
 }
+
+.nav-tabs>li>a {
+  display: inline-block;
+}
+
+.classdisable {
+  cursor: not-allowed;
+}

@@ -1,6 +1,6 @@
-import { Component, OnInit, Pipe, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Pipe, NgZone, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 declare var $: any
 import {Injectable} from '@angular/core';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { TokenService } from './../../../../shared/token.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { ExcelService } from 'src/app/shared/excel.service';
+import { uploadSharedService } from './../../uploadshared.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -29,9 +30,15 @@ export class SAUploadComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('inputFile', {static: false}) myInputVariable: ElementRef;
+  @Output() onStageChange: EventEmitter<any> = new EventEmitter<any>();
+  dtTrigger: Subject<any> = new Subject();
   errorMessage: string;
   ErrorCount;
-path:any;
+  path:any;
+  uploadComplete = false;
+  dataValidationComplete = false;
+  dataValidationError = false;
+  dataCreatedDone = false;
   errorSpouseMessage: string;
   curDate=new Date();
   SheetName:string;
@@ -44,7 +51,7 @@ path:any;
   centralPickpackPendingData = [];
   pickpackStartList = [];
   searchbarcode;
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
   secondFormCheck = false;
   secondFormGroup: FormGroup;
   selectedRevisedBarcode;
@@ -66,6 +73,8 @@ path:any;
   countMain13Sub1;
   showValidationError = false;
 
+  baseErrorData = [];
+  currentPage = "upload";
   name = 'Angular';
   fileToUpload: any;
   imageUrl: any;
@@ -85,45 +94,54 @@ path:any;
     private loaderService: LoaderService,
     private excelService:ExcelService,
     private UsersService:ExcelService,
+    private router: Router,
+    private uploadSharedService: uploadSharedService
 
     ) { }
 
 
   ngOnInit() {
-
+    this.onStageChange.emit('upload');
+    this.uploadSharedService.buttonClicked.next({'screen':'upload'});
+    this.currentPage = "upload";
     var today1 = new Date();
-var dd = String(today1.getDate()).padStart(2, '0');
-var mm = String(today1.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today1.getFullYear();
+    var dd = String(today1.getDate()).padStart(2, '0');
+    var mm = String(today1.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today1.getFullYear();
 
-var today = mm + '/' + dd + '/' + yyyy;
-    this.dtOptions = {
-       // Declare the use of the extension in the dom parameter
-       dom: "<'row mt-3'<'col-sm-11 float-right'><'col-sm-1 float-right'B>>" +
-       "<'row'<'col-sm-12'tr>>" +
-       "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
-       // Configure the buttons
+    var today = mm + '/' + dd + '/' + yyyy;
 
-         buttons: [
-           {
-             titleAttr: 'Download as Excel',
-             extend: 'excelHtml5',
-             title: ' Bulk Upload TSCOD Error-Report   ' +today,
-             className: 'custom-btn',
-             text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-           }
-
-         ],
-      language: {
-
-        paginate: {
-          first: '',
-          last: '', // or '←'
-          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        },
+    this.uploadSharedService.changeEmitted$.subscribe(text => {
+      console.log(text);
+      this.currentPage = text;
+      if(text === 'upload') {
+        this.showValidationError = false;
+        this.validateData = [];
+        this.baseErrorData = [];
       }
-    };
+    });
+
+this.dtOptions = {
+  pagingType: 'simple_numbers',
+  retrieve: true,
+  pageLength: 20,
+  processing: true,
+  stripeClasses: [],
+  lengthMenu: [5, 10, 20, 50],
+  language: {
+    search: '<div><span class="note">Search by any AVD information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+    searchPlaceholder: "Search...",
+    lengthMenu: "Records / Page :  _MENU_",
+    paginate: {
+      first: '',
+      last: '', // or '←'
+      previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+      next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+    },
+    //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
+  }
+  
+};
 
     this.DataService.sendData(JSON.stringify({"module": "Upload", "page": "Bulk Upload"}));
     this.user = JSON.parse(this.tokenService.getUser('lu'));
@@ -213,9 +231,10 @@ var today = mm + '/' + dd + '/' + yyyy;
     var _fileList = file.item(0).name.split('.');
     this.SheetName=file.item(0).name;
     this.SheetName=this.SheetName.concat("    ","Sheet 1")
-
+    
     if(_fileList[_fileList.length-1] === 'csv' || _fileList[_fileList.length-1] === 'xlsx' || _fileList[_fileList.length-1] === 'xls')
     {
+      this._imageArray = [];
       this._imageArray.push(file.item(0));
       this.myInputVariable.nativeElement.value = '';
       //Show image preview
@@ -258,7 +277,7 @@ var today = mm + '/' + dd + '/' + yyyy;
 
   uploadFiles()
   {
-    this.showValidationError = false;
+    
     var _obj = {};
     const frmData = new FormData();
     for (var i = 0; i < this._imageArray.length; i++) {
@@ -266,6 +285,8 @@ var today = mm + '/' + dd + '/' + yyyy;
     }
     this.errorCorrectionService.uploadSAFiles(frmData)
     .subscribe(response => {
+      this.uploadComplete = true;
+     
       Swal.fire(
         {icon:'success', title: response.message, confirmButtonText: 'Validate Data', allowOutsideClick: false,
         allowEscapeKey: false,
@@ -279,25 +300,33 @@ var today = mm + '/' + dd + '/' + yyyy;
           //this.resetData();
           this.maintabSelected=7;
           this.deleteFile(1);
-          
         }
       });
 
     },
       (err: HttpErrorResponse) => {
         this.loaderService.display(false);
+        this.uploadComplete = false;
         Swal.fire({icon:'error', title: err.toString(), confirmButtonText: 'Close', allowOutsideClick: false})
         //this.showResponseMessage(err.toString(), 'e');
       });
   }
   validateBulkUpload()
   {
+    //this.router.navigate(['/app/saupload/validation']);
+    //this.onStageChange.emit('validation');
+
+    this.uploadSharedService.buttonClicked.next({'screen':'validation'});
+    this.currentPage = "validation";
     this.errorCorrectionService.validateuploadSAFiles()
     .subscribe(response => {
       this.validateData = response.data;
-      console.log(this.validateData);
+      this.baseErrorData = JSON.parse(JSON.stringify(response.data));
       if(response.status === 'true')
       {
+        this.dataValidationComplete = true;
+        this.dataValidationError = false;
+
         setTimeout(() => {
           Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Move to Database', allowOutsideClick: false})
           .then((result) => {
@@ -316,6 +345,9 @@ var today = mm + '/' + dd + '/' + yyyy;
       }
       else{
          this.maintabSelected=1;
+         this.showValidationError = true;
+         this.dataValidationComplete = false;
+        this.dataValidationError = true;
          this.resetData();
           this.showValidateData();
           this.countMain1Sub1=response.data.length;    
@@ -338,10 +370,17 @@ var today = mm + '/' + dd + '/' + yyyy;
     //  this. TempErrorList =  this.validateData.filter(item => item.errorColumn =='E'|| item.errorColumn =='D'  || item.errorColumn=='E&D')  ;
 
           this.showValidationError = true;
+          setTimeout(() => {
+            this.custumTabClick(1,1);
+            this.uploadSharedService.buttonClicked.next({'allowDataCreation':'false'});
+          }, 1);
+         
       }
     },
       (err: HttpErrorResponse) => {
         this.loaderService.display(false);
+        this.dataValidationComplete = false;
+        this.dataValidationError = true;
         Swal.fire({icon:'error', title: err.toString(), confirmButtonText: 'Close', allowOutsideClick: false})
 
       });
@@ -354,12 +393,16 @@ var today = mm + '/' + dd + '/' + yyyy;
 
   createBulkUpload()
   {
+    this.uploadSharedService.buttonClicked.next({'screen':'datacreation'});
+    this.currentPage = "datacreation";
     this.errorCorrectionService.createuploadSAFiles()
     .subscribe(response => {
+     
       Swal.fire({icon:'success', title:'Data uploaded successfully to the main database. Kindly check the TSCOD Admin module.', confirmButtonText: 'Close', allowOutsideClick: false})
       .then((result) => {
         if (result.value) {
           this.resetData();
+          this.dataCreatedDone = true;
         }
       });
 
@@ -375,12 +418,56 @@ var today = mm + '/' + dd + '/' + yyyy;
   {
       this.maintabSelected = i;
       this.mainsubtabSelected = j;
-      this.anmSubjectProfileList(1,i,j);
+
+      this.validateData = [];
+
+      setTimeout(() => {
+      if(i == 1)
+      {
+        this.validateData = this.baseErrorData.filter(item => item.errorColumn=='B'|| item.errorColumn=='C' || item.errorColumn=='B&C');
+      } else  if(i==2){
+        this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='E'|| item.errorColumn =='D'  || item.errorColumn=='E&D');
+      }
+      else  if(i==3){
+      this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='F'||item.errorColumn =='G' || item.errorColumn=='F&G' );
+      }
+      else  if(i==4){
+      this.validateData= this.baseErrorData.filter(item => item.errorColumn =='H'|| item.errorColumn =='I' || item.errorColumn=='H&I');
+      }
+      else  if(i==5){
+      this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='J' || item.errorColumn =='K' || item.errorColumn=='J&K');
+      }
+      else  if(i==6){
+      this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='O' || item.errorColumn =='P' || item.errorColumn=='O&P');
+      }
+      else  if(i==7){
+        this.validateData =  this.baseErrorData.filter(item => item);
+      }
+      else  if(i==8){
+        this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='W' || item.errorColumn =='X' || item.errorColumn=='W&X');
+      }
+      else  if(i==9){
+      this.validateData =  this.baseErrorData.filter(item =>item.errorColumn =='Y' || item.errorColumn =='Z' || item.errorColumn=='Y&BZ');
+      }
+      else  if(i==10){
+        this.validateData =  this.baseErrorData.filter(item =>item.errorColumn =='AA' || item.errorColumn =='AB' || item.errorColumn=='AA&AB');
+      }
+      else  if(i==11){
+        this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='AC' || item.errorColumn =='AD' || item.errorColumn=='AC&AD');
+      }
+      else  if(i==12){
+        this.validateData = this.baseErrorData.filter(item =>item.errorColumn =='AE' || item.errorColumn =='AF' || item.errorColumn=='AE&AF');
+      }
+  console.log(this.validateData);
+
+  this.rerender();
+}, 1);
+      // this.anmSubjectProfileList(1,i,j);
   }
   resetData()
   {
     this._imageArray = [];
-    this.myInputVariable.nativeElement.value = '';
+    //this.myInputVariable.nativeElement.value = '';
   }
   deleteFile(i)
   {
@@ -388,19 +475,29 @@ var today = mm + '/' + dd + '/' + yyyy;
     this._imageArray.splice(i, 1);
   }
 
+  
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-   
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
+   if(this.dtElement && this.dtElement.dtInstance) {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.dtTrigger.next();
+      });
+    } else {
       this.dtTrigger.next();
-    });
+    }
+    
+  }
+  ngAfterViewInit(): void {
+    //this.dtTrigger.next();
   }
     ngOnDestroy(): void {
       this.dtTrigger.unsubscribe();
 
       // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
     }
     ngAfterViewInit(): void {
       this.dtTrigger.next();
