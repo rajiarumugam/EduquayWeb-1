@@ -554,3 +554,7 @@ hr {
     {
         float:right !important;
     }
+
+    ::ng-deep .hideColumn {
+      display: none;
+    }

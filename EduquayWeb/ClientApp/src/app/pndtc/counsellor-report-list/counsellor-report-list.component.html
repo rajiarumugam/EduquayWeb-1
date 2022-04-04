@@ -131,15 +131,14 @@
                             <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{'Schedule Counselling' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,6);">
                                 <p>{{'Counselling Pending' | translate }}</p>
                             </div>
-                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
+                            <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
                                 <p>{{'Counselling Completed(10009)' | translate }}</p>
                             </div>
                         </div>
-                       
-
+  
                         <div class="custm-tab" *ngIf="maintabSelected == 1 ? true : false">
                             <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
                                     <p>{{' Pending' | translate }} </p>
@@ -150,51 +149,59 @@
                         </div>
   
                         <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
                                     <p>{{'Agreed' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(3,4);">
                                 <p>{{'Disagreed' | translate }} </p>
                             </div>
-                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
+                            <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(3,5);">
                                 <p>{{'Decision Pending' | translate }} </p>
                             </div>
                         </div>
   
-                        <!--<common-data-table [tableHeader]="tableHeader" [objkey]="curentObjectKey" [subjectprofileLists]="subjectprofileLists" (openpopup)="openpopup($event);" (opensubjectdetails)="opensubjectdetail($event);"></common-data-table>-->
-                        <div class="table-responsive mb-4">
-                            <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                              <thead>
-                                <tr>
-                                    <th><span>{{'SNo' | translate }}</span></th>
-                                    <th><span>{{'Subject Name ' | translate }}</span></th>
-                                    <th><span>{{'Subject ID' | translate }}</span></th>
-                                    <th><span>{{'SubjectType' | translate }}</span></th>
-                                    <th><span>{{'Gender' | translate }}</span></th> 
-                                    <th><span>{{'Contact' | translate }}</span></th>
-                                    <th><span>{{'ANM' | translate }}</span></th>
-                                    <th><span >{{'Barcode' | translate }}</span></th>
-                                    <th><span >{{'Gestational Age' | translate }}</span></th>
-                                    <th><span>{{'Test Results ' | translate }}</span></th>
-                                    <th><span >{{'Status' | translate }}</span></th>
-                                    <th><span >{{'Tracker' | translate }}</span></th>
-                                    <th><span >{{'Profile' | translate }}</span></th>
-                                </tr>
-                                
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let sample of subjectprofileLists; index as i">
-                                    <td style="text-align: center">{{i +1}}</td>
-                                    <td style="text-align: left">{{subjectinfo.firstName}}</td>
-                                    <td style="text-align: center">{{subjectinfo.subjectId}}</td>
-                                    <td style="text-align: center">{{subjectinfo.subjectType}}</td>
-                                    <td style="text-align: center">{{subjectinfo.gender}}</td>
-                                    <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
-                                    <td style="text-align: center">{{subjectinfo.anmName}}</td>
-                                    <td style="text-align: left">{{subjectinfo.barcode}}</td>
-                                    <td class="text-left sname">{{subjectinfo.ga}}</td>
-                                    <td style="text-align: center">{{subjectinfo.hplcPathoLabResult}}</td>
-                                    <td style="text-align: left">{{subjectinfo.mtpService}}</td>
+  
+                        <div class="table-responsive mt-4" style="margin-top:0px !important;">
+                            <table id="subjectprofilelist-tblconfig1" class="table table-bordered table-hover" datatable
+                                [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                <thead>
+                                    <tr>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'Subject Name ' | translate }}</span></th>
+                                        <th><span>{{'Subject ID' | translate }}</span></th>
+                                        <th><span>{{'SubjectType' | translate }}</span></th>
+                                        <th><span>{{'Gender' | translate }}</span></th> 
+                                        <th><span>{{'Contact' | translate }}</span></th>
+                                        <th><span>{{'ANM' | translate }}</span></th>
+                                        <th><span >{{'Barcode' | translate }}</span></th>
+                                        <th><span >{{'Gestational Age' | translate }}</span></th>                                   
+                                        <th><span>{{'Test Results ' | translate }}</span></th>
+                                        <th><span >{{'Status' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn':  mainsubtabSelected == 1  || maintabSelected == 3 || mainsubtabSelected == 3 || mainsubtabSelected == 4|| mainsubtabSelected == 5}"><span >{{'Scheduled Dt Time' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2 }"><span >{{'Counselled Dt Time' | translate }}</span></th>
+                                        <th [ngClass]="{'hideColumn':  maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2}"><span >{{'Consent Form' | translate }}</span></th>
+                                        <th><span >{{'Tracker' | translate }}</span></th>
+                                        <th><span >{{'Profile' | translate }}</span></th>
+                                      </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let subjectinfo of subjectprofileLists; index as i">
+                                        <td style="text-align: center">{{i +1}}</td>
+                                        <td style="text-align: left">{{subjectinfo.firstName}}</td>
+                                        <td style="text-align: center">{{subjectinfo.subjectId}}</td>
+                                        <td style="text-align: center">{{subjectinfo.subjectType}}</td>
+                                        <td style="text-align: center">{{subjectinfo.gender}}</td>
+                                        <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
+                                        <td style="text-align: center">{{subjectinfo.anmName}}</td>
+                                        <td style="text-align: left">{{subjectinfo.barcode}}</td>
+                                        <td class="text-left sname">{{subjectinfo.ga}}</td>
+                                        <td class="text-left sname">{{subjectinfo.ga}}</td>
+                                        <td style="text-align: center">{{subjectinfo.hplcPathoLabResult}}</td>
+                                        <th [ngClass]="{'hideColumn': mainsubtabSelected == 1  || maintabSelected == 3 || mainsubtabSelected == 3 || mainsubtabSelected == 4|| mainsubtabSelected == 5}"><span >{{subjectinfo.hplcPathoLabResult}}</span></th>
+                                        <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2 }"><span >{{subjectinfo.hplcPathoLabResult}}</span></th>
+                                        <th [ngClass]="{'hideColumn':  maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2}"><span >{{subjectinfo.hplcPathoLabResult}}</span></th>
+                                        <th><span >{{'Tracker' | translate }}</span></th>
+                                        <td style="text-align: left">{{subjectinfo.mtpService}}</td>
                                     <td style="text-align: center"><a (click)="openTrackpopup(subjectinfo)">
                                       <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
                                    </a></td>

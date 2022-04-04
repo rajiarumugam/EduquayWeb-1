@@ -576,11 +576,11 @@ export class CounsellorMtpreportListComponent implements AfterViewInit, OnDestro
        }
        if(maintab ===3)
        {
-            if(subtab === 1)
-                  this.HPLCResultCount = response['data'].length;
-            if(subtab === 2)
-                  this.HPLCAbnormalCount = response['data'].length;
             if(subtab === 3)
+                  this.HPLCResultCount = response['data'].length;
+            if(subtab === 4)
+                  this.HPLCAbnormalCount = response['data'].length;
+            if(subtab === 5)
                   this.HPLCNormalCount = response['data'].length;
        }
 
