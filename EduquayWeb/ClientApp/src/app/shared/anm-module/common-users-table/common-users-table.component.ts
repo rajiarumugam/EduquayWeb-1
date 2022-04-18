@@ -39,6 +39,10 @@ import { DateService } from 'src/app/shared/utility/date.service';
 import { DistrictList } from 'src/app/shared/admin/add-district/add-district-response';
 
 import { AddUsersDataresponse, AddUsersResponse, UsersList } from 'src/app/shared/admin/add-users/add-users-response';
+import { AddAvdService } from '../../admin/add-avd/add-avd.service';
+import { ribyavdList } from '../../admin/add-avd/add-avd-response';
+import { AddRiPtDataresponse, IlrList, IlrResponse, RiList } from '../../admin/add-ripoint/add-ripoint-response';
+import { AddRipointService } from '../../admin/add-ripoint/add-ripoint.service';
 
 @Component({
   selector: 'common-users-table',
@@ -48,6 +52,7 @@ import { AddUsersDataresponse, AddUsersResponse, UsersList } from 'src/app/share
 
 
 export class CommonUsersTableComponent implements OnInit {
+
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('editsadminDetail',{static:true}) SadminEditForm: ElementRef;
   @ViewChild('editanmDetail',{static:true}) AnmEditForm: ElementRef;
@@ -73,9 +78,20 @@ export class CommonUsersTableComponent implements OnInit {
   @Output() opensubjectdetails: EventEmitter<any> = new EventEmitter<any>(); 
   // @Output("openAddUsers") openAddUsers: EventEmitter<any> = new EventEmitter();
   user;
+  loadDataTable: boolean = false;
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   subscription: Subscription;
+  avdlistErrorMessage: string;
+  avdListResponse: any;
+  isaddform: boolean;
+  selectedtestingCHCId: string;
+  selectedIlr: string;
+  riName1: string;
+  riName: any;
+  riptListRequest: { testingCHCId: number; chcId: number; phcId: number; scId: number; riGovCode: string; riSite: any; ilrId: number; pincode: string; isActive: string; comments: string; createdBy: any; updatedBy: any; };
+  testingchcId: string;
+  tcbydisList: any;
   constructor(private SubjectProfileService: SubjectProfileService,
     private DistrictService: AddDistrictService,
     private httpService: HttpClient,
@@ -83,9 +99,10 @@ export class CommonUsersTableComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private loaderService: LoaderService,
     private tokenService: TokenService,
+    private RiPtService: AddRipointService,
     private dataservice: DataService,
     private router: Router,
-
+    private Avdservice: AddAvdService,
     private masterService: masterService,
     private modalService: NgbModal,
     private sampleCollectionService: SampleCollectionService,
@@ -113,7 +130,7 @@ export class CommonUsersTableComponent implements OnInit {
         userRole: string;
         userRoleDescription: string;
         userRoleAccessModule: string;
-       
+        rilists: ribyavdList[];
 
         userGovCode: string;
         districtlistErrorMessage: string;
@@ -129,7 +146,7 @@ export class CommonUsersTableComponent implements OnInit {
         districtName: string;
         blockId: number;
         blockName: string;
-        chcId: number;
+        // chcId: number;
         chcName: string;
         phcId: number;
         selectedEditState: string;
@@ -211,7 +228,7 @@ export class CommonUsersTableComponent implements OnInit {
       spouseSubjectIdValue: string;
       spouseSamplingStatus: boolean;
       uniqueSubjectId: string;
-    
+      addriptResponse: AddRiPtDataresponse;
       selectedChc: string;
       selectedState: string;
       selectedUserrole: string;
@@ -222,6 +239,7 @@ export class CommonUsersTableComponent implements OnInit {
       subjectprofilelistErrorMessage: string;
       religionId: number;
       religionName: string;
+      ilrListResponse:IlrResponse;
       phcListResponse;
       scListResponse;
       userListRequest;
@@ -237,10 +255,10 @@ export class CommonUsersTableComponent implements OnInit {
       address3: string;
       selectedEditBlock: string = '';
       stateName: string;
-    
+      ilrlists: IlrList[];
       pincode: string;
     
-    
+      riPtListResponse;
     
     
       riSite: string;
@@ -252,7 +270,7 @@ export class CommonUsersTableComponent implements OnInit {
       selectedPhc: string = '';
       selectedSc: string = '';
       spouseSubjectId: string;
-    
+      riptlists: RiList[];
       spouseFirstName: string;
       spouseMiddleName: string;
       statelists: StateList[];
@@ -440,6 +458,110 @@ console.log(this.tableHeader);
   
   
   }
+
+  retrirveRilist(viewRiDetail,subjectinfo) {
+  
+    //   this.retrirveAvdlist();
+       this.loaderService.display(true);
+      // this.rilists = [];
+       this.avdlistErrorMessage ='';
+       let samplesList = this.Avdservice.getriviewavd(subjectinfo.id)
+       .subscribe(response => {
+         this.avdListResponse = response;
+         console.log(this.rilists);
+         this.loaderService.display(false);
+         if(this.avdListResponse !== null){
+           if(this.avdListResponse.ri.length <= 0){
+             console.log("error in api");
+             this.avdlistErrorMessage = response.message;
+ 
+           }
+           else{
+             console.log("api works");
+             this.rilists = this.avdListResponse.ri;
+             console.log(this.rilists,this.avdListResponse)
+           }
+         }
+         else{
+           this.avdlistErrorMessage = response.message;
+         }
+ 
+       },
+       (err: HttpErrorResponse) => {
+       
+         this.avdlistErrorMessage = err.toString();
+       });
+
+     this.modalService.open(
+       viewRiDetail, {
+       centered: true,
+       size: 'xl',
+       scrollable: true,
+       backdrop:'static',
+       keyboard: false,
+       ariaLabelledBy: 'modal-basic-title'
+     });
+
+   }
+
+   openAddRiPt(addRiPtDetail) {
+    
+    this.isaddform=true;
+  this.selectedIlr="";
+  this.selectedtestingCHCId="";
+  this.selectedPhc="";
+  this.selectedSc="";
+  this.pincode="";
+  this.selectedChc="";
+  this.selectedDistrict="";
+  this.riName1=" ";
+    this.ddlDistrictRI();
+    this.confirmationSelected = true;
+
+    
+      this.modalService.open(
+        addRiPtDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+  
+    }
+    districtChange()
+    {
+          console.log(this.selectedDistrict);
+          this.ddlTestingCHC(this.selectedDistrict);
+
+          this.selectedChc = '';
+      let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+          this.selectedChc = "";
+          //this.disabledChc = true;
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+    onChangetesting(event) {
+
+      if (this.selectedDistrict === '') {
+        this.selectedtestingCHCId = '';
+      }
+      else {
+        this.ddlTestingCHC(this.selectedDistrict);
+      }
+    }
+    
   openEditUsers(subjectinfo){
     
     if(this.maintabSelected==1){
@@ -545,6 +667,24 @@ console.log(this.tableHeader);
     });
   
   }
+
+  ddlIlr(id) {
+    let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
+      this.ilrListResponse = response;
+      if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
+        this.ilrlists = this.ilrListResponse.data;
+        //this.selectedIlr = "";
+        //this.selectedIlr=
+      }
+      else {
+        this.ripointlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.ripointlistErrorMessage = err.toString();
+
+      });
+  }
   openEditchc(editchcDetail, subjectinfo) {
 
     console.log(subjectinfo);
@@ -609,6 +749,19 @@ console.log(this.tableHeader);
     });
   
   }
+
+  onChangeChcbyri(event) {
+  
+    if (this.selectedChc === '') {
+      this.selectedPhc = '';
+    }
+    else {
+      this.ddlPhc(this.selectedChc);
+      this.ddlIlr(this.selectedChc);
+   
+    }
+  }
+
   openEdithplc(edithplcdetail, subjectinfo) {
 
     console.log(subjectinfo);
@@ -1062,6 +1215,42 @@ console.log(this.tableHeader);
     });
   
   }
+  retrieveRiPtList(){
+    this.loaderService.display(true);
+  
+    this.ripointlistErrorMessage ='';
+    let samplesList = this.RiPtService.getRiList()
+    .subscribe(response => {
+      this.riPtListResponse = response;
+      this.loaderService.display(false);
+      if(this.riPtListResponse !== null){
+        if(this.riPtListResponse.data.length <= 0){
+          this.ripointlistErrorMessage = response.message;
+          
+        }
+        else{
+          this.riptlists = this.riPtListResponse.data;
+          this.riptlists.forEach(element => {
+            this.getchc = '' +(element.chcId);
+            this.getphc = '' +(element.phcId);
+            this.testingchcId =  "" +(element.testingCHCId);
+            this.getsc = '' +(element.scId);
+          });
+          //this.getstate = this.
+         
+          
+        }
+      }
+      else{
+        this.ripointlistErrorMessage = response.message;
+      }
+     
+    },
+    (err: HttpErrorResponse) => {
+      if (this.loadDataTable) this.rerender();
+      this.ripointlistErrorMessage = err.toString();
+    });
+  }
   openEditsupport(editsupportDetail, subjectinfo) {
 
     console.log(subjectinfo);
@@ -1126,7 +1315,59 @@ console.log(this.tableHeader);
     });
   
   }
+  onSubmitRI(addRiPtForm: NgForm){
+  
+    console.log(addRiPtForm.value);
+    this.selectedIlr = addRiPtForm.value.ddlIlr;
+    this.comments = addRiPtForm.value.Comments;
+    this.selectedChc = addRiPtForm.value.ddlChcbydis;
+    this.selectedPhc = addRiPtForm.value.ddlPhc;
+    this.selectedSc = addRiPtForm.value.ddlSc;
+    this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
+    this.riCode = addRiPtForm.value.riCode;
+    this.riName = addRiPtForm.value.riName;
+    this.pincode = addRiPtForm.value.pincode;
+   
 
+    this.riptListRequest = {
+      
+      testingCHCId:+(this.selectedtestingCHCId) ,       
+      chcId: +(this.selectedChc),
+      phcId: +(this.selectedPhc),
+      scId: +(this.selectedSc),
+      riGovCode:"0",
+      riSite: this.riName,
+      ilrId:+ (this.selectedIlr), 
+      pincode: this.pincode,
+      isActive: ""+this.confirmationSelected,
+      comments: this.comments,
+      createdBy: this.user.id,
+      updatedBy: this.user.id
+      
+    };
+
+    //Remove below 2 lines after successfully tested
+    // this.showResponseMessage('Successfully registered', 's');
+    // return false;
+
+    let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
+    .subscribe(response => {
+      this.addriptResponse = response;
+      if(this.addriptResponse !== null){
+        this.showResponseMessage(this.addriptResponse.message, 's')
+        this.retrieveRiPtList();
+      }else{
+        this.showResponseMessage(this.addriptResponse.message, 'e');
+                this.ripointlistErrorMessage = response.message;
+      }
+
+    },
+    (err: HttpErrorResponse) => {
+      this.showResponseMessage(err.toString(), 'e');
+      this.ripointlistErrorMessage = err.toString();
+    });
+    //swal ("Here's the title!", "...and here's the text!");
+  }
   openEditanm(editanmDetail, subjectinfo) {
 
     console.log(subjectinfo);
@@ -1217,7 +1458,7 @@ console.log(this.tableHeader);
       this.stateListResponse = response;
       if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
         this.statelists = this.stateListResponse.data;
-        this.selectedState = "";
+        this.selectedState = "1";
       }
       else {
         this.districtlistErrorMessage = response.message;
@@ -1302,6 +1543,25 @@ console.log(this.tableHeader);
       this.ddlChc(this.selectedBlock);
     }
   }
+
+  ddlChcbydis() {
+
+    //  this.selectedChc = '';
+      let district = this.RiPtService.getCHCByDistrict(+this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+        //  this.selectedChc = "";
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
 
   ddlChc(id) {
     console.log(id);
@@ -1427,21 +1687,20 @@ console.log(this.tableHeader);
     }
   }
   ddlTestingCHC(code) {
-    this.selectedBlock = '';
-    let district = this.UsersService.gettestingCHC(code).subscribe(response => {
+    console.log("abc");
+    this.selectedtestingCHCId = '';
+    let district = this.RiPtService.gettestingCHC(code).subscribe(response => {
       this.testingCHCResponse = response;
       if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
-        this.testingCHCists = this.testingCHCResponse.data;
-
-
+        this.tcbydisList = this.testingCHCResponse.data;
+       
       }
       else {
-        this.chclistErrorMessage = response.message;
+        this.ripointlistErrorMessage = response.message;
       }
     },
       (err: HttpErrorResponse) => {
-        this.chclistErrorMessage = err.toString();
-
+        this.ripointlistErrorMessage = err.toString();
       });
   }
   ddlBlock(code) {
@@ -1483,6 +1742,22 @@ console.log(this.tableHeader);
       });
 
 
+  }
+  ddlDistrictRI() {
+    let district = this.RiPtService.getDistrictList().subscribe(response => {
+      this.districtListResponse = response;
+      if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+        this.districtlists = this.districtListResponse.data;
+        //this.selectedDistrict = "";
+      }
+      else {
+        this.ripointlistErrorMessage = response.message;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        this.ripointlistErrorMessage = err.toString();
+
+      });
   }
   ddlUserRole(type) {
 

@@ -11,6 +11,8 @@ import { AddPhcResponse } from '../add-phc/add-phc-response';
 import { AddUsersRequest } from './add-users-request';
 import { AddUsersResponse, AddUsersDataresponse} from './add-users-response'; 
 import { AddScResponse } from '../add-sc/add-sc-response';
+import { ENDPOINT } from 'src/app/app.constant';
+import { errorreportresponse } from './add-users-response';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +41,7 @@ export class AddUsersService {
   retrieveStateApi: string = "api/v1/SA/RetrieveAllStates";
   retrieveUserroleApi: string = "api/v1/UserRole/Retrieve";
   updateusersApi: string ="api/v1/UserIdentity/Edit";
-  
+  ValidateeBulkUploadNew:"api/v1/Support/ValidateBulkUploadNew";
   
   constructor(
     private httpClient: HttpClient,
@@ -64,6 +66,11 @@ export class AddUsersService {
   addUsers(avdadd){
     let apiUrl=this.genericService.buildApiUrl(this.addusersapi);
     return this.http.post<AddUsersDataresponse>({url: apiUrl, body: avdadd});
+  }
+  
+  validateuploadSAFiles(){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.ValidateBulkUploadNew)
+    return this.http.post<any>({url:apiUrl,body:{}});
   }
 
   getScList(code){
