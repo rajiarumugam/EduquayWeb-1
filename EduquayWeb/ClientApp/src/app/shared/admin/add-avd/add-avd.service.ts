@@ -23,6 +23,7 @@ export class AddAvdService {
   RetrieveTestingCHCByDistrict ="api/v1/WebMaster/RetrieveTestingCHCByDistrict/";
   updateAvdApi: string = "api/v1/AVD/UpdateAVD";
   RetrieveRIByAVD: string = "api/v1/WebMaster/RetrieveRIByAVD/";
+  RetrieveRIByANM: string = "api/v1/WebMaster/RetrieveRIByANM/";
 
   constructor(
     private httpClient: HttpClient,
@@ -47,10 +48,14 @@ export class AddAvdService {
     return this.http.post<AddAvdDataresponse>({url: apiUrl, body: avdadd});
   }
 
-  getriviewavd(AVDId){
-    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveRIByAVD}${AVDId}`);
+  getriviewavd(code){
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveRIByAVD}${code}`);
     return this.http.get<AddRibyAvdResponse>({url: apiUrl });
   }
   
-  
+  getriviewanm(code){
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveRIByANM}${code}`);
+    return this.http.get<AddRibyAvdResponse>({url: apiUrl });
+  }
+
 }

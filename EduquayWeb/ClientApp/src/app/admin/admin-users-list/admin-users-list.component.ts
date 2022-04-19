@@ -253,8 +253,8 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
   MTPcompletedCount = 0;
 
   _headerData = [['SNo','Name','UserName','UserGovCode','ContactNo','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','IsActive','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','IsActive','View RI','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','IsActive','View RI','Edit'],
   ['SNo','Name','User Role','UserName','UserGovCode','District','Block','CHC','ContactNo','Email','Comments','IsActive','Edit'],
   ['SNo','Name','User Role','UserName','UserGovCode','District','ContactNo','Email','Comments','IsActive','Edit'],
   ['SNo','Name','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit'],
@@ -344,7 +344,7 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
             this.userprofileLists = response.users;
             this.cdr.detectChanges();
             this.commonDataTable.resetTableFromParent();
-            //this.rerender();
+            this.rerender();
           }
         }
         else {
@@ -387,7 +387,7 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
       this.stateListResponse = response;
       if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
         this.statelists = this.stateListResponse.data;
-        this.selectedState = "";
+        this.selectedState = "1";
       }
       else {
         this.districtlistErrorMessage = response.message;
@@ -529,13 +529,13 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
             this.userprofileLists = response.users;
             this.cdr.detectChanges();
             this.commonDataTable.resetTableFromParent();
-           // this.rerender();
+           this.rerender();
           }
           else {
             this.userprofileLists = response.users;
             this.commonDataTable.resetTableFromParent();
             //this.cdr.detectChanges();
-           // this.rerender();
+            this.rerender();
           }
         }
         else {
@@ -816,7 +816,7 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
               if (this.AddUsersResponse.users.length <= 0 ) {
                 this.subjectprofilelistErrorMessage = response.message;
                 this.userprofileLists = [];
-                  //this.rerender();
+                  this.rerender();
               }
               else {
                 this.userprofileLists = response.users;
@@ -988,7 +988,7 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
           // else {
             this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
             this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
-            //this.rerender();
+            this.rerender();
           }
         //}
         else {
@@ -1112,7 +1112,7 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
             // else {
               this.subjectTrackerItem = this.trackingSubjectResponse.data;
               this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
-              //this.rerender();
+              this.rerender();
             }
           //}
           else {
@@ -1145,7 +1145,7 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
 
               this.loaderService.display(false);
 
-              //this.rerender();
+              this.rerender();
             }
           //}
           else {

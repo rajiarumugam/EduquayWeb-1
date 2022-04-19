@@ -130,7 +130,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
         this.stateListResponse = response;
         if (this.stateListResponse !== null && this.stateListResponse.status === "true") {
           this.statelists = this.stateListResponse.data;
-          this.selectedState = "";
+          this.selectedState = "1";
         }
         else {
           this.districtlistErrorMessage = response.message;

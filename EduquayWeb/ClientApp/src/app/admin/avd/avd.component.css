@@ -18,7 +18,10 @@
     text-shadow: 1px 0px #125879;
     font-size: 25px;
   }
-  
+  .associatedanm button
+{
+    margin:0 0 0 5px;
+}
   .modaltitle {
     color: #1b55e2;
     font-weight: 600;

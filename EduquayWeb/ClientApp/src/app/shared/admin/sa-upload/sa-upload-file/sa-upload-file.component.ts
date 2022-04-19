@@ -31,7 +31,7 @@ export class SAUploadComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('inputFile', {static: false}) myInputVariable: ElementRef;
   @Output() onStageChange: EventEmitter<any> = new EventEmitter<any>();
-  dtTrigger: Subject<any> = new Subject();
+  // dtTrigger: Subject<any> = new Subject();
   errorMessage: string;
   ErrorCount;
   path:any;
@@ -422,7 +422,7 @@ this.dtOptions = {
       this.validateData = [];
 
       setTimeout(() => {
-      if(i == 1)
+      if(i == 7)
       {
         this.validateData = this.baseErrorData.filter(item => item.errorColumn=='B'|| item.errorColumn=='C' || item.errorColumn=='B&C');
       } else  if(i==2){
@@ -440,7 +440,7 @@ this.dtOptions = {
       else  if(i==6){
       this.validateData =  this.baseErrorData.filter(item => item.errorColumn =='O' || item.errorColumn =='P' || item.errorColumn=='O&P');
       }
-      else  if(i==7){
+      else  if(i==1){
         this.validateData =  this.baseErrorData.filter(item => item);
       }
       else  if(i==8){
@@ -490,9 +490,9 @@ this.dtOptions = {
     }
     
   }
-  ngAfterViewInit(): void {
-    //this.dtTrigger.next();
-  }
+  // ngAfterViewInit(): void {
+  //   //this.dtTrigger.next();
+  // }
     ngOnDestroy(): void {
       this.dtTrigger.unsubscribe();
 

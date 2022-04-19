@@ -19,12 +19,13 @@
             </div> -->
             <div class="col-md-12">
                 <div class="justify-between">
-                    <div class="col-md-4">
+                  <div class="col-md-4"></div>
+                    <!-- <div class="col-md-4">
                         <div class="float-left mb-4">
                             <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-state']" role="button"
                             ngbTooltip="State" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
                           </div>
-                    </div>
+                    </div> -->
                     <!-- <h5 class="float-left">Sample Collection</h5> -->
                     <div class="col-md-4">
                       <div class="headertit">
@@ -63,7 +64,7 @@
                               <th><span>{{'SNo' | translate }}</span></th>                             
                               <th><span>{{'District Name' | translate }}</span></th> 
                               <th><span>{{'District Code' | translate }}</span></th>  
-                              <th><span>{{'State' | translate }}</span></th>                                                     
+                              <!-- <th><span>{{'State' | translate }}</span></th>                                                      -->
                               <th><span>{{'Comments' | translate }}</span></th>
                               <th><span>{{'Active' | translate }}</span></th>
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -74,7 +75,7 @@
                               <td class="sno text-center">{{i +1}}</td>                          
                               <td class="sid text-center">{{sample.name}}</td>
                               <td class="sname text-left">{{sample.districtGovCode}}</td>
-                              <td class="sid text-center">{{sample.stateName}}</td>                                                          
+                              <!-- <td class="sid text-center">{{sample.stateName}}</td>                                                           -->
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
@@ -115,7 +116,7 @@
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
                                             name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addDistrictForm.submitted && ddlState.invalid"
-                                            required [(ngModel)]="selectedState">
+                                            required [(ngModel)]="selectedState" disabled="ddlState">
                                                 <option value="">Select</option>
                                                 <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                                                     {{statedata.name}}
