@@ -256,16 +256,12 @@ export class CommonUsersTableComponent implements OnInit {
       selectedEditBlock: string = '';
       stateName: string;
       ilrlists: IlrList[];
-      pincode: string;
-    
-      riPtListResponse;
-    
-    
+      pincode: string;   
+      riPtListResponse;  
       riSite: string;
       dob: string;
       age: number;
-      gender: string;
-    
+      gender: string;    
       emailId: string;
       selectedPhc: string = '';
       selectedSc: string = '';
@@ -282,8 +278,7 @@ export class CommonUsersTableComponent implements OnInit {
       govIdTypeId: number;
       govIdType: string;
       selectedEditSc: string = '';
-      govIdDetails: string;
-    
+      govIdDetails: string;    
       rchId: string;
       testingCHCResponse;
       ecNumber: string;
@@ -313,82 +308,64 @@ export class CommonUsersTableComponent implements OnInit {
   globalTimeout = null;
   // maintabSelected = 1;
   mainsubtabSelected = 1;
-
   countMain1Sub1 = 0;
   countMain1Sub2 = 0;
-
   countMain2Sub1 = 0;
   countMain2Sub2 = 0;
-
   countMain3Sub1 = 0;
   countMain3Sub2 = 0;
-
   countMain4Sub1 = 0;
   countMain4Sub2 = 0;
   countMain4Sub3 = 0;
   countMain4Sub4 = 0;
   countMain4Sub5 = 0;
-
   countMain5Sub1 = 0;
   countMain5Sub2 = 0;
   countMain5Sub3 = 0;
   countMain5Sub4 = 0;
-
   countMain6Sub1 = 0;
   countMain6Sub2 = 0;
   countMain6Sub3 = 0;
   countMain6Sub4 = 0;
   countMain6Sub5 = 0;
-
   countMain7Sub1 = 0;
   countMain7Sub2 = 0;
   countMain7Sub3 = 0;
-
   countMain8Sub1 = 0;
   countMain8Sub2 = 0;
   countMain8Sub3 = 0;
   countMain8Sub4 = 0;
   countMain8Sub5 = 0;
-
   countMain9Sub1 = 0;
   countMain9Sub2 = 0;
   countMain9Sub3 = 0;
-  
-
   chcsamplingstatusCount = '0';
   chcsampledCount = '0';
   chcnotsampledount = '0';
-
   chcsCBCResultsCount = '0';
   chcCBCPositiveCount = '0';
   chcCBCNegativeCount = "0";
   chcSSTResultCount = "0";
   chcSSTPositiveCount = "0";
   chcSSTNegativeCount = "0";
- 
   HPLCResultCount = "0";
   HPLCAbnormalCount = "0";
   HPLCNormalCount = "0";
-
   registeredCount = "0";
   notregisteredCount = "0";
- 
   counselledPNDTDisagreedCount = "0";
   counselledPNDTAgreedCount = "0";
   counsellingpendingCount = "0";
   counselledPNDTDecisionPendingCount = "0";
- 
   PNDTpendingCount = "0";
   PNDTcompletedCount = "0";
   PNDTNormalCount = "0";
   PNDTAffectedCount = "0";
   PNDTcarrierCount = "0";
-
   PNDcounsellingpendingCount = "0";
   PNDcounsellingMTPAgreedCount = "0";
   PNDcounsellingMTPDecisionPendingCount = "0";
   PNDCounselledMTPDisagreedCount = "0";
-
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
 
@@ -434,13 +411,12 @@ console.log(this.tableHeader);
     console.log(this.objkey);
   }
   openAddUsers(FormToBeOpened) {
-
+ 
     //this.ddlChc();
     this.ddlState();
     this.ddlUserRole(this.maintabSelected);
     this.disabledChc = false;
     this.ddlDistrict();
-
 
     this.confirmationSelected = Boolean("True");
      
@@ -1766,19 +1742,17 @@ console.log(this.tableHeader);
       console.log(this.userroleListResponse);
       if (this.userroleListResponse !== null && this.userroleListResponse.status === "true") {
         this.userrolelists = this.userroleListResponse.userRoles;
-        this.selectedUserrole = "";
-
+        this.selectedUserrole = " ";
       }
-
       else {
         this.districtlistErrorMessage = response.message;
       }
     },
       (err: HttpErrorResponse) => {
         this.districtlistErrorMessage = err.toString();
-
       });
   }
+
   onSubmitsadmin(addIlrForm: NgForm){
 
     console.log(addIlrForm.value);
@@ -1790,7 +1764,7 @@ console.log(this.tableHeader);
     this.userGovCode = addIlrForm.value.userGovCode;
     this.State = addIlrForm.value.State;
     this.email = addIlrForm.value.email;
-    this.selectedState = addIlrForm.value.ddlState;
+    this.selectedState = "1";
     this.contactNo1 = addIlrForm.value.contactNo1;
     this.comments = addIlrForm.value.Comments;
   console.log(addIlrForm);
@@ -1800,7 +1774,7 @@ console.log(this.tableHeader);
         userGovCode:this.userGovCode,
         userName:this.email,
         password:'odisha',
-        stateId: +(this.selectedState),
+        stateId: this.selectedState,
         centralLabId: 0,
 
         molecularLabId: 0,
@@ -1878,7 +1852,7 @@ console.log(this.tableHeader);
     this.lastName = addIlrForm.value.lastName;
     this.contactNo1 = addIlrForm.value.contactNo1;
     this.userGovCode = addIlrForm.value.userGovCode;
-    this.selectedState = addIlrForm.value.ddlState;
+    this.selectedState = "1";
     this.email = addIlrForm.value.email;
     this.Address = addIlrForm.value.Address;
     this.comments = addIlrForm.value.Comments;
@@ -1890,7 +1864,7 @@ console.log(this.tableHeader);
         userGovCode:this.userGovCode,
         userName:this.email,
         password:'odisha',
-        stateId:+(this.selectedState),
+        stateId:this.selectedState,
         centralLabId: 0,
 
         molecularLabId: 0,
@@ -1956,7 +1930,7 @@ console.log(this.tableHeader);
   this.lastName = addIlrForm.value.lastName;
   this.contactNo1 = addIlrForm.value.contactNo1;
   this.userGovCode = addIlrForm.value.userGovCode;
-  this.selectedState = addIlrForm.value.ddlState;
+  this.selectedState = "1";
   this.email = addIlrForm.value.email;
   this.Address = addIlrForm.value.Address;
   this.comments = addIlrForm.value.Comments;
@@ -1968,7 +1942,7 @@ console.log(addIlrForm);
       userGovCode:this.userGovCode,
       userName:this.email,
       password:'odisha',
-      stateId:+(this.selectedState),
+      stateId:this.selectedState,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -2034,7 +2008,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2046,7 +2020,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2112,7 +2086,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2124,7 +2098,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2190,7 +2164,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2202,7 +2176,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2268,7 +2242,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2280,7 +2254,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2346,7 +2320,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2358,7 +2332,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2424,7 +2398,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2436,7 +2410,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2502,7 +2476,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2514,7 +2488,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2580,7 +2554,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2592,7 +2566,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2658,7 +2632,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.comments = addIlrForm.value.Comments;
 
@@ -2669,7 +2643,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2735,7 +2709,7 @@ this.middleName = addIlrForm.value.middleName;
 this.lastName = addIlrForm.value.lastName;
 this.contactNo1 = addIlrForm.value.contactNo1;
 this.userGovCode = addIlrForm.value.userGovCode;
-this.selectedState = addIlrForm.value.ddlState;
+this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
 this.comments = addIlrForm.value.Comments;
@@ -2747,7 +2721,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.email,
     password:'odisha',
-    stateId:+(this.selectedState),
+    stateId:this.selectedState,
     centralLabId: 0,
 
     molecularLabId: 0,
