@@ -124,7 +124,7 @@
    
     <ng-template #addIlrDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add SADMIN' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add SADMIN Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -265,7 +265,7 @@
 
       <ng-template #editsadminDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit Sadmin' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit Sadmin Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -407,7 +407,7 @@
 
       <ng-template #addanmDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add ANM' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add ANM Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -655,7 +655,7 @@
            <!-- The Modal -->
            <ng-template #editanmDetail let-modal>
             <div class="modal-header">
-              <h4 class="modal-title modaltitle">{{'Edit ANM' | translate }}</h4>
+              <h4 class="modal-title modaltitle">{{'Edit ANM Users' | translate }}</h4>
               <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -901,7 +901,7 @@
 
       <ng-template #addchcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add CHC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add CHC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1118,7 +1118,7 @@
       </ng-template>
       <ng-template #editchcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit CHC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit CHC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1345,7 +1345,7 @@
 
       <ng-template #addhplcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add HPLC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add HPLC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1365,7 +1365,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -1543,7 +1543,7 @@
       </ng-template>
       <ng-template #edithplcdetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add HPLC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit HPLC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1720,7 +1720,7 @@
 
       <ng-template #addpndtcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add PNTDC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add PNTDC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1739,7 +1739,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -1915,7 +1915,7 @@
 
       <ng-template #editpndtcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit PNTDC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit PNTDC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2061,7 +2061,7 @@
 
       <ng-template #addmtpDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add MTP' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add MTP Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2082,7 +2082,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -2242,7 +2242,7 @@
       </ng-template>
       <ng-template #editmtpDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add MTP' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit MTP Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2385,7 +2385,7 @@
 
       <ng-template #adddcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add DC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add DC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2406,7 +2406,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -2566,7 +2566,7 @@
       </ng-template>
       <ng-template #editdcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit DC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit DC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2728,7 +2728,7 @@
 
       <ng-template #addmolecularDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add Molecular lab' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add Molecular lab Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2748,7 +2748,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -2925,7 +2925,7 @@
       </ng-template>
       <ng-template #editmolecularDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit Molecular lab' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit Molecular lab Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3085,7 +3085,7 @@
 
       <ng-template #addspcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add SPC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add SPC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3105,7 +3105,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -3267,7 +3267,7 @@
       </ng-template>
       <ng-template #editspcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit SPC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit SPC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3430,7 +3430,7 @@
       </ng-template>
       <ng-template #addnhmDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add NHM' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add NHM Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3612,7 +3612,7 @@
       </ng-template>
       <ng-template #editnhmDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit NHM' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit NHM Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3793,7 +3793,7 @@
       </ng-template>
       <ng-template #addpndtDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add PNDT' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add PNDT Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3814,7 +3814,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -3975,7 +3975,7 @@
       </ng-template>
       <ng-template #editpndtDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit PNDT' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit PNDT Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4118,7 +4118,7 @@
       </ng-template>
       <ng-template #addhaematologistDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add Haematologist' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add Haematologist Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4139,7 +4139,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -4300,7 +4300,7 @@
 
       <ng-template #edithaematologistDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit Haematologist' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit Haematologist Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4444,7 +4444,7 @@
 
       <ng-template #addsupportDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add SupportAdmin' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add SupportAdmin Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4465,7 +4465,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -4625,7 +4625,7 @@
 
       <ng-template #editsupportDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit SupportAdmin' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit SupportAdmin Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
