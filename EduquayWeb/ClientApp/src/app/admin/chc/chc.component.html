@@ -184,8 +184,8 @@
                                 <label for="inputilrPoint">{{'testingCHC' | translate }}<span
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
-                                    name="testingCHCId"
-                                    required [(ngModel)]="selectedtestingCHCId" (change)="onChangeDistrict($event.target.value)">
+                                    name="ddlTestingCHC"
+                                    required [(ngModel)]="selectedtestingCHCId" >
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of testingCHCists" [(value)]="districtdata.id">
                                             {{districtdata.name}}
@@ -333,7 +333,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="testingCHCId"
-                                    required [(ngModel)]="selectedtestingCHCId" (change)="onChangeDistrict($event.target.value)">
+                                    required [(ngModel)]="selectedEdittestingCHCId" (change)="onChangeDistrict($event.target.value)">
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of testingCHCists" [(value)]="districtdata.id">
                                             {{districtdata.name}}

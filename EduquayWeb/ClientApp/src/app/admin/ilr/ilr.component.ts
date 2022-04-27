@@ -342,13 +342,13 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       
       this.comments = addIlrForm.value.Comments;
       this.selectedChc = addIlrForm.value.ddlChc;
-      this.ilrCode = addIlrForm.value.ilrCode;
+      this.ilrCode = addIlrForm.value.ilrname;
       this.ilrname = addIlrForm.value.ilrname;
 
       this.ilrListRequest = {
         chcId: +(this.selectedChc),
        
-        ilrCode: this.ilrCode,
+        ilrCode: this.ilrname,
         name: this.ilrname,
         comments: this.comments,        
         userId: this.user.id  
