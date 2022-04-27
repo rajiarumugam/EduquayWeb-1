@@ -255,7 +255,7 @@ import { ViewReportCLMainMainComponent } from "./central-lab/view-report-sample/
 import { SubjectTrackerComponent } from "./anm-module/subject-tracker/subject-tracker.component";
  import { MTPComponent } from "./admin/mtp/mtp.component";
 import { CentralNotificationMainComponent } from "./central-lab/central-notification/central-notification-main/central-notification-main.component";
-import { StateComponent } from "./admin/state/state.component";
+// import { StateComponent } from "./admin/state/state.component";
 import { DistrictComponent } from "./admin/district/district.component";
 import { BlockComponent } from "./admin/block/block.component";
 import { ChcComponent } from "./admin/chc/chc.component";
@@ -267,7 +267,7 @@ import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
 
 import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
-import { UserTypeComponent } from "./admin/user-type/user-type.component";
+// import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 
@@ -513,7 +513,7 @@ const routes: Routes = [
       { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
       { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
       { path: 'anm-subjecttracker', component: SubjectTrackerComponent},
-      { path: 'add-state', component: StateComponent, pathMatch: 'full'},
+      // { path: 'add-state', component: StateComponent, pathMatch: 'full'},
       { path: 'add-district', component: DistrictComponent, pathMatch: 'full'},
       { path: 'add-block', component: BlockComponent, pathMatch: 'full'},
       { path: 'add-chc', component: ChcComponent, pathMatch: 'full'},
@@ -532,7 +532,7 @@ const routes: Routes = [
       { path: 'add-hplc', component: HPLCComponent, pathMatch: 'full'},
       { path: 'add-molecular', component: MolecularlabComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
-      { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
+      // { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
 
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
@@ -1252,7 +1252,7 @@ export const RoutingComponents = [
   ViewReportCLMainMainComponent,
   SubjectTrackerComponent,
   CentralNotificationMainComponent,
-  StateComponent,
+  // StateComponent,
   DistrictComponent,
   BlockComponent,
   ChcComponent,
@@ -1264,7 +1264,7 @@ export const RoutingComponents = [
   PndtLocationComponent,
   MTPComponent,
   NHMreportListComponent,
-  UserTypeComponent,
+  // UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
   PathoreportSampleStatusPrintComponent,
   MlrNotificationComponent,

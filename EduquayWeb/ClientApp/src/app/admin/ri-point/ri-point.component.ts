@@ -27,128 +27,141 @@ import { sample } from 'rxjs/operators';
 })
 export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
 
-  @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
-  @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
-  @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
+    @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+    @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
+    @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
 
-  loadDataTable: boolean = false;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
+    loadDataTable: boolean = false;
+    dtOptions: any = {};
+    dtTrigger: Subject<any> = new Subject();
 
-  ripointlistErrorMessage: string;
-  user: user;
+    ripointlistErrorMessage: string;
+    user: user;
 
-  confirmationSelected: boolean;
-  riPtListResponse;
-  riptlists: RiList[];
-  riptListRequest: AddRipointRequest;
-  riptListRequest2: AddRipointRequest2;
-  addriptResponse: AddRiPtDataresponse;
-  chcListResponse;
-  selectedIlr: string;
-  ilrListResponse: IlrResponse;
-  chclists: ChcList[];
-  phcListResponse;
-  phclists: PhcList[];
-  scListResponse;
-  sclists: ScList[];
-  scListRequest: AddScRequest;
-  isaddform: boolean;
-  selectedChc: string;
-  getstate: string;
-  selectedEditChc: string = '';
+    confirmationSelected: boolean ;
+    riPtListResponse;
+    riptlists: RiList[];
+    riptListRequest: AddRipointRequest;
+    riptListRequest2: AddRipointRequest2;
+    addriptResponse: AddRiPtDataresponse;
+    chcListResponse;
+    selectedIlr: string;
+    ilrListResponse:IlrResponse;
+    chclists: ChcList[];
+    phcListResponse;
+    phclists: PhcList[];
+    scListResponse;
+    sclists: ScList[];
+    scListRequest: AddScRequest;
+    isaddform:boolean;
+    selectedChc: string;
+    getstate: string;
+    selectedEditChc: string = '';
 
-  districtGovCode: string;
-  stateName: string;
-  ilrlists: IlrList[];
-  districtId: number;
-  selectedDistrict = '';
-  districtName: string;
-  isActive: string;
-  comments: string;
-  createdBy: number;
-  updatedBy: number;
-  stateCode: string;
-  disabledChc = false;
-  blocknamedata: string;
-  blockcodedata: string;
-  selectedEditDistrict: string;
-  districtnamedata: string;
-  commentsdata: string;
-  getchc: string;
-  getphc: string;
-  getsc: string;
-  selectedEditIlr: string;
-  blockCodedata: string;
-  selectedPhc: string = '';
-  selectedSc: string = '';
-  riCode: string;
-  riName: string;
-  pincode: string;
-  tempeditid: number;
-  testingCHCResponse;
-  tcbydisList;
-  selectedEdittestingCHCId = '';
-  testingchcId: string;
-  centrallablid: string;
+    districtGovCode: string;
+    stateName: string;
+    ilrlists: IlrList[];
+    districtId: number;
+    selectedDistrict = '';
+    districtName: string;
+    isActive: string;
+    comments: string;
+    createdBy: number;
+    updatedBy: number;
+    stateCode: string;
+    disabledChc = false;
+    blocknamedata: string;
+    blockcodedata: string;
+    selectedEditDistrict: string;
+    districtnamedata: string;
+    commentsdata: string;
+    getchc: string;
+    getphc: string;
+    getsc: string;
+    selectedEditIlr: string;
+    blockCodedata: string;
+    selectedPhc: string = '';
+    selectedSc: string = '';
+    riCode: string;
+    riName: string;
+    pincode: string;
+    tempeditid:number;
+    testingCHCResponse;
+    tcbydisList;
+    selectedEdittestingCHCId='';
+    testingchcId : string;
+    centrallablid : string;
 
-  selectedtestingCHCId: string = '';
-  pincodeData: string;
-  chcNamedata: string;
-  chcCodedata: string;
-  selectedEditPhc: string = '';
-  selectedEditSc: string = '';
-  riNamedata: string = '';
-  riCodedata: string = '';
-  districtListResponse;
-  districtlists;
+    selectedtestingCHCId: string = '';
+    pincodeData: string;
+    chcNamedata: string;
+    chcCodedata: string;
+    selectedEditPhc: string = '';
+    selectedEditSc: string = '';
+    riNamedata: string='';
+    riCodedata: string='';
+    districtListResponse;
+    districtlists;
   id: number;
   riName1;
 
-  constructor(
+    constructor(
 
-    private RiPtService: AddRipointService,
-    private modalService: NgbModal,
-    private httpService: HttpClient,
-    private _formBuilder: FormBuilder,
-    private loaderService: LoaderService,
-    private activatedRoute: ActivatedRoute,
-    private tokenService: TokenService,
-    private dataservice: DataService,
-  ) { }
+      private RiPtService: AddRipointService,
+      private modalService: NgbModal,
+      private httpService: HttpClient,
+      private _formBuilder: FormBuilder,
+      private loaderService: LoaderService,
+      private activatedRoute: ActivatedRoute,
+      private tokenService: TokenService,
+      private dataservice: DataService,
+    ) { }
 
-  ngOnInit() {
-    this.dataservice.sendData(JSON.stringify({ "module": "Master", "submodule": "RI Point" }));
-    this.loaderService.display(false);
-    this.user = JSON.parse(this.tokenService.getUser('lu'));
-    this.dtOptions = {
-      pagingType: 'simple_numbers',
-      pageLength: 20,
-      processing: true,
-      stripeClasses: [],
-      lengthMenu: [5, 10, 20, 50],
-      language: {
-        search: '<div><span class="note">Search by any RI information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
-        searchPlaceholder: "Search...",
-        lengthMenu: "Records / Page :  _MENU_",
-        paginate: {
-          first: '',
-          last: '', // or '←'
-          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        },
-        //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
-      }
-    };
-    this.retrieveRiPtList();
-    this.ddlDistrict();
-  }
+    ngOnInit() {
+      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "RI Point"}));
+      this.loaderService.display(false);
+      this.user = JSON.parse(this.tokenService.getUser('lu'));
+      this.dtOptions = {
+        pagingType: 'simple_numbers',
+        pageLength: 20,
+        processing: true,
+        stripeClasses: [],
+        lengthMenu: [5, 10, 20, 50],
+        dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+        // Configure the buttons
+          buttons: [
+            {
+              titleAttr: 'Download as Excel',
+              extend: 'excelHtml5',
+              title: 'Report - Sample Status',
+              className: 'custom-btn',
+              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+            }
+          ],
+        language: {
+          search: '<div><span class="note">Search by any RI information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          searchPlaceholder: "Search...",
+          lengthMenu: "Records / Page :  _MENU_",
+          paginate: {
+            first: '',
+            last: '', // or '←'
+            previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+            next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+          },
+          //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
+        }
+      };
+      this.retrieveRiPtList();
+      this.ddlDistrict();
+    }
 
-  retrieveRiPtList() {
-    this.loaderService.display(true);
-    this.sclists = [];
-    this.ripointlistErrorMessage = '';
-    let samplesList = this.RiPtService.getRiList()
+    retrieveRiPtList(){
+      this.loaderService.display(true);
+      this.sclists = [];
+      this.ripointlistErrorMessage ='';
+      let samplesList = this.RiPtService.getRiList()
       .subscribe(response => {
         this.riPtListResponse = response;
         this.loaderService.display(false);
