@@ -78,7 +78,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedtestingCHCId: string = '';
     testingCHCResponse;
     testingCHCists;
-    selectedEdittestingCHCId='';
+    selectedEdittestingCHCId: string = '';
     editid: any;
 
     constructor(
@@ -222,12 +222,14 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
       if (this.selectedDistrict === '') {
         this.selectedBlock = '';
+        this.selectedtestingCHCId ='';
       }
       else {
         this.ddlBlock(this.selectedDistrict);
         this.ddlTestingCHC(this.selectedDistrict);
       }
     }
+   
 
     openAddChc(addChcDetail) {
 
@@ -251,12 +253,12 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.editid=sample.id
       this.getdistrict = sample.districtId;
       this.selectedEditDistrict =sample.districtId;
-      this.selectedtestingCHCId=sample.testingCHCId;
+      this.selectedEdittestingCHCId=sample.testingCHCId;
       this.ddlBlock(sample.districtId);
       this.selectedEditBlock =sample.blockId;
       this.ddlDistrict();
       this.ddlTestingCHC(sample.districtId);
-      // this.selectedtestingCHCId
+      //  this.selectedtestingCHCId
       this.pincodeData = sample.pincode;
       // setTimeout(() => {
       //   this.ddlEditDistrict();
@@ -308,7 +310,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         chcGovCode: this.chcCode,
         name: this.chcName,
         isTestingFacility: this.isTestingFacility,
-        testingCHCId: this.selectedtestingCHCId,
+        testingCHCId:+(this.selectedtestingCHCId),
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,

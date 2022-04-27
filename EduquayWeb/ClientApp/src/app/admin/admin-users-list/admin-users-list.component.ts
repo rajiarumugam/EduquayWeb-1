@@ -252,35 +252,35 @@ export class AdminUsersListComponent implements AfterViewInit, OnDestroy, OnInit
   MTPpendingCount = 0;
   MTPcompletedCount = 0;
 
-  _headerData = [['SNo','Name','UserName','UserGovCode','ContactNo','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','IsActive','View RI','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','IsActive','View RI','Edit'],
-  ['SNo','Name','User Role','UserName','UserGovCode','District','Block','CHC','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','User Role','UserName','UserGovCode','District','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','UserName','UserGovCode','District','Block','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit'],
-  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','IsActive','Edit']];
+  _headerData = [['SNo','Name','UserName','UserGovCode','ContactNo','Comments','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','View RI','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','Block','CHC','PHC','SC','ContactNo','Email','Comments','View RI','Edit'],
+  ['SNo','Name','User Role','UserName','UserGovCode','District','Block','CHC','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','User Role','UserName','UserGovCode','District','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','UserName','UserGovCode','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','UserName','UserGovCode','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','UserName','UserGovCode','District','Block','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','Edit'],
+  ['SNo','Name','User Role','UserName','UserGovCode','ContactNo','Email','Comments','Edit']];
   
-  _keyData = [['name','userName','userGovCode','mobileNo','comments','isActive'],
-  ['name','userName','userGovCode','districtName','blockName','chcName','phcName','scName','mobileNo','email','comments','isActive'],
-  ['name','userName','userGovCode','districtName','blockName','chcName','phcName','scName','mobileNo','email','comments','isActive'],
-  ['name','userRole','userName','userGovCode','districtName','blockName','chcName','mobileNo','email','comments','isActive'],
-  ['name','userRole','userName','userGovCode','districtName','mobileNo','email','comments','isActive'],
-  ['name','userName','userGovCode','mobileNo','email','comments','isActive'],
-  ['name','userName','userGovCode','mobileNo','email','comments','isActive'],
-  ['name','userName','userGovCode','districtName','mobileNo','email','comments','isActive'],
-  ['name','userRole','userName','userGovCode','mobileNo','email','comments','isActive'],
-  ['name','userName','userGovCode','districtName','mobileNo','email','comments','isActive'],
-  ['name','userName','userGovCode','districtName','blockName','mobileNo','email','comments','isActive'],
-  ['name','userRole','userName','userGovCode','mobileNo','email','comments','isActive'],
-  ['name','userRole','userName','userGovCode','mobileNo','email','comments','isActive'],
-  ['name','userRole','userName','userGovCode','mobileNo','email','comments','isActive']]
+  _keyData = [['name','userName','userGovCode','mobileNo','comments'],
+  ['name','userName','userGovCode','districtName','blockName','chcName','phcName','scName','mobileNo','email','comments'],
+  ['name','userName','userGovCode','districtName','blockName','chcName','phcName','scName','mobileNo','email','comments'],
+  ['name','userRole','userName','userGovCode','districtName','blockName','chcName','mobileNo','email','comments'],
+  ['name','userRole','userName','userGovCode','districtName','mobileNo','email','comments'],
+  ['name','userName','userGovCode','mobileNo','email','comments'],
+  ['name','userName','userGovCode','mobileNo','email','comments'],
+  ['name','userName','userGovCode','districtName','mobileNo','email','comments'],
+  ['name','userRole','userName','userGovCode','mobileNo','email','comments'],
+  ['name','userName','userGovCode','districtName','mobileNo','email','comments'],
+  ['name','userName','userGovCode','districtName','blockName','mobileNo','email','comments'],
+  ['name','userRole','userName','userGovCode','mobileNo','email','comments'],
+  ['name','userRole','userName','userGovCode','mobileNo','email','comments'],
+  ['name','userRole','userName','userGovCode','mobileNo','email','comments']]
   tableHeader = [];
   curentObjectKey = [];
 
