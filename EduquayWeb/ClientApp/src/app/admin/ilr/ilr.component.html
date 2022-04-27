@@ -64,9 +64,9 @@
                             <th><span>{{'IlR Name' | translate }}</span></th>
                               <th><span>{{'DistrictName' | translate }}</span></th>                              
                               <th><span>{{'ChcName ' | translate }}</span></th>
-                              <th><span>{{'Ilrcode' | translate }}</span></th>                                                
+                              <!-- <th><span>{{'Ilrcode' | translate }}</span></th>                                                 -->
                               <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Active' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
@@ -76,10 +76,10 @@
                               <td class="sid text-center">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.districtName}}</td>                           
                               <td class="sid text-center">{{sample.chcName}}</td>
-                              <td class="sid text-center">{{sample.ilrCode}}</td>                              
+                              <!-- <td class="sid text-center">{{sample.ilrCode}}</td>                               -->
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+                              <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
                                    
                             <td class="text-center">
                               <a class="" (click)="openEditIlr(editIlrDetail, sample)"
@@ -156,7 +156,7 @@
                               </div> 
                             </div>
                             
-                            <div class="form-group col-md-3">
+                            <!-- <div class="form-group col-md-3">
                               <label class="note">{{'ILR Code' | translate }}<span class="manto"> *</span></label>
                               <input class="form-control" name="ilrCode" type="text" placeholder="Ilr Code" ngModel
                               [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
@@ -165,9 +165,9 @@
                               <div *ngIf="addIlrForm.submitted && ilrCode.invalid">     
                                 <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr Code is required</small>  
                               </div>                       
-                        </div>
+                        </div> -->
 
-                                <div class="form-group col-md-3">
+                                <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                   <div class="n-chk">
                                       <label class="new-control new-checkbox checkbox-outline-primary">
@@ -176,7 +176,7 @@
                                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                       </label>
                                   </div>
-                                </div>
+                                </div> -->
                               </div>
                   
                               <div class="form-row mt-4">
@@ -265,7 +265,7 @@
   
                                
             
-                                <div class="form-group col-md-3">
+                                <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'Ilr code' | translate }} <span class="manto"> *</span></label>
                                   <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code" disabled="ilrCode"
                                     [class.is-invalid]="!ilrCode.valid && ilrCode.touched || editIlrForm.submitted && ilrCode.invalid"
@@ -274,9 +274,9 @@
                                   <div *ngIf="editIlrForm.submitted && ilrCode.invalid">
                                     <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr code is required</small>
                                   </div>  
-                                </div>
+                                </div> -->
                                                   
-                                <div class="form-group col-md-3">
+                                <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                   <div class="n-chk">
                                       <label class="new-control new-checkbox checkbox-outline-primary">
@@ -285,7 +285,7 @@
                                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                       </label>
                                   </div>
-                                </div> 
+                                </div>  -->
                               </div>
                   
                               <div class="form-row mt-4">

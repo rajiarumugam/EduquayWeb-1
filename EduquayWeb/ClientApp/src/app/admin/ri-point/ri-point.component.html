@@ -33,7 +33,10 @@
                       </div>
                     </div>
                     <div class="col-md-4">
-                     
+                      <div class="float-right mb-4">
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-pndt']" role="button"
+                        ngbTooltip="PNDT" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                      </div>
                     </div>
                   </div>
             </div>
@@ -66,7 +69,7 @@
                               <th><span>{{'SC ' | translate }}</span></th>
                               <th><span>{{'Testing chc ' | translate }}</span></th>
                               <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Active' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
@@ -80,8 +83,8 @@
                               <td class="sid text-center">{{sample.scName}}</td>
                               <td class="sid text-center">{{sample.testingCHCName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+                              <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
             
 
                               <td class="text-center">
@@ -121,7 +124,7 @@
                                         class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
                                         name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editRiPtForm.submitted && ddlDistrict.invalid"
-                                        required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                        required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)" disabled="selectedEditDistrict">
                                             <option value="">Select</option>
                                             <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                 {{districtdata.name}}
@@ -140,7 +143,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || editRiPtForm.submitted && ddlChc.invalid"
-                                    required [(ngModel)]="selectedEditChc" (change)="onChangeChc($event.target.value)" [disabled]="!selectedEditDistrict=== ''" >
+                                    required [(ngModel)]="selectedEditChc" (change)="onChangeChc($event.target.value)"  disabled="selectedEditChc">
                                         <option value="">Select</option>
                                         <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                                             {{chcdata.name}}
@@ -177,7 +180,7 @@
                                         class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
                                         name="ddlPhc" #ddlPhc="ngModel" [class.is-invalid]="ddlPhc.invalid && ddlPhc.touched || editRiptFormsubmitted && ddlPhc.invalid"
-                                        required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" >
+                                        required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" disabled="selectedEditPhc">
                                             <option value="">Select</option>
                                             <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
                                                 {{phcdata.name}}
@@ -196,7 +199,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="ddlSc" #ddlSc="ngModel" [class.is-invalid]="ddlSc.invalid && ddlSc.touched || editRiPtForm.submitted && ddlSc.invalid"
-                                    required [(ngModel)]="selectedEditSc" >
+                                    required [(ngModel)]="selectedEditSc" disabled="selectedEditSc" >
                                         <option value="">Select</option>
                                         <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
                                             {{scdata.name}}
@@ -298,7 +301,7 @@
                                     </div>
                                   </div> -->
 
-                                  <div class="form-group col-md-3">
+                                  <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                     <div class="n-chk">
                                         <label class="new-control new-checkbox checkbox-outline-primary">
@@ -307,7 +310,7 @@
                                           <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                         </label>
                                     </div>
-                                  </div>
+                                  </div> -->
 
                                 </div>
 
@@ -352,7 +355,7 @@
                               <div class="form-group col-md-3">
                                 <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
                                 <select id="inputilrPoint" class="form-control"
-                                name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" >
+                                name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" disabled="isaddform==false" >
                                     <option value="">Select</option>
                                     <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                         {{districtdata.name}}
@@ -475,7 +478,7 @@
                                   </div>
                         </div>
 
-                              <div class="form-group col-md-3">
+                              <!-- <div class="form-group col-md-3">
                                 <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
@@ -484,7 +487,7 @@
                                       <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                     </label>
                                 </div>
-                              </div>
+                              </div> -->
 
                             </div>
 

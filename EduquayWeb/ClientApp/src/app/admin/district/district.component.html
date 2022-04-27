@@ -66,7 +66,7 @@
                               <th><span>{{'District Code' | translate }}</span></th>  
                               <!-- <th><span>{{'State' | translate }}</span></th>                                                      -->
                               <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Active' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
@@ -77,8 +77,8 @@
                               <td class="sname text-left">{{sample.districtGovCode}}</td>
                               <!-- <td class="sid text-center">{{sample.stateName}}</td>                                                           -->
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+                              <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td> -->
+                              <!-- <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
             
 
                               <td class="text-center">
@@ -149,7 +149,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="form-group col-md-3">
+                                  <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                     <div class="n-chk">
                                         <label class="new-control new-checkbox checkbox-outline-primary">
@@ -158,7 +158,7 @@
                                           <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                         </label>
                                     </div>
-                                  </div>
+                                  </div> -->
                                 </div>
 
                                 <div class="form-row mt-4">
@@ -211,15 +211,24 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
+                                  <label class="note" [ngClass]="{'label-border-class':!editDistrictName.valid && editDistrictName.touched || editDistrictForm.submitted && districtname.invalid}">{{'District Name' | translate }} <span class="manto">*</span></label>
+                                  <input class="form-control" name="editDistrictName" type="text" placeholder="District Name"  pattern="[a-zA-Z][a-zA-Z ]+" required
+                                  [class.is-invalid]="!editDistrictName.valid && editDistrictName.touched || editDistrictForm.submitted && districtname.invalid"
+                                   #editDistrictName="ngModel" required [(ngModel)]="districtnamedata">
+                                  <small class="text-danger ml-2" *ngIf="!editDistrictName.valid && editDistrictName.touched ">Enter District Name</small>
+                                  <div *ngIf="editDistrictForm.submitted && editDistrictName.invalid">
+                                    <small *ngIf="editDistrictName.untouched" class=" ml-2 text-danger">District Name is required</small>
+                                  </div>
+
+                            </div>
+
+                                <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'District Name' | translate }} <span class="manto"> *</span></label>
                                   <input class="form-control" name="editDistrictName" type="text" placeholder="District Name"
                                   #editDistrictName1="ngModel"  required [(ngModel)]="districtnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
                                   <small class="text-danger ml-2" *ngIf="!editDistrictName1.valid && editDistrictName1.touched ">Enter District Name</small>
-                                  <!-- <div *ngIf="addScForm.submitted && scName.invalid">
-                                    <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
-                                  </div> -->
-  
-                            </div>
+
+                            </div> -->
           
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'District Code' | translate }}<span class="manto"> *</span></label>
@@ -228,7 +237,7 @@
                                 </div>
 
 
-                                <div class="form-group col-md-3">
+                                <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                   <div class="n-chk">
                                       <label class="new-control new-checkbox checkbox-outline-primary">
@@ -237,7 +246,7 @@
                                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                       </label>
                                   </div>
-                                </div>
+                                </div> -->
                               </div>
 
                               <div class="form-row mt-4">

@@ -27,7 +27,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
 
     loadDataTable: boolean = false;
-    dtOptions: DataTables.Settings = {};
+    dtOptions: any = {};
     dtTrigger: Subject<any> = new Subject();
 
     HPLClistErrorMessage: string;
@@ -79,6 +79,19 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
         processing: true,
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
+        dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+        // Configure the buttons
+          buttons: [
+            {
+              titleAttr: 'Download as Excel',     
+              extend: 'excelHtml5',
+              title: 'Report - Sample Status',
+              className: 'custom-btn',
+              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+            }
+          ], 
         language: {
           search: '<div><span class="note">Search by any HPLC information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
@@ -93,7 +106,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrieveHPLCist();
-      this.rerender();
+  
     }
 
     retrieveHPLCist(){
@@ -113,7 +126,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
             this.HPLClists.forEach(element => {
               this.getdistrict = element.districtId;
             });
-            //this.getstate = this.
+            this.rerender();
           
           }
         }
@@ -190,7 +203,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedDistrict = addHPLCForm.value.ddlDistrict;
 
       var _obj = {
-        hplcCode: this.HPLCCodedata,
+        hplcCode: this.hplcCodedata,
         hplcName: this.HPLCnamedata,
         districtId: +(this.selectedDistrict),
         comments: this.comments,
