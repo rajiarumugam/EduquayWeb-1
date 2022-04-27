@@ -54,7 +54,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
     molecularCodedata: string;
     districtnamedata: string;
     commentsdata: string;
-    getdistrict: string;  
+    getdistrict: string;
     editMolecularDetails;
 
 
@@ -94,7 +94,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrieveMolecularlist();
-      this.rerender();
+
     }
 
     retrieveMolecularlist(){
@@ -114,8 +114,8 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
             this.Molecularlists.forEach(element => {
               this.getdistrict = element.districtId;
             });
-            //this.getstate = this.
-          
+            this.rerender();
+
           }
         }
         else{
@@ -225,7 +225,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editDistrictForm: NgForm){
 
       console.log(editDistrictForm.value);
-     
+
  console.log(this.molecularCodedata);
      var _obj = {
         id:this.editMolecularDetails.id,

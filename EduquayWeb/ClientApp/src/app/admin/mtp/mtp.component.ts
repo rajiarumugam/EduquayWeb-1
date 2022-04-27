@@ -53,9 +53,9 @@ export class MTPComponent implements AfterViewInit, OnDestroy, OnInit {
     mtpCodedata: string;
     districtnamedata: string;
     commentsdata: string;
-    getdistrict: string;  
+    getdistrict: string;
     editMTPDetails;
- 
+
 
 
     constructor(
@@ -93,7 +93,7 @@ export class MTPComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrieveMTPlist();
-      this.rerender();
+
     }
 
     retrieveMTPlist(){
@@ -113,8 +113,8 @@ export class MTPComponent implements AfterViewInit, OnDestroy, OnInit {
             this.MTPLists.forEach(element => {
               this.getdistrict = element.districtId;
             });
-            //this.getstate = this.
-          
+            this.rerender();
+
           }
         }
         else{
@@ -224,7 +224,7 @@ export class MTPComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editDistrictForm: NgForm){
 
       console.log(editDistrictForm.value);
-     
+
  console.log(this.mtpCodedata);
      var _obj = {
         id:this.editMTPDetails.id,

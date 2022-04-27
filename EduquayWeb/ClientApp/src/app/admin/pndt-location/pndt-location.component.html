@@ -28,7 +28,7 @@
                   <!-- <h5 class="float-left">Sample Collection</h5> -->
                   <div class="col-md-4">
                     <div class="headertit">
-                      <h5 class="float-center">{{'PNDT' | translate }}</h5>
+                      <h5 class="float-center">{{'PNDT Location' | translate }}</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -60,9 +60,9 @@
                       <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                         <thead>
                           <tr>
-                            <th><span>{{'SNo' | translate }}</span></th>                             
-                            <th><span>{{'PNDT Name' | translate }}</span></th> 
-                            <th><span>{{'PNDT Code' | translate }}</span></th>                                                                                  
+                            <th><span>{{'SNo' | translate }}</span></th>
+                            <th><span>{{'PNDT Name' | translate }}</span></th>
+                            <th><span>{{'PNDT Code' | translate }}</span></th>
                             <th><span>{{'Comments' | translate }}</span></th>
                             <th><span>{{'Active' | translate }}</span></th>
                             <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
@@ -70,13 +70,13 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let sample of pndtlists; index as i">
-                            <td class="sno text-center">{{i +1}}</td>                          
+                            <td class="sno text-center">{{i +1}}</td>
                             <td class="sid text-center">{{sample.pndtlocationName}}</td>
-                            <td class="sname text-left">{{sample.pndtCode}}</td>                                                                                       
+                            <td class="sname text-left">{{sample.pndtCode}}</td>
                             <td class="number text-center">{{sample.comments}}</td>
                             <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                             <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
-          
+
 
                             <td class="text-center">
                               <a class="" (click)="openEditPNDT(editPNDTDetail, sample)"
@@ -108,7 +108,7 @@
                           <form class="text-left" (ngSubmit)="addPndtForm.form.valid && onSubmit(addPndtForm)" #addPndtForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                 
+
                                 <div class="form-group col-md-3">
                                   <label class="note" [ngClass]="{'label-border-class':!pndtlocationName.valid && pndtlocationName.touched || addPndtForm.submitted && pndtlocationName.invalid}">{{'PNDT Name' | translate }} <span class="manto">*</span></label>
                                   <input class="form-control" name="pndtlocationName" type="text" placeholder="PNDT Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
@@ -120,7 +120,7 @@
                                   </div>
 
                             </div>
-                          
+
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'PNDT Code' | translate }}<span class="manto"> *</span></label>
                                   <input class="form-control" name="pndtCode" type="text" placeholder="PNDT Code" ngModel pattern="^[a-zA-Z0-9]+$"
@@ -180,8 +180,8 @@
                         <form class="text-left" (ngSubmit)="editPNDTForm.form.valid && editSubmit(editPNDTForm)" #editPNDTForm="ngForm" novalidate>
                           <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                             <div class="form-row">
-                             
-                             
+
+
 
                               <div class="form-group col-md-3">
                                 <label class="note">{{'PNDT Name' | translate }} <span class="manto"> *</span></label>
@@ -193,7 +193,7 @@
                                 </div> -->
 
                           </div>
-        
+
                               <div class="form-group col-md-3">
                                 <label class="note">{{'PNDT Code' | translate }}<span class="manto"> *</span></label>
                                 <input class="form-control" name="editPNDTCode" type="text" placeholder="PNDT Code" ngModel pattern="^[a-zA-Z0-9]+$"

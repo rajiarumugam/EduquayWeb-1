@@ -28,7 +28,7 @@
                   <!-- <h5 class="float-left">Sample Collection</h5> -->
                   <div class="col-md-4">
                     <div class="headertit">
-                      <h5 class="float-center">{{'Molecular' | translate }}</h5>
+                      <h5 class="float-center">{{'Molecular Lab' | translate }}</h5>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -78,7 +78,7 @@
                             <td class="number text-center">{{sample.comments}}</td>
                             <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                             <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
-          
+
                             <td class="text-center">
                               <a class="" (click)="openEditMolecular(editMolecularDetail, sample)"
                               role="button">
@@ -136,7 +136,7 @@
                                     <small *ngIf="molecularName.untouched" class=" ml-2 text-danger">Molecular Name is required</small>
                                   </div>
                             </div>
-           
+
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'Molecular Code' | translate }}<span class="manto"> *</span></label>
                                   <input class="form-control" name="molecularCode" type="text" placeholder="Molecular Code" ngModel pattern="^[a-zA-Z0-9]+$" required
@@ -195,7 +195,7 @@
                         <form class="text-left" (ngSubmit)="editMolecularForm.form.valid && editSubmit(editMolecularForm)" #editMolecularForm="ngForm" novalidate>
                           <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                             <div class="form-row">
-                        
+
                               <div class="form-group col-md-3">
                                   <label for="inputState">{{'District' | translate}} <span class="manto"></span> *</label>
                                   <select id="inputilrPoint" class="form-control"
@@ -211,10 +211,10 @@
                                 <label class="note">{{'Molecular Name' | translate }} <span class="manto"> *</span></label>
                                 <input class="form-control" name="editmolecularName" type="text" placeholder="Molecular Name"
                                 #editmolecularName1="ngModel"  required [(ngModel)]="molecularNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                                <small class="text-danger ml-2" *ngIf="!editmolecularName1.valid && editmolecularName1.touched ">Enter Molecular Name</small>  
+                                <small class="text-danger ml-2" *ngIf="!editmolecularName1.valid && editmolecularName1.touched ">Enter Molecular Name</small>
                           </div>
-                              
-                              
+
+
 
                               <div class="form-group col-md-3">
                                 <label class="note">{{'Molecular Code' | translate }}<span class="manto"></span> *</label>

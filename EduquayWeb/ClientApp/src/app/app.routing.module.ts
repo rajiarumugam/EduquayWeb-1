@@ -520,7 +520,7 @@ const routes: Routes = [
       { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
       // { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
       { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
-     
+
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
       { path: 'add-test', component: TestComponent, pathMatch: 'full'},
       { path: 'add-ilr', component:IlrComponent, pathMatch: 'full'},
@@ -1355,8 +1355,8 @@ export const RoutingComponents = [
   MolecularCVSReport,
   HEMreportListComponent1,
   DeactivateanmComponent,
-  DeactivateanmMainComponent,
-  
+  DeactivateanmMainComponent
+
 
 ];
 

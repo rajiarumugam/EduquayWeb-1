@@ -48,7 +48,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
     stateName: string;
     pndtlocationName: string;
     isActive: string;
-    
+
     comments: string;
     createdBy: number;
     updatedBy: number;
@@ -94,7 +94,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrievePNDTlist();
-      this.rerender();
+
     }
 
     retrievePNDTlist(){
@@ -112,9 +112,10 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
           }
           else{
             this.pndtlists = this.pndtListResponse.data;
-           
-            
-            
+            this.rerender();
+
+
+
           }
         }
         else{
@@ -127,11 +128,11 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
       });
     }
 
-    
+
 
     openAddPNDT(addPNDTDetail) {
 
-     
+
       this.modalService.open(
         addPNDTDetail, {
         centered: true,
@@ -147,11 +148,11 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
     openEditPNDT(editPNDTDetail, sample) {
 
       console.log(sample);
-     
+
       this.selectedPNDTData = sample;
       this.pndtlocationNamedata = sample.pndtlocationName;
       this.pndtcodedata = sample.pndtCode;
-    
+
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
@@ -173,7 +174,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pndtCode = addPndtForm.value.pndtCode;
       this.pndtlocationName = addPndtForm.value.pndtlocationName;
       this.comments = addPndtForm.value.Comments;
-     
+
 
       var _obj = {
         pndtCode: this.pndtCode,
@@ -210,7 +211,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
       var _obj = {
         id:this.selectedPNDTData.id,
         pndtCode: this.pndtcodedata,
-        pndtlocationName: this.pndtlocationNamedata,       
+        pndtlocationName: this.pndtlocationNamedata,
         isActive: this.confirmationSelected+"",
         comments: this.commentsdata,
         userId: this.user.id+"",

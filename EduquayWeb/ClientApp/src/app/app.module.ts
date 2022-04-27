@@ -34,7 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FileUploadModule } from 'ng2-file-upload'; 
+import { FileUploadModule } from 'ng2-file-upload';
 //import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { DataService } from './shared/data.service';
 import { StatereportListComponent } from './pathologist/state-report-list/state-report-list.component';
@@ -129,6 +129,7 @@ import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
 import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterPipe';
 import { PndtLocationComponent } from './admin/pndt-location/pndt-location.component';
+import { AnmReportProfileComponent } from './anm-module/anm-report-view-profile/anm-report-view-profile.component';
 
 
 
@@ -160,7 +161,7 @@ import { PndtLocationComponent } from './admin/pndt-location/pndt-location.compo
     ChcSubjectProfileComponent,
     ChcDamagedSamplesComponent,
     ChcUnsentSamplesComponent,
-    ChcTimeoutSamplesComponent,               
+    ChcTimeoutSamplesComponent,
     ChcNotificationComponent,
     ChcPositiveSubjectComponent,
     SelectDropdownComponent,
@@ -226,7 +227,7 @@ import { PndtLocationComponent } from './admin/pndt-location/pndt-location.compo
     AVDComponent,
     // UserRoleComponent,
     IlrComponent,
-    ScComponent,  
+    ScComponent,
     RiPointComponent,
     FacilityTypeComponent,
     HNINComponent,
@@ -237,14 +238,15 @@ import { PndtLocationComponent } from './admin/pndt-location/pndt-location.compo
     TabComponent,
     UpdateResultsComponent,
     EditResultsComponent,
-   
+
     ConfirmedResultsComponent,
     MlrNotificationComponent,
     CvsNotificationComponent,
     CvsUpdateresultComponent,
     CvsEditresultComponent,
     CvsConfirmedresultComponent,
-    
+    AnmReportProfileComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -273,7 +275,7 @@ import { PndtLocationComponent } from './admin/pndt-location/pndt-location.compo
     NgMultiSelectDropDownModule.forRoot(),
     FileUploadModule,
     NgxPrintModule
-   
+
   ],
   providers: [
 

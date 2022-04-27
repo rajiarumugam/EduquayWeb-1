@@ -28,7 +28,7 @@
                     <!-- <h5 class="float-left">Sample Collection</h5> -->
                     <div class="col-md-4">
                       <div class="headertit">
-                        <h5 class="float-center">{{'HPLC' | translate }}</h5>
+                        <h5 class="float-center">{{'HPLC Lab' | translate }}</h5>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -78,7 +78,7 @@
                               <td class="number text-center">{{sample.comments}}</td>
                               <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
-            
+
                               <td class="text-center">
                                 <a class="" (click)="openEditHPLC(editHPLCDetail, sample)"
                                 role="button">
@@ -136,7 +136,7 @@
                                       <small *ngIf="hplcName.untouched" class=" ml-2 text-danger">HPLC Name is required</small>
                                     </div>
                               </div>
-             
+
                                   <div class="form-group col-md-3">
                                     <label class="note">{{'HPLC Code' | translate }}<span class="manto"> *</span></label>
                                     <input class="form-control" name="hplcCode" type="text" placeholder="HPLC Code" ngModel pattern="^[a-zA-Z0-9]+$" required
@@ -195,7 +195,7 @@
                           <form class="text-left" (ngSubmit)="editHPLCForm.form.valid && editSubmit(editHPLCForm)" #editHPLCForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                          
+
                                 <div class="form-group col-md-3">
                                     <label for="inputState">{{'District' | translate}} <span class="manto"></span> *</label>
                                     <select id="inputilrPoint" class="form-control"
@@ -211,10 +211,10 @@
                                   <label class="note">{{'HPLC Name' | translate }} <span class="manto"> *</span></label>
                                   <input class="form-control" name="edithplcName" type="text" placeholder="HPLC Name"
                                   #edithplcName1="ngModel"  required [(ngModel)]="HPLCnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                                  <small class="text-danger ml-2" *ngIf="!edithplcName1.valid && edithplcName1.touched ">Enter HPLC Name</small>  
+                                  <small class="text-danger ml-2" *ngIf="!edithplcName1.valid && edithplcName1.touched ">Enter HPLC Name</small>
                             </div>
-                                
-                                
+
+
 
                                 <div class="form-group col-md-3">
                                   <label class="note">{{'HPLC Code' | translate }}<span class="manto"></span> *</label>

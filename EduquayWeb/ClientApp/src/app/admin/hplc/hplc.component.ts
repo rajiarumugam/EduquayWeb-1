@@ -53,7 +53,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
     HPLCCodedata: string;
     districtnamedata: string;
     commentsdata: string;
-    getdistrict: string;  
+    getdistrict: string;
     editHPLCDetails;
   hplcCodedata: any;
 
@@ -93,7 +93,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrieveHPLCist();
-      this.rerender();
+
     }
 
     retrieveHPLCist(){
@@ -114,7 +114,8 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
               this.getdistrict = element.districtId;
             });
             //this.getstate = this.
-          
+            this.rerender();
+
           }
         }
         else{
@@ -224,7 +225,7 @@ export class HPLCComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editDistrictForm: NgForm){
 
       console.log(editDistrictForm.value);
-     
+
  console.log(this.HPLCCodedata);
      var _obj = {
         id:this.editHPLCDetails.id,
