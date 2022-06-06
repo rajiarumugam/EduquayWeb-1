@@ -1,0 +1,108 @@
+<div class="tab-pane fade show active" id="NHMreportScreen" role="tabpanel" aria-labelledby="NHMreportScreen-tab">
+ <mat-horizontal-stepper [linear]="false" #stepper>
+        <mat-step >
+          <form >
+            <div class="form-row mt-4" [formGroup]="dateform">
+                
+                <div class="form-group col-md-2">
+                  <label for="inputFromdate">{{'Year & Month' | translate }}
+                  </label>
+                  <div class="form-group mb-0">
+                    <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
+                                  [(ngModel)]="fromDate" required
+                                    placeholder="Select Date..."> -->
+                    <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
+                      [config]="startOptions" placeholder="Select Date.." formControlName="fromDate"   >
+                    </ng2-flatpickr>
+                  </div>
+                </div>
+             
+               
+
+                  <div class="col-md-2 mt-3" style="position: absolute;right:76%;">
+                    <div class="px-2 bd-highlight" style="float:right;">
+                      <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                     <button type="submit" class="btn search-bu" (click)="refreshData()">
+                          <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+            </div> 
+              
+               <div class="row my-4">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table id="chcshipment-tblconfig1" class="table table-bordered table-hover" datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                      <thead>
+                        <tr>
+                          <th><span>{{'SNo' | translate }}</span></th>
+                          <th><span>{{'District' | translate }}</span></th>
+                          <th><span>{{'Month of Onset of Activities in District' | translate }}</span></th>
+                          <th><span>{{'Total Block' | translate }}</span></th>
+                          <th><span>{{'No of Blocks Collecting Samples' | translate }}</span></th>
+                          <th><span>{{'No of Cell Counter Sites Active' | translate }}</span></th>
+                          <th><span>{{'Total ANC Registered in HMIS in active Blocks' | translate }}</span></th>
+                          <th><span>{{'ANCs Sampled' | translate }}</span></th>
+                          <th><span>{{'Proportion Screened in % ' | translate }}</span></th>
+                          <th><span>{{'No of Samples Collected by ANM' | translate }}</span></th>
+                          <th><span>{{'No Shipped to the T CHC' | translate }}</span></th>
+                          <th><span>{{'% Data Entry by ANM' | translate }}</span></th>
+                          <th><span>{{'No of Samples Received by CHC LT' | translate }}</span></th>
+                          <th><span>{{'No of Samples Tested (cbc+sst) by CHC LT' | translate }}</span></th>
+                          <th><span>{{'% Data Entry by CHC LT' | translate }}</span></th>
+                          <th><span>{{'No found Carrier/Diseased on HPLC' | translate }}</span></th>
+                          <th><span>{{'No of Spouse Tested' | translate }}</span></th>
+                          <th><span>{{'Proportion of ANC Tested Carrier/Diseased in % ' | translate }}</span></th>
+                          <th><span>{{'Couple found both Carrier/Diseased' | translate }}</span></th>
+                          <th><span>{{'No of CVS' | translate }}</span></th>
+                          <th><span>{{'No of MTP' | translate }}</span></th>
+                          
+                          <!-- <th><span class="wordwrap">{{'Save file' | translate }}</span></th> -->
+                        </tr>
+  
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let subject of pndPendingArray; index as i">
+                          <td class="sno text-center">{{i +1}}</td>
+                          <td class="text-left sname">{{subject.districtName}}</td>
+                          <td class="text-left sname">{{subject.monthOfOnSetOfActivities}}</td>
+                          <td class="sid">{{subject.totalBlocks}}</td>
+                          <td class="sid">{{subject.blocksCollectingSamples}}</td>
+                          <td class="text-left sname">{{subject.cellCountersitesActive}}</td>
+                          <td class="text-left sname">{{subject.totalANCRegisteredHMActiveBlocks}}</td>
+                          <td class="sid">{{subject.anCsSampled}}</td>
+                          <td class="">{{calculatepercentage(subject.anCsSampled,subject.totalANCRegisteredHMActiveBlocks)}}</td>
+                          <td class="mobile">{{subject.noOfSamplesCollectedByANM}}</td>
+                          <td class="">{{subject.numberShippedToTheTCHC}}</td>
+                          <td class="">{{calculatepercentage(subject.numberShippedToTheTCHC,subject.noOfSamplesCollectedByANM)}}</td>
+                          <td class="">{{subject.samplesReceivedByCHCLT }}</td>
+                          <td class="">{{subject.samplesTestedByCHCLT}}</td>
+                          <td class="">{{calculatepercentage(subject.samplesTestedByCHCLT,subject.samplesReceivedByCHCLT)}}</td>
+                          <td class="">{{subject.foundCarrierDiseased}}</td>
+                          <td class="">{{subject.spouseTested}}</td>
+                          <td class="">{{calculatepercentage(subject.foundCarrierDiseased,subject.samplesTestedByCHCLT)}}</td>
+                          <td class="">{{subject.coupleFoundBothCarrier}}</td>
+                          <td class="">{{subject.numberOfMTP}}</td>
+                          <td class="">{{subject.numberOfCVS}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </form>
+        </mat-step>
+       
+      </mat-horizontal-stepper>
+      <i appLoadScript [script]="'assets/assets/js/anm/sample-collection.js'"></i>
+      <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+      <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+      <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+</div>
+
+
+              
+    
+
+
+

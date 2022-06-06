@@ -1,0 +1,7 @@
+.mat-calendar-controls .mat-calendar-period-button {
+    display: none;
+  }
+  
+  mat-year-view .mat-calendar-body-label{
+    display: none !important;
+  }
