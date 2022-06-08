@@ -30,12 +30,7 @@ import { AnmPositiveSubjectsComponent } from './anm-module/anm-positive-subjects
 import { AnmPndReferralComponent } from './anm-module/anm-pnd-referral/anm-pnd-referral.component';
 import { AnmMtpReferralComponent } from './anm-module/anm-mtp-referral/anm-mtp-referral.component';
 import { AnmUpdateChcComponent } from './anm-module/anm-update-chc/anm-update-chc.component';
-import { AnmSubjectRegistrationComponent } from "./anm-module/registration/anm-subject-registration/anm-subject-registration.component";
-import { AnmAwRegistrationComponent } from "./anm-module/registration/anm-aw-registration/anm-aw-registration.component";
-import { AnmSpouseRegistrationComponent } from "./anm-module/registration/anm-spouse-registration/anm-spouse-registration.component";
-import { AnmStudentRegistrationComponent } from "./anm-module/registration/anm-student-registration/anm-student-registration.component";
-import { AnmWalkinLt18RegistrationComponent } from "./anm-module/registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
-import { AnmWalkinGt18RegistrationComponent } from "./anm-module/registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+import { AnmAwRegistrationComponent } from "./registration/anm-aw-registration/anm-aw-registration.component";
 import { AnmPickandPackComponent } from './anm-module/anm-pickandpack/anm-pickandpack.component';
 import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.component';
 import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
@@ -71,7 +66,7 @@ import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 import { PositiveSubjectsResolverService } from "./shared/anm-module/positive-subjects/positive-subjects-resolver.service";
 import {  CHCCBCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-chc-resolver.service";
-
+import { AnmStudentRegistrationComponent } from "./registration/anm-student-registration/anm-student-registration.component";
 import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update-sst/chc-update-sst.component";
 import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
 import { SSTUpdatePositiveComponent } from "./chc-sample-module/sst-update/chc-update-sst-positive/chc-update-sst-positive.component";
@@ -265,7 +260,7 @@ import { ScComponent } from "./admin/sc/sc.component";
 import { RiPointComponent } from "./admin/ri-point/ri-point.component";
 import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
-
+import { AnmSpouseRegistrationComponent } from "./registration/anm-spouse-registration/anm-spouse-registration.component";
 import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
 // import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
@@ -335,7 +330,7 @@ import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-blood
 import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
 import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
 
-
+import { NHMScreenRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-screen-registration/nhm-screen-registration.component";
 import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
 import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
 import { BlockStudentRegistrationComponent } from "./anm-module/block-registration/block-student-registration/block-student-registration.component";
@@ -361,7 +356,7 @@ import { TestComponent } from "./test/test.component";
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
 
-
+import { AnmWalkinLt18RegistrationComponent } from "./registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
 
 import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
@@ -381,6 +376,16 @@ import { CommonUsersTableComponent } from "./shared/anm-module/common-users-tabl
 import { PndtLocationComponent } from "./admin/pndt-location/pndt-location.component";
 import { MolecularlabComponent } from "./admin/molecularlab/molecularlab.component";
 
+import { NHMBCCRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-bcc-registration/nhm-bcc-registration.component";
+import { NHMTrainingRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-training-registration/nhm-training-registration.component";
+import { AnmWalkinGt18RegistrationComponent } from "./registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+import { AnmSubjectRegistrationComponent } from "./registration/anm-subject-registration/anm-subject-registration.component";
+import { NHMSubjectRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-monthly-registration/nhm-subject-registration.component"; 
+
+import { NHMReportBCCRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-reportbcc/nhm-reportbcc.component";
+import { NHMReportTrainingRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-reporttraining/nhm-reporttraining.component";
+import { NHMReportSubjectRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-monthly-report/nhm-reportsubject.component";
+import { NHMReportScreenRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-reportscreen/nhm-reportscreen.component";
 
 
 const routes: Routes = [
@@ -694,6 +699,30 @@ const routes: Routes = [
         ]
 
       },
+
+      {
+        path: 'nhm-subregn', component: NHMSubjectRegistrationComponent,
+        children:[
+          {path: '', component: NHMScreenRegistrationComponent, pathMatch: 'full'},
+          {path: 'nhmscreen', component: NHMScreenRegistrationComponent, pathMatch: 'full'},
+          {path: 'nhmbcc', component: NHMBCCRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},       
+          {path: 'nhmtraining', component: NHMTrainingRegistrationComponent, pathMatch: 'full'},
+          
+        ]
+
+      },
+      {
+        path: 'nhm-subregnreport', component: NHMReportSubjectRegistrationComponent,
+        children:[
+          {path: '', component: NHMReportScreenRegistrationComponent, pathMatch: 'full'},
+          {path: 'nhmreportscreen', component: NHMReportScreenRegistrationComponent, pathMatch: 'full'},
+          {path: 'nhmreportbcc', component: NHMReportBCCRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},       
+          {path: 'nhmreporttraining', component: NHMReportTrainingRegistrationComponent, pathMatch: 'full'},
+          
+        ]
+
+      },
+
       {
         path: 'centrallab', component: CentralSampleRcptMainComponent,
         children:[
@@ -1002,10 +1031,12 @@ const routes: Routes = [
         path: 'district-report', component: DistrictreportListComponent,
 
       },
+     
       {
         path: 'nhm-report', component: NHMreportListComponent,
 
-      },{
+      },
+      {
         path: 'anm-report', component: ANMreportListComponent,
 
       },{
@@ -1127,13 +1158,17 @@ export const RoutingComponents = [
   CHCSampleRcptComponent,
   CHCSampleRcptProComponent,
   ChcPicknpackComponent,
+  NHMSubjectRegistrationComponent,
   CHCUpdateCBCComponent,
   CBCReceivedSampleComponent,
   CBCUploadComponent,
   CHCUpdateSSTComponent,
   SSTReceivedSampleComponent,
+  NHMSubjectRegistrationComponent,
   SSTUpdatePositiveComponent,
+  NHMBCCRegistrationComponent,
   SSTUpdateNegativeComponent,
+  NHMTrainingRegistrationComponent,
   ChcShipmentlogComponent,
   ChcViewShipmentdetailsComponent,
   AssociatedANMComponent,
@@ -1141,6 +1176,7 @@ export const RoutingComponents = [
   ChcDamagedSamplesComponent,
   ChcNotificationComponent,
   ChcUnsentSamplesComponent,
+  NHMScreenRegistrationComponent,
   ChcTimeoutSamplesComponent,
   ChcPositiveSubjectComponent,
   CentralSampleRcptMainComponent,
@@ -1192,7 +1228,10 @@ export const RoutingComponents = [
   PndTestingSummaryMainComponent,
   pndTestingSummaryComponent,
   PndSummaryViewComponent,
+  NHMReportScreenRegistrationComponent,
+  NHMReportBCCRegistrationComponent,
   PndSummaryViewMainComponent,
+  NHMReportTrainingRegistrationComponent,
   CounsellingPostPndtMainComponent,
   ToBePostPndtCounselledComponent,
   PostPndtcTestresultsComponent,
@@ -1305,6 +1344,7 @@ export const RoutingComponents = [
   BlockSubjecttRegistrationComponent,
   BlockStudentRegistrationComponent,
   SSTCorrectionComponent,
+  NHMReportSubjectRegistrationComponent,
   SSTCorrectionMainComponent,
   LMPReportComponent,
   LMPReportMainComponent,

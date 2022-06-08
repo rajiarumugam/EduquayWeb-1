@@ -1,0 +1,310 @@
+
+<div class="tab-pane fade show active" id="BCCScreen" role="tabpanel" aria-labelledby="BCCScreen-tab">
+  
+  <mat-horizontal-stepper [linear]="false" #stepper>
+      <mat-step >
+        <form >
+            <div class="form-row mt-4" [formGroup]="dateform">
+              <div class="form-group col-md-2">
+                <label for="inputFromdate">{{'Year & Month' | translate }}
+                </label>
+                <div class="form-group mb-0">
+                  <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="number" name="fromDate"
+                                [(ngModel)]="fromDate" 
+                                  placeholder="Select Date..."> -->
+                  <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
+                    [config]="startOptions" placeholder="Select Date.." formControlName="fromDate" (change)="onChangeMonth($event.target.value)">
+                  </ng2-flatpickr>
+                </div>
+              </div>
+
+                <div class="form-group col-md-2" >
+                  <label for="inputTodate">{{'District' | translate }}</label>
+                  <div class="form-group mb-0">
+                      <select id="inputDistrict" class="form-control"  name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="onchangedistrict($event.target.value)" required [ngModelOptions]="{standalone: true}" >
+                          <option [ngValue]=0>Select District</option>
+                          <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                      </select>
+                  </div>
+              </div>
+              
+            </div> 
+           
+            <div class="reges-form-main-container" *ngIf = "showentry">
+                
+              <div class="row">
+              <div class="col-md-5">
+                  <h5 class="" style="font-size: 19px; text-align: left; padding-top: 20px;">Section -I </h5>
+                  <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+              </div>
+          </div>
+                  <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" >{{'Blocks reached' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="Blocksreached" name="Blocksreached" placeholder="Blocks reached"   
+                         numbersOnly [class.is-invalid]="Blocksreached==Undefined && Blocksreached== ''&& Blocksreached==null &&  issubmitted "
+                         required>
+                         <span style="color:red" *ngIf="Blocksreached==Undefined && Blocksreached== ''&& Blocksreached==null  && issubmitted">
+                          This field is required
+                    </span>
+                    </div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" >{{'Grama Panchayath​ Reached​' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="Gramapanchayath"name="Gramapanchayath" placeholder="Grama Panchayath​ Reached​"   
+                         numbersOnly [class.is-invalid]="Gramapanchayath==Undefined && Gramapanchayath==''&& Gramapanchayath==null  && issubmitted "
+                         required>
+                         <span style="color:red" *ngIf="Gramapanchayath==Undefined && Gramapanchayath== '' && Gramapanchayath==null && issubmitted">
+                          This field is required
+                    </span>
+                    </div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" >{{'Hoardings' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="Hoardings" name="Hoardings" placeholder="Hoardings"   
+                         numbersOnly [class.is-invalid]="Hoardings==Undefined && Hoardings== ''&& Hoardings==null  && issubmitted "
+                         required>
+                         <span style="color:red" *ngIf="!Hoardings==Undefined && Hoardings== ''&& Hoardings==null && issubmitted">
+                          This field is required
+                    </span>
+                    </div>
+                     
+                  </div>
+                  
+                  
+
+                  <div class="form-row my-2">
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" >{{'Wall Painting' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off" class="form-control" [(ngModel)]="Wallpainting" name="Wallpainting" placeholder="Wall Painting"   
+                         numbersOnly [class.is-invalid]="Wallpainting==Undefined && Wallpainting== '' && Wallpainting==null  && issubmitted "
+                         required>
+                         <span style="color:red" *ngIf="Wallpainting==Undefined && Wallpainting== '' && Wallpainting==null  && issubmitted">
+                          This field is required
+                    </span>
+                    </div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>    
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" >{{'Tin Plate' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="tinplate" name="tinplate"  placeholder="Tin Plate"   
+                         numbersOnly [class.is-invalid]="tinplate==Undefined && tinplate== ''&& tinplate==null  && issubmitted "
+                         required>
+                         <span style="color:red" *ngIf="tinplate==Undefined && tinplate== ''&& tinplate==null && issubmitted">
+                          This field is required
+                    </span>
+                    </div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg" >{{'Handouts (Leaflets)' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="Handouts" name="Handouts" placeholder="Handouts (Leaflets)"   
+                         numbersOnly [class.is-invalid]="Handouts==Undefined && Handouts== ''&& Handouts==null  && issubmitted "
+                         required>
+                         <span style="color:red" *ngIf="Handouts==Undefined && Handouts== ''&& Handouts==null  && issubmitted && issubmitted">
+                          This field is required
+                    </span>
+                    </div>
+            </div>
+
+            <div class="form-row my-2">
+                <div class="form-group col-md-3">
+                    <label class="birthreg" >{{'Sun Board' | translate }}</label><span class="manto"> *</span>
+                    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="sunboard" name="sunboard" placeholder="Handouts (Leaflets)"   
+                     numbersOnly [class.is-invalid]="sunboard==Undefined && sunboard== '' && sunboard==null  && issubmitted "
+                     required>
+                     <span style="color:red" *ngIf="sunboard==Undefined && sunboard== ''&& sunboard==null  && issubmitted">
+                      This field is required
+                </span>
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="form-group col-md-3">
+                    <label class="birthreg" >{{'Stickers (Vinyl & Papersticker)' | translate }}</label><span class="manto"> *</span>
+                    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="stickers" name="stickers" placeholder="Stickers (Vinyl & Papersticker)"   
+                     numbersOnly [class.is-invalid]="stickers==Undefined && stickers== '' && stickers==null  && issubmitted "
+                     required>
+                     <span style="color:red" *ngIf="stickers==Undefined && stickers== ''&& stickers==null  && issubmitted">
+                      This field is required
+                </span>
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="form-group col-md-3">
+                    <label class="birthreg" >{{'Poster (Multi Colour Art​Paper)' | translate }}</label><span class="manto"> *</span>
+                    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="poster" name="poster" placeholder="Poster (Multi Colour Art​Paper)"   
+                     numbersOnly [class.is-invalid]="poster==Undefined && poster== '' && poster==null  && issubmitted "
+                     required>
+                     <span style="color:red" *ngIf="poster==Undefined && poster== '' && poster==null && issubmitted">
+                      This field is required
+                </span>
+                </div>
+            </div>
+                <div class="form-row my-2">
+                <div class="form-group col-md-3">
+                    <label class="birthreg" >{{'Flipbook' | translate }}</label><span class="manto"> *</span>
+                    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="Flipbook" name="Flipbook"  placeholder="Flipbook"   
+                     numbersOnly [class.is-invalid]="Flipbook==Undefined && Flipbook== '' && Flipbook==null  && issubmitted "
+                     required>
+                     <span style="color:red" *ngIf="Flipbook==Undefined && Flipbook== '' && Flipbook==null && issubmitted">
+                      This field is required
+                </span>
+                </div>
+            
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="form-group col-md-3">
+                    <label class="birthreg" >{{'Bus Branding' | translate }}</label><span class="manto"> *</span>
+                    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="busbranding" name="busbranding" placeholder="Bus Branding"   
+                     numbersOnly [class.is-invalid]="busbranding==Undefined && busbranding== '' && busbranding==null  && issubmitted "
+                     required>
+                     <span style="color:red" *ngIf="busbranding==Undefined && busbranding== '' && busbranding==null && issubmitted">
+                      This field is required
+                </span>
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div> 
+                <div class="form-group col-md-3">
+                    <label class="birthreg" >{{'Print Media' | translate }}</label><span class="manto"> *</span>
+                    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="printmedia" name="printmedia" placeholder="Print Media"   
+                     numbersOnly [class.is-invalid]="printmedia==Undefined && printmedia=='' && printmedia==null  && issubmitted "
+                     required>
+                     <span style="color:red" *ngIf="printmedia==Undefined && printmedia== '' && printmedia==null  && issubmitted">
+                      This field is required
+                </span>
+                </div>
+              </div>
+
+                <div class="form-row my-2">
+                <div class="form-group col-md-3">
+                  <label class="birthreg" >{{'Radio Spots' | translate }}</label><span class="manto"> *</span>
+                  <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="radioSpots" name="radioSpots" placeholder="Radio Spots"   
+                   numbersOnly [class.is-invalid]="radioSpots==Undefined && radioSpots== '' && radioSpots==null  && issubmitted "
+                   required>
+                   <span style="color:red" *ngIf="radioSpots==Undefined && radioSpots== '' && radioSpots==null && issubmitted">
+                    This field is required
+              </span>
+              </div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+              <div class="form-group col-md-3">
+                <label class="birthreg" >{{'Television' | translate }}</label><span class="manto"> *</span>
+                <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="television" name="television" placeholder="Television"   
+                 numbersOnly [class.is-invalid]="television==Undefined && television== '' && television==null  && issubmitted "
+                 required>
+                 <span style="color:red" *ngIf="television==Undefined && television=='' && television==null && issubmitted">
+                  This field is required
+            </span>
+            </div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="form-group col-md-3">
+              <label class="birthreg" >{{'Community Media' | translate }}</label><span class="manto"> *</span>
+              <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="communityMedia" name="communityMedia" placeholder="Community Media"   
+               numbersOnly [class.is-invalid]="communityMedia==Undefined && communityMedia== '' && communityMedia==null  && issubmitted "
+               required>
+               <span style="color:red" *ngIf="communityMedia==Undefined && communityMedia== '' && communityMedia==null  && issubmitted">
+                This field is required
+          </span>
+          </div>
+        </div>
+
+        <div class="form-row my-2">
+          <div class="form-group col-md-3">
+            <label class="birthreg" >{{'Matrimonial' | translate }}</label><span class="manto"> *</span>
+            <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="matrimonial" name="matrimonial" placeholder="Matrimonial"   
+             numbersOnly [class.is-invalid]="matrimonial==Undefined && matrimonial=='' && matrimonial==null  && issubmitted "
+             required>
+             <span style="color:red" *ngIf="matrimonial==Undefined && matrimonial=='' && matrimonial==null && issubmitted">
+              This field is required
+        </span>
+        </div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div class="form-group col-md-3">
+          <label class="birthreg" >{{'Social Media' | translate }}</label><span class="manto"> *</span>
+          <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="socialMedia" name="socialMedia" placeholder="Social Media"   
+           numbersOnly [class.is-invalid]="socialMedia==Undefined && socialMedia== '' && socialMedia==null  && issubmitted "
+           required>
+           <span style="color:red" *ngIf="socialMedia==Undefined && socialMedia== '' && socialMedia==null  && issubmitted">
+            This field is required
+      </span>
+      </div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="form-group col-md-3">
+        <label class="birthreg" >{{'Animated Videos' | translate }}</label><span class="manto"> *</span>
+        <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="animatedVideos" name="animatedVideos" placeholder="Animated Videos"   
+         numbersOnly [class.is-invalid]="animatedVideos==Undefined && animatedVideos== '' && animatedVideos==null  && issubmitted "
+         required>
+         <span style="color:red" *ngIf="animatedVideos==Undefined && animatedVideos== '' && animatedVideos==null && issubmitted">
+          This field is required
+    </span>
+    </div>
+  </div>
+
+  <div class="form-row my-2">
+    <div class="form-group col-md-3">
+      <label class="birthreg" >{{'SHG Handouts with FAQ' | translate }}</label><span class="manto"> *</span>
+      <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="shgHandoutswithFAQ"  name="shgHandoutswithFAQ" placeholder="SHG Handouts with FAQ"   
+       numbersOnly [class.is-invalid]="shgHandoutswithFAQ==Undefined && shgHandoutswithFAQ== '' && shgHandoutswithFAQ==null  && issubmitted "
+       required>
+       <span style="color:red" *ngIf="shgHandoutswithFAQ==Undefined && shgHandoutswithFAQ== ''&& shgHandoutswithFAQ==null  && issubmitted">
+        This field is required
+  </span>
+  </div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+  <div class="form-group col-md-3">
+    <label class="birthreg" >{{'ASHA handout with FAQs' | translate }}</label><span class="manto"> *</span>
+    <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="ashAhandoutwithFAQs" name="ashAhandoutwithFAQs" placeholder="ASHA handout with FAQs"   
+     numbersOnly [class.is-invalid]="ashAhandoutwithFAQs==Undefined && ashAhandoutwithFAQs== ''&& ashAhandoutwithFAQs==null  && issubmitted "
+     required>
+     <span style="color:red" *ngIf="ashAhandoutwithFAQs==Undefined && ashAhandoutwithFAQs== ''&& ashAhandoutwithFAQs==null   && issubmitted">
+      This field is required
+</span>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="form-group col-md-3">
+  <label class="birthreg" >{{'Comic Strip' | translate }}</label><span class="manto"> *</span>
+  <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="comicStrip" name="comicStrip" placeholder="Comic Strip"   
+   numbersOnly [class.is-invalid]="comicStrip==Undefined && comicStrip== ''&& comicStrip==null  && issubmitted "
+   required>
+   <span style="color:red" *ngIf="comicStrip==Undefined && comicStrip== ''&& comicStrip==null && issubmitted">
+    This field is required
+</span>
+</div>
+</div>
+
+<div class="form-row my-2">
+<div class="form-group col-md-3">
+  <label class="birthreg" >{{'Additional Flex Banners' | translate }}</label><span class="manto"> *</span>
+  <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="additionalFlexBanners" name="additionalFlexBanners" placeholder="Additional Flex Banners"   
+   numbersOnly [class.is-invalid]="additionalFlexBanners==Undefined && additionalFlexBanners== ''&& additionalFlexBanners==null  && issubmitted "
+   required>
+   <span style="color:red" *ngIf="additionalFlexBanners==Undefined && additionalFlexBanners== ''&& additionalFlexBanners==null && issubmitted">
+    This field is required
+</span>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="form-group col-md-3">
+  <label class="birthreg" >{{'Posters for ANM' | translate }}</label><span class="manto"> *</span>
+  <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="postersforANM" name="postersforANM" placeholder="Posters for ANM"   
+   numbersOnly [class.is-invalid]="postersforANM==Undefined && postersforANM== ''&& postersforANM==null  && issubmitted "
+   required>
+   <span style="color:red" *ngIf="postersforANM==Undefined && postersforANM== ''&& postersforANM==null && issubmitted">
+    This field is required
+</span>
+</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="form-group col-md-3">
+  <label class="birthreg" >{{'Photography' | translate }}</label><span class="manto"> *</span>
+  <input type="number" autocomplete="off" class="form-control"  [(ngModel)]="photography" name="photography" placeholder="Photography"   
+   numbersOnly [class.is-invalid]="photography==Undefined && photography== ''&& photography==null  && issubmitted "
+   required>
+   <span style="color:red" *ngIf="photography==Undefined && photography== ''&& photography==null && issubmitted">
+    This field is required
+</span>
+</div>
+                     
+            </div>
+            <div class="modal-footer">        
+              <button mat-button class="float-right mr-2 btn btn-primary" (click)="onSubmit();">{{'Submit' | translate }}</button>
+          </div>
+                </div>
+        </form>
+      </mat-step>
+     
+    </mat-horizontal-stepper>
+  
+</div>
+

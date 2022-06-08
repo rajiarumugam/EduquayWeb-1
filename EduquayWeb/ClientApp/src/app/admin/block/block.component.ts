@@ -209,11 +209,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
         comments: this.comments,
         userId: this.user.id
       };
-
-      //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
-      // return false;
-
+      
       let damagedsampleCollection = this.BlockService.addBlock(_obj)
       .subscribe(response => {
         this.addBlockResponse = response;

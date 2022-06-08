@@ -1,0 +1,119 @@
+<div class="tab-pane fade show active" id="BCCReportScreen" role="tabpanel" aria-labelledby="BCCReportScreen-tab">
+
+  <mat-horizontal-stepper [linear]="false" #stepper>
+         <mat-step >
+           <form >
+             <div class="form-row mt-4" [formGroup]="dateform">
+            
+                 <div class="form-group col-md-2">
+                   <label for="inputFromdate">{{'Year & Month' | translate }}
+                   </label>
+                   <div class="form-group mb-0">
+                     <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
+                                   [(ngModel)]="fromDate" required
+                                     placeholder="Select Date..."> -->
+                     <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
+                       [config]="startOptions" placeholder="Select Date.." formControlName="fromDate">
+                     </ng2-flatpickr>
+                   </div>
+                 </div>
+                
+                
+                
+                   <div class="col-md-2 mt-3" style="position: absolute;right:76%;">
+                     <div class="px-2 bd-highlight" style="float:right;">
+                       <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                      <button type="submit" class="btn search-bu" (click)="refreshData()">
+                           <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                     </div>
+                   </div>
+             </div> 
+               
+                <div class="row my-4">
+                 <div class="col-md-12">
+                   <div class="table-responsive">
+                     <table id="chcshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                       <thead>
+                         <tr>
+                           <th><span>{{'SNo' | translate }}</span></th>
+                           <th><span>{{'District' | translate }}</span></th>
+                           <th><span>{{'Blocks reached' | translate }}</span></th>
+                           <th><span>{{'Grama Panchayath reached' | translate }}</span></th>
+                           <th><span>{{'Hoardings' | translate }}</span></th>
+                           <th><span>{{'Wall Painting' | translate }}</span></th>
+                           <th><span>{{'Tin Plate' | translate }}</span></th>
+                           <th><span>{{'Handouts' | translate }}</span></th>
+                           <th><span>{{'Sun Board' | translate }}</span></th>
+                           <th><span>{{'Stickers' | translate }}</span></th>
+                           <th><span>{{'Poster' | translate }}</span></th>
+                           <th><span>{{'Flipbook' | translate }}</span></th>
+                           <th><span>{{'Bus Branding' | translate }}</span></th>
+                           <th><span>{{'Print Media' | translate }}</span></th>
+                           <th><span>{{'Radio Spots' | translate }}</span></th>
+                           <th><span>{{'Television' | translate }}</span></th>
+                           <th><span>{{'Community Media' | translate }}</span></th>
+                           <th><span>{{'Matrimonial Advertisement' | translate }}</span></th>
+                           <th><span>{{'Social Media Campaign' | translate }}</span></th>
+                           <th><span>{{'Animated Videos' | translate }}</span></th>
+                           <th><span>{{'SHG Handouts with FAQs' | translate }}</span></th>
+                           <th><span>{{'ASHA handout with FAQs' | translate }}</span></th>
+                           <th><span>{{'Comic Strip/Story' | translate }}</span></th>
+                           <th><span>{{'Additional Flex Banners' | translate }}</span></th>
+                           <th><span>{{'Posters for ANM' | translate }}</span></th>
+                           <th><span>{{'Photography & Videography' | translate }}</span></th>
+                         
+                         </tr>
+   
+                       </thead>
+                       <tbody>
+                         <tr *ngFor="let subject of pndPendingArray; index as i">
+                           <td class="sno text-center">{{i +1}}</td>
+                           <td class="text-left sname">{{subject.districtName}}</td>
+                           <td class="text-left sname">{{subject.blocksReached}}</td>
+                           <td class="sid">{{subject.gramaPanchayatReached}}</td>
+                           <td class="sid">{{subject.hoardings}}</td>
+                           <td class="text-left sname">{{subject.wallPainting}}</td>
+                           <td class="text-left sname">{{subject.tinPlate}}</td>
+                           <td class="sid">{{subject.handouts}}</td>
+                           <td class="mobile">{{subject.sunBoard}}</td>
+                           <td class="mobile">{{subject.Stickers}}</td>
+                           <td class="">{{subject.poster}}</td>
+                           <td class="">{{subject.flipbook}}</td>
+                           <td class="">{{subject.busBranding}}</td>
+                           <td class="">{{subject.printMedia}}</td>
+                           <td class="">{{subject.radioSpots}}</td>
+                           <td class="">{{subject.television}}</td>
+                           <td class="">{{subject.communityMedia}}</td>
+                           <td class="">{{subject.matrimonial}}</td>
+                           <td class="">{{subject.socialMedia}}</td>
+                           <td class="">{{subject.animatedVideos}}</td>
+                           <td class="">{{subject.shgHandoutswithFAQ}}</td>
+                           <td class="">{{subject.ashAhandoutwithFAQs}}</td>
+                           <td class="">{{subject.comicStrip}}</td>
+                           <td class="">{{subject.additionalFlexBanners}}</td>
+                           <td class="">{{subject.postersforANM}}</td>
+                           <td class="">{{subject.photography}}</td>                       
+
+                         </tr>
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+           </form>
+         </mat-step>
+        
+       </mat-horizontal-stepper>
+       <i appLoadScript [script]="'assets/assets/js/anm/sample-collection.js'"></i>
+       <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+       <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+       <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+ </div>
+ 
+ 
+               
+     
+ 
+ 
+ 
+ 
