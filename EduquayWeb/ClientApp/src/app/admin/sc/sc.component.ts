@@ -439,11 +439,11 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
 
       console.log(editScForm.value);
 
-      this.commentsdata = editScForm.value.commentsdata;
+      this.commentsdata = editScForm.value.editComments;
       this.selectedEditPhc = editScForm.value.ddlEdPhc;
       this.selectedEditChc = editScForm.value.ddlEdChc;
       // this.scCodedata = editScForm.value.scCodedata;
-      this.scNamedata = editScForm.value.scNamedata;
+      this.scNamedata = editScForm.value.scNamedata1;
       this.pincodeData = editScForm.value.pincodeData;
       // this.latitudedata = editScForm.value.latitudeData;
       this.hninId = editScForm.value.hninId

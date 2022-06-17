@@ -41,13 +41,13 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <div class="col-md-12">
                             <div *ngIf="chclistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': chclistErrorMessage ==='No sample data  found', 'alert-danger': chclistErrorMessage !== 'No sample data  found'}">
                                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{chclistErrorMessage}}
                             </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddChc(addChcDetail)"
@@ -149,8 +149,8 @@
                               </div>
 
                               <div class="form-group col-md-3">
-                                <label class="note">{{'CHC Code' | translate }}<span class="manto"> *</span></label>
-                                <input class="form-control" name="chcCode" type="text" placeholder="CHC Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                                <label class="note" [ngClass]="{'label-border-class':!chcCode.valid && chcCode.touched || addChcForm.submitted && chcCode.invalid}">{{'CHC Code' | translate }}<span class="manto"> *</span></label>
+                                <input class="form-control" name="chcCode" type="text" placeholder="CHC Code" ngModel required
                                 #chcCode ="ngModel" [class.is-invalid]="!chcCode.valid && chcCode.touched || addChcForm.submitted && chcCode.invalid">
                                 <small class="text-danger ml-2" *ngIf="!chcCode.valid && chcCode.touched ">Enter CHC Code</small>
                                 <div *ngIf="addChcForm.submitted && chcCode.invalid">
@@ -160,7 +160,7 @@
 
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!chcName.valid && chcName.touched || addChcForm.submitted && chcName.invalid}">{{'CHC Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="chcName" type="text" placeholder="CHC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                    <input class="form-control" name="chcName" type="text" placeholder="CHC Name" ngModel required
                                     [class.is-invalid]="!chcName.valid && chcName.touched || addChcForm.submitted && chcName.invalid"
                                      #chcName="ngModel" required (change)="chcChange();">
                                     <small class="text-danger ml-2" *ngIf="!chcName.valid && chcName.touched ">Enter CHC Name</small>
@@ -174,27 +174,29 @@
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
                                       <input type="checkbox" class="new-control-input checkbox"
-                                      [checked]="isTestingFacility" (change)="isTestingFacility = !isTestingFacility">
+                                      [checked]="isTestingFacility" (change)="isTestingFacility = !isTestingFacility" [disabled]="selectedDistrict === ''" >
                                       <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                     </label>
                                 </div>
                               </div>
 
                               <div class="form-group col-md-3" *ngIf="!isTestingFacility">
-                                <label for="inputilrPoint">{{'testingCHC' | translate }}<span
+                                <label [ngClass]="{'label-border-class':!ddlTestingCHC.valid && ddlTestingCHC.touched || addChcForm.submitted && ddlTestingCHC.invalid}" for="inputilrPoint">{{'testingCHC' | translate }}<span
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="ddlTestingCHC"
+                                    [class.is-invalid]="!ddlTestingCHC.valid && ddlTestingCHC.touched || addChcForm.submitted && ddlTestingCHC.invalid"
                                     required [(ngModel)]="selectedtestingCHCId" >
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of testingCHCists" [(value)]="districtdata.id">
                                             {{districtdata.name}}
                                         </option>
                                     </select>
-                                      <!--<small class=" ml-2 text-danger" *ngIf="testingCHCId.invalid && testingCHCId.touched ">Please choose a District</small>
-                                      <div *ngIf="addChcForm.submitted && testingCHCId.invalid">
-                                        <small *ngIf="testingCHCId.untouched" class=" ml-2 text-danger">District is required</small>
-                                      </div>  -->
+                                    <small class="text-danger ml-2" *ngIf="!isTestingFacility && !ddlTestingCHC.valid && ddlTestingCHC.touched ">Enter CHC Name</small>
+                                    <div *ngIf="addChcForm.submitted && ddlTestingCHC.invalid">
+                                      <small *ngIf="ddlTestingCHC.untouched" class=" ml-2 text-danger">CHC Name is required</small>
+                                    </div>
+                                      
                           </div>
 
                               <div class="form-group col-md-3">
@@ -224,13 +226,20 @@
 
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                    <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addChcForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                    [class.is-invalid]="!Comments.valid && Comments.touched || addChcForm.submitted && Comments.invalid"
+                                      name=Comments #Comments="ngModel" ngModel required></textarea>
+                                  </div>
+                                  <small class="text-danger ml-2" *ngIf="!Comments.valid && Comments.touched ">Enter Comments</small>
+                                  <div *ngIf="addChcForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
                                   </div>
                                 </div>
                               </div>
+
+                              
+                              
 
                               <div class="modal-footer">
                                 <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
@@ -306,13 +315,14 @@
                           </div>
 
                           <div class="form-group col-md-3">
-                            <label class="note">{{'CHC Name' | translate }} <span class="manto"> *</span></label>
-                            <input class="form-control" name="chcNamedata" type="text" placeholder="CHC Name"
-                            #chcNamedata1="ngModel"  required [(ngModel)]="chcNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                            <label class="note"  [ngClass]="{'label-border-class':!chcNamedata1.valid && chcNamedata1.touched || editChcForm.submitted && chcNamedata1.invalid}">{{'CHC Name' | translate }} <span class="manto"> *</span></label>
+                            <input class="form-control" name="chcNamedata1" type="text" placeholder="CHC Name"
+                            [class.is-invalid]="!chcNamedata1.valid && chcNamedata1.touched || editChcForm.submitted && chcNamedata1.invalid"
+                            #chcNamedata1="ngModel"  required [(ngModel)]="chcNamedata" required>
                             <small class="text-danger ml-2" *ngIf="!chcNamedata1.valid && chcNamedata1.touched ">Enter CHC Name</small>
-                            <!-- <div *ngIf="addScForm.submitted && scName.invalid">
-                              <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
-                            </div> -->
+                            <div *ngIf="editChcForm.submitted && chcNamedata1.invalid">
+                              <small *ngIf="chcNamedata1.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                            </div>
 
                       </div>
                                   
@@ -370,15 +380,19 @@
                                     </div>
                                   </div> -->
                                 </div>
-
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=commentsdata [(ngModel)]="commentsdata"></textarea>
+                                    <label class="note"  [ngClass]="{'label-border-class':!editcomments.valid && editcomments.touched || editChcForm.submitted && editcomments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                    [class.is-invalid]="!editcomments.valid  && editcomments.touched || editChcForm.submitted && !editcomments.valid"
+                                    name=editcomments #editcomments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                                   </div>
-                                </div>
+                                  <small class="text-danger ml-2" *ngIf="!editcomments.valid && editcomments.touched ">Enter Comments</small>
+                                  <div *ngIf=" editChcForm.submitted && !editcomments.valid">
+                                    <small *ngIf="editcomments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                     </div>
+                                </div>  
+
                               </div>
 
                             <div class="modal-footer">

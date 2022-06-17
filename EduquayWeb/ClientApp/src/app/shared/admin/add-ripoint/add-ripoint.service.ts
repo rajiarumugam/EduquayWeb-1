@@ -5,7 +5,7 @@ import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddChcResponse } from '../add-chc/add-chc-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
-import { AddScResponse } from '../add-sc/add-sc-response';
+import { AddSCbyANMResponse, AddScResponse } from '../add-sc/add-sc-response';
 import { IlrResponse } from './add-ripoint-response';
 import { AddtestingchcbydistrictResponse } from './add-ripoint-response';
 import { AddBlockResponse } from '../add-block/add-block-response';
@@ -19,6 +19,7 @@ import { AddchcbydistrictResponse } from '../add-chc/add-chc-response';
 export class AddRipointService {
 
   retrieveScApi: string = "api/v1/WebMaster/RetrieveSCByPHC/";
+  RetrieveANMBySC: string = "api/v1/WebMaster/RetrieveANMBySC/";
   retrieveRiPointApi: string = "api/v1/SA/RetrieveAllRISites";
   retrievePhcApi: string = "api/v1/WebMaster/RetrievePHCByCHC/";
   addRiPtApi: string = "api/v1/RI/Add";
@@ -58,6 +59,12 @@ export class AddRipointService {
     let apiUrl = this.genericService.buildApiUrl(`${this.retrieveScApi}${code}`);
     return this.http.get<AddScResponse>({url: apiUrl});
   }
+
+  getANMbyScList(id){
+    let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveANMBySC}${id}`);
+    return this.http.get<AddSCbyANMResponse>({url: apiUrl});
+  }
+
   getIlrbychcList(id){
     let apiUrl = this.genericService.buildApiUrl(`${this.RetrieveILRByCHC}${id}`);
     return this.http.get<IlrResponse>({url: apiUrl});
@@ -78,6 +85,8 @@ export class AddRipointService {
     let apiUrl=this.genericService.buildApiUrl(this.addRiPtApi);
     return this.http.post<AddRiPtDataresponse>({url: apiUrl, body: riptadd});
   }
+
+  
 
   getDistrictList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveDistrictApi);

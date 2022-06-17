@@ -73,7 +73,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chcNamedata: string;
     chcCodedata: string;
     selectedEditBlock: string = '';
-    isTestingFacility = false;
+    isTestingFacility : boolean = false;
     // isTestingFacility = true;
     selectedtestingCHCId: string = '';
     testingCHCResponse;
@@ -95,7 +95,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "CHC"}));
-      this.loaderService.display(false);
+      // this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = {
         pagingType: 'simple_numbers',
@@ -290,7 +290,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
     onSubmit(addChcForm: NgForm){
 
-      console.log(addChcForm.value);
+      console.log(addChcForm.value,"addchcform");
 
       this.comments = addChcForm.value.Comments;
       this.selectedDistrict = addChcForm.value.ddlDistrict;
@@ -298,7 +298,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-      this.isTestingFacility=addChcForm.value.isTestingFacility;
+      this.isTestingFacility=addChcForm.value.isTestingFacility === 'True' ? true : false;
       this.selectedtestingCHCId = addChcForm.value.ddlTestingCHC;
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
@@ -310,7 +310,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         chcGovCode: this.chcCode,
         name: this.chcName,
         isTestingFacility: this.isTestingFacility,
-        testingCHCId:+(this.selectedtestingCHCId),
+        testingCHCId:+this.selectedtestingCHCId || 0,
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,
@@ -345,16 +345,17 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
       console.log(editChcForm.value);
       console.log(editChcForm.form.valid);
-      this.commentsdata = editChcForm.value.commentsdata;
+      this.commentsdata = editChcForm.value.editcomments;
       //  this.selectedEditDistrict = editChcForm.value.ddlEditDistrict;
       //  this.selectedEditBlock = editChcForm.value.ddlEditBlock;
       // this.chcCodedata = editChcForm.value.chcCodedata;
-      this.chcNamedata = editChcForm.value.chcNamedata;
-      this.isTestingFacility=editChcForm.value.isTestingFacility;
+      this.chcNamedata = editChcForm.value.chcNamedata1;
+      this.isTestingFacility=editChcForm.value.isTestingFacility === 'True' ? true : false;
       this.pincodeData = editChcForm.value.pincodeData;
-      this.selectedtestingCHCId = editChcForm.value.ddlTestingCHC;
+      this.selectedtestingCHCId = editChcForm.value.testingCHCId;
       this.hninId = editChcForm.value.hninId;
       
+
       this.chcListRequest = {
         id:this.editid,
         districtId: +(this.selectedEditDistrict),
@@ -363,7 +364,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         chcGovCode: this.chcCodedata,
         name: this.chcNamedata,
         isTestingFacility:this.isTestingFacility,
-        testingCHCId: this.selectedtestingCHCId,
+        testingCHCId: +(this.selectedtestingCHCId || 0),
         centralLabId: +this.centrallablid,
         pincode: this.pincodeData,
         isActive: this.confirmationSelected==1?"true":"false",

@@ -5,6 +5,8 @@ export class AddRipointRequest {
     scId: number;
     riGovCode: string;
     riSite: string;
+    avdId:number;
+    anmId:number;
     pincode: string;
     ilrId: number;
     isActive: string;
@@ -20,6 +22,8 @@ export class AddRipointRequest2 {
     phcId: number;
     scId: number;
     riGovCode: string;
+    avdId:number;
+    anmId:number;
     name: string;
     pincode: string;
     ilrId: number;

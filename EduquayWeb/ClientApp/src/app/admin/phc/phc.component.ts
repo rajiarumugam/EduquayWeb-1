@@ -362,7 +362,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
       console.log(editPhcForm.value);
       
-      this.commentsdata = editPhcForm.value.commentsdata;
+      this.commentsdata = editPhcForm.value.editcomments;
       this.selectedEditChc = editPhcForm.value.ddlEdChc;
       // this.phcCodedata = editPhcForm.value.phcCodedata;
       this.phcnamedata = editPhcForm.value.phcNamedata;

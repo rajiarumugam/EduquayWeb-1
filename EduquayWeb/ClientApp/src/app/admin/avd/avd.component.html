@@ -117,8 +117,8 @@
                   <div class="form-row">
 
                     <div class="form-group col-md-3">
-                      <label class="note">{{'AVD Name' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="avdName" type="text" placeholder="AVD Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                      <label class="note" [ngClass]="{'label-border-class':!avdName.valid && avdName.touched || addAvdForm.submitted && avdName.invalid}">{{'AVD Name' | translate }}<span class="manto"> *</span></label>
+                      <input class="form-control" name="avdName" type="text" placeholder="AVD Name" ngModel required
                         [class.is-invalid]="!avdName.valid && avdName.touched || addAvdForm.submitted && avdName.invalid"
                         #avdName="ngModel" required (change)="avdChange();">
                       <small class="text-danger ml-2" *ngIf="!avdName.valid && avdName.touched ">Enter AVD Name</small>
@@ -128,47 +128,28 @@
                     </div>
                                         
                     <div class="form-group col-md-3">
-                      <label class="note">{{'AVD ContactNo ' | translate }}<span class="manto"> *</span></label>
+                      <label class="note" [ngClass]="{'label-border-class':!contactNo.valid && contactNo.touched || addAvdForm.submitted && contactNo.invalid }">{{'AVD ContactNo ' | translate }}<span class="manto"> *</span></label>
                       <input class="form-control" name="contactNo" type="text" placeholder="contactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                      [class.is-invalid]="!contactNo.valid && contactNo.touched || addAvdForm.submitted && contactNo.invalid"
-                       #contactNo="ngModel" required >
-                      <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter contactNo</small>
+                      [class.is-invalid]="!contactNo.valid && contactNo.touched || addAvdForm.submitted && contactNo.invalid && contactNo.minlength "
+                       #contactNo="ngModel" minlength="10" required >
+                      <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched && !contactNo.minlength ">Enter 10 digit contact number</small>
                       <div *ngIf="addAvdForm.submitted && contactNo.invalid">
                         <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">contactNo is required</small>
                       </div>
                      </div>
-                             
-                    <!-- <div class="form-group col-md-3">
-                      <label class="note">{{'RIID' | translate }}<span class="manto"> *</span></label><br/>
-                      <input class="form-control form-control-with-search" name="riid" type="text" placeholder="RIID" ngModel
-                         pattern="^[a-zA-Z0-9,]+$" required #riid="ngModel"  
-                        [class.is-invalid]="!riid.valid && riid.touched || addAvdForm.submitted && riid.invalid">
-                        <button type="submit" class="btn search-bu" (click)=getANMDetails()>
-                          <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
-                      <small class="text-danger ml-2" *ngIf="!riid.valid && riid.touched ">Enter RIID </small>
-                      <div *ngIf="addAvdForm.submitted && riid.invalid">
-                        <small *ngIf="riid.untouched" class=" ml-2 text-danger">RIID is required</small>
-                      </div>
-                    </div> -->
-
-                    <!-- <div class="form-group col-md-3">
-                      <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                      <div class="n-chk">
-                          <label class="new-control new-checkbox checkbox-outline-primary">
-                            <input type="checkbox" class="new-control-input checkbox" 
-                            [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
-                            <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                          </label>
-                      </div>
-                    </div> -->
       
                   </div>                                    
 
                   <div class="form-row mt-4">
                     <div class="form-group col-md-12">
-                      <label class="note">{{'Comments' | translate }} <span class="manto"></span></label>
-                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder=""
-                        name=Comments #Comments="ngModel" ngModel></textarea>
+                      <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addAvdForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                      [class.is-invalid]="!Comments.valid && Comments.touched || addAvdForm.submitted && Comments.invalid"
+                        name=Comments #Comments="ngModel" ngModel required></textarea>
+                    </div>
+                    <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                    <div *ngIf="addAvdForm.submitted && Comments.invalid">
+                      <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
                     </div>
                   </div>
                 </div>
@@ -207,60 +188,43 @@
                   <div class="form-row">
 
                     <div class="form-group col-md-3">
-                      <label class="note">{{'AVD Name' | translate }} <span class="manto"> *</span></label>
-                      <input class="form-control" name="avdName" type="text" placeholder="AVD Name"
-                      #avdName1="ngModel"  required [(ngModel)]="avdName" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                      <label class="note"  [ngClass]="{'label-border-class':!avdName1.valid && avdName1.touched || editAvdForm.submitted && avdName1.invalid}">{{'AVD Name' | translate }} <span class="manto"> *</span></label>
+                      <input class="form-control" name="avdName1" type="text" placeholder="AVD Name"
+                      [class.is-invalid]="!avdName1.valid && avdName1.touched || editAvdForm.submitted && avdName1.invalid"
+                      #avdName1="ngModel"  required [(ngModel)]="avdName"  required>
                       <small class="text-danger ml-2" *ngIf="!avdName1.valid && avdName1.touched ">Enter AVD Name</small>
-                      <!-- <div *ngIf="addScForm.submitted && scName.invalid">
-                        <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
-                      </div> -->  
+                      <div *ngIf="editAvdForm.submitted && avdName1.invalid">
+                        <small *ngIf="avdName1.untouched" class=" ml-2 text-danger">AVD Name required</small>
+                      </div>
                 </div>
                     
                 
                     <div class="form-group col-md-3">
-                      <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="contactNo" type="text" placeholder="contactNo"  oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                      [class.is-invalid]="!contactNo.valid && contactNo.touched || editAvdForm.submitted && contactNo.invalid"
-                      [(ngModel)]="contactNo" #contactNo1="ngModel" required >
-                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contactNo</small>
-                      <div *ngIf="editAvdForm.submitted && contactNo.invalid">
-                        <small *ngIf="contactNo.untouched" class=" ml-2 text-danger">contactNo is required</small>
+                      <label class="note"  [ngClass]="{'label-border-class':!contactNo1.valid && contactNo1.touched || editAvdForm.submitted && contactNo1.invalid}">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                      <input class="form-control" name="contactNo1" #contactNo1="ngModel" type="text" placeholder="contactNo"  oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!contactNo1.valid && contactNo1.touched || editAvdForm.submitted && contactNo1.invalid"
+                      [(ngModel)]="contactNo"  required >
+                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter contact No</small>
+                      <div *ngIf="editAvdForm.submitted && contactNo1.invalid">
+                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                       </div>
                      </div>                   
 
-                    <!-- <div class="form-group col-md-3 associatedanm">
-                      <label class="note">{{'RIID' | translate }} <span class="manto"></span></label><br/>
-                      <input class="form-control form-control-with-search" name="riid" type="text" placeholder="RIID"
-                        [class.is-invalid]="!riid.valid && riid.touched || editAvdForm.submitted && riid.invalid"
-                        required [(ngModel)]="riid">
-                        <button type="submit" class="btn search-bu" (click)=getANMDetails()>
-                          <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
-                      <small class="text-danger ml-2" *ngIf="!riid.valid && riid.touched ">Enter RIID</small>
-                      <div *ngIf="editAvdForm.submitted && riid.invalid">
-                        <small *ngIf="riid.untouched" class=" ml-2 text-danger">RIID is required</small>                                              
-                      </div>
-                    </div>
-                     -->
-                    <!-- <div class="form-group col-md-5">
-                    
-                      <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                      <div class="n-chk">
-                        <label class="new-control new-checkbox checkbox-outline-primary">
-                          <input type="checkbox" class="new-control-input checkbox" [checked]="confirmationSelected"
-                            (change)="confirmationSelected = !confirmationSelected">
-                          <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                        </label>
-                      </div>
-                    </div> -->
+                   
                   </div>
 
                   <div class="form-row mt-4">
                     <div class="form-group col-md-12">
-                      <label class="note">{{'Comments' | translate }} <span class="manto"></span></label>
-                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" placeholder=""
-                        name=commentsdata [(ngModel)]="commentsdata"></textarea>
+                      <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editAvdForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                      [class.is-invalid]="!editComments.valid  && editComments.touched || editAvdForm.submitted && !editComments.valid"
+                      name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                     </div>
-                  </div>
+                    <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                    <div *ngIf="editAvdForm.submitted && !editComments.valid">
+                      <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                       </div>
+                  </div> 
                 </div>
 
                 <div class="modal-footer">

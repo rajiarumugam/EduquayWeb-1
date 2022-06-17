@@ -41,13 +41,13 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <div class="col-md-12">
                             <div *ngIf="blocklistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': blocklistErrorMessage ==='No sample data  found', 'alert-danger': blocklistErrorMessage !== 'No sample data  found'}">
                                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{blocklistErrorMessage}}
                             </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddBlock(addBlockDetail)"
@@ -128,7 +128,7 @@
                                   </div>
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid}">{{'Block Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel  required
                                     [class.is-invalid]="!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid"
                                      #blockname="ngModel" required>
                                     <small class="text-danger ml-2" *ngIf="!blockname.valid && blockname.touched ">Enter Block Name</small>
@@ -138,8 +138,8 @@
                               </div>
              
                                   <div class="form-group col-md-3">
-                                    <label class="note">{{'Block Code' | translate }}<span class="manto"> *</span></label>
-                                    <input class="form-control" name="blockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                                    <label class="note" [ngClass]="{'label-border-class':!blockCode.valid && blockCode.touched || addBlockForm.submitted && blockCode.invalid}">{{'Block Code' | translate }}<span class="manto"> *</span></label>
+                                    <input class="form-control" name="blockCode" type="text" placeholder="Block Code" ngModel  required
                                     #blockCode ="ngModel" [class.is-invalid]="!blockCode.valid && blockCode.touched || addBlockForm.submitted && blockCode.invalid">
                                     <small class="text-danger ml-2" *ngIf="!blockCode.valid && blockCode.touched ">Enter Block Code</small>
                                     <div *ngIf="addBlockForm.submitted && blockCode.invalid">
@@ -158,15 +158,20 @@
                                     </div>
                                   </div> -->
                                 </div>
-
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                    <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addBlockForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                    [class.is-invalid]="!Comments.valid && Comments.touched || addBlockForm.submitted && Comments.invalid"
+                                      name=Comments #Comments="ngModel" ngModel required></textarea>
+                                  </div>
+                                  <small class="text-danger ml-2" *ngIf="!Comments.valid && Comments.touched ">Enter Comments</small>
+                                  <div *ngIf="addBlockForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
                                   </div>
                                 </div>
+
+                              
                               </div>
 
                               <div class="modal-footer">
@@ -208,10 +213,14 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'Block Name' | translate }} <span class="manto"> *</span></label>
+                                  <label class="note" [ngClass]="{'label-border-class':!editBlockName.valid && editBlockName.touched || editBlockForm.submitted && editBlockName.invalid}">{{'Block Name' | translate }} <span class="manto"> *</span></label>
                                   <input class="form-control" name="editBlockName" type="text" placeholder="Block Name"
-                                  #editBlockName1="ngModel"  required [(ngModel)]="blocknamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                                  <small class="text-danger ml-2" *ngIf="!editBlockName1.valid && editBlockName1.touched ">Enter Block Name</small>
+                                  [class.is-invalid]="!editBlockName.valid && editBlockName.touched || editBlockForm.submitted && editBlockName.invalid"
+                                  #editBlockName="ngModel"   [(ngModel)]="blocknamedata"  required>
+                                  <small class="text-danger ml-2" *ngIf="!editBlockName.valid && editBlockName.touched ">Enter Block Name</small>
+                                  <div *ngIf="editBlockForm.submitted && editBlockName.invalid">
+                                    <small *ngIf="editBlockName.untouched" class=" ml-2 text-danger">Block Name is required</small>
+                                    </div>
                                   <!-- <div *ngIf="addScForm.submitted && scName.invalid">
                                     <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
                                   </div> -->
@@ -244,12 +253,16 @@
 
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2" [(ngModel)]="commentsdata"
-                                  placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
+                                  <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editBlockForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                  [class.is-invalid]="!editComments.valid  && editComments.touched || editBlockForm.submitted && !editComments.valid"
+                                  name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                                 </div>
-                              </div>
+                                <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                                <div *ngIf="editBlockForm.submitted && !editComments.valid">
+                                  <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                   </div>
+                              </div> 
                             </div>
 
                             <div class="modal-footer">

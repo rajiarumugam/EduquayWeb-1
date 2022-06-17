@@ -128,7 +128,7 @@
                                   </div>
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!hplcName.valid && hplcName.touched || addHPLCForm.submitted && hplcName.invalid}">{{'HPLC Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="hplcName" type="text" placeholder="HPLC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                    <input class="form-control" name="hplcName" type="text" placeholder="HPLC Name" ngModel  required
                                     [class.is-invalid]="!hplcName.valid && hplcName.touched || addHPLCForm.submitted && hplcName.invalid"
                                      #hplcName="ngModel" required>
                                     <small class="text-danger ml-2" *ngIf="!hplcName.valid && hplcName.touched ">Enter HPLC Name</small>
@@ -138,33 +138,27 @@
                               </div>
              
                                   <div class="form-group col-md-3">
-                                    <label class="note">{{'HPLC Code' | translate }}<span class="manto"> *</span></label>
-                                    <input class="form-control" name="hplcCode" type="text" placeholder="HPLC Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                                    <label class="note" [ngClass]="{'label-border-class':!hplcCode.valid && hplcCode.touched || addHPLCForm.submitted && hplcCode.invalid}">{{'HPLC Code' | translate }}<span class="manto"> *</span></label>
+                                    <input class="form-control" name="hplcCode" type="text" placeholder="HPLC Code" ngModel  required
                                     #hplcCode ="ngModel" [class.is-invalid]="!hplcCode.valid && hplcCode.touched || addHPLCForm.submitted && hplcCode.invalid">
                                     <small class="text-danger ml-2" *ngIf="!hplcCode.valid && hplcCode.touched ">Enter HPLC Code</small>
                                     <div *ngIf="addHPLCForm.submitted && hplcCode.invalid">
                                     <small *ngIf="hplcCode.untouched" class=" ml-2 text-danger">HPLC Code is required</small>
                                     </div>
                                   </div>
-
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                    <div class="n-chk">
-                                        <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input checkbox"
-                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                                          <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                        </label>
-                                    </div>
-                                  </div> -->
+                    
                                 </div>
 
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                                    <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addHPLCForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                    [class.is-invalid]="!Comments.valid && Comments.touched || addHPLCForm.submitted && Comments.invalid"
+                                      name=Comments #Comments="ngModel" ngModel required></textarea>
+                                  </div>
+                                  <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                  <div *ngIf="addHPLCForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
                                   </div>
                                 </div>
                               </div>
@@ -195,53 +189,53 @@
                           <form class="text-left" (ngSubmit)="editHPLCForm.form.valid && editSubmit(editHPLCForm)" #editHPLCForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                          
                                 <div class="form-group col-md-3">
-                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span> *</label>
+                                    <label  [ngClass]="{'label-border-class':!ddlEditDistrict.valid && ddlEditDistrict.touched || editHPLCForm.submitted && ddlEditDistrict.invalid}" for="inputilrPoint">{{'District' | translate}} <span class="manto">*</span> </label>
                                     <select id="inputilrPoint" class="form-control"
-                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict"  >
+                                    [class.is-invalid]="!ddlEditDistrict.valid  && ddlEditDistrict.touched || editHPLCForm.submitted && !ddlEditDistrict.valid"
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" required [(ngModel)]="selectedEditDistrict"  >
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                             {{districtdata.name}}
                                         </option>
                                     </select>
+                                    <small class="text-danger ml-2" *ngIf="!ddlEditDistrict.valid && ddlEditDistrict.touched ">Please choose a District</small>
+                                    <div *ngIf="editHPLCForm.submitted && !ddlEditDistrict.valid">
+                                      <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                       </div>
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'HPLC Name' | translate }} <span class="manto"> *</span></label>
-                                  <input class="form-control" name="edithplcName" type="text" placeholder="HPLC Name"
-                                  #edithplcName1="ngModel"  required [(ngModel)]="HPLCnamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                                  <small class="text-danger ml-2" *ngIf="!edithplcName1.valid && edithplcName1.touched ">Enter HPLC Name</small>  
+                                  <label class="note"  [ngClass]="{'label-border-class':!edithplcName1.valid && edithplcName1.touched || editHPLCForm.submitted && edithplcName1.invalid}">{{'HPLC Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="edithplcName1" type="text" placeholder="HPLC Name"
+                                  [class.is-invalid]="!edithplcName1.valid  && edithplcName1.touched || editHPLCForm.submitted && !edithplcName1.valid"
+                                  #edithplcName1="ngModel"  required [(ngModel)]="HPLCnamedata"  required>
+                                  <small class="text-danger ml-2" *ngIf="!edithplcName1.valid && edithplcName1.touched ">Enter HPLC Name</small>
+                                <div *ngIf="editHPLCForm.submitted && !edithplcName1.valid">
+                                  <small *ngIf="edithplcName1.untouched" class=" ml-2 text-danger">HPLC Name is required</small>
+                                   </div>  
                             </div>
                                 
-                                
-
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'HPLC Code' | translate }}<span class="manto"></span> *</label>
-                                  <input class="form-control" name="edithplcCode" type="text" placeholder="HPLC Code" ngModel pattern="^[a-zA-Z0-9]+$"
-                                  #edithplcCode="ngModel" [(ngModel)]="hplcCodedata" disabled="editDistrictCode" >
-                                </div>
-
-                                <!-- <div class="form-group col-md-3">
-                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                  <div class="n-chk">
-                                      <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox"
-                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                      </label>
-                                  </div>
-                                </div> -->
+                                  <label class="note" [ngClass]="{'label-border-class':!edithplcCode.valid && edithplcCode.touched || editHPLCForm.submitted && edithplcCode.invalid}">{{'HPLC Code' | translate }}<span class="manto"></span> *</label>
+                                  <input class="form-control" name="edithplcCode" type="text" placeholder="HPLC Code" ngModel 
+                                  #edithplcCode="ngModel" [(ngModel)]="hplcCodedata" disabled="edithplcCode" >
+                                 
+                                </div>                           
                               </div>
 
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2" [(ngModel)]="commentsdata"
-                                  placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
+                                  <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editHPLCForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                  [class.is-invalid]="!editComments.valid  && editComments.touched || editHPLCForm.submitted && !editComments.valid"
+                                  name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                                 </div>
-                              </div>
+                                <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                                <div *ngIf="editHPLCForm.submitted && !editComments.valid">
+                                  <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                   </div>
+                              </div> 
                             </div>
 
                             <div class="modal-footer">
