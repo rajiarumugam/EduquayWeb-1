@@ -708,64 +708,64 @@ ddlDistrict() {
         });
     }
 
-    onSubmitRI(addRiPtForm: NgForm){
+    // onSubmitRI(addRiPtForm: NgForm){
   
-      console.log(addRiPtForm.value);
-      this.selectedIlr = addRiPtForm.value.ddlIlr;
-      this.comments = addRiPtForm.value.Comments;
-      this.selectedChc = addRiPtForm.value.ddlChc;
-      this.selectedPhc = addRiPtForm.value.ddlPhc;
-      this.selectedSc = addRiPtForm.value.ddlSc;
-      this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
-      this.riCode = addRiPtForm.value.riCode;
-      this.riName = addRiPtForm.value.riName;
-      this.pincode = addRiPtForm.value.pincode;
+    //   console.log(addRiPtForm.value);
+    //   this.selectedIlr = addRiPtForm.value.ddlIlr;
+    //   this.comments = addRiPtForm.value.Comments;
+    //   this.selectedChc = addRiPtForm.value.ddlChc;
+    //   this.selectedPhc = addRiPtForm.value.ddlPhc;
+    //   this.selectedSc = addRiPtForm.value.ddlSc;
+    //   this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
+    //   this.riCode = addRiPtForm.value.riCode;
+    //   this.riName = addRiPtForm.value.riName;
+    //   this.pincode = addRiPtForm.value.pincode;
      
   
-      this.riptListRequest = {
+    //   this.riptListRequest = {
         
-        testingCHCId:+(this.selectedtestingCHCId) ,       
-        chcId: +(this.selectedChc),
-        phcId: +(this.selectedPhc),
-        scId: +(this.selectedSc),
-        riGovCode:"0",
-        riSite: this.riName,
-        ilrId:+ (this.selectedIlr), 
-        pincode: this.pincode,
-        isActive: ""+this.confirmationSelected,
-        comments: this.comments,
-        createdBy: this.user.id,
-        updatedBy: this.user.id
+    //     testingCHCId:+(this.selectedtestingCHCId) ,       
+    //     chcId: +(this.selectedChc),
+    //     phcId: +(this.selectedPhc),
+    //     scId: +(this.selectedSc),
+    //     riGovCode:"0",
+    //     riSite: this.riName,
+    //     ilrId:+ (this.selectedIlr), 
+    //     pincode: this.pincode,
+    //     isActive: ""+this.confirmationSelected,
+    //     comments: this.comments,
+    //     createdBy: this.user.id,
+    //     updatedBy: this.user.id
         
-      };
+    //   };
   
-      //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
-      // return false;
+    //   //Remove below 2 lines after successfully tested
+    //   // this.showResponseMessage('Successfully registered', 's');
+    //   // return false;
   
-      let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
-      .subscribe(response => {
-        this.addriptResponse = response;
-        if(this.addriptResponse !== null){
-          this.showResponseMessage(this.addriptResponse.message, 's')
-          this.retrieveRiPtList();
-        }else{
-          this.showResponseMessage(this.addriptResponse.message, 'e');
-                  this.ripointlistErrorMessage = response.message;
-        }
+    //   let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
+    //   .subscribe(response => {
+    //     this.addriptResponse = response;
+    //     if(this.addriptResponse !== null){
+    //       this.showResponseMessage(this.addriptResponse.message, 's')
+    //       this.retrieveRiPtList();
+    //     }else{
+    //       this.showResponseMessage(this.addriptResponse.message, 'e');
+    //               this.ripointlistErrorMessage = response.message;
+    //     }
   
-      },
-      (err: HttpErrorResponse) => {
-        this.showResponseMessage(err.toString(), 'e');
-        this.ripointlistErrorMessage = err.toString();
-      });
-      //swal ("Here's the title!", "...and here's the text!");
-    }
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     this.showResponseMessage(err.toString(), 'e');
+    //     this.ripointlistErrorMessage = err.toString();
+    //   });
+    //   //swal ("Here's the title!", "...and here's the text!");
+    // }
     editSubmit(editAvdForm: NgForm){
       console.log(editAvdForm.value);               
-            this.commentsdata = editAvdForm.value.commentsdata;     
-            this.avdName = editAvdForm.value.avdName;
-            this.contactNo = editAvdForm.value.contactNo;
+            this.commentsdata = editAvdForm.value.editComments;     
+            this.avdName = editAvdForm.value.avdName1;
+            this.contactNo = editAvdForm.value.contactNo1;
                  
             this.avdListRequest = {
               id:   this.tempeditid,

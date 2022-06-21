@@ -55,7 +55,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
     statetnamedata: string;
     districtcodedata: string;
     districtnamedata: string;
-    commentsdata: string;1
+    Commentsdata: string;1
     selectedDistrictData;
 
     constructor(
@@ -178,7 +178,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
       this.districtnamedata = sample.name;
       this.districtcodedata = sample.districtGovCode;
       this.selectedEditState = sample.stateId;
-      this.commentsdata = sample.comments;
+      this.Commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive == 'True' ;
 
       this.modalService.open(
@@ -240,7 +240,7 @@ export class DistrictComponent implements AfterViewInit, OnDestroy, OnInit {
         name: this.districtnamedata,
         stateId: this.selectedEditState,
         isActive: this.confirmationSelected,
-        comments: this.commentsdata,
+        comments: this.Commentsdata,
         userId: this.user.id,
       };
 

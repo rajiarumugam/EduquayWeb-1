@@ -41,13 +41,13 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <div class="col-md-12">
                             <div *ngIf="sclistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': sclistErrorMessage ==='No sample data  found', 'alert-danger': sclistErrorMessage !== 'No sample data  found'}">
                                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{sclistErrorMessage}}
                             </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddSc(addScDetail)"
@@ -113,14 +113,20 @@
                               <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
                                   <div class="form-group col-md-3">
-                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                    <label for="inputState" [ngClass]="{'label-border-class':ddlEditDistrict.invalid && ddlEditDistrict.touched || addScForm.submitted && ddlEditDistrict.invalid}">{{'District' | translate}} <span class="manto"></span></label>
                                     <select id="inputilrPoint" class="form-control"
-                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" >
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel"  required
+                                    [class.is-invalid]="ddlEditDistrict.invalid && ddlEditDistrict.touched || addScForm.submitted && ddlEditDistrict.invalid"
+                                    [(ngModel)]="selectedDistrict" (change)="districtChange();" >
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                             {{districtdata.name}}
                                         </option>
                                     </select>
+                                    <small class=" ml-2 text-danger" *ngIf="ddlEditDistrict.invalid && ddlEditDistrict.touched ">Please choose a District</small>
+                                              <div *ngIf="addScForm.submitted && ddlEditDistrict.invalid">
+                                                <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                              </div>
                                 </div>
                                   <div class="form-group col-md-3">
 
@@ -160,8 +166,8 @@
                               </div>
 
                               <div class="form-group col-md-3">
-                                <label class="note">{{'SC Code' | translate }}<span class="manto"> *</span></label>
-                                <input class="form-control" name="scCode" type="text" placeholder="SC Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                                <label class="note"  [ngClass]="{'label-border-class':!scCode.valid && scCode.touched || addScForm.submitted && scCode.invalid}">{{'SC Code' | translate }}<span class="manto"> *</span></label>
+                                <input class="form-control" name="scCode" type="text" placeholder="SC Code" ngModel  required
                                 #scCode ="ngModel" [class.is-invalid]="!scCode.valid && scCode.touched || addScForm.submitted && scCode.invalid">
                                 <small class="text-danger ml-2" *ngIf="!scCode.valid && scCode.touched ">Enter SC Code</small>
                                 <div *ngIf="addScForm.submitted && scCode.invalid">
@@ -170,7 +176,7 @@
                               </div>
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!scName.valid && scName.touched || addScForm.submitted && scName.invalid}">{{'SC Name' | translate }} <span class="manto">*</span></label>
-                                <input class="form-control" name="scName" type="text" placeholder="SC Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                <input class="form-control" name="scName" type="text" placeholder="SC Name" ngModel  required
                                 [class.is-invalid]="!scName.valid && scName.touched || addScForm.submitted && scName.invalid"
                                  #scName="ngModel" required>
                                 <small class="text-danger ml-2" *ngIf="!scName.valid && scName.touched ">Enter SC Name</small>
@@ -213,12 +219,16 @@
 
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                  </div>
-                                </div>
+                                  <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addScForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                     <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                     [class.is-invalid]="!Comments.valid && Comments.touched || addScForm.submitted && Comments.invalid"
+                                      name=Comments #Comments="ngModel" ngModel required></textarea>
+                                   </div>
+                                   <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                  <div *ngIf="addScForm.submitted && Comments.invalid">
+                                      <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                       </div>
+                                       </div>
                               </div>
 
                               <div class="modal-footer">
@@ -309,13 +319,15 @@
 
                               </div>
                               <div class="form-group col-md-3">
-                                <label class="note">{{'SC Name' | translate }} <span class="manto"> *</span></label>
-                                <input class="form-control" name="scNamedata" type="text" placeholder="SC Name"
-                                #scNamedata1="ngModel"  required [(ngModel)]="scNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                <label class="note"  [ngClass]="{'label-border-class':!scNamedata1.valid && scNamedata1.touched || editScForm.submitted && scNamedata1.invalid}">{{'SC Name' | translate }} <span class="manto"> *</span></label>
+                                <input class="form-control" name="scNamedata1" type="text" placeholder="SC Name"
+                                [class.is-invalid]="!scNamedata1.valid && scNamedata1.touched || editScForm.submitted && scNamedata1.invalid"
+                                #scNamedata1="ngModel"  required [(ngModel)]="scNamedata" required>
                                 <small class="text-danger ml-2" *ngIf="!scNamedata1.valid && scNamedata1.touched ">Enter SC Name</small>
-                                <!-- <div *ngIf="addScForm.submitted && scName.invalid">
-                                  <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
-                                </div> -->
+                                
+                                <div *ngIf="editScForm.submitted && scNamedata1.invalid">
+                                  <small *ngIf="scNamedata1.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                </div>
 
                           </div>
                           <div class="form-group col-md-3">
@@ -338,38 +350,21 @@
                                   autocomplete="off" [(ngModel)]="scAddress">
                               </div>
 
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addScForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
-                                    <div *ngIf="addScForm.submitted && StateCode.invalid">
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
-                                    </div>
-                                  </div> -->
-
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                    <div class="n-chk">
-                                        <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input checkbox"
-                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                                          <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                        </label>
-                                    </div>
-                                  </div> -->
-
                                 </div>
+
 
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=commentsdata [(ngModel)]="commentsdata"></textarea>
+                                    <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editScForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                    [class.is-invalid]="!editComments.valid  && editComments.touched || editScForm.submitted && !editComments.valid"
+                                    name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                                   </div>
-                                </div>
+                                  <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                                  <div *ngIf="editScForm.submitted && !editComments.valid">
+                                    <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                     </div>
+                                </div> 
                               </div>
 
                             <div class="modal-footer">

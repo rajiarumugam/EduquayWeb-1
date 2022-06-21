@@ -23,6 +23,16 @@ export interface ScList {
     updatedBy: number;
 }
 
+export class AddSCbyANMResponse {
+    status: string;
+    message: string;
+    scbyanmDetails: ScbyAnmList[];
+}
+export interface ScbyAnmList {
+    id: number;
+    name: string;
+}
+
 export interface AddScDataresponse {
     status: string;
     message: string;

@@ -194,13 +194,14 @@
                </div>
 
                <div class="form-group col-md-3">
-                <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                 <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                 #contactNo1="ngModel" required >
-                <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid "
+                 #contactNo1="ngModel" required minlength="9" >
+                 <!-- <small class="text-danger ml-2" *ngIf="contactNo1.minlength">Enter 10 digit number</small> -->
+                <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
                 <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                  <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                  <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                 </div>
                </div>
 
@@ -241,12 +242,16 @@
 
               <div class="form-row mt-4">
                 <div class="form-group col-md-12">
-                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                   rows="2"
-                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                </div>
-              </div>
+                     <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                   [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                           name=Comments #Comments="ngModel" ngModel required></textarea>
+                           </div>
+                           <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                         <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                            </div>
+                       </div>
             </div>
 
 
@@ -299,6 +304,7 @@
                 <div class="form-group col-md-3">
                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
                   <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
+         
                   [class.is-invalid]="!userName.valid && userName.touched || editsadminForm.submitted && userName.invalid">
                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
                   <div *ngIf="editsadminForm.submitted && userName.invalid">
@@ -335,13 +341,14 @@
                </div>
 
                <div class="form-group col-md-3">
-                <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo"  [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editsadminForm.submitted && mobileNo.invalid"
-                #mobileNo1="ngModel" required >
-                <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter contact No</small>
-                <div *ngIf="editsadminForm.submitted && mobileNo.invalid">
-                  <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">contact No is required</small>
+                <label class="note">{{'Contact No' | translate }}<span class="manto"> *</span></label>
+                <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No "  [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editsadminForm.submitted && mobileNo1.invalid || mobileNo1.minlength"
+                #mobileNo1="ngModel" required minlength="9">
+                <!-- <small class="text-danger ml-2" *ngIf="contactNo1.minlength">Enter 10 digit number</small> -->
+                <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched|| mobileNo1.minlength ">Enter 10 digit number</small>
+                <div *ngIf="editsadminForm.submitted && mobileNo1.invalid">
+                  <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                 </div>
                </div>
 
@@ -383,12 +390,16 @@
 
               <div class="form-row mt-4">
                 <div class="form-group col-md-12">
-                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                   rows="2"
-                  placeholder="" name=comments #Comments="ngModel" ngModel></textarea>
+                  <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editsadminForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                  [class.is-invalid]="!editComments.valid  && editComments.touched || editsadminForm.submitted && !editComments.valid"
+                  name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                 </div>
-              </div>
+                <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                <div *ngIf="editsadminForm.submitted && !editComments.valid">
+                  <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                   </div>
+              </div> 
             </div>
 
 
@@ -583,13 +594,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -634,12 +645,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
                   <div class="modal-footer">
@@ -833,12 +848,12 @@
 
                        <div class="form-group col-md-3">
                         <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                        <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                        [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editanmForm.submitted && mobileNo.invalid"
-                        #mobileNo1="ngModel" required >
-                        <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter contact No</small>
-                        <div *ngIf="editanmForm.submitted && mobileNo.invalid">
-                          <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">contact No is required</small>
+                        <input class="form-control" name="mobileNo1" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                        [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editanmForm.submitted && mobileNo1.invalid"
+                        #mobileNo1="ngModel" required minlength="9">
+                        <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength || mobileNo1.minlength">Enter 10 digit number</small>
+                        <div *ngIf="editanmForm.submitted && mobileNo1.invalid">
+                          <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                         </div>
                        </div>
 
@@ -880,12 +895,16 @@
 
                         <div class="form-row mt-4">
                           <div class="form-group col-md-12">
-                            <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                            <textarea id="textarea" class="form-control textarea" maxlength="225"
-                             rows="2"
-                            placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                            <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editAvdForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                            [class.is-invalid]="!editComments.valid  && editComments.touched || editAvdForm.submitted && !editComments.valid"
+                            name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                           </div>
-                        </div>
+                          <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                          <div *ngIf="editAvdForm.submitted && !editComments.valid">
+                            <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                             </div>
+                        </div> 
                       </div>
 
                       <div class="modal-footer">
@@ -1048,13 +1067,13 @@
                      </div>
 
                      <div class="form-group col-md-3">
-                      <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                      <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                       [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                       #contactNo1="ngModel" required >
-                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                       #contactNo1="ngModel" required minlength="9">
+                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                       <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                       </div>
                      </div>
 
@@ -1098,12 +1117,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -1265,12 +1288,12 @@
 
                      <div class="form-group col-md-3">
                       <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                      [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editchcform.submitted && mobileNo.invalid"
-                      #mobileNo1="ngModel"  required >
-                      <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter contact No</small>
-                      <div *ngIf="editchcform.submitted && mobileNo.invalid">
-                        <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">contact No is required</small>
+                      <input class="form-control" name="mobileNo1" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editchcform.submitted && mobileNo1.invalid"
+                      #mobileNo1="ngModel"  required minlength="9" >
+                      <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                      <div *ngIf="editchcform.submitted && mobileNo1.invalid">
+                        <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                       </div>
                      </div>
 
@@ -1298,38 +1321,21 @@
                         </div>
                        </div>
 
-                        <!-- <div class="form-group col-md-3">
-                        <label class="note">{{'Address' | translate }}<span class="manto"> *</span></label>
-                        <input class="form-control" name="Address" type="text" placeholder="Address" [(ngModel)]="Address"
-                        [class.is-invalid]="!Address.valid && Address.touched || editchcform.submitted && Address.invalid"
-                          required>
-                        <small class="text-danger ml-2" *ngIf="!Address.valid && Address.touched ">Enter Address</small>
-                        <div *ngIf="editchcform.submitted && Address.invalid">
-                          <small *ngIf="Address.untouched" class=" ml-2 text-danger">Address is required</small>
-                        </div>
-                       </div> -->
-
-                      <!-- <div class="form-group col-md-3">
-                        <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                        <div class="n-chk">
-                            <label class="new-control new-checkbox checkbox-outline-primary">
-                              <input type="checkbox" class="new-control-input checkbox"
-                              [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                              <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                            </label>
-                        </div>
-                      </div> -->
-
+                     
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editchcform.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editchcform.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editchcform.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -1473,13 +1479,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -1507,28 +1513,20 @@
                         </div>
                        </div>
 
-
-                      <!-- <div class="form-group col-md-3">
-                        <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                        <div class="n-chk">
-                            <label class="new-control new-checkbox checkbox-outline-primary">
-                              <input type="checkbox" class="new-control-input checkbox"
-                              [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                              <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                            </label>
-                        </div>
-                      </div> -->
-
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -1648,13 +1646,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || edithplcform.submitted && mobileNo.invalid"
-                    #mobileNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter ContactNo</small>
-                    <div *ngIf="edithplcform.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || edithplcform.submitted && mobileNo1.invalid"
+                    #mobileNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="edithplcform.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -1699,12 +1697,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || edithplcform.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || edithplcform.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="edithplcform.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -1843,13 +1845,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -1894,12 +1896,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -1988,13 +1994,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editpndtcForm.submitted && mobileNo.invalid"
-                     required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editpndtcForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editpndtcForm.submitted && mobileNo1.invalid"
+                     required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editpndtcForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2039,12 +2045,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editpndtcForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editpndtcForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editpndtcForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -2171,13 +2181,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2222,12 +2232,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -2313,13 +2327,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editmtpForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editmtpForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editmtpForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editmtpForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2364,12 +2378,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editmtpForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editmtpForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editmtpForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -2495,13 +2513,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2546,12 +2564,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -2656,13 +2678,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editdcForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editdcForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editdcForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength"> Enter 10 digit number</small>
+                    <div *ngIf="editdcForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2707,12 +2729,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editdcForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editdcForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editdcForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -2854,13 +2880,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2905,12 +2931,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -3013,17 +3043,17 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editmolecularForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editmolecularForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editmolecularForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength "> Enter 10 digit number</small>
+                    <div *ngIf="editmolecularForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-3"> 
                       <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
                       <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                       [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editmolecularForm.submitted && userGovCode.invalid"
@@ -3064,12 +3094,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editmolecularForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editmolecularForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editmolecularForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -3195,13 +3229,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3247,12 +3281,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -3358,13 +3396,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editspcForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editspcForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editspcForm.submitted && mobileNo1.invalid"
+                      required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched||mobileNo1.minlength "> Enter 10 digit number</small>
+                    <div *ngIf="editspcForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3410,12 +3448,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editspcForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editspcForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editspcForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -3540,13 +3582,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3592,12 +3634,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -3723,13 +3769,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="contactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editnhmForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editnhmForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="contactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editnhmForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength"> Enter 10 digit number</small>
+                    <div *ngIf="editnhmForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3773,12 +3819,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editnhmForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editnhmForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editnhmForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -3904,13 +3954,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3955,12 +4005,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -4047,13 +4101,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editpndtForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editpndtForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editpndtForm.submitted && mobileNo1.invalid"
+                      required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editpndtForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -4098,12 +4152,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editpndtForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editpndtForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editpndtForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -4228,13 +4286,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -4279,12 +4337,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -4372,13 +4434,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || edithaematologistForm.submitted && mobileNo.invalid"
-                     required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="edithaematologistForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || edithaematologistForm.submitted && mobileNo1.invalid"
+                     required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="edithaematologistForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -4423,12 +4485,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || edithaematologistForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || edithaematologistForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="edithaematologistForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -4554,13 +4620,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
                      <div class="form-group col-md-3">
@@ -4604,12 +4670,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -4698,13 +4768,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editsupportForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editsupportForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editsupportForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editsupportForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
                      <div class="form-group col-md-3">
@@ -4748,12 +4818,16 @@
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editsupportForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editsupportForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editsupportForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -4980,12 +5054,16 @@
     
                         <div class="form-row mt-4">
                           <div class="form-group col-md-12">
-                            <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                            <textarea id="textarea" class="form-control textarea" maxlength="225"
-                             rows="2"
-                            placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                          </div>
-                        </div>
+                               <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                             [class.is-invalid]="!Comments.valid && Comments.touched || addRiPtForm.submitted && Comments.invalid"
+                                     name=Comments #Comments="ngModel" ngModel required></textarea>
+                                     </div>
+                                     <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                   <div *ngIf="addRiPtForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                      </div>
+                                 </div>
                       </div>
     
                       <div class="modal-footer">

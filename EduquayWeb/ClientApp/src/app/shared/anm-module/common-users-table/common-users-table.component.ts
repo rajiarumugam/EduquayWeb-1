@@ -92,6 +92,7 @@ export class CommonUsersTableComponent implements OnInit {
   riptListRequest: { testingCHCId: number; chcId: number; phcId: number; scId: number; riGovCode: string; riSite: any; ilrId: number; pincode: string; isActive: string; comments: string; createdBy: any; updatedBy: any; };
   testingchcId: string;
   tcbydisList: any;
+  commentsdata: any;
   constructor(private SubjectProfileService: SubjectProfileService,
     private DistrictService: AddDistrictService,
     private httpService: HttpClient,
@@ -405,10 +406,6 @@ export class CommonUsersTableComponent implements OnInit {
       }   
     };
 
-    
-console.log(this.tableHeader);
-    console.log(this.subjectprofileLists);
-    console.log(this.objkey);
   }
   openAddUsers(FormToBeOpened) {
  
@@ -625,7 +622,7 @@ console.log(this.tableHeader);
     //  this. pincode=null;
     //  this.createdBy=subjectinfo.user.id ;
     //  this. updatedBy=subjectinfo.user.id ;
-      this.comments= subjectinfo.comments;
+      this.commentsdata= subjectinfo.comments;
       this.confirmationSelected = subjectinfo.isActive;
   
     // this.selectedEditBlock = "" +(subjectinfo.blockId)
@@ -707,7 +704,7 @@ console.log(this.tableHeader);
     //  this. pincode=null;
     //  this.createdBy=subjectinfo.user.id ;
     //  this. updatedBy=subjectinfo.user.id ;
-      this.comments= subjectinfo.comments;
+      this.commentsdata= subjectinfo.comments;
       this.confirmationSelected = subjectinfo.isActive;
   
     // this.selectedEditBlock = "" +(subjectinfo.blockId)
@@ -763,7 +760,7 @@ console.log(this.tableHeader);
   
      this.email=subjectinfo.email;
   
-      this.comments= subjectinfo.comments;
+      this.commentsdata= subjectinfo.comments;
       this.confirmationSelected = subjectinfo.isActive;
   
    console.log(this.firstName);
@@ -799,7 +796,7 @@ console.log(this.tableHeader);
      this.lastName=subjectinfo.lastName;
      this. mobileNo=subjectinfo.mobileNo;
      this.email=subjectinfo.email;
-      this.comments= subjectinfo.comments;
+      this.commentsdata= subjectinfo.comments;
       this.confirmationSelected = subjectinfo.isActive;
   
     // this.selectedEditBlock = "" +(subjectinfo.blockId)
@@ -836,7 +833,7 @@ console.log(this.tableHeader);
      this.lastName=subjectinfo.lastName;
      this. mobileNo=subjectinfo.mobileNo;
      this.email=subjectinfo.email;
-      this.comments= subjectinfo.comments;
+      this.commentsdata= subjectinfo.comments;
       this.confirmationSelected = subjectinfo.isActive;
    console.log(this.firstName);
   
@@ -898,7 +895,7 @@ console.log(this.tableHeader);
     //  this. pincode=null;
     //  this.createdBy=subjectinfo.user.id ;
     //  this. updatedBy=subjectinfo.user.id ;
-      this.comments= subjectinfo.comments;
+      this.commentsdata= subjectinfo.comments;
       this.confirmationSelected = subjectinfo.isActive;
   
     // this.selectedEditBlock = "" +(subjectinfo.blockId)
@@ -1291,59 +1288,59 @@ console.log(this.tableHeader);
     });
   
   }
-  onSubmitRI(addRiPtForm: NgForm){
+  // onSubmitRI(addRiPtForm: NgForm){
   
-    console.log(addRiPtForm.value);
-    this.selectedIlr = addRiPtForm.value.ddlIlr;
-    this.comments = addRiPtForm.value.Comments;
-    this.selectedChc = addRiPtForm.value.ddlChcbydis;
-    this.selectedPhc = addRiPtForm.value.ddlPhc;
-    this.selectedSc = addRiPtForm.value.ddlSc;
-    this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
-    this.riCode = addRiPtForm.value.riCode;
-    this.riName = addRiPtForm.value.riName;
-    this.pincode = addRiPtForm.value.pincode;
+  //   console.log(addRiPtForm.value);
+  //   this.selectedIlr = addRiPtForm.value.ddlIlr;
+  //   this.comments = addRiPtForm.value.Comments;
+  //   this.selectedChc = addRiPtForm.value.ddlChcbydis;
+  //   this.selectedPhc = addRiPtForm.value.ddlPhc;
+  //   this.selectedSc = addRiPtForm.value.ddlSc;
+  //   this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
+  //   this.riCode = addRiPtForm.value.riCode;
+  //   this.riName = addRiPtForm.value.riName;
+  //   this.pincode = addRiPtForm.value.pincode;
    
 
-    this.riptListRequest = {
+  //   this.riptListRequest = {
       
-      testingCHCId:+(this.selectedtestingCHCId) ,       
-      chcId: +(this.selectedChc),
-      phcId: +(this.selectedPhc),
-      scId: +(this.selectedSc),
-      riGovCode:"0",
-      riSite: this.riName,
-      ilrId:+ (this.selectedIlr), 
-      pincode: this.pincode,
-      isActive: ""+this.confirmationSelected,
-      comments: this.comments,
-      createdBy: this.user.id,
-      updatedBy: this.user.id
+  //     testingCHCId:+(this.selectedtestingCHCId) ,       
+  //     chcId: +(this.selectedChc),
+  //     phcId: +(this.selectedPhc),
+  //     scId: +(this.selectedSc),
+  //     riGovCode:"0",
+  //     riSite: this.riName,
+  //     ilrId:+ (this.selectedIlr), 
+  //     pincode: this.pincode,
+  //     isActive: ""+this.confirmationSelected,
+  //     comments: this.comments,
+  //     createdBy: this.user.id,
+  //     updatedBy: this.user.id
       
-    };
+  //   };
 
-    //Remove below 2 lines after successfully tested
-    // this.showResponseMessage('Successfully registered', 's');
-    // return false;
+  //   //Remove below 2 lines after successfully tested
+  //   // this.showResponseMessage('Successfully registered', 's');
+  //   // return false;
 
-    let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
-    .subscribe(response => {
-      this.addriptResponse = response;
-      if(this.addriptResponse !== null){
-        this.showResponseMessage(this.addriptResponse.message, 's')
-        this.retrieveRiPtList();
-      }else{
-        this.showResponseMessage(this.addriptResponse.message, 'e');
-                this.ripointlistErrorMessage = response.message;
-      }
+  //   let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
+  //   .subscribe(response => {
+  //     this.addriptResponse = response;
+  //     if(this.addriptResponse !== null){
+  //       this.showResponseMessage(this.addriptResponse.message, 's')
+  //       this.retrieveRiPtList();
+  //     }else{
+  //       this.showResponseMessage(this.addriptResponse.message, 'e');
+  //               this.ripointlistErrorMessage = response.message;
+  //     }
 
-    },
-    (err: HttpErrorResponse) => {
-      this.showResponseMessage(err.toString(), 'e');
-      this.ripointlistErrorMessage = err.toString();
-    });
-    //swal ("Here's the title!", "...and here's the text!");
-  }
+  //   },
+  //   (err: HttpErrorResponse) => {
+  //     this.showResponseMessage(err.toString(), 'e');
+  //     this.ripointlistErrorMessage = err.toString();
+  //   });
+  //   //swal ("Here's the title!", "...and here's the text!");
+  // }
   openEditanm(editanmDetail, subjectinfo) {
 
     console.log(subjectinfo);
@@ -1774,7 +1771,7 @@ console.log(this.tableHeader);
         userGovCode:this.userGovCode,
         userName:this.userGovCode,
         password:'odisha',
-        stateId: this.selectedState,
+        stateId:1,
         centralLabId: 0,
 
         molecularLabId: 0,
@@ -1823,7 +1820,9 @@ console.log(this.tableHeader);
    showResponseMessage(message: string, type: string){
     var messageType = '';
     if(type === 'e'){
-      Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+      var str = message;
+      // Swal.fire({icon:'error', title:str.split(' ').slice(6,).join(' ') ,confirmButtonText: 'Close', allowOutsideClick: false, })
+      Swal.fire({icon:'error', title:(str.substring(6, str.length - 50)) ,confirmButtonText: 'Close', allowOutsideClick: false, })
     }
     else{
       Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
@@ -1864,7 +1863,7 @@ console.log(this.tableHeader);
         userGovCode:this.userGovCode,
         userName:this.userGovCode,
         password:'odisha',
-        stateId:this.selectedState,
+        stateId:1,
         centralLabId: 0,
 
         molecularLabId: 0,
@@ -2020,7 +2019,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2098,7 +2097,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2176,7 +2175,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2254,7 +2253,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2332,7 +2331,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2401,7 +2400,7 @@ this.userGovCode = addIlrForm.value.userGovCode;
 this.selectedState = "1";
 this.email = addIlrForm.value.email;
 this.Address = addIlrForm.value.Address;
-this.comments = addIlrForm.value.Comments;
+this.comments = addIlrForm.value.comments;
 
 console.log(addIlrForm);
 this.Userslistrequest = {
@@ -2410,7 +2409,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2488,7 +2487,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2566,7 +2565,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2643,7 +2642,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2721,7 +2720,7 @@ this.Userslistrequest = {
     userGovCode:this.userGovCode,
     userName:this.userGovCode,
     password:'odisha',
-    stateId:this.selectedState,
+    stateId:1,
     centralLabId: 0,
 
     molecularLabId: 0,
@@ -2777,18 +2776,7 @@ this.phclistErrorMessage = err.toString();
    
 editsubmitsadmin(editsadminForm: NgForm){
 
-  console.log(editsadminForm.value);
-    // this.userName = editsadminForm.value.userName;
-    this.firstName = editsadminForm.value.firstName;
-    this.middleName = editsadminForm.value.middleName;
-    this.lastName = editsadminForm.value.lastName;
-    // this.userGovCode = editsadminForm.value.userGovCode;
-    this.email = editsadminForm.value.email;
-    // this.selectedEditState = editsadminForm.value.ddlState;
-
-    this.mobileNo = editsadminForm.value.mobileNo;
-    this.comments = editsadminForm.value.Comments;
-
+  
   this.userListRequest = {
     id:this.id ,
     userTypeId:1,
@@ -2796,7 +2784,7 @@ editsubmitsadmin(editsadminForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userGovCode,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -2818,7 +2806,7 @@ editsubmitsadmin(editsadminForm: NgForm){
       pincode:null,
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
-      comments: this.comments,
+      comments: this.commentsdata,
       isActive: (this.confirmationSelected? "1": "0")
   };
   console.log(this.userListRequest);
@@ -2890,7 +2878,7 @@ editsubmitanm(editanmForm: NgForm){
      // this.selectedEditSc = editanmForm.value.ddlSc;
      //   this.selectedEditBlock = editanmForm.value.ddlBlock;
      this.mobileNo = editanmForm.value.mobileNo;
-     this.comments = editanmForm.value.Comments;
+     this.comments = editanmForm.value.commentsdata;
  
    this.userListRequest = {
      id:this.id ,
@@ -2899,7 +2887,7 @@ editsubmitanm(editanmForm: NgForm){
      userGovCode:this.userGovCode,
        userName:this.userGovCode,
        password:'odisha',
-       stateId: +(this.selectedEditState),
+       stateId: 1,
        centralLabId: 0,
  
        molecularLabId: 0,
@@ -2921,7 +2909,7 @@ editsubmitanm(editanmForm: NgForm){
        pincode:null,
        createdBy:this.user.id ,
        updatedBy:this.user.id ,
-       comments: this.comments,
+       comments: this.commentsdata,
      isActive:(this.confirmationSelected? "1": "0")
    };
    console.log(this.userListRequest);
@@ -2964,7 +2952,7 @@ editsubmitanm(editanmForm: NgForm){
     //  this.selectedEditDistrict = editchcform.value.ddlDistrict;
     //   this.selectedEditBlock = editchcform.value.ddlBlock;
     this.mobileNo = editchcform.value.mobileNo;
-    this.comments = editchcform.value.Comments;
+    this.comments = editchcform.value.commentsdata;
 
   this.userListRequest = {
     id:this.id ,
@@ -2973,7 +2961,7 @@ editsubmitanm(editanmForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -2987,7 +2975,7 @@ editsubmitanm(editanmForm: NgForm){
       middleName:this.middleName,
       lastName:this.lastName,
       contactNo1:this.mobileNo,
-      contactNo2:null,
+     
       email:this.email,
       govIdTypeId:0,
       govIdDetails:null,
@@ -2995,7 +2983,7 @@ editsubmitanm(editanmForm: NgForm){
       pincode:null,
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
-      comments: this.comments,
+      comments: this.commentsdata,
     isActive:(this.confirmationSelected? "1": "0")
   };
   console.log(this.userListRequest);
@@ -3035,7 +3023,7 @@ editSubmithplc(edithplcform: NgForm){
     //  this.selectedEditDistrict = edithplcform.value.ddlDistrict;
     //   this.selectedEditBlock = edithplcform.value.ddlBlock;
     this.mobileNo = edithplcform.value.mobileNo;
-    this.comments = edithplcform.value.Comments;
+    this.comments = edithplcform.value.commentsdata;
 
   this.userListRequest = {
     id:this.id ,
@@ -3044,7 +3032,7 @@ editSubmithplc(edithplcform: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3066,7 +3054,7 @@ editSubmithplc(edithplcform: NgForm){
       pincode:null,
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
-      comments: this.comments,
+      comments: this.commentsdata,
     isActive:(this.confirmationSelected? "1": "0")
   };
   console.log(this.userListRequest);
@@ -3106,7 +3094,7 @@ editSubmitpndtc(edithplcform: NgForm){
     //  this.selectedEditDistrict = edithplcform.value.ddlDistrict;
     //   this.selectedEditBlock = edithplcform.value.ddlBlock;
     this.mobileNo = edithplcform.value.mobileNo;
-    this.comments = edithplcform.value.Comments;
+    this.comments = edithplcform.value.commentsdata;
 
   this.userListRequest = {
     id:this.id ,
@@ -3115,7 +3103,7 @@ editSubmitpndtc(edithplcform: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
       molecularLabId: 0,
       districtId: 0,
@@ -3136,7 +3124,7 @@ editSubmitpndtc(edithplcform: NgForm){
       pincode:null,
       createdBy:this.user.id ,
       updatedBy:this.user.id ,
-      comments: this.comments,
+      comments: this.commentsdata,
     isActive:(this.confirmationSelected? "1": "0")
   };
   console.log(this.userListRequest);
@@ -3187,7 +3175,7 @@ editSubmitmtp(editmtpForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3261,7 +3249,7 @@ editSubmitdc(editdcForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3335,7 +3323,7 @@ editSubmitmolecular(editmolecularForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3409,7 +3397,7 @@ editSubmitspc(editspcForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3484,7 +3472,7 @@ editSubmitnhm(editnhmForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3558,7 +3546,7 @@ editSubmitpndt(editpndtForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3628,7 +3616,7 @@ editSubmithaematologist(edithaematologistForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,
@@ -3701,7 +3689,7 @@ editSubmitsupport(editsupportForm: NgForm){
     userGovCode:this.userGovCode,
       userName:this.userName,
       password:'odisha',
-      stateId: +(this.selectedEditState),
+      stateId: 1,
       centralLabId: 0,
 
       molecularLabId: 0,

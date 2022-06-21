@@ -102,7 +102,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     ) { }
   
     ngOnInit() {
-      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "PHC"}));
+      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "ILR"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = { 
@@ -385,12 +385,12 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
       console.log(editIlrForm.value);
       
-      this.commentsdata = editIlrForm.value.commentsdata;
+      this.commentsdata = editIlrForm.value.editComments;
       //this.selectedEditChc = editIlrForm.value.ddlChc;
       this.selectedEditDistrict = editIlrForm.value.ddlDistrict;
       // this.ilrCode = editIlrForm.value.ilrCode;
       // this.chcname = editIlrForm.value.chcname;
-      this.ilrname = editIlrForm.value.ilrname;
+      this.ilrname = editIlrForm.value.ilrname1;
       console.log(editIlrForm.value.ddlEdChc);
      
   

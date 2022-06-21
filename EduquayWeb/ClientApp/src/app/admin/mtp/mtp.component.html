@@ -41,13 +41,13 @@
           </div>
           <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
               <div class="widget-content widget-content-area br-6">
-                  <div class="form-row">
+                  <!-- <div class="form-row">
                       <div class="col-md-12">
                           <div *ngIf="MTPlistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': MTPlistErrorMessage ==='No sample data  found', 'alert-danger': MTPlistErrorMessage !== 'No sample data  found'}">
                               <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{MTPlistErrorMessage}}
                           </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="form-row">
                       <div class="col-md-12">
                           <a class="float-right mr-5" (click)="openAddMTP(addMTPDetail)"
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                   <label class="note" [ngClass]="{'label-border-class':!mtpName.valid && mtpName.touched || addMTPForm.submitted && mtpName.invalid}">{{'MTP Name' | translate }} <span class="manto">*</span></label>
-                                  <input class="form-control" name="mtpName" type="text" placeholder="MTP Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                  <input class="form-control" name="mtpName" type="text" placeholder="MTP Name" ngModel  required
                                   [class.is-invalid]="!mtpName.valid && mtpName.touched || addMTPForm.submitted && mtpName.invalid"
                                    #mtpName="ngModel" required>
                                   <small class="text-danger ml-2" *ngIf="!mtpName.valid && mtpName.touched ">Enter MTP Name</small>
@@ -138,8 +138,8 @@
                             </div>
 
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'MTP Code' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="mtpCode" type="text" placeholder="MTP Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                                  <label class="note" [ngClass]="{'label-border-class':!mtpCode.valid && mtpCode.touched || addMTPForm.submitted && mtpCode.invalid}">{{'MTP Code' | translate }}<span class="manto"> *</span></label>
+                                  <input class="form-control" name="mtpCode" type="text" placeholder="MTP Code" ngModel required
                                   #mtpCode ="ngModel" [class.is-invalid]="!mtpCode.valid && mtpCode.touched || addMTPForm.submitted && mtpCode.invalid">
                                   <small class="text-danger ml-2" *ngIf="!mtpCode.valid && mtpCode.touched ">Enter MTP Code</small>
                                   <div *ngIf="addMTPForm.submitted && mtpCode.invalid">
@@ -147,26 +147,21 @@
                                   </div>
                                 </div>
 
-                                <!-- <div class="form-group col-md-3">
-                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                  <div class="n-chk">
-                                      <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox"
-                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                      </label>
-                                  </div>
-                                </div> -->
+                                
                               </div>
 
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2"
-                                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                </div>
-                              </div>
+                                <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addMTPForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                   <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                   [class.is-invalid]="!Comments.valid && Comments.touched || addMTPForm.submitted && Comments.invalid"
+                                    name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                <div *ngIf="addMTPForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                     </div>
+                                     </div>
                             </div>
 
                             <div class="modal-footer">
@@ -197,28 +192,39 @@
                             <div class="form-row">
 
                               <div class="form-group col-md-3">
-                                  <label for="inputState">{{'District' | translate}} <span class="manto"></span> *</label>
+                                  <label for="inputState" [ngClass]="{'label-border-class':!ddlEditDistrict.valid && ddlEditDistrict.touched || editMTPForm.submitted && ddlEditDistrict.invalid}">{{'District' | translate}} <span class="manto"> *</span> </label>
                                   <select id="inputilrPoint" class="form-control"
-                                  name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict"  >
+                                  [class.is-invalid]="!ddlEditDistrict.valid && ddlEditDistrict.touched || editMTPForm.submitted && ddlEditDistrict.invalid"
+                                  name="ddlEditDistrict" #ddlEditDistrict="ngModel" required [(ngModel)]="selectedEditDistrict"  >
                                       <option value="">Select</option>
                                       <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                           {{districtdata.name}}
                                       </option>
                                   </select>
+                                  <small class=" ml-2 text-danger" *ngIf="ddlEditDistrict.invalid && ddlEditDistrict.touched ">Please choose a District</small>
+                                  <div *ngIf="editMTPForm.submitted && ddlEditDistrict.invalid">
+                                    <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">MTP Code is required</small>
+                                    </div>
                               </div>
 
                               <div class="form-group col-md-3">
-                                <label class="note">{{'MTP Name' | translate }} <span class="manto"> *</span></label>
+                                <label class="note" [ngClass]="{'label-border-class':!editmtpName.valid && editmtpName.touched || editMTPForm.submitted && editmtpName.invalid}">{{'MTP Name' | translate }} <span class="manto"> *</span></label>
                                 <input class="form-control" name="editmtpName" type="text" placeholder="MTP Name"
-                                #editmtpName1="ngModel"  required [(ngModel)]="mtpNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                                <small class="text-danger ml-2" *ngIf="!editmtpName1.valid && editmtpName1.touched ">Enter MTP Name</small>
+
+                                [class.is-invalid]="!editMTPForm.valid && editmtpName.touched || editMTPForm.submitted && editmtpName.invalid"
+                                #editmtpName="ngModel"  required [(ngModel)]="mtpNamedata"  required>
+                                <small class="text-danger ml-2" *ngIf="!editmtpName.valid && editmtpName.touched ">Enter MTP Name</small>  
+                                <div *ngIf="editMTPForm.submitted && editmtpName.invalid">
+                                  <small *ngIf="editmtpName.untouched" class=" ml-2 text-danger">MTP Name is required</small>
+                                  </div>
+
                           </div>
 
 
 
                               <div class="form-group col-md-3">
-                                <label class="note">{{'MTP Code' | translate }}<span class="manto"></span> *</label>
-                                <input class="form-control" name="editmtpCode" type="text" placeholder="MTP Code" ngModel pattern="^[a-zA-Z0-9]+$"
+                                <label class="note" >{{'MTP Code' | translate }}<span class="manto"></span> *</label>
+                                <input class="form-control" name="editmtpCode" type="text" placeholder="MTP Code" ngModel 
                                 #editmtpCode="ngModel" [(ngModel)]="mtpCodedata" disabled="editmtpCode" >
                               </div>
 
@@ -236,12 +242,16 @@
 
                             <div class="form-row mt-4">
                               <div class="form-group col-md-12">
-                                <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                 rows="2" [(ngModel)]="commentsdata"
-                                placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
+                                <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editMTPForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                [class.is-invalid]="!editComments.valid  && editComments.touched || editMTPForm.submitted && !editComments.valid"
+                                name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                               </div>
-                            </div>
+                              <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                              <div *ngIf="editMTPForm.submitted && !editComments.valid">
+                                <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                 </div>
+                            </div> 
                           </div>
 
                           <div class="modal-footer">

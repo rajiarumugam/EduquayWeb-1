@@ -41,13 +41,13 @@
           </div>
           <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
               <div class="widget-content widget-content-area br-6">
-                  <div class="form-row">
+                  <!-- <div class="form-row">
                       <div class="col-md-12">
                           <div *ngIf="pndtlistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': pndtlistErrorMessage ==='No sample data  found', 'alert-danger': pndtlistErrorMessage !== 'No sample data  found'}">
                               <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{pndtlistErrorMessage}}
                           </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="form-row">
                       <div class="col-md-12">
                           <a class="float-right mr-5" (click)="openAddPNDT(addPNDTDetail)"
@@ -111,7 +111,7 @@
 
                                 <div class="form-group col-md-3">
                                   <label class="note" [ngClass]="{'label-border-class':!pndtlocationName.valid && pndtlocationName.touched || addPndtForm.submitted && pndtlocationName.invalid}">{{'PNDT Name' | translate }} <span class="manto">*</span></label>
-                                  <input class="form-control" name="pndtlocationName" type="text" placeholder="PNDT Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
+                                  <input class="form-control" name="pndtlocationName" type="text" placeholder="PNDT Name" ngModel  required
                                   [class.is-invalid]="!pndtlocationName.valid && pndtlocationName.touched || addPndtForm.submitted && pndtlocationName.invalid"
                                    #pndtlocationName="ngModel" required>
                                   <small class="text-danger ml-2" *ngIf="!pndtlocationName.valid && pndtlocationName.touched ">Enter PNDT Name</small>
@@ -122,8 +122,8 @@
                             </div>
 
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'PNDT Code' | translate }}<span class="manto"> *</span></label>
-                                  <input class="form-control" name="pndtCode" type="text" placeholder="PNDT Code" ngModel pattern="^[a-zA-Z0-9]+$"
+                                  <label class="note" [ngClass]="{'label-border-class':!pndtCode.valid && pndtCode.touched || addPndtForm.submitted && pndtCode.invalid}">{{'PNDT Code' | translate }}<span class="manto"> *</span></label>
+                                  <input class="form-control" name="pndtCode" type="text" placeholder="PNDT Code" ngModel 
                                   #pndtCode="ngModel" required [class.is-invalid]="!pndtCode.valid && pndtCode.touched || addPndtForm.submitted && pndtCode.invalid">
                                   <small class="text-danger ml-2" *ngIf="!pndtCode.valid && pndtCode.touched ">Enter PNDT Code</small>
                                   <div *ngIf="addPndtForm.submitted && pndtCode.invalid">
@@ -145,12 +145,16 @@
 
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2"
-                                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                </div>
-                              </div>
+                                <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addPndtForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                   <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                   [class.is-invalid]="!Comments.valid && Comments.touched || addPndtForm.submitted && Comments.invalid"
+                                    name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                <div *ngIf="addPndtForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                     </div>
+                                     </div>
                             </div>
 
                             <div class="modal-footer">
@@ -184,43 +188,36 @@
 
 
                               <div class="form-group col-md-3">
-                                <label class="note">{{'PNDT Name' | translate }} <span class="manto"> *</span></label>
+                                <label class="note" [ngClass]="{'label-border-class':!editpndtlocationName.valid && editpndtlocationName.touched || editPNDTForm.submitted && editpndtlocationName.invalid}">{{'PNDT Name' | translate }} <span class="manto"> *</span></label>
                                 <input class="form-control" name="editpndtlocationName" type="text" placeholder="PNDT Name"
-                                #editpndtlocationName1="ngModel"  required [(ngModel)]="pndtlocationNamedata" pattern="[a-zA-Z][a-zA-Z ]+" required>
-                                <small class="text-danger ml-2" *ngIf="!editpndtlocationName1.valid && editpndtlocationName1.touched ">Enter PNDT Name</small>
-                                <!-- <div *ngIf="addScForm.submitted && scName.invalid">
-                                  <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
-                                </div> -->
+                                [class.is-invalid]="!editpndtlocationName.valid && editpndtlocationName.touched || editPNDTForm.submitted && editpndtlocationName.invalid"
+                                #editpndtlocationName="ngModel"  required [(ngModel)]="pndtlocationNamedata"  required>
+                                <small class="text-danger ml-2" *ngIf="!editpndtlocationName.valid && editpndtlocationName.touched ">Enter PNDT Name</small>
+                                <div *ngIf="editPNDTForm.submitted && editpndtlocationName.invalid">
+                                  <small *ngIf="editpndtlocationName.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                </div>
 
                           </div>
 
                               <div class="form-group col-md-3">
                                 <label class="note">{{'PNDT Code' | translate }}<span class="manto"> *</span></label>
-                                <input class="form-control" name="editPNDTCode" type="text" placeholder="PNDT Code" ngModel pattern="^[a-zA-Z0-9]+$"
+                                <input class="form-control" name="editPNDTCode" type="text" placeholder="PNDT Code" ngModel 
                                 #editPNDTCode="ngModel" [(ngModel)]="pndtcodedata" disabled="editPNDTCode" >
                               </div>
-
-
-                              <!-- <div class="form-group col-md-3">
-                                <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                <div class="n-chk">
-                                    <label class="new-control new-checkbox checkbox-outline-primary">
-                                      <input type="checkbox" class="new-control-input checkbox"
-                                      [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                                      <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                    </label>
-                                </div>
-                              </div> -->
                             </div>
 
                             <div class="form-row mt-4">
                               <div class="form-group col-md-12">
-                                <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                 rows="2" [(ngModel)]="commentsdata"
-                                placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
+                                <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editPNDTForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                [class.is-invalid]="!editComments.valid  && editComments.touched || editPNDTForm.submitted && !editComments.valid"
+                                name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                               </div>
-                            </div>
+                              <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                              <div *ngIf="editPNDTForm.submitted && !editComments.valid">
+                                <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                 </div>
+                            </div> 
                           </div>
 
                           <div class="modal-footer">

@@ -12,13 +12,15 @@ import { AddRipointRequest, AddRipointRequest2 } from 'src/app/shared/admin/add-
 import { AddRipointResponse, AddRiPtDataresponse, RiList } from 'src/app/shared/admin/add-ripoint/add-ripoint-response';
 import { AddRipointService } from 'src/app/shared/admin/add-ripoint/add-ripoint.service';
 import { AddScRequest } from 'src/app/shared/admin/add-sc/add-sc-request';
-import { AddScResponse, ScList } from 'src/app/shared/admin/add-sc/add-sc-response';
+import { AddScResponse, ScbyAnmList, ScList } from 'src/app/shared/admin/add-sc/add-sc-response';
 import { user } from 'src/app/shared/auth-response';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { TokenService } from 'src/app/shared/token.service';
 import Swal from 'sweetalert2';
 import { sample } from 'rxjs/operators';
+import { AddAvdService } from 'src/app/shared/admin/add-avd/add-avd.service';
+import { AvdList } from 'src/app/shared/admin/add-avd/add-avd-response';
 
 @Component({
   selector: 'app-ri-point',
@@ -50,6 +52,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     chclists: ChcList[];
     phcListResponse;
     phclists: PhcList[];
+    SCbyANMList: ScbyAnmList[];
     scListResponse;
     sclists: ScList[];
     scListRequest: AddScRequest;
@@ -62,6 +65,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     stateName: string;
     ilrlists: IlrList[];
     districtId: number;
+    avdId:number;
     selectedDistrict = '';
     districtName: string;
     isActive: string;
@@ -74,6 +78,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     blockcodedata: string;
     selectedEditDistrict: string;
     districtnamedata: string;
+    avdlists:AvdList[];
     commentsdata: string;
     getchc: string;
     getphc: string;
@@ -81,6 +86,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedEditIlr: string;
     blockCodedata: string;
     selectedPhc: string = '';
+    selectedScbyANM: string = '';
     selectedSc: string = '';
     riCode: string;
     riName: string;
@@ -103,7 +109,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     districtListResponse;
     districtlists;
   id: number;
-  riName1;
+
+
+  scbyANMListResponse;
+  avdListResponse;
+  selectedAVD: any;
+  
 
     constructor(
 
@@ -115,6 +126,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       private activatedRoute: ActivatedRoute,
       private tokenService: TokenService,
       private dataservice: DataService,
+      private Avdservice:AddAvdService
     ) { }
 
     ngOnInit() {
@@ -155,6 +167,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       };
       this.retrieveRiPtList();
       this.ddlDistrict();
+      this.ddlAVD();
     }
 
     retrieveRiPtList(){
@@ -268,12 +281,86 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       });
   }
 
-  ddlEditChc(id) {
-    this.selectedEditChc = '';
-    let district = this.RiPtService.getCHCByDistrict(id).subscribe(response => {
-      this.chcListResponse = response;
-      if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-        this.chclists = this.chcListResponse.data;
+
+   
+    ddlPhc(code) {
+      this.selectedPhc = '';
+      let district = this.RiPtService.getPhcList(code).subscribe(response => {
+        this.phcListResponse = response;
+        if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
+          this.phclists = this.phcListResponse.data;
+          this.selectedPhc = "";
+         
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+
+    ddlANM(id) {
+   
+      let district = this.RiPtService.getANMbyScList(id).subscribe(response => {
+        this.scbyANMListResponse = response;
+        if (this.scbyANMListResponse !== null && this.scbyANMListResponse.status === "true") {
+          this.SCbyANMList = this.scbyANMListResponse.data;
+
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+
+    ddlAVD() {
+   
+      let district = this.Avdservice.getAvdList().subscribe(response => {
+        this.avdListResponse  = response;
+        if (this.avdListResponse  !== null && this.avdListResponse .status === "true") {
+          this.avdlists = this.avdListResponse .avdDetails;
+          
+          
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+
+    ddlEdtiPhc(code) {
+      this.selectedEditPhc = '';
+      let district = this.RiPtService.getPhcList(code).subscribe(response => {
+        this.phcListResponse = response;
+        if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
+          this.phclists = this.phcListResponse.data;
+          // if(this.phclists.length > 0){
+            // this.selectedEditPhc = this.getphc;
+            
+          // }
+                  
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+
 
       }
       else {
@@ -356,37 +443,102 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       else {
         this.ripointlistErrorMessage = response.message;
       }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
 
-      });
-  }
-  ddlTestingCHC(code) {
-    console.log("abc");
-    this.selectedtestingCHCId = '';
-    let district = this.RiPtService.gettestingCHC(code).subscribe(response => {
-      this.testingCHCResponse = response;
-      if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
-        this.tcbydisList = this.testingCHCResponse.data;
+    }
+    onChangescbyanm(event) {
+  
+      if (this.selectedSc === '') {
+        this.selectedScbyANM = '';
+      }
+      else {
+        this.ddlANM(this.selectedSc);
+      }
+    }
+    onChangeEditPhc(event) {
+  
+      if (this.selectedEditPhc === '') {
+        this.selectedEditSc = '';
 
       }
       else {
         this.ripointlistErrorMessage = response.message;
       }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
+
+    }
+   
+  
+    openAddRiPt(addRiPtDetail) {
+    this.isaddform=true;
+    this.selectedIlr="";
+    this.selectedAVD="";
+    this.selectedtestingCHCId="";
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
+    this.riName=" ";
+    this.selectedScbyANM="";
+    this.comments="";
+    
+   
+      
+      // console.log(this.ddlState);
+      this.disabledChc = false;
+      this.confirmationSelected = Boolean("True");
+      this.modalService.open(
+        addRiPtDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+
       });
   }
 
-  ddlSc(code) {
-    this.selectedPhc = '';
-    let district = this.RiPtService.getScList(code).subscribe(response => {
-      this.scListResponse = response;
-      if (this.scListResponse !== null && this.scListResponse.status === "true") {
-        this.sclists = this.scListResponse.data;
-        this.selectedSc = "";
+
+      console.log(editRiPtDetail.value);
+    //this.form name
+      this.id = sample.id;
+      this.ddlEditDistrict();
+      this.selectedDistrict = sample.districtId;
+      this.ddlChc();
+      this.ddlTestingCHC(sample.districtId);
+      this.selectedtestingCHCId= sample.testingCHCId;
+      this.selectedChc =sample.chcId;
+      this.ddlEdtiPhc(sample.chcId);
+      this.selectedPhc =sample.phcId;
+      this.ddlEdtiSc(sample.phcId);
+      this.selectedSc=sample.scId;
+      this.ddlAVD();
+      this.selectedAVD=sample.avdId;
+      this.ddlANM(sample.scId);
+      this.selectedScbyANM=sample.anmId;
+      this.ddlIlr(sample.chcId);  
+      this.selectedIlr = sample.ilrId;
+      this.tempeditid=sample.id;
+      this.pincode = sample.pincode;
+      this.riName = sample.rIsite;
+      this.comments= sample.comments;
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
+ 
+      this.modalService.open(
+        editRiPtDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+    
+    }
+    onSubmitfunction(ptform:NgForm){
+      if(this.isaddform){
+     this.onSubmit(ptform)
+
 
       }
       else {
@@ -425,163 +577,49 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     if (this.selectedChc === '') {
       this.selectedPhc = '';
     }
-    else {
-      this.ddlPhc(this.selectedChc);
-      this.ddlIlr(this.selectedChc);
 
-    }
-  }
-  onChangetesting(event) {
+      
+    onSubmit(addRiPtForm: NgForm){
+  
+      console.log(addRiPtForm.value);
+      this.selectedIlr = addRiPtForm.value.ddlIlr;
+      this.comments = addRiPtForm.value.Comments;
+      this.selectedChc = addRiPtForm.value.ddlChc;
+      this.selectedPhc = addRiPtForm.value.ddlPhc;
+      this.selectedSc = addRiPtForm.value.ddlSc;
+      this.selectedScbyANM = addRiPtForm.value.ddlANM;
+      this.selectedAVD = addRiPtForm.value.ddlAVD;
+      this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
+      // this.riCode = addRiPtForm.value.riCode;
+      this.riName = addRiPtForm.value.riName;
+      this.pincode = addRiPtForm.value.pincode;
+     
+  
+      this.riptListRequest = {
+        
+        testingCHCId:+(this.selectedtestingCHCId) ,       
+        chcId: +(this.selectedChc),
+        phcId: +(this.selectedPhc),
+        scId: +(this.selectedSc),
+        riGovCode:"0",
+        riSite: this.riName,
+        avdId:+this.selectedAVD,
+        anmId:+this.selectedScbyANM,
+        ilrId:+ (this.selectedIlr), 
+        pincode: this.pincode,
+        isActive: ""+this.confirmationSelected,
+        comments: this.comments,
+        createdBy: this.user.id,
+        updatedBy: this.user.id
+        
+      };
+  
+      //Remove below 2 lines after successfully tested
+      // this.showResponseMessage('Successfully registered', 's');
+      // return false;
+  
+      let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
 
-    if (this.selectedDistrict === '') {
-      this.selectedtestingCHCId = '';
-    }
-    else {
-      this.ddlTestingCHC(this.selectedDistrict);
-    }
-  }
-
-
-  onChangeEditChc(event) {
-
-    if (this.selectedEditChc === '') {
-      this.selectedEditPhc = '';
-    }
-    else {
-      this.ddlEdtiPhc(this.selectedEditChc);
-    }
-  }
-  onChangePhc(event) {
-
-    if (this.selectedPhc === '') {
-      this.selectedSc = '';
-    }
-    else {
-      this.ddlSc(this.selectedPhc);
-    }
-  }
-  onChangeEditPhc(event) {
-
-    if (this.selectedEditPhc === '') {
-      this.selectedEditSc = '';
-    }
-    else {
-      this.ddlEdtiSc(this.selectedEditPhc);
-    }
-  }
-
-
-  openAddRiPt(addRiPtDetail) {
-    this.isaddform = true;
-    this.selectedIlr = "";
-    this.selectedtestingCHCId = "";
-    this.selectedPhc = "";
-    this.selectedSc = "";
-    this.pincode = "";
-    this.selectedChc = "";
-    this.selectedDistrict = "";
-    this.riName1 = " ";
-
-
-
-    // console.log(this.ddlState);
-    this.disabledChc = false;
-    this.confirmationSelected = Boolean("True");
-    this.modalService.open(
-      addRiPtDetail, {
-      centered: true,
-      size: 'xl',
-      scrollable: true,
-      backdrop: 'static',
-      keyboard: false,
-      ariaLabelledBy: 'modal-basic-title'
-    });
-
-  }
-
-  openEditRiPt(editRiPtDetail, sample) {
-    this.isaddform = false;
-
-    console.log(editRiPtDetail.value);
-    //this.form name
-    this.id = sample.id;
-    this.ddlEditDistrict();
-    this.selectedDistrict = sample.districtId;
-    this.ddlChc();
-    this.ddlTestingCHC(sample.districtId);
-    this.selectedtestingCHCId = sample.testingCHCId;
-    this.selectedChc = sample.chcId;
-    this.ddlEdtiPhc(sample.chcId);
-    this.selectedPhc = sample.phcId;
-    this.ddlEdtiSc(sample.phcId);
-    this.selectedSc = sample.scId;
-    this.ddlIlr(sample.chcId);
-    this.selectedIlr = sample.ilrId;
-    this.tempeditid = sample.id;
-    this.pincode = sample.pincode;
-    this.riName1 = sample.name;
-    this.comments = sample.comments;
-    this.confirmationSelected = sample.isActive == 'True' ? true : false;
-
-    this.modalService.open(
-      editRiPtDetail, {
-      centered: true,
-      size: 'xl',
-      scrollable: true,
-      backdrop: 'static',
-      keyboard: false,
-      ariaLabelledBy: 'modal-basic-title'
-    });
-
-  }
-  onSubmitfunction(ptform: NgForm) {
-    if (this.isaddform) {
-      this.onSubmit(ptform)
-
-    }
-    else {
-      this.editSubmit(ptform)
-
-
-    }
-  }
-
-  onSubmit(addRiPtForm: NgForm) {
-
-    console.log(addRiPtForm.value);
-    this.selectedIlr = addRiPtForm.value.ddlIlr;
-    this.comments = addRiPtForm.value.Comments;
-    this.selectedChc = addRiPtForm.value.ddlChc;
-    this.selectedPhc = addRiPtForm.value.ddlPhc;
-    this.selectedSc = addRiPtForm.value.ddlSc;
-    this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
-    this.riCode = addRiPtForm.value.riCode;
-    this.riName = addRiPtForm.value.riName;
-    this.pincode = addRiPtForm.value.pincode;
-
-
-    this.riptListRequest = {
-
-      testingCHCId: +(this.selectedtestingCHCId),
-      chcId: +(this.selectedChc),
-      phcId: +(this.selectedPhc),
-      scId: +(this.selectedSc),
-      riGovCode: "0",
-      riSite: this.riName,
-      ilrId: + (this.selectedIlr),
-      pincode: this.pincode,
-      isActive: "" + this.confirmationSelected,
-      comments: this.comments,
-      createdBy: this.user.id,
-      updatedBy: this.user.id
-
-    };
-
-    //Remove below 2 lines after successfully tested
-    // this.showResponseMessage('Successfully registered', 's');
-    // return false;
-
-    let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
       .subscribe(response => {
         this.addriptResponse = response;
         if (this.addriptResponse !== null) {
@@ -593,46 +631,52 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         }
 
       },
-        (err: HttpErrorResponse) => {
-          this.showResponseMessage(err.toString(), 'e');
-          this.ripointlistErrorMessage = err.toString();
-        });
-    //swal ("Here's the title!", "...and here's the text!");
-  }
 
-  editSubmit(addRiPtForm: NgForm) {
+      (err: HttpErrorResponse) => {
+        this.showResponseMessage(err.toString(), 'e');
+        this.ripointlistErrorMessage = err.toString();
+      });
+      //swal ("Here's the title!", "...and here's the text!");
+    }
+  
+    editSubmit(addRiPtForm: NgForm){
+  
+      console.log(addRiPtForm.value);
+      this.selectedIlr = addRiPtForm.value.ddlIlr;
+      this.comments = addRiPtForm.value.Comments;
+      this.selectedChc = addRiPtForm.value.ddlChc;
+      this.selectedPhc = addRiPtForm.value.ddlPhc;
+      this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
+      this.selectedSc = addRiPtForm.value.ddlSc;
+      this.selectedScbyANM = addRiPtForm.value.ddlANM;
+      this.selectedAVD = addRiPtForm.value.ddlAVD;
+      this.riCode = addRiPtForm.value.riCode;
+      this.riName = addRiPtForm.value.riName;
+      this.pincode = addRiPtForm.value.pincode;
+      this.riptListRequest2 = {
+        id:this.tempeditid,
+        userId: this.user.id,
+        testingCHCId: +(this.selectedtestingCHCId),
+        chcId: +(this.selectedChc),
+        phcId: +(this.selectedPhc),
+        scId: +(this.selectedSc),
+        avdId:+this.selectedAVD,
+        anmId:+this.selectedScbyANM,
+        riGovCode:"0",
+        name: this.riName,
+        ilrId:+ (this.selectedIlr), 
+        pincode: this.pincode,
+        isActive: this.confirmationSelected,
+        comments: this.comments,
+     
+      };
+  
+      //Remove below 2 lines after successfully tested
+      // this.showResponseMessage('Successfully registered', 's');
+      // return false;
+  
+      let damagedsampleCollection = this.RiPtService.updateRiPt(this.riptListRequest2)
 
-    console.log(addRiPtForm.value);
-    this.selectedIlr = addRiPtForm.value.ddlIlr;
-    this.comments = addRiPtForm.value.Comments;
-    this.selectedChc = addRiPtForm.value.ddlChc;
-    this.selectedPhc = addRiPtForm.value.ddlPhc;
-    this.selectedtestingCHCId = addRiPtForm.value.ddlTestingCHC;
-    this.selectedSc = addRiPtForm.value.ddlSc;
-    this.riCode = addRiPtForm.value.riCode;
-    this.riName = addRiPtForm.value.riName;
-    this.pincode = addRiPtForm.value.pincode;
-    this.riptListRequest2 = {
-      id: this.tempeditid,
-      userId: this.user.id,
-      testingCHCId: +(this.selectedtestingCHCId),
-      chcId: +(this.selectedChc),
-      phcId: +(this.selectedPhc),
-      scId: +(this.selectedSc),
-      riGovCode: "0",
-      name: this.riName,
-      ilrId: + (this.selectedIlr),
-      pincode: this.pincode,
-      isActive: this.confirmationSelected,
-      comments: this.comments,
-
-    };
-
-    //Remove below 2 lines after successfully tested
-    // this.showResponseMessage('Successfully registered', 's');
-    // return false;
-
-    let damagedsampleCollection = this.RiPtService.updateRiPt(this.riptListRequest2)
       .subscribe(response => {
         this.addriptResponse = response;
         if (this.addriptResponse !== null && this.addriptResponse.status == 'true') {
