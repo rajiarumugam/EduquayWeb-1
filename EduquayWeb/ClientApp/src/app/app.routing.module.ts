@@ -30,7 +30,8 @@ import { AnmPositiveSubjectsComponent } from './anm-module/anm-positive-subjects
 import { AnmPndReferralComponent } from './anm-module/anm-pnd-referral/anm-pnd-referral.component';
 import { AnmMtpReferralComponent } from './anm-module/anm-mtp-referral/anm-mtp-referral.component';
 import { AnmUpdateChcComponent } from './anm-module/anm-update-chc/anm-update-chc.component';
-import { AnmAwRegistrationComponent } from "./registration/anm-aw-registration/anm-aw-registration.component";
+import { AnmAwRegistrationComponent } from "./anm-module/registration/anm-aw-registration/anm-aw-registration.component";
+// import { AnmAwRegistrationComponent } from "./registration/anm-aw-registration/anm-aw-registration.component";
 import { AnmPickandPackComponent } from './anm-module/anm-pickandpack/anm-pickandpack.component';
 import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.component';
 import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
@@ -66,7 +67,8 @@ import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 import { PositiveSubjectsResolverService } from "./shared/anm-module/positive-subjects/positive-subjects-resolver.service";
 import {  CHCCBCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-chc-resolver.service";
-import { AnmStudentRegistrationComponent } from "./registration/anm-student-registration/anm-student-registration.component";
+import { AnmStudentRegistrationComponent } from "./anm-module/registration/anm-student-registration/anm-student-registration.component";
+// import { AnmStudentRegistrationComponent } from "./registration/anm-student-registration/anm-student-registration.component";
 import { CHCUpdateSSTComponent } from "./chc-sample-module/sst-update/chc-update-sst/chc-update-sst.component";
 import { SSTReceivedSampleComponent } from "./chc-sample-module/sst-update/chc-update-sst-received/chc-update-sst-received.component";
 import { SSTUpdatePositiveComponent } from "./chc-sample-module/sst-update/chc-update-sst-positive/chc-update-sst-positive.component";
@@ -260,14 +262,16 @@ import { ScComponent } from "./admin/sc/sc.component";
 import { RiPointComponent } from "./admin/ri-point/ri-point.component";
 import { GvtIdTypeComponent } from "./admin/gvt-id-type/gvt-id-type.component";
 //import { DiagnosisHPLCPathoComponent } from "./pathologist/diagnosis/diagnosis-hplc-patho/diagnosis-hplc-patho.component";
-import { AnmSpouseRegistrationComponent } from "./registration/anm-spouse-registration/anm-spouse-registration.component";
+import { AnmSpouseRegistrationComponent } from "./anm-module/registration/anm-spouse-registration/anm-spouse-registration.component";
+// import { AnmSpouseRegistrationComponent } from "./registration/anm-spouse-registration/anm-spouse-registration.component";
 import { NHMreportListComponent } from "./nhm/nhm-report-list/nhm-report-list.component";
 // import { UserTypeComponent } from "./admin/user-type/user-type.component";
 
 import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 
 import { UsersComponent } from "./admin/users/users.component";
-import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
+// import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
+
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 
 import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
@@ -349,19 +353,12 @@ import { HPLCUploadComponent } from "./upload/hplc-upload/hplc-upload.component"
 import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-report-list.component";
 import { IlrComponent } from "./admin/ilr/ilr.component";
 import { TestComponent } from "./test/test.component";
-//import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pndtobs-report-list.component";
-
-
-
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
-
-import { AnmWalkinLt18RegistrationComponent } from "./registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
+// import { AnmWalkinLt18RegistrationComponent } from "./anm-module/registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+// import { AnmWalkinLt18RegistrationComponent } from "./registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
 import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
-
 import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
-
-//import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
 import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
 import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
 import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
@@ -375,17 +372,40 @@ import { DeactivateanmMainComponent } from "./errorcorrection/deactivate-anm/dea
 import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
 import { PndtLocationComponent } from "./admin/pndt-location/pndt-location.component";
 import { MolecularlabComponent } from "./admin/molecularlab/molecularlab.component";
-
 import { NHMBCCRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-bcc-registration/nhm-bcc-registration.component";
 import { NHMTrainingRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-training-registration/nhm-training-registration.component";
-import { AnmWalkinGt18RegistrationComponent } from "./registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
-import { AnmSubjectRegistrationComponent } from "./registration/anm-subject-registration/anm-subject-registration.component";
+// import { AnmWalkinGt18RegistrationComponent } from "./registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+import { AnmWalkinGt18RegistrationComponent } from "./anm-module/registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+// import {  } from "./anm-module/registration/anm-aw-registration/anm-aw-registration.component";
+import { AnmSubjectRegistrationComponent } from "./anm-module/registration/anm-subject-registration/anm-subject-registration.component";
+// import { AnmSubjectRegistrationComponent } from "./registration/anm-subject-registration/anm-subject-registration.component";
 import { NHMSubjectRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-monthly-registration/nhm-subject-registration.component"; 
-
 import { NHMReportBCCRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-reportbcc/nhm-reportbcc.component";
 import { NHMReportTrainingRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-reporttraining/nhm-reporttraining.component";
 import { NHMReportSubjectRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-monthly-report/nhm-reportsubject.component";
 import { NHMReportScreenRegistrationComponent } from "./anm-module/nhm-monthly-indicators-report/nhm-reportscreen/nhm-reportscreen.component";
+import { UsersAdminMainComponent } from "./admin/users-module/admin-users-main/admin-users-main.component";
+// import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/users-sadmin.component";
+// import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/users-sadmin.component";
+import { UsersAdminANMComponent } from "./admin/users-module/users-anm/users-anm.component";
+import { UsersAdminCHCComponent } from "./admin/users-module/users-chc/users-chc.component";
+import { UsersAdminHPLCComponent } from "./admin/users-module/users-hplc/users-hplc.component";
+// import { UsersAdminPNDTCComponent } from "./admin/users-module/users-pndtc/users-pndtc.component";
+import { UsersAdminMTPComponent } from "./admin/users-module/users-mtp/users-mtp.component";
+import { UsersAdminDCComponent } from "./admin/users-module/users-dc/users-dc.component";
+import { UsersAdminMolecularComponent } from "./admin/users-module/users-molecular/users-molecular.component";
+import { UsersAdminSPCComponent } from "./admin/users-module/users-spc/users-spc.component";
+// import { UsersAdmin } from "./admin/users-module/users-anm/users-anm.component";
+// import { UsersAdmin } from "./admin/users-module/users-anm/users-anm.component";
+import { UsersAdminNHMComponent } from "./admin/users-module/users-nhm/users-nhm.component";
+import { UsersAdminPNDTComponent } from "./admin/users-module/users-pndt/users-pndt.component";
+import { UsersAdminHaematologistComponent } from "./admin/users-module/users-haematologist/users-haematologist.component";
+import { UsersAdminSupportComponent } from "./admin/users-module/users-support/users-support.component";
+import { AnmWalkinLt18RegistrationComponent } from "./anm-module/registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
+import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/users-sadmin.component";
+import { UsersAdminPNDTCComponent } from "./admin/users-module/users-pndtc/users-pndtc.component";
+import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
+
 
 
 const routes: Routes = [
@@ -525,7 +545,7 @@ const routes: Routes = [
       { path: 'add-avd', component: AVDComponent, pathMatch: 'full'},
       // { path:'add-user-role', component: UserRoleComponent, pathMatch: 'full'},
       { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
-
+     
       { path: 'add-phc', component: PhcComponent, pathMatch: 'full'},
       { path: 'add-test', component: TestComponent, pathMatch: 'full'},
       { path: 'add-ilr', component:IlrComponent, pathMatch: 'full'},
@@ -719,6 +739,27 @@ const routes: Routes = [
           {path: 'nhmreportbcc', component: NHMReportBCCRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},       
           {path: 'nhmreporttraining', component: NHMReportTrainingRegistrationComponent, pathMatch: 'full'},
           
+        ]
+
+      },
+
+      {
+        path: 'admin-users-main', component: UsersAdminMainComponent,
+        children:[
+          {path: '', component: UsersAdminSadminComponent, pathMatch: 'full'},
+          {path: 'UserSadmin', component: UsersAdminSadminComponent, pathMatch: 'full'},
+          {path: 'UsersANM', component: UsersAdminANMComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},       
+          {path: 'UsersCHC', component: UsersAdminCHCComponent, pathMatch: 'full'},
+          {path: 'UsersHPLC', component: UsersAdminHPLCComponent, pathMatch: 'full'},
+          {path: 'UsersPNDTC', component: UsersAdminPNDTCComponent, pathMatch: 'full'},
+          {path: 'UsersMTP', component: UsersAdminMTPComponent, pathMatch: 'full'},
+          {path: 'UsersDC', component: UsersAdminDCComponent, pathMatch: 'full'},
+          {path: 'UsersMolecular', component: UsersAdminMolecularComponent, pathMatch: 'full'},
+          {path: 'UsersSPC', component: UsersAdminSPCComponent, pathMatch: 'full'},
+          {path: 'UsersNHM', component: UsersAdminNHMComponent, pathMatch: 'full'},
+          {path: 'UsersPNDT', component: UsersAdminPNDTComponent, pathMatch: 'full'},
+          {path: 'UsersHaematologist', component: UsersAdminHaematologistComponent, pathMatch: 'full'},
+          {path: 'UsersSupport', component: UsersAdminSupportComponent, pathMatch: 'full'},
         ]
 
       },
@@ -1115,6 +1156,7 @@ export const RoutingComponents = [
   ImportantLinksComponent,
   CounterComponent,
   FetchDataComponent,
+  UsersAdminHPLCComponent,
   LoginComponent,
   HplcLoginComponent,
   HomeHeaderComponent,
@@ -1129,7 +1171,6 @@ export const RoutingComponents = [
   AnmUnsentSamplesComponent,
   CounsellorreportListComponent,
   AnmTimeoutSamplesComponent,
-
   AnmPositiveSubjectsComponent,
   AnmPndReferralComponent,
   AnmMtpReferralComponent,
@@ -1151,6 +1192,8 @@ export const RoutingComponents = [
   ChcSampleCollectionComponent,
   WalkinRegistrationComponent,
   CheSubjectRegistrationComponent,
+  UsersAdminSPCComponent,
+  UsersAdminNHMComponent,
   ChcpregnantRegistrationComponent,
   ChcStudentRegistrationComponent,
   CheSpouseRegistrationComponent,
@@ -1173,6 +1216,7 @@ export const RoutingComponents = [
   ChcViewShipmentdetailsComponent,
   AssociatedANMComponent,
   MolecularlabComponent,
+  UsersAdminPNDTCComponent,
   ChcDamagedSamplesComponent,
   ChcNotificationComponent,
   ChcUnsentSamplesComponent,
@@ -1185,6 +1229,9 @@ export const RoutingComponents = [
   CentralReceivedSampleComponent,
   CentralHPLCUploadComponent,
   MolecularSampleRcptMainComponent,
+  UsersAdminMTPComponent,
+  UsersAdminDCComponent,
+  UsersAdminSupportComponent,
   MolecularSampleRcptComponent,
   ChcSamplePickpackComponent,
   CheSpouseComponent,
@@ -1257,6 +1304,7 @@ export const RoutingComponents = [
   PositiveSubjectsComponent,
   PndtReferralComponent,
   MtpReferralComponent,
+  UsersAdminHaematologistComponent,
   PostMtpFollowupComponent,
   ReportSampleStatusComponent,
   ReportSampleStatusMainComponent,
@@ -1284,12 +1332,17 @@ export const RoutingComponents = [
   PathoreportSampleStatusMainComponent,
   ViewReportPathoMainMainComponent,
   ViewPathoReportComponent,
+  UsersAdminPNDTComponent,
   ResetLoginComponent,
   CHCNotificationMainComponent,
   AnmSubjectProfileTrackingComponent,
   ViewCLReportComponent,
   ViewReportCLMainMainComponent,
   SubjectTrackerComponent,
+  UsersAdminMainComponent,
+  UsersAdminSadminComponent,
+  UsersAdminANMComponent,
+  UsersAdminCHCComponent,
   CentralNotificationMainComponent,
   // StateComponent,
   DistrictComponent,
@@ -1309,6 +1362,7 @@ export const RoutingComponents = [
   MlrNotificationComponent,
   UpdateResultsComponent,
   EditResultsComponent,
+  UsersAdminMolecularComponent,
   ConfirmedResultsComponent,
   CvsNotificationComponent,
   CvsUpdateresultComponent,
@@ -1395,8 +1449,8 @@ export const RoutingComponents = [
   MolecularCVSReport,
   HEMreportListComponent1,
   DeactivateanmComponent,
-  DeactivateanmMainComponent
-
+  DeactivateanmMainComponent,
+  
 
 ];
 

@@ -32,14 +32,14 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
     @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();  //step 1
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
-
+    
     loadDataTable: boolean = false;
     dtOptions: any = {};
     dtTrigger: Subject<any> = new Subject();
-
+  
     ripointlistErrorMessage: string;
     user: user;
-
+  
     confirmationSelected: boolean ;
     riPtListResponse;
     riptlists: RiList[];
@@ -60,7 +60,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedChc: string;
     getstate: string;
     selectedEditChc: string = '';
-
+  
     districtGovCode: string;
     stateName: string;
     ilrlists: IlrList[];
@@ -97,7 +97,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     selectedEdittestingCHCId='';
     testingchcId : string;
     centrallablid : string;
-
+  
     selectedtestingCHCId: string = '';
     pincodeData: string;
     chcNamedata: string;
@@ -110,14 +110,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     districtlists;
   id: number;
 
-
   scbyANMListResponse;
   avdListResponse;
   selectedAVD: any;
   
-
     constructor(
-
+    
       private RiPtService: AddRipointService,
       private modalService: NgbModal,
       private httpService: HttpClient,
@@ -128,12 +126,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       private dataservice: DataService,
       private Avdservice:AddAvdService
     ) { }
-
+  
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "RI Point"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
-      this.dtOptions = {
+      this.dtOptions = { 
         pagingType: 'simple_numbers',
         pageLength: 20,
         processing: true,
@@ -145,20 +143,20 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         // Configure the buttons
           buttons: [
             {
-              titleAttr: 'Download as Excel',
+              titleAttr: 'Download as Excel',     
               extend: 'excelHtml5',
               title: 'Report - Sample Status',
               className: 'custom-btn',
               text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
             }
-          ],
+          ], 
         language: {
           search: '<div><span class="note">Search by any RI information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
             first: '',
-            last: '', // or '←'
+            last: '', // or '←' 
             previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
             next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
           },
@@ -169,7 +167,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       this.ddlDistrict();
       this.ddlAVD();
     }
-
+  
     retrieveRiPtList(){
       this.loaderService.display(true);
       this.sclists = [];
@@ -178,109 +176,127 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       .subscribe(response => {
         this.riPtListResponse = response;
         this.loaderService.display(false);
-        if (this.riPtListResponse !== null) {
-          if (this.riPtListResponse.data.length <= 0) {
+        if(this.riPtListResponse !== null){
+          if(this.riPtListResponse.data.length <= 0){
             this.ripointlistErrorMessage = response.message;
-
+            
           }
-          else {
+          else{
             this.riptlists = this.riPtListResponse.data;
             this.riptlists.forEach(element => {
-              this.getchc = '' + (element.chcId);
-              this.getphc = '' + (element.phcId);
-              this.testingchcId = "" + (element.testingCHCId);
-              this.getsc = '' + (element.scId);
+              this.getchc = '' +(element.chcId);
+              this.getphc = '' +(element.phcId);
+              this.testingchcId =  "" +(element.testingCHCId);
+              this.getsc = '' +(element.scId);
             });
             //this.getstate = this.
             this.rerender();
-
+            
           }
+        }
+        else{
+          this.ripointlistErrorMessage = response.message;
+        }
+       
+      },
+      (err: HttpErrorResponse) => {
+        if (this.loadDataTable) this.rerender();
+        this.ripointlistErrorMessage = err.toString();
+      });
+    }
+
+    districtChange()
+    {
+          console.log(this.selectedDistrict);
+          this.ddlTestingCHC(this.selectedDistrict);
+
+          this.selectedChc = '';
+      let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+          this.selectedChc = "";
+          //this.disabledChc = true;
         }
         else {
           this.ripointlistErrorMessage = response.message;
         }
-
       },
         (err: HttpErrorResponse) => {
-          if (this.loadDataTable) this.rerender();
           this.ripointlistErrorMessage = err.toString();
+  
         });
-  }
+    }
+    ddlDistrict() {
+      let district = this.RiPtService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+          //this.selectedDistrict = "";
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
 
-  districtChange() {
-    console.log(this.selectedDistrict);
-    this.ddlTestingCHC(this.selectedDistrict);
+    ddlEditDistrict() {
+      let district = this.RiPtService.getDistrictList().subscribe(response => {
+        this.districtListResponse = response;
+        if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
+          this.districtlists = this.districtListResponse.data;
+  
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
 
-    this.selectedChc = '';
-    let district = this.RiPtService.getCHCByDis(this.selectedDistrict).subscribe(response => {
-      this.chcListResponse = response;
-      if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-        this.chclists = this.chcListResponse.data;
-        this.selectedChc = "";
-        //this.disabledChc = true;
-      }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-  ddlDistrict() {
-    let district = this.RiPtService.getDistrictList().subscribe(response => {
-      this.districtListResponse = response;
-      if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-        this.districtlists = this.districtListResponse.data;
-        //this.selectedDistrict = "";
-      }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-
-  ddlEditDistrict() {
-    let district = this.RiPtService.getDistrictList().subscribe(response => {
-      this.districtListResponse = response;
-      if (this.districtListResponse !== null && this.districtListResponse.status === "true") {
-        this.districtlists = this.districtListResponse.data;
-
-      }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-
-  ddlChc() {
+    ddlChc() {
 
     //  this.selectedChc = '';
-    let district = this.RiPtService.getCHCByDistrict(+this.selectedDistrict).subscribe(response => {
-      this.chcListResponse = response;
-      if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
-        this.chclists = this.chcListResponse.data;
+      let district = this.RiPtService.getCHCByDistrict(+this.selectedDistrict).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
         //  this.selectedChc = "";
-      }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
 
-      });
-  }
-
+    ddlEditChc(id) {
+      this.selectedEditChc = '';
+      let district = this.RiPtService.getCHCByDistrict(id).subscribe(response => {
+        this.chcListResponse = response;
+        if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
+          this.chclists = this.chcListResponse.data;
+  
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
 
    
     ddlPhc(code) {
@@ -361,89 +377,138 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         });
     }
 
+    ddlIlr(id) {
+      let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
+        this.ilrListResponse = response;
+        if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
+          this.ilrlists = this.ilrListResponse.data;
+          //this.selectedIlr = "";
+          //this.selectedIlr=
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
 
+    editddlIlr(id) {
+      this.selectedEditIlr = '';
+      let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
+        this.ilrListResponse = response;
+        if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
+          this.ilrlists = this.ilrListResponse.data;
+          
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+    ddlTestingCHC(code) {
+      console.log("abc");
+      this.selectedtestingCHCId = '';
+      let district = this.RiPtService.gettestingCHC(code).subscribe(response => {
+        this.testingCHCResponse = response;
+        if (this.testingCHCResponse !== null && this.testingCHCResponse.status === "true") {
+          this.tcbydisList = this.testingCHCResponse.data;
+         
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+        });
+    }
+
+    ddlSc(code) {
+      this.selectedPhc = '';
+      let district = this.RiPtService.getScList(code).subscribe(response => {
+        this.scListResponse = response;
+        if (this.scListResponse !== null && this.scListResponse.status === "true") {
+          this.sclists = this.scListResponse.data;
+          this.selectedSc = "";
+         
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+    
+    ddlEdtiSc(code) {
+      this.selectedEditPhc = '';
+      let district = this.RiPtService.getScList(code).subscribe(response => {
+        this.scListResponse = response;
+        if (this.scListResponse !== null && this.scListResponse.status === "true") {
+          this.sclists = this.scListResponse.data;
+          // if(this.sclists.length > 0){
+          //   this.selectedEditSc = this.getsc;
+            
+          // }
+                  
+        }
+        else {
+          this.ripointlistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.ripointlistErrorMessage = err.toString();
+  
+        });
+    }
+    onChangeChc(event) {
+  
+      if (this.selectedChc === '') {
+        this.selectedPhc = '';
       }
       else {
-        this.ripointlistErrorMessage = response.message;
+        this.ddlPhc(this.selectedChc);
+        this.ddlIlr(this.selectedChc);
+     
       }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
+    }
+    onChangetesting(event) {
 
-      });
-  }
-
-
-  ddlPhc(code) {
-    this.selectedPhc = '';
-    let district = this.RiPtService.getPhcList(code).subscribe(response => {
-      this.phcListResponse = response;
-      if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
-        this.phclists = this.phcListResponse.data;
-        this.selectedPhc = "";
-
+      if (this.selectedDistrict === '') {
+        this.selectedtestingCHCId = '';
       }
       else {
-        this.ripointlistErrorMessage = response.message;
+        this.ddlTestingCHC(this.selectedDistrict);
       }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
+    }
+    
 
-      });
-  }
-  ddlEdtiPhc(code) {
-    this.selectedEditPhc = '';
-    let district = this.RiPtService.getPhcList(code).subscribe(response => {
-      this.phcListResponse = response;
-      if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
-        this.phclists = this.phcListResponse.data;
-        // if(this.phclists.length > 0){
-        // this.selectedEditPhc = this.getphc;
-
-        // }
-
+    onChangeEditChc(event) {
+  
+      if (this.selectedEditChc === '') {
+        this.selectedEditPhc = '';
       }
       else {
-        this.ripointlistErrorMessage = response.message;
+        this.ddlEdtiPhc(this.selectedEditChc);
       }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-
-  ddlIlr(id) {
-    let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
-      this.ilrListResponse = response;
-      if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
-        this.ilrlists = this.ilrListResponse.data;
-        //this.selectedIlr = "";
-        //this.selectedIlr=
+    }
+    onChangePhc(event) {
+  
+      if (this.selectedPhc === '') {
+        this.selectedSc = '';
       }
       else {
-        this.ripointlistErrorMessage = response.message;
+        this.ddlSc(this.selectedPhc);
       }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-
-  editddlIlr(id) {
-    this.selectedEditIlr = '';
-    let district = this.RiPtService.getIlrbychcList(id).subscribe(response => {
-      this.ilrListResponse = response;
-      if (this.ilrListResponse !== null && this.ilrListResponse.status === "true") {
-        this.ilrlists = this.ilrListResponse.data;
-
-      }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-
     }
     onChangescbyanm(event) {
   
@@ -458,12 +523,10 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
   
       if (this.selectedEditPhc === '') {
         this.selectedEditSc = '';
-
       }
       else {
-        this.ripointlistErrorMessage = response.message;
+        this.ddlEdtiSc(this.selectedEditPhc);
       }
-
     }
    
   
@@ -494,10 +557,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         backdrop:'static',
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
-
       });
-  }
-
+  
+    }
+   
+    openEditRiPt(editRiPtDetail, sample) {
+      this.isaddform=false;
 
       console.log(editRiPtDetail.value);
     //this.form name
@@ -539,45 +604,13 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       if(this.isaddform){
      this.onSubmit(ptform)
 
+      }
+      else{
+        this.editSubmit(ptform)
+
 
       }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-
-  ddlEdtiSc(code) {
-    this.selectedEditPhc = '';
-    let district = this.RiPtService.getScList(code).subscribe(response => {
-      this.scListResponse = response;
-      if (this.scListResponse !== null && this.scListResponse.status === "true") {
-        this.sclists = this.scListResponse.data;
-        // if(this.sclists.length > 0){
-        //   this.selectedEditSc = this.getsc;
-
-        // }
-
-      }
-      else {
-        this.ripointlistErrorMessage = response.message;
-      }
-    },
-      (err: HttpErrorResponse) => {
-        this.ripointlistErrorMessage = err.toString();
-
-      });
-  }
-  onChangeChc(event) {
-
-    if (this.selectedChc === '') {
-      this.selectedPhc = '';
     }
-
       
     onSubmit(addRiPtForm: NgForm){
   
@@ -619,19 +652,17 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       // return false;
   
       let damagedsampleCollection = this.RiPtService.addRiPt(this.riptListRequest)
-
       .subscribe(response => {
         this.addriptResponse = response;
-        if (this.addriptResponse !== null) {
+        if(this.addriptResponse !== null){
           this.showResponseMessage(this.addriptResponse.message, 's')
-          this.retrieveRiPtList();
-        } else {
+           this.retrieveRiPtList();
+        }else{
           this.showResponseMessage(this.addriptResponse.message, 'e');
-          this.ripointlistErrorMessage = response.message;
+                  this.ripointlistErrorMessage = response.message;
         }
-
+  
       },
-
       (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
         this.ripointlistErrorMessage = err.toString();
@@ -676,63 +707,62 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       // return false;
   
       let damagedsampleCollection = this.RiPtService.updateRiPt(this.riptListRequest2)
-
       .subscribe(response => {
         this.addriptResponse = response;
-        if (this.addriptResponse !== null && this.addriptResponse.status == 'true') {
+        if(this.addriptResponse !== null && this.addriptResponse.status == 'true'){
           this.showResponseMessage(this.addriptResponse.message, 's')
-          this.retrieveRiPtList();
-        } else {
+           this.retrieveRiPtList();
+        }else{
           this.showResponseMessage(this.addriptResponse.message, 'e');
-          this.ripointlistErrorMessage = response.message;
+                  this.ripointlistErrorMessage = response.message;
         }
-
+  
       },
-        (err: HttpErrorResponse) => {
-          this.showResponseMessage(err.toString(), 'e');
-          this.ripointlistErrorMessage = err.toString();
-        });
-    //swal ("Here's the title!", "...and here's the text!");
-  }
-
-  showResponseMessage(message: string, type: string) {
-    var messageType = '';
-    if (type === 'e') {
-      Swal.fire({ icon: 'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
+      (err: HttpErrorResponse) => {
+        this.showResponseMessage(err.toString(), 'e');
+        this.ripointlistErrorMessage = err.toString();
+      });
+      //swal ("Here's the title!", "...and here's the text!");
     }
-    else {
-      Swal.fire({ icon: 'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false })
+  
+    showResponseMessage(message: string, type: string){
+      var messageType = '';
+      if(type === 'e'){
+        Swal.fire({icon:'error', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
+      }
+      else{
+        Swal.fire({icon:'success', title: message, confirmButtonText: 'Close', allowOutsideClick: false})
         .then((result) => {
           if (result.value) {
-            if (this.modalService.hasOpenModals) {
+            if(this.modalService.hasOpenModals){
               this.modalService.dismissAll();
-
+             
             }
           }
         });
+      }
     }
-  }
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.clear();
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
+  
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first      
+        dtInstance.clear();
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again       
+        this.dtTrigger.next();
+      });
+    }
+  
+    ngAfterViewInit(): void {
       this.dtTrigger.next();
-    });
+    }
+  
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
+    }
+  
   }
-
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
-}
 
 
 
