@@ -141,16 +141,16 @@
               <a [routerLink]="['/app/add-ri-point']"> {{'RI Point' | translate }} </a>
           </li>
           <li routerLinkActive="active">
-            <a [routerLink]="['/app/add-pndt']"> {{'PNDT' | translate }} </a>
+            <a [routerLink]="['/app/add-pndt']"> {{'PNDT Location' | translate }} </a>
         </li>
         <li routerLinkActive="active">
-            <a [routerLink]="['/app/add-hplc']"> {{'HPLC' | translate }} </a>
+            <a [routerLink]="['/app/add-hplc']"> {{'HPLC Lab' | translate }} </a>
         </li>
         <li routerLinkActive="active">
-            <a [routerLink]="['/app/add-mtp']"> {{'MTP' | translate }} </a>
+            <a [routerLink]="['/app/add-mtp']"> {{'MTP Location' | translate }} </a>
         </li>
         <li routerLinkActive="active">
-            <a [routerLink]="['/app/add-molecular']"> {{'Molecular' | translate }} </a>
+            <a [routerLink]="['/app/add-molecular']"> {{'Molecular Lab' | translate }} </a>
         </li>
           <!-- <li routerLinkActive="active">
               <a [routerLink]="['/app/add-gvt-id-type']"> {{'Government ID Type' | translate }} </a>
@@ -176,14 +176,15 @@
                     </svg>
                 </div>
             </a>
-            <ul class="submenu list-unstyled collapse "  id="centrallab" data-parent="#accordionExample"
+            <ul  class="submenu list-unstyled collapse "  id="centrallab" data-parent="#accordionExample"
                 style="">
                 <!-- <li routerLinkActive="active">
                   <a [routerLink]="['/app/add-user-type']"> {{'User Type' | translate }} </a>
               </li> -->
               <li routerLinkActive="active">
 
-                  <a [routerLink]="['/app/add-avd']"> {{'AVD' | translate }} </a>
+                  <a    [class.disabled]="true"
+                  [routerLink]="['/app/add-avd']" > {{'AVD' | translate }} </a>
               </li>
 
               <!-- <li routerLinkActive="active">
@@ -695,7 +696,7 @@
                   <li routerLinkActive="active">
                     <a [routerLink]="['/app/mol-cvs-recp-report']"> {{'CVS Receipt Report' | translate }} </a>
                 </li>
-                
+
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'COUNSELLOR'">
@@ -912,7 +913,7 @@
                             <a [routerLink]="['/app/mol-cvs-report']"> {{'CVS Result Report' | translate }} </a>
                         </li>
                           <!-- mol-cvs-report -->
-          
+
                               <li routerLinkActive="active">
                                   <a [routerLink]="['/app/molecular-report']"> {{'Blood sample Result Report' | translate }} </a>
                               </li>

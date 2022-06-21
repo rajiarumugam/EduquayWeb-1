@@ -54,7 +54,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
     molecularCodedata: string;
     districtnamedata: string;
     commentsdata: string;
-    getdistrict: string;  
+    getdistrict: string;
     editMolecularDetails;
 
 
@@ -86,13 +86,13 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
         // Configure the buttons
           buttons: [
             {
-              titleAttr: 'Download as Excel',     
+              titleAttr: 'Download as Excel',
               extend: 'excelHtml5',
               title: 'Report - Sample Status',
               className: 'custom-btn',
               text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
             }
-          ], 
+          ],
         language: {
           search: '<div><span class="note">Search by any Molecular information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
@@ -107,7 +107,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrieveMolecularlist();
-     
+
     }
 
     retrieveMolecularlist(){
@@ -128,7 +128,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
               this.getdistrict = element.districtId;
             });
             this.rerender();
-          
+
           }
         }
         else{
@@ -238,7 +238,7 @@ export class MolecularlabComponent implements AfterViewInit, OnDestroy, OnInit {
     editSubmit(editDistrictForm: NgForm){
 
       console.log(editDistrictForm.value);
-     
+
  console.log(this.molecularCodedata);
      var _obj = {
         id:this.editMolecularDetails.id,

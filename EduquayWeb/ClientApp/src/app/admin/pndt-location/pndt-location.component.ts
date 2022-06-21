@@ -48,7 +48,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
     stateName: string;
     pndtlocationName: string;
     isActive: string;
-    
+
     comments: string;
     createdBy: number;
     updatedBy: number;
@@ -86,14 +86,14 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
         // Configure the buttons
           buttons: [
             {
-              titleAttr: 'Download as Excel',     
+              titleAttr: 'Download as Excel',
               extend: 'excelHtml5',
               title: 'Report - Sample Status',
               className: 'custom-btn',
               text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
             }
-          ], 
-      
+          ],
+
         language: {
           search: '<div><span class="note">Search by any PNDT information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
@@ -108,7 +108,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       };
       this.retrievePNDTlist();
-     
+
     }
 
     retrievePNDTlist(){
@@ -126,9 +126,10 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
           }
           else{
             this.pndtlists = this.pndtListResponse.data;
-           
             this.rerender();
-            
+
+
+
           }
         }
         else{
@@ -139,10 +140,10 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.loadDataTable) this.rerender();
         this.pndtlistErrorMessage = err.toString();
       });
-     
+
     }
 
-    
+
 
     openAddPNDT(addPNDTDetail) {
 
@@ -162,11 +163,11 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
     openEditPNDT(editPNDTDetail, sample) {
 
       console.log(sample);
-     
+
       this.selectedPNDTData = sample;
       this.pndtlocationNamedata = sample.pndtlocationName;
       this.pndtcodedata = sample.pndtCode;
-    
+
       this.commentsdata = sample.comments;
       this.confirmationSelected = sample.isActive == 'True' ? true : false;
 
@@ -188,7 +189,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
       this.pndtCode = addPndtForm.value.pndtCode;
       this.pndtlocationName = addPndtForm.value.pndtlocationName;
       this.comments = addPndtForm.value.Comments;
-     
+
 
       var _obj = {
         pndtCode: this.pndtCode,
@@ -225,7 +226,7 @@ export class PndtLocationComponent implements AfterViewInit, OnDestroy, OnInit {
       var _obj = {
         id:this.selectedPNDTData.id,
         pndtCode: this.pndtcodedata,
-        pndtlocationName: this.pndtlocationNamedata,       
+        pndtlocationName: this.pndtlocationNamedata,
         isActive: this.confirmationSelected+"",
         comments: this.commentsdata,
         userId: this.user.id+"",

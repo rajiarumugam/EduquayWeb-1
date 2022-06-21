@@ -28,7 +28,7 @@
                     <!-- <h5 class="float-left">Sample Collection</h5> -->
                     <div class="col-md-4">
                       <div class="headertit">
-                        <h5 class="float-center">{{'HPLC' | translate }}</h5>
+                        <h5 class="float-center">{{'HPLC Lab' | translate }}</h5>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -78,7 +78,7 @@
                               <td class="number text-center">{{sample.comments}}</td>
                               <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
                               <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
-            
+
                               <td class="text-center">
                                 <a class="" (click)="openEditHPLC(editHPLCDetail, sample)"
                                 role="button">
@@ -136,7 +136,7 @@
                                       <small *ngIf="hplcName.untouched" class=" ml-2 text-danger">HPLC Name is required</small>
                                     </div>
                               </div>
-             
+
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!hplcCode.valid && hplcCode.touched || addHPLCForm.submitted && hplcCode.invalid}">{{'HPLC Code' | translate }}<span class="manto"> *</span></label>
                                     <input class="form-control" name="hplcCode" type="text" placeholder="HPLC Code" ngModel  required
@@ -189,7 +189,7 @@
                           <form class="text-left" (ngSubmit)="editHPLCForm.form.valid && editSubmit(editHPLCForm)" #editHPLCForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                <div class="form-group col-md-3">
+             <div class="form-group col-md-3">
                                     <label  [ngClass]="{'label-border-class':!ddlEditDistrict.valid && ddlEditDistrict.touched || editHPLCForm.submitted && ddlEditDistrict.invalid}" for="inputilrPoint">{{'District' | translate}} <span class="manto">*</span> </label>
                                     <select id="inputilrPoint" class="form-control"
                                     [class.is-invalid]="!ddlEditDistrict.valid  && ddlEditDistrict.touched || editHPLCForm.submitted && !ddlEditDistrict.valid"
@@ -206,6 +206,7 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
+
                                   <label class="note"  [ngClass]="{'label-border-class':!edithplcName1.valid && edithplcName1.touched || editHPLCForm.submitted && edithplcName1.invalid}">{{'HPLC Name' | translate }} <span class="manto"> *</span></label>
                                   <input class="form-control" name="edithplcName1" type="text" placeholder="HPLC Name"
                                   [class.is-invalid]="!edithplcName1.valid  && edithplcName1.touched || editHPLCForm.submitted && !edithplcName1.valid"
@@ -216,6 +217,7 @@
                                    </div>  
                             </div>
                                 
+
                                 <div class="form-group col-md-3">
                                   <label class="note" [ngClass]="{'label-border-class':!edithplcCode.valid && edithplcCode.touched || editHPLCForm.submitted && edithplcCode.invalid}">{{'HPLC Code' | translate }}<span class="manto"></span> *</label>
                                   <input class="form-control" name="edithplcCode" type="text" placeholder="HPLC Code" ngModel 
