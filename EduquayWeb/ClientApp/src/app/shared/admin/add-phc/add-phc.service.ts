@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddChcResponse } from '../add-chc/add-chc-response';
-import { AddPhcRequest } from './add-phc-request';
+import { AddPhcFilterRequest, AddPhcRequest } from './add-phc-request';
 import { AddPhcResponse, AddPhcDataresponse } from './add-phc-response';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class AddPhcService {
 
   retrieveBlockApi: string = "api/v1/SA/RetrieveAllBlocks";
   retrievePhcApi: string = "api/v1/SA/RetrieveAllPHCs";
+  retrievePHCFilterApi: string ="api/v1/SA/RetrievePHCFilter";
   retrieveUserroleApi: string = "api/v1/SA/RetrieveAllPHCs";
   addPhcApi: string = "api/v1/SA/AddNewPHC";
   retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
@@ -43,6 +44,12 @@ export class AddPhcService {
     let apiUrl = this.genericService.buildApiUrl(this.retrievePhcApi);
     return this.http.get<AddPhcResponse>({url: apiUrl});
   }
+
+  getPHCFilterList(phcadd:AddPhcFilterRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.retrievePHCFilterApi);
+    return this.http.post<AddPhcResponse>({url: apiUrl, body: phcadd});
+  }
+
   getUserroleList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveUserroleApi);
     return this.http.get<AddPhcResponse>({url: apiUrl});

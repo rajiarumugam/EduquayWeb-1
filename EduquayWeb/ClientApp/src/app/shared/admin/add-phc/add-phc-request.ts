@@ -11,3 +11,9 @@ export class AddPhcRequest {
     createdBy: number;
     updatedBy: number;
 }
+
+export class AddPhcFilterRequest {
+DistrictId:number;
+ChcId:number;
+
+}

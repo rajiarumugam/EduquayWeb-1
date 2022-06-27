@@ -269,6 +269,7 @@ selectedChc: string;
     };
 
     this.refreshData();
+    this.ddlDistrict();
 
   }
 
@@ -388,6 +389,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -650,14 +659,14 @@ selectedChc: string;
           // this.ddlEdtiSc();
           this.selectedEditUserrole = subjectinfo.userRoleId;
           this.selectedEditState = subjectinfo.stateId;
-          this.selectedEditChc =subjectinfo.chcId;
+          // this.selectedEditChc =subjectinfo.chcId;
       
-          this.selectedEditDistrict = subjectinfo.districtId;
+          // this.selectedEditDistrict = subjectinfo.districtId;
           // this.centralLabId= 0;
       
       
           this.ddlEditBlock(subjectinfo.districtId);
-          this.selectedEditBlock =subjectinfo.blockId;
+          // this.selectedEditBlock =subjectinfo.blockId;
           // this.blockdata = subjectinfo.blockName;
           // this. blockId =0;
       
@@ -670,7 +679,7 @@ selectedChc: string;
          this.firstName=subjectinfo.firstName;
          this.middleName=subjectinfo.middleName;
          this.lastName=subjectinfo.lastName;
-         this. mobileNo=subjectinfo.mobileNo;
+         this.mobileNo=subjectinfo.mobileNo;
         //  this.contactNo2=null;
          this.email=subjectinfo.email;
         //  this.govIdTypeId=0;
@@ -758,7 +767,7 @@ selectedChc: string;
           this.AddUsersResponse = response;
           if(this.AddUsersResponse !== null){
             this.showResponseMessage('Molecular Lab User Updated Sucessfully', 's')
-             this.retrirveIlrlist();
+             this.refreshData();
           }else{
             this.showResponseMessage(this.AddUsersResponse.message, 'e');
                     this.userslistErrorMessage = response.message;
@@ -834,7 +843,7 @@ selectedChc: string;
         console.log(response );
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage('Molecular Lab User added Sucessfully', 's')
-           this.retrirveIlrlist();
+           this.refreshData();
             console.log(this.addPhcResponse.message );
          }else{
            this.showResponseMessage(this.addPhcResponse.message, 'e');

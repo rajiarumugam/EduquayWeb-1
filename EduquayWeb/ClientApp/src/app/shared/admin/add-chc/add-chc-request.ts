@@ -35,4 +35,8 @@ export class UpdateChcRequest {
    createdBy: number;
    updatedBy: number
  }
+ export class ChcFilterRequest {
+  DistrictId:number;
+  BlockId:number;
+ }
 

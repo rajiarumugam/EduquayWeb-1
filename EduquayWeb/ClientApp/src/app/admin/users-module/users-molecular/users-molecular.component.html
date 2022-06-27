@@ -3,6 +3,7 @@
   <mat-horizontal-stepper [linear]="false" #stepper>
          <mat-step >
            <form >
+        
             <div class="form-row">
               <div class="col-md-12">
                   <a class="float-right mr-5" (click)="openAddUsers(addmolecularDetail)"
@@ -63,53 +64,6 @@
                             </div>
                   </div>
     
-    
-                    <div class="form-group col-md-3">
-    
-                      <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
-                          class="manto"> *</span></label>
-                          <select id="inputilrPoint" class="form-control"
-                          name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid"
-                          required [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)">
-                              <option value="">Select</option>
-                              <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                  {{districtdata.name}}
-                              </option>
-                          </select>
-                            <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
-                            <div *ngIf="addIlrForm.submitted && ddlDistrict.invalid">
-                              <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
-                            </div>
-    
-                </div>
-    
-                  <div class="form-group col-md-3">
-    
-                    <label [ngClass]="{'label-border-class':ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
-                        class="manto"> *</span></label>
-                        <select id="inputilrPoint" class="form-control"
-                        name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid"
-                        required [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict === ''">
-                            <option value="">Select</option>
-                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
-                                {{blockdata.name}}
-                            </option>
-                        </select>
-                          <small class=" ml-2 text-danger" *ngIf="ddlBlock.invalid && ddlBlock.touched ">Please choose a Block</small>
-                          <div *ngIf="addIlrForm.submitted && ddlBlock.invalid">
-                            <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">Block is required</small>
-                          </div>
-    
-              </div>
-              <!-- <div class="form-group col-md-3">
-                <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                <input class="form-control" name="Username" type="text" placeholder="UserName" ngModel pattern="^[a-zA-Z0-9]+$" required
-                #Username ="ngModel" [class.is-invalid]="!Username.valid && Username.touched || addIlrForm.submitted && Username.invalid">
-                <small class="text-danger ml-2" *ngIf="!Username.valid && Username.touched ">Enter UserName</small>
-                <div *ngIf="addIlrForm.submitted && Username.invalid">
-                <small *ngIf="Username.untouched" class=" ml-2 text-danger">UserName is required</small>
-                </div>
-              </div> -->
     
               <div class="form-group col-md-3">
                 <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>

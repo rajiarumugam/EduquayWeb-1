@@ -85,7 +85,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     getsc: string;
     selectedEditIlr: string;
     blockCodedata: string;
-    selectedPhc: string = '';
+    selectedPhc: string;
     selectedScbyANM: string = '';
     selectedSc: string = '';
     riCode: string;
@@ -113,6 +113,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
   scbyANMListResponse;
   avdListResponse;
   selectedAVD: any;
+  ripointfilterdata: { DistrictId: number; ChcId: number; PhcId: number; ScId: number; };
   
     constructor(
     
@@ -163,16 +164,28 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrieveRiPtList();
+     
       this.ddlDistrict();
       this.ddlAVD();
+    }
+
+    RipointFilter(){
+      this.retrieveRiPtList();
     }
   
     retrieveRiPtList(){
       this.loaderService.display(true);
       this.sclists = [];
       this.ripointlistErrorMessage ='';
-      let samplesList = this.RiPtService.getRiList()
+      this.ripointfilterdata ={
+
+        DistrictId :+ this.selectedDistrict,
+        ChcId :+this.selectedChc,
+        PhcId :+this.selectedPhc,
+        ScId : +this.selectedSc
+
+      }
+      let samplesList = this.RiPtService.getRIFilterList(this.ripointfilterdata)
       .subscribe(response => {
         this.riPtListResponse = response;
         this.loaderService.display(false);
@@ -204,6 +217,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         this.ripointlistErrorMessage = err.toString();
       });
     }
+  
 
     districtChange()
     {
@@ -268,7 +282,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
           this.chclists = this.chcListResponse.data;
-        //  this.selectedChc = "";
+         console.log(this.selectedChc,"chc" )
         }
         else {
           this.ripointlistErrorMessage = response.message;
@@ -300,12 +314,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
 
    
     ddlPhc(code) {
-      this.selectedPhc = '';
+    
       let district = this.RiPtService.getPhcList(code).subscribe(response => {
         this.phcListResponse = response;
         if (this.phcListResponse !== null && this.phcListResponse.status === "true") {
           this.phclists = this.phcListResponse.data;
-          this.selectedPhc = "";
+         console.log(this.selectedPhc,"phc")
          
         }
         else {
@@ -431,12 +445,12 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     ddlSc(code) {
-      this.selectedPhc = '';
+      
       let district = this.RiPtService.getScList(code).subscribe(response => {
         this.scListResponse = response;
         if (this.scListResponse !== null && this.scListResponse.status === "true") {
           this.sclists = this.scListResponse.data;
-          this.selectedSc = "";
+          
          
         }
         else {
@@ -477,7 +491,7 @@ export class RiPointComponent implements AfterViewInit, OnDestroy, OnInit {
       }
       else {
         this.ddlPhc(this.selectedChc);
-        this.ddlIlr(this.selectedChc);
+        
      
       }
     }

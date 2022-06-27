@@ -11,3 +11,9 @@ export class AddIlrRequest {
     createdBy: number;
     updatedBy: number;
 }
+
+
+export class AddIlrFilterRequest {
+    DistrictId:number;
+    ChcId:number;
+}

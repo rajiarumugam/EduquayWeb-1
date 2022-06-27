@@ -213,6 +213,8 @@ selectedChc: string;
   editComments: any;
   dtTrigger: Subject<any> = new Subject();
   selectedEditUserrole: any;
+  chcfilterdata: { userTypeId: number; DistrictId: number; BlockId: number; ChcId: number; PhcId: number; ScId: number; };
+  mobileNo1: any;
   constructor(
     zone: NgZone,
     private _formBuilder: FormBuilder,
@@ -268,7 +270,8 @@ selectedChc: string;
       }   
     };
 
-    this.refreshData();
+   
+    this.ddlDistrict();
 
   }
 
@@ -384,10 +387,17 @@ selectedChc: string;
   openAddUsers(addIlrDetail) {
     //this.ddlChc();
     this.ddlState();
-  
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -507,11 +517,18 @@ selectedChc: string;
   refreshData()
       {
         this.loaderService.display(true);
-        
+        this.chcfilterdata ={
+
+          userTypeId :10,
+          DistrictId :+this.selectedDistrict,
+          BlockId: 0,
+          ChcId :0,
+          PhcId :0,
+          ScId : 0
+        }
        
-        this.UsersService.getUsersList(10).subscribe(response => {
+        this.UsersService.getUserFilterList(this.chcfilterdata).subscribe(response => {
           this.userprofileLists = response.users;
-         
           this.loaderService.display(false);
            this.rerender();
          
@@ -676,154 +693,38 @@ selectedChc: string;
     
           });
       }
-      openEditanm(editanmDetail, subjectinfo) {
-
-        console.log(subjectinfo);
-      
-        this.id = subjectinfo.id;
-          this.userGovCode=subjectinfo.userGovCode;
-          this.userName=subjectinfo.userName  ;
-          this.ddlEditDistrict();
-          this.ddlEditBlock(subjectinfo.districtId);
-          this.editddlState();
-          this.ddlEditChc(subjectinfo.blockId);
-          this.ddlEdtiSc(subjectinfo.phcId);
-          this.ddlEdtiPhc(subjectinfo.chcId);
-      
-          this.selectedEditState = subjectinfo.stateId;
-          this.selectedEditChc =subjectinfo.chcId;
-          this.selectedEditPhc =subjectinfo.phcId;
-          this.selectedEditDistrict = subjectinfo.districtId;
-          this.selectedEditBlock =subjectinfo.blockId;
-          this.selectedEditSc=subjectinfo.scId;
-      
-         this.firstName=subjectinfo.firstName;
-         this.middleName=subjectinfo.middleName;
-         this.lastName=subjectinfo.lastName;
-         this. mobileNo=subjectinfo.mobileNo;
-      
-         this.email=subjectinfo.email;
-          this.comments= subjectinfo.comments;
-          this.confirmationSelected = subjectinfo.isActive;
-      
-       console.log(this.firstName);
-      
-      
-        this.modalService.open(
-          editanmDetail, {
-          centered: true,
-          size: 'xl',
-          scrollable: true,
-          backdrop:'static',
-          keyboard: false,
-          ariaLabelledBy: 'modal-basic-title'
-        });
-      
-      }
-
-      editsubmitanm(editanmForm: NgForm){
-
-           this.firstName = editanmForm.value.firstName;
-           this.riId = editanmForm.value.riId;
-           this.middleName = editanmForm.value.middleName;
-           this.lastName = editanmForm.value.lastName;
-           this.email = editanmForm.value.email;
-           this.mobileNo = editanmForm.value.mobileNo;
-           this.comments = editanmForm.value.Comments;
-       
-         this.userListRequest = {
-           id:this.id ,
-           userTypeId:3,
-           userRoleId:3,
-           userGovCode:this.userGovCode,
-             userName:this.userName,
-             password:'odisha',
-             stateId: +(this.selectedEditState),
-             centralLabId: 0,
-             molecularLabId: 0,
-             districtId: +(this.selectedEditDistrict),
-               blockId: +(this.selectedEditBlock),
-               chcId: +(this.selectedEditChc),
-               phcId: +(this.selectedEditPhc),
-               scId: +(this.selectedEditSc),
-             riId:this.riId,
-             firstName:this.firstName,
-             middleName:this.middleName,
-             lastName:this.lastName,
-             contactNo1:this.mobileNo,
-             contactNo2:null,
-             email:this.email,
-             govIdTypeId:0,
-             govIdDetails:null,
-             address:null,
-             pincode:null,
-             createdBy:this.user.id ,
-             updatedBy:this.user.id ,
-             comments: this.comments,
-             isActive: this.confirmationSelected,
-         };
-         console.log(this.userListRequest);
-       
-         //Remove below 2 lines after successfully tested
-         // this.showResponseMessage('Successfully registered', 's');
-         // return false;
-       
-         let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
-         .subscribe(response => {
-           this.AddUsersResponse = response;
-           if(this.AddUsersResponse !== null){
-             this.showResponseMessage('ANM user Updated succesfully ', 's')
-              this.retrirveIlrlist();
-           }else{
-             this.showResponseMessage(this.AddUsersResponse.message, 'e');
-                     this.userslistErrorMessage = response.message;
-           }
-       
-         },
-         (err: HttpErrorResponse) => {
-           this.showResponseMessage(err.toString(), 'e');
-           this.userslistErrorMessage = err.toString();
-         });
-         //swal ("Here's the title!", "...and here's the text!");
-       }
-      
-      onSubmitanm(addIlrForm: NgForm){
+      onSubmitspc(addIlrForm: NgForm){
 
         console.log(addIlrForm.value);
+        
         this.selectedDistrict = addIlrForm.value.ddlDistrict;
-        this.selectedBlock = addIlrForm.value.ddlBlock;
-        this.selectedChc = addIlrForm.value.ddlChc;
-        this.selectedPhc = addIlrForm.value.ddlPhc;
-        this.selectedSc = addIlrForm.value.ddlSc;
-        this.riId = addIlrForm.value.riId;
-        // this.userName = addIlrForm.value.Username;
         this.firstName = addIlrForm.value.firstName;
         this.middleName = addIlrForm.value.middleName;
         this.lastName = addIlrForm.value.lastName;
         this.contactNo1 = addIlrForm.value.contactNo1;
         this.userGovCode = addIlrForm.value.userGovCode;
-        this.selectedState = addIlrForm.value.ddlState;
+        this.selectedState = "1";
         this.email = addIlrForm.value.email;
         this.Address = addIlrForm.value.Address;
-        this.comments = addIlrForm.value.Comments;
-  
-      console.log(addIlrForm);
+        this.comments = addIlrForm.value.comments;
+        
+        console.log(addIlrForm);
         this.Userslistrequest = {
-          userTypeId:3,
-          userRoleId:3,
+          userTypeId:10,
+          userRoleId:14,
             userGovCode:this.userGovCode,
-            userName:this.email,
+            userName:this.userGovCode,
             password:'odisha',
-            stateId:+(this.selectedState),
+            stateId:1,
             centralLabId: 0,
-  
+        
             molecularLabId: 0,
             districtId: +(this.selectedDistrict),
-            blockId: +(this.selectedBlock),
-            chcId: +(this.selectedChc),
-            phcId: +(this.selectedPhc),
-            scId: +(this.selectedSc),
-            riId:this.riId,
+            blockId: 0,
+            chcId:0,
+            phcId: 0,
+            scId: 0,
+            riId:null,
             firstName:this.firstName,
             middleName:this.middleName,
             lastName:this.lastName,
@@ -839,34 +740,106 @@ selectedChc: string;
             comments: this.comments,
             isActive:"true",
         };
-  
-      console.log(this.Userslistrequest);
-      //Remove below 2 lines after successfully tested
-      // this.showResponseMessage('Successfully registered', 's');
-      // return false;
-  
-  
-      let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
-      .subscribe(response => {
+        
+        console.log(this.Userslistrequest);
+        //Remove below 2 lines after successfully tested
+        // this.showResponseMessage('Successfully registered', 's');
+        // return false;
+        
+        
+        let damagedsampleCollection = this.UsersService.addUsers(this.Userslistrequest)
+        .subscribe(response => {
          this.addPhcResponse = response;
         console.log(response );
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
-           this.showResponseMessage('ANM User added Successfully', 's')
-           this.retrirveIlrlist();
+          this.showResponseMessage('SPC User added Sucessfully', 's')
+           this.refreshData();
             console.log(this.addPhcResponse.message );
          }else{
            this.showResponseMessage(this.addPhcResponse.message, 'e');
                  this.phclistErrorMessage = response.message;
          }
-  
-      },
-      (err: HttpErrorResponse) => {
+        
+        },
+        (err: HttpErrorResponse) => {
         this.showResponseMessage(err.toString(), 'e');
-      this.phclistErrorMessage = err.toString();
-      });
-      // this.rerender();
-       //swal ("Here's the title!", "...and here's the text!");
-     }
+        this.phclistErrorMessage = err.toString();
+        });
+        // this.rerender();
+        //swal ("Here's the title!", "...and here's the text!");
+        }
+
+     
+        editSubmitspc(editspcForm: NgForm){
+
+          console.log(editspcForm.value);
+            // this.userName = editspcForm.value.userName;
+            this.firstName = editspcForm.value.firstName;
+            this.middleName = editspcForm.value.middleName;
+            this.lastName = editspcForm.value.lastName;
+          
+            this.email = editspcForm.value.email;
+            
+            this.mobileNo = editspcForm.value.mobileNo1;
+            this.comments = editspcForm.value.Comments;
+        
+          this.userListRequest = {
+            id:this.id,
+            userTypeId:10,
+            userRoleId:14,
+            userGovCode:this.userGovCode,
+              userName:this.userName,
+              password:'odisha',
+              stateId: 1,
+              centralLabId: 0,
+        
+              molecularLabId: 0,
+              districtId: +(this.selectedEditDistrict),
+                blockId:0,
+                chcId:0,
+                phcId: 0,
+                scId: 0,
+              riId:null,
+              firstName:this.firstName,
+              middleName:this.middleName,
+              lastName:this.lastName,
+              contactNo1:this.mobileNo,
+              contactNo2:null,
+              email:this.email,
+              govIdTypeId:0,
+              govIdDetails:null,
+              address:null,
+              pincode:null,
+              createdBy:this.user.id ,
+              updatedBy:this.user.id ,
+              comments: this.comments,
+            isActive:(this.confirmationSelected? "1": "0")
+          };
+          console.log(this.userListRequest);
+        
+          //Remove below 2 lines after successfully tested
+          // this.showResponseMessage('Successfully registered', 's');
+          // return false;
+        
+          let damagedsampleCollection = this.UsersService.updateusers(this.userListRequest)
+          .subscribe(response => {
+            this.AddUsersResponse = response;
+            if(this.AddUsersResponse !== null){
+              this.showResponseMessage('SPC User Updated Sucessfully', 's')
+               this.refreshData();
+            }else{
+              this.showResponseMessage(this.AddUsersResponse.message, 'e');
+                      this.userslistErrorMessage = response.message;
+            }
+        
+          },
+          (err: HttpErrorResponse) => {
+            this.showResponseMessage(err.toString(), 'e');
+            this.userslistErrorMessage = err.toString();
+          });
+          //swal ("Here's the title!", "...and here's the text!");
+        }
+     
       ddlEditChc(id) {
         console.log(id);
         let district = this.UsersService.getCHCByBlock(id).subscribe(response => {

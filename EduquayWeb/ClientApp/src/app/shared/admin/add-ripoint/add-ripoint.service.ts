@@ -9,7 +9,7 @@ import { AddSCbyANMResponse, AddScResponse } from '../add-sc/add-sc-response';
 import { IlrResponse } from './add-ripoint-response';
 import { AddtestingchcbydistrictResponse } from './add-ripoint-response';
 import { AddBlockResponse } from '../add-block/add-block-response';
-import { AddRipointRequest } from './add-ripoint-request';
+import { AddRipointRequest, RipoinitFilterRequest } from './add-ripoint-request';
 import { AddRipointResponse, AddRiPtDataresponse } from './add-ripoint-response';
 import { AddchcbydistrictResponse } from '../add-chc/add-chc-response';
 
@@ -21,6 +21,7 @@ export class AddRipointService {
   retrieveScApi: string = "api/v1/WebMaster/RetrieveSCByPHC/";
   RetrieveANMBySC: string = "api/v1/WebMaster/RetrieveANMBySC/";
   retrieveRiPointApi: string = "api/v1/SA/RetrieveAllRISites";
+  retrieveRiPointFilterApi: string ="api/v1/SA/RetrieveRIFilter";
   retrievePhcApi: string = "api/v1/WebMaster/RetrievePHCByCHC/";
   addRiPtApi: string = "api/v1/RI/Add";
   updateRiPtApi: string = "api/v1/SA/UpdateRISite";
@@ -73,6 +74,10 @@ export class AddRipointService {
   getRiList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveRiPointApi);
     return this.http.get<AddRipointResponse>({url: apiUrl});
+  }
+  getRIFilterList(rifilter:RipoinitFilterRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveRiPointFilterApi);
+    return this.http.post<AddRipointResponse>({url: apiUrl, body: rifilter});
   }
 
   updateRiPt(riPtedit){

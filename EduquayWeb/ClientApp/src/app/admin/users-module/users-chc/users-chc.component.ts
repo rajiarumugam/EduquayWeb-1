@@ -213,6 +213,10 @@ selectedChc: string;
   dtTrigger: Subject<any> = new Subject();
   commentsdata: any;
   selectedEditUserrole: any;
+  chcfilterdata: { userTypeId: number; DistrictId: number; BlockId: number; ChcId: number; PhcId: number; ScId: number; };
+  
+
+  
   constructor(
     zone: NgZone,
     private _formBuilder: FormBuilder,
@@ -268,9 +272,11 @@ selectedChc: string;
       }   
     };
 
-    this.refreshData();
+    
+    this.ddlDistrict();
 
   }
+
 
   onChangeBlock(event) {
 
@@ -452,6 +458,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -570,9 +584,18 @@ selectedChc: string;
   refreshData()
       {
         this.loaderService.display(true);
-        
+        this.chcfilterdata ={
+
+          userTypeId :4,
+          DistrictId :+this.selectedDistrict,
+          BlockId: +this.selectedBlock,
+          ChcId :+this.selectedChc,
+          PhcId :0,
+          ScId : 0
+  
+        }
        
-        this.UsersService.getUsersList(4).subscribe(response => {
+        this.UsersService.getUserFilterList(this.chcfilterdata).subscribe(response => {
           this.userprofileLists = response.users;
          
           this.loaderService.display(false);
@@ -584,6 +607,7 @@ selectedChc: string;
         });
        
       }
+  
       ddlEditDistrict() {
         let district = this.UsersService.getDistrictList().subscribe(response => {
           this.districtListResponse = response;

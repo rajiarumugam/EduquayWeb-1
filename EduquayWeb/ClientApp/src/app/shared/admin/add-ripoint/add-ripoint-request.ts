@@ -33,3 +33,10 @@ export class AddRipointRequest2 {
     id:number
    
 }
+
+export class RipoinitFilterRequest{
+    DistrictId:number;
+    ChcId:number;
+    PhcId: number;
+    ScId:number;
+}

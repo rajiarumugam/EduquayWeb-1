@@ -3,6 +3,8 @@
   <mat-horizontal-stepper [linear]="false" #stepper>
          <mat-step >
            <form >
+         
+        
             <div class="form-row">
               <div class="col-md-12">
                   <a class="float-right mr-5" (click)="openAddUsers(addpndtcDetail)"
@@ -44,68 +46,6 @@
                               <small *ngIf="ddlState.untouched" class=" ml-2 text-danger">State is required</small>
                             </div>
                   </div>
-    
-    
-    
-                    <div class="form-group col-md-3">
-    
-                      <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
-                          class="manto"> *</span></label>
-                          <select id="inputilrPoint" class="form-control"
-                          name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid"
-                          required [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)">
-                              <option value="">Select</option>
-                              <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
-                                  {{districtdata.name}}
-                              </option>
-                          </select>
-                            <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
-                            <div *ngIf="addIlrForm.submitted && ddlDistrict.invalid">
-                              <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
-                            </div>
-    
-                </div>
-    
-                  <div class="form-group col-md-3">
-    
-                    <label [ngClass]="{'label-border-class':ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
-                        class="manto"> *</span></label>
-                        <select id="inputilrPoint" class="form-control"
-                        name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid"
-                        required [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict === ''">
-                            <option value="">Select</option>
-                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
-                                {{blockdata.name}}
-                            </option>
-                        </select>
-                          <small class=" ml-2 text-danger" *ngIf="ddlBlock.invalid && ddlBlock.touched ">Please choose a Block</small>
-                          <div *ngIf="addIlrForm.submitted && ddlBlock.invalid">
-                            <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">Block is required</small>
-                          </div>
-    
-              </div>
-    
-              <!-- <div class="form-group col-md-3">
-                <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                <input class="form-control" name="Username" type="text" placeholder="UserName" ngModel pattern="^[a-zA-Z0-9]+$" required
-                #Username ="ngModel" [class.is-invalid]="!Username.valid && Username.touched || addIlrForm.submitted && Username.invalid">
-                <small class="text-danger ml-2" *ngIf="!Username.valid && Username.touched ">Enter UserName</small>
-                <div *ngIf="addIlrForm.submitted && Username.invalid">
-                <small *ngIf="Username.untouched" class=" ml-2 text-danger">UserName is required</small>
-                </div>
-              </div> -->
-    
-              <!-- <div class="form-group col-md-3">
-                <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>
-                <input class="form-control" name="firstName" type="text" placeholder="First Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required
-                [class.is-invalid]="!firstName.valid && firstName.touched || addIlrForm.submitted && firstName.invalid"
-                 #firstName="ngModel" required>
-                <small class="text-danger ml-2" *ngIf="!firstName.valid && firstName.touched ">Please enter only alphabets</small>
-                <div *ngIf="addIlrForm.submitted && firstName.invalid">
-                  <small *ngIf="firstName.untouched" class=" ml-2 text-danger">First Name is required</small>
-                </div>
-               </div> -->
-    
     
                <div class="form-group col-md-3">
                 <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>
@@ -287,12 +227,12 @@
     
                        <div class="form-group col-md-3">
                         <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                        <input class="form-control" name="mobileNo" type="text" placeholder="Contact No"  [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                        [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editpndtcForm.submitted && mobileNo.invalid"
+                        <input class="form-control" name="mobileNo1" #mobileNo1="ngModel" type="text" placeholder="Contact No"  [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                        [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editpndtcForm.submitted && mobileNo1.invalid"
                          required minlength="9" >
-                        <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched || mobileNo.minlength">Enter 10 digit number</small>
-                        <div *ngIf="editpndtcForm.submitted && mobileNo.invalid">
-                          <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">Contact No is required</small>
+                        <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                        <div *ngIf="editpndtcForm.submitted && mobileNo1.invalid">
+                          <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                         </div>
                        </div>
     

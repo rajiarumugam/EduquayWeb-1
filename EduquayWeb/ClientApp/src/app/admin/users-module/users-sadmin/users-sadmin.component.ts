@@ -222,6 +222,7 @@ selectedChc: string;
   State: any;
   contactNo1: any;
   editComments: any;
+  mobileNo1: any;
   constructor(private masterService: masterService,
      private addscreenreportService:AddScreenService,
       private loaderService: LoaderService,
@@ -345,6 +346,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -414,7 +423,7 @@ selectedChc: string;
         userGovCode:this.userGovCode,
         userName:this.email,
         password:'odisha',
-        stateId: +(this.selectedState),
+        stateId: 1,
         centralLabId: 0,
 
         molecularLabId: 0,
@@ -445,7 +454,7 @@ selectedChc: string;
       console.log(response );
       if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
         this.showResponseMessage('Sadmin User added Sucessfully', 's')
-         this.retrirveIlrlist();
+         this.refreshData();
           console.log(this.addPhcResponse.message );
        }else{
          this.showResponseMessage(this.addPhcResponse.message, 'e');
@@ -616,7 +625,7 @@ editsubmitsadmin(editsadminForm: NgForm){
       firstName:this.firstName,
       middleName:this.middleName,
       lastName:this.lastName,
-      contactNo1:this.mobileNo,
+      contactNo1:this.mobileNo1,
       contactNo2:null,
       email:this.email,
       govIdTypeId:0,
@@ -691,7 +700,7 @@ editsubmitsadmin(editsadminForm: NgForm){
     });
   }
  
-      refreshData()
+       refreshData()
       {
         this.loaderService.display(true);
         

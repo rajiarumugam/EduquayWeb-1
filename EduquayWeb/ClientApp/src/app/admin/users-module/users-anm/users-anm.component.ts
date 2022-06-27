@@ -212,6 +212,7 @@ selectedChc: string;
   contactNo1: any;
   editComments: any;
   dtTrigger: Subject<any> = new Subject();
+  anmfilterdata: { userTypeId: number; DistrictId: number; BlockId:number; ChcId: number; PhcId: number; ScId: number; };
   constructor(
     zone: NgZone,
     private _formBuilder: FormBuilder,
@@ -267,8 +268,13 @@ selectedChc: string;
       }   
     };
 
-    this.refreshData();
+   
+    this.ddlDistrict();
 
+  }
+
+  ANMFilter(){
+    this.refreshData()
   }
 
   onChangeBlock(event) {
@@ -383,10 +389,15 @@ selectedChc: string;
   openAddUsers(addIlrDetail) {
     //this.ddlChc();
     this.ddlState();
-  
     this.ddlUserRole();
     this.disabledChc = false;
+    this.selectedBlock="";
     this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -505,14 +516,20 @@ selectedChc: string;
   refreshData()
       {
         this.loaderService.display(true);
-        
-       
-        this.UsersService.getUsersList(3).subscribe(response => {
+        this.anmfilterdata ={
+
+          userTypeId :3,
+          DistrictId :+this.selectedDistrict,
+          BlockId:+this.selectedBlock,
+          ChcId :+this.selectedChc,
+          PhcId :+this.selectedPhc,
+          ScId : +this.selectedSc
+  
+        }
+        this.UsersService.getUserFilterList( this.anmfilterdata).subscribe(response => {
           this.userprofileLists = response.users;
-         
           this.loaderService.display(false);
            this.rerender();
-         
         },
         (err: HttpErrorResponse) =>{
           this.loaderService.display(false);

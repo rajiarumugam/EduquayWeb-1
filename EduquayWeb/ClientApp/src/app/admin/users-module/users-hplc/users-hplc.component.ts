@@ -214,6 +214,7 @@ selectedChc: string;
   dtTrigger: Subject<any> = new Subject();
   commentsdata: any;
   selectedEditUserrole: any;
+  chcfilterdata: { userTypeId: number; DistrictId: number; BlockId: number; ChcId: number; PhcId: number; ScId: number; };
   constructor(
     zone: NgZone,
     private _formBuilder: FormBuilder,
@@ -270,6 +271,7 @@ selectedChc: string;
     };
 
     this.refreshData();
+    this.ddlDistrict();
 
   }
 
@@ -389,6 +391,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -507,9 +517,18 @@ selectedChc: string;
   refreshData()
       {
         this.loaderService.display(true);
-        
+        this.chcfilterdata ={
+
+          userTypeId :5,
+          DistrictId :+this.selectedDistrict,
+          BlockId: +this.selectedBlock,
+          ChcId :0,
+          PhcId :0,
+          ScId : 0
+
+        }
        
-        this.UsersService.getUsersList(5).subscribe(response => {
+        this.UsersService.getUserFilterList(this.chcfilterdata).subscribe(response => {
           this.userprofileLists = response.users;
          
           this.loaderService.display(false);

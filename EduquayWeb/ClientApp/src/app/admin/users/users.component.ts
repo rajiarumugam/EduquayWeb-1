@@ -836,6 +836,7 @@ console.log(id);
     this.ddlUserRole(this.maintabSelected);
     this.disabledChc = false;
     this.ddlDistrict();
+    
 
 
     this.confirmationSelected = Boolean("True");

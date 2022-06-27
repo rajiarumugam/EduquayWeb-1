@@ -42,6 +42,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     disableddis:boolean =true;
     districtlists: DistrictList[];
     selectedDistrict: string;
+    showentry:boolean=false;
     getstate: string;
     selectedEditDistrict: string;
     districtName: string;
@@ -56,6 +57,7 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
     getdistrict: string;
     blockCodedata: string;
     editBlockDetails;
+  BlockFilterData: { DistrictId: number; };
 
 
     constructor(
@@ -105,14 +107,24 @@ export class BlockComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
+
+     
+      
+      this.ddlDistrict();
+    }
+    BlockFilter(){
       this.retrirveBlocklist();
     }
+   
 
     retrirveBlocklist(){
       this.loaderService.display(true);
       this.blocklists = [];
       this.blocklistErrorMessage ='';
-      let samplesList = this.BlockService.getBlockList()
+     this.BlockFilterData = {
+      DistrictId:+this.selectedDistrict
+     };
+      let samplesList = this.BlockService.getBlockFilterList(this.BlockFilterData)
       .subscribe(response => {
         this.blockListResponse = response;
         this.loaderService.display(false);

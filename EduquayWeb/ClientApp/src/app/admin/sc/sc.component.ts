@@ -91,6 +91,7 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
     hninId;
     editSampleData;
   ilrid: any;
+  scfilterdata: { DistrictId: number; ChcId: number; PhcId: number; };
 
     constructor(
 
@@ -140,14 +141,25 @@ export class ScComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirveSclist();
+    
+      this.ddlEditDistrict();
     }
+
+    SCFilter(){
+      this.retrirveSclist()
+    }
+  
 
     retrirveSclist(){
       this.loaderService.display(true);
       this.sclists = [];
       this.sclistErrorMessage ='';
-      let samplesList = this.ScService.getScList()
+      this.scfilterdata={
+        DistrictId :+ this.selectedDistrict,
+        ChcId: +this.selectedChc,
+        PhcId : +this.selectedPhc
+      }
+      let samplesList = this.ScService.getScFilterList(this.scfilterdata)
       .subscribe(response => {
         this.scListResponse = response;
         this.loaderService.display(false);

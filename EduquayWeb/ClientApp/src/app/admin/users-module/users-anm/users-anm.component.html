@@ -3,6 +3,77 @@
   <mat-horizontal-stepper [linear]="false" #stepper>
          <mat-step >
            <form >
+            <div class="form-row mt-4" [formGroup]="dateform">
+              <div class="form-group col-md-2" >
+                <label for="inputTodate">{{'District' | translate }}</label>
+                <div class="form-group mb-0">
+                    <select  class="form-control"  name="ddlDistrict" [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)"  required [ngModelOptions]="{standalone: true}">
+                        <option [ngValue]=0>Select District</option>
+                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                          {{districtdata.name}}
+                      </option>
+                    </select>
+                </div>
+            </div> 
+
+            <div class="form-group col-md-2" >
+              <label for="inputTodate">{{'Block' | translate }}</label>
+              <div class="form-group mb-0">
+                  <select  class="form-control"  name="ddlBlock" [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict === ''" required [ngModelOptions]="{standalone: true}">
+                      <option [ngValue]=0>Select </option>
+                      <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                        {{blockdata.name}}
+                    </option>
+                  </select>
+              </div>
+          </div> 
+            
+            <div class="form-group col-md-2" >
+              <label for="inputTodate">{{'CHC' | translate }}</label>
+              <div class="form-group mb-0">
+                  <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  (change)="onChangeChc($event.target.value)" 
+                  [disabled]="!selectedBlock=== ''" required [ngModelOptions]="{standalone: true}">
+                      <option [ngValue]=0>Select </option>
+                      <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
+                        {{chcdata.name}}
+                    </option>
+                  </select>
+              </div>
+          </div> 
+          <div class="form-group col-md-2" >
+            <label for="inputTodate">{{'PHC' | translate }}</label>
+            <div class="form-group mb-0">
+                <select  class="form-control"  name="ddlPhc" [(ngModel)]="selectedPhc"  (change)="onChangePhc($event.target.value)"
+                [disabled]="!selectedChc=== ''" required [ngModelOptions]="{standalone: true}">
+                    <option [ngValue]=0>Select </option>
+                    <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
+                      {{phcdata.name}}
+                  </option>
+                </select>
+            </div>
+        </div> 
+
+        <div class="form-group col-md-2" >
+          <label for="inputTodate">{{'SC' | translate }}</label>
+          <div class="form-group mb-0">
+              <select  class="form-control"  name="ddlSc" [(ngModel)]="selectedSc"   required [ngModelOptions]="{standalone: true}">
+                  <option [ngValue]=0>Select </option>
+                  <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
+                    {{scdata.name}}
+                </option>
+              </select>
+          </div>
+      </div> 
+        
+
+            <div class="col-md-2 mt-3" style="position: absolute;right:11%;">
+              <div class="px-2 bd-highlight" style="float:right;">
+                <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+               <button type="submit" class="btn search-bu" (click)="ANMFilter()">
+                    <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
             <div class="form-row">
               <div class="col-md-12">
                   <a class="float-right mr-5" (click)="openAddUsers(addanmDetail)"

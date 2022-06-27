@@ -270,6 +270,7 @@ selectedChc: string;
     };
 
     this.refreshData();
+    this.ddlDistrict();
 
   }
 
@@ -389,6 +390,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -685,7 +694,7 @@ selectedChc: string;
           // this.selectedEditState = edithplcform.value.ddlState;
           //  this.selectedEditDistrict = edithplcform.value.ddlDistrict;
           //   this.selectedEditBlock = edithplcform.value.ddlBlock;
-          this.mobileNo = edithplcform.value.mobileNo;
+          this.mobileNo = edithplcform.value.mobileNo1;
           this.comments = edithplcform.value.commentsdata;
       
         this.userListRequest = {
@@ -730,7 +739,7 @@ selectedChc: string;
           this.AddUsersResponse = response;
           if(this.AddUsersResponse !== null){
             this.showResponseMessage('PNDTC user Updated Sucessfully','s')
-             this.retrirveIlrlist();
+             this.refreshData();
           }else{
             this.showResponseMessage(this.AddUsersResponse.message, 'e');
                     this.userslistErrorMessage = response.message;
@@ -772,8 +781,8 @@ selectedChc: string;
             centralLabId: 0,
         
             molecularLabId: 0,
-            districtId: +(this.selectedDistrict),
-            blockId: +(this.selectedBlock),
+            districtId: 0,
+            blockId:0,
             chcId:0,
             phcId: 0,
             scId: 0,
@@ -806,7 +815,7 @@ selectedChc: string;
         console.log(response );
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage('PNDTC User added Sucessfully', 's')
-           this.retrirveIlrlist();
+           this.refreshData();
             console.log(this.addPhcResponse.message );
          }else{
            this.showResponseMessage(this.addPhcResponse.message, 'e');

@@ -214,6 +214,8 @@ selectedChc: string;
   dtTrigger: Subject<any> = new Subject();
   commentsdata: any;
   selectedEditUserrole: any;
+  chcfilterdata: { userTypeId: number; DistrictId: number; BlockId: number; ChcId: number; PhcId: number; ScId: number; };
+  mobileNo1: any;
   constructor(
     zone: NgZone,
     private _formBuilder: FormBuilder,
@@ -269,7 +271,8 @@ selectedChc: string;
       }   
     };
 
-    this.refreshData();
+  
+    this.ddlDistrict();
 
   }
 
@@ -389,6 +392,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -507,11 +518,18 @@ selectedChc: string;
   refreshData()
       {
         this.loaderService.display(true);
-        
+        this.chcfilterdata ={
+
+          userTypeId :8,
+          DistrictId :+this.selectedDistrict,
+          BlockId: 0,
+          ChcId :0,
+          PhcId :0,
+          ScId : 0
+        }
        
-        this.UsersService.getUsersList(8).subscribe(response => {
+        this.UsersService.getUserFilterList( this.chcfilterdata).subscribe(response => {      
           this.userprofileLists = response.users;
-         
           this.loaderService.display(false);
            this.rerender();
          
@@ -653,27 +671,14 @@ selectedChc: string;
           // this.ddlEdtiSc();
           this.selectedEditUserrole = subjectinfo.userRoleId;
           this.selectedEditState = subjectinfo.stateId;
-          this.selectedEditChc =subjectinfo.chcId;
-      
+          this.selectedEditChc =subjectinfo.chcId;    
           this.selectedEditDistrict = subjectinfo.districtId;
-          // this.centralLabId= 0;
-      
-      
           this.ddlEditBlock(subjectinfo.districtId);
-          this.selectedEditBlock =subjectinfo.blockId;
-          // this.blockdata = subjectinfo.blockName;
-          // this. blockId =0;
-      
-          // this.chcId=0;
-      
-          // this.phcId=0;
-          // this.selectedEditSc = "" +(subjectinfo.scId)
-          // this.scId=0;
-      
+          this.selectedEditBlock =subjectinfo.blockId;     
          this.firstName=subjectinfo.firstName;
          this.middleName=subjectinfo.middleName;
          this.lastName=subjectinfo.lastName;
-         this. mobileNo=subjectinfo.mobileNo;
+         this.contactNo1=subjectinfo.mobileNo;
         //  this.contactNo2=null;
          this.email=subjectinfo.email;
         //  this.govIdTypeId=0;
@@ -703,18 +708,11 @@ selectedChc: string;
       editSubmitdc(editdcForm: NgForm){
 
         console.log(editdcForm.value);
-          // this.userName = editdcForm.value.userName;
           this.firstName = editdcForm.value.firstName;
           this.middleName = editdcForm.value.middleName;
           this.lastName = editdcForm.value.lastName;
-          // this.userGovCode = editdcForm.value.userGovCode;
           this.email = editdcForm.value.email;
-          // this.selectedEditChc = editdcForm.value.ddlChc;
-          // this.selectedEditUserrole = editdcForm.value.ddlUserRole;
-          // this.selectedEditState = editdcForm.value.ddlState;
-          //  this.selectedEditDistrict = editdcForm.value.ddlDistrict;
-          //   this.selectedEditBlock = editdcForm.value.ddlBlock;
-          this.mobileNo = editdcForm.value.mobileNo;
+          this.mobileNo = editdcForm.value.mobileNo1;
           this.comments = editdcForm.value.Comments;
       
         this.userListRequest = {
@@ -726,7 +724,6 @@ selectedChc: string;
             password:'odisha',
             stateId: +(this.selectedEditState),
             centralLabId: 0,
-      
             molecularLabId: 0,
             districtId: +(this.selectedEditDistrict),
               blockId: 0,
@@ -760,12 +757,11 @@ selectedChc: string;
           this.AddUsersResponse = response;
           if(this.AddUsersResponse !== null){
             this.showResponseMessage('DC User Updated Sucessfully', 's')
-             this.retrirveIlrlist();
+             this.refreshData();
           }else{
             this.showResponseMessage(this.AddUsersResponse.message, 'e');
                     this.userslistErrorMessage = response.message;
           }
-      
         },
         (err: HttpErrorResponse) => {
           this.showResponseMessage(err.toString(), 'e');
@@ -781,7 +777,7 @@ selectedChc: string;
         console.log(addIlrForm.value);
         // this.selectedUserrole = addIlrForm.value.ddlUserRole;
         this.selectedDistrict = addIlrForm.value.ddlDistrict;
-        this.selectedBlock = addIlrForm.value.ddlBlock;
+      
         // this.userName = addIlrForm.value.Username;
         this.firstName = addIlrForm.value.firstName;
         this.middleName = addIlrForm.value.middleName;
@@ -800,12 +796,11 @@ selectedChc: string;
             userGovCode:this.userGovCode,
             userName:this.email,
             password:'odisha',
-            stateId:+(this.selectedState),
+            stateId:1,
             centralLabId: 0,
-      
             molecularLabId: 0,
             districtId: +(this.selectedDistrict),
-            blockId: +(this.selectedBlock),
+            blockId: 0,
             chcId:0,
             phcId: 0,
             scId: 0,
@@ -838,7 +833,7 @@ selectedChc: string;
         console.log(response );
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
           this.showResponseMessage('DC User added Sucessfully', 's')
-           this.retrirveIlrlist();
+           this.refreshData();
             console.log(this.addPhcResponse.message );
          }else{
            this.showResponseMessage(this.addPhcResponse.message, 'e');

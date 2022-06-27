@@ -214,6 +214,7 @@ selectedChc: string;
   dtTrigger: Subject<any> = new Subject();
   commentsdata: any;
   subjectprofilelistErrorMessage: string;
+  mobileNo1: any;
   constructor(
     zone: NgZone,
     private _formBuilder: FormBuilder,
@@ -270,6 +271,7 @@ selectedChc: string;
     };
 
     this.refreshData();
+    this.ddlDistrict();
 
   }
 
@@ -389,6 +391,14 @@ selectedChc: string;
     this.ddlUserRole();
     this.disabledChc = false;
     this.ddlDistrict();
+    this.disabledChc = false;
+    this.selectedBlock="";
+    this.ddlDistrict();
+    this.selectedPhc="";
+    this.selectedSc="";
+    this.pincode="";
+    this.selectedChc="";
+    this.selectedDistrict="";
 
 
     this.confirmationSelected = Boolean("True");
@@ -588,7 +598,7 @@ selectedChc: string;
          this.firstName=subjectinfo.firstName;
          this.middleName=subjectinfo.middleName;
          this.lastName=subjectinfo.lastName;
-         this. mobileNo=subjectinfo.mobileNo;
+         this.mobileNo=subjectinfo.mobileNo;
          this.email=subjectinfo.email;
           this.commentsdata= subjectinfo.comments;
           this.confirmationSelected = subjectinfo.isActive;
@@ -672,30 +682,44 @@ selectedChc: string;
       }
      
 
-      editsubmitsadmin(editsadminForm: NgForm){
+      editSubmitmtp(editmtpForm: NgForm){
 
-  
+        console.log(editmtpForm.value);
+          // this.userName = editmtpForm.value.userName;
+          this.firstName = editmtpForm.value.firstName;
+          this.middleName = editmtpForm.value.middleName;
+          this.lastName = editmtpForm.value.lastName;
+          // this.userGovCode = editmtpForm.value.userGovCode;
+          this.email = editmtpForm.value.email;
+          // this.selectedEditChc = editmtpForm.value.ddlChc;
+          // this.selectedEditUserrole = editmtpForm.value.ddlUserRole;
+          // this.selectedEditState = editmtpForm.value.ddlState;
+          //  this.selectedEditDistrict = editmtpForm.value.ddlDistrict;
+          //   this.selectedEditBlock = editmtpForm.value.ddlBlock;
+          this.mobileNo = editmtpForm.value.mobileNo1;
+          this.comments = editmtpForm.value.Comments;
+      
         this.userListRequest = {
           id:this.id ,
-          userTypeId:1,
-          userRoleId:1,
+          userTypeId:7,
+          userRoleId:11,
           userGovCode:this.userGovCode,
-            userName:this.userGovCode,
+            userName:this.userName,
             password:'odisha',
             stateId: 1,
             centralLabId: 0,
-      
             molecularLabId: 0,
             districtId: 0,
-            blockId:0,
-            chcId:0 ,
-            phcId:0,
-            scId:0 ,
+              blockId: 0,
+              chcId: 0,
+              phcId: 0,
+              scId: 0,
             riId:null,
             firstName:this.firstName,
             middleName:this.middleName,
             lastName:this.lastName,
-            contactNo1:this.mobileNo,
+           
+contactNo1:this.mobileNo,
             contactNo2:null,
             email:this.email,
             govIdTypeId:0,
@@ -704,8 +728,8 @@ selectedChc: string;
             pincode:null,
             createdBy:this.user.id ,
             updatedBy:this.user.id ,
-            comments: this.commentsdata,
-            isActive: (this.confirmationSelected? "1": "0")
+            comments: this.editComments,
+          isActive:(this.confirmationSelected? "1": "0")
         };
         console.log(this.userListRequest);
       
@@ -717,35 +741,8 @@ selectedChc: string;
         .subscribe(response => {
           this.AddUsersResponse = response;
           if(this.AddUsersResponse !== null){
-            this.showResponseMessage('Sadmin User Updated Successfully', 's')
-            let subProfile = this.UsersService.getUsersList(1)
-            .subscribe(response => {
-              console.log(response);
-              this.AddUsersResponse = response;
-              this.loaderService.display(false);
-              if (this.AddUsersResponse !== null && this.AddUsersResponse.status === "true") {
-                if (this.AddUsersResponse.users.length <= 0 ) {
-                  this.subjectprofilelistErrorMessage = response.message;
-                }
-                else {
-                  this.userprofileLists = response.users;
-                  this.rerender();
-                }
-                //console.log( this.userprofileLists );
-              }
-              else {
-                this.subjectprofilelistErrorMessage = response.message;
-              }
-            },
-              (err: HttpErrorResponse) => {
-                this.subjectprofilelistErrorMessage = err.toString();
-              });
-      
-           // this.anmSubjectBadgeProfileListCount(1,1,1);
-          //  this.anmSubjectBadgeProfileListCount(1,1,1);
-          //  this.anmSubjectBadgeProfileListCount(1,1,2);
-      
-      
+            this.showResponseMessage('MTP User Updated Sucessfully', 's')
+             this.refreshData();
           }else{
             this.showResponseMessage(this.AddUsersResponse.message, 'e');
                     this.userslistErrorMessage = response.message;
@@ -787,8 +784,8 @@ selectedChc: string;
             centralLabId: 0,
         
             molecularLabId: 0,
-            districtId: +(this.selectedDistrict),
-            blockId: +(this.selectedBlock),
+            districtId: 0,
+            blockId: 0,
             chcId:0,
             phcId: 0,
             scId: 0,
@@ -821,7 +818,7 @@ selectedChc: string;
         console.log(response );
         if(this.addPhcResponse !== null && this.addPhcResponse.status == 'true'){
             this.showResponseMessage('MTP User added Sucessfully', 's')
-           this.retrirveIlrlist();
+           this.refreshData();
             console.log(this.addPhcResponse.message );
          }else{
            this.showResponseMessage(this.addPhcResponse.message, 'e');

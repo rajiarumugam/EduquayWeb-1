@@ -48,6 +48,39 @@
                             </div>  
                         </div>
                       </div> -->
+                      <div class="form-row mt-4" [formGroup]="dateform">
+                        <div class="form-group col-md-2" >
+                          <label for="inputTodate">{{'District' | translate }}</label>
+                          <div class="form-group mb-0">
+                              <select  class="form-control"  name="ddlEditDistrict" [(ngModel)]="selectedDistrict" (change)="districtChange();"  required [ngModelOptions]="{standalone: true}">
+                                  <option [ngValue]=0>Select District</option>
+                                  <option [(value)]="districtdata.id" *ngFor="let districtdata of districtlists">{{districtdata.name}}</option>
+                              </select>
+                          </div>
+                      </div> 
+                      
+                      <div class="form-group col-md-2" >
+                        <label for="inputTodate">{{'CHC' | translate }}</label>
+                        <div class="form-group mb-0">
+                            <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  [disabled]="!disabledChc" required [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]=0>Select </option>
+                                <option  [(value)]="chcdata.id" *ngFor="let chcdata of chclists">
+                                  {{chcdata.name}}
+                              </option>
+                            </select>
+                        </div>
+                    </div> 
+
+                      <div class="col-md-2 mt-3" style="position: absolute;right:61%;">
+                        <div class="px-2 bd-highlight" style="float:right;">
+                          <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                         <button type="submit" class="btn search-bu" (click)="phcfilter()">
+                              <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                        </div>
+                      </div>
+                    </div>
+
+
                       <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddPhc(addPhcDetail)"

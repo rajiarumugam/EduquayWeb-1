@@ -80,6 +80,8 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     testingCHCists;
     selectedEdittestingCHCId: string = '';
     editid: any;
+  chcrequest: {};
+  ChcFilterData: { DistrictId: number; BlockId: number; };
 
     constructor(
 
@@ -129,14 +131,21 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirveChclist();
+    
+      this.ddlDistrict();
     }
-
+    ChcFilter(){
+      this.retrirveChclist()
+    }
     retrirveChclist(){
       this.loaderService.display(true);
       this.chclists = [];
       this.chclistErrorMessage ='';
-      let samplesList = this.ChcService.getChcList()
+      this.ChcFilterData ={
+        DistrictId:+this.selectedDistrict,
+        BlockId: +this.selectedBlock
+      };
+      let samplesList = this.ChcService.getCHCFilterList(this.ChcFilterData)
       .subscribe(response => {
         this.chcListResponse = response;
         this.loaderService.display(false);

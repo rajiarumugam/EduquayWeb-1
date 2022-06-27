@@ -86,6 +86,8 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     disabledChc = false;
     getdistrict = "";
     editIlrDetails;
+  IlRFilterData: { DistrictId: number; ChcId: number; };
+
   // IlrService: any;
   
     constructor(
@@ -137,6 +139,12 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
+     
+      this.ddlDistrict();
+    }
+
+    ILRFilter()
+    {
       this.retrirveIlrlist();
     }
   
@@ -144,7 +152,11 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       this.loaderService.display(true);
       this.phclists = [];
       this.phclistErrorMessage ='';
-      let samplesList = this.Ilrservice.getIlrList()
+      this.IlRFilterData={
+        DistrictId: +this.selectedDistrict,
+        ChcId: +this.selectedChc
+      }
+      let samplesList = this.Ilrservice.getILRFilterList(this.IlRFilterData)
       .subscribe(response => {
         this.phcListResponse = response;
         this.loaderService.display(false);

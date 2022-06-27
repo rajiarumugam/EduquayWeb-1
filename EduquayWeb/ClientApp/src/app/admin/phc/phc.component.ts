@@ -80,6 +80,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     disabledChc = false;
     getdistrict = "";
     editPhcDetails;
+  phcfilterdata: { DistrictId: number; ChcId: number; };
   
     constructor(
     
@@ -129,14 +130,22 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
+      
+      this.ddlEditDistrict();
+    }
+    phcfilter()
+    {
       this.retrirvePhclist();
     }
-  
     retrirvePhclist(){
       this.loaderService.display(true);
       this.phclists = [];
       this.phclistErrorMessage ='';
-      let samplesList = this.PhcService.getPhcList()
+      this.phcfilterdata={
+        DistrictId: +this.selectedDistrict,
+        ChcId: +this.selectedChc
+      }
+      let samplesList = this.PhcService.getPHCFilterList(this.phcfilterdata)
       .subscribe(response => {
         this.phcListResponse = response;
         this.loaderService.display(false);
