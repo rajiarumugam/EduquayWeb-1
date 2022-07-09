@@ -1,5 +1,5 @@
 
-   
+
 <!--  BEGIN MAIN CONTAINER  -->
 <div class="main-container" id="container">
     <div class="overlay"></div>
@@ -41,13 +41,27 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <div class="form-row">
-                        <div class="col-md-12">
-                            <div *ngIf="blocklistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': blocklistErrorMessage ==='No sample data  found', 'alert-danger': blocklistErrorMessage !== 'No sample data  found'}">
-                                <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{blocklistErrorMessage}}
-                            </div>  
+                  
+                
+              <div class="form-row mt-4" [formGroup]="dateform">
+                      <div class="form-group col-md-2" >
+                        <label for="inputTodate">{{'District' | translate }}</label>
+                        <div class="form-group mb-0">
+                            <select  class="form-control"  name="ddlDistrict" [(ngModel)]="selectedDistrict"   required [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]=0>Select District</option>
+                                <option [(value)]="districtdata.id" *ngFor="let districtdata of districtlists">{{districtdata.name}}</option>
+                            </select>
                         </div>
+                    </div>  
+                    <div class="col-md-2 mt-3" style="position: absolute;right:77%;">
+                      <div class="px-2 bd-highlight" style="float:right;">
+                        <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                       <button type="submit" class="btn search-bu" (click)="BlockFilter()">
+                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
                       </div>
+                    </div>
+                  </div>
+
                       <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddBlock(addBlockDetail)"
@@ -56,7 +70,7 @@
                             </a>
                         </div>
                       </div>
-                      <div class="table-responsive mb-4">
+                      <div class="table-responsive mb-4"  >
                         <table id="statelist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                           <thead>
                             <tr>
@@ -65,7 +79,7 @@
                               <th><span>{{'Block Code' | translate }}</span></th>
                               <th><span>{{'District Name' | translate }}</span></th>
                               <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Active' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
@@ -76,8 +90,9 @@
                               <td class="sid text-center">{{sample.blockGovCode}}</td>
                               <td class="sid text-center">{{sample.districtName}}</td>
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center">{{sample.isActive}}</td>
-                             
+                              <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
+            
                               <td class="text-center">
                                 <a class="" (click)="openEditBlock(editBlockDetail, sample)"
                                 role="button">
@@ -85,12 +100,11 @@
                                   </a>
                               </td>
                             </tr>
-                            
                           </tbody>
                         </table>
                       </div>
-                     
-                  
+
+
                     <!-- The Modal -->
                     <ng-template #addBlockDetail let-modal>
                           <div class="modal-header">
@@ -109,7 +123,7 @@
                               <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                                 <div class="form-row">
                                   <div class="form-group col-md-3">
-                                       
+
                                         <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addBlockForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
                                             class="manto"> *</span></label>
                                             <select id="inputilrPoint" class="form-control"
@@ -121,77 +135,68 @@
                                                 </option>
                                             </select>
                                               <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
-                                              <div *ngIf="addBlockForm.submitted && ddlDistrict.invalid">  
-                                                <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>  
-                                              </div>  
-                                     
+                                              <div *ngIf="addBlockForm.submitted && ddlDistrict.invalid">
+                                                <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                              </div>
+
                                   </div>
                                   <div class="form-group col-md-3">
                                     <label class="note" [ngClass]="{'label-border-class':!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid}">{{'Block Name' | translate }} <span class="manto">*</span></label>
-                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel
+                                    <input class="form-control" name="blockname" type="text" placeholder="Block Name" ngModel  required
                                     [class.is-invalid]="!blockname.valid && blockname.touched || addBlockForm.submitted && blockname.invalid"
                                      #blockname="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!blockname.valid && blockname.touched ">Enter Block Name</small> 
-                                    <div *ngIf="addBlockForm.submitted && blockname.invalid">     
-                                      <small *ngIf="blockname.untouched" class=" ml-2 text-danger">Block Name is required</small>  
-                                    </div> 
-                                 
+                                    <small class="text-danger ml-2" *ngIf="!blockname.valid && blockname.touched ">Enter Block Name</small>
+                                    <div *ngIf="addBlockForm.submitted && blockname.invalid">
+                                      <small *ngIf="blockname.untouched" class=" ml-2 text-danger">Block Name is required</small>
+                                    </div>
                               </div>
-                    
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addBlockForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small> 
-                                    <div *ngIf="addBlockForm.submitted && StateCode.invalid">     
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>  
-                                    </div> 
-                                  </div> -->
+             
                                   <div class="form-group col-md-3">
-                                    <label class="note">{{'Block Code' | translate }}<span class="manto"> *</span></label>
-                                    <input class="form-control" name="blockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$" required          
+                                    <label class="note" [ngClass]="{'label-border-class':!blockCode.valid && blockCode.touched || addBlockForm.submitted && blockCode.invalid}">{{'Block Code' | translate }}<span class="manto"> *</span></label>
+                                    <input class="form-control" name="blockCode" type="text" placeholder="Block Code" ngModel  required
                                     #blockCode ="ngModel" [class.is-invalid]="!blockCode.valid && blockCode.touched || addBlockForm.submitted && blockCode.invalid">
-                                    <small class="text-danger ml-2" *ngIf="!blockCode.valid && blockCode.touched ">Enter Block Code</small> 
-                                    <div *ngIf="addBlockForm.submitted && blockCode.invalid">     
-                                    <small *ngIf="blockCode.untouched" class=" ml-2 text-danger">Block Code is required</small>  
-                                    </div> 
+                                    <small class="text-danger ml-2" *ngIf="!blockCode.valid && blockCode.touched ">Enter Block Code</small>
+                                    <div *ngIf="addBlockForm.submitted && blockCode.invalid">
+                                    <small *ngIf="blockCode.untouched" class=" ml-2 text-danger">Block Code is required</small>
+                                    </div>
                                   </div>
-                                 
-                    
-                                  <div class="form-group col-md-3">
+
+                                  <!-- <div class="form-group col-md-3">
                                     <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                     <div class="n-chk">
                                         <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input checkbox" 
-                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                          <input type="checkbox" class="new-control-input checkbox"
+                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
                                           <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                         </label>
                                     </div>
-                                  </div>
-                    
+                                  </div> -->
                                 </div>
-                    
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                    <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                     rows="2"
-                                    placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                  </div>                                                     
+                                    <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addBlockForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                    <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                    [class.is-invalid]="!Comments.valid && Comments.touched || addBlockForm.submitted && Comments.invalid"
+                                      name=Comments #Comments="ngModel" ngModel required></textarea>
+                                  </div>
+                                  <small class="text-danger ml-2" *ngIf="!Comments.valid && Comments.touched ">Enter Comments</small>
+                                  <div *ngIf="addBlockForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
                                 </div>
+
+                              
                               </div>
-                    
+
                               <div class="modal-footer">
                                 <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
                                 <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
                                 <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                               </div>
                             </form>
-                    
                           </div>
-                        
-                       </ng-template> 
+
+                       </ng-template>
 
                        <ng-template #editBlockDetail let-modal>
                         <div class="modal-header">
@@ -209,73 +214,87 @@
                           <form class="text-left" (ngSubmit)="editBlockForm.form.valid && editSubmit(editBlockForm)" #editBlockForm="ngForm" novalidate>
                             <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                               <div class="form-row">
-                                <!-- <div class="form-group col-md-3">
-                                      <label class="note">{{'State' | translate }} <span class="manto">*</span></label>
-                                      <input class="form-control" name="editdistrictname" type="text" placeholder="State Name" ngModel                                      
-                                       #editdistrictname="ngModel" [(ngModel)]="statetnamedata">                                              
-                                </div> -->
+                          
                                 <div class="form-group col-md-3">
-                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
+                                    <label for="inputState">{{'District' | translate}} <span class="manto"></span> *</label>
                                     <select id="inputilrPoint" class="form-control"
-                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict">
+                                    name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedEditDistrict"  [disabled]="disableddis">
                                         <option value="">Select</option>
                                         <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                             {{districtdata.name}}
                                         </option>
                                     </select>
                                 </div>
+
                                 <div class="form-group col-md-3">
-                                    <label class="note">{{'Block Name' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control field" name="editBlockName" type="text" placeholder="Block Name" 
+                                  <label class="note" [ngClass]="{'label-border-class':!editBlockName.valid && editBlockName.touched || editBlockForm.submitted && editBlockName.invalid}">{{'Block Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="editBlockName" type="text" placeholder="Block Name"
+                                  [class.is-invalid]="!editBlockName.valid && editBlockName.touched || editBlockForm.submitted && editBlockName.invalid"
+                                  #editBlockName="ngModel"   [(ngModel)]="blocknamedata"  required>
+                                  <small class="text-danger ml-2" *ngIf="!editBlockName.valid && editBlockName.touched ">Enter Block Name</small>
+                                  <div *ngIf="editBlockForm.submitted && editBlockName.invalid">
+                                    <small *ngIf="editBlockName.untouched" class=" ml-2 text-danger">Block Name is required</small>
+                                    </div>
+                                  <!-- <div *ngIf="addScForm.submitted && scName.invalid">
+                                    <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
+                                  </div> -->
+  
+                            </div>
+                                
+                                <!-- <div class="form-group col-md-3">
+                                    <label class="note">{{'Block Name' | translate }}<span class="manto"></span> *</label>
+                                    <input class="form-control " name="editBlockName" type="text" placeholder="Block Name" pattern="[a-zA-Z][a-zA-Z ]+" required
                                       autocomplete="off" #editBlockName="ngModel" ngModel [(ngModel)]="blocknamedata">
-                                  </div>
+                                  </div> -->
+
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'Block Code' | translate }}<span class="manto"></span></label>
-                                  <input class="form-control" name="editblockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$"           
-                                  #editblockCode="ngModel" [(ngModel)]="blockCodedata">
-                                  
+                                  <label class="note">{{'Block Code' | translate }}<span class="manto"></span> *</label>
+                                  <input class="form-control" name="editblockCode" type="text" placeholder="Block Code" ngModel pattern="^[a-zA-Z0-9]+$"
+                                  #editblockCode="ngModel" [(ngModel)]="blockCodedata" disabled="editDistrictCode" >
                                 </div>
-                               
-                  
-                                <div class="form-group col-md-3">
+
+                                <!-- <div class="form-group col-md-3">
                                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                   <div class="n-chk">
                                       <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox" 
-                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
+                                        <input type="checkbox" class="new-control-input checkbox"
+                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
                                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                       </label>
                                   </div>
-                                </div>
-                  
+                                </div> -->
                               </div>
-                  
+
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2" [(ngModel)]="commentsdata"
-                                  placeholder="" name=editComments #editComments="ngModel" ngModel></textarea>
-                                </div>                                                     
-                              </div>
+                                  <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editBlockForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                  [class.is-invalid]="!editComments.valid  && editComments.touched || editBlockForm.submitted && !editComments.valid"
+                                  name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
+                                </div>
+                                <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                                <div *ngIf="editBlockForm.submitted && !editComments.valid">
+                                  <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                   </div>
+                              </div> 
                             </div>
-                  
+
                             <div class="modal-footer">
                               <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
                               <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
                               <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
                             </div>
                           </form>
-                  
+
                         </div>
-                      
-                     </ng-template> 
+
+                     </ng-template>
                 </div>
                 <!--  END CONTENT AREA  -->
             </div>
             <!-- END MAIN CONTAINER -->
         </div>
-       
+
     </div>
 </div>
 <!--  END CONTENT AREA  -->

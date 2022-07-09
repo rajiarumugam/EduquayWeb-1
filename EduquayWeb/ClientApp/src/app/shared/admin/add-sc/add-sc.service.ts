@@ -5,7 +5,7 @@ import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddChcResponse } from '../add-chc/add-chc-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
-import { AddScRequest } from './add-sc-request';
+import { AddScFilterRequest, AddScRequest } from './add-sc-request';
 import { AddScDataresponse, AddScResponse } from './add-sc-response';
 
 @Injectable({
@@ -14,6 +14,7 @@ import { AddScDataresponse, AddScResponse } from './add-sc-response';
 export class AddScService  {
 
     retrieveScApi: string = "api/v1/SA/RetrieveAllSCs";
+    retrieveSCFilterApi : string = "api/v1/SA/RetrieveSCFilter";
     retrievePhcApi: string = "api/v1/WebMaster/RetrievePHCByCHC";
     addScApi: string = "api/v1/SA/AddNewSC";
     retrieveChcApi: string = "api/v1/CHC/Retrieve";
@@ -46,6 +47,11 @@ export class AddScService  {
       return this.http.get<AddScResponse>({url: apiUrl});
     }
   
+    getScFilterList(scadd:AddScFilterRequest){
+      let apiUrl = this.genericService.buildApiUrl(this.retrieveSCFilterApi);
+      return this.http.post<AddScResponse>({url: apiUrl, body: scadd});
+    }
+
     addSc(scadd: AddScRequest){
       let apiUrl=this.genericService.buildApiUrl(this.addScApi);
       return this.http.post<AddScDataresponse>({url: apiUrl, body: scadd});

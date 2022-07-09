@@ -352,6 +352,27 @@ import { PathoreportListComponent } from "./pathologist/patho-report-list/patho-
 
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
+import { IlrComponent } from "./admin/ilr/ilr.component";
+import { HPLCComponent } from "./admin/hplc/hplc.component";
+import { MolecularlabComponent } from "./admin/molecularlab/molecularlab.component";
+import { MTPComponent } from "./admin/mtp/mtp.component";
+import { PndtLocationComponent } from "./admin/pndt-location/pndt-location.component";
+import { UsersComponent } from "./admin/users/users.component";
+import { UsersAdminMainComponent } from "./admin/users-module/admin-users-main/admin-users-main.component";
+import { UsersAdminANMComponent } from "./admin/users-module/users-anm/users-anm.component";
+import { UsersAdminCHCComponent } from "./admin/users-module/users-chc/users-chc.component";
+import { UsersAdminDCComponent } from "./admin/users-module/users-dc/users-dc.component";
+import { UsersAdminHaematologistComponent } from "./admin/users-module/users-haematologist/users-haematologist.component";
+import { UsersAdminHPLCComponent } from "./admin/users-module/users-hplc/users-hplc.component";
+import { UsersAdminMolecularComponent } from "./admin/users-module/users-molecular/users-molecular.component";
+import { UsersAdminMTPComponent } from "./admin/users-module/users-mtp/users-mtp.component";
+import { UsersAdminNHMComponent } from "./admin/users-module/users-nhm/users-nhm.component";
+import { UsersAdminPNDTComponent } from "./admin/users-module/users-pndt/users-pndt.component";
+import { UsersAdminPNDTCComponent } from "./admin/users-module/users-pndtc/users-pndtc.component";
+import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/users-sadmin.component";
+import { UsersAdminSPCComponent } from "./admin/users-module/users-spc/users-spc.component";
+import { UsersAdminSupportComponent } from "./admin/users-module/users-support/users-support.component";
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -492,7 +513,26 @@ const routes: Routes = [
       { path: 'add-ri-point', component: RiPointComponent, pathMatch: 'full'},
       { path: 'add-gvt-id-type', component: GvtIdTypeComponent, pathMatch: 'full'},
       { path: 'add-user-type', component: UserTypeComponent, pathMatch: 'full'},
-      
+      {
+        path: 'admin-users-main', component: UsersAdminMainComponent,
+        children:[
+          {path: '', component: UsersAdminSadminComponent, pathMatch: 'full'},
+          {path: 'UserSadmin', component: UsersAdminSadminComponent, pathMatch: 'full'},
+          {path: 'UsersANM', component: UsersAdminANMComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},       
+          {path: 'UsersCHC', component: UsersAdminCHCComponent, pathMatch: 'full'},
+          {path: 'UsersHPLC', component: UsersAdminHPLCComponent, pathMatch: 'full'},
+          {path: 'UsersPNDTC', component: UsersAdminPNDTCComponent, pathMatch: 'full'},
+          {path: 'UsersMTP', component: UsersAdminMTPComponent, pathMatch: 'full'},
+          {path: 'UsersDC', component: UsersAdminDCComponent, pathMatch: 'full'},
+          {path: 'UsersMolecular', component: UsersAdminMolecularComponent, pathMatch: 'full'},
+          {path: 'UsersSPC', component: UsersAdminSPCComponent, pathMatch: 'full'},
+          {path: 'UsersNHM', component: UsersAdminNHMComponent, pathMatch: 'full'},
+          {path: 'UsersPNDT', component: UsersAdminPNDTComponent, pathMatch: 'full'},
+          {path: 'UsersHaematologist', component: UsersAdminHaematologistComponent, pathMatch: 'full'},
+          {path: 'UsersSupport', component: UsersAdminSupportComponent, pathMatch: 'full'},
+        ]
+
+      },
       {
         path: 'chc-sample', component: CHCSampleRcptProComponent,
         children:[
@@ -543,6 +583,13 @@ const routes: Routes = [
           {path: 'negative', component: SSTUpdateNegativeComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateSSTReceivedService}}
         ]
       },
+      { path: 'add-ilr', component:IlrComponent, pathMatch: 'full'},
+     
+      { path: 'add-pndt', component: PndtLocationComponent, pathMatch: 'full'},
+      { path: 'add-mtp', component: MTPComponent, pathMatch: 'full'},
+      { path: 'add-hplc', component: HPLCComponent, pathMatch: 'full'},
+      { path: 'add-molecular', component: MolecularlabComponent, pathMatch: 'full'},
+      { path: 'add-users', component:UsersComponent, pathMatch: 'full'},
       /*{
         path: 'chc-update-cbc', component: CHCUpdateCBCComponent,
         children:[
@@ -1193,7 +1240,50 @@ export const RoutingComponents = [
   PathoreportListComponent,
   HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
-  SAUploadComponent
+  SAUploadComponent,
+  PndtLocationComponent,
+  MTPComponent,
+  HPLCComponent,
+  MolecularlabComponent,
+  UsersComponent,
+  IlrComponent,
+  UsersAdminMainComponent,
+  UsersAdminSadminComponent,
+  UsersAdminANMComponent,
+  UsersAdminCHCComponent,
+  UsersAdminHPLCComponent,
+  UsersAdminPNDTCComponent,
+  UsersAdminMTPComponent,
+  UsersAdminDCComponent,
+  UsersAdminMolecularComponent,
+  UsersAdminSPCComponent,
+  UsersAdminPNDTComponent,
+  UsersAdminSupportComponent,
+  UsersAdminHaematologistComponent,
+  UsersAdminNHMComponent
+ 
+
+
+
+  // {
+  //   path: 'admin-users-main', component: UsersAdminMainComponent,
+  //   children:[
+  //     {path: '', component: UsersAdminSadminComponent, pathMatch: 'full'},
+  //     {path: 'UserSadmin', component: UsersAdminSadminComponent, pathMatch: 'full'},
+  //     {path: 'UsersANM', component: UsersAdminANMComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},       
+  //     {path: 'UsersCHC', component: UsersAdminCHCComponent, pathMatch: 'full'},
+  //     {path: 'UsersHPLC', component: UsersAdminHPLCComponent, pathMatch: 'full'},
+  //     {path: 'UsersPNDTC', component: UsersAdminPNDTCComponent, pathMatch: 'full'},
+  //     {path: 'UsersMTP', component: UsersAdminMTPComponent, pathMatch: 'full'},
+  //     {path: 'UsersDC', component: UsersAdminDCComponent, pathMatch: 'full'},
+  //     {path: 'UsersMolecular', component: UsersAdminMolecularComponent, pathMatch: 'full'},
+  //     {path: 'UsersSPC', component: UsersAdminSPCComponent, pathMatch: 'full'},
+  //     {path: 'UsersNHM', component: UsersAdminNHMComponent, pathMatch: 'full'},
+  //     {path: 'UsersPNDT', component: UsersAdminPNDTComponent, pathMatch: 'full'},
+  //     {path: 'UsersHaematologist', component: UsersAdminHaematologistComponent, pathMatch: 'full'},
+  //     {path: 'UsersSupport', component: UsersAdminSupportComponent, pathMatch: 'full'},
+  //   ]
+
 ];
 
 

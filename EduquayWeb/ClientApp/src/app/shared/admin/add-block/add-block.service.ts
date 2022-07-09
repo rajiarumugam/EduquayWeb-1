@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddDistrictResponse } from '../add-district/add-district-response';
-import { AddBlockRequest } from './add-block-request';
+import { AddBlockFilterRequest, AddBlockRequest } from './add-block-request';
 import { AddBlockDataresponse, AddBlockResponse } from './add-block-response';
 
 @Injectable({
@@ -13,6 +13,7 @@ import { AddBlockDataresponse, AddBlockResponse } from './add-block-response';
 export class AddBlockService {
 
   retrieveBlockApi: string = "api/v1/SA/RetrieveAllBlocks";
+  retrieveBlockFilterApi: string ="api/v1/SA/RetrieveBLockFilterData";
   addBlockApi: string = "api/v1/SA/AddNewBlock";
   retrieveDistrictApi: string = "api/v1/SA/RetrieveAllDistricts";
   updateBlockApi: string = "api/v1/SA/UpdateBlock";
@@ -32,6 +33,11 @@ export class AddBlockService {
   getBlockList(){
     let apiUrl = this.genericService.buildApiUrl(this.retrieveBlockApi);
     return this.http.get<AddBlockResponse>({url: apiUrl});
+  }
+
+  getBlockFilterList(blockadd:AddBlockFilterRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveBlockFilterApi);
+    return this.http.post<AddBlockResponse>({url: apiUrl, body: blockadd});
   }
 
   addBlock(blockadd){

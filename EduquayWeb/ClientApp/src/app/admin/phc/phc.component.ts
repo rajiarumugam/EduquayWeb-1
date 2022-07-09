@@ -27,7 +27,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
     
     loadDataTable: boolean = false;
-    dtOptions: DataTables.Settings = {};
+    dtOptions: any = {};
     dtTrigger: Subject<any> = new Subject();
   
     phclistErrorMessage: string;
@@ -65,12 +65,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
     chcName: string;
     pincode: string;
-    latitude: string;
-    longitude : string;
+   
+   
     testingchcId : string;
     centrallablid : string;
-    longitudedata: string;
-    latitudedata: string;
+    
+   
     pincodeData: string;
     phcNamedata: string;
     phcCodedata: string;
@@ -80,6 +80,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     disabledChc = false;
     getdistrict = "";
     editPhcDetails;
+  phcfilterdata: { DistrictId: number; ChcId: number; };
   
     constructor(
     
@@ -103,8 +104,21 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         processing: true,
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
+        dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+        // Configure the buttons
+          buttons: [
+            {
+              titleAttr: 'Download as Excel',     
+              extend: 'excelHtml5',
+              title: 'Report - Sample Status',
+              className: 'custom-btn',
+              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+            }
+          ], 
         language: {
-          search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
+          search: '<div><span class="note">Search by any PHC information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
           lengthMenu: "Records / Page :  _MENU_",
           paginate: {
@@ -116,14 +130,22 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
+      
+      this.ddlEditDistrict();
+    }
+    phcfilter()
+    {
       this.retrirvePhclist();
     }
-  
     retrirvePhclist(){
       this.loaderService.display(true);
       this.phclists = [];
       this.phclistErrorMessage ='';
-      let samplesList = this.PhcService.getPhcList()
+      this.phcfilterdata={
+        DistrictId: +this.selectedDistrict,
+        ChcId: +this.selectedChc
+      }
+      let samplesList = this.PhcService.getPHCFilterList(this.phcfilterdata)
       .subscribe(response => {
         this.phcListResponse = response;
         this.loaderService.display(false);
@@ -251,6 +273,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddPhc(addPhcDetail) {
       
       //this.ddlChc();
+      this.selectedChc="";
       this.disabledChc = false;
       this.ddlDistrict();
       this.confirmationSelected = Boolean("True");
@@ -280,13 +303,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
      
       this.phcNamedata = sample.name;
       this.pincodeData = sample.pincode;
-      this.latitudedata = sample.latitude;
-      this.longitudedata = sample.longitude;
+     
       this.selectedEditChc = "" +(sample.chcId)
       this.commentsdata = sample.comments;
       this.phcCodedata = sample.phcGovCode;
       this.hninId = sample.hninId;
-      this.confirmationSelected = Boolean(sample.isActive);
+      this.confirmationSelected = sample.isActive == 'True' ? true : false;
   
       this.modalService.open(
         editPhcDetail, {
@@ -308,9 +330,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.selectedChc = addPhcForm.value.ddlChc;
       this.phcName = addPhcForm.value.phcName;
       this.pincode = addPhcForm.value.pincodeData;
-      this.phcCode =  addPhcForm.value.phcCode
-      this.latitude = addPhcForm.value.latitudeData;
-      this.longitude = addPhcForm.value.longitudeData;
+      this.phcCode =  addPhcForm.value.phcCode     
       this.hninId = addPhcForm.value.hninId;
   
 
@@ -320,9 +340,7 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         phcGovCode: this.phcCode,
         name: this.phcName,
         pincode: this.pincode,
-        comments: this.comments,
-        latitude: this.latitude,
-        longitude: this.longitude,
+        comments: this.comments,      
         userId: this.user.id  
       };
   
@@ -353,17 +371,12 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
   
       console.log(editPhcForm.value);
       
-      this.commentsdata = editPhcForm.value.commentsdata;
-      this.selectedEditChc = editPhcForm.value.ddlEditChc;
-      this.phcCodedata = editPhcForm.value.phcCodedata;
-      //this.phcnamedata = editPhcForm.value.phcNamedata;
+      this.commentsdata = editPhcForm.value.editcomments;
+      this.selectedEditChc = editPhcForm.value.ddlEdChc;
+      // this.phcCodedata = editPhcForm.value.phcCodedata;
+      this.phcnamedata = editPhcForm.value.phcNamedata;
       this.pincodeData = editPhcForm.value.pincodeData;
-      this.latitudedata = editPhcForm.value.latitudeData;
-      this.longitudedata = editPhcForm.value.longitudeData;
-      this.hninId = editPhcForm.value.hninId;
-
-      console.log(this.phcCodedata);
-      console.log(this.phcNamedata);
+       this.hninId = editPhcForm.value.hninId;
   
       this.phcListRequest = {
         id: this.editPhcDetails.id,
@@ -374,12 +387,11 @@ export class PhcComponent implements AfterViewInit, OnDestroy, OnInit {
         hninId: this.hninId,
         pincode: this.pincodeData,
         isActive: this.confirmationSelected,
-        latitude: this.latitudedata,
-        longitude: this.longitudedata,
+        
         comments: this.commentsdata,
         userId: this.user.id,
       };
-  
+      console.log(this.phcListRequest);
       //Remove below 2 lines after successfully tested
       // this.showResponseMessage('Successfully registered', 's');
       // return false;

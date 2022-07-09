@@ -1,0 +1,274 @@
+
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+  <div class="overlay"></div>
+  <div class="search-overlay"></div>
+  <!--  BEGIN SIDEBAR  -->
+  <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="admin" subMenum="sample-collection"></app-site-sidebar>
+  </div>
+  <!--  END SIDEBAR  -->
+
+  <!--  BEGIN CONTENT AREA  -->
+
+  <div id="content" class="main-content">
+      <div class="row layout-top-spacing">
+          <!-- <div class="col-md-12 text-center">
+              <h5 class="">ANM Name - PHC Name</h5>
+          </div> -->
+          <div class="col-md-12">
+              <div class="justify-between">
+                  <div class="col-md-4">
+                      <div class="float-left mb-4">
+                          <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-district']" role="button"
+                          ngbTooltip="District" placement="right"><i class="fas fa-chevron-left pNav-left"></i></a>
+                        </div>
+                  </div>
+                  <!-- <h5 class="float-left">Sample Collection</h5> -->
+                  <div class="col-md-4">
+                    <div class="headertit">
+                      <h5 class="float-center">{{'Molecular Lab' | translate }}</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="float-right mb-4">
+                      <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-chc']" role="button"
+                      ngbTooltip="CHC" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+              <div class="widget-content widget-content-area br-6">
+                  <!-- <div class="form-row">
+                      <div class="col-md-12">
+                          <div *ngIf="MolecularlistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': MolecularlistErrorMessage ==='No sample data  found', 'alert-danger': MolecularlistErrorMessage !== 'No sample data  found'}">
+                              <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{MolecularlistErrorMessage}}
+                          </div>
+                      </div>
+                    </div> -->
+                    <div class="form-row">
+                      <div class="col-md-12">
+                          <a class="float-right mr-5" (click)="openAddMolecular(addMolecularDetail)"
+                          role="button">
+                              <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
+                          </a>
+                      </div>
+                    </div>
+                    <div class="table-responsive mb-4">
+                      <table id="Molecularlist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead>
+                          <tr>
+                            <th><span>{{'SNo' | translate }}</span></th>
+                            <th><span>{{'Molecular Name' | translate }}</span></th>
+                            <th><span>{{'Molecular Code' | translate }}</span></th>
+                            <th><span>{{'District Name' | translate }}</span></th>
+                            <th><span>{{'Comments' | translate }}</span></th>
+                            <!-- <th><span>{{'Active' | translate }}</span></th> -->
+                            <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let sample of Molecularlists; index as i">
+                            <td class="sno text-center">{{i +1}}</td>
+                            <td class="sname text-left">{{sample.molecularName}}</td>
+                            <td class="sid text-center">{{sample.molecularCode}}</td>
+                            <td class="sid text-center">{{sample.districtname}}</td>
+                            <td class="number text-center">{{sample.comments}}</td>
+                            <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                            <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
+
+                            <td class="text-center">
+                              <a class="" (click)="openEditMolecular(editMolecularDetail, sample)"
+                              role="button">
+                                  <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+
+                  <!-- The Modal -->
+                  <ng-template #addMolecularDetail let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title modaltitle">{{'Add Molecular' | translate }}</h4>
+                          <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="modal-body form-body">
+                          <form class="text-left" (ngSubmit)="addMolecularForm.form.valid && onSubmit(addMolecularForm)" #addMolecularForm="ngForm" novalidate>
+                            <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                              <div class="form-row">
+                                <div class="form-group col-md-3">
+
+                                      <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addMolecularForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                                          class="manto"> *</span></label>
+                                          <select id="inputilrPoint" class="form-control"
+                                          name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addMolecularForm.submitted && ddlDistrict.invalid"
+                                          required [(ngModel)]="selectedDistrict">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                                  {{districtdata.name}}
+                                              </option>
+                                          </select>
+                                            <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
+                                            <div *ngIf="addMolecularForm.submitted && ddlDistrict.invalid">
+                                              <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                            </div>
+
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label class="note" [ngClass]="{'label-border-class':!molecularName.valid && molecularName.touched || addMolecularForm.submitted && molecularName.invalid}">{{'Molecular Name' | translate }} <span class="manto">*</span></label>
+                                  <input class="form-control" name="molecularName" type="text" placeholder="Molecular Name" ngModel  required
+                                  [class.is-invalid]="!molecularName.valid && molecularName.touched || addMolecularForm.submitted && molecularName.invalid"
+                                   #molecularName="ngModel" required>
+                                  <small class="text-danger ml-2" *ngIf="!molecularName.valid && molecularName.touched ">Enter Molecular Name</small>
+                                  <div *ngIf="addMolecularForm.submitted && molecularName.invalid">
+                                    <small *ngIf="molecularName.untouched" class=" ml-2 text-danger">Molecular Name is required</small>
+                                  </div>
+                            </div>
+
+                                <div class="form-group col-md-3">
+                                  <label class="note" [ngClass]="{'label-border-class':!molecularCode.valid && molecularCode.touched || addMolecularForm.submitted && molecularCode.invalid}">{{'Molecular Code' | translate }}<span class="manto"> *</span></label>
+                                  <input class="form-control" name="molecularCode" type="text" placeholder="Molecular Code" ngModel  required
+                                  #molecularCode ="ngModel" [class.is-invalid]="!molecularCode.valid && molecularCode.touched || addMolecularForm.submitted && molecularCode.invalid">
+                                  <small class="text-danger ml-2" *ngIf="!molecularCode.valid && molecularCode.touched ">Enter Molecular Code</small>
+                                  <div *ngIf="addMolecularForm.submitted && molecularCode.invalid">
+                                  <small *ngIf="molecularCode.untouched" class=" ml-2 text-danger">Molecular Code is required</small>
+                                  </div>
+                                </div>                              
+                              </div>
+
+                              <div class="form-row mt-4">
+                                <div class="form-group col-md-12">
+                                <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addMolecularForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                   <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                   [class.is-invalid]="!Comments.valid && Comments.touched || addMolecularForm.submitted && Comments.invalid"
+                                    name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <small class="text-danger ml-2" *ngIf="!Comments.valid && Comments.touched ">Enter Comments</small> 
+                                <div *ngIf="addMolecularForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                     </div>
+                                     </div>
+                            </div>
+
+                            <div class="modal-footer">
+                              <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                              <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                              <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                            </div>
+                          </form>
+                        </div>
+
+                     </ng-template>
+
+                     <ng-template #editMolecularDetail let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title modaltitle">{{'Edit Molecular' | translate }}</h4>
+                        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="modal-body form-body">
+                        <form class="text-left" (ngSubmit)="editMolecularForm.form.valid && editSubmit(editMolecularForm)" #editMolecularForm="ngForm" novalidate>
+                          <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                            <div class="form-row">
+
+                              <div class="form-group col-md-3">
+                                  <label [ngClass]="{'label-border-class':!ddlEditDistrict.valid && ddlEditDistrict.touched || editMolecularForm.submitted && ddlEditDistrict.invalid}" for="inputState">{{'District' | translate}} <span class="manto">*</span></label>
+                                  <select id="inputilrPoint" class="form-control"
+                                  [class.is-invalid]="!ddlEditDistrict.valid && ddlEditDistrict.touched || editMolecularForm.submitted && ddlEditDistrict.invalid"
+                                  name="ddlEditDistrict" #ddlEditDistrict="ngModel" required [(ngModel)]="selectedEditDistrict"  >
+                                      <option value="">Select</option>
+                                      <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                          {{districtdata.name}}
+                                      </option>
+                                  </select>
+                                  <small class="text-danger ml-2" *ngIf="!ddlEditDistrict.valid && ddlEditDistrict.touched ">Please Choose a District</small> 
+                                <div *ngIf="editMolecularForm.submitted && ddlEditDistrict.invalid">
+                                    <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District required</small>
+                                     </div>
+                              </div>
+
+                              <div class="form-group col-md-3">
+                                <label class="note" [ngClass]="{'label-border-class':!editmolecularName.valid && editmolecularName.touched || editMolecularForm.submitted && editmolecularName.invalid}">{{'Molecular Name' | translate }} <span class="manto"> *</span></label>
+                                <input class="form-control" name="editmolecularName" type="text" placeholder="Molecular Name"
+
+                                [class.is-invalid]="!editmolecularName.valid && editmolecularName.touched || editMolecularForm.submitted && editmolecularName.invalid"
+                                #editmolecularName="ngModel"  required [(ngModel)]="molecularNamedata"  required>
+                                <small class="text-danger ml-2" *ngIf="!editmolecularName.valid && editmolecularName.touched ">Enter Molecular Name</small>  
+                                <div *ngIf="editMolecularForm.submitted && editmolecularName.invalid">
+                                    <small *ngIf="editmolecularName.untouched" class=" ml-2 text-danger">Molecular Name required</small>
+                                     </div>
+
+                          </div>
+
+
+
+                              <div class="form-group col-md-3">
+                                <label class="note">{{'Molecular Code' | translate }}<span class="manto"></span> *</label>
+                                <input class="form-control" name="editmolecularCode" type="text" placeholder="Molecular Code" 
+                                #editmolecularCode="ngModel" [(ngModel)]="molecularCodedata" disabled="editmolecularCode" >
+                              </div>
+
+                              <!-- <div class="form-group col-md-3">
+                                <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-outline-primary">
+                                      <input type="checkbox" class="new-control-input checkbox"
+                                      [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
+                                      <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                    </label>
+                                </div>
+                              </div> -->
+                            </div>
+
+                            <div class="form-row mt-4">
+                              <div class="form-group col-md-12">
+                                <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editMolecularForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                [class.is-invalid]="!editComments.valid  && editComments.touched || editMolecularForm.submitted && !editComments.valid"
+                                name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
+                              </div>
+                              <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                              <div *ngIf="editMolecularForm.submitted && !editComments.valid">
+                                <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                 </div>
+                            </div> 
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                            <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                          </div>
+                        </form>
+
+                      </div>
+
+                   </ng-template>
+              </div>
+              <!--  END CONTENT AREA  -->
+          </div>
+          <!-- END MAIN CONTAINER -->
+      </div>
+
+  </div>
+</div>
+<!--  END CONTENT AREA  -->
+<!--  END MAIN CONTAINER  -->

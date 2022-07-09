@@ -1,131 +1,113 @@
 <table id="customers" *ngIf="_imageArray.length > 0">
     <tr *ngFor="let person of _imageArray;index as i">
       <td>{{person.name}}</td>
-      <td style="cursor: pointer; text-align: center; " (click)="deleteFile(i)"><i class="fas fa-trash-alt fa-2x "style="color:blue;" aria-hidden="true"></i></td>
+      <td style="cursor: pointer; text-align: center; " (click)="deleteFile(i)"><i class="fas fa-trash-alt fa-2x "style="color:blue;" aria-hidden="true" title="Delete"></i></td>
+      <td style="cursor: pointer; text-align: center; " (click)="uploadFiles();"><i class="fas fa-upload fa-2x "style="color:blue;" aria-hidden="true" title="Upload"></i></td>
+      <td style="cursor: pointer; text-align: center; " >  <div class="upload-btn-wrapper">
+        <button class="btn"><i class="fas fa-undo fa-2x "style="color:blue;" aria-hidden="true" title="Reset"></i></button>
+        <input type="file" name="myfile"  (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+      </div></td>
     </tr>
-   
-  </table>
-<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin-top:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
 
-<div class="table-responsive mt-5" *ngIf = "showValidationError">
-  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
-      <thead>
-          <tr>
-              <th class="text-center"><span>{{'District Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'Block Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'CHC Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'PHC Count' | translate}}</span></th>
-              <!-- <th class="text-center"><span>{{'LMPDate' | translate}}</span></th>                                     -->
-              <th class="text-center"><span>{{'SC Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'ANM count' | translate}}</span></th>
-              <th class="text-center"><span>{{'RI Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'AVD Count' | translate}}</span></th>
-          </tr>
-
-      </thead>
-      <tbody>
-          <tr>
-              <td class="text-center">{{validateData?.districtCount}}</td>
-              <td class="text-center">{{validateData?.blockCount}}</td>
-              <td class="text-center">{{validateData?.chcCount}}</td>
-              <td class="text-center">{{validateData?.phcCount}}</td>
-              <td class="text-center">{{validateData?.scCount}}</td>
-              <td class="text-center">{{validateData?.anMcount}}</td>
-              <td class="text-center">{{validateData?.riCount}}</td>
-              <td class="text-center">{{validateData?.avdCount}}</td>
-              <!-- <td class="text-center">18/05/2020</td> 
-              <td class="text-center"><a (click)="openpndtdetail(counsellingdata)"><i
-                          class="fas fa-edit fa-2x"
-                          aria-hidden="true"></i></a></td>-->
-
-          </tr>
-      </tbody>
   </table>
 
-  <!--  <input type="Submit" class="btn btn-success" value="Affix new barcode" id="btnShowHide">  -->
-  <!-- <input type="Submit" class="btn btn-success" value="Recall status"> -->
+
+<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  *ngIf="(_imageArray.length === 0 && currentPage == 'upload') ? true : false"/>
+<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin:20px;" (click)="uploadFiles();" *ngIf="false"><a style="color: #fff;">Upload</a> </button>
+
+<!--<button class="btn btn-primary"  style="padding: 10px 30px;margin:20px;" (click)="downloadMyFile();">Download Template</button>-->
+
+<!--<div class="step-nav-container">
+  <ul class="step-menu">
+    <li role="button" [ngClass]="{'step-complete':uploadComplete}">Upload </li>
+    <li role="button" [ngClass]="{'step-error':dataValidationError,'step-complete':dataValidationComplete}">Validation  </li>
+    <li role="button" [ngClass]="{'step-complete':dataCreatedDone}">Data Created</li>
+  </ul>
+</div>-->
+
+<div *ngIf = "showValidationError" class="errorreport-cont">
+<div class="col-md-12">
+  <div class="justify-between">
+<div class="col-md-12">
+  <div class="headertit">
+    <h5 class="float-center">{{'Error Report ' | translate }}   <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain1Sub1}}</span> </h5>
+
+  </div>
+  <div class="col-xl-12 col-lg-12 col-sm-12  pt-4">
+  <div class="form-row">
+    <div class="custm-tab">
+      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);" >
+        <p >{{'All Errors' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub1}}</span></p>
+      </div>      
+  <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
+    <p>{{'Block' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
+  <p>{{'CHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain4Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 4 ? true : false}" (click)="custumTabClick(4,1);">
+  <p>{{'PHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain5Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 5 ? true : false}" (click)="custumTabClick(5,1);">
+  <p>{{'SC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain6Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
+  <p>{{'ANM' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);" >
+  <p>{{'District' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);">
+  <p>{{'Testing CHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 9 ? true : false}" (click)="custumTabClick(9,1);">
+  <p>{{'HPLC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain10Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 10 ? true : false}" (click)="custumTabClick(10,1);">
+  <p>{{'Molecular' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain11Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 11 ? true : false}" (click)="custumTabClick(11,1);">
+  <p>{{'PNDT' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain12Sub1}}</span></p>
+</div>
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 12 ? true : false}" (click)="custumTabClick(12,1);">
+  <p>{{'MTP' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain13Sub1}}</span></p>
 </div>
 
-<!--<div class="table-responsive mt-5" *ngIf = "showValidationError">
-  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
-      <thead>
-          <tr>
-              <th class="text-center"><span>{{'District Error Code' | translate}}</span></th>
-              <th class="text-center"><span>{{'Block Error Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'CHC Error Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'PHC Error Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'SC Error Count' | translate}}</span></th>
-              <th class="text-center"><span>{{'ANM Error count' | translate}}</span></th>
-          </tr>
+</div>
 
+  </div>
+</div>
+  </div>
+</div>
+</div>
+
+
+<div class="table-responsive mt-5" *ngIf  = "showValidationError">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable
+  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+      <tr>
+        <th><span>{{'SNo' | translate }}</span></th>
+        <th><span>{{'Data Label' | translate }}</span></th>
+        <th><span>{{'Error Location' | translate }}</span></th>
+          <th><span>{{'Error Message' | translate }}</span></th>
+          <th><span>{{'Invalid Data' | translate }}</span></th>
+
+        </tr>
       </thead>
       <tbody>
-          <tr>
-              <td class="text-center">{{validateData?.districtError}}</td>
-              <td class="text-center">{{validateData?.blockError}}</td>
-              <td class="text-center">{{validateData?.chcError}}</td>
-              <td class="text-center">{{validateData?.phcError}}</td>
-              <td class="text-center">{{validateData?.scError}}</td>
-              <td class="text-center">{{validateData?.anmError}}</td>
-          </tr>
-      </tbody>
-  </table>
+        <tr *ngFor="let subjectinfo of validateData ; index as i">
 
 
-</div>-->
-<button (click)="exportAsXLSX()" *ngIf = "showValidationError" class="exportasxlsx"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
-<div class="table-responsive mt-5" *ngIf = "showValidationError">
-  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4">
-      <tbody>
-          <tr>
-            <td class="text-left">{{'ANM Code Error' | translate}}</td>
-              <td class="text-left">{{validateData?.anmCodeError}}</td>
+          <td style="text-align: center">{{i +1}}</td>
+          <td style="text-align: center">{{subjectinfo.errorColumnNo}}</td>
+          <td style="text-align: center">{{SheetName +'     Column - ' +subjectinfo.errorColumn }}</td>
+
+          <td style="text-align: center">{{subjectinfo.errorMessage}}</td>
+          <td style="text-align: center">{{subjectinfo.errorData}}</td>
+
           </tr>
-          <tr>
-            <td class="text-left">{{'ANM Error count' | translate}}</td>
-              <td class="text-left">{{validateData?.anmError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'Block Code Error' | translate}}</td>
-              <td class="text-left">{{validateData?.blockCodeError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'Block Error Count' | translate}}</td>
-              <td class="text-left">{{validateData?.blockError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'CHC Code Error' | translate}}</td>
-              <td class="text-left">{{validateData?.chcCodeError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'CHC Error Count' | translate}}</td>
-              <td class="text-left">{{validateData?.chcError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'District Code Error' | translate}}</td>
-              <td class="text-left">{{validateData?.districtCodeError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'District Error Code' | translate}}</td>
-              <td class="text-left">{{validateData?.districtError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'PHC Code Error' | translate}}</td>
-              <td class="text-left">{{validateData?.phcCodeError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'PHC Error Count' | translate}}</td>
-              <td class="text-left">{{validateData?.phcError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'SC Code Error' | translate}}</td>
-              <td class="text-left">{{validateData?.scCodeError}}</td>
-          </tr>
-          <tr>
-            <td class="text-left">{{'SC Error Count' | translate}}</td>
-              <td class="text-left">{{validateData?.scError}}</td>
-          </tr>
+
       </tbody>
   </table>
 

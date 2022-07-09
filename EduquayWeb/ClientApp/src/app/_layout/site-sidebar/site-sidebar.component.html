@@ -13,14 +13,14 @@
                     </div>
                 </a>
             </li>-->
-            <li class="menu" *ngIf="user.userRole === 'SUPERADMIN' || user.userRole === 'ADMIN'">
-                <a href="#admin" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+            <li class="menu"  *ngIf="user.userRole === 'SUPERADMIN' || user.userRole === 'ADMIN'">
+                <a href="#centrallab1" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
                     <div class="">
                         <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <image href="./assets/assets/img/menu/nurse.svg" x="0" y="0" height="18px" width="18px" />
+                        <image href="./assets/assets/img/menu/test.svg" x="0" y="0" height="18px" width="18px" />
                     </svg>
-                        <span>{{'Admin' | translate }}</span>
+                        <span>{{'Geography' | translate }}</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -30,39 +30,117 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="submenu list-unstyled collapse show" id="admin" data-parent="#accordionExample">
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-state']"> {{'State' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-district']"> {{'District' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-block']"> {{'Block' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-chc']"> {{'CHC' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-phc']"> {{'PHC' | translate }} </a>
-                    </li>
-                   <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-sc']"> {{'SC' | translate }} </a>
-                    </li>
-                     <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-ri-point']"> {{'RI Point' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-gvt-id-type']"> {{'Government ID Type' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/add-user-type']"> {{'User Type' | translate }} </a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/saupload']"> {{'Upload' | translate }} </a>
-                    </li>
-                </ul>
+                <ul class="submenu list-unstyled collapse show "  id="centrallab1" data-parent="#accordionExample"
+                style="">
+    
+                <!-- <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-state']"> {{'State' | translate }} </a>
+              </li> -->
+              <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-district']"> {{'District' | translate }} </a>
+              </li>
+              <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-block']"> {{'Block' | translate }} </a>
+              </li>
+              <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-chc']"> {{'CHC' | translate }} </a>
+              </li>
+              <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-phc']"> {{'PHC' | translate }} </a>
+              </li>
+             <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-sc']"> {{'SC' | translate }} </a>
+              </li>
+              <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-ilr']"> {{'ILR' | translate }} </a>
             </li>
+               <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-ri-point']"> {{'RI Point' | translate }} </a>
+              </li>
+              <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-pndt']"> {{'PNDT' | translate }} </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-hplc']"> {{'HPLC' | translate }} </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-mtp']"> {{'MTP' | translate }} </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-molecular']"> {{'Molecular' | translate }} </a>
+            </li>
+              <!-- <li routerLinkActive="active">
+                  <a [routerLink]="['/app/add-gvt-id-type']"> {{'Government ID Type' | translate }} </a>
+              </li> -->
+    
+            </ul>
+    
+            </li>
+              <li class="menu"  *ngIf="user.userRole === 'SUPERADMIN' || user.userRole === 'ADMIN'">
+                <a href="#centrallab"  data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <image href="./assets/assets/img/menu/test.svg" x="0" y="0" height="18px" width="18px" />
+                    </svg>
+                        <span>{{'User and others' | translate }}</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse "  id="centrallab" data-parent="#accordionExample"
+                    style="">
+                    <!-- <li routerLinkActive="active">
+                      <a [routerLink]="['/app/add-user-type']"> {{'User Type' | translate }} </a>
+                  </li> -->
+                  <li routerLinkActive="active">
+    
+                      <a [routerLink]="['/app/add-avd']"> {{'AVD' | translate }} </a>
+                  </li>
+    
+                 
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/app/admin-users-main']"> {{'Users' | translate }} </a>
+                </li>
+    
+                </ul>
+    
+    
+            </li>
+            <li class="menu"  *ngIf="user.userRole === 'SUPERADMIN' || user.userRole === 'ADMIN'">
+              <a href="#centrallab2"  data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
+                  <div class="">
+                      <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <image href="./assets/assets/img/menu/test.svg" x="0" y="0" height="18px" width="18px" />
+                  </svg>
+                      <span>{{'Bulk Data Upload' | translate }}</span>
+                  </div>
+                  <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" class="feather feather-chevron-right">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                  </div>
+              </a>
+              <ul class="submenu list-unstyled collapse "  id="centrallab2" data-parent="#accordionExample"
+                  style="">
+    
+            <li>
+                 <a [routerLink]="['/app/saupload']"> {{'Import Data' | translate }} </a>
+                </li>
+    
+    
+              </ul>
+    
+    
+          </li>
             <li class="menu" *ngIf="user.userRole === 'ANM'">
                 <a href="#anm" data-toggle="collapse" attr.data-active="true" attr.aria-expanded="true" class="dropdown-toggle">
                     <div class="">

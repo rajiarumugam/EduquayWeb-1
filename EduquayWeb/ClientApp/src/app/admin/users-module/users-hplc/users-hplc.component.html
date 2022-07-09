@@ -1,0 +1,482 @@
+<div class="tab-pane fade show active" id="UsersHPLC" role="tabpanel" aria-labelledby="HPLCUsers-tab">
+
+  <mat-horizontal-stepper [linear]="false" #stepper>
+         <mat-step >
+           <form >
+            <div class="form-row mt-4" [formGroup]="dateform">
+              <div class="form-group col-md-2" >
+                <label for="inputTodate">{{'District' | translate }}</label>
+                <div class="form-group mb-0">
+                    <select  class="form-control"  name="ddlDistrict" [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)"  required [ngModelOptions]="{standalone: true}">
+                        <option [ngValue]=0>Select District</option>
+                        <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                          {{districtdata.name}}
+                      </option>
+                    </select>
+                </div>
+            </div> 
+
+            <div class="form-group col-md-2" >
+              <label for="inputTodate">{{'Block' | translate }}</label>
+              <div class="form-group mb-0">
+                  <select  class="form-control"  name="ddlBlock" [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict === ''" required [ngModelOptions]="{standalone: true}">
+                      <option [ngValue]=0>Select </option>
+                      <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                        {{blockdata.name}}
+                    </option>
+                  </select>
+              </div>
+          </div> 
+
+            <div class="col-md-2 mt-3" style="position: absolute;right:61%;">
+              <div class="px-2 bd-highlight" style="float:right;">
+                <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+               <button type="submit" class="btn search-bu" (click)="refreshData()">
+                    <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+
+              <div class="form-row">
+                  <div class="col-md-12">
+                      <a class="float-right mr-5" (click)="openAddUsers(addhplcDetail)"
+                      role="button">
+                          <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
+                      </a>
+                  </div>
+              </div>
+
+          <ng-template #addhplcDetail let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title modaltitle">{{'Add HPLC Users' | translate }}</h4>
+              <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body form-body">
+              <form class="text-left" (ngSubmit)="addIlrForm.form.valid && onSubmithplc(addIlrForm)" #addIlrForm="ngForm" novalidate>
+                <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                  <div class="form-row">
+    
+                    <div class="form-group col-md-3">
+                      <label [ngClass]="{'label-border-class':ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid}" for="inputilrPoint">{{'State' | translate }}<span
+                          class="manto"> *</span></label>
+                          <select id="inputilrPoint" class="form-control"
+                          name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
+                          required [(ngModel)]="selectedState" disabled="ddlState">
+                              <option value="">Select</option>
+                              <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
+                                  {{statedata.name}}
+                              </option>
+                          </select>
+                            <small class=" ml-2 text-danger" *ngIf="ddlState.invalid && ddlState.touched ">Please choose a State</small>
+                            <div *ngIf="addIlrForm.submitted && ddlState.invalid">
+                              <small *ngIf="ddlState.untouched" class=" ml-2 text-danger">State is required</small>
+                            </div>
+                  </div>
+    
+                    <div class="form-group col-md-3">
+                      <label [ngClass]="{'label-border-class':ddlUserRole.invalid && ddlUserRole.touched || addIlrForm.submitted && ddlUserRole.invalid}" for="inputilrPoint">{{'UserRole' | translate }}<span
+                          class="manto"> *</span></label>
+                          <select id="inputilrPoint" class="form-control"
+                          name="ddlUserRole" #ddlUserRole="ngModel" [class.is-invalid]="ddlUserRole.invalid && ddlUserRole.touched || addIlrForm.submitted && ddlUserRole.invalid"
+                          required [(ngModel)]="selectedUserrole">
+                              <option value="">Select</option>
+                              <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
+                                  {{Userrole.userRoleName}}
+                              </option>
+                          </select>
+                            <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
+                            <div *ngIf="addIlrForm.submitted && ddlUserRole.invalid">
+                              <small *ngIf="ddlUserRole.untouched" class=" ml-2 text-danger">UserRole is required</small>
+                            </div>
+                  </div>
+    
+                    <div class="form-group col-md-3">
+    
+                      <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                          class="manto"> *</span></label>
+                          <select id="inputilrPoint" class="form-control"
+                          name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || addIlrForm.submitted && ddlDistrict.invalid"
+                          required [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)">
+                              <option value="">Select</option>
+                              <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                  {{districtdata.name}}
+                              </option>
+                          </select>
+                            <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
+                            <div *ngIf="addIlrForm.submitted && ddlDistrict.invalid">
+                              <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                            </div>
+    
+                </div>
+    
+                  <div class="form-group col-md-3">
+    
+                    <label [ngClass]="{'label-border-class':ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid}" for="inputilrPoint">{{'Block' | translate }}<span
+                        class="manto"> *</span></label>
+                        <select id="inputilrPoint" class="form-control"
+                        name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid"
+                        required [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict === ''">
+                            <option value="">Select</option>
+                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                                {{blockdata.name}}
+                            </option>
+                        </select>
+                          <small class=" ml-2 text-danger" *ngIf="ddlBlock.invalid && ddlBlock.touched ">Please choose a Block</small>
+                          <div *ngIf="addIlrForm.submitted && ddlBlock.invalid">
+                            <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">Block is required</small>
+                          </div>
+    
+              </div>
+    
+    
+    
+              <!-- <div class="form-group col-md-3">
+                <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
+                <input class="form-control" name="Username" type="text" placeholder="UserName" ngModel pattern="^[a-zA-Z0-9]+$" required
+                #Username ="ngModel" [class.is-invalid]="!Username.valid && Username.touched || addIlrForm.submitted && Username.invalid">
+                <small class="text-danger ml-2" *ngIf="!Username.valid && Username.touched ">Enter UserName</small>
+                <div *ngIf="addIlrForm.submitted && Username.invalid">
+                <small *ngIf="Username.untouched" class=" ml-2 text-danger">UserName is required</small>
+                </div>
+              </div> -->
+    
+              <div class="form-group col-md-3">
+                <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>
+                <input class="form-control" name="firstName" type="text" placeholder="First Name" ngModel  required
+                [class.is-invalid]="!firstName.valid && firstName.touched || addIlrForm.submitted && firstName.invalid"
+                 #firstName="ngModel" required>
+                <small class="text-danger ml-2" *ngIf="!firstName.valid && firstName.touched ">Enter First Name</small>
+                <div *ngIf="addIlrForm.submitted && firstName.invalid">
+                  <small *ngIf="firstName.untouched" class=" ml-2 text-danger">First Name is required</small>
+                </div>
+               </div>
+    
+                       <div class="form-group col-md-3">
+                        <label class="note">{{'Middle Name' | translate }}<span class="manto"> </span></label>
+                        <input class="form-control" name="middleName" type="text" placeholder="Middle Name" autocomplete="off" ngModel
+                         #middleName="ngModel" >
+                       </div>
+    
+                       <div class="form-group col-md-3">
+                        <label class="note">{{'Last Name' | translate }}<span class="manto"> *</span></label>
+                        <input class="form-control" name="lastName" type="text" placeholder="Last Name" ngModel 
+                        [class.is-invalid]="!lastName.valid && lastName.touched || addIlrForm.submitted && lastName.invalid"
+                         #lastName="ngModel" required>
+                        <small class="text-danger ml-2" *ngIf="!lastName.valid && lastName.touched ">Enter Last Name</small>
+                        <div *ngIf="addIlrForm.submitted && lastName.invalid">
+                          <small *ngIf="lastName.untouched" class=" ml-2 text-danger">Last Name is required</small>
+                        </div>
+                       </div>
+    
+                       <div class="form-group col-md-3">
+                        <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                        <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                        [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
+                         #contactNo1="ngModel" required minlength="9" >
+                        <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
+                        <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
+                          <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
+                        </div>
+                       </div>
+    
+                         <div class="form-group col-md-3">
+                          <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
+                          <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" ngModel
+                          [class.is-invalid]="!userGovCode.valid && userGovCode.touched || addIlrForm.submitted && userGovCode.invalid"
+                           #userGovCode="ngModel" required>
+                          <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
+                          <div *ngIf="addIlrForm.submitted && userGovCode.invalid">
+                            <small *ngIf="userGovCode.untouched" class=" ml-2 text-danger">UserGovCode is required</small>
+                          </div>
+                         </div>
+    
+    
+    
+                         <div class="form-group col-md-3">
+                            <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
+                            <input class="form-control" name="email" type="text" placeholder="Email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            [class.is-invalid]="!email.valid && email.touched || addIlrForm.submitted && email.invalid"
+                             #email="ngModel" required>
+                            <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
+                            <div *ngIf="addIlrForm.submitted && email.invalid">
+                              <small *ngIf="email.untouched" class=" ml-2 text-danger">Email is required</small>
+                            </div>
+                           </div>
+    
+                        </div>
+    
+                        <div class="form-row mt-4">
+                          <div class="form-group col-md-12">
+                               <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                             [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                     name=Comments #Comments="ngModel" ngModel required></textarea>
+                                     </div>
+                                     <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                   <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                      </div>
+                                 </div>
+                      </div>
+    
+                <div class="modal-footer">
+                  <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto" >{{'Submit' | translate }}</button>
+                  <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                  <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                </div>
+              </form>
+    
+            </div>
+    
+          </ng-template>
+          <ng-template #edithplcdetail let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title modaltitle">{{'Edit HPLC Users' | translate }}</h4>
+              <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body form-body">
+              <form class="text-left" (ngSubmit)="editSubmithplc(edithplcform)" #edithplcform="ngForm" novalidate>
+                <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                  <div class="form-row">
+    
+                    <div class="form-group col-md-3">
+                      <label [ngClass]="{'label-border-class':ddlState.invalid && ddlState.touched || edithplcform.submitted && ddlState.invalid}" for="inputilrPoint">{{'State' | translate }}<span
+                          class="manto"> *</span></label>
+                          <select id="inputilrPoint" class="form-control"
+                          name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || edithplcform.submitted && ddlState.invalid"
+                          required [(ngModel)]="selectedEditState" disabled= "ddlState">
+                              <option value="">Select</option>
+                              <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
+                                  {{statedata.name}}
+                              </option>
+                          </select>
+                            <small class=" ml-2 text-danger" *ngIf="ddlState.invalid && ddlState.touched ">Please choose a State</small>
+                            <div *ngIf="edithplcform.submitted && ddlState.invalid">
+                              <small *ngIf="ddlState.untouched" class=" ml-2 text-danger">State is required</small>
+                            </div>
+                  </div>
+                    <!-- <div class="form-group col-md-3">
+                      <label [ngClass]="{'label-border-class':ddlUserRole.invalid && ddlUserRole.touched || edithplcform.submitted && ddlUserRole.invalid}" for="inputilrPoint">{{'UserRole' | translate }}<span
+                          class="manto"> *</span></label>
+                          <select id="inputilrPoint" class="form-control"
+                          name="ddlUserRole" #ddlUserRole="ngModel" [class.is-invalid]="ddlUserRole.invalid && ddlUserRole.touched || edithplcform.submitted && ddlUserRole.invalid"
+                          required [(ngModel)]="selectedEditUserrole">
+                              <option value="">Select</option>
+                              <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
+                                  {{Userrole.userRoleName}}
+                              </option>
+                          </select>
+                            <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
+                            <div *ngIf="edithplcform.submitted && ddlUserRole.invalid">
+                              <small *ngIf="ddlUserRole.untouched" class=" ml-2 text-danger">UserRole is required</small>
+                            </div>
+                  </div> -->
+    
+                  <div class="form-group col-md-3">
+                    <label [ngClass]="{'label-border-class':ddlDistrict.invalid && ddlDistrict.touched || edithplcform.submitted && ddlDistrict.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                        class="manto"> *</span></label>
+                        <select id="inputilrPoint" class="form-control"
+                        name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || edithplcform.submitted && ddlDistrict.invalid"
+                        required [(ngModel)]="selectedEditDistrict" disabled= "ddlDistrict" (change)="onChangeDistrict($event.target.value)">
+                            <option value="">Select</option>
+                            <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                {{districtdata.name}}
+                            </option>
+                        </select>
+                          <small class=" ml-2 text-danger" *ngIf="ddlDistrict.invalid && ddlDistrict.touched ">Please choose a District</small>
+                          <div *ngIf="edithplcform.submitted && ddlDistrict.invalid">
+                            <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                          </div>
+    
+              </div>
+    
+              <div class="form-group col-md-3">
+                <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
+                <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
+                 [class.is-invalid]="!userName.valid && userName.touched || edithplcform.submitted && userName.invalid">
+                <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter User Name</small>
+                <div *ngIf="edithplcform.submitted && userName.invalid">
+                <small *ngIf="userName.untouched" class=" ml-2 text-danger">User Name is required</small>
+                </div>
+              </div>
+    
+              <div class="form-group col-md-3">
+                <label class="note">{{'First Name' | translate }}<span class="manto"> *</span></label>
+                <input class="form-control" name="firstName" type="text" placeholder="First Name" [(ngModel)]="firstName"  required
+                [class.is-invalid]="!firstName.valid && firstName.touched || edithplcform.submitted && firstName.invalid"
+                #firstName1="ngModel" required>
+                <small class="text-danger ml-2" *ngIf="!firstName1.valid && firstName1.touched ">Enter First Name </small>
+                <div *ngIf="edithplcform.submitted && firstName.invalid">
+                  <small *ngIf="firstName.untouched" class=" ml-2 text-danger">First Name is required</small>
+                </div>
+               </div>
+    
+                       <div class="form-group col-md-3">
+                        <label class="note">{{'Middle Name' | translate }}<span class="manto"> </span></label>
+                        <input class="form-control" name="middleName" type="text" placeholder="Middle Name" autocomplete="off" [(ngModel)]="middleName"
+                         >
+                       </div>
+    
+                       <div class="form-group col-md-3">
+                        <label class="note">{{'Last Name' | translate }}<span class="manto"> *</span></label>
+                        <input class="form-control" name="lastName" type="text" placeholder="Last Name" [(ngModel)]="lastName" 
+                        [class.is-invalid]="!lastName.valid && lastName.touched || edithplcform.submitted && lastName.invalid"
+                        #lastName1="ngModel" required>
+                        <small class="text-danger ml-2" *ngIf="!lastName1.valid && lastName1.touched ">Enter Last Name</small>
+                        <div *ngIf="edithplcform.submitted && lastName.invalid">
+                          <small *ngIf="lastName.untouched" class=" ml-2 text-danger">Last Name is required</small>
+                        </div>
+                       </div>
+    
+                       <div class="form-group col-md-3">
+                        <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                        <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                        [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || edithplcform.submitted && mobileNo1.invalid"
+                        #mobileNo1="ngModel" required minlength="9">
+                        <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                        <div *ngIf="edithplcform.submitted && mobileNo1.invalid">
+                          <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
+                        </div>
+                       </div>
+    
+                         <div class="form-group col-md-3">
+                          <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
+                          <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
+                          [class.is-invalid]="!userGovCode.valid && userGovCode.touched || edithplcform.submitted && userGovCode.invalid"
+                            required>
+                          <small class="text-danger ml-2" *ngIf="!userGovCode.valid && userGovCode.touched ">Enter UserGovCode</small>
+                          <div *ngIf="edithplcform.submitted && userGovCode.invalid">
+                            <small *ngIf="userGovCode.untouched" class=" ml-2 text-danger">UserGovCode is required</small>
+                          </div>
+                         </div>
+    
+    
+    
+                         <div class="form-group col-md-3">
+                            <label class="note">{{'Email' | translate }}<span class="manto"> *</span></label>
+                            <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            [class.is-invalid]="!email.valid && email.touched || edithplcform.submitted && email.invalid"
+                            #email1="ngModel"  required>
+                            <small class="text-danger ml-2" *ngIf="!email1.valid && email1.touched ">Enter Email</small>
+                            <div *ngIf="edithplcform.submitted && email.invalid">
+                              <small *ngIf="email.untouched" class=" ml-2 text-danger">Email is required</small>
+                            </div>
+                           </div>
+    
+    
+    
+                          <!-- <div class="form-group col-md-3">
+                            <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                            <div class="n-chk">
+                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                  <input type="checkbox" class="new-control-input checkbox"
+                                  [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
+                                  <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                </label>
+                            </div>
+                          </div> -->
+    
+                        </div>
+    
+                        <div class="form-row mt-4">
+                          <div class="form-group col-md-12">
+                            <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || edithplcform.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                            [class.is-invalid]="!editComments.valid  && editComments.touched || edithplcform.submitted && !editComments.valid"
+                            name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
+                          </div>
+                          <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                          <div *ngIf="edithplcform.submitted && !editComments.valid">
+                            <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                             </div>
+                        </div> 
+                      </div>
+    
+                <div class="modal-footer">
+                  <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto" >{{'Submit' | translate }}</button>
+                  <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                  <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                </div>
+              </form>
+    
+            </div>
+    
+          </ng-template>
+            
+                <div class="row my-4">
+                 <div class="col-md-12">
+                   <div class="table-responsive">
+                     <table id="chcshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                       <thead>
+                         <tr>
+                          <th><span>{{'SNo' | translate }}</span></th>
+                                      <th><span>{{'Name' | translate }}</span></th>
+                                      <th><span>{{'User Role' | translate }}</span></th>
+                                      <th><span>{{'UserName' | translate }}</span></th>
+                                      <th><span>{{'UserGovCode' | translate }}</span></th>
+                                      <th><span >{{'District' | translate }}</span></th>
+                                      <th><span >{{'ContactNo' | translate }}</span></th>
+                                      <th><span >{{'Email' | translate }}</span></th>
+                                      <th><span>{{'Comments' | translate }}</span></th>
+                                      <th><span >{{'IsActive' | translate }}</span></th>
+                                      <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
+                                    </tr>
+
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let subjectinfo of userprofileLists; index as i">
+                                      <td style="text-align: center">{{i +1}}</td>
+                                      <td style="text-align: left">{{subjectinfo.firstName}} {{subjectinfo.middleName}} {{subjectinfo.lastName}}</td>
+                                      <td style="text-align: center">{{subjectinfo.userRole}}</td>
+                                      <td style="text-align: center">{{subjectinfo.userName}}</td>
+                                      <td style="text-align: center">{{subjectinfo.userGovCode}}</td>
+                                      <td class="text-left sname">{{subjectinfo.districtName}}</td>
+                                      <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
+                                      <td style="text-align: center">{{subjectinfo.email}}</td>
+                                      <td class="number text-center">{{subjectinfo.comments}}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
+                                      <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td>
+                                      <td class="text-center">
+                                        <a class="" (click)="openEdithplc(edithplcdetail, subjectinfo)"
+                                        role="button">
+                                            <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                                          </a>
+                                      </td>             
+
+                         </tr>
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+           </form>
+         </mat-step>
+        
+       </mat-horizontal-stepper>
+       <i appLoadScript [script]="'assets/assets/js/anm/sample-collection.js'"></i>
+       <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+       <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+       <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+ </div>
+ 
+ 
+               
+     
+ 
+ 
+ 
+ 
