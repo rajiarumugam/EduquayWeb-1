@@ -1,2 +1,52 @@
-<app-home-header></app-home-header>
+<header>
+  
+    <div class="container-fluid header-bg-color">
+      <div class="row py-3">
+        <div class="col-md-3 col-lg-2 text-right">
+          <!-- <a class="" [routerLink]="['/']">
+            <img src="assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1 img-fluid" style="width:65%;">
+          </a> -->
+          <img src="assets/assets/img/NRHM_GovOdishA_logo.png" class="mt-1">
+        </div>
+        <div class="col-md-6 col-lg-8">
+          <!-- <h4 class="text-center text-white pt-2">{{'THALASSEMIATITLE' | translate }}</h4> -->
+          <h4 class="text-center text-white pt-2">THALASSEMIA AND SICKLE CELL DISEASE CONTROL PROGRAM IN ODISHA</h4>
+          <h5 class="text-center text-white">Sickle cell and Thalassemia Free Odisha</h5>
+        </div>
+        <div class="col-md-3 col-lg-2">
+          <img src="assets/assets/img/Insteam_CMC_logo.png" class="mt-1">
+          <!-- <button type="submit" class="btn btn-primary" value="" style="padding: 3px;"><a [routerLink]="['/home/login']" style="color: #fff;">Login</a> </button> -->
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-md bg-white navbar-dark">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: center;">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" href="home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size"  [routerLink]="['/home/about']">About Us</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" [routerLink]="['/home/aboutprogram']">About The Program</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" href="partnersteams.html">Partners/Teams</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" [routerLink]="['/home/importantlinks']">Important links</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-3 mx-2 menu-font-size" href="gallery.html">Gallery</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+</header>
+
 <router-outlet></router-outlet>

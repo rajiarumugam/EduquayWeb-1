@@ -1,69 +1,77 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
-import { HomeHeaderComponent } from './_layout/home-header/home-header.component';
-import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
+//import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
+//import { HomeHeaderComponent } from './_layout/home-header/home-header.component';
+//import { HomeLayoutComponent } from './_layout/home-layout/home-layout.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
-import { DistrictreportListComponent } from "./district-coordinator/district-report-list/district-report-list.component";
+//import { DistrictreportListComponent } from "./district-coordinator/district-report-list/district-report-list.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
-import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+/*import { PathoreportSampleStatusMainPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
+import { PathoreportSampleStatusPrintComponentDC } from "./district-coordinator/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";*/
 import { PathoreportSampleStatusPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 import { PathoreportSampleStatusMainPrintComponentANM } from "./anm-module/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
-import { HomeComponent } from "./home/home.component";
 import { CounsellorPhcreportListComponent } from "./pndtc/counsellor-phc-report-list/counsellor-phc-report-list.component";
-import { CounterComponent } from "./counter/counter.component";
-import { FetchDataComponent } from "./fetch-data/fetch-data.component";
-import { LoginComponent } from "./auth/login/login.component";
-import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
+//import { CounterComponent } from "./counter/counter.component";
+//import { FetchDataComponent } from "./fetch-data/fetch-data.component";
+//import { LoginComponent } from "./auth/login/login.component";
+//import { HplcLoginComponent } from './auth/hplclogin/hplclogin.component';
 import { NotfoundComponent } from "./notfound/notfound.component";
 import { AuthGuard } from "./shared/auth.guard";
-import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
-import { LoadScriptDirective } from "./shared/load-script.directive";
+//import { SiteSidebarComponent } from "./_layout/site-sidebar/site-sidebar.component";
+
 import { SampleCollectionComponent } from "./anm-module/sample-collection/sample-collection.component";
-import { AnmNotificationComponent } from "./anm-module/anm-notification/anm-notification.component";
+/*import { AnmNotificationComponent } from "./anm-module/anm-notification/anm-notification.component";
 import { AnmDamagedSamplesComponent } from './anm-module/anm-damaged-samples/anm-damaged-samples.component';
 import { AnmUnsentSamplesComponent } from './anm-module/anm-unsent-samples/anm-unsent-samples.component';
 import { AnmTimeoutSamplesComponent } from './anm-module/anm-timeout-samples/anm-timeout-samples.component';
 import { AnmPositiveSubjectsComponent } from './anm-module/anm-positive-subjects/anm-positive-subjects.component';
 import { AnmPndReferralComponent } from './anm-module/anm-pnd-referral/anm-pnd-referral.component';
 import { AnmMtpReferralComponent } from './anm-module/anm-mtp-referral/anm-mtp-referral.component';
-import { AnmUpdateChcComponent } from './anm-module/anm-update-chc/anm-update-chc.component';
+import { AnmUpdateChcComponent } from './anm-module/anm-update-chc/anm-update-chc.component';*/
+
+/*import { AnmSubjectRegistrationComponent } from "./anm-module/registration/anm-subject-registration/anm-subject-registration.component";
 import { AnmAwRegistrationComponent } from "./anm-module/registration/anm-aw-registration/anm-aw-registration.component";
+import { AnmSpouseRegistrationComponent } from "./anm-module/registration/anm-spouse-registration/anm-spouse-registration.component";
+import { AnmStudentRegistrationComponent } from "./anm-module/registration/anm-student-registration/anm-student-registration.component";*/
+//import { AnmWalkinLt18RegistrationComponent } from "./anm-module/registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
+//import { AnmWalkinGt18RegistrationComponent } from "./anm-module/registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
+//import { AnmUpdateChcComponent } from './anm-module/anm-update-chc/anm-update-chc.component';
+//import { AnmAwRegistrationComponent } from "./anm-module/registration/anm-aw-registration/anm-aw-registration.component";
 // import { AnmAwRegistrationComponent } from "./registration/anm-aw-registration/anm-aw-registration.component";
 import { AnmPickandPackComponent } from './anm-module/anm-pickandpack/anm-pickandpack.component';
 import { AnmShipmentComponent } from './anm-module/anm-shipment/anm-shipment.component';
-import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
+//import { AnmSubjectProfileComponent } from './anm-module/anm-subject-profile/anm-subject-profile.component';
 import { AnmViewShipmentdetailsComponent } from "./anm-module/anm-view-shipmentdetails/anm-view-shipmentdetails.component";
 import { SampleCollectionResolverService } from "./shared/anm-module/sample-collection-resolver.service";
 import { ShipmentlogResolverService } from "./shared/anm-module/shipmentlog/shipmentlog-resolver.service";
 import { PicknpackResolverService } from "./shared/anm-module/picnpack/picknpack-resolver.service";
 import { DamagedSamplesResolverService } from "./shared/anm-module/notifications/damaged-samples/damaged-samples-resolver.service";
+
+
 import { CounsellorMtpreportListComponent } from "./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.component";
 import { HPLCComponent } from "./admin/hplc/hplc.component";
-import { CheSubjectRegistrationComponent } from './chc-module/registration/chc-subject-registration/chc-subject-registration.component'
 import { BlockSubjectRegistrationComponent } from './chc-module/registration/block-subject-registration/block-subject-registration.component';
 import { WalkinRegistrationComponent } from './chc-module/registration/walkin-registration/walkin-registration.component';
-import { ChcpregnantRegistrationComponent } from "./chc-module/registration/shared/pregnant-registration/pregnant-registration.component";
-import { ChcStudentRegistrationComponent } from "./chc-module/registration/shared/chc-student-registration/chc-student-registration.component";
-import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared/che-spouse-registration/che-spouse-registration.component";
-import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
-import { AssociatedANMComponent } from "./chc-module/registration/shared/associated-anm/associated-anm.component";
+//import { ChcpregnantRegistrationComponent } from "./chc-module/registration/shared/pregnant-registration/pregnant-registration.component";
+//import { ChcStudentRegistrationComponent } from "./chc-module/registration/shared/chc-student-registration/chc-student-registration.component";
+//import { CheSpouseRegistrationComponent } from "./chc-module/registration/shared/che-spouse-registration/che-spouse-registration.component";
+//import { ChcwalkinRegistrationComponent } from "./chc-module/registration/shared/walk-in-registration/walk-in-registration.component";
+//import { AssociatedANMComponent } from "./chc-module/registration/shared/associated-anm/associated-anm.component";
 import { from } from "rxjs";
 import { SpouseResolverService } from "./shared/anm-module/registration/spouse/spouse-resolver.service";
 import { CHCSampleResolverService } from "./shared/chc-sample/chc-sample-resolver.service";
 import { CHCPickAndPackResolverService } from "./shared/centrallab/central-pickandpack-resolver.service";
 import { TimeoutExpiryResolverService } from "./shared/anm-module/notifications/timeout-expiry/timeout-expiry-resolver.service";
 import { UnsentSamplesResolverService } from "./shared/anm-module/notifications/unsent-samples/unsent-samples-resolver.service";
-import { ChcSampleCollectionComponent } from "./chc-module/chc-sample-collection/chc-sample-collection.component";
+//import { ChcSampleCollectionComponent } from "./chc-module/chc-sample-collection/chc-sample-collection.component";
 
 import { CHCSampleRcptComponent } from "./chc-sample-module/chc-sample-rec/chc-sample-rec.component";
 import { CHCSampleRcptProComponent } from "./chc-sample-module/chc-sample-rcpt-pro/chc-sample-rcpt-pro.component";
 import { CHCUpdateCBCComponent } from "./chc-sample-module/cbc-update/chc-update-cbc/chc-update-cbc.component";
 import { CBCReceivedSampleComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-received/chc-update-cbc-received.component";
 import { CBCUploadComponent } from "./chc-sample-module/cbc-update/chc-update-cbc-upload/chc-update-cbc-upload.component";
-import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
+//import { AnmPostMtpFollowupComponent } from "./anm-module/anm-post-mtp-followup/anm-post-mtp-followup.component";
 import { CHCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-resolver.service";
 import { PositiveSubjectsResolverService } from "./shared/anm-module/positive-subjects/positive-subjects-resolver.service";
 import {  CHCCBCupdateReceivedService } from "./shared/chc-sample/chc-update-cbc-chc-resolver.service";
@@ -80,15 +88,15 @@ import { ChcPicknpackResolverService } from "./shared/chc-module/chc-pickandpack
 import { ChcShipmentlogComponent } from "./chc-module/chc-shipmentlog/chc-shipmentlog.component";
 import { ChcShipmentlogResolverService } from "./shared/chc-module/chc-shipmentlog/chc-shipmentlog-resolver.service";
 import { ChcViewShipmentdetailsComponent } from "./chc-module/chc-view-shipmentdetails/chc-view-shipmentdetails.component";
-import { ChcSubjectProfileComponent } from "./chc-module/chc-subject-profile/chc-subject-profile.component";
-import { ChcNotificationComponent } from "./chc-module/chc-notification/chc-notification/chc-notification.component";
-import { ChcDamagedSamplesComponent } from "./chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component";
-import { ChcUnsentSamplesComponent } from "./chc-module/chc-notification/chc-unsent-samples/chc-unsent-samples.component";
-import { ChcTimeoutSamplesComponent } from "./chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component";
+//import { ChcSubjectProfileComponent } from "./chc-module/chc-subject-profile/chc-subject-profile.component";
+//import { ChcNotificationComponent } from "./chc-module/chc-notification/chc-notification/chc-notification.component";
+//import { ChcDamagedSamplesComponent } from "./chc-module/chc-notification/chc-damaged-samples/chc-damaged-samples.component";
+//import { ChcUnsentSamplesComponent } from "./chc-module/chc-notification/chc-unsent-samples/chc-unsent-samples.component";
+//import { ChcTimeoutSamplesComponent } from "./chc-module/chc-notification/chc-timeout-samples/chc-timeout-samples.component";
 import { ChcDamagedsamplesResolverService } from "./shared/chc-module/chc-damagedsamples-resolver.service";
 import { ChcUnsentSamplesResolverService } from "./shared/chc-module/chc-unsent-samples/chc-unsent-samples-resolver.service";
 import { ChcTimeoutsamplesResolverService } from "./shared/chc-module/chc-timeoutsamples-resolver.service";
-import { ChcPositiveSubjectComponent } from "./chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component";
+//import { ChcPositiveSubjectComponent } from "./chc-module/chc-notification/chc-positive-subject/chc-positive-subject.component";
 import { ChcPositiveSubjectResolverService } from "./shared/chc-module/chc-positive-subject/chc-positive-subject-resolver.service";
 
 import { CentrallabSampleResolverService } from "./shared/centrallab/central-sample-resolver.service";
@@ -104,11 +112,11 @@ import { CentralReceivedSampleComponent } from "./central-lab/HPLC-update/centra
 import { CentralHPLCUploadComponent } from "./central-lab/HPLC-update/central-update-hplc-upload/central-update-hplc-upload.component";
 import { CentralLabReportResolverService } from "./shared/centrallab/centrallab-report-resolver.service";
 
-import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
-import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";
+/*import { MolecularSampleRcptMainComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rcpt-main/molecular-sample-rcpt-main.component";
+import { MolecularSampleRcptComponent } from "./molecular-lab/sample-rcpt/molecular-sample-rec/molecular-sample-rec.component";*/
 import { ChcSamplePickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-sample-pickpack.component";
-import { CheSpouseComponent } from "./shared/chc-module/che-spouse/che-spouse.component";
-import { AnmSpouseComponent } from "./shared/anm-module/registration/anm-spouse/anm-spouse.component";
+//import { CheSpouseComponent } from "./shared/chc-module/che-spouse/che-spouse.component";
+//import { AnmSpouseComponent } from "./shared/anm-module/registration/anm-spouse/anm-spouse.component";
 
 import { DiagosisHPLCmainComponent } from "./pathologist/diagnosis/diagnosis-hplc-main/diagnosis-hplc-main.component";
 import { DiagnosisHPLCAbnormaComponent } from "./pathologist/diagnosis/diagnosis-hplc-abnormal/diagnosis-hplc-abnormal.component";
@@ -135,64 +143,64 @@ import { ChcSampleViewShipmentComponent } from "./chc-sample-module/chc-sample-v
 import { ChcStartPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcPendingPickpackComponent } from "./chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component";
 import { PageUnderDevelopementComponent } from "./page-under-developement/page-under-developement.component";
-import { AboutUsComponent } from "./landing-page/about-us/about-us.component";
-import { AboutProgramComponent } from "./landing-page/about-program/about-program.component";
-import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
-import { ChcSubjectProfileListComponent } from "./chc-module/chc-subject-profile-list/chc-subject-profile-list.component";
+//import { AboutUsComponent } from "./landing-page/about-us/about-us.component";
+//import { AboutProgramComponent } from "./landing-page/about-program/about-program.component";
+//import { ImportantLinksComponent } from "./landing-page/important-links/important-links.component";
+//import { ChcSubjectProfileListComponent } from "./chc-module/chc-subject-profile-list/chc-subject-profile-list.component";
 import { AnmSubjectProfileListComponent } from "./anm-module/anm-subject-profile-list/anm-subject-profile-list.component";
-import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
-import { PrePndtcToBeScheduledComponent } from "./pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component";
-import { PrePndtcScheduledComponent } from "./pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component";
-import { CounsellingPrePndtMainComponent } from "./pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component";
-import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component";
-import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
-import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
-import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
+//import { PrePndtcMainComponent } from "./pndtc/schedule/pre-pndtc-main/pre-pndtc-main.component";
+//import { PrePndtcToBeScheduledComponent } from "./pndtc/schedule/pre-pndtc-to-be-scheduled/pre-pndtc-to-be-scheduled.component";
+//import { PrePndtcScheduledComponent } from "./pndtc/schedule/pre-pndtc-scheduled/pre-pndtc-scheduled.component";
+//import { CounsellingPrePndtMainComponent } from "./pndtc/counselling-pre-pndt/counselling-pre-pndt-main/counselling-pre-pndt-main.component";
+//import { ToBeCounselledComponent } from "./pndtc/counselling-pre-pndt/to-be-counselled/to-be-counselled.component";
+//import { CounselledDecisionYesComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-yes/counselled-decision-yes.component";
+//import { CounselledDecisionNoComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-no/counselled-decision-no.component";
+//import { CounselledDecisionAwaitedComponent } from "./pndtc/counselling-pre-pndt/counselled-decision-awaited/counselled-decision-awaited.component";
 import { UpdateDetailTestresultsComponent } from "./pndtc/counselling-pre-pndt/update-detail-testresults/update-detail-testresults.component";
 import { UpdateDecisionNoPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-no-pndt/update-decision-no-pndt.component";
 import { UpdateDecisionYesPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-yes-pndt/update-decision-yes-pndt.component";
 import { UpdateDecisionPendingPndtComponent } from "./pndtc/counselling-pre-pndt/update-decision-pending-pndt/update-decision-pending-pndt.component";
-import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component";
-import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
-import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
-import { CounsellingPostPndtMainComponent } from "./pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component";
-import { ToBePostPndtCounselledComponent } from "./pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component";
+//import { SchedulePostPndtcMainComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-main/schedule-post-pndtc-main.component";
+//import { SchedulePostPndtcScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-scheduled/schedule-post-pndtc-scheduled.component";
+//import { SchedulePostPndtcToBeScheduledComponent } from "./pndtc/schedule-post-pndtc/schedule-post-pndtc-to-be-scheduled/schedule-post-pndtc-to-be-scheduled.component";
+//import { CounsellingPostPndtMainComponent } from "./pndtc/counselling-post-pndt/counselling-post-pndt-main/counselling-post-pndt-main.component";
+//import { ToBePostPndtCounselledComponent } from "./pndtc/counselling-post-pndt/to-be-post-pndt-counselled/to-be-post-pndt-counselled.component";
 import { PostPndtcTestresultsComponent } from "./pndtc/counselling-post-pndt/post-pndtc-testresults/post-pndtc-testresults.component";
-import { PostCounsellingDecisionYesComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component";
-import { PostCounsellingDecisionNoComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component";
-import { PostCounsellingDecisionPendingComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component";
+//import { PostCounsellingDecisionYesComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-yes/post-counselling-decision-yes.component";
+//import { PostCounsellingDecisionNoComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-no/post-counselling-decision-no.component";
+//import { PostCounsellingDecisionPendingComponent } from "./pndtc/counselling-post-pndt/post-counselling-decision-pending/post-counselling-decision-pending.component";
 import { PostPndtcDecisionYesComponent } from "./pndtc/counselling-post-pndt/post-pndtc-decision-yes/post-pndtc-decision-yes.component";
 
-import { PndTestingMainComponent } from "./pndtc/pnd-testing/pnd-testing-main/pnd-testing-main.component";
-import { pndTestingComponent } from './pndtc/pnd-testing/pnd-testing/pnd-testing.component';
-import { PNDTCPendingResolverService } from "./shared/pndtc/pndtc-pending-resolver.service";
-import { PNDTCCompletedResolverService } from "./shared/pndtc/pndtc-completed-resolver.service";
+//import { PndTestingMainComponent } from "./pndtc/pnd-testing/pnd-testing-main/pnd-testing-main.component";
+//import { pndTestingComponent } from './pndtc/pnd-testing/pnd-testing/pnd-testing.component';
+//import { PNDTCPendingResolverService } from "./shared/pndtc/pndtc-pending-resolver.service";
+//import { PNDTCCompletedResolverService } from "./shared/pndtc/pndtc-completed-resolver.service";
 
 import { PndTestingResultsMainComponent } from "./pndtc/pnd-testing/pnd-testing-results-main/pnd-testing-results-main.component";
 import { PNDTestingResultsComponent } from "./pndtc/pnd-testing/pnd-testing-results/pnd-testing-results.component";
-import { pndNotCompleteComponent } from "./pndtc/pnd-testing/pnd-not-complete/pnd-not-complete.component";
+//import { pndNotCompleteComponent } from "./pndtc/pnd-testing/pnd-not-complete/pnd-not-complete.component";
 import { PostPndtcDecisionNoComponent } from "./pndtc/counselling-post-pndt/post-pndtc-decision-no/post-pndtc-decision-no.component";
 import { PostPndtcDecisionAwaitedComponent } from "./pndtc/counselling-post-pndt/post-pndtc-decision-awaited/post-pndtc-decision-awaited.component";
 
-import { PndTestingSummaryMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-main/pnd-testing-summary-main.component";
-import { pndTestingSummaryComponent } from "./pndtc/pnd-testing/pnd-testing-summary/pnd-testing-summary.component";
-import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolver.service";
+//import { PndTestingSummaryMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-main/pnd-testing-summary-main.component";
+//import { pndTestingSummaryComponent } from "./pndtc/pnd-testing/pnd-testing-summary/pnd-testing-summary.component";
+//import { PNDTCSummaryResolverService } from "./shared/pndtc/pndtc-summary-resolver.service";
 import { PndSummaryViewComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view/pnd-testing-summary-view.component";
 import { PndSummaryViewMainComponent } from "./pndtc/pnd-testing/pnd-testing-summary-view-main/pnd-testing-summary-view-main.component";
 import { CounsellorChcreportListComponent } from "./pndtc/counsellor-chc-report-list/counsellor-chc-report-list.component";
-import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
+/*import { MTPServicMainComponent } from "./mtp/mtp-service/mtp-service-main/mtp-service-main.component";
 import { MTPPendingComponent } from "./mtp/mtp-service/mtp-sevice-pending/mtp-sevice-pending.component";
 import { MTPServiceCompletedComponent } from "./mtp/mtp-service/mtp-sevice-completed/mtp-sevice-completed.component";
 import { MTPPendingResolverService } from "./shared/mtp/mtp-pending-resolver.service";
-import { MTPCompletedResolverService } from "./shared/mtp/mtp-completed-resolver.service";
+import { MTPCompletedResolverService } from "./shared/mtp/mtp-completed-resolver.service";*/
 import { MTPTestingResultsComponent } from "./mtp/mtp-service/mtp-testing-results/mtp-testing-results.component";
 import { MtpTestingResultsMainComponent } from "./mtp/mtp-service/mtp-testing-results-main/mtp-testing-results-main.component";
-import { MtpTestingSummaryMainComponent } from "./mtp/mtp-service/mtp-testing-summary-main/mtp-testing-summary-main.component";
-import { mtpTestingSummaryComponent } from "./mtp/mtp-service/mtp-testing-summary/mtp-testing-summary.component";
+//import { MtpTestingSummaryMainComponent } from "./mtp/mtp-service/mtp-testing-summary-main/mtp-testing-summary-main.component";
+//import { mtpTestingSummaryComponent } from "./mtp/mtp-service/mtp-testing-summary/mtp-testing-summary.component";
 import { MTPSummaryResolverService } from "./shared/mtp/mtp-summary-resolver.service";
 import { MtpSummaryViewMainComponent } from "./mtp/mtp-service/mtp-testing-summary-view-main/mtp-testing-summary-view-main.component";
 import { MtpSummaryViewComponent } from "./mtp/mtp-service/mtp-testing-summary-view/mtp-testing-summary-view.component";
-import { DistrictCoordinatorMainComponent } from "./district-coordinator/district-coordinator-main/district-coordinator-main.component";
+/*import { DistrictCoordinatorMainComponent } from "./district-coordinator/district-coordinator-main/district-coordinator-main.component";
 import { DamagedSamplesComponent } from "./district-coordinator/damaged-samples/damaged-samples.component";
 import { UnsentSamplesComponent } from "./district-coordinator/unsent-samples/unsent-samples.component";
 import { SampleTimeoutComponent } from "./district-coordinator/sample-timeout/sample-timeout.component";
@@ -200,10 +208,10 @@ import { PositiveSubjectsComponent } from "./district-coordinator/positive-subje
 import { PndtReferralComponent } from "./district-coordinator/pndt-referral/pndt-referral.component";
 import { MtpReferralComponent } from "./district-coordinator/mtp-referral/mtp-referral.component";
 import { PostMtpFollowupComponent } from "./district-coordinator/post-mtp-followup/post-mtp-followup.component";
+*/
 
-
-import { ReportSampleStatusComponent } from "./molecular-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
-import { ReportSampleStatusMainComponent } from "./molecular-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";
+/*import { ReportSampleStatusComponent } from "./molecular-lab/repot-sample-status/repot-sample-status/repot-sample-status.component";
+import { ReportSampleStatusMainComponent } from "./molecular-lab/repot-sample-status/repot-sample-status-main/repot-sample-status-main.component";*/
 import { UpdateMolResultComponent } from "./molecular-lab/update-mol-result/update-mol-result/update-mol-result.component";
 import { UpdateMolResultMainComponent } from "./molecular-lab/update-mol-result/update-mol-result-main/update-mol-result-main.component";
 
@@ -225,16 +233,16 @@ import { MolucularLabReportResolverService } from "./shared/molecularlab/mi-repo
 
 import { CHCReportResolverService } from "./shared/chc-sample/chc-report-resolver.service";
 import { ToBeSchedulingResolverService } from "./shared/pndtc/schedule-pre-pndtc/to-be-scheduling-resolver.service";
-import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/scheduled-resolver.service";
-import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
-import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
+//import { ScheduledResolverService } from "./shared/pndtc/schedule-pre-pndtc/scheduled-resolver.service";
+//import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduling-resolver.service";
+//import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
 
 import { HPLCUpdateNewComponent } from "./central-lab/HPLC-update-new/HPLC-update-new/HPLC-update-new.component";
 import { HPLCReceivedNewComponent } from './central-lab/HPLC-update-new/HPLC-update-new-received/HPLC-update-new-received.component';
 import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-chc/chc-update-cbc-chc.component";
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
-import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
-import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.component";
+//import { GetOtpComponent } from "./auth/forgot-password/get-otp/get-otp.component";
+//import { AnmChcSubjectProfileComponent } from "./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.component";
 
 import { PathoreportSampleStatusComponent } from "./pathologist/repot-sample-status/patho-repot-sample-status/patho-repot-sample-status.component";
 import { PathoreportSampleStatusMainComponent } from './pathologist/repot-sample-status/patho-repot-sample-status-main/patho-repot-sample-status-main.component';
@@ -242,7 +250,7 @@ import { PathoReportResolverService } from "./shared/pathologist/patho-report-re
 import { PathoReportPrintResolverService } from "./shared/pathologist/patho-report-print-resolver.service";
 import { ViewPathoReportComponent } from "./pathologist/view-report-sample/view-report-sample/view-report-sample.component";
 import { ViewReportPathoMainMainComponent } from "./pathologist/view-report-sample/view-report-sample-main/view-report-sample-main.component";
-import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
+//import { ResetLoginComponent } from "./auth/reset-login/reset-login/reset-login.component";
 
 import { CHCNotificationMainComponent } from "./chc-sample-module/chc-notification/chc-notification-main/chc-notification-main.component";
 import { AnmSubjectProfileTrackingComponent } from "./anm-module/anm-subject-profile-tracking/anm-subject-profile-tracking.component";
@@ -274,38 +282,31 @@ import { UsersComponent } from "./admin/users/users.component";
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
 
-import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
+
 import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
 
 import { PathoreportSampleStatusPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
-import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
-import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
-import { EditResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component";
-import { ConfirmedResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component";
-import { CvsNotificationComponent } from "./molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component";
-import { CvsUpdateresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component";
-import { CvsEditresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component";
-import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component";
+
 import { ANMreportListComponent } from "./anm-module/anm-report-list/anm-report-list.component";
 import { AnmReportProfileComponent } from "./anm-module/anm-report-view-profile/anm-report-view-profile.component";
 import { CHCreportListComponent } from "./chc-module/chc-report-list/chc-report-list.component";
-import { HPLCPosPrintComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print/hplc-pos-bloodsamples-reports-print.component";
 
-import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
+
+/*import { CSVspecimenComponent } from "./pndtc/counselling-pre-pndt/csv-specimen/csv-specimen.component";
 import { CSVSpecimenMainComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-main/csv-specimen-main.component";
-import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";
+import { CSVspecimenStartComponent } from "./pndtc/counselling-pre-pndt/csv-specimen-start/csv-specimen-start.component";*/
 
 import { ScheduleShipmentMainComponent } from "./pndtc/shipment-log/schedule-shipment-log-main/schedule-shipment-log-main.component";
 import { ScheduleShipmentComponent } from "./pndtc/shipment-log/schedule-shipment-log/schedule-shipment-log.component";
 import { pndtcShipmentResolverService } from  "./shared/pndtc/shipment-resolver.service";
 
-import { MolecularSampleRcptCVCComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rec-cvc/molecular-sample-rec-cvc.component";
-import { MolecularSampleRcptCVCMainComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rcpt-cvc-main/molecular-sample-rcpt-cvc-main.component";
+/*import { MolecularSampleRcptCVCComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rec-cvc/molecular-sample-rec-cvc.component";
+import { MolecularSampleRcptCVCMainComponent } from "./molecular-lab/sample-rcpt-cvs/molecular-sample-rcpt-cvc-main/molecular-sample-rcpt-cvc-main.component";*/
 import { MLSampleRcptCSVResolverService } from "./shared/molecularlab/ml-sample-rcpt-csv-resolver.servic";
 import { ViewResultMLComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/view-results-ML/view-results-ML.component";
 
-import { UpdatePregnacyMainComponent } from "./Haematologist/update-pregnacy-main/update-pregnacy-main.component";
-import { UpdatePregnacyComponent } from "./Haematologist/update-pregnacy/update-pregnacy.component";
+//import { UpdatePregnacyMainComponent } from "./Haematologist/update-pregnacy-main/update-pregnacy-main.component";
+//import { UpdatePregnacyComponent } from "./Haematologist/update-pregnacy/update-pregnacy.component";
 import { UpdatePregnacyTestresultsComponent } from "./Haematologist/update-pregnacy-testresults/update-pregnacy-testresults.component";
 
 import { BarcodeCorrectionMainComponent } from "./errorcorrection/barcode-correction/barcode-correction-main/barcode-correction-main.component";
@@ -330,15 +331,18 @@ import { RCHReportMainComponent } from "./errorreport/rch/rch-report-main/rch-re
 import { SSTReportComponent } from "./errorreport/sst/sst-report/sst-report.component";
 
 import { SSTReportMainComponent } from "./errorreport/sst/sst-report-main/sst-report-main.component";
-import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
-import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
-import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
+//import { HPLCReportsMainComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print-main/hplc-pos-bloodsamples-reports-print-main.component";
+//import { CVSReportsMainComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print-main/cvs-specimen-reports-print-main.component";
+//import { CVSPosPrintComponent } from "./molecular-lab-results/cvs-specimen/cvs-specimen-reports-print/cvs-specimen-reports-print.component";
+
+
+//import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
+//import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
+//import { BlockStudentRegistrationComponent } from "./anm-module/block-registration/block-student-registration/block-student-registration.component";
+//import { blockSpouseRegistrationComponent } from './anm-module/block-registration/block-spouse-registration/block-spouse-registration.component';
 
 import { NHMScreenRegistrationComponent } from "./anm-module/nhm-monthly-indicators/nhm-screen-registration/nhm-screen-registration.component";
-import { BlockAwRegistrationComponent } from "./anm-module/block-registration/block-aw-registration/block-aw-registration.component";
-import { BlockSubjecttRegistrationComponent } from "./anm-module/block-registration/block-subject-registration/block-subject-registration.component";
-import { BlockStudentRegistrationComponent } from "./anm-module/block-registration/block-student-registration/block-student-registration.component";
-import { blockSpouseRegistrationComponent } from './anm-module/block-registration/block-spouse-registration/block-spouse-registration.component';
+
 
 import { BlockSampleCollectionComponent } from './anm-module/block-sample-collection/block-sample-collection.component';
 import { BlockPicknpackComponent } from "./anm-module/block-picknpack/block-picknpack.component";
@@ -355,16 +359,37 @@ import { IlrComponent } from "./admin/ilr/ilr.component";
 import { TestComponent } from "./test/test.component";
 import { UploadSAMainComponent } from './shared/admin/sa-upload/upload-sa-main/upload-sa-main.component';
 import { SAUploadComponent } from "./shared/admin/sa-upload/sa-upload-file/sa-upload-file.component";
-// import { AnmWalkinLt18RegistrationComponent } from "./anm-module/registration/anm-walkin-gt18-registration/anm-walkin-gt18-registration.component";
-// import { AnmWalkinLt18RegistrationComponent } from "./registration/anm-walkin-lt18-registration/anm-walkin-lt18-registration.component";
-import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
-import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+
+
+//import { CommonDataTableComponent } from "./shared/common-data-table/common-data-table.component";
+
+//import { MTPreportListComponent } from "./mtp/mtp-report-list/mtp-report-list.component";
+
+
+
+
+/*import { MlrNotificationComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/mlr-notification/mlr-notification.component";
+import { UpdateResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/update-results/update-results.component";
+import { EditResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/edit-results/edit-results.component";
+import { ConfirmedResultsComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/confirmed-results/confirmed-results.component";
+import { HPLCPosPrintComponent } from "./molecular-lab-results/hplc-pos-bloodsamples/hplc-pos-bloodsamples-reports-print/hplc-pos-bloodsamples-reports-print.component";*/
+
+
+/*import { CvsNotificationComponent } from "./molecular-lab-results/cvs-specimen/cvs-notification/cvs-notification.component";
+import { CvsUpdateresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-updateresult/cvs-updateresult.component";
+import { CvsEditresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component";
+import { CvsConfirmedresultComponent } from "./molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component";*/
+
+//import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
+
+//import { CounsellorreportListComponent } from "./pndtc/counsellor-report-list/counsellor-report-list.component";
+
 import { PNDTOBSreportListComponent } from "./pndtc/pndtobs-report-list/pndtobs-report-list.component";
 import { HEMreportListComponent } from "./Haematologist/anm-report-list/haematologist.component";
-import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
-import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
-import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
-import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";
+//import { CounsellorpnpreportListComponent } from "./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.component";
+//import { MolecularBloodSampleReciptComponent } from "./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp";
+//import { MolecularCVSSampleReciptComponent } from "./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp";
+//import { MolecularCVSReport } from "./molecular-lab/molecule-cvs-report/molecule-cvs-report";
 import { MTPOBSreportListComponent } from "./mtp/mtp-service/mtp-report-list/pndtobs-report-list.component";
 import { HEMreportListComponent1 } from "./Haematologist/anm-report-list1/haematologist.component";
 import { DeactivateanmComponent } from "./errorcorrection/deactivate-anm/deactivate-anm/deactivate-anm.component";
@@ -409,13 +434,13 @@ import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-li
 
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, pathMatch: 'full' },
-  { path: 'counter', component: CounterComponent },
-  { path: 'fetch-data', component: FetchDataComponent },
+  { path: 'counter', loadChildren: () => import('./counter/counter.module').then(m => m.CounterModule)},
+  { path: 'fetch-data', loadChildren: () => import('./fetch-data/fetch-data.module').then(m => m.FetchDataModule)},
   {
-    path: 'hplc-report-print', component: HplcreportSampleStatusPrintComponent,pathMatch: 'full'
+    path: 'hplc-report-print',
+    loadChildren: () => import('./hplcreport/hplc-repot-sample-status-print.module').then(m => m.HplcreportSampleStatusPrintModule)
   },
-  {
+  /*{
     path: 'home',
     component: HomeLayoutComponent,
     children: [
@@ -427,8 +452,11 @@ const routes: Routes = [
       { path: 'resetlogin', component: ResetLoginComponent, pathMatch: 'full'},
       { path: 'hplclogin', component: HplcLoginComponent, pathMatch: 'full'}
     ]
+  },*/
+  {
+    path: 'home',
+    loadChildren: () => import('./auth/home.module').then(m => m.HomeModule)
   },
-
   //Site routes goes here
   {
     path: 'app',
@@ -440,45 +468,33 @@ const routes: Routes = [
        },
       { path: 'dashboard', component: DashboardComponent, pathMatch: 'full'},
       {
-        path: 'anm-notification', component: AnmNotificationComponent,
-        children: [
-          { path: '', component: AnmDamagedSamplesComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'unsent', component: AnmUnsentSamplesComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
-          { path: 'timeout', component: AnmTimeoutSamplesComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-          { path: 'positive', component: AnmPositiveSubjectsComponent, pathMatch: 'full'}, //resolve:{positiveSubjectData: PositiveSubjectsResolverService} },
-          { path: 'pndreferral', component: AnmPndReferralComponent, pathMatch: 'full' },
-          { path: 'mtpreferral', component: AnmMtpReferralComponent, pathMatch: 'full' },
-          { path: 'updatechc', component: AnmUpdateChcComponent, pathMatch: 'full' },
-          { path: 'postmtp', component: AnmPostMtpFollowupComponent, pathMatch: 'full' }
-        ]
+        path: 'anm-notification',
+        loadChildren: () => import('./anm-module/anm-notification.module').then(m => m.ANMNotificationModule)
       },
       {
-        path: 'molecular-lab-result', component: MlrNotificationComponent,
-        children: [
-          { path: '', component: UpdateResultsComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
-          { path: 'edit-result', component: EditResultsComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
-          { path: 'confirmed-result', component: ConfirmedResultsComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-          { path: 'reports', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-
-        ]
+        path: 'molecular-lab-result',
+        loadChildren: () => import('./molecular-lab-results/molecular-lab-results.module').then(m => m.MolecularLabResultModule)
       },
       {
-        path: 'hplcpositive-bloodsample-reoprts', component: HPLCReportsMainComponent,
+        path: 'cvs-specimen',
+        loadChildren: () => import('./molecular-lab-results/cvs-specimen.module').then(m => m.CVSSpecimenModule)
+        /* component: CvsNotificationComponent,
         children: [
-
-          { path: '', component: HPLCPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
-
-        ]
+          { path: '', component: CvsUpdateresultComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
+          { path: 'cvs-edit-result', component: CvsEditresultComponent, pathMatch: 'full'}, // resolve:{unsentSamplesData: UnsentSamplesResolverService}
+          { path: 'cvs-confirmed-result', component: CvsConfirmedresultComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+          { path: 'reports', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
+        ]*/
       },
-      {
+      /*{
         path: 'cvs-reoprts', component: CVSReportsMainComponent,
         children: [
 
           { path: '', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
 
         ]
-      },
-      {
+      },*/
+     /* {
         path: 'cvs-specimen', component: CvsNotificationComponent,
         children: [
           { path: '', component: CvsUpdateresultComponent, pathMatch: 'full'},  //resolve:{damagedSamplesData: DamagedSamplesResolverService}},
@@ -486,8 +502,8 @@ const routes: Routes = [
           { path: 'cvs-confirmed-result', component: CvsConfirmedresultComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
           { path: 'reports', component: CVSPosPrintComponent, pathMatch: 'full'}, //resolve:{timeoutSamplesData: TimeoutExpiryResolverService}},
         ]
-      },
-      {
+      },*/
+      /*{
         path: 'chc-notification', component: ChcNotificationComponent,
         children: [
           { path: '', component: ChcDamagedSamplesComponent, pathMatch: 'full'}, // resolve:{chcdamagedSamplesData: ChcDamagedsamplesResolverService}
@@ -495,8 +511,17 @@ const routes: Routes = [
           { path: 'chc-timeout', component: ChcTimeoutSamplesComponent, pathMatch: 'full'}, // resolve:{chctimeoutSamplesData: ChcTimeoutsamplesResolverService}
           { path: 'chc-positive', component: ChcPositiveSubjectComponent, pathMatch: 'full', resolve:{chcpositiveSubjectData: ChcPositiveSubjectResolverService} },
         ]
+      },*/
+      {
+        path: 'chc-notification', loadChildren: () => import('./chc-module/chc-notification/chc-notification.module').then(m => m.CHCNotificationModule)
       },
       {
+        path: 'chc-subregn', loadChildren: () => import('./chc-module/registration/chc-registration.module').then(m => m.CHCRegistrationModule)
+      },
+      {
+        path: 'block-subregn', loadChildren: () => import('./anm-module/block-registration/block-registration.module').then(m => m.BlockRegistrationModule)
+      }
+     /* {
         path: 'chc-subregn', component: CheSubjectRegistrationComponent,
         children:[
           {path: '', component: ChcwalkinRegistrationComponent, pathMatch: 'full'},
@@ -528,15 +553,15 @@ const routes: Routes = [
           {path: 'walkin', component: ChcwalkinRegistrationComponent, pathMatch: 'full'}
         ]
       }*/,
-      { path: 'chc-sample-collection', component: ChcSampleCollectionComponent },
+      { path: 'chc-sample-collection', loadChildren: () => import('./chc-module/chc-sample-collection/chc-sample-collection.module').then(m => m.ChcSampleCollectionModule) },
       { path: 'block-sample-collection', component: BlockSampleCollectionComponent },// resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
-      { path: 'chc-sample-collection/:subtype', component: ChcSampleCollectionComponent }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
+      { path: 'chc-sample-collection/:subtype', loadChildren: () => import('./chc-module/chc-sample-collection/chc-sample-collection.module').then(m => m.ChcSampleCollectionModule) }, // resolve: {chcSampleCollectionData: ChcSampleCollectionResolverService}
       { path: 'chc-pickandpack', component: ChcPicknpackComponent}, // resolve: {chcpicknpackData: ChcPicknpackResolverService}
       { path: 'block-pickandpack', component: BlockPicknpackComponent},
       { path: 'chc-shipmentlog', component: ChcShipmentlogComponent }, // resolve: {chcshipmentLogData: ChcShipmentlogResolverService}
       { path: 'chc-viewshipment', component: ChcViewShipmentdetailsComponent, pathMatch: 'full'},
-      { path: 'chc-viewsubjectprofile', component: ChcSubjectProfileComponent, pathMatch: 'full'},
-      { path: 'chc-subjectprofile', component: ChcSubjectProfileListComponent},
+      { path: 'chc-viewsubjectprofile', loadChildren: () => import('./chc-module/chc-subject-profile/chc-subject-profile.module').then(m => m.CHCSubjectProfileModule), pathMatch: 'full'},
+      
       { path: 'anm-subjecttracker', component: SubjectTrackerComponent},
       // { path: 'add-state', component: StateComponent, pathMatch: 'full'},
       { path: 'add-district', component: DistrictComponent, pathMatch: 'full'},
@@ -708,15 +733,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'anm-subregn', component: AnmSubjectRegistrationComponent,
-        children:[
-          {path: '', component: AnmAwRegistrationComponent, pathMatch: 'full'},
-          {path: 'awreg', component: AnmAwRegistrationComponent, pathMatch: 'full'},
-          {path: 'spouse', component: AnmSpouseRegistrationComponent, pathMatch: 'full', resolve: {positiveSubjects: SpouseResolverService}},
-          {path: 'student', component: AnmStudentRegistrationComponent, pathMatch: 'full'},
-          {path: 'walkin', component: AnmWalkinLt18RegistrationComponent, pathMatch: 'full'},
-          {path: 'otherwalkin', component: AnmWalkinGt18RegistrationComponent, pathMatch: 'full'},
-        ]
+        path: 'anm-subregn', loadChildren: () => import('./anm-module/registration/anm-registration.module').then(m => m.ANMRegistrationModule)
 
       },
 
@@ -801,6 +818,10 @@ const routes: Routes = [
           {path: '', component: CentralCentralShipmentComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabShipmentResolverService}}
         ]
       },
+      /*{
+        path: 'schedule-shipment',
+        loadChildren: () => import('./pndtc/shipment-log/shipment-log.module').then(m => m.ShipmentLogModule)
+      },*/
       {
         path: 'schedule-shipment', component: ScheduleShipmentMainComponent,
         children:[
@@ -808,22 +829,14 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'molecularlab', component: MolecularSampleRcptMainComponent,
-        children:[
-          {path: '', component: MolecularSampleRcptComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptResolverService}}
-        ]
+        path: 'molecularlab', loadChildren: () => import('./molecular-lab/sample-rcpt/molecular-sample-rec.module').then(m => m.MolecularSampleRcptModule)
       },
       {
-        path: 'molecularlab-cvs', component: MolecularSampleRcptCVCMainComponent,
-        children:[
-          {path: '', component: MolecularSampleRcptCVCComponent, pathMatch: 'full', resolve: {mlSampleData: MLSampleRcptCSVResolverService}}
-        ]
+        path: 'molecularlab-cvs', loadChildren: () => import('./molecular-lab/sample-rcpt-cvs/molecular-sample-cvs.module').then(m => m.MolecularSampleRcptCVSModule)
       },
       {
-        path: 'molecular-report', component: ReportSampleStatusComponent,
-        children:[
-          {path: '', component:ReportSampleStatusComponent, pathMatch: 'full'}
-        ]
+        path: 'molecular-report', loadChildren: () => import('./molecular-lab/repot-sample-status/repot-sample-status.module').then(m => m.ReportSampleStatusModule)
+
       },{
         path: 'update-molecular-result', component: UpdateMolResultMainComponent,
         children:[
@@ -837,48 +850,26 @@ const routes: Routes = [
       },
 
      {
-        path: 'mol-blood-recp-report', component: MolecularBloodSampleReciptComponent,
-        children:[
-          {path: '', component:MolecularBloodSampleReciptComponent, pathMatch: 'full'}
-        ]
+        path: 'mol-blood-recp-report', loadChildren: () => import('./molecular-lab/molecule-blood-sample-recp/molecule-blood-sample-recp.module').then(m => m.MolecularBloodSampleRcptModule)
+        
       },
     {
-        path: 'mol-cvs-report', component:MolecularCVSReport,
-        children:[
-          {path: '', component:MolecularCVSReport, pathMatch: 'full'}
-        ]
+        path: 'mol-cvs-report', loadChildren: () => import('./molecular-lab/molecule-cvs-report/molecule-cvs-report.module').then(m => m.MolecularCVDReportModule),pathMatch: 'full'
       },
       // MolecularCVSReport
      {
-        path: 'mol-cvs-recp-report', component:MolecularCVSSampleReciptComponent,
-        children:[
-          {path: '', component:MolecularCVSSampleReciptComponent, pathMatch: 'full'}
-        ]
+        path: 'mol-cvs-recp-report', loadChildren: () => import('./molecular-lab/molecule-cvs-sample-recp/molecule-cvs-sample-recp.module').then(m => m.MolecularCVSSampleRcptModule)
       },
-
       {
-        path: 'schedule-pre-pndtc', component: PrePndtcMainComponent,
-        children:[
-          {path: '', component: PrePndtcToBeScheduledComponent, pathMatch: 'full', resolve: {tobeScheduling: ToBeSchedulingResolverService}},
-          {path: 'scheduled', component: PrePndtcScheduledComponent, pathMatch: 'full', resolve: {preScheduled: ScheduledResolverService}}
-        ]
+        path: 'schedule-pre-pndtc',
+        loadChildren: () => import('./pndtc/schedule/schedule.module').then(m => m.ScheduleModule)
       },
-
     {
-        path: 'PNDTPickandPackReport', component:CounsellorpnpreportListComponent,
-        children:[
-          {path: '', component:CounsellorpnpreportListComponent, pathMatch: 'full'},
-        ]
+        path: 'PNDTPickandPackReport', loadChildren: () => import('./pndtc/counsellor-pnpreport-list/counsellor-pnpreport-list.module').then(m => m.CounsellingpnpreportListModule)
+        
       },
-
-
       {
-        path: 'pndtc-testing', component: PndTestingMainComponent,
-        children:[
-          {path: '', component: pndTestingComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCPendingResolverService}},
-          {path: 'notcompleted', component: pndNotCompleteComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCCompletedResolverService}},
-
-        ]
+        path: 'pndtc-testing', loadChildren: () => import('./pndtc/pnd-testing/pnd-testing-main.module').then(m => m.PNDTestingModule)
       },
       {
         path: 'pndtc-testing-result', component: PndTestingResultsMainComponent,
@@ -896,17 +887,11 @@ const routes: Routes = [
       //   ]
       // },
       {
-        path: 'pndtc-summary', component: PndTestingSummaryMainComponent,
-        children:[
-          {path: '', component: pndTestingSummaryComponent, pathMatch: 'full', resolve: {pndtcTesting: PNDTCSummaryResolverService}}
-        ]
+        path: 'pndtc-summary',  loadChildren: () => import('./pndtc/pnd-testing/pnd-testing-summary.module').then(m => m.PNDTestingSummaryModule)
       },
       {
-        path: 'mtp-service', component: MTPServicMainComponent,
-        children:[
-          {path: '', component: MTPPendingComponent, pathMatch: 'full', resolve: {MTPTesting: MTPPendingResolverService}},
-          {path: 'completed', component: MTPServiceCompletedComponent, pathMatch: 'full', resolve: {MTPTesting: MTPCompletedResolverService}}
-        ]
+        path: 'mtp-service', loadChildren: () => import('./mtp/mtp-service/mtp-service.module').then(m => m.MTPServiceModule)
+        
       },
       {
         path: 'mtp-testing-result', component: MtpTestingResultsMainComponent,
@@ -935,10 +920,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'mtp-summary', component: MtpTestingSummaryMainComponent,
-        children:[
-          {path: '', component: mtpTestingSummaryComponent, pathMatch: 'full', resolve: {mtpTestingData: MTPSummaryResolverService}}
-        ]
+        path: 'mtp-summary', loadChildren: () => import('./mtp/mtp-service/mtp-summary.module').then(m => m.MTPSummaryModule)
       },
       {
         path: 'view-mtp-summary', component: MtpSummaryViewMainComponent,
@@ -965,23 +947,12 @@ const routes: Routes = [
       { path: 'view-anm-report', component: AnmReportProfileComponent, pathMatch: 'full'},
       { path: 'chc-main-report', component: CHCreportListComponent, pathMatch: 'full'},
       { path: 'patho-main-report', component: PathoreportListComponent, pathMatch: 'full'},
-      /*{
-        path: 'view-pndtc-summary', component: PndSummaryViewComponent,
-      },*/
       {
-        path: 'counselling-pre-pndt', component: CounsellingPrePndtMainComponent,
-        children:[
-          {path: '', component: ToBeCounselledComponent, pathMatch: 'full'},
-          {path: 'counselledyes', component: CounselledDecisionYesComponent, pathMatch: 'full'},
-          {path: 'counselledno', component: CounselledDecisionNoComponent, pathMatch: 'full'},
-          {path: 'counselledawaited', component: CounselledDecisionAwaitedComponent, pathMatch: 'full'}
-        ]
+        path: 'counselling-pre-pndt', loadChildren: () => import('./pndtc/counselling-pre-pndt/counselling-pre-pndt.module').then(m => m.CounsellingPrePMDTModule)
       },
+      { path: 'chc-subjectprofile', loadChildren: () => import('./chc-module/chc-subject-profile-list/chc-subject-profile-list.module').then(m => m.CHCSubjectProfileListModule)},
       {
-        path: 'update-pregnancy', component: UpdatePregnacyMainComponent,
-        children:[
-          {path: '', component: UpdatePregnacyComponent, pathMatch: 'full'}
-        ]
+        path: 'update-pregnancy', loadChildren: () => import('./Haematologist/update-pregnacy.module').then(m => m.UpdatePregnacyModule)
 
       }/*,
       {path: 'hem-report', component: HEMreportListComponent,
@@ -996,12 +967,7 @@ const routes: Routes = [
     //   ]
     // },
       {
-        path: 'csv-specimen', component: CSVSpecimenMainComponent,
-        children:[
-          {path: '', component: CSVspecimenComponent, pathMatch: 'full'},
-          {path: 'csvstart', component: CSVspecimenStartComponent, pathMatch: 'full'}
-
-        ]
+        path: 'csv-specimen', loadChildren: () => import('./pndtc/counselling-pre-pndt/csv-specimen.module').then(m => m.CVSSpecimenModule)
       },
       { path: 'view-ml-result', component: ViewResultMLComponent },
       { path: 'update-pre-pndtc', component: UpdateDetailTestresultsComponent },
@@ -1010,14 +976,22 @@ const routes: Routes = [
       { path: 'update-pre-pndtc-no', component: UpdateDecisionNoPndtComponent },
       { path: 'update-pre-pndtc-awaited', component: UpdateDecisionPendingPndtComponent },
       { path: 'update-pre-pndtc-yes', component: UpdateDecisionYesPndtComponent },
+     
       {
+        path: 'schedule-post-pndtc', loadChildren: () => import('./pndtc/schedule-post-pndtc/schedule-post-pndtc.module').then(m => m.SchedulePostPndtcModule)
+      },
+      /*{
         path: 'schedule-post-pndtc', component: SchedulePostPndtcMainComponent,
         children:[
           {path: '', component: SchedulePostPndtcToBeScheduledComponent, pathMatch: 'full', resolve: {postScheduling: PostSchedulingResolverService}},
           {path: 'scheduled', component: SchedulePostPndtcScheduledComponent, pathMatch: 'full', resolve: {postScheduled: PostScheduledResolverService}},
         ]
-      },
+      },*/
+
       {
+        path: 'counselling-post-pndt', loadChildren: () => import('./pndtc/counselling-post-pndt/counselling-post-pndt.module').then(m => m.CounsellingPostPNDTModule)
+      },
+      /*{
         path: 'counselling-post-pndt', component: CounsellingPostPndtMainComponent,
         children:[
           {path: '', component: ToBePostPndtCounselledComponent, pathMatch: 'full'},
@@ -1025,13 +999,13 @@ const routes: Routes = [
           {path: 'counselledno', component: PostCounsellingDecisionNoComponent, pathMatch: 'full'},
           {path: 'counselledawaited', component: PostCounsellingDecisionPendingComponent, pathMatch: 'full'}
         ]
-      },
+      },*/
       {
-        path: 'counsellor-report', component: CounsellorreportListComponent,
+        path: 'counsellor-report', loadChildren: () => import('./pndtc/counsellor-report-list/counsellor-report-list.module').then(m => m.CounsellorreportListModule)
       },
 
       {
-        path: 'counsellor-mtp-report', component: CounsellorMtpreportListComponent,
+        path: 'counsellor-mtp-report', loadChildren: () => import('./pndtc/counsellor-mtp-report-list/counsellor-mtp-report-list.module').then(m => m.CounsellingMTPReportModule),
       },
 
 
@@ -1058,18 +1032,14 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'HPLC-DC', component: PathoreportSampleStatusMainPrintComponentDC,
-        children:[
-          {path: '', component: PathoreportSampleStatusPrintComponentDC, pathMatch: 'full'},
-
-        ]
+        path: 'HPLC-DC', loadChildren: () => import('./district-coordinator/repot-patho-sample-status/repot-patho-sample-status.module').then(m => m.PathoreportSampleStatusModule),
       },
       {
         path: 'state-report', component: StatereportListComponent,
 
       },
       {
-        path: 'district-report', component: DistrictreportListComponent,
+        path: 'district-report', loadChildren: () => import('./district-coordinator/district-report-list/district-report-list.module').then(m => m.DistrictReportListModule),
 
       },
      
@@ -1081,11 +1051,7 @@ const routes: Routes = [
         path: 'anm-report', component: ANMreportListComponent,
 
       },{
-        path: 'counsellor-report', component: CounsellorreportListComponent,
-
-      },{
-        path: 'mtp-report', component: MTPreportListComponent,
-
+        path: 'mtp-report', loadChildren: () => import('./mtp/mtp-report-list/mtp-report-list.module').then(m => m.MTPReportListModule),
       },
       {
         path: 'add-admin-users', component: AdminUsersListComponent,
@@ -1113,21 +1079,13 @@ const routes: Routes = [
       { path: 'anm-shipment', component: AnmShipmentComponent },
       { path: 'block-shipment', component: BlockShipmentComponent },
       // resolve: {shipmentLogData: ShipmentlogResolverService }
-      { path: 'anm-viewsubjectprofile', component: AnmSubjectProfileComponent, pathMatch: 'full'},
-      { path: 'chc-reg-viewsubjectprofile', component: AnmChcSubjectProfileComponent, pathMatch: 'full'},
+      { path: 'anm-viewsubjectprofile', loadChildren: () => import('./anm-module/anm-subject-profile/anm-subject-profile.module').then(m => m.ANMSubjectProfileModule)},
+      { path: 'chc-reg-viewsubjectprofile', loadChildren: () => import('./shared/anm-module/anm-chc-subject-profile/anm-chc-subject-profile.module').then(m => m.ANMCHCSubjectProfileModule), pathMatch: 'full'},
       { path: 'anm-subprofile', component: AnmSubjectProfileListComponent },
       { path: 'anm-viewshipment', component: AnmViewShipmentdetailsComponent, pathMatch: 'full'},
       {path: 'anm-profiletracking', component: AnmSubjectProfileTrackingComponent},
-      { path: 'dc-notification', component: DistrictCoordinatorMainComponent,
-      children:[
-        {path: '', component: DamagedSamplesComponent, pathMatch: 'full'},
-        {path: 'unsent-samples', component: UnsentSamplesComponent, pathMatch: 'full'},
-        {path: 'sample-timeout', component: SampleTimeoutComponent, pathMatch: 'full'},
-        {path: 'positive-subjects', component: PositiveSubjectsComponent, pathMatch: 'full'},
-        {path: 'pndt-referral', component: PndtReferralComponent, pathMatch: 'full'},
-        {path: 'mtp-referral', component: MtpReferralComponent, pathMatch: 'full'},
-        {path: 'postmtp-follow-up', component: PostMtpFollowupComponent, pathMatch: 'full'}
-      ]
+     
+      { path: 'dc-notification', loadChildren: () => import('./district-coordinator/dc-notification.module').then(m => m.DCNotificationModule)
       },
     ]
   },
@@ -1147,57 +1105,22 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const RoutingComponents = [
-  LoadScriptDirective,
   NotfoundComponent,
   PageUnderDevelopementComponent,
-  HomeComponent,
-  AboutUsComponent,
-  AboutProgramComponent,
-  ImportantLinksComponent,
-  CounterComponent,
-  FetchDataComponent,
-  UsersAdminHPLCComponent,
-  LoginComponent,
-  HplcLoginComponent,
-  HomeHeaderComponent,
-  HomeLayoutComponent,
+
   SiteHeaderComponent,
   SiteLayoutComponent,
-  SiteSidebarComponent,
   DashboardComponent,
   StatereportListComponent,
-  AnmNotificationComponent,
-  AnmDamagedSamplesComponent,
-  AnmUnsentSamplesComponent,
-  CounsellorreportListComponent,
-  AnmTimeoutSamplesComponent,
-  AnmPositiveSubjectsComponent,
-  AnmPndReferralComponent,
-  AnmMtpReferralComponent,
-  AnmUpdateChcComponent,
-  AnmPostMtpFollowupComponent,
+
   SampleCollectionComponent,
   AnmPickandPackComponent,
   AnmShipmentComponent,
-  AnmSubjectProfileComponent,
   AnmSubjectProfileListComponent,
-  AnmSubjectRegistrationComponent,
-  AnmAwRegistrationComponent,
-  AnmSpouseRegistrationComponent,
-  AnmStudentRegistrationComponent,
-  AnmWalkinLt18RegistrationComponent,
-  AnmWalkinGt18RegistrationComponent,
   CounsellorChcreportListComponent,
   AnmViewShipmentdetailsComponent,
-  ChcSampleCollectionComponent,
   WalkinRegistrationComponent,
-  CheSubjectRegistrationComponent,
-  UsersAdminSPCComponent,
-  UsersAdminNHMComponent,
-  ChcpregnantRegistrationComponent,
-  ChcStudentRegistrationComponent,
-  CheSpouseRegistrationComponent,
-  ChcwalkinRegistrationComponent,
+
   CHCSampleRcptComponent,
   CHCSampleRcptProComponent,
   ChcPicknpackComponent,
@@ -1214,29 +1137,14 @@ export const RoutingComponents = [
   NHMTrainingRegistrationComponent,
   ChcShipmentlogComponent,
   ChcViewShipmentdetailsComponent,
-  AssociatedANMComponent,
-  MolecularlabComponent,
-  UsersAdminPNDTCComponent,
-  ChcDamagedSamplesComponent,
-  ChcNotificationComponent,
-  ChcUnsentSamplesComponent,
-  NHMScreenRegistrationComponent,
-  ChcTimeoutSamplesComponent,
-  ChcPositiveSubjectComponent,
+
   CentralSampleRcptMainComponent,
   CentralSampleRcptComponent,
   CentralHPLCupdateComponent,
   CentralReceivedSampleComponent,
   CentralHPLCUploadComponent,
-  MolecularSampleRcptMainComponent,
-  UsersAdminMTPComponent,
-  UsersAdminDCComponent,
-  UsersAdminSupportComponent,
-  MolecularSampleRcptComponent,
+
   ChcSamplePickpackComponent,
-  CheSpouseComponent,
-  AnmSpouseComponent,
-  AnmSpouseComponent,
   DiagosisHPLCmainComponent,
   DiagnosisHPLCAbnormaComponent,
   DiagosisReportComponent,
@@ -1251,63 +1159,29 @@ export const RoutingComponents = [
   CentralCentralShipmentComponent,
   ChcPendingPickpackComponent,
   ChcStartPickpackComponent,
-  ChcSubjectProfileListComponent,
   DiagnosisHPLCAbEditComponent,
-  CounsellorMtpreportListComponent,
-  PrePndtcMainComponent,
-  PrePndtcToBeScheduledComponent,
-  PrePndtcScheduledComponent,
-  PndTestingMainComponent,
-  pndTestingComponent,
   // PathoreportStatusCoordinatorMainPrintComponent,
   PndTestingResultsMainComponent,
   PNDTestingResultsComponent,
-  pndNotCompleteComponent,
   UpdateDetailTestresultsComponent,
   UpdateDecisionNoPndtComponent,
-  DistrictreportListComponent,
   CounsellorPhcreportListComponent,
   UpdateDecisionYesPndtComponent,
   UpdateDecisionPendingPndtComponent,
-  SchedulePostPndtcMainComponent,
-  SchedulePostPndtcScheduledComponent,
-  SchedulePostPndtcToBeScheduledComponent,
-  PndTestingSummaryMainComponent,
-  pndTestingSummaryComponent,
   PndSummaryViewComponent,
   NHMReportScreenRegistrationComponent,
   NHMReportBCCRegistrationComponent,
   PndSummaryViewMainComponent,
-  NHMReportTrainingRegistrationComponent,
-  CounsellingPostPndtMainComponent,
-  ToBePostPndtCounselledComponent,
+
   PostPndtcTestresultsComponent,
-  PostCounsellingDecisionYesComponent,
-  PostCounsellingDecisionNoComponent,
-  PostCounsellingDecisionPendingComponent,
   PostPndtcDecisionYesComponent,
-  MTPServicMainComponent,
-  MTPPendingComponent,
-  MTPServiceCompletedComponent,
   MTPTestingResultsComponent,
   MtpTestingResultsMainComponent,
-  MtpTestingSummaryMainComponent,
-  mtpTestingSummaryComponent,
   MtpSummaryViewMainComponent,
   MtpSummaryViewComponent,
   PostPndtcDecisionNoComponent,
   PostPndtcDecisionAwaitedComponent,
-  DistrictCoordinatorMainComponent,
-  DamagedSamplesComponent,
-  UnsentSamplesComponent,
-  SampleTimeoutComponent,
-  PositiveSubjectsComponent,
-  PndtReferralComponent,
-  MtpReferralComponent,
-  UsersAdminHaematologistComponent,
-  PostMtpFollowupComponent,
-  ReportSampleStatusComponent,
-  ReportSampleStatusMainComponent,
+
   UpdateMolResultComponent,
   UpdateMolResultMainComponent,
   ViewCaseSheetComponent,
@@ -1323,17 +1197,12 @@ export const RoutingComponents = [
   HPLCUpdateNewComponent,
   HPLCReceivedNewComponent,
   DiagosisReportComponent1,
-  GetOtpComponent,
-  ChcSubjectProfileComponent,
-  HPLCComponent,
-  MTPComponent,
-  AnmChcSubjectProfileComponent,
+
   PathoreportSampleStatusComponent,
   PathoreportSampleStatusMainComponent,
   ViewReportPathoMainMainComponent,
   ViewPathoReportComponent,
-  UsersAdminPNDTComponent,
-  ResetLoginComponent,
+
   CHCNotificationMainComponent,
   AnmSubjectProfileTrackingComponent,
   ViewCLReportComponent,
@@ -1359,27 +1228,15 @@ export const RoutingComponents = [
   // UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
   PathoreportSampleStatusPrintComponent,
-  MlrNotificationComponent,
-  UpdateResultsComponent,
-  EditResultsComponent,
-  UsersAdminMolecularComponent,
-  ConfirmedResultsComponent,
-  CvsNotificationComponent,
+
   CvsUpdateresultComponent,
   CvsEditresultComponent,
-  CvsConfirmedresultComponent,
+  CvsConfirmedresultComponent,*/
   ANMreportListComponent,
   AnmReportProfileComponent,
   CHCreportListComponent,
-  CSVspecimenComponent,
-  CSVSpecimenMainComponent,
-  CSVspecimenStartComponent,
   ScheduleShipmentMainComponent,
   ScheduleShipmentComponent,
-  MolecularSampleRcptCVCComponent,
-  MolecularSampleRcptCVCMainComponent,
-  UpdatePregnacyMainComponent,
-  UpdatePregnacyComponent,
   UpdatePregnacyTestresultsComponent,
   ViewResultMLComponent,
   BarcodeCorrectionMainComponent,
@@ -1389,14 +1246,7 @@ export const RoutingComponents = [
   RCHCorrectionComponent,
   LMPCorrectionMainComponent,
   LMPCorrectionComponent,
-  HPLCPosPrintComponent,
-  HPLCReportsMainComponent,
-  CVSReportsMainComponent,
-  CVSPosPrintComponent,
   BlockSubjectRegistrationComponent,
-  BlockAwRegistrationComponent,
-  BlockSubjecttRegistrationComponent,
-  BlockStudentRegistrationComponent,
   SSTCorrectionComponent,
   NHMReportSubjectRegistrationComponent,
   SSTCorrectionMainComponent,
@@ -1408,7 +1258,6 @@ export const RoutingComponents = [
   BarcodeReportMainComponent,
   RCHReportComponent,
   RCHReportMainComponent,
-  blockSpouseRegistrationComponent,
   BlockSampleCollectionComponent,
   BlockPicknpackComponent,
   BlockShipmentComponent,
@@ -1420,8 +1269,6 @@ export const RoutingComponents = [
   AdminUsersListComponent,
   PathoreportSampleStatusMainPrintComponentANM,
   PathoreportSampleStatusPrintComponentANM,
-  PathoreportSampleStatusMainPrintComponentDC,
-  PathoreportSampleStatusPrintComponentDC,
   PathoreportSampleStatusMainPrintComponentNHM,
   PathoreportSampleStatusMainPrintComponent,
 
@@ -1432,21 +1279,12 @@ export const RoutingComponents = [
   IlrComponent,
   TestComponent,
   UsersComponent,
-  HplcreportSampleStatusPrintComponent,
   UploadSAMainComponent,
   SAUploadComponent,
-  CommonDataTableComponent,
   CommonUsersTableComponent,
-
-  MTPreportListComponent,
-  CounsellorreportListComponent,
   PNDTOBSreportListComponent,
   MTPOBSreportListComponent,
   HEMreportListComponent,
-  CounsellorpnpreportListComponent,
-  MolecularBloodSampleReciptComponent,
-  MolecularCVSSampleReciptComponent,
-  MolecularCVSReport,
   HEMreportListComponent1,
   DeactivateanmComponent,
   DeactivateanmMainComponent,

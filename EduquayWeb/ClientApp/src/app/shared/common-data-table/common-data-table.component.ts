@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
 
 
+
 @Component({
   selector: 'common-data-table',
   templateUrl: './common-data-table.component.html',
