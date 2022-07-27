@@ -1,0 +1,64 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="anm" subMenum="sample-collection"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+            <!-- <div class="col-md-12 text-center">
+                            <h5 class="">ANM Name - PHC Name</h5>
+                        </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">{{'Monthly Indicators' | translate }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': (currentPage == 'nhmreportscreen' || currentPage == 'nhm-subregnreport') ? true : false}" id="NHMreportScreen-tab" data-toggle="tab"
+                                [routerLink]="['/app/nhm-subregnreport/nhmreportscreen']" role="tab" aria-controls="home"
+                                aria-selected="true">{{'Screening' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'nhmreportbcc' ? true : false}" id="BCCReportScreen-tab" [routerLink]="['/app/nhm-subregnreport/nhmreportbcc']" data-toggle="tab" 
+                                role="tab" aria-controls="profile" aria-selected="true">{{'BCC' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'nhmreporttraining' ? true : false}" id="TrainingReportScreen-tab" [routerLink]="['/app/nhm-subregnreport/nhmreporttraining']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'Training' | translate }}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-5" id="myTabContent">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+      </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+  </div>
+  <!--  END MAIN CONTAINER  -->
+  
+  <!--<i appLoadScript [script]="''"></i>-->
+  <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+  

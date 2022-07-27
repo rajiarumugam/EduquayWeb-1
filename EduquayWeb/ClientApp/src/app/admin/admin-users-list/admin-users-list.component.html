@@ -175,10 +175,10 @@
 
                                        <div class="form-group col-md-3">
                                         <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                                        <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                                        <input class="form-control" name="contactNo1" type="text" minlength="10" maxlength="10" placeholder="ContactNo" ngModel    oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxlength) this.value = this.value.slice(0, this.maxlength);"numbersOnly
                                         [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
                                          #contactNo1="ngModel" required >
-                                        <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                                        <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched && !contactNo1.maxLength">Enter 10 digit number</small>
                                         <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
                                           <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
                                         </div>
@@ -199,7 +199,7 @@
                                         <input class="form-control" name="email" type="text" placeholder="email" ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                         [class.is-invalid]="!email.valid && email.touched || addIlrForm.submitted && email.invalid"
                                          #email="ngModel" required>
-                                        <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter Email</small>
+                                        <small class="text-danger ml-2" *ngIf="!email.valid && email.touched ">Enter correct Email</small>
                                         <div *ngIf="addIlrForm.submitted && email.invalid">
                                           <small *ngIf="email.untouched" class=" ml-2 text-danger">Email is required</small>
                                         </div>
@@ -207,7 +207,7 @@
 
 
 
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                           <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                           <div class="n-chk">
                                               <label class="new-control new-checkbox checkbox-outline-primary">
@@ -216,17 +216,21 @@
                                                 <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                               </label>
                                           </div>
-                                        </div>
+                                        </div> -->
                                       </div>
 
                                       <div class="form-row mt-4">
                                         <div class="form-group col-md-12">
-                                          <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                          <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                           rows="2"
-                                          placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                        </div>
-                                      </div>
+                                        <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                           <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                           [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                            name=Comments #Comments="ngModel" ngModel required></textarea>
+                                         </div>
+                                         <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                        <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                            <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                             </div>
+                                             </div>
                                     </div>
 
 
@@ -278,7 +282,7 @@
                                       </div>
                                         <div class="form-group col-md-3">
                                           <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
-                                          <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
+                                          <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" required
                                           [class.is-invalid]="!userName.valid && userName.touched || editsadminForm.submitted && userName.invalid">
                                           <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
                                           <div *ngIf="editsadminForm.submitted && userName.invalid">
@@ -341,7 +345,7 @@
                                         <input class="form-control" name="email" type="text" placeholder="email" [(ngModel)]="email" #email1="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                         [class.is-invalid]="!email.valid && email.touched || editsadminForm.submitted && email.invalid"
                                         required>
-                                        <small class="text-danger ml-2" *ngIf="!email1.valid && email1.touched ">Enter email</small>
+                                        <small class="text-danger ml-2" *ngIf="!email1.valid && email1.touched ">Enter correct Email</small>
                                         <div *ngIf="editsadminForm.submitted && email.invalid">
                                           <small *ngIf="email.untouched" class=" ml-2 text-danger">Email is required</small>
                                         </div>
@@ -349,7 +353,7 @@
 
 
 
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                           <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                           <div class="n-chk">
                                               <label class="new-control new-checkbox checkbox-outline-primary">
@@ -358,7 +362,7 @@
                                                 <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                               </label>
                                           </div>
-                                        </div>
+                                        </div> -->
                                       </div>
 
                                       <div class="form-row mt-4">

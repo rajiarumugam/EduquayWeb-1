@@ -116,9 +116,9 @@
             <ul class="submenu list-unstyled collapse show "  id="centrallab1" data-parent="#accordionExample"
             style="">
 
-            <li routerLinkActive="active">
+            <!-- <li routerLinkActive="active">
               <a [routerLink]="['/app/add-state']"> {{'State' | translate }} </a>
-          </li>
+          </li> -->
           <li routerLinkActive="active">
               <a [routerLink]="['/app/add-district']"> {{'District' | translate }} </a>
           </li>
@@ -140,6 +140,18 @@
            <li routerLinkActive="active">
               <a [routerLink]="['/app/add-ri-point']"> {{'RI Point' | translate }} </a>
           </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/app/add-pndt']"> {{'PNDT' | translate }} </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/app/add-hplc']"> {{'HPLC' | translate }} </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/app/add-mtp']"> {{'MTP' | translate }} </a>
+        </li>
+        <li routerLinkActive="active">
+            <a [routerLink]="['/app/add-molecular']"> {{'Molecular' | translate }} </a>
+        </li>
           <!-- <li routerLinkActive="active">
               <a [routerLink]="['/app/add-gvt-id-type']"> {{'Government ID Type' | translate }} </a>
           </li> -->
@@ -166,19 +178,23 @@
             </a>
             <ul class="submenu list-unstyled collapse "  id="centrallab" data-parent="#accordionExample"
                 style="">
-                <li routerLinkActive="active">
+                <!-- <li routerLinkActive="active">
                   <a [routerLink]="['/app/add-user-type']"> {{'User Type' | translate }} </a>
-              </li>
+              </li> -->
               <li routerLinkActive="active">
 
                   <a [routerLink]="['/app/add-avd']"> {{'AVD' | translate }} </a>
               </li>
 
-              <li routerLinkActive="active">
+              <!-- <li routerLinkActive="active">
                   <a [routerLink]="['/app/add-users']"> {{'Users' | translate }} </a>
-              </li>
-
-
+              </li> -->
+              <li routerLinkActive="active">
+                <a [routerLink]="['/app/add-admin-users']"> {{'Users' | translate }} </a>
+            </li>
+            <li routerLinkActive="active">
+                <a [routerLink]="['/app/admin-users-main']"> {{'Users--' | translate }} </a>
+            </li>
 
             </ul>
 
@@ -366,6 +382,37 @@
 
                 </ul>
             </li>
+
+
+            <li class="menu" *ngIf="user.userRole === 'NHM'">
+                <a href="#nhmdata" data-toggle="collapse" attr.data-active="{{module === 'nhmdata'}}" attr.aria-expanded="{{module === 'nhmdata'}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg width="5cm" height="4cm" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <image href="./assets/assets/img/menu/nurse.svg" x="0" y="0" height="18px" width="18px" />
+                    </svg>
+                        <span>{{'Monthly Indicators' | translate }}</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse show" id="nhmdata" data-parent="#accordionExample">
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/nhm-subregn']"> {{'Registration' | translate }} </a>
+                    </li>
+                
+               
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/app/nhm-subregnreport']"> {{'Report' | translate }} </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="menu" *ngIf="user.userRole === 'CHCLTLEVEL2' || user.userRole === 'CHCSRLT'">
                 <a href="#chcsam" data-toggle="collapse" attr.data-active="{{module === 'chcsam'}}" attr.aria-expanded="{{module === 'chcsam'}}" class="dropdown-toggle">
                     <div class="">
@@ -650,14 +697,7 @@
                   <li routerLinkActive="active">
                     <a [routerLink]="['/app/mol-cvs-recp-report']"> {{'CVS Receipt Report' | translate }} </a>
                 </li>
-                <li routerLinkActive="active">
-                  <a [routerLink]="['/app/mol-cvs-report']"> {{'CVS Result Report' | translate }} </a>
-              </li>
-                <!-- mol-cvs-report -->
-
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/app/molecular-report']"> {{'ReportSampleStatus' | translate }} </a>
-                    </li>
+                
                 </ul>
             </li>
             <li class="menu" *ngIf="user.userRole === 'COUNSELLOR'">
@@ -871,6 +911,14 @@
                         <li [ngClass]="{'active': (module === 'mlr1' && subMenu === 'cvs') ? true : false}">
                             <a [routerLink]="['/app/cvs-specimen/cvs-reoprts']"> {{'CVS Specimen' | translate }}</a>
                         </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/app/mol-cvs-report']"> {{'CVS Result Report' | translate }} </a>
+                        </li>
+                          <!-- mol-cvs-report -->
+          
+                              <li routerLinkActive="active">
+                                  <a [routerLink]="['/app/molecular-report']"> {{'Blood sample Result Report' | translate }} </a>
+                              </li>
                     </ul>
                 </li>
 

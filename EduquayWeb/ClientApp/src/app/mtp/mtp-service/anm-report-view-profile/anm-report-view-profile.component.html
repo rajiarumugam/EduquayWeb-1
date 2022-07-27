@@ -1,0 +1,659 @@
+
+
+
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="anm" subMenum="Subject-Profile"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+             <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+            </div> -->
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left mb-4"><a class="btn btn-outline-primary bs-tooltip"
+                                [routerLink]="['/app/anm-report']" role="button" ngbTooltip="Report" placement="right"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">{{'ViewSubjectProfile' | translate }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6" style="display: none;"> 
+                        <!-- <div class="row mt-4">
+                            <div class="col-md-3">
+                                <span class="note"></span><span class="manto"></span>
+                                <input class="form-control field" name="name" type="text" placeholder="{{'Subject ID' | translate }} / Barcode / RCH ID / DL / Pan" tabindex="1" autocomplete="off" /> 
+                            </div>
+                          <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary my-1">Search</button>
+                          </div>
+                        </div> -->
+
+                        <div class="form-row mt-4">
+                            <div class="col-md-12">
+                                <div *ngIf="subjectProfileErrorMessage" class="alert mt-3 mb-2"
+                                    [ngClass]="{'alert-warning': subjectProfileErrorMessage ==='No Subject found', 'alert-danger': subjectProfileErrorMessage !== 'No Subject found'}">
+                                    <span class="fa fa-info-circle mr-2"
+                                        style="font-size: 16px;"></span><strong>Oops!</strong>
+                                    {{subjectProfileErrorMessage}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12" >
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile showhidediv" id="showhidediv">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <h5><b>{{'SubjectID' | translate }} :</b> {{subjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5><strong>{{'SubjectInfo' | translate }} :</strong> {{subjectprofileItem?.primaryDetail.firstName}} {{subjectprofileItem?.primaryDetail.lastName}}, {{subjectprofileItem?.primaryDetail.gender | slice:0:1}}, {{subjectprofileItem?.primaryDetail.age}} yrs</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5> <strong>{{'RCHID' | translate }} : </strong>
+                                        {{subjectprofileItem?.pregnancyDetail.rchId}}</h5>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row mt-0 mb-2">
+                                <div class="col-md-12">
+                                    <div *ngIf="subjectProfileErrorMessage" class="alert mt-3 mb-2"
+                                        [ngClass]="{'alert-warning': subjectProfileErrorMessage ==='No Subject found', 'alert-danger': subjectProfileErrorMessage !== 'No Subject found'}">
+                                        <span class="fa fa-info-circle mr-2"
+                                            style="font-size: 16px;"></span><strong>Oops!</strong>
+                                        {{subjectProfileErrorMessage}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 || subjectprofileItem?.primaryDetail.subjectTypeId === 2">
+                                    <span class="float-left mt-0">
+                                        <h5><b>{{'SubjectID' | translate }} : </b>{{subjectprofileItem?.primaryDetail.uniqueSubjectId}}</h5>
+                                    </span>
+                                    
+                                   
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 || subjectprofileItem?.primaryDetail.subjectTypeId === 4">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblprimaryDetail">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate }}</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'SubjectName' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.firstName}}
+                                                        {{subjectprofileItem?.primaryDetail.lastName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate }} </b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.gender}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'DateofBirth' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.dob}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'Age' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.age}}</td>
+                                                    <td><b>{{'ContactNo' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.mobileNo}}</td>
+                                                    <td><b>{{'SpouseName' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.spouseFirstName}} {{subjectprofileItem?.primaryDetail.spouseLastName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'SpouseContact' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.spouseContactNo}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 2">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblprimaryDetail">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;"><b>{{'BasicInfo' | translate }}</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'SubjectName' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.firstName}}
+                                                        {{subjectprofileItem?.primaryDetail.lastName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'Gender' | translate }} </b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.gender}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'DateofBirth' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.dob}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'Age' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.age}}</td>
+                                                    <td><b>{{'ContactNo' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.mobileNo}}</td>
+                                                    <td><b>{{'SpouseName' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.spouseFirstName}} {{subjectprofileItem?.primaryDetail.spouseLastName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'SpouseContact' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.spouseContactNo}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem.primaryDetail.subjectTypeId === 1 || subjectprofileItem.primaryDetail.subjectTypeId === 4">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'SocioDemographicInfo' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'Religion' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.addressDetail.religionName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'Caste' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.addressDetail.casteName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'Community' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.addressDetail.communityName}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><b>{{'Address' | translate }}</b></td>
+                                                    <td colspan="3">{{subjectprofileItem?.addressDetail.address1}},
+                                                        {{subjectprofileItem?.addressDetail.address2}},
+                                                        {{subjectprofileItem?.addressDetail.address3}},
+                                                        {{subjectprofileItem?.addressDetail.stateName}}, {{subjectprofileItem?.addressDetail.pincode}} </td>
+                                                    <td><b>{{'District' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.districtName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'CHC' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.chcName}}</td>
+                                                    <td><b>{{'PHC' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.phcName}}</td>
+                                                    <td><b>{{'SC' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.scName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'RIPoint' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.riSite}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 2">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'SocioDemographicInfo' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'Religion' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.addressDetail.religionName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'Caste' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.addressDetail.casteName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'Community' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.addressDetail.communityName}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><b>{{'Address' | translate }}</b></td>
+                                                    <td colspan="3">{{subjectprofileItem?.addressDetail.address1}},
+                                                        {{subjectprofileItem?.addressDetail.address2}},
+                                                        {{subjectprofileItem?.addressDetail.address3}},
+                                                        {{subjectprofileItem?.addressDetail.stateName}}, {{subjectprofileItem?.addressDetail.pincode}} </td>
+                                                    <td><b>{{'District' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.districtName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'CHC' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.chcName}}</td>
+                                                    <td><b>{{'PHC' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.phcName}}</td>
+                                                    <td><b>{{'SC' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.scName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'RIPoint' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.primaryDetail.riSite}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 || subjectprofileItem?.primaryDetail.subjectTypeId === 4">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'PersonalInfo' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'ECNumber' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pregnancyDetail.ecNumber}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'RCHID' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pregnancyDetail.rchId}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'LMPDate' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pregnancyDetail.lmpDate}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'GestationalAge' | translate }}</b> </td>
+                                                    <td>{{subjectprofileItem?.pregnancyDetail.gestationalperiod}}</td>
+                                                    <td><b>{{'ObstetricsScore' | translate }}</b></td>
+                                                    <td>{{'G' | translate }}{{subjectprofileItem?.pregnancyDetail.g}}-{{'P' | translate }}{{subjectprofileItem?.pregnancyDetail.p}}-{{'L' | translate }}{{subjectprofileItem?.pregnancyDetail.l}}-{{'A' | translate }}{{subjectprofileItem?.pregnancyDetail.a}}
+                                                    </td>
+                                                    <td><b>{{'Barcodes' | translate }}</b></td>
+                                                   
+                                                    <td>{{subjectprofileItem?.pregnancyDetail.barcodes}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 2">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'PersonalInfo' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'ECNumber' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pregnancyDetail.ecNumber}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'RCHID' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pregnancyDetail.rchId}}</td>
+                                                    <td><b>{{'Barcodes' | translate }}</b></td>
+                                                    
+                                                    <td>{{subjectprofileItem?.pregnancyDetail.barcodes}}</td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'Results' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'CBCTestResult' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.cbcTestResult}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'SSTResult' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.ssTestResult}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'HPLCTestResult' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.primaryDetail.hplcTestResult}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 && subjectprofileItem?.prePndtCounselling != null">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'PrePNDTCounselling' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.prePndtCounselling.date}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'CounsellorName' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.prePndtCounselling.counsellorName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'CounsellingStatus' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.prePndtCounselling.counsellingStatus}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'CounsellingNotes/Remarks' | translate }}</b> </td>
+                                                    <td colspan="3">
+                                                        {{subjectprofileItem?.prePndtCounselling.counsellingNotes}}   
+                                                    </td>
+                                                    <td><b>{{'ThecouplehasagreedforPNDT' | translate }}</b> </td>
+                                                    <td>{{subjectprofileItem?.prePndtCounselling.agreedForPndt}}</td>
+                                                </tr>
+                                                <tr>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 && subjectprofileItem?.pndtTesting != null">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'PNDTesting' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15" wrap="true">{{subjectprofileItem?.pndtTesting.date}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'CounsellorName' | translate }}</b> </td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pndtTesting.counsellorName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'LabObstetricianName' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.pndtTesting.obstetritionName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'ClinicalHistory' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.pndtTesting.clinicalHistory}}</td>
+                                                    <td><b>{{'Examination' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.pndtTesting.examination}}</td>
+                                                    <td><b>{{'ProcedureofTesting' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.pndtTesting.procedureOfTesting}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'PNDTDiagnosis' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.pndtTesting.pndtDiagnosis}}</td>
+                                                    <td><b>{{'PNDTResults' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.pndtTesting.pndtresults}} </td>
+                                                    <td><b>{{'PNDTSideEffects' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.pndtTesting.pndtSideEffects}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 && subjectprofileItem?.postPndtCounselling != null">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2">{{'PostPNDTCounselling' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.postPndtCounselling.date}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'CounsellorName' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.postPndtCounselling.counsellorName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'CounsellingStatus' | translate }}</b> </td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.postPndtCounselling.counsellingStatus}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'CounsellingNotes/Remarks' | translate }}</b></td>
+                                                    <td colspan="3">{{subjectprofileItem?.postPndtCounselling.counsellingNotes}}</td>
+                                                    <td><b>{{'ThecouplehasagreedforMTP' | translate }}</b> </td>
+                                                    <td>{{subjectprofileItem?.postPndtCounselling.agreedForMtp}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" *ngIf="subjectprofileItem?.primaryDetail.subjectTypeId === 1 && subjectprofileItem?.mtpService != null">
+                        <div class="widget-content widget-content-area br-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="tablecss">
+                                                <tr class="" style="background-color: #e3e8ef;">
+                                                    <th colspan="6" class="text-left"
+                                                        style="color:#3a3b3e;font-size: 15px;">
+                                                        <a href="#" class="pthead">
+                                                            <b>
+                                                                <div class="d-flex">
+                                                                    <div class="p-2"> {{'MTPService' | translate }}</div>
+                                                                    <div class="ml-auto p-2"><i
+                                                                            class="fa fa-caret-down"></i></div>
+                                                                </div>
+                                                            </b>
+                                                        </a>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="d-none">
+                                                <tr>
+                                                    <td class="sp-xs-td-9"><b>{{'Date' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.mtpService.date}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'LabObstetricianName' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.mtpService.obstetritionName}}</td>
+                                                    <td class="sp-xs-td-9"><b>{{'ClinicalHistory' | translate }}</b></td>
+                                                    <td class="sp-xs-td-15">{{subjectprofileItem?.mtpService.clinicalHistory}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'Examination' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.mtpService.examination}}</td>
+                                                    <td><b>{{'ProcedureofTesting' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.mtpService.procedureOfTesting}}</td>
+                                                    <td><b>{{'SideEffects' | translate }}</b></td>
+                                                    <td>{{subjectprofileItem?.mtpService.sideEffects}} </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>{{'ConditionatDischarge' | translate }}</b></td>
+                                                    <td colspan="5">{{subjectprofileItem?.mtpService.conditionAtDischarge}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                    <i appLoadScript [script]="'assets/assets/js/profile.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/components/ui-accordions.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+                    <i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>
+                    <i appLoadScript [script]="'assets/assets/js/custom.js'"></i>
+                </div>
+                
+            </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+</div>
+<!--  END MAIN CONTAINER  -->

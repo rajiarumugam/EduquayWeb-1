@@ -68,3 +68,17 @@ export interface AddUsersDataresponse {
     users: UsersList[];
 
 }
+
+export interface errorreportresponse {
+    status: string;
+    message: string;
+    data: ErrorsList[];
+
+}
+
+export interface ErrorsList {
+    errorColumn: string;
+    errorColumnNo: string;
+    errorMessage: string;
+    errorData: string;
+}

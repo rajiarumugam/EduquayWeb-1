@@ -24,13 +24,12 @@ export interface AddAvdDataresponse {
 export class AddRibyAvdResponse {
     status: string;
     message: string;
-    ri: scbyanmList[]; 
+    data:ribyavdList[]; 
 }
 
-export interface scbyanmList {
+export interface ribyavdList {
    
        id : number;
-       riSite : string;
-       riGovCode :string;
+       name : string;
     
 }

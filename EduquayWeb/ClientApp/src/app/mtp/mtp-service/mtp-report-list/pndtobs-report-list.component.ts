@@ -15,7 +15,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import * as moment from 'moment';
 declare var $: any;
 import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.service";
-
+import { CommonDataTableComponent } from 'src/app/shared/common-data-table/common-data-table.component';
 
 @Component({
   selector: 'app-mtpobs-report-list',
@@ -24,11 +24,14 @@ import { PNDTCmasterService } from "../../../shared/pndtc/pndtc-masterdata.servi
 })
 export class MTPOBSreportListComponent implements AfterViewInit, OnDestroy, OnInit {
 
-
+  @ViewChild(CommonDataTableComponent,{static:true}) commonDataTable: CommonDataTableComponent;
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @Output() onLoadSubject: EventEmitter<any> = new EventEmitter<any>();
   loadDataTable: boolean = false;
   //dtOptions: DataTables.Settings = {};
+  @Output() openpopup: EventEmitter<any> = new EventEmitter<any>();
+  @Output() opensubjectdetails: EventEmitter<any> = new EventEmitter<any>();
+
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   @ViewChild('startPicker', { static: false }) startPicker;
@@ -191,7 +194,8 @@ export class MTPOBSreportListComponent implements AfterViewInit, OnDestroy, OnIn
     private tokenService: TokenService,
     private dataservice: DataService,
     private router: Router,
-    private PNDTCmasterService: PNDTCmasterService
+    private PNDTCmasterService: PNDTCmasterService,
+    private DataService:DataService
   ) { }
 
   ngOnInit() {
@@ -660,24 +664,29 @@ export class MTPOBSreportListComponent implements AfterViewInit, OnDestroy, OnIn
   }
 
 
-  opensubjectdetail(subjectinfo: SubjectProfileList ){
+  opensubjectdetail(subjectinfo ){
+    console.log(subjectinfo);
+    this.DataService.setdata({'anmreportData':subjectinfo});
+    this.DataService.setdata({'reportPreviouspage':"CHC"});
+    this.subjectid = subjectinfo.subjectId;
+      this.router.navigateByUrl(`/app/view-anm-report?q=${this.subjectid}`);
 
-    if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
+    /*if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${this.subjectid}`);
     }
     else if(subjectinfo.primaryDetail.registeredFrom === 'CHC'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
-    }
-
+    }*/
+    
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {
     //     // var subjectid = element.primaryDetail.uniqueSubjectId;
-    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);
+    //     this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${element.primaryDetail.uniqueSubjectId}`);    
     // });
   //}
-
+    
   }
 
   SubprofileInitializeDateRange() {
@@ -758,8 +767,7 @@ export class MTPOBSreportListComponent implements AfterViewInit, OnDestroy, OnIn
 
   }
 
-  openpopup(index, subjectinfo){
-
+  openTrackpopup(subjectinfo){
     console.log(subjectinfo);
     this.loaderService.display(true);
     var _obj = {
@@ -770,7 +778,6 @@ export class MTPOBSreportListComponent implements AfterViewInit, OnDestroy, OnIn
       .subscribe(response => {
         var _response = response.subjectsDetail[0];
 
-        console.log(this.SubjectProfileService.subjectProfileApi);
     this.childSubjectTypeId = _response.primaryDetail.childSubjectTypeId;
     this.uniqueSubjectId = _response.primaryDetail.uniqueSubjectId;
     this.firstName = _response.primaryDetail.firstName;

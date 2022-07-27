@@ -19,7 +19,7 @@ export class PrePndtcMainComponent implements OnInit {
   scheduledCount: number = 0;
   currentPage = "";
   subscription: Subscription;
-  
+
 
   constructor(
     private router: Router,
@@ -32,46 +32,26 @@ export class PrePndtcMainComponent implements OnInit {
     this.router.events
     .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
     .subscribe((events: RoutesRecognized[]) => {
-      
+
       if(events[0].urlAfterRedirects.indexOf('central-update-hplc') == -1)
       {
           this.DataService.deleteProp('centraluploaddata');
       }
     });
-    this.subscription = this.DataService.receiveData().subscribe(x => { 
+    this.subscription = this.DataService.receiveData().subscribe(x => {
       if(JSON.parse(x).screen === "PreScheduling")
       {
         this.schedulingCount = JSON.parse(x).schedulingCount;
         this.scheduledCount = JSON.parse(x).scheduledCount;
-       
+
       }
-      
+
     });
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
     //this.notificationCount();
   }
 
-  // async notificationCount(){
-  //   await this.schedulenotificationService.notificationCount().then((data) => {
-  //     this.schedulenotificationModel = data as ScheduleNotificationModel;
-  //     this.schedulingCount =  this.schedulenotificationModel.scheduling;
-  //     this.scheduledCount = this.schedulenotificationModel.scheduled;
-     
-  //   });
-  // }
 
-  // showNumberOnBadge(componentReference): void{
-  //   console.log(componentReference, componentReference.recordCount);
-  //   if(componentReference.onLoadSubject === undefined) return;
-  //   componentReference.onLoadSubject.subscribe((data) => {
-  //     if(this.router.url.indexOf('scheduled') >= 0){
-  //       this.scheduledCount = data;
-  //     }
-  //     else{
-  //       this.schedulingCount = data;
-  //     }
-  //   });
-  // }
 
   receivedSamples(event)
   {

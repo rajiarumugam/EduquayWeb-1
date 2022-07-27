@@ -8,9 +8,11 @@ import { AddchcbyblockResponse, AddChcResponse } from '../add-chc/add-chc-respon
 import { StateResponse } from '../state/state-response';
 import { UserroleResponse } from './add-users-response';
 import { AddPhcResponse } from '../add-phc/add-phc-response';
-import { AddUsersRequest } from './add-users-request';
+import { AddUsersFilterRequest, AddUsersRequest } from './add-users-request';
 import { AddUsersResponse, AddUsersDataresponse} from './add-users-response'; 
 import { AddScResponse } from '../add-sc/add-sc-response';
+import { ENDPOINT } from 'src/app/app.constant';
+import { errorreportresponse } from './add-users-response';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +38,11 @@ export class AddUsersService {
   RetrieveAllIlr: string = "api/v1/SA/RetrieveAllILR";
   addIlrApi: string = "api/v1/SA/AddNewILR";
   retrieveUsersApi: string = "api/v1/UserIdentity/RetrieveByType";
+  retrieveUserFilterApi: string ="api/v1/UserIdentity/RetrieveByTypeFilter";
   retrieveStateApi: string = "api/v1/SA/RetrieveAllStates";
   retrieveUserroleApi: string = "api/v1/UserRole/Retrieve";
   updateusersApi: string ="api/v1/UserIdentity/Edit";
-  
+  ValidateeBulkUploadNew:"api/v1/Support/ValidateBulkUploadNew";
   
   constructor(
     private httpClient: HttpClient,
@@ -61,9 +64,20 @@ export class AddUsersService {
     return this.http.get<AddUsersResponse>({url: apiUrl });
   }
 
+  getUserFilterList(rifilter:AddUsersFilterRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveUserFilterApi);
+    return this.http.post<AddUsersResponse>({url: apiUrl, body: rifilter});
+  }
+  
+
   addUsers(avdadd){
     let apiUrl=this.genericService.buildApiUrl(this.addusersapi);
     return this.http.post<AddUsersDataresponse>({url: apiUrl, body: avdadd});
+  }
+  
+  validateuploadSAFiles(){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.ValidateBulkUploadNew)
+    return this.http.post<any>({url:apiUrl,body:{}});
   }
 
   getScList(code){

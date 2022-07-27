@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
           else  if(this.authResult.userDetail.userRole === "SUPPORTADMIN")
               this.router.navigate(['/app/errorcorrection'], { relativeTo: this.route });
           else  if(this.authResult.userDetail.userRole === "SUPERADMIN" || this.authResult.userDetail.userRole === "ADMIN" )
-              this.router.navigate(['/app/add-state'], { relativeTo: this.route });
+              this.router.navigate(['/app/add-district'], { relativeTo: this.route });
               else  if(this.authResult.userDetail.userRole === "SUPERADMIN" || this.authResult.userDetail.userRole === "CHCMO" )
               this.router.navigate(['/app/counsellor-chc-report'], { relativeTo: this.route });
               else  if(this.authResult.userDetail.userRole === "SUPERADMIN" || this.authResult.userDetail.userRole === "PHCMO" )

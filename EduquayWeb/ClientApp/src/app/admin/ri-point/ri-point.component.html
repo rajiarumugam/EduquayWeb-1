@@ -33,19 +33,76 @@
                       </div>
                     </div>
                     <div class="col-md-4">
-                     
+                      <div class="float-right mb-4">
+                        <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/add-pndt']" role="button"
+                        ngbTooltip="PNDT" placement="left"><i class="fas fa-chevron-right pNav-right"></i></a>
+                      </div>
                     </div>
                   </div>
             </div>
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <div class="col-md-12">
                             <div *ngIf="ripointlistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': ripointlistErrorMessage ==='No sample data  found', 'alert-danger': ripointlistErrorMessage !== 'No sample data  found'}">
                                 <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{ripointlistErrorMessage}}
                             </div>
                         </div>
+                      </div> -->
+                      <div class="form-row mt-4" [formGroup]="dateform">
+                        <div class="form-group col-md-2" >
+                          <label for="inputTodate">{{'District' | translate }}</label>
+                          <div class="form-group mb-0">
+                              <select  class="form-control"  name="ddlEditDistrict" [(ngModel)]="selectedDistrict" (change)="districtChange();"  required [ngModelOptions]="{standalone: true}">
+                                  <option [ngValue]=0>Select District</option>
+                                  <option [(value)]="districtdata.id" *ngFor="let districtdata of districtlists">{{districtdata.name}}</option>
+                              </select>
+                          </div>
+                      </div> 
+                      
+                      <div class="form-group col-md-2" >
+                        <label for="inputTodate">{{'CHC' | translate }}</label>
+                        <div class="form-group mb-0">
+                            <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  (change)="onChangeChc($event.target.value)" [disabled]="!selectedDistrict" required [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]=0>Select </option>
+                                <option  [(value)]="chcdata.id" *ngFor="let chcdata of chclists">
+                                  {{chcdata.name}}
+                              </option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group col-md-2" >
+                      <label for="inputTodate">{{'PHC' | translate }}</label>
+                      <div class="form-group mb-0">
+                          <select  class="form-control"  name="ddlPhc" [(ngModel)]="selectedPhc"  (change)="onChangePhc($event.target.value)" [disabled]="selectedChc === '' || selectedChc === null" required [ngModelOptions]="{standalone: true}">
+                              <option [ngValue]=0>Select </option>
+                              <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
+                                {{phcdata.name}}
+                            </option>
+                          </select>
                       </div>
+                  </div> 
+                  
+                  <div class="form-group col-md-2" >
+                    <label for="inputTodate">{{'SC' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select  class="form-control"  name="ddlSc" [(ngModel)]="selectedSc"    required [ngModelOptions]="{standalone: true}">
+                            <option [ngValue]=0>Select </option>
+                            <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
+                              {{scdata.name}}
+                          </option>
+                        </select>
+                    </div>
+                </div> 
+
+                      <div class="col-md-2 mt-3" style="position: absolute;right:28%;">
+                        <div class="px-2 bd-highlight" style="float:right;">
+                          <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                         <button type="submit" class="btn search-bu" (click)="RipointFilter()">
+                              <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                        </div>
+                      </div>
+                    </div>
                       <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddRiPt(addRiPtDetail)"
@@ -63,26 +120,27 @@
                               <th><span>{{'RI Code' | translate }}</span></th> 
                               <th><span>{{'CHC' | translate }}</span></th>
                               <th><span>{{'PHC' | translate }}</span></th>
-                              <th><span>{{'SC ' | translate }}</span></th>
+                              <th><span>{{'SC' | translate }}</span></th>
+                              <th><span>{{'ANM' | translate }}</span></th>
+                              <th><span>{{'AVD' | translate }}</span></th>
                               <th><span>{{'Testing chc ' | translate }}</span></th>
                               <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Active' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let sample of riptlists; index as i">
                               <td class="sno text-center">{{i +1}}</td>
-                              <td class="sname text-left">{{sample.name}}</td>
+                              <td class="sname text-left">{{sample.rIsite}}</td>
                               <td class="sname text-left">{{sample.riGovCode}}</td>
                               <td class="sid text-center">{{sample.chcName}}</td>
                               <td class="sid text-center">{{sample.phcName}}</td>
                               <td class="sid text-center">{{sample.scName}}</td>
+                              <td class="sid text-center">{{sample.anmName}}</td>
+                              <td class="sid text-center">{{sample.avdName}}</td>
                               <td class="sid text-center">{{sample.testingCHCName}}</td>
-                              <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
-            
+                              <td class="number text-center">{{sample.comments}}</td>            
 
                               <td class="text-center">
                                 <a class="" (click)="openEditRiPt(addRiPtDetail,sample)"
@@ -91,7 +149,6 @@
                                   </a>
                               </td>
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
@@ -121,7 +178,7 @@
                                         class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
                                         name="ddlDistrict" #ddlDistrict="ngModel" [class.is-invalid]="ddlDistrict.invalid && ddlDistrict.touched || editRiPtForm.submitted && ddlDistrict.invalid"
-                                        required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)">
+                                        required [(ngModel)]="selectedEditDistrict" (change)="onChangeDistrict($event.target.value)" disabled="selectedEditDistrict">
                                             <option value="">Select</option>
                                             <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                                 {{districtdata.name}}
@@ -140,7 +197,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="ddlChc" #ddlChc="ngModel" [class.is-invalid]="ddlChc.invalid && ddlChc.touched || editRiPtForm.submitted && ddlChc.invalid"
-                                    required [(ngModel)]="selectedEditChc" (change)="onChangeChc($event.target.value)" [disabled]="!selectedEditDistrict=== ''" >
+                                    required [(ngModel)]="selectedEditChc" (change)="onChangeChc($event.target.value)"  disabled="selectedEditChc">
                                         <option value="">Select</option>
                                         <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                                             {{chcdata.name}}
@@ -177,7 +234,7 @@
                                         class="manto"> *</span></label>
                                         <select id="inputilrPoint" class="form-control"
                                         name="ddlPhc" #ddlPhc="ngModel" [class.is-invalid]="ddlPhc.invalid && ddlPhc.touched || editRiptFormsubmitted && ddlPhc.invalid"
-                                        required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" >
+                                        required [(ngModel)]="selectedEditPhc" (change)="onChangePhc($event.target.value)" disabled="selectedEditPhc">
                                             <option value="">Select</option>
                                             <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
                                                 {{phcdata.name}}
@@ -196,7 +253,7 @@
                                     class="manto"> *</span></label>
                                     <select id="inputilrPoint" class="form-control"
                                     name="ddlSc" #ddlSc="ngModel" [class.is-invalid]="ddlSc.invalid && ddlSc.touched || editRiPtForm.submitted && ddlSc.invalid"
-                                    required [(ngModel)]="selectedEditSc" >
+                                    required [(ngModel)]="selectedEditSc" disabled="selectedEditSc" >
                                         <option value="">Select</option>
                                         <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
                                             {{scdata.name}}
@@ -236,7 +293,7 @@
                               </div> -->
                               <div class="form-group col-md-3">
                                 <label class="note" [ngClass]="{'label-border-class':!riNamedata.valid && riNamedata.touched || editRiPtForm.submitted && riNamedata.invalid}">{{'RIPoint' | translate }} <span class="manto"></span></label>
-                                <input class="form-control" name="riNamedata" type="text" placeholder="RI Point" pattern="[a-zA-Z][a-zA-Z ]+" required 
+                                <input class="form-control" name="riNamedata" type="text" placeholder="RI Point"  required 
                                 [class.is-invalid]="!riNamedata.valid && riNamedata.touched || editRiPtForm.submitted && riNamedata.invalid"
                                   required [(ngModel)]="riNamedata">
                                 <small class="text-danger ml-2" *ngIf="!riNamedata.valid && riNamedata.touched ">Enter RI Point</small>
@@ -270,50 +327,13 @@
                                   </div>
                         </div>
 
-                        <!-- <div class="form-group col-md-3">
-                          <label [ngClass]="{'label-border-class':ddlState.invalid && ddlState.touched || editsadminForm.submitted && ddlState.invalid}" for="inputilrPoint">{{'State' | translate }}<span
-                              class="manto"> *</span></label>
-                              <select id="inputilrPoint" class="form-control"
-                              name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || editsadminForm.submitted && ddlState.invalid"
-                              required [(ngModel)]="selectedEditState">
-                                  <option value="">Select</option>
-                                  <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
-                                      {{statedata.name}}
-                                  </option>
-                              </select>
-                                <small class=" ml-2 text-danger" *ngIf="ddlState.invalid && ddlState.touched ">Please choose a State</small>
-                                <div *ngIf="editsadminForm.submitted && ddlState.invalid">
-                                  <small *ngIf="ddlState.untouched" class=" ml-2 text-danger">State is required</small>
-                                </div>
-                      </div>      -->
-
-                                  <!-- <div class="form-group col-md-3">
-                                    <label class="note">{{'StateCode' | translate }}<span class="manto"></span></label>
-                                    <input class="form-control" name="StateCode" type="text" placeholder="State Code" ngModel maxlength="6" pattern="^[a-zA-Z0-9]+$"
-                                    [class.is-invalid]="!StateCode.valid && StateCode.touched || addRiPtForm.submitted && StateCode.invalid"
-                                    #StateCode="ngModel" required>
-                                    <small class="text-danger ml-2" *ngIf="!StateCode.valid && StateCode.touched ">Enter State Code</small>
-                                    <div *ngIf="addRiPtForm.submitted && StateCode.invalid">
-                                    <small *ngIf="StateCode.untouched" class=" ml-2 text-danger">State Code is required</small>
-                                    </div>
-                                  </div> -->
-
-                                  <div class="form-group col-md-3">
-                                    <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                    <div class="n-chk">
-                                        <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input checkbox"
-                                          [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                                          <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                        </label>
-                                    </div>
-                                  </div>
+                     
 
                                 </div>
 
                                 <div class="form-row mt-4">
                                   <div class="form-group col-md-12">
-                                    <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
+                                    <label class="note" >{{'Comments5656' | translate }} <span class="manto"></span></label>
                                     <textarea id="textarea" class="form-control textarea" maxlength="225"
                                      rows="2"
                                     placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
@@ -348,16 +368,21 @@
                         <form class="text-left" (ngSubmit)="addRiPtForm.form.valid &&  onSubmitfunction(addRiPtForm)" #addRiPtForm="ngForm" novalidate>
                           <div class="col-md-12" id="myTable" style="padding-top: 1%;">
                             <div class="form-row">
-                              
+
                               <div class="form-group col-md-3">
-                                <label for="inputState">{{'District' | translate}} <span class="manto"></span></label>
-                                <select id="inputilrPoint" class="form-control"
-                                name="ddlEditDistrict" #ddlEditDistrict="ngModel" [(ngModel)]="selectedDistrict" (change)="districtChange();" >
+                                <label [ngClass]="{'label-border-class':ddlEditDistrict.invalid && ddlEditDistrict.touched || addRiPtForm.submitted && ddlEditDistrict.invalid}" for="inputilrPoint">{{'District' | translate}} <span class="manto">*</span></label>
+                                <select id="inputilrPoint" class="form-control" 
+                                name="ddlEditDistrict" #ddlEditDistrict="ngModel" required [(ngModel)]="selectedDistrict" (change)="districtChange();"  [class.is-invalid]="ddlEditDistrict.invalid && ddlEditDistrict.touched || addRiPtForm.submitted && ddlEditDistrict.invalid">
                                     <option value="">Select</option>
                                     <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
                                         {{districtdata.name}}
                                     </option>
                                 </select>
+                                <small class=" ml-2 text-danger" *ngIf="ddlEditDistrict.invalid && ddlEditDistrict.touched ">Please choose a District</small>
+                                <div *ngIf="addRiPtForm.submitted && ddlEditDistrict.invalid">
+                                  <small *ngIf="ddlEditDistrict.untouched" class=" ml-2 text-danger">District is required</small>
+                                </div>
+
                             </div>
                               <div class="form-group col-md-3">
 
@@ -395,13 +420,16 @@
                                       </div>
 
                           </div>
+
+                         
+
                           <div class="form-group col-md-3">
 
                             <label [ngClass]="{'label-border-class':ddlSc.invalid && ddlSc.touched || addRiPtForm.submitted && ddlSc.invalid}" for="inputilrPoint">{{'SC' | translate }}<span
                                 class="manto"> *</span></label>
                                 <select id="inputilrPoint" class="form-control"
                                 name="ddlSc" #ddlSc="ngModel" [class.is-invalid]="ddlSc.invalid && ddlSc.touched || addRiPtForm.submitted && ddlSc.invalid"
-                                required [(ngModel)]="selectedSc" >
+                                required [(ngModel)]="selectedSc" (change)="onChangescbyanm($event.target.value)">
                                     <option value="">Select</option>
                                     <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
                                         {{scdata.name}}
@@ -414,18 +442,43 @@
 
                       </div>
 
-                          <!-- <div class="form-group col-md-3">
-                            <label class="note">{{'RI Code' | translate }}<span class="manto"> *</span></label>
-                            <input class="form-control" name="riCode" type="text" placeholder="RI Code" ngModel pattern="^[a-zA-Z0-9]+$" required
-                            #riCode ="ngModel" [class.is-invalid]="!riCode.valid && riCode.touched || addRiPtForm.submitted && riCode.invalid">
-                            <small class="text-danger ml-2" *ngIf="!riCode.valid && riCode.touched ">Enter RI Code</small>
-                            <div *ngIf="addRiPtForm.submitted && riCode.invalid">
-                            <small *ngIf="riCode.untouched" class=" ml-2 text-danger">RI Code is required</small>
-                            </div>
-                          </div> -->
+                      <div class="form-group col-md-3">
+                        <label [ngClass]="{'label-border-class':ddlANM.invalid && ddlANM.touched || addRiPtForm.submitted && ddlANM.invalid}" for="inputilrPoint">{{'ANM' | translate }}<span
+                            class="manto"> *</span></label>
+                            <select id="inputilrPoint" class="form-control"
+                            name="ddlANM" #ddlANM="ngModel" [class.is-invalid]="ddlANM.invalid && ddlANM.touched || addRiPtForm.submitted && ddlANM.invalid"
+                            required [(ngModel)]="selectedScbyANM"  >
+                                <option value="">Select</option>
+                                <option *ngFor="let anmdata of SCbyANMList" [(value)]="anmdata.id">
+                                    {{anmdata.name}}
+                                </option>
+                            </select>
+                              <small class=" ml-2 text-danger" *ngIf="ddlANM.invalid && ddlANM.touched ">Please choose a ANM</small>
+                              <div *ngIf="addRiPtForm.submitted && ddlANM.invalid">
+                                <small *ngIf="ddlANM.untouched" class=" ml-2 text-danger">ANM is required</small>
+                              </div>
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label [ngClass]="{'label-border-class':ddlAVD.invalid && ddlAVD.touched || addRiPtForm.submitted && ddlAVD.invalid}" for="inputilrPoint">{{'AVD' | translate }}<span
+                        class="manto"> *</span></label>
+                        <select id="inputilrPoint" class="form-control"
+                        name="ddlAVD" #ddlAVD="ngModel" [class.is-invalid]="ddlAVD.invalid && ddlAVD.touched || addRiPtForm.submitted && ddlAVD.invalid"
+                        required [(ngModel)]="selectedAVD" >
+                            <option value="">Select</option>
+                            <option *ngFor="let avddata of avdlists" [(value)]="avddata.id">
+                                {{avddata.avdName}}
+                            </option>
+                        </select>
+                          <small class=" ml-2 text-danger" *ngIf="ddlAVD.invalid && ddlAVD.touched ">Please choose a AVD</small>
+                          <div *ngIf="addRiPtForm.submitted && ddlAVD.invalid">
+                            <small *ngIf="ddlAVD.untouched" class=" ml-2 text-danger">AVD is required</small>
+                          </div>
+              </div>
+                         
                           <div class="form-group col-md-3">
-                            <label class="note" [ngClass]="{'label-border-class':!riName.valid && riName.touched || addRiPtForm.submitted && scName.invalid}">{{'RIPoint' | translate }} <span class="manto">*</span></label>
-                            <input class="form-control" name="riName" type="text" placeholder="RI Point" ngModel
+                            <label [ngClass]="{'label-border-class':riName.invalid && riName.touched || addRiPtForm.submitted && riName.invalid}">{{'RIPoint' | translate }} <span class="manto">*</span></label>
+                            <input class="form-control" name="riName" type="text" placeholder="RI Point" 
                             [class.is-invalid]="!riName.valid && riName.touched || addRiPtForm.submitted && riName.invalid"
                              #riName="ngModel" [(ngModel)]="riName1" required>
                             <small class="text-danger ml-2" *ngIf="!riName.valid && riName.touched ">Enter RI Point</small>
@@ -475,7 +528,7 @@
                                   </div>
                         </div>
 
-                              <div class="form-group col-md-3">
+                              <!-- <div class="form-group col-md-3">
                                 <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox checkbox-outline-primary">
@@ -484,18 +537,22 @@
                                       <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                     </label>
                                 </div>
-                              </div>
+                              </div> -->
 
                             </div>
 
                             <div class="form-row mt-4">
                               <div class="form-group col-md-12">
-                                <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                 rows="2"
-                                placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                              </div>
-                            </div>
+                              <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                 <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                 [class.is-invalid]="!Comments.valid && Comments.touched || addRiPtForm.submitted && Comments.invalid"
+                                  name=Comments #Comments="ngModel" [(ngModel)]="comments" required></textarea>
+                               </div>
+                               <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                              <div *ngIf="addRiPtForm.submitted && Comments.invalid">
+                                  <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                   </div>
+                                   </div>
                           </div>
 
                           <div class="modal-footer">

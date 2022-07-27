@@ -1,0 +1,138 @@
+<div class="tab-pane fade show active" id="TrainingReportScreen" role="tabpanel" aria-labelledby="TrainingReportScreen-tab">
+    <mat-horizontal-stepper [linear]="false" #stepper>
+           <mat-step >
+             <form >
+               <div class="form-row mt-4" [formGroup]="dateform">
+                   
+                   <div class="form-group col-md-2">
+                     <label for="inputFromdate">{{'Year & Month' | translate }}
+                     </label>
+                     <div class="form-group mb-0">
+                       <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="text" name="fromDate"
+                                     [(ngModel)]="fromDate" required
+                                       placeholder="Select Date..."> -->
+                       <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
+                         [config]="startOptions" placeholder="Select Date.." formControlName="fromDate">
+                       </ng2-flatpickr>
+                     </div>
+                   </div>
+                   
+                   
+                  
+                     <div class="col-md-2 mt-3" style="position: absolute;right:76%;">
+                       <div class="px-2 bd-highlight" style="float:right;">
+                         <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                        <button type="submit" class="btn search-bu" (click)="refreshData()">
+                             <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                       </div>
+                     </div>
+               </div> 
+                 
+               <div class="row my-4">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table id="chcshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                      <thead>
+                            <tr>
+                                <th rowspan="1" colspan="30"><span>{{'State Level - Training - Phase-1 & Phase-2 districts' | translate }}</span></th>            
+                            </tr>
+                       
+                        <tr>
+                            <th rowspan="2" colspan="1">
+                                S No
+                            </th>
+                            <th rowspan="2" colspan="1">
+                                District
+                            </th>
+                            <th rowspan="1" colspan="4">
+                                District Level Orientation of Health Functionaries
+                            </th>
+                            <th rowspan="1" colspan="4" >
+                                District level ToT of health fucntionaries
+                            </th>
+                            <th rowspan="1" colspan="5" >
+                                Block level ANM Training Status
+                            </th>
+                            <th rowspan="1" colspan="5" >
+                                Block level ASHA Orientation Status
+                            </th>
+                            <th rowspan="1" colspan="3" >
+                                Last Month Training Status
+                            </th>
+                            
+                        </tr>
+                            
+                            <tr >
+                                <th ><span>Planned</span></th>
+                                <th ><span>Held</span></th>
+                                <th><span>Total Participants</span></th>
+                                <th><span>% of achivement</span></th>
+                                <th><span>Planned</span></th>
+                                <th><span>Held</span></th>
+                                <th><span>Total Participants</span></th>
+                                <th><span>% of achivement</span></th>
+                                <th><span>Total Block</span></th>
+                                <th><span>Held</span></th>
+                                <th><span>Total Participants</span></th>
+                                <th><span>Total ANM in the district</span></th>
+                                <th><span>% of achivement</span></th>
+                                <th><span>Total Block</span></th>
+                                <th><span>Held</span></th>
+                                <th><span>Total Participants</span></th>
+                                <th><span>Total ASHA in the district</span></th>     
+                                <th><span>% of achivement</span></th>      
+                                <th><span>Planned</span></th>                      
+                                <th><span>Held</span></th>
+                                <th><span>Remarks</span></th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                           <tr *ngFor="let subject of pndPendingArray; index as i">
+                             <td class="sno text-center">{{i +1}}</td>
+                             <td class="text-left sname">{{subject.districtName}}</td>
+                             <td class="text-left sname">{{subject.plannedDLO}}</td>
+                             <td class="sid">{{subject.heldDLO}}</td>
+                             <td class="sid">{{subject.totalParticipantsDLO}}</td>
+                             <td class="sid" >{{ CalculatePercentage(subject.plannedDLO,subject.heldDLO)}}</td>
+                             <td class="text-left sname">{{subject.plannedTOT}}</td>
+                             <td class="text-left sname">{{subject.heldTOT}}</td>
+                             <td class="sid">{{subject.totalParticipantsTOT}}</td>
+                             <td class="sid">{{CalculatePercentage(subject.plannedTOT,subject.heldTOT)}}</td>
+                             <td class="mobile">{{subject.totalblockANM}}</td>
+                             <td class="">{{subject.heldANM}}</td>
+                             <td class="">{{subject.totalParticipantsANM}}</td>
+                             <td class="">{{subject.totalANMDistrictBLA}}</td>
+                             <td class="">{{CalculatePercentage(subject.totalParticipantsANM,subject.totalANMDistrictBLA)}}</td>
+                             <td class="">{{subject.totalblockANMO}}</td>
+                             <td class="">{{subject.heldANMO}}</td>
+                             <td class="">{{subject.totalParticipantsANMO}}</td>
+                             <td class="">{{subject.totalANMDistrictBLAO}}</td>
+                             <td class="">{{CalculatePercentage(subject.totalParticipantsANMO,subject.totalANMDistrictBLAO)}}</td>
+                             <td class="">{{subject.plannedLMT}}</td>
+                             <td class="">{{subject.heldLMT}}</td>
+                             <td class="">{{subject.totalParticipantsLMT}}</td>                            
+                           
+                            
+                           </tr>
+                         </tbody>
+                       </table>
+                     </div>
+                   </div>
+                 </div>
+             </form>
+           </mat-step>
+          
+         </mat-horizontal-stepper>
+         <i appLoadScript [script]="'assets/assets/js/anm/sample-collection.js'"></i>
+         <!-- <i appLoadScript [script]="'assets/plugins/flatpickr/collection-flatpickr.js'"></i> -->
+         <!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+         <i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+   </div>
+   
+   
+                 
+       
+   
+   
+   
+   

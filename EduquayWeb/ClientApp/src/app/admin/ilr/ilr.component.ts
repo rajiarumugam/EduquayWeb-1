@@ -31,7 +31,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
     
     loadDataTable: boolean = false;
-    dtOptions: DataTables.Settings = {};
+    dtOptions: any = {};
     dtTrigger: Subject<any> = new Subject();
   
     phclistErrorMessage: string;
@@ -86,6 +86,8 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     disabledChc = false;
     getdistrict = "";
     editIlrDetails;
+  IlRFilterData: { DistrictId: number; ChcId: number; };
+
   // IlrService: any;
   
     constructor(
@@ -102,7 +104,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     ) { }
   
     ngOnInit() {
-      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "PHC"}));
+      this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "ILR"}));
       this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = { 
@@ -111,6 +113,19 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
         processing: true,
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
+        dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+        // Configure the buttons
+          buttons: [
+            {
+              titleAttr: 'Download as Excel',     
+              extend: 'excelHtml5',
+              title: 'Report - Sample Status',
+              className: 'custom-btn',
+              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+            }
+          ], 
         language: {
           search: '<div><span class="note">Search by any ILR information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
@@ -124,6 +139,12 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
+     
+      this.ddlDistrict();
+    }
+
+    ILRFilter()
+    {
       this.retrirveIlrlist();
     }
   
@@ -131,7 +152,11 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       this.loaderService.display(true);
       this.phclists = [];
       this.phclistErrorMessage ='';
-      let samplesList = this.Ilrservice.getIlrList()
+      this.IlRFilterData={
+        DistrictId: +this.selectedDistrict,
+        ChcId: +this.selectedChc
+      }
+      let samplesList = this.Ilrservice.getILRFilterList(this.IlRFilterData)
       .subscribe(response => {
         this.phcListResponse = response;
         this.loaderService.display(false);
@@ -163,9 +188,8 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     ddlChc(id) {
-      console.log(id);
-          this.selectedChc = '';
-          
+      
+               
           let district = this.IlrService.getCHCByDis(id).subscribe(response => {
             this.chcListResponse = response;
             console.log(this.chcListResponse);
@@ -233,7 +257,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     ddlEditChc(id) {
-      console.log(id);
+      this.selectedEditChc = '';
       let district = this.Ilrservice.getCHCByDis(id).subscribe(response => {
         this.chcListResponse = response;
         if (this.chcListResponse !== null && this.chcListResponse.status === "true") {
@@ -253,9 +277,9 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     
     districtChange()
     {
-          
+      this.selectedChc = '';
           this.ddlChc(this.selectedDistrict);
-          this.selectedChc = '';
+          
       let district = this.Ilrservice.getCHCByDis(this.selectedDistrict).subscribe(response => {
         this.chcListResponse = response;
         console.log(this.chcListResponse);
@@ -280,6 +304,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     openAddIlr(addIlrDetail) {
       
       //this.ddlChc();
+      this.selectedChc = '';    
       this.disabledChc = false;
       this.ddlDistrict();
 
@@ -329,13 +354,13 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
       
       this.comments = addIlrForm.value.Comments;
       this.selectedChc = addIlrForm.value.ddlChc;
-      this.ilrCode = addIlrForm.value.ilrCode;
+      this.ilrCode = addIlrForm.value.ilrname;
       this.ilrname = addIlrForm.value.ilrname;
 
       this.ilrListRequest = {
         chcId: +(this.selectedChc),
        
-        ilrCode: this.ilrCode,
+        ilrCode: this.ilrname,
         name: this.ilrname,
         comments: this.comments,        
         userId: this.user.id  
@@ -372,12 +397,12 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
   
       console.log(editIlrForm.value);
       
-      this.commentsdata = editIlrForm.value.commentsdata;
+      this.commentsdata = editIlrForm.value.editComments;
       //this.selectedEditChc = editIlrForm.value.ddlChc;
       this.selectedEditDistrict = editIlrForm.value.ddlDistrict;
       // this.ilrCode = editIlrForm.value.ilrCode;
       // this.chcname = editIlrForm.value.chcname;
-      this.ilrname = editIlrForm.value.ilrname;
+      this.ilrname = editIlrForm.value.ilrname1;
       console.log(editIlrForm.value.ddlEdChc);
      
   

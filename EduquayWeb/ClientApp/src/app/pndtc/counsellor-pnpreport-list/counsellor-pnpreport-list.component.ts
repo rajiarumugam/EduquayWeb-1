@@ -676,8 +676,216 @@ export class CounsellorpnpreportListComponent implements AfterViewInit, OnDestro
           }
 
   }
+  openpopup(index, subjectinfo: SubjectProfileList){
+
+    console.log(subjectinfo); 
+
+    this.childSubjectTypeId = subjectinfo.primaryDetail.childSubjectTypeId;
+    this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+    this.firstName = subjectinfo.primaryDetail.firstName;
+    this.lastName = subjectinfo.primaryDetail.lastName;
+    this.gender = subjectinfo.primaryDetail.gender;
+    this.age = subjectinfo.primaryDetail.age;
+    this.barcodes = subjectinfo.pregnancyDetail.barcodes;
+    this.lmpDate = subjectinfo.pregnancyDetail.lmpDate;
+    this.ga = subjectinfo.pregnancyDetail.gestationalperiod
+    this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+    this.spouseFirstName = subjectinfo.primaryDetail.spouseFirstName;
+    this.spouseLastName = subjectinfo.primaryDetail.spouseLastName;
+
+    if((subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId === '') ||(subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.spouseSubjectId === '' && subjectinfo.primaryDetail.gender === "Female")){
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+
+    let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+      .subscribe(response => {
+        this.trackingAnmSubjectTrackerResponse = response;
+        this.loaderService.display(false);
+        if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+          // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+          //   this.subjectprofilelistErrorMessage = response.message;
+          // }
+          // else {
+            this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+            this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+            //this.rerender();
+          }
+        //}
+        else {
+          this.subjectprofilelistErrorMessage = response.message;
+        }
+      },
+        (err: HttpErrorResponse) => {
+          this.subjectprofilelistErrorMessage = err.toString();
+        });
 
 
+    }
+    else if((subjectinfo.primaryDetail.childSubjectTypeId === 1 && subjectinfo.primaryDetail.spouseSubjectId !== '' ) || (subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.spouseSubjectId !== '' && subjectinfo.primaryDetail.gender === "Female")){
+      this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+  
+     
+      this.trackingAnmSubjectTrackerRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }
+     
+      let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+         
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+       
+              if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              //this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingSubjectRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)
+              .subscribe(response => {
+                this.trackingSubjectResponse = response;
+                if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+                  // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+                  //   this.subjectprofilelistErrorMessage = response.message;
+                  // }
+                  // else {
+                    this.subjectTrackerItem = this.trackingSubjectResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              })
+              
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+    else if((subjectinfo.primaryDetail.childSubjectTypeId === 2 ) || (subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.gender === "Male" && subjectinfo.primaryDetail.spouseSubjectId !== '')){
+      this.spouseSubjectId = subjectinfo.primaryDetail.spouseSubjectId;
+      this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+  
+      this.trackingSubjectRequest = {
+        uniqueSubjectId: this.uniqueSubjectId
+      }      
+      let subjectTracking = this.SubjectProfileService.getTrackingSubject(this.trackingSubjectRequest)      
+        .subscribe(response => {
+          console.log(response);
+          this.trackingSubjectResponse = response;        
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSamplingStatus = this.subjectTrackerItem.samplingStatus;
+              this.trackingAnmSubjectTrackerRequest = {
+                uniqueSubjectId: this.spouseSubjectId
+              }
+              let anmSubjectTracking = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+              .subscribe(response => {
+                console.log(response);
+                this.trackingAnmSubjectTrackerResponse = response;
+                this.barcodes = response.data.barcodeNo;
+                this.lmpDate = response.data.lmpDate;
+                this.ga = Number(response.data['ga']);
+                if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+                  this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+    
+                }
+                else{
+                  this.subjectprofilelistErrorMessage = response.message;
+                }
+              });
+              
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(subjectinfo.primaryDetail.childSubjectTypeId === 4 && subjectinfo.primaryDetail.gender === "Male" && subjectinfo.primaryDetail.spouseSubjectId === ''){
+        this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+        this.trackingSubjectRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingSubjectRequest)
+        .subscribe(response => {
+          this.trackingSubjectResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingSubjectResponse !== null && this.trackingSubjectResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.subjectTrackerItem = this.trackingSubjectResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+              //this.rerender();
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+      else if(subjectinfo.primaryDetail.childSubjectTypeId === 3){
+        this.uniqueSubjectId = subjectinfo.primaryDetail.uniqueSubjectId;
+        this.trackingAnmSubjectTrackerRequest = {
+          uniqueSubjectId: this.uniqueSubjectId
+        }
+  
+      let subProfile = this.SubjectProfileService.getTrackingANWSubject(this.trackingAnmSubjectTrackerRequest)
+        .subscribe(response => {
+          this.trackingAnmSubjectTrackerResponse = response;
+          this.loaderService.display(false);
+          if (this.trackingAnmSubjectTrackerResponse !== null && this.trackingAnmSubjectTrackerResponse.status === "true") {
+            // if (this.trackingAnmSubjectTrackerResponse.data.length <= 0 ) {
+            //   this.subjectprofilelistErrorMessage = response.message;
+            // }
+            // else {
+              this.anmSubjectTrackerItem = this.trackingAnmSubjectTrackerResponse.data;
+              this.spouseSubjectIdValue = this.anmSubjectTrackerItem.spouseSubjectId;
+              //this.rerender();
+            }
+          //}
+          else {
+            this.subjectprofilelistErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.subjectprofilelistErrorMessage = err.toString();
+          });
+  
+  
+      }
+    
+        $('#fadeinModal').modal('show');
+  
+  }
   opensubjectdetail(subjectinfo: SubjectProfileList ){
 
     if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){

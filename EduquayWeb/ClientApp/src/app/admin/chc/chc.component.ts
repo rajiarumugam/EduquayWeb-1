@@ -28,7 +28,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
 
     loadDataTable: boolean = false;
-    dtOptions: DataTables.Settings = {};
+    dtOptions: any = {};
     dtTrigger: Subject<any> = new Subject();
 
     chclistErrorMessage: string;
@@ -73,13 +73,15 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
     chcNamedata: string;
     chcCodedata: string;
     selectedEditBlock: string = '';
-    isTestingFacility = false;
+    isTestingFacility : boolean = false;
     // isTestingFacility = true;
     selectedtestingCHCId: string = '';
     testingCHCResponse;
     testingCHCists;
-    selectedEdittestingCHCId='';
+    selectedEdittestingCHCId: string = '';
     editid: any;
+  chcrequest: {};
+  ChcFilterData: { DistrictId: number; BlockId: number; };
 
     constructor(
 
@@ -95,7 +97,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
     ngOnInit() {
       this.dataservice.sendData(JSON.stringify({"module": "Master", "submodule": "CHC"}));
-      this.loaderService.display(false);
+      // this.loaderService.display(false);
       this.user = JSON.parse(this.tokenService.getUser('lu'));
       this.dtOptions = {
         pagingType: 'simple_numbers',
@@ -103,6 +105,19 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         processing: true,
         stripeClasses: [],
         lengthMenu: [5, 10, 20, 50],
+        dom: "<'row mt-3'<'col-sm-6 float-right'f><'col-sm-4 mb-2 float-right'l><'col-sm-2 float-right'B>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-4'i><'col-sm-4 text-center'p>>",
+        // Configure the buttons
+          buttons: [
+            {
+              titleAttr: 'Download as Excel',     
+              extend: 'excelHtml5',
+              title: 'Report - Sample Status',
+              className: 'custom-btn',
+              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
+            }
+          ], 
         language: {
           search: '<div><span class="note">Search by any CHC information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
           searchPlaceholder: "Search...",
@@ -116,14 +131,21 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
           //Search: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>'
         }
       };
-      this.retrirveChclist();
+    
+      this.ddlDistrict();
     }
-
+    ChcFilter(){
+      this.retrirveChclist()
+    }
     retrirveChclist(){
       this.loaderService.display(true);
       this.chclists = [];
       this.chclistErrorMessage ='';
-      let samplesList = this.ChcService.getChcList()
+      this.ChcFilterData ={
+        DistrictId:+this.selectedDistrict,
+        BlockId: +this.selectedBlock
+      };
+      let samplesList = this.ChcService.getCHCFilterList(this.ChcFilterData)
       .subscribe(response => {
         this.chcListResponse = response;
         this.loaderService.display(false);
@@ -209,12 +231,14 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
       if (this.selectedDistrict === '') {
         this.selectedBlock = '';
+        this.selectedtestingCHCId ='';
       }
       else {
         this.ddlBlock(this.selectedDistrict);
         this.ddlTestingCHC(this.selectedDistrict);
       }
     }
+   
 
     openAddChc(addChcDetail) {
 
@@ -238,12 +262,12 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.editid=sample.id
       this.getdistrict = sample.districtId;
       this.selectedEditDistrict =sample.districtId;
-      this.selectedtestingCHCId=sample.testingCHCId;
+      this.selectedEdittestingCHCId=sample.testingCHCId;
       this.ddlBlock(sample.districtId);
       this.selectedEditBlock =sample.blockId;
       this.ddlDistrict();
       this.ddlTestingCHC(sample.districtId);
-      // this.selectedtestingCHCId
+      //  this.selectedtestingCHCId
       this.pincodeData = sample.pincode;
       // setTimeout(() => {
       //   this.ddlEditDistrict();
@@ -275,7 +299,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
     onSubmit(addChcForm: NgForm){
 
-      console.log(addChcForm.value);
+      console.log(addChcForm.value,"addchcform");
 
       this.comments = addChcForm.value.Comments;
       this.selectedDistrict = addChcForm.value.ddlDistrict;
@@ -283,7 +307,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
       this.chcCode = addChcForm.value.chcCode;
       this.chcName = addChcForm.value.chcName;
       this.pincode = addChcForm.value.pincodeData;
-      this.isTestingFacility=addChcForm.value.isTestingFacility;
+      this.isTestingFacility=addChcForm.value.isTestingFacility === 'True' ? true : false;
       this.selectedtestingCHCId = addChcForm.value.ddlTestingCHC;
       this.block = addChcForm.value.blockdata;
       this.hninId = addChcForm.value.hninId;
@@ -295,7 +319,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         chcGovCode: this.chcCode,
         name: this.chcName,
         isTestingFacility: this.isTestingFacility,
-        testingCHCId: this.selectedtestingCHCId,
+        testingCHCId:+this.selectedtestingCHCId || 0,
         centralLabId: +this.centrallablid,
         pincode: this.pincode,
         comments: this.comments,
@@ -330,16 +354,17 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
 
       console.log(editChcForm.value);
       console.log(editChcForm.form.valid);
-      this.commentsdata = editChcForm.value.commentsdata;
+      this.commentsdata = editChcForm.value.editcomments;
       //  this.selectedEditDistrict = editChcForm.value.ddlEditDistrict;
       //  this.selectedEditBlock = editChcForm.value.ddlEditBlock;
       // this.chcCodedata = editChcForm.value.chcCodedata;
-      this.chcNamedata = editChcForm.value.chcNamedata;
-      this.isTestingFacility=editChcForm.value.isTestingFacility;
+      this.chcNamedata = editChcForm.value.chcNamedata1;
+      this.isTestingFacility=editChcForm.value.isTestingFacility === 'True' ? true : false;
       this.pincodeData = editChcForm.value.pincodeData;
-      this.selectedtestingCHCId = editChcForm.value.ddlTestingCHC;
+      this.selectedtestingCHCId = editChcForm.value.testingCHCId;
       this.hninId = editChcForm.value.hninId;
       
+
       this.chcListRequest = {
         id:this.editid,
         districtId: +(this.selectedEditDistrict),
@@ -348,7 +373,7 @@ export class ChcComponent implements AfterViewInit, OnDestroy, OnInit {
         chcGovCode: this.chcCodedata,
         name: this.chcNamedata,
         isTestingFacility:this.isTestingFacility,
-        testingCHCId: this.selectedtestingCHCId,
+        testingCHCId: +(this.selectedtestingCHCId || 0),
         centralLabId: +this.centrallablid,
         pincode: this.pincodeData,
         isActive: this.confirmationSelected==1?"true":"false",

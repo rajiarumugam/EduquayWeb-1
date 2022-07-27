@@ -27,7 +27,7 @@ import { AnmViewShipmentdetailsComponent } from './anm-module/anm-view-shipmentd
 import { DataTablesModule } from 'angular-datatables';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FileUploadModule } from 'ng2-file-upload'; 
+import { FileUploadModule } from 'ng2-file-upload';
 //import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { DataService } from './shared/data.service';
 import { StatereportListComponent } from './pathologist/state-report-list/state-report-list.component';
@@ -121,6 +121,12 @@ import { TabComponent } from './nhm/tabs/tab.component';
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
 
+import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterPipe';
+import { PndtLocationComponent } from './admin/pndt-location/pndt-location.component';
+import { AnmReportProfileComponent } from './anm-module/anm-report-view-profile/anm-report-view-profile.component';
+
+
+
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';*/
 
 import { TableFilterPipe } from './shared/admin/sa-upload/sa-upload-file/FilterPipe';
@@ -147,8 +153,18 @@ import {SharedModule} from './_layout/shared.module';
     NumberDirective,
     AnmPostMtpFollowupComponent,
     ChcPicknpackComponent,
+    PndtLocationComponent,
     ChcShipmentlogComponent,
     ChcViewShipmentdetailsComponent,
+
+    ChcSubjectProfileComponent,
+    ChcDamagedSamplesComponent,
+    ChcUnsentSamplesComponent,
+    ChcTimeoutSamplesComponent,
+    ChcNotificationComponent,
+    ChcPositiveSubjectComponent,
+    SelectDropdownComponent,
+    TextSearchPipe,
     ChcSamplePickpackComponent,
     PageUnderDevelopementComponent,
     ChcSampleCollectionComponent,
@@ -180,7 +196,7 @@ import {SharedModule} from './_layout/shared.module';
     AVDComponent,
     // UserRoleComponent,
     IlrComponent,
-    ScComponent,  
+    ScComponent,
     RiPointComponent,
     FacilityTypeComponent,
     HNINComponent,
@@ -192,7 +208,7 @@ import {SharedModule} from './_layout/shared.module';
     SiteSidebarComponent
     UpdateResultsComponent,
     EditResultsComponent,
-   
+
     ConfirmedResultsComponent,
     MlrNotificationComponent,
     CvsNotificationComponent,
@@ -200,6 +216,9 @@ import {SharedModule} from './_layout/shared.module';
     CvsEditresultComponent,
     CvsConfirmedresultComponent,*/
     
+    CvsConfirmedresultComponent,
+    AnmReportProfileComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -223,6 +242,8 @@ import {SharedModule} from './_layout/shared.module';
     NgxPrintModule,
     SharedModule
    
+
+
   ],
   providers: [
 

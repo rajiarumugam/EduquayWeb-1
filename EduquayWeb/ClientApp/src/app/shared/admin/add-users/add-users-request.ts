@@ -37,3 +37,12 @@ export class AddUsersRequest {
     comments: string;
     isActive:string;
 }
+
+export class AddUsersFilterRequest {
+    userTypeId :number;
+    DistrictId :number;
+    BlockId: number;
+    ChcId :number;
+    PhcId :number;
+    ScId : number;
+}

@@ -1,0 +1,103 @@
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+      <app-site-sidebar module="Master" subMenum="Users"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+        <div class="row layout-top-spacing">
+            <!-- <div class="col-md-12 text-center">
+                            <h5 class="">ANM Name - PHC Name</h5>
+                        </div> -->
+            <div class="col-md-12">
+                <div class="justify-between">
+                    <div class="col-md-4">
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <div class="headertit">
+                            <h5 class="float-center">{{'Users' | translate }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': (currentPage == 'UserSadmin' || currentPage == 'UserSadmin') ? true : false}" id="SadminUsers-tab" data-toggle="tab"
+                                [routerLink]="['/app/admin-users-main/UserSadmin']" role="tab" aria-controls="home"
+                                aria-selected="true">{{'Sadmin' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersANM' ? true : false}" id="ANMUsers-tab   " [routerLink]="['/app/admin-users-main/UsersANM']" data-toggle="tab" 
+                                role="tab" aria-controls="profile" aria-selected="true">{{'ANM' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersCHC' ? true : false}" id="CHCUsers-tab" [routerLink]="['/app/admin-users-main/UsersCHC']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'CHC' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersHPLC' ? true : false}" id="HPLCUsers-tab" [routerLink]="['/app/admin-users-main/UsersHPLC']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'HPLC' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersPNDTC' ? true : false}" id="PNDTCUsers-tab" [routerLink]="['/app/admin-users-main/UsersPNDTC']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'PNDTC' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersMTP' ? true : false}" id="MTPUsers-tab" [routerLink]="['/app/admin-users-main/UsersMTP']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'MTP' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersDC' ? true : false}" id="DCUsers-tab" [routerLink]="['/app/admin-users-main/UsersDC']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'DC' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersMolecular' ? true : false}" id="MolecularUsers-tab" [routerLink]="['/app/admin-users-main/UsersMolecular']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'Molecular Lab' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersSPC' ? true : false}" id="SPCUsers-tab" [routerLink]="['/app/admin-users-main/UsersSPC']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'SPC' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersNHM' ? true : false}" id="NHMUsers-tab" [routerLink]="['/app/admin-users-main/UsersNHM']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'NHM' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersPNDT' ? true : false}" id="PNDTUsers-tab" [routerLink]="['/app/admin-users-main/UsersPNDT']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'PNDT' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersHaematologist' ? true : false}" id="HaematologistUsers-tab" [routerLink]="['/app/admin-users-main/UsersHaematologist']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'Haematologist' | translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': currentPage == 'UsersSupport' ? true : false}" id="SupportUsers-tab" [routerLink]="['/app/admin-users-main/UsersSupport']" data-toggle="tab" 
+                                role="tab" aria-controls="contact" aria-selected="true">{{'Support Admin' | translate }}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-5" id="myTabContent">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+      </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+  </div>
+  <!--  END MAIN CONTAINER  -->
+  
+  <!--<i appLoadScript [script]="''"></i>-->
+  <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+  

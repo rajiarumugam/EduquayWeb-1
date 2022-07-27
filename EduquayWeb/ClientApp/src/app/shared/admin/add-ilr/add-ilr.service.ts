@@ -4,7 +4,7 @@ import { GenericService } from '../../generic.service';
 import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddchcbyblockResponse, AddChcResponse } from '../add-chc/add-chc-response';
-import { AddIlrRequest } from './add-ilr-request';
+import { AddIlrFilterRequest, AddIlrRequest } from './add-ilr-request';
 import { AddIlrResponse, AddIlrDataresponse } from './add-ilr-response';
 
 @Injectable({
@@ -22,6 +22,7 @@ export class AddIlrService {
 
   updateIlrApi: string = "api/v1/SA/UpdateILR";
   RetrieveAllIlr: string = "api/v1/SA/RetrieveAllILR";
+  retrieveILRFilterApi: string ="api/v1/SA/RetrieveILRFilter";
   addIlrApi: string = "api/v1/SA/AddNewILR";
   
   
@@ -38,6 +39,10 @@ export class AddIlrService {
     return this.http.get<AddIlrResponse>({url: apiUrl});
   }
 
+  getILRFilterList(ilradd:AddIlrFilterRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveILRFilterApi);
+    return this.http.post<AddIlrResponse>({url: apiUrl, body: ilradd});
+  }
   addIlr(ilradd){
     let apiUrl=this.genericService.buildApiUrl(this.addIlrApi);
     return this.http.post<AddIlrDataresponse>({url: apiUrl, body: ilradd});

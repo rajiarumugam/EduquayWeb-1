@@ -17,6 +17,7 @@
       position: relative;
       margin-left: 10px
       }
+      
       .step-menu li:before {
         content: '';
         position: absolute;

@@ -5,8 +5,8 @@ import { HttpClientService } from '../../http-client.service';
 import { TokenService } from '../../token.service';
 import { AddBlockResponse } from '../add-block/add-block-response';
 import { AddDistrictResponse } from '../add-district/add-district-response';
-import { AddChcRequest,UpdateChcRequest } from './add-chc-request';
-import { AddChcResponse, AddChcDataresponse } from './add-chc-response';
+import { AddChcRequest,ChcFilterRequest,UpdateChcRequest } from './add-chc-request';
+import { AddChcResponse, AddChcDataresponse, AddchcbydistrictResponse } from './add-chc-response';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ export class AddChcService {
 
   retrieveBlockApi: string = "api/v1/WebMaster/RetrieveBlockByDistrict/";
   retrieveChcApi: string = "api/v1/SA/RetrieveAllCHCs";
+  retrieveCHCFilterApi: string ="api/v1/SA/RetrieveCHCFilter";
   retrieveAvdApi: string = "/api/v1/AVD/Retrieve";
   addChcApi: string = "api/v1/SA/AddNewCHC";
   updateChc: string = 'api/v1/SA/UpdateCHC';
@@ -38,7 +39,10 @@ export class AddChcService {
     let apiUrl = this.genericService.buildApiUrl(this.retrieveChcApi);
     return this.http.get<AddChcResponse>({url: apiUrl});
   }
-
+  getCHCFilterList(chcadd:ChcFilterRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.retrieveCHCFilterApi);
+    return this.http.post<AddchcbydistrictResponse>({url: apiUrl, body: chcadd});
+  }
 
 
   addChc(chcadd: AddChcRequest){

@@ -41,13 +41,45 @@
           </div>
           <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
               <div class="widget-content widget-content-area br-6">
-                  <div class="form-row">
+                  <!-- <div class="form-row">
                       <div class="col-md-12">
                           <div *ngIf="phclistErrorMessage" class="alert mt-3 mb-2" [ngClass]="{'alert-warning': phclistErrorMessage ==='No sample data  found', 'alert-danger': phclistErrorMessage !== 'No sample data  found'}">
                               <span class="fa fa-info-circle mr-2" style="font-size: 16px;"></span><strong>Oops!</strong> {{phclistErrorMessage}}
                           </div>  
                       </div>
+                    </div> -->
+                    <div class="form-row mt-4" [formGroup]="dateform">
+                      <div class="form-group col-md-2" >
+                        <label for="inputTodate">{{'District' | translate }}</label>
+                        <div class="form-group mb-0">
+                            <select  class="form-control"  name="ddlDistrict" [(ngModel)]="selectedDistrict" (change)="onChangeDistrict($event.target.value)"  required [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]=" ">Select District</option>
+                                <option [(value)]="districtdata.id" *ngFor="let districtdata of districtlists">{{districtdata.name}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    
+                    <div class="form-group col-md-2" >
+                      <label for="inputTodate">{{'CHC' | translate }}</label>
+                      <div class="form-group mb-0">
+                          <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  [disabled]="!selectedDistrict=== ''" required [ngModelOptions]="{standalone: true}">
+                              <option [ngValue]=0>Select </option>
+                              <option  [(value)]="chcdata.id" *ngFor="let chcdata of chclists">
+                                {{chcdata.name}}
+                            </option>
+                          </select>
+                      </div>
+                  </div> 
+
+                    <div class="col-md-2 mt-3" style="position: absolute;right:61%;">
+                      <div class="px-2 bd-highlight" style="float:right;">
+                        <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                       <button type="submit" class="btn search-bu" (click)="ILRFilter()">
+                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button>
+                      </div>
                     </div>
+                  </div>
+
                     <div class="form-row">
                         <div class="col-md-12">
                             <a class="float-right mr-5" (click)="openAddIlr(addIlrDetail)"
@@ -64,9 +96,9 @@
                             <th><span>{{'IlR Name' | translate }}</span></th>
                               <th><span>{{'DistrictName' | translate }}</span></th>                              
                               <th><span>{{'ChcName ' | translate }}</span></th>
-                              <th><span>{{'Ilrcode' | translate }}</span></th>                                                
+                              <!-- <th><span>{{'Ilrcode' | translate }}</span></th>                                                 -->
                               <th><span>{{'Comments' | translate }}</span></th>
-                              <th><span>{{'Active' | translate }}</span></th>
+                              <!-- <th><span>{{'Active' | translate }}</span></th> -->
                               <th><span class="wordwrap">{{'Edit' | translate }}</span></th>
                             </tr>
                           </thead>
@@ -76,10 +108,10 @@
                               <td class="sid text-center">{{sample.name}}</td>
                               <td class="sid text-center">{{sample.districtName}}</td>                           
                               <td class="sid text-center">{{sample.chcName}}</td>
-                              <td class="sid text-center">{{sample.ilrCode}}</td>                              
+                              <!-- <td class="sid text-center">{{sample.ilrCode}}</td>                               -->
                               <td class="number text-center">{{sample.comments}}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
-                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td>
+                              <!-- <td class="text-center" *ngIf="sample.isActive=='True'">{{'Active' | translate }}</td>
+                              <td class="text-center" *ngIf="sample.isActive=='False'">{{'InActive' | translate }}</td> -->
                                    
                             <td class="text-center">
                               <a class="" (click)="openEditIlr(editIlrDetail, sample)"
@@ -147,8 +179,8 @@
 
                                                                
                             <div class="form-group col-md-3">
-                              <label class="note">{{'ILR Name' | translate }}<span class="manto"> *</span></label>
-                              <input class="form-control" name="ilrname" type="text" placeholder="Name" ngModel pattern="[a-zA-Z][a-zA-Z ]+" required required          
+                              <label class="note" [ngClass]="{'label-border-class':ilrname.invalid && ilrname.touched || addIlrForm.submitted && ilrname.invalid}">{{'ILR Name' | translate }}<span class="manto"> *</span></label>
+                              <input class="form-control" name="ilrname" type="text" placeholder="Name" ngModel required required          
                               #ilrname ="ngModel" [class.is-invalid]="!ilrname.valid && ilrname.touched || addIlrForm.submitted && ilrname.invalid">
                               <small class="text-danger ml-2" *ngIf="!ilrname.valid && ilrname.touched ">Enter Name</small> 
                               <div *ngIf="addIlrForm.submitted && ilrname.invalid">     
@@ -156,36 +188,20 @@
                               </div> 
                             </div>
                             
-                            <div class="form-group col-md-3">
-                              <label class="note">{{'ILR Code' | translate }}<span class="manto"> *</span></label>
-                              <input class="form-control" name="ilrCode" type="text" placeholder="Ilr Code" ngModel
-                              [class.is-invalid]="!ilrCode.valid && ilrCode.touched || addIlrForm.submitted && ilrCode.invalid"
-                               #ilrCode="ngModel" required>
-                              <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Ilr Code</small> 
-                              <div *ngIf="addIlrForm.submitted && ilrCode.invalid">     
-                                <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr Code is required</small>  
-                              </div>                       
-                        </div>
-
-                                <div class="form-group col-md-3">
-                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                  <div class="n-chk">
-                                      <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox" 
-                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                      </label>
-                                  </div>
-                                </div>
+                          
                               </div>
                   
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2"
-                                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                                </div>                                                     
+                                  <label class="note" [ngClass]="{'label-border-class':!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                                  [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                    name=Comments #Comments="ngModel" ngModel required></textarea>
+                                </div>
+                                <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                  <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                </div>
                               </div>
                             </div>
                   
@@ -254,48 +270,29 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                  <label class="note">{{'ILR Name' | translate }} <span class="manto"> *</span></label>
-                                  <input class="form-control" name="ilrname" type="text" placeholder="ILR Name"
-                                  #ilrname1="ngModel"  required [(ngModel)]="ilrname" pattern="[a-zA-Z][a-zA-Z ]+" required>
+                                  <label class="note" [ngClass]="{'label-border-class':ilrname1.invalid && ilrname1.touched ||editIlrForm.submitted && ilrname1.invalid}">{{'ILR Name' | translate }} <span class="manto"> *</span></label>
+                                  <input class="form-control" name="ilrname1" type="text" placeholder="ILR Name"
+                                  [class.is-invalid]="ilrname1.invalid && ilrname1.touched ||editIlrForm.submitted && ilrname1.invalid"
+                                  #ilrname1="ngModel"  required [(ngModel)]="ilrname" required>
                                   <small class="text-danger ml-2" *ngIf="!ilrname1.valid && ilrname1.touched ">Enter ILR Name</small>
-                                  <!-- <div *ngIf="addScForm.submitted && scName.invalid">
-                                    <small *ngIf="scName.untouched" class=" ml-2 text-danger">SC Name is required</small>
-                                  </div> -->  
-                            </div>
-  
-                               
-            
-                                <div class="form-group col-md-3">
-                                  <label class="note">{{'Ilr code' | translate }} <span class="manto"> *</span></label>
-                                  <input class="form-control" name="ilrCode" type="text" placeholder="Ilr code" disabled="ilrCode"
-                                    [class.is-invalid]="!ilrCode.valid && ilrCode.touched || editIlrForm.submitted && ilrCode.invalid"
-                                    required [(ngModel)]="ilrCode" disabled="ilrCode">
-                                  <small class="text-danger ml-2" *ngIf="!ilrCode.valid && ilrCode.touched ">Enter Ilr code</small>
-                                  <div *ngIf="editIlrForm.submitted && ilrCode.invalid">
-                                    <small *ngIf="ilrCode.untouched" class=" ml-2 text-danger">Ilr code is required</small>
+                                  <div *ngIf="editIlrForm.submitted && ilrname1.invalid">
+                                    <small *ngIf="ilrname1.untouched" class=" ml-2 text-danger">SC Name is required</small>
                                   </div>  
-                                </div>
-                                                  
-                                <div class="form-group col-md-3">
-                                  <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                                  <div class="n-chk">
-                                      <label class="new-control new-checkbox checkbox-outline-primary">
-                                        <input type="checkbox" class="new-control-input checkbox" 
-                                        [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">                             
-                                        <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                                      </label>
-                                  </div>
-                                </div> 
+                            </div> 
+
                               </div>
-                  
                               <div class="form-row mt-4">
                                 <div class="form-group col-md-12">
-                                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                                   rows="2"
-                                  placeholder="" name=commentsdata [(ngModel)]="commentsdata"></textarea>
-                                </div>                                                     
-                              </div>
+                                  <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editIlrForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                                  [class.is-invalid]="!editComments.valid  && editComments.touched || editIlrForm.submitted && !editComments.valid"
+                                  name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
+                                </div>
+                                <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                                <div *ngIf="editIlrForm.submitted && !editComments.valid">
+                                  <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                   </div>
+                              </div> 
                             </div>
                 
                           <div class="modal-footer">

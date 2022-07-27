@@ -15,6 +15,10 @@ export interface RiList {
     phcName: string;
     scId: number;
     scName: string;
+    avdId:number;
+    anmId:number;
+    avdName:string;
+    ANMName:string;
     riGovCode: string;
     riSite: string;
     name: string;

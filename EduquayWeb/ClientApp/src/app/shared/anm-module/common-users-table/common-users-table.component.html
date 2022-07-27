@@ -124,7 +124,7 @@
    
     <ng-template #addIlrDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add SADMIN' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add SADMIN Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -144,7 +144,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState" >
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -194,13 +194,14 @@
                </div>
 
                <div class="form-group col-md-3">
-                <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                 <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                 #contactNo1="ngModel" required >
-                <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid "
+                 #contactNo1="ngModel" required minlength="9" >
+                 <!-- <small class="text-danger ml-2" *ngIf="contactNo1.minlength">Enter 10 digit number</small> -->
+                <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
                 <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                  <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                  <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                 </div>
                </div>
 
@@ -227,7 +228,7 @@
 
 
 
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                   <div class="n-chk">
                       <label class="new-control new-checkbox checkbox-outline-primary">
@@ -236,17 +237,21 @@
                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                       </label>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div class="form-row mt-4">
                 <div class="form-group col-md-12">
-                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                   rows="2"
-                  placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                </div>
-              </div>
+                     <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                      <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                   [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                           name=Comments #Comments="ngModel" ngModel required></textarea>
+                           </div>
+                           <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                         <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                            </div>
+                       </div>
             </div>
 
 
@@ -265,7 +270,7 @@
 
       <ng-template #editsadminDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit Sadmin' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit Sadmin Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -299,6 +304,7 @@
                 <div class="form-group col-md-3">
                   <label class="note">{{'User Name' | translate }}<span class="manto"> *</span></label>
                   <input class="form-control" name="userName" type="text" placeholder="userName" [(ngModel)]="userName" disabled="Username" pattern="^[a-zA-Z0-9]+$" required
+         
                   [class.is-invalid]="!userName.valid && userName.touched || editsadminForm.submitted && userName.invalid">
                   <small class="text-danger ml-2" *ngIf="!userName.valid && userName.touched ">Enter userName</small>
                   <div *ngIf="editsadminForm.submitted && userName.invalid">
@@ -335,13 +341,14 @@
                </div>
 
                <div class="form-group col-md-3">
-                <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo"  [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editsadminForm.submitted && mobileNo.invalid"
-                #mobileNo1="ngModel" required >
-                <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter contact No</small>
-                <div *ngIf="editsadminForm.submitted && mobileNo.invalid">
-                  <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">contact No is required</small>
+                <label class="note">{{'Contact No' | translate }}<span class="manto"> *</span></label>
+                <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No "  [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editsadminForm.submitted && mobileNo1.invalid || mobileNo1.minlength"
+                #mobileNo1="ngModel" required minlength="9">
+                <!-- <small class="text-danger ml-2" *ngIf="contactNo1.minlength">Enter 10 digit number</small> -->
+                <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched|| mobileNo1.minlength ">Enter 10 digit number</small>
+                <div *ngIf="editsadminForm.submitted && mobileNo1.invalid">
+                  <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                 </div>
                </div>
 
@@ -369,7 +376,7 @@
 
 
 
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                   <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                   <div class="n-chk">
                       <label class="new-control new-checkbox checkbox-outline-primary">
@@ -378,17 +385,21 @@
                         <span class="new-control-indicator"></span>&nbsp; &nbsp;
                       </label>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div class="form-row mt-4">
                 <div class="form-group col-md-12">
-                  <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                  <textarea id="textarea" class="form-control textarea" maxlength="225"
-                   rows="2"
-                  placeholder="" name=comments #Comments="ngModel" ngModel></textarea>
+                  <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editsadminForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                  <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                  [class.is-invalid]="!editComments.valid  && editComments.touched || editsadminForm.submitted && !editComments.valid"
+                  name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                 </div>
-              </div>
+                <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                <div *ngIf="editsadminForm.submitted && !editComments.valid">
+                  <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                   </div>
+              </div> 
             </div>
 
 
@@ -407,7 +418,7 @@
 
       <ng-template #addanmDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add ANM' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add ANM Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -428,7 +439,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -583,13 +594,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -619,7 +630,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -628,18 +639,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
                   <div class="modal-footer">
@@ -655,7 +670,7 @@
            <!-- The Modal -->
            <ng-template #editanmDetail let-modal>
             <div class="modal-header">
-              <h4 class="modal-title modaltitle">{{'Edit ANM' | translate }}</h4>
+              <h4 class="modal-title modaltitle">{{'Edit ANM Users' | translate }}</h4>
               <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -833,12 +848,12 @@
 
                        <div class="form-group col-md-3">
                         <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                        <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                        [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editanmForm.submitted && mobileNo.invalid"
-                        #mobileNo1="ngModel" required >
-                        <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter contact No</small>
-                        <div *ngIf="editanmForm.submitted && mobileNo.invalid">
-                          <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">contact No is required</small>
+                        <input class="form-control" name="mobileNo1" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                        [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editanmForm.submitted && mobileNo1.invalid"
+                        #mobileNo1="ngModel" required minlength="9">
+                        <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength || mobileNo1.minlength">Enter 10 digit number</small>
+                        <div *ngIf="editanmForm.submitted && mobileNo1.invalid">
+                          <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                         </div>
                        </div>
 
@@ -865,7 +880,7 @@
                             </div>
                            </div>
 
-                          <div class="form-group col-md-3">
+                          <!-- <div class="form-group col-md-3">
                             <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                             <div class="n-chk">
                                 <label class="new-control new-checkbox checkbox-outline-primary">
@@ -874,18 +889,22 @@
                                   <span class="new-control-indicator"></span>&nbsp; &nbsp;
                                 </label>
                             </div>
-                          </div>
+                          </div> -->
 
                         </div>
 
                         <div class="form-row mt-4">
                           <div class="form-group col-md-12">
-                            <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                            <textarea id="textarea" class="form-control textarea" maxlength="225"
-                             rows="2"
-                            placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                            <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editAvdForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                            [class.is-invalid]="!editComments.valid  && editComments.touched || editAvdForm.submitted && !editComments.valid"
+                            name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                           </div>
-                        </div>
+                          <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                          <div *ngIf="editAvdForm.submitted && !editComments.valid">
+                            <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                             </div>
+                        </div> 
                       </div>
 
                       <div class="modal-footer">
@@ -901,7 +920,7 @@
 
       <ng-template #addchcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add CHC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add CHC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -921,7 +940,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -941,7 +960,7 @@
                       required [(ngModel)]="selectedUserrole">
                           <option value="">Select</option>
                           <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                              {{Userrole.comments}}
+                              {{Userrole.userRoleName}}
                           </option>
                       </select>
                         <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
@@ -1048,13 +1067,13 @@
                      </div>
 
                      <div class="form-group col-md-3">
-                      <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                      <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                       [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                       #contactNo1="ngModel" required >
-                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                       #contactNo1="ngModel" required minlength="9">
+                      <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                       <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                        <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                       </div>
                      </div>
 
@@ -1083,7 +1102,7 @@
                        </div>
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -1092,18 +1111,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -1118,7 +1141,7 @@
       </ng-template>
       <ng-template #editchcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit CHC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit CHC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1265,12 +1288,12 @@
 
                      <div class="form-group col-md-3">
                       <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
-                      <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                      [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editchcform.submitted && mobileNo.invalid"
-                      #mobileNo1="ngModel"  required >
-                      <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter contact No</small>
-                      <div *ngIf="editchcform.submitted && mobileNo.invalid">
-                        <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">contact No is required</small>
+                      <input class="form-control" name="mobileNo1" type="text" placeholder="mobileNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                      [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editchcform.submitted && mobileNo1.invalid"
+                      #mobileNo1="ngModel"  required minlength="9" >
+                      <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                      <div *ngIf="editchcform.submitted && mobileNo1.invalid">
+                        <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">contact No is required</small>
                       </div>
                      </div>
 
@@ -1298,38 +1321,21 @@
                         </div>
                        </div>
 
-                        <!-- <div class="form-group col-md-3">
-                        <label class="note">{{'Address' | translate }}<span class="manto"> *</span></label>
-                        <input class="form-control" name="Address" type="text" placeholder="Address" [(ngModel)]="Address"
-                        [class.is-invalid]="!Address.valid && Address.touched || editchcform.submitted && Address.invalid"
-                          required>
-                        <small class="text-danger ml-2" *ngIf="!Address.valid && Address.touched ">Enter Address</small>
-                        <div *ngIf="editchcform.submitted && Address.invalid">
-                          <small *ngIf="Address.untouched" class=" ml-2 text-danger">Address is required</small>
-                        </div>
-                       </div> -->
-
-                      <div class="form-group col-md-3">
-                        <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                        <div class="n-chk">
-                            <label class="new-control new-checkbox checkbox-outline-primary">
-                              <input type="checkbox" class="new-control-input checkbox"
-                              [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                              <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                            </label>
-                        </div>
-                      </div>
-
+                     
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editchcform.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editchcform.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editchcform.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -1345,7 +1351,7 @@
 
       <ng-template #addhplcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add HPLC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add HPLC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1365,7 +1371,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -1385,7 +1391,7 @@
                       required [(ngModel)]="selectedUserrole">
                           <option value="">Select</option>
                           <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                              {{Userrole.comments}}
+                              {{Userrole.userRoleName}}
                           </option>
                       </select>
                         <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
@@ -1473,13 +1479,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched || contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -1507,28 +1513,20 @@
                         </div>
                        </div>
 
-
-                      <div class="form-group col-md-3">
-                        <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
-                        <div class="n-chk">
-                            <label class="new-control new-checkbox checkbox-outline-primary">
-                              <input type="checkbox" class="new-control-input checkbox"
-                              [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
-                              <span class="new-control-indicator"></span>&nbsp; &nbsp;
-                            </label>
-                        </div>
-                      </div>
-
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -1543,7 +1541,7 @@
       </ng-template>
       <ng-template #edithplcdetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add HPLC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit HPLC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1648,13 +1646,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || edithplcform.submitted && mobileNo.invalid"
-                    #mobileNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ">Enter ContactNo</small>
-                    <div *ngIf="edithplcform.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || edithplcform.submitted && mobileNo1.invalid"
+                    #mobileNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="edithplcform.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -1684,7 +1682,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -1693,18 +1691,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || edithplcform.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || edithplcform.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="edithplcform.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -1720,7 +1722,7 @@
 
       <ng-template #addpndtcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add PNTDC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add PNTDC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1739,7 +1741,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -1843,13 +1845,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -1879,7 +1881,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -1888,18 +1890,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -1915,7 +1921,7 @@
 
       <ng-template #editpndtcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit PNTDC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit PNTDC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1988,13 +1994,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editpndtcForm.submitted && mobileNo.invalid"
-                     required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editpndtcForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editpndtcForm.submitted && mobileNo1.invalid"
+                     required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editpndtcForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2024,7 +2030,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -2033,18 +2039,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editpndtcForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editpndtcForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editpndtcForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -2061,7 +2071,7 @@
 
       <ng-template #addmtpDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add MTP' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add MTP Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2082,7 +2092,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -2171,13 +2181,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2207,7 +2217,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -2216,18 +2226,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -2242,7 +2256,7 @@
       </ng-template>
       <ng-template #editmtpDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add MTP' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit MTP Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2313,13 +2327,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="mobileNo" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editmtpForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editmtpForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editmtpForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editmtpForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2349,7 +2363,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -2358,18 +2372,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editmtpForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editmtpForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editmtpForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -2385,7 +2403,7 @@
 
       <ng-template #adddcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add DC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add DC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2406,7 +2424,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -2495,13 +2513,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2531,7 +2549,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -2540,18 +2558,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -2566,7 +2588,7 @@
       </ng-template>
       <ng-template #editdcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit DC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit DC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2656,13 +2678,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editdcForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editdcForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="ContactNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editdcForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength"> Enter 10 digit number</small>
+                    <div *ngIf="editdcForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2692,7 +2714,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -2701,18 +2723,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editdcForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editdcForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editdcForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -2728,7 +2754,7 @@
 
       <ng-template #addmolecularDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add Molecular lab' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add Molecular lab Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -2748,7 +2774,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -2768,7 +2794,7 @@
                       required [(ngModel)]="selectedUserrole">
                           <option value="">Select</option>
                           <option *ngFor="let Userrole of userrolelists" [(value)]="Userrole.id">
-                              {{Userrole.comments}}
+                              {{Userrole.userRoleName}}
                           </option>
                       </select>
                         <small class=" ml-2 text-danger" *ngIf="ddlUserRole.invalid && ddlUserRole.touched ">Please choose a UserRole</small>
@@ -2854,13 +2880,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -2890,7 +2916,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -2899,18 +2925,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -2925,7 +2955,7 @@
       </ng-template>
       <ng-template #editmolecularDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit Molecular lab' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit Molecular lab Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3013,17 +3043,17 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editmolecularForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editmolecularForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editmolecularForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength "> Enter 10 digit number</small>
+                    <div *ngIf="editmolecularForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-3"> 
                       <label class="note">{{'UserGovCode' | translate }}<span class="manto"> *</span></label>
                       <input class="form-control" name="userGovCode" type="text" placeholder="userGovCode" [(ngModel)]="userGovCode" disabled="userGovCode"
                       [class.is-invalid]="!userGovCode.valid && userGovCode.touched || editmolecularForm.submitted && userGovCode.invalid"
@@ -3049,7 +3079,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -3058,18 +3088,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editmolecularForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editmolecularForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editmolecularForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -3085,7 +3119,7 @@
 
       <ng-template #addspcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add SPC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add SPC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3105,7 +3139,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -3195,13 +3229,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength ">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3232,7 +3266,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -3241,18 +3275,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                           <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                            <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                                 name=Comments #Comments="ngModel" ngModel required></textarea>
+                                 </div>
+                                 <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                               <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                                <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                  </div>
+                             </div>
                   </div>
 
             <div class="modal-footer">
@@ -3267,7 +3305,7 @@
       </ng-template>
       <ng-template #editspcDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit SPC' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit SPC Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3358,13 +3396,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editspcForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editspcForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editspcForm.submitted && mobileNo1.invalid"
+                      required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched||mobileNo1.minlength "> Enter 10 digit number</small>
+                    <div *ngIf="editspcForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3395,7 +3433,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -3404,18 +3442,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editspcForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editspcForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editspcForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -3430,7 +3472,7 @@
       </ng-template>
       <ng-template #addnhmDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add NHM' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add NHM Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3451,7 +3493,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -3540,13 +3582,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3577,7 +3619,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -3586,18 +3628,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -3612,7 +3658,7 @@
       </ng-template>
       <ng-template #editnhmDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit NHM' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit NHM Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3723,13 +3769,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="contactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editnhmForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editnhmForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="contactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editnhmForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength"> Enter 10 digit number</small>
+                    <div *ngIf="editnhmForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3758,7 +3804,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -3767,18 +3813,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editnhmForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editnhmForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editnhmForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -3793,7 +3843,7 @@
       </ng-template>
       <ng-template #addpndtDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add PNDT' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add PNDT Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -3814,7 +3864,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -3904,13 +3954,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -3940,7 +3990,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -3949,18 +3999,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -3975,7 +4029,7 @@
       </ng-template>
       <ng-template #editpndtDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit PNDT' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit PNDT Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4047,13 +4101,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editpndtForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editpndtForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editpndtForm.submitted && mobileNo1.invalid"
+                      required minlength="9" >
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched || mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editpndtForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -4083,7 +4137,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -4092,18 +4146,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editpndtForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editpndtForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editpndtForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -4118,7 +4176,7 @@
       </ng-template>
       <ng-template #addhaematologistDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add Haematologist' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add Haematologist Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4139,7 +4197,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -4228,13 +4286,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
                     <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -4264,7 +4322,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -4273,18 +4331,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -4300,7 +4362,7 @@
 
       <ng-template #edithaematologistDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit Haematologist' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit Haematologist Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4372,13 +4434,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || edithaematologistForm.submitted && mobileNo.invalid"
-                     required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="edithaematologistForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="Contact No" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || edithaematologistForm.submitted && mobileNo1.invalid"
+                     required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="edithaematologistForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
 
@@ -4408,7 +4470,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -4417,18 +4479,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || edithaematologistForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || edithaematologistForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="edithaematologistForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -4444,7 +4510,7 @@
 
       <ng-template #addsupportDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Add SupportAdmin' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Add SupportAdmin Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4465,7 +4531,7 @@
                       class="manto"> *</span></label>
                       <select id="inputilrPoint" class="form-control"
                       name="ddlState" #ddlState="ngModel" [class.is-invalid]="ddlState.invalid && ddlState.touched || addIlrForm.submitted && ddlState.invalid"
-                      required [(ngModel)]="selectedState">
+                      required [(ngModel)]="selectedState" disabled="ddlState">
                           <option value="">Select</option>
                           <option *ngFor="let statedata of statelists" [(value)]="statedata.id">
                               {{statedata.name}}
@@ -4554,13 +4620,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="contactNo1" type="text" placeholder="ContactNo" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="contactNo1" type="text" placeholder="Contact No" ngModel oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
                     [class.is-invalid]="!contactNo1.valid && contactNo1.touched || addIlrForm.submitted && contactNo1.invalid"
-                     #contactNo1="ngModel" required >
-                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ">Enter ContactNo</small>
+                     #contactNo1="ngModel" required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!contactNo1.valid && contactNo1.touched ||contactNo1.minlength">Enter 10 digit number</small>
                     <div *ngIf="addIlrForm.submitted && contactNo1.invalid">
-                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                      <small *ngIf="contactNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
                      <div class="form-group col-md-3">
@@ -4589,7 +4655,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -4598,18 +4664,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
-                      </div>
-                    </div>
+                      <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                         <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                         [class.is-invalid]="!Comments.valid && Comments.touched || addIlrForm.submitted && Comments.invalid"
+                          name=Comments #Comments="ngModel" ngModel required></textarea>
+                       </div>
+                       <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                      <div *ngIf="addIlrForm.submitted && Comments.invalid">
+                          <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                           </div>
+                           </div>
                   </div>
 
             <div class="modal-footer">
@@ -4625,7 +4695,7 @@
 
       <ng-template #editsupportDetail let-modal>
         <div class="modal-header">
-          <h4 class="modal-title modaltitle">{{'Edit SupportAdmin' | translate }}</h4>
+          <h4 class="modal-title modaltitle">{{'Edit SupportAdmin Users' | translate }}</h4>
           <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -4698,13 +4768,13 @@
                    </div>
 
                    <div class="form-group col-md-3">
-                    <label class="note">{{'ContactNo ' | translate }}<span class="manto"> *</span></label>
-                    <input class="form-control" name="mobileNo" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
-                    [class.is-invalid]="!mobileNo.valid && mobileNo.touched || editsupportForm.submitted && mobileNo.invalid"
-                      required >
-                    <small class="text-danger ml-2" *ngIf="!mobileNo.valid && mobileNo.touched ">Enter ContactNo</small>
-                    <div *ngIf="editsupportForm.submitted && mobileNo.invalid">
-                      <small *ngIf="mobileNo.untouched" class=" ml-2 text-danger">ContactNo is required</small>
+                    <label class="note">{{'Contact No ' | translate }}<span class="manto"> *</span></label>
+                    <input class="form-control" name="mobileNo1" type="text" placeholder="ContactNo" [(ngModel)]="mobileNo" oninput="javascript:if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10" numbersOnly
+                    [class.is-invalid]="!mobileNo1.valid && mobileNo1.touched || editsupportForm.submitted && mobileNo1.invalid"
+                      required minlength="9">
+                    <small class="text-danger ml-2" *ngIf="!mobileNo1.valid && mobileNo1.touched ||mobileNo1.minlength">Enter 10 digit number</small>
+                    <div *ngIf="editsupportForm.submitted && mobileNo1.invalid">
+                      <small *ngIf="mobileNo1.untouched" class=" ml-2 text-danger">Contact No is required</small>
                     </div>
                    </div>
                      <div class="form-group col-md-3">
@@ -4733,7 +4803,7 @@
 
 
 
-                      <div class="form-group col-md-3">
+                      <!-- <div class="form-group col-md-3">
                         <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
                         <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-primary">
@@ -4742,18 +4812,22 @@
                               <span class="new-control-indicator"></span>&nbsp; &nbsp;
                             </label>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
                     <div class="form-row mt-4">
                       <div class="form-group col-md-12">
-                        <label class="note" >{{'Comments' | translate }} <span class="manto"></span></label>
-                        <textarea id="textarea" class="form-control textarea" maxlength="225"
-                         rows="2"
-                        placeholder="" name=Comments #Comments="ngModel" ngModel></textarea>
+                        <label class="note"  [ngClass]="{'label-border-class':!editComments.valid && editComments.touched || editsupportForm.submitted && editComments.invalid}">{{'Comments' | translate }} <span class="manto">*</span></label>
+                        <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2"
+                        [class.is-invalid]="!editComments.valid  && editComments.touched || editsupportForm.submitted && !editComments.valid"
+                        name=editComments #editComments="ngModel" [(ngModel)]="commentsdata" required ></textarea>
                       </div>
-                    </div>
+                      <small class="text-danger ml-2" *ngIf="!editComments.valid && editComments.touched ">Enter Comments</small>
+                      <div *ngIf="editsupportForm.submitted && !editComments.valid">
+                        <small *ngIf="editComments.untouched" class=" ml-2 text-danger">Comments required</small>
+                         </div>
+                    </div> 
                   </div>
 
             <div class="modal-footer">
@@ -4761,6 +4835,250 @@
               <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
               <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
             </div>
+          </form>
+
+        </div>
+
+      </ng-template>
+
+      <ng-template #viewRiDetail let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title modaltitle">{{'View RI' | translate }}</h4>
+          <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body form-body">
+          <form class="text-left" (ngSubmit)="editAvdForm.form.valid && editSubmit(editAvdForm)"
+            #editAvdForm="ngForm" novalidate>
+            <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+              <div class="form-row">
+                <!-- <div class="col-md-12">
+                  <a class="float-right mr-5" (click)="openAddRiPt(addRiPtDetail)"
+                        role="button">
+                            <i class="fas fa-plus-square text-primary fnt-size" aria-hidden="true"></i>
+                        </a>
+                </div> -->
+                <div class="table-responsive mb-4">
+                  <table id="avdlist-tblconfig" class="table table-bordered table-hover tbl-ht" datatable
+                    [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                      <tr>
+                        <th><span>{{'SNo' | translate }}</span></th>                         
+                        <th>{{'RI Name' | translate }}</th>
+                        <th>{{'RI Code' | translate }}</th>
+                       
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let sample of rilists; index as i">
+                        <td class="sno text-center">{{i +1}}</td>                                                 
+                        <td class="sname text-left">{{sample.riSite}}</td>
+                        <td class="sid text-center">{{sample.riGovCode}}</td>  
+                        
+                      </tr>
+      
+                    </tbody>
+                  </table>
+                </div>
+                <ng-template #addRiPtDetail let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title modaltitle">{{'Add RI' | translate }}</h4>
+                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="modal-body form-body">
+                    <form class="text-left" (ngSubmit)="addRiPtForm.form.valid &&  onSubmitRI(addRiPtForm)" #addRiPtForm="ngForm" novalidate>
+                      <div class="col-md-12" id="myTable" style="padding-top: 1%;">
+                        <div class="form-row">
+
+                          <div class="form-group col-md-3">
+
+                            <label [ngClass]="{'label-border-class':ddlDistrictRI.invalid && ddlDistrictRI.touched || addRiPtForm.submitted && ddlDistrictRI.invalid}" for="inputilrPoint">{{'District' | translate }}<span
+                                class="manto"> *</span></label>
+                                <select id="inputilrPoint" class="form-control"
+                                name="ddlDistrictRI" #ddlDistrictRI="ngModel" [class.is-invalid]="ddlDistrictRI.invalid && ddlDistrictRI.touched || addRiPtForm.submitted && ddlDistrictRI.invalid"
+                                required [(ngModel)]="selectedDistrict" (change)="districtChange();" >
+                                    <option value="">Select</option>
+                                    <option *ngFor="let districtdata of districtlists" [(value)]="districtdata.id">
+                                        {{districtdata.name}}
+                                    </option>
+                                </select>
+                                  <small class=" ml-2 text-danger" *ngIf="ddlDistrictRI.invalid && ddlDistrictRI.touched ">Please choose a District</small>
+                                  <div *ngIf="addRiPtForm.submitted && ddlDistrictRI.invalid">
+                                    <small *ngIf="ddlDistrictRI.untouched" class=" ml-2 text-danger">District is required</small>
+                                  </div>
+
+                      </div>
+      
+
+                          <div class="form-group col-md-3">
+
+                            <label [ngClass]="{'label-border-class':ddlChcbydis.invalid && ddlChcbydis.touched || addRiPtForm.submitted && ddlChcbydis.invalid}" for="inputilrPoint">{{'CHC' | translate }}<span
+                                class="manto"> *</span></label>
+                                <select id="inputilrPoint" class="form-control"
+                                name="ddlChcbydis" #ddlChcbydis="ngModel" [class.is-invalid]="ddlChcbydis.invalid && ddlChcbydis.touched || addRiPtForm.submitted && ddlChcbydis.invalid"
+                                required [(ngModel)]="selectedChc" (change)="onChangeChcbyri($event.target.value)"  >
+                                    <option value="">Select</option>
+                                    <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
+                                        {{chcdata.name}}
+                                    </option>
+                                </select>
+                                  <small class=" ml-2 text-danger" *ngIf="ddlChcbydis.invalid && ddlChcbydis.touched ">Please choose a CHC</small>
+                                  <div *ngIf="addRiPtForm.submitted && ddlChcbydis.invalid">
+                                    <small *ngIf="ddlChcbydis.untouched" class=" ml-2 text-danger">CHC is required</small>
+                                  </div>
+  
+                      </div>
+                          <div class="form-group col-md-3">
+    
+                            <label [ngClass]="{'label-border-class':ddlPhc.invalid && ddlPhc.touched || addRiPtForm.submitted && ddlPhc.invalid}" for="inputilrPoint">{{'PHC' | translate }}<span
+                                class="manto"> *</span></label>
+                                <select id="inputilrPoint" class="form-control"
+                                name="ddlPhc" #ddlPhc="ngModel" [class.is-invalid]="ddlPhc.invalid && ddlPhc.touched || addRiPtForm.submitted && ddlPhc.invalid"
+                                required [(ngModel)]="selectedPhc" (change)="onChangePhc($event.target.value)" >
+                                    <option value="">Select</option>
+                                    <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
+                                        {{phcdata.name}}
+                                    </option>
+                                </select>
+                                  <small class=" ml-2 text-danger" *ngIf="ddlPhc.invalid && ddlPhc.touched ">Please choose a PHC</small>
+                                  <div *ngIf="addRiPtForm.submitted && ddlPhc.invalid">
+                                    <small *ngIf="ddlPhc.untouched" class=" ml-2 text-danger">PHC is required</small>
+                                  </div>
+    
+                      </div>
+                      <div class="form-group col-md-3">
+    
+                        <label [ngClass]="{'label-border-class':ddlSc.invalid && ddlSc.touched || addRiPtForm.submitted && ddlSc.invalid}" for="inputilrPoint">{{'SC' | translate }}<span
+                            class="manto"> *</span></label>
+                            <select id="inputilrPoint" class="form-control"
+                            name="ddlSc" #ddlSc="ngModel" [class.is-invalid]="ddlSc.invalid && ddlSc.touched || addRiPtForm.submitted && ddlSc.invalid"
+                            required [(ngModel)]="selectedSc" >
+                                <option value="">Select</option>
+                                <option *ngFor="let scdata of sclists" [(value)]="scdata.id">
+                                    {{scdata.name}}
+                                </option>
+                            </select>
+                              <small class=" ml-2 text-danger" *ngIf="ddlSc.invalid && ddlSc.touched ">Please choose a SC</small>
+                              <div *ngIf="addRiPtForm.submitted && ddlSc.invalid">
+                                <small *ngIf="ddlSc.untouched" class=" ml-2 text-danger">SC is required</small>
+                              </div>
+    
+                  </div>
+    
+                      <!-- <div class="form-group col-md-3">
+                        <label class="note">{{'RI Code' | translate }}<span class="manto"> *</span></label>
+                        <input class="form-control" name="riCode" type="text" placeholder="RI Code" ngModel pattern="^[a-zA-Z0-9]+$" required
+                        #riCode ="ngModel" [class.is-invalid]="!riCode.valid && riCode.touched || addRiPtForm.submitted && riCode.invalid">
+                        <small class="text-danger ml-2" *ngIf="!riCode.valid && riCode.touched ">Enter RI Code</small>
+                        <div *ngIf="addRiPtForm.submitted && riCode.invalid">
+                        <small *ngIf="riCode.untouched" class=" ml-2 text-danger">RI Code is required</small>
+                        </div>
+                      </div> -->
+                      <div class="form-group col-md-3">
+                        <label class="note" [ngClass]="{'label-border-class':!riName.valid && riName.touched || addRiPtForm.submitted && scName.invalid}">{{'RIPoint' | translate }} <span class="manto">*</span></label>
+                        <input class="form-control" name="riName" type="text" placeholder="RI Point" ngModel
+                        [class.is-invalid]="!riName.valid && riName.touched || addRiPtForm.submitted && riName.invalid"
+                         #riName="ngModel" [(ngModel)]="riName1" required>
+                        <small class="text-danger ml-2" *ngIf="!riName.valid && riName.touched ">Enter RI Point</small>
+                        <div *ngIf="addRiPtForm.submitted && riName.invalid">
+                          <small *ngIf="riName.untouched" class=" ml-2 text-danger">RI Point is required</small>
+                        </div>
+    
+                  </div>
+    
+                  <div class="form-group col-md-3">
+                    <label class="note">{{'Pincode' | translate }}<span class="manto"></span></label>
+                    <input class="form-control" name="pincode" type="text" placeholder="pincode"
+                      autocomplete="off" [(ngModel)]="pincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      maxlength = "6" numbersOnly>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label [ngClass]="{'label-border-class':ddlTestingCHC.invalid && ddlTestingCHC.touched || addRiPtForm.submitted && ddlTestingCHC.invalid}" for="inputilrPoint">{{'Testing CHC' | translate }}<span
+                        class="manto"> *</span></label>
+                        <select id="inputilrPoint1" class="form-control"
+                        name="ddlTestingCHC" #ddlTestingCHC="ngModel" [class.is-invalid]="ddlTestingCHC.invalid && ddlTestingCHC.touched || addRiPtForm.submitted && ddlTestingCHC.invalid"
+                        required [(ngModel)]="selectedtestingCHCId" (change)="onChangetesting($event.target.value)" [disabled]="selectedDistrict === ''">
+                            <option value="">Select</option>
+                            <option *ngFor="let districtdata of tcbydisList" [(value)]="districtdata.id">
+                                {{districtdata.name}}
+                            </option>
+                        </select>
+                          <small class=" ml-2 text-danger" *ngIf="ddlTestingCHC.invalid && ddlTestingCHC.touched ">Please choose a Testing chc</small>
+                          <div *ngIf="addRiPtForm.submitted && ddlTestingCHC.invalid">
+                            <small *ngIf="ddlDistrict.untouched" class=" ml-2 text-danger">Testing chc is required</small>
+                          </div>
+              </div>
+    
+                      <div class="form-group col-md-3">
+                        <label [ngClass]="{'label-border-class':ddlIlr.invalid && ddlIlr.touched || addRiPtForm.submitted && ddlIlr.invalid}" for="inputilrPoint">{{'Ilr' | translate }}<span
+                            class="manto"> *</span></label>
+                            <select id="inputilrPoint" class="form-control"
+                            name="ddlIlr" #ddlIlr="ngModel" [class.is-invalid]="ddlIlr.invalid && ddlIlr.touched || addRiPtForm.submitted && ddlIlr.invalid"
+                            required [(ngModel)]="selectedIlr">
+                                <option value="">Select</option>
+                                <option *ngFor="let ilrdata of ilrlists" [(value)]="ilrdata.id">
+                                    {{ilrdata.name}}
+                                </option>
+                            </select>
+                              <small class=" ml-2 text-danger" *ngIf="ddlIlr.invalid && ddlIlr.touched ">Please choose a Ilr</small>
+                              <div *ngIf="addRiPtForm.submitted && ddlIlr.invalid">
+                                <small *ngIf="ddlIlr.untouched" class=" ml-2 text-danger">ILr is required</small>
+                              </div>
+                    </div>
+    
+                          <!-- <div class="form-group col-md-3">
+                            <label class="note">{{'Active' | translate}}<span class="manto"></span></label>
+                            <div class="n-chk">
+                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                  <input type="checkbox" class="new-control-input checkbox"
+                                  [checked]="confirmationSelected" (change)="confirmationSelected = !confirmationSelected">
+                                  <span class="new-control-indicator"></span>&nbsp; &nbsp;
+                                </label>
+                            </div>
+                          </div> -->
+    
+                        </div>
+    
+                        <div class="form-row mt-4">
+                          <div class="form-group col-md-12">
+                               <label class="note">{{'Comments' | translate }} <span class="manto">*</span></label>
+                                <textarea id="textarea" class="form-control textarea" maxlength="225" rows="2" 
+                             [class.is-invalid]="!Comments.valid && Comments.touched || addRiPtForm.submitted && Comments.invalid"
+                                     name=Comments #Comments="ngModel" ngModel required></textarea>
+                                     </div>
+                                     <!-- <small class="text-danger ml-2" *ngIf="!contactNo.valid && contactNo.touched ">Enter Comments</small> -->
+                                   <div *ngIf="addRiPtForm.submitted && Comments.invalid">
+                                    <small *ngIf="Comments.untouched" class=" ml-2 text-danger">Comments required</small>
+                                      </div>
+                                 </div>
+                      </div>
+    
+                      <div class="modal-footer">
+                        <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate }}</button>
+                        <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+                        <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                      </div>
+                    </form>
+    
+                  </div>
+    
+               </ng-template>   
+               
+              </div>               
+            </div>  
           </form>
 
         </div>
@@ -4804,6 +5122,18 @@
                  <!-- <td style="text-align: center">{{subjectinfo.isActive}}</td>
                  <td class="text-center" *ngIf="subjectinfo.isActive=='True'">{{'Active' | translate }}</td>
                  <td class="text-center" *ngIf="subjectinfo.isActive=='False'">{{'InActive' | translate }}</td> -->
+                 <td class="text-center" *ngIf="maintabSelected==3">
+                  <button type="submit" class="btn search-bu" (click)="retrirveRilist(viewRiDetail,subjectinfo)" >
+                    <i class="fa fa-search fa-2x mt-1" aria-hidden="true"></i>
+                  </button>
+                </td>   
+                 <!-- <td class="text-center" *ngIf="maintabSelected==3">
+                  <a class="" (click)="retrirveRilist( viewRiDetail,subjectinfo)"
+                  role="button">
+                      <i class="fas fa-pencil-square" aria-hidden="true"></i>
+                    </a>
+                </td> -->
+                
                 <td class="text-center">
                   <a class="" (click)="openEditUsers( subjectinfo)"
                   role="button">

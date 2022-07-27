@@ -140,13 +140,13 @@
 
                       <div class="custm-tab">
                           <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
-                                  <p>{{'Scheduling Counselling' | translate }}</p>
+                                  <p>{{'Schedule Counselling' | translate }}</p>
                           </div>
-                          <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
-                              <p>{{'Scheduled Counselling' | translate }}</p>
+                          <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,6);">
+                              <p>{{'Counselling Pending' | translate }}</p>
                           </div>
-                          <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,1);">
-                              <p>{{'Completed' | translate }}</p>
+                          <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
+                              <p>{{'Counselling Completed(10009)' | translate }}</p>
                           </div>
                       </div>
 
@@ -160,13 +160,13 @@
                       </div>
 
                       <div class="custm-tab" *ngIf="maintabSelected == 3 ? true : false">
-                          <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 1 ? true : false}" (click)="custumTabClick(3,1);">
+                          <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
                                   <p>{{'Agreed' | translate }} </p>
                           </div>
-                          <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 2 ? true : false}" (click)="custumTabClick(3,2);">
+                          <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 4 ? true : false}" (click)="custumTabClick(3,4);">
                               <p>{{'Disagreed' | translate }} </p>
                           </div>
-                          <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 3 ? true : false}" (click)="custumTabClick(3,3);">
+                          <div class="custum-tab-two" [ngClass]="{'tabselected':mainsubtabSelected == 5 ? true : false}" (click)="custumTabClick(3,5);">
                               <p>{{'Decision Pending' | translate }} </p>
                           </div>
                       </div>
@@ -181,14 +181,18 @@
                                       <th><span>{{'Subject Name ' | translate }}</span></th>
                                       <th><span>{{'Subject ID' | translate }}</span></th>
                                       <th><span>{{'SubjectType' | translate }}</span></th>
-                                      <!-- <th><span>{{'Gender' | translate }}</span></th> -->
+                                      <th><span>{{'Gender' | translate }}</span></th> 
                                       <th><span>{{'Contact' | translate }}</span></th>
                                       <th><span>{{'ANM' | translate }}</span></th>
                                       <th><span >{{'Barcode' | translate }}</span></th>
-                                      <th><span >{{'Gestational Age' | translate }}</span></th>
+                                      <th><span >{{'Gestational Age' | translate }}</span></th>                                   
                                       <th><span>{{'Test Results ' | translate }}</span></th>
                                       <th><span >{{'Status' | translate }}</span></th>
-
+                                      <th [ngClass]="{'hideColumn':  mainsubtabSelected == 1  || maintabSelected == 3 || mainsubtabSelected == 3 || mainsubtabSelected == 4|| mainsubtabSelected == 5}"><span >{{'Scheduled Dt Time' | translate }}</span></th>
+                                      <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2 }"><span >{{'Counselled Dt Time' | translate }}</span></th>
+                                      <th [ngClass]="{'hideColumn':  maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2}"><span >{{'Consent Form' | translate }}</span></th>
+                                      <th><span >{{'Tracker' | translate }}</span></th>
+                                      <th><span >{{'Profile' | translate }}</span></th>
                                     </tr>
                               </thead>
                               <tbody>
@@ -197,14 +201,26 @@
                                       <td style="text-align: left">{{subjectinfo.firstName}}</td>
                                       <td style="text-align: center">{{subjectinfo.subjectId}}</td>
                                       <td style="text-align: center">{{subjectinfo.subjectType}}</td>
-                                      <!-- <td style="text-align: center">{{subjectinfo.subjectType}}</td> -->
+                                      <td style="text-align: center">{{subjectinfo.gender}}</td>
                                       <td class="text-left sname">{{subjectinfo.mobileNo}}</td>
                                       <td style="text-align: center">{{subjectinfo.anmName}}</td>
                                       <td style="text-align: left">{{subjectinfo.barcode}}</td>
                                       <td class="text-left sname">{{subjectinfo.ga}}</td>
+                                      <td class="text-left sname">{{subjectinfo.ga}}</td>
                                       <td style="text-align: center">{{subjectinfo.hplcPathoLabResult}}</td>
+                                      <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1  || maintabSelected == 3 || mainsubtabSelected == 3 || mainsubtabSelected == 4|| mainsubtabSelected == 5}"><span >{{subjectinfo.hplcPathoLabResult}}</span></th>
+                                      <th [ngClass]="{'hideColumn': maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2 }"><span >{{subjectinfo.hplcPathoLabResult}}</span></th>
+                                      <th [ngClass]="{'hideColumn':  maintabSelected == 1 || mainsubtabSelected == 1  || mainsubtabSelected == 2 || maintabSelected == 2}"><span >{{subjectinfo.hplcPathoLabResult}}</span></th>
+                                      <th><span >{{'Tracker' | translate }}</span></th>
                                       <td style="text-align: left">{{subjectinfo.mtpService}}</td>
-
+                                     
+                                  
+                                            <td style="text-align: center"><a (click)="opensubjectdetail(subjectinfo)">
+                                                <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>
+                                            </td>
+                                            <td style="text-align: center"><a (click)="openpopup(i,subjectinfo)">
+                                                <i class="fa fa fa-map-marker text-primary" aria-hidden="true"></i>
+                                             </a></td>
                                   </tr>
 
                               </tbody>

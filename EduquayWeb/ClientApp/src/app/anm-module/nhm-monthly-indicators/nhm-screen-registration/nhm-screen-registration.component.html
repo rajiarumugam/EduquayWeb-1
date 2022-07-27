@@ -1,0 +1,272 @@
+<div class="tab-pane fade show active" id="NHMScreen" role="tabpanel" aria-labelledby="NHMScreen-tab">
+  
+    <mat-horizontal-stepper [linear]="false" #stepper>
+        <mat-step >
+          <form >
+            <div class="form-row mt-4" [formGroup]="dateform">
+                <div class="form-group col-md-2">
+                  <label for="inputFromdate">{{'Year & Month' | translate }}
+                  </label>
+                  <div class="form-group mb-0" >
+                    <!-- <input id="scFromDate" class="form-control flatpickr flatpickr-input" type="number" name="fromDate"
+                                  [(ngModel)]="fromDate" required
+                                    placeholder="Select Date..."> -->
+                    <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker
+                      [config]="startOptions" placeholder="Select Date.." formControlName="fromDate" (change)="onChangeMonth($event.target.value)">
+                    </ng2-flatpickr>
+                  </div>
+                </div>
+                
+                
+                <div class="form-group col-md-2" >
+                    <label for="inputTodate">{{'District' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select  class="form-control"  name="selected-District" [(ngModel)]="selectedDistricts" (change)="onchangedistrict($event.target.value)"  required [ngModelOptions]="{standalone: true}">
+                            <option [ngValue]=0>Select District</option>
+                            <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                        </select>
+                    </div>
+                </div>              
+            </div> 
+
+              <div class="reges-form-main-container" *ngIf = "showentry" >  
+                <div class="row">
+                <div class="col-md-5">
+                    <h5 class="" style="font-size: 19px; text-align: left; padding-top: 20px;">Registration</h5>
+                    <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                </div>
+            </div>
+            
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Month of Onset of Activities' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"   [(ngModel)]="MonthofActivities" name="MonthOfActivitie" placeholder="Month of Onset of Activities" 
+                             numbersOnly [class.is-invalid]=" MonthofActivities==Undefined && MonthofActivities==null && MonthofActivities=='' && issubmitted "
+                             required>
+                             <span style="color:red" *ngIf="MonthofActivities==Undefined && MonthofActivities==null && MonthofActivities=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'Total Blocks' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"   [(ngModel)]="Totalblocks" name="Totalblocks" placeholder="Total Blocks"  
+                             numbersOnly [class.is-invalid]="Totalblocks==Undefined && Totalblocks==null && Totalblocks=='' && issubmitted "
+                               required>
+                             <span style="color:red" *ngIf="!Totalblocks==Undefined && Totalblocks==null && Totalblocks=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No of Blocks Collecting Samples' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="BlockCollectingSamples" name="BlockCollectingSamples" placeholder="Blocks Collecting Samples"    
+                             numbersOnly [class.is-invalid]="BlockCollectingSamples==Undefined && BlockCollectingSamples==null && BlockCollectingSamples=='' && issubmitted "
+                             required>
+                             <span style="color:red" *ngIf="BlockCollectingSamples==Undefined && BlockCollectingSamples==null && BlockCollectingSamples=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="form-row my-2">
+
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No of Cell Counter Sites Active' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="Cellcountersites" name="Cellcountersites" placeholder="Cell Counter Sites Active"    
+                             numbersOnly [class.is-invalid]="Cellcountersites==Undefined && Cellcountersites==null && Cellcountersites=='' && issubmitted "
+                               required>
+                             <span style="color:red" *ngIf="Cellcountersites==Undefined && Cellcountersites==null && Cellcountersites=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'Total ANC Registered in HMIS' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="ANCRegistered" name="ANCRegistered" placeholder="Total ANC Registered in HMIS"   
+                             numbersOnly [class.is-invalid]="ANCRegistered==Undefined && ANCRegistered==null && ANCRegistered=='' && issubmitted "
+                              required>
+                             <span style="color:red" *ngIf="ANCRegistered==Undefined && ANCRegistered==null && ANCRegistered=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>   
+                    </div>
+                   
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">Sampling</h5>
+                                <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                            </div>   
+                        </div>
+                        <div class="form-row my-2">
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" >{{'ANCs Sampled' | translate }}</label><span class="manto"> *</span>
+                                <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="ANCSampled" name="ANCSampled" placeholder="Total ANC Registered in HMIS"    
+                                 numbersOnly [class.is-invalid]="ANCSampled==Undefined && ANCSampled==null && ANCSampled=='' && issubmitted "
+                                 required>
+                                 <span style="color:red" *ngIf="ANCSampled==Undefined && ANCSampled==null && ANCSampled=='' && issubmitted">
+                                    This field is required
+                              </span>
+                            </div> 
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" >{{'No of Samples Collected by ANM' | translate }}</label><span class="manto"> *</span>
+                                <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="CollectedbyANM" name="CollectedbyANM" placeholder="No of Samples Collected by ANM"    
+                                 numbersOnly [class.is-invalid]="CollectedbyANM==Undefined && CollectedbyANM==null && CollectedbyANM=='' && issubmitted "
+                                  required>
+                                 <span style="color:red" *ngIf="CollectedbyANM==Undefined && CollectedbyANM==null && CollectedbyANM=='' && issubmitted">
+                                    This field is required
+                              </span>
+                            </div>
+                       
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left; padding-top: 20px;">CHC testing </h5>
+                            <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No Shipped to the T CHC' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="ShippedtoTCHC" name="ShippedtoTCHC" placeholder="No Shipped to the T CHC"    
+                             numbersOnly [class.is-invalid]="ShippedtoTCHC==Undefined && ShippedtoTCHC==null && ShippedtoTCHC=='' && issubmitted "
+                              required>
+                             <span style="color:red" *ngIf="ShippedtoTCHC==Undefined && ShippedtoTCHC==null && ShippedtoTCHC==''  && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                        <!-- <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'% data entry by ANM (K/J*100)' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="EntryByANM" name="EntryByANM" placeholder="% data entry by ANM​ (K/J*100)"    
+                             numbersOnly [class.is-invalid]="EntryByANM==Undefined && EntryByANM==null && EntryByANM=='' && issubmitted "
+                              required>
+                             <span style="color:red" *ngIf="EntryByANM==Undefined && EntryByANM==null && EntryByANM=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div> -->
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No of Samples Received by CHC LT' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="ReceivedByCHC" name="ReceivedByCHC" placeholder="No of Samples Received by CHC LT"    
+                             numbersOnly [class.is-invalid]="ReceivedByCHC==Undefined && ReceivedByCHC==null && ReceivedByCHC=='' && issubmitted "
+                              required>
+                             <span style="color:red" *ngIf="ReceivedByCHC==Undefined && ReceivedByCHC==null && ReceivedByCHC=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                       
+                    </div>
+                        <div class="form-row my-2">
+                            <div class="form-group col-md-3">
+                                <label class="birthreg" >{{'No of Samples tested(cbc+sst) by CHCLT' | translate }}</label><span class="manto"> *</span>
+                                <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="SamplesTested" name="SamplesTested" placeholder="Samples tested(cbc+sst) by CHCLT"    
+                                 numbersOnly [class.is-invalid]="SamplesTested==Undefined && SamplesTested==null && SamplesTested=='' && issubmitted "
+                                  required>
+                                 <span style="color:red" *ngIf="SamplesTested==Undefined && SamplesTested==null && SamplesTested=='' && issubmitted">
+                                    This field is required
+                              </span>
+                            </div>
+                    </div>
+                
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left; padding-top: 20px;">CHC </h5>
+                            <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" for="inputLastname" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.lastname.invalid }">{{'No found Carrier/Diseased on HPLC' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" placeholder="Carrier/Diseased on HPLC"  name="FoundCarrier" [(ngModel)]="FoundCarrier" 
+                            numbersOnly [class.is-invalid]="FoundCarrier==Undefined && FoundCarrier==null && FoundCarrier=='' && issubmitted "
+                              required >
+                        </div>
+                        <span style="color:red" *ngIf="FoundCarrier==Undefined && FoundCarrier==null && FoundCarrier=='' && issubmitted">
+                            This field is required
+                      </span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">Spouse registration</h5>
+                            <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No of spouse tested' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="SpouseTested" name="SpouseTested" placeholder="No of spouse tested"    
+                             numbersOnly [class.is-invalid]="SpouseTested==Undefined && SpouseTested==null && SpouseTested=='' && issubmitted "
+                            required>
+                             <span style="color:red" *ngIf="SpouseTested==Undefined && SpouseTested==null && SpouseTested=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" [ngClass]="{'label-border-class': firstFormCheck && firstFormGroup.controls.CoupleFoundBothcarrier.invalid }">{{'Couple found both Carrier/Diseased' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="CoupleFoundBothcarrier" name="CoupleFoundBothcarrier" placeholder="Couple found both Carrier/Diseased"    
+                             numbersOnly [class.is-invalid]="CoupleFoundBothcarrier==Undefined && CoupleFoundBothcarrier==null && CoupleFoundBothcarrier=='' && issubmitted "
+                               required>
+                             <span style="color:red" *ngIf="CoupleFoundBothcarrier==Undefined && CoupleFoundBothcarrier==null && CoupleFoundBothcarrier=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                       
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">MTP</h5>
+                            <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No of MTP' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="NoofMTP" name="NoofMTP" placeholder="No of MTP"    
+                             numbersOnly [class.is-invalid]="NoofMTP==Undefined && NoofMTP==null && NoofMTP=='' && issubmitted "
+                              required>
+                             <span style="color:red" *ngIf="NoofMTP==Undefined && NoofMTP==null && NoofMTP=='' && issubmitted">
+                                This field is required
+                          </span>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">CVS</h5>
+                            <!-- <h5 class="float-center">Mother and Baby Registration</h5> -->
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg" >{{'No of CVS' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  [(ngModel)]="NoofCVS" name="NoofCVS" placeholder="No of CVS"    
+                             numbersOnly [class.is-invalid]="NoofCVS==Undefined && NoofCVS==null && NoofCVS=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="NoofCVS==Undefined && NoofCVS==null && NoofCVS=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                      
+                    </div> 
+                    <div class="modal-footer">
+                        
+                        <button mat-button class="float-right mr-2 btn btn-primary" (click)="onSubmit();">{{'Submit' | translate }}</button>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="submit" class="mr-2 btn btn-primary" id="linkto" name="linkto">{{'Submit' | translate}}</button>
+                        </div>    -->
+                    </div>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    
+</div>
+

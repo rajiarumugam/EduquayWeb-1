@@ -13,3 +13,9 @@ export class AddScRequest {
     createdBy: number;
     updatedBy: number;
 }
+
+export class AddScFilterRequest {
+DistrictId:number;
+ChcId:number;
+PhcId: number;
+}

@@ -33,7 +33,7 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject();
   @ViewChild('startPicker', { static: false }) startPicker;
   @ViewChild('endPicker', { static: false }) endPicker;
-
+ 
   subjectprofilelistErrorMessage: string;
 
   subjectProfileRequest: SubjectProfileRequest;
@@ -191,7 +191,8 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
     private tokenService: TokenService,
     private dataservice: DataService,
     private router: Router,
-    private PNDTCmasterService: PNDTCmasterService
+    private PNDTCmasterService: PNDTCmasterService,
+    private DataService:DataService
   ) { }
 
   ngOnInit() {
@@ -244,104 +245,7 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
              title: 'Report - Sample Status',
              className: 'custom-btn',
              text: '<img src="assets/assets/img/excelimage.png" width="23px" />'
-           }/*,
-         {
-           titleAttr: 'Download as PDF',
-           extend: 'pdfHtml5',
-           title: 'Report - Sample Status',
-           orientation: 'landscape',
-           pageSize: 'LEGAL',
-           className: 'custom-btn',
-           margin: [5,5,5,5],
-           //filename: 'dt_custom_pdf',
-          customize: function(doc) {doc.styles.tableHeader.vertical = 'middle'
-               //Remove the title created by datatTables
-
-						doc.content.splice(0,1);
-						//Create a date string that we use in the footer. Format is dd-mm-yyyy
-						var now = new Date();
-            var jsDate = now.getDate()+'-'+(now.getMonth()+1)+'-'+now.getFullYear();
-            doc.pageMargins = [20,60,20,30];
-						// Set the font size fot the entire document
-						doc.defaultStyle.fontSize = 10;
-						// Set the fontsize for the table header
-            doc.styles.tableHeader.fontSize = 11;
-            doc.styles.tableHeader.alignment = 'center'
-						// Create a header object with 3 columns
-						// Left side: Logo
-						// Middle: brandname
-						// Right side: A document title
-						doc['header']=(function() {
-							return {
-								columns: [
-									// {
-									// 	//image: logo,
-									// 	width: 24
-									// },
-									// {
-									// 	alignment: 'left',
-									// 	italics: true,
-									// 	text: 'dataTables',
-									// 	fontSize: 18,
-									// 	margin: [10,0]
-									// },
-									// {
-									// 	alignment: 'right',
-									// 	fontSize: 14,
-									// 	text: 'Custom PDF export with dataTables'
-									// }
-								],
-								margin: 20
-							}
-						});
-						// Create a footer object with 2 columns
-						// Left side: report creation date
-						// Right side: current page and total pages
-						doc['footer']=(function(page, pages) {
-							return {
-								columns: [
-									{
-										alignment: 'left',
-										text: ['Created on: ', { text: jsDate.toString() }]
-									},
-									{
-										alignment: 'right',
-										text: ['page ', { text: page.toString() },	' of ',	{ text: pages.toString() }]
-									}
-								],
-								margin: 20
-							}
-						});
-						// Change dataTable layout (Table styling)
-						// To use predefined layouts uncomment the line below and comment the custom lines below
-						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
-						var objLayout = {};
-						objLayout['hLineWidth'] = function(i) { return .5; };
-						objLayout['vLineWidth'] = function(i) { return .5; };
-						objLayout['hLineColor'] = function(i) { return '#aaa'; };
-						objLayout['vLineColor'] = function(i) { return '#aaa'; };
-						objLayout['paddingLeft'] = function(i) { return 4; };
-						objLayout['paddingRight'] = function(i) { return 4; };
-						doc.content[0].layout = objLayout;
-				},
-          exportOptions: {
-              columns: ':visible'
-          },
-           text: '<img src="../../../../assets/assets/img/pdfimage.png" width="23px" />'
-         },*/
-
-         // {
-         //   titleAttr: 'Download as CSV',
-         //   extend: 'csvHtml5',
-         //   className: 'custom-btn fa fa-file-text-o',
-         //   text: ''
-         // },
-         // {
-         // titleAttr: 'Print',
-         // extend: 'print',
-         // className: 'custom-btn fa fa-print',
-         // text: ''
-         // }
+           }
 
          ],
       language: {
@@ -551,58 +455,18 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
         {
           this.anmSubjectBadgeProfileListCount(1,1,1);
           this.anmSubjectBadgeProfileListCount(1,1,2);
-          this.anmSubjectBadgeProfileListCount(1,1,3);
+         
         }
         if(maintab === 2)
         {
-          this.anmSubjectBadgeProfileListCount(1,2,1);
-          this.anmSubjectBadgeProfileListCount(1,2,2);
           this.anmSubjectBadgeProfileListCount(1,2,3);
           this.anmSubjectBadgeProfileListCount(1,2,4);
           this.anmSubjectBadgeProfileListCount(1,2,5);
           this.anmSubjectBadgeProfileListCount(1,2,6);
+          this.anmSubjectBadgeProfileListCount(1,2,7);
+          this.anmSubjectBadgeProfileListCount(1,2,8);
         }
-        if(maintab === 3)
-        {
-          this.anmSubjectBadgeProfileListCount(1,3,1);
-          this.anmSubjectBadgeProfileListCount(1,3,2);
-          this.anmSubjectBadgeProfileListCount(1,3,3);
-
-        }
-        if(maintab === 4)
-        {
-          this.anmSubjectBadgeProfileListCount(1,4,1);
-          this.anmSubjectBadgeProfileListCount(1,4,2);
-        }
-        if(maintab === 5)
-        {
-          this.anmSubjectBadgeProfileListCount(1,5,1);
-          this.anmSubjectBadgeProfileListCount(1,5,2);
-          this.anmSubjectBadgeProfileListCount(1,5,3);
-          this.anmSubjectBadgeProfileListCount(1,5,4);
-        }
-        if(maintab === 6)
-        {
-          this.anmSubjectBadgeProfileListCount(1,6,1);
-          this.anmSubjectBadgeProfileListCount(1,6,2);
-          this.anmSubjectBadgeProfileListCount(1,6,3);
-          this.anmSubjectBadgeProfileListCount(1,6,4);
-          this.anmSubjectBadgeProfileListCount(1,6,5);
-        }
-        if(maintab === 7)
-        {
-          this.anmSubjectBadgeProfileListCount(1,7,1);
-          this.anmSubjectBadgeProfileListCount(1,7,2);
-          this.anmSubjectBadgeProfileListCount(1,7,3);
-          this.anmSubjectBadgeProfileListCount(1,7,4);
-        }
-        if(maintab === 8)
-        {
-          this.anmSubjectBadgeProfileListCount(1,8,1);
-          this.anmSubjectBadgeProfileListCount(1,8,2);
-
-        }
-
+       
 
   }
 
@@ -662,85 +526,24 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
 
             if(subtab === 2)
                   this.chcsampledCount = response['data'].length;
-            if(subtab === 3)
-                  this.chcnotsampledount = response['data'].length;
+         
        }
        if(maintab ===2)
        {
-            if(subtab === 1)
-                  this.chcsCBCResultsCount = response['data'].length;
-            if(subtab === 2)
-                  this.chcCBCPositiveCount = response['data'].length;
             if(subtab === 3)
-                  this.chcCBCNegativeCount = response['data'].length;
+                  this.chcsCBCResultsCount = response['data'].length;
             if(subtab === 4)
-                  this.chcSSTResultCount = response['data'].length;
+                  this.chcCBCPositiveCount = response['data'].length;
             if(subtab === 5)
-                  this.chcSSTPositiveCount = response['data'].length;
+                  this.chcCBCNegativeCount = response['data'].length;
             if(subtab === 6)
+                  this.chcSSTResultCount = response['data'].length;
+            if(subtab === 7)
+                  this.chcSSTPositiveCount = response['data'].length;
+            if(subtab === 8)
                   this.chcSSTNegativeCount = response['data'].length;
        }
-       if(maintab ===3)
-       {
-            if(subtab === 1)
-                  this.HPLCResultCount = response['data'].length;
-            if(subtab === 2)
-                  this.HPLCAbnormalCount = response['data'].length;
-            if(subtab === 3)
-                  this.HPLCNormalCount = response['data'].length;
-       }
-
-       if(maintab ===4)
-       {
-            if(subtab === 1)
-                  this.registeredCount = response['data'].length;
-            if(subtab === 2)
-                  this.notregisteredCount = response['data'].length;
-       }
-
-       if(maintab ===5)
-       {
-            if(subtab === 1)
-                  this.counsellingpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.counselledPNDTAgreedCount = response['data'].length;
-            if(subtab === 3)
-                  this.counselledPNDTDisagreedCount = response['data'].length;
-            if(subtab === 4)
-                  this.counselledPNDTDecisionPendingCount = response['data'].length;
-       }
-       if(maintab ===6)
-       {
-            if(subtab === 1)
-                  this.PNDTpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.PNDTcompletedCount = response['data'].length;
-            if(subtab === 3)
-                  this.PNDTNormalCount = response['data'].length;
-            if(subtab === 4)
-                  this.PNDTAffectedCount = response['data'].length;
-            if(subtab === 5)
-                  this.PNDTcarrierCount = response['data'].length;
-       }
-       if(maintab ===7)
-       {
-            if(subtab === 1)
-                  this.PNDcounsellingpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.PNDcounsellingMTPAgreedCount = response['data'].length;
-            if(subtab === 3)
-                  this.PNDCounselledMTPDisagreedCount = response['data'].length;
-            if(subtab === 4)
-                  this.PNDcounsellingMTPDecisionPendingCount = response['data'].length;
-       }
-       if(maintab ===8)
-       {
-            if(subtab === 1)
-                  this.MTPpendingCount = response['data'].length;
-            if(subtab === 2)
-                  this.MTPcompletedCount = response['data'].length;
-
-       }
+       
        this.loaderService.display(false);
       },
         (err: HttpErrorResponse) => {
@@ -801,16 +604,20 @@ export class MolecularCVSReport implements AfterViewInit, OnDestroy, OnInit {
   }
 
 
-  opensubjectdetail(subjectinfo: SubjectProfileList ){
+  opensubjectdetail(subjectinfo ){
+    this.DataService.setdata({'anmreportData':subjectinfo});
+    this.DataService.setdata({'reportPreviouspage':"ANM"});
+    this.subjectid = subjectinfo.subjectId;
+      this.router.navigateByUrl(`/app/view-anm-report?q=${this.subjectid}`);
 
-    if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
+    /*if(subjectinfo.primaryDetail.registeredFrom === 'ANM'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/anm-viewsubjectprofile?q=${this.subjectid}`);
     }
     else if(subjectinfo.primaryDetail.registeredFrom === 'CHC'){
       this.subjectid = subjectinfo.primaryDetail.uniqueSubjectId;
       this.router.navigateByUrl(`/app/chc-reg-viewsubjectprofile?q=${this.subjectid}`);
-    }
+    }*/
 
     //   if(index.length > 0){
     //     this.subjectprofileLists.find(element => {

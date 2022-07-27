@@ -7,3 +7,8 @@ export class AddBlockRequest {
     createdBy: number;
     updatedBy: number;
 }
+ export interface AddBlockFilterRequest{
+    DistrictId:number;
+ }
+
+

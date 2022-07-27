@@ -1,0 +1,259 @@
+<div class="tab-pane fade show active" id="nhmtraining" role="tabpanel" aria-labelledby="TrainingScreen-tab">
+  
+    <mat-horizontal-stepper [linear]="false" #stepper>
+        <mat-step >
+          <form >
+            <div class="form-row mt-4" [formGroup]="dateform">
+                <div class="form-group col-md-2">
+                  <label for="inputFromdate">{{'Year & Month' | translate }}
+                  </label>
+                  <div class="form-group mb-0">
+                   
+                    <ng2-flatpickr id="scFromDate" name="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker (change)="onChangeMonth($event.target.value)"
+                      [config]="startOptions" placeholder="Select Date.." formControlName="fromDate" >
+                    </ng2-flatpickr>
+                  </div>
+                </div>
+                
+               
+                <div class="form-group col-md-2" >
+                    <label for="inputTodate">{{'District' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select id="inputDistrict" class="form-control"  name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="onchangedistrict($event.target.value)" [ngModelOptions]="{standalone: true}" >
+                            <option [ngValue]=0>Select District</option>
+                            <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div> 
+              <div class="reges-form-main-container" *ngIf = "showentry" >
+                  
+                <div class="row">
+                <div class="col-md-5">
+                    <h5 class="" style="font-size: 19px; text-align: left; padding-top: 20px;">District Level Orientation</h5>
+                   
+                </div>
+            </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Planned' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="PlannedDLO" [(ngModel)]="PlannedDLO" placeholder="Planned"   
+                             numbersOnly [class.is-invalid]="PlannedDLO==Undefined && PlannedDLO==null && PlannedDLO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="PlannedDLO==Undefined && PlannedDLO==null && PlannedDLO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Held' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="HeldDLO" [(ngModel)]="HeldDLO" placeholder="Held"   
+                             numbersOnly [class.is-invalid]="HeldDLO==Undefined && HeldDLO==null && HeldDLO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="HeldDLO==Undefined && HeldDLO==null && HeldDLO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total Participants' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="TotalParticipantsDLO" [(ngModel)]="TotalParticipantsDLO" placeholder="Total Participants"   
+                             numbersOnly  [class.is-invalid]="TotalParticipantsDLO==Undefined && TotalParticipantsDLO==null && TotalParticipantsDLO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalParticipantsDLO==Undefined && TotalParticipantsDLO==null && TotalParticipantsDLO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">District Level TOT</h5>
+                          
+                        </div>
+                    </div>
+
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Planned' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="PlannedTOT" [(ngModel)]="PlannedTOT" placeholder="Planned"   
+                             numbersOnly  [class.is-invalid]="PlannedTOT==Undefined && PlannedTOT==null && PlannedTOT=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="PlannedTOT==Undefined && PlannedTOT==null && PlannedTOT=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg"  >{{'Held' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off"class="form-control" name ="HeldTOT" [(ngModel)]="HeldTOT" placeholder="Held"   
+                         numbersOnly  [class.is-invalid]="HeldTOT==Undefined && HeldTOT==null && HeldTOT=='' && issubmitted"
+                         required>
+                         <span style="color:red" *ngIf="HeldTOT==Undefined && HeldTOT==null && HeldTOT=='' && issubmitted">
+                            This field is required
+                         </span>
+                    </div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="form-group col-md-3">
+                        <label class="birthreg"  >{{'Total Participants' | translate }}</label><span class="manto"> *</span>
+                        <input type="number" autocomplete="off"class="form-control" name ="TotalParticipantsTOT" [(ngModel)]="TotalParticipantsTOT" placeholder="Total Participants"   
+                         numbersOnly  [class.is-invalid]="TotalParticipantsTOT==Undefined && TotalParticipantsTOT==null && TotalParticipantsTOT=='' && issubmitted"
+                         required>
+                         <span style="color:red" *ngIf="TotalParticipantsTOT==Undefined && TotalParticipantsTOT==null && TotalParticipantsTOT=='' && issubmitted">
+                            This field is required
+                         </span>
+                    </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">Block level ANM Training</h5>
+                           
+                        </div>
+                    </div>
+
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total block' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control"  name ="TotalBlockBLA" [(ngModel)]="TotalBlockBLA" placeholder="Total block"   
+                             numbersOnly  [class.is-invalid]="TotalBlockBLA==Undefined && TotalBlockBLA==null && TotalBlockBLA=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalBlockBLA==Undefined && TotalBlockBLA==null && TotalBlockBLA=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Held' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="HeldBLA" [(ngModel)]="HeldBLA" placeholder="Held"  
+                             numbersOnly  [class.is-invalid]="HeldBLA==Undefined && HeldBLA==null && HeldBLA=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="HeldBLA==Undefined && HeldBLA==null && HeldBLA=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total Participants' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="TotalParticipantsBLA" [(ngModel)]="TotalParticipantsBLA" placeholder="Total Participants"   
+                             numbersOnly  [class.is-invalid]="TotalParticipantsBLA==Undefined && TotalParticipantsBLA==null && TotalParticipantsBLA=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalParticipantsBLA==Undefined && TotalParticipantsBLA==null && TotalParticipantsBLA=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total ANM in the district ' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="TotalANMBLA" [(ngModel)]="TotalANMBLA" placeholder="Total ANM in the district "   
+                             numbersOnly  [class.is-invalid]="TotalANMBLA==Undefined && TotalANMBLA==null && TotalANMBLA=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalANMBLA==Undefined && TotalANMBLA==null && TotalANMBLA=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">Block level ANM Orientation  </h5>
+                           
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total block' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="TotalBlockBLAO" [(ngModel)]="TotalBlockBLAO" placeholder="Total block"  
+                             numbersOnly  [class.is-invalid]="TotalBlockBLAO==Undefined && TotalBlockBLAO==null && TotalBlockBLAO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalBlockBLAO==Undefined && TotalBlockBLAO==null && TotalBlockBLAO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Held' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="HeldBLAO"  [(ngModel)]="HeldBLAO" placeholder="Held"   
+                             numbersOnly  [class.is-invalid]="HeldBLAO==Undefined && HeldBLAO==null && HeldBLAO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="HeldBLAO==Undefined && HeldBLAO==null && HeldBLAO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total Participants' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="TotalParticipantsBLAO" [(ngModel)]="TotalParticipantsBLAO" placeholder="Total Participants"   
+                             numbersOnly  [class.is-invalid]="TotalParticipantsBLAO==Undefined && TotalParticipantsBLAO==null && TotalParticipantsBLAO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalParticipantsBLAO==Undefined && TotalParticipantsBLAO==null && TotalParticipantsBLAO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                    </div>
+                        <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total ANM in the district ' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="TotalANMBLAO" [(ngModel)]="TotalANMBLAO" placeholder="Total ANM in the district "   
+                             numbersOnly  [class.is-invalid]="TotalANMBLAO==Undefined && TotalANMBLAO==null && TotalANMBLAO=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalANMBLAO==Undefined && TotalANMBLAO==null && TotalANMBLAO=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="" style="font-size: 19px; text-align: left;  padding-top: 20px;">Last month training status</h5>
+                         
+                        </div>
+                    </div>
+                    
+                    <div class="form-row my-2">
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Planned' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="PlannedLMTS" [(ngModel)]="PlannedLMTS" placeholder="Planned"   
+                             numbersOnly  [class.is-invalid]="PlannedLMTS==Undefined && PlannedLMTS==null && PlannedLMTS=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="PlannedLMTS==Undefined && PlannedLMTS==null && PlannedLMTS=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Held' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name ="HeldLMTS" [(ngModel)]="HeldLMTS" placeholder="Held"   
+                             numbersOnly  [class.is-invalid]="HeldLMTS==Undefined && HeldLMTS==null && HeldLMTS=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="HeldLMTS==Undefined && HeldLMTS==null && HeldLMTS=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group col-md-3">
+                            <label class="birthreg"  >{{'Total Participants' | translate }}</label><span class="manto"> *</span>
+                            <input type="number" autocomplete="off"class="form-control" name="TotalParticipantsLMTS" [(ngModel)]="TotalParticipantsLMTS" placeholder="Total Participants"   
+                             numbersOnly  [class.is-invalid]="TotalParticipantsLMTS==Undefined && TotalParticipantsLMTS==null && TotalParticipantsLMTS=='' && issubmitted"
+                             required>
+                             <span style="color:red" *ngIf="TotalParticipantsLMTS==Undefined && TotalParticipantsLMTS==null && TotalParticipantsLMTS=='' && issubmitted">
+                                This field is required
+                             </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">        
+                        <button mat-button class="float-right mr-2 btn btn-primary" (click)="onSubmit();">{{'Submit' | translate }}</button>
+                    </div>
+                    </div>
+                </form>
+            </mat-step>
+           
+          </mat-horizontal-stepper>
+        
+    </div>
+    
+

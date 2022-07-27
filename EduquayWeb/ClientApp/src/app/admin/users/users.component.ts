@@ -433,6 +433,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
         if (this.AddUsersResponse !== null && this.AddUsersResponse.status === "true") {
           if (this.AddUsersResponse.users.length <= 0 ) {
             this.subjectprofilelistErrorMessage = response.message;
+            this.rerender();
           }
           else {
             this.userprofileLists = response.users;
@@ -657,7 +658,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   }
 
-  
+
 
   onChangeEditChc(event) {
 
@@ -669,7 +670,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   }
 
-  
+
 
   onChangeDistrict(event) {
 
@@ -835,6 +836,7 @@ console.log(id);
     this.ddlUserRole(this.maintabSelected);
     this.disabledChc = false;
     this.ddlDistrict();
+    
 
 
     this.confirmationSelected = Boolean("True");
@@ -935,6 +937,7 @@ console.log(id);
       "userId": this.user.id
     }
 
+
     //this.subjectprofileItem = new SubjectProfileList();
     let subProfile = this.UsersService.getUsersList(maintab)
       .subscribe(response => {
@@ -946,12 +949,13 @@ console.log(id);
           if (this.AddUsersResponse.users.length <= 0 ) {
             this.subjectprofilelistErrorMessage = response.message;
             this.userprofileLists = [];
-            this.rerender();
+
             console.log('no data');
           }
           else {
-            this.userprofileLists = response.users;
-            this.rerender();
+            //this.userprofileLists = response.users;
+
+
             console.log('data');
           }
         }
@@ -1212,53 +1216,7 @@ console.log(id);
 
   }
 
-  anmSubjectProfileList1(id,maintab,subtab) {
 
-    if(this.searchsubjectid != null || this.searchsubjectid != undefined)
-    {
-        this.loaderService.display(true);
-        this.subjectprofilelistErrorMessage = '';
-        this.subjectprofileLists=[];
-        var _obj = {
-          riId: 0,
-          subjectTypeId: 0,
-          userId: this.user.id,
-          userInput:this.searchsubjectid,
-          searchType:id,
-          "searchSection":1,
-          "status":0
-        }
-
-        //this.subjectprofileItem = new SubjectProfileList();
-        let subProfile = this.SubjectProfileService.getANMReportList(_obj)
-          .subscribe(response => {
-            this.anmsubjectProfileResponse = response;
-            this.loaderService.display(false);
-            if (this.anmsubjectProfileResponse !== null && this.anmsubjectProfileResponse.status === "true") {
-              if (this.anmsubjectProfileResponse['data'].length <= 0 ) {
-                this.subjectprofilelistErrorMessage = response.message;
-                this.subjectprofileLists = [];
-                  this.rerender();
-              }
-              else {
-                this.subjectprofileLists = response['data'];
-                this.rerender();
-              }
-            }
-            else {
-              this.subjectprofilelistErrorMessage = response.message;
-            }
-          },
-            (err: HttpErrorResponse) => {
-              this.subjectprofilelistErrorMessage = err.toString();
-            });
-          }
-          else
-          {
-            this.subjectprofilelistErrorMessage = "Please enter search data!";
-          }
-
-  }
 
 
   opensubjectdetail(subjectinfo ){

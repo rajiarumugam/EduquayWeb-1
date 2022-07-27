@@ -1,18 +1,31 @@
 <table id="customers" *ngIf="_imageArray.length > 0">
     <tr *ngFor="let person of _imageArray;index as i">
       <td>{{person.name}}</td>
-      <td style="cursor: pointer; text-align: center; " (click)="deleteFile(i)"><i class="fas fa-trash-alt fa-2x "style="color:blue;" aria-hidden="true"></i></td>
+      <td style="cursor: pointer; text-align: center; " (click)="deleteFile(i)"><i class="fas fa-trash-alt fa-2x "style="color:blue;" aria-hidden="true" title="Delete"></i></td>
+      <td style="cursor: pointer; text-align: center; " (click)="uploadFiles();"><i class="fas fa-upload fa-2x "style="color:blue;" aria-hidden="true" title="Upload"></i></td>
+      <td style="cursor: pointer; text-align: center; " >  <div class="upload-btn-wrapper">
+        <button class="btn"><i class="fas fa-undo fa-2x "style="color:blue;" aria-hidden="true" title="Reset"></i></button>
+        <input type="file" name="myfile"  (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+      </div></td>
     </tr>
 
   </table>
-<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin:20px;" (click)="uploadFiles();" *ngIf="_imageArray.length > 0"><a style="color: #fff;">Upload</a> </button>
-
-<button class="btn btn-primary"  style="padding: 10px 30px;margin:20px;" (click)="downloadMyFile();">Download Template</button>
 
 
+<input #inputFile type="file" (change)="handleFileInput($event.target.files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  *ngIf="(_imageArray.length === 0 && currentPage == 'upload') ? true : false"/>
+<button type="submit" class="btn btn-primary" value="" style="padding: 10px 30px;margin:20px;" (click)="uploadFiles();" *ngIf="false"><a style="color: #fff;">Upload</a> </button>
 
-<div *ngIf = "showValidationError">
+<!--<button class="btn btn-primary"  style="padding: 10px 30px;margin:20px;" (click)="downloadMyFile();">Download Template</button>-->
+
+<!--<div class="step-nav-container">
+  <ul class="step-menu">
+    <li role="button" [ngClass]="{'step-complete':uploadComplete}">Upload </li>
+    <li role="button" [ngClass]="{'step-error':dataValidationError,'step-complete':dataValidationComplete}">Validation  </li>
+    <li role="button" [ngClass]="{'step-complete':dataCreatedDone}">Data Created</li>
+  </ul>
+</div>-->
+
+<div *ngIf = "showValidationError" class="errorreport-cont">
 <div class="col-md-12">
   <div class="justify-between">
 <div class="col-md-12">
@@ -23,12 +36,9 @@
   <div class="col-xl-12 col-lg-12 col-sm-12  pt-4">
   <div class="form-row">
     <div class="custm-tab">
-      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);">
+      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);" >
         <p >{{'All Errors' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain8Sub1}}</span></p>
-      </div>
-      <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 1 ? true : false}" (click)="custumTabClick(1,1);">
-        <p>{{'District' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
-  </div>
+      </div>      
   <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 2 ? true : false}" (click)="custumTabClick(2,1);">
     <p>{{'Block' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain3Sub1}}</span></p>
 </div>
@@ -44,7 +54,9 @@
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 6 ? true : false}" (click)="custumTabClick(6,1);">
   <p>{{'ANM' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain7Sub1}}</span></p>
 </div>
-
+<div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 7 ? true : false}" (click)="custumTabClick(7,1);" >
+  <p>{{'District' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain2Sub1}}</span></p>
+</div>
 <div class="custum-tab-one" [ngClass]="{'tabselected':maintabSelected == 8 ? true : false}" (click)="custumTabClick(8,1);">
   <p>{{'Testing CHC' | translate }} <span  class="badge badge-pill badge-warning shadow mx-1">{{countMain9Sub1}}</span></p>
 </div>
@@ -70,8 +82,9 @@
 </div>
 
 
-<div class="table-responsive mt-5" *ngIf = "showValidationError">
-  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions">
+<div class="table-responsive mt-5" *ngIf  = "showValidationError">
+  <table id="tobescheduled-config" class="table table-bordered table-hover mb-4" datatable
+  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead>
       <tr>
         <th><span>{{'SNo' | translate }}</span></th>
@@ -83,7 +96,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let subjectinfo of validateData|tableFilter : maintabSelected ; index as i">
+        <tr *ngFor="let subjectinfo of validateData ; index as i">
+
 
           <td style="text-align: center">{{i +1}}</td>
           <td style="text-align: center">{{subjectinfo.errorColumnNo}}</td>
