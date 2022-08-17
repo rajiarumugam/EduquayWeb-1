@@ -27,7 +27,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'; 
+import { MatExpansionModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 //import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
@@ -131,7 +131,8 @@ import { CvsUpdateresultComponent } from './molecular-lab-results/cvs-specimen/c
 import { CvsEditresultComponent } from './molecular-lab-results/cvs-specimen/cvs-editresult/cvs-editresult.component';
 import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specimen/cvs-confirmedresult/cvs-confirmedresult.component';
 
-
+import { weeklyReportFormComponent } from "./district-coordinator/dc-monthly-reports/form.model.component";
+import {MatDialogModule} from '@angular/material';
 
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
@@ -230,7 +231,8 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     CvsNotificationComponent,
     CvsUpdateresultComponent,
     CvsEditresultComponent,
-    CvsConfirmedresultComponent
+    CvsConfirmedresultComponent,
+    weeklyReportFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -249,6 +251,7 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     BrowserAnimationsModule,
     MatStepperModule,
     MatInputModule,
+    MatExpansionModule,
     MatButtonModule,
     MatAutocompleteModule,
     MatIconModule,
@@ -258,9 +261,11 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     Ng2FlatpickrModule,
     NgMultiSelectDropDownModule.forRoot(),
     FileUploadModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MatDialogModule
    
   ],
+  entryComponents: [weeklyReportFormComponent],
   providers: [
 
     {

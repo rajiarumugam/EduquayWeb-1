@@ -55,6 +55,25 @@ export class pathoHPLCService {
     return this.http.post<any>({url:apiUrl, body: obj });
   }
 
+  getFieldWeeklyReport(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.WEEKREPORT.RETRIEVEFIELDWEEKREPORT);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+  createReportData(obj,url)
+  {
+    let apiUrl = this.genericService.buildApiUrl(url);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+  getActualWeeklyReport(obj)
+  {
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.WEEKREPORT.RETRIEVEACTUALWEEKREPORT);
+    return this.http.post<any>({url:apiUrl, body: obj });
+  }
+
+
   getSampleStatus() {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEDIAGNOSISSAMPLESTATUS);
     return this.http

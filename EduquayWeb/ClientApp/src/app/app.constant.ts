@@ -76,7 +76,17 @@ export const ENDPOINT = {
         "ADDHPLCRESULT":"api/v1/Pathologist/AddHPLCDiagnosisResult",
         "RETRIEVEPATHOLOGISTREPORTS":"api/v1/Pathologist/RetrievePathologistReports",
         "RETRIVEDIAGNOSISSAMPLESTATUS":"api/v1/Pathologist/RetrieveDiagnosisSampleStatus",
-        "RETRIEVEDIAGNOSISREPORTS":"api/v1/SPC/RetrieveDiagnosisReports"
+        "RETRIEVEDIAGNOSISREPORTS":"api/v1/SPC/RetrieveDiagnosisReports",
+       
+    },
+    "WEEKREPORT": {
+        "RETRIEVEFIELDWEEKREPORT":"api/v1/FieldWeekReport/RetrieveFieldWeekReport",
+        "RETRIEVEACTUALWEEKREPORT":"api/v1/FieldWeekReport/RetrieveActualWeekReport",
+        "ADDSAMPLECOLLECTIONDATA":"api/v1/FieldWeekReport/AddSampleCollectiondata",
+        "ADDSCREENINGTESTDATA":"api/v1/FieldWeekReport/AddScreeningTestdata",
+        "ADDCONFIRMATORYTESTINGDATA":"api/v1/FieldWeekReport/AddConfirmatoryTestingdata",
+        "ADDMOLECULARLABDATA":"api/v1/FieldWeekReport/AddMolecularLabdata",
+        "ADDPRENATALDIAGNOSIS":"api/v1/FieldWeekReport/AddPrenataldiagnosis"
     }
     ,
     "PNDT":
@@ -104,7 +114,9 @@ export const ENDPOINT = {
         "RETRIVEBLOCKBYDISTRICT":"api/v1/WebMaster/RetrieveBlockByDistrict/",
         "RETRIVECHCBYBLOCK":"api/v1/WebMaster/RetrieveCHCByBlock/",
         "RETRIVEANMBYCHC":"api/v1/WebMaster/RetrieveANMByCHC/",
-        "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/"
+        "RETRIVEDISTRICTBYPNDTLOCTION":"api/v1/PNDTMTPMaster/RetrieveDistrictByPNDTLocation/",
+        "RETRIEVEALLYEARS":"api/v1/FieldWeekReport/RetrieveallYears",
+        "RETRIEVEWEEKBYYEARSREPORT":"api/v1/FieldWeekReport/RetrieveWeekbyYearReport",
     },
     "MTP":
     {

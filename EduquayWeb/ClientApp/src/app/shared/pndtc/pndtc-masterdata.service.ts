@@ -27,6 +27,18 @@ export class PNDTCmasterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+  getAllYear(): Observable<any> {
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIEVEALLYEARS);
+    return this._http
+      .getCached<any>({ url: apiUrl, cacheMins: 100 });
+  }
+
+  getWeekbyYearReport(obj): Observable<any> {
+      let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIEVEWEEKBYYEARSREPORT);
+      return this._http.post<any>({url:apiUrl, body: obj });
+  }
+
+ 
   getDistrictBasedCHC(district): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBASEDDISTRICT+district);
     return this._http
@@ -105,6 +117,7 @@ export class PNDTCmasterService {
     return this._http
       .getCached<any>({ url: apiUrl, cacheMins: 100 });
   }
+  
   getCHCByBlock(did): Observable<any> {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PNDTMASTER.RETRIVECHCBYBLOCK+did);
     return this._http

@@ -3,6 +3,8 @@
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -178,4 +180,11 @@ a.article:hover {
     @media print {
         @page { margin: 40px 0 0 0; }
         
+        }
+
+        .cdk-overlay-container {
+            z-index: 1049 !important;
+        }
+        :host ::ng-deep .cdk-overlay-container {
+            z-index: 1049 !important;
         }

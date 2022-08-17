@@ -1,0 +1,1588 @@
+<div class="tab-pane fade show print-none" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row ml-3 my-2">
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">{{'Year' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedYear" (change)="yearChange($event.target.value);">
+                        <option [ngValue]="null">Select Year</option>
+                        <option [value]="year.id" *ngFor="let year of yearData">{{year.yearName}}</option>
+                      </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSubjectcategory">{{'Weeks' | translate }}</label>
+                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedWeek" [disabled]="weekEnabled">
+                        <option [ngValue]="null">Select Weeks</option>
+                        <option [value]="week.id" *ngFor="let week of weekData">{{week.weekName}}</option>
+                      </select>
+                </div>
+                
+                <div class="form-group col-md-2" [formGroup]="dateform">
+                    <label for="inputTodate">{{'Block' | translate }}</label>
+                    <div class="form-group mb-0">
+                        <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputilrPoint" class="form-control" formControlName = "block"
+                        [(ngModel)]="selectedBlock" (change)="blockChange($event.target.value);">
+                            <option [ngValue]="null">Select</option>
+                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                                {{blockdata.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>    
+               
+               
+                <div class="px-2 bd-highlight search-margin">
+                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                    <a (click)="refreshData()"><button type="submit" class="btn search-bu-gu">
+                            <!--<i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i>-->Generate Report</button></a>
+                </div>
+            </div>
+            <div>
+              <button type="button" class="btn btn-sm btn-outline-light print-btn"
+              (click)="printPdf();" style="float:right;margin-right:20px;margin-bottom:20px;">
+              <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
+              <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                  aria-hidden="true"></i>
+          </button>
+            </div>
+            <div class="table-responsive my-2" *ngIf="showMonthReports">
+             
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <strong> Collection & Registration</strong>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            <h6>Sample Collection & Registration <button  class="btn search-update" (click)="openSampleCollectionReg('1')">Update</button></h6>
+                            <div class="table-responsive my-2">
+
+                                <table id="preschedule-config" class="table table-bordered table-hover mb-4">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6">State : ODISHA District : ALL Block : {{selectedBlockName}}</th>
+                                          </tr>
+                                        <tr>
+                                            <th rowspan="2">S No</th>
+                                            <th rowspan="2">Field activities</th>
+                                            <th colspan="2">As of ({{currentDate}})</th>
+                                            <th colspan="2">Cumulative</th>
+                                          </tr>
+                                          <tr>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                            </tr>
+                
+                                    </thead>
+                                    <tbody>
+                                        <!--<tr *ngFor="let pnddata of pndPendingArray; index as i">
+                                            <td>{{i+1}}</td>
+                                             
+                                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                                            <td class="text-center">{{pnddata.subjectId}}</td>
+                                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                                            <td style="text-align: left">{{pnddata.ga}}</td>
+                                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                                            <td class="text-left">{{pnddata.sstResult}}</td>
+                                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                                (change)="checkIfSelected(i)"></td>
+                                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                                           <tr>
+                                            <th colspan="6">Section IIIA : ANM in Field</th>
+                                           
+                                          </tr>
+                                           
+                                           <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">No of ANMs who collected samples</td>
+                                            <td class="text-center">{{monthlyActualData?.anMsCollectedSamples ? monthlyActualData?.anMsCollectedSamples : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.anMsCollectedSamplesDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.anMsCollectedSamplesAGG ? monthlyActualData?.anMsCollectedSamplesAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.anMsCollectedSamplesDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">Total Enrolled ( ANW + Spouse)</td>
+                                            <td class="text-center">{{monthlyActualData?.totalSampledANMSpouse ? monthlyActualData?.totalSampledANMSpouse : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.totalEnrolledDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.totalSampledANMSpouseAGG ? monthlyActualData?.totalSampledANMSpouseAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.totalEnrolledDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">Total samples collected ( New + Recollected)</td>
+                                            <td class="text-center">{{monthlyActualData?.totalSamplesCollected ? monthlyActualData?.totalSamplesCollected : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.totalSamplesCollectedDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.totalSamplesCollectedAGG ? monthlyActualData?.totalSamplesCollectedAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.totalSamplesCollectedDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <th colspan="6">Section IIB : Registration and Sampling</th>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">No of pregnant women enrolled</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{monthlyDBData?.pregnantWomenEnrolledDB}}</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{monthlyDBData?.pregnantWomenEnrolledDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">No of pregnant women sampled (first time)</td>
+                                            <td class="text-center">{{monthlyActualData?.pregnantWomenSampled ? monthlyActualData?.pregnantWomenSampled : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.pregnantWomenSampledDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.pregnantWomenSampledAGG ? monthlyActualData?.pregnantWomenSampledAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.pregnantWomenSampledDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">No of Spouses Enrolled</td>
+                                            <td class="text-center">{{monthlyActualData?.spousesEnrolled ? monthlyActualData?.spousesEnrolled : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spousesEnrolledDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.spousesEnrolledAGG ? monthlyActualData?.spousesEnrolledAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spousesEnrolledDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">No of Spouses Sampled ( First time)</td>
+                                            <td class="text-center">{{monthlyActualData?.spousesSampled ? monthlyActualData?.spousesSampled : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spousesSampledDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.spousesSampledAGG ? monthlyActualData?.spousesSampledAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spousesSampledDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">5</td>
+                                            <td class="text-center">Total Sampled ( ANW + Spouse)</td>
+                                            <td class="text-center">{{monthlyActualData?.totalSampledANMSpouse ? monthlyActualData?.totalSampledANMSpouse : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.totalSampledANMSpouseDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.totalSampledANMSpouseAGG ? monthlyActualData?.totalSampledANMSpouseAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.totalSampledANMSpouseDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">6</td>
+                                            <td class="text-center">No of spouses contacted by ANMs</td>
+                                            <td class="text-center">{{monthlyActualData?.spousesContactedbyANMs ? monthlyActualData?.spousesContactedbyANMs : 0}}</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{monthlyActualData?.spousesContactedbyANMsAGG ? monthlyActualData?.spousesContactedbyANMsAGG : 0}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">7</td>
+                                            <td class="text-center">No of samples Re-collected</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesRecollected ? monthlyActualData?.samplesRecollected : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesRecollectedDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesRecollectedAGG ? monthlyActualData?.samplesRecollectedAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesRecollectedDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <th colspan="6">Section IIC : Samples Received at Testing CHC</th>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">Total No of samples received</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesRecollectedAGG ? monthlyActualData?.samplesRecollectedAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.noofSamplesReceivedDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesRecollectedAGG ? monthlyActualData?.samplesRecollectedAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.noofSamplesReceivedDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">No of samples received timed missing / Rejected</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesReceivedTimedMissing ? monthlyActualData?.samplesReceivedTimedMissing : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesReceivedTimedMissingDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesReceivedTimedMissingAGG ? monthlyActualData?.samplesReceivedTimedMissingAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesReceivedTimedMissingDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">No of samples received insufficient & / damaged</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesReceivedInsufficient ? monthlyActualData?.samplesReceivedInsufficient : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesReceivedInsufficientDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesReceivedInsufficientAGG ? monthlyActualData?.samplesReceivedInsufficientAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesReceivedInsufficientDBAGG}}</td>
+                                          </tr>
+                                    </tbody>
+                                </table>
+
+                                <table id="preschedule-config" class="table table-bordered table-hover mb-4">
+                                    <thead>
+                                        <tr>
+                                            <th>IID</th>
+                                            <th>Reasons for discrepancy between actual and database</th>
+                                            <th>No</th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--<tr *ngFor="let pnddata of pndPendingArray; index as i">
+                                            <td>{{i+1}}</td>
+                                             
+                                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                                            <td class="text-center">{{pnddata.subjectId}}</td>
+                                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                                            <td style="text-align: left">{{pnddata.ga}}</td>
+                                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                                            <td class="text-left">{{pnddata.sstResult}}</td>
+                                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                                (change)="checkIfSelected(i)"></td>
+                                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                                          
+                                           
+                                           <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">{{monthlyActualData?.reason1 ? monthlyActualData?.reason1 : ''}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">{{monthlyActualData?.reason2 ? monthlyActualData?.reason2 : ''}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">{{monthlyActualData?.reason3 ? monthlyActualData?.reason3 : ''}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">{{monthlyActualData?.reason4 ? monthlyActualData?.reason4 : ''}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">5</td>
+                                            <td class="text-center">{{monthlyActualData?.reason5 ? monthlyActualData?.reason5 : ''}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--<app-panel-one-content></app-panel-one-content>-->
+                           
+                        </ng-template>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            <strong>Screening Tests(SST & CBC)</strong>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            <!--<app-panel-two-content></app-panel-two-content>-->
+                            <h6>Screening Tests(SST & CBC) <button  class="btn search-update" (click)="openSampleCollectionReg('2')">Update</button></h6>
+                            <div class="table-responsive my-2">
+                                <table id="preschedule-config" class="table table-bordered table-hover mb-4">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="6">State : ODISHA District : ALL Block : {{selectedBlockName}}</th>
+                                          </tr>
+                                        <tr>
+                                            <th rowspan="2">III</th>
+                                            <th rowspan="2">Screening tests</th>
+                                            <th colspan="2">As of ({{currentDate}})</th>
+                                            <th colspan="2">Cumulative</th>
+                                          </tr>
+                                          <tr>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--<tr *ngFor="let pnddata of pndPendingArray; index as i">
+                                            <td>{{i+1}}</td>
+                                             
+                                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                                            <td class="text-center">{{pnddata.subjectId}}</td>
+                                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                                            <td style="text-align: left">{{pnddata.ga}}</td>
+                                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                                            <td class="text-left">{{pnddata.sstResult}}</td>
+                                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                                (change)="checkIfSelected(i)"></td>
+                                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                                           <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">No of CBC tests done at CHCs</td>
+                                            <td class="text-center">{{monthlyActualData?.cbcTestsdoneCHCs ? monthlyActualData?.cbcTestsdoneCHCs : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.cbcTestsdoneCHCsDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.cbcTestsdoneCHCsAGG ? monthlyActualData?.cbcTestsdoneCHCsAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.cbcTestsdoneCHCsDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">No CBC positive</td>
+                                            <td class="text-center">{{monthlyActualData?.cbcPositive ? monthlyActualData?.cbcPositive : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.cbcPositiveDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.cbcPositiveAGG ? monthlyActualData?.cbcPositiveAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.cbcPositiveDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">No of SST tests done at CHCs</td>
+                                            <td class="text-center">{{monthlyActualData?.sstTestsDoneCHCs ? monthlyActualData?.sstTestsDoneCHCs : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.sstTestsDoneCHCsDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.sstTestsDoneCHCsAGG ? monthlyActualData?.sstTestsDoneCHCsAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.sstTestsDoneCHCsDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">No SST positive</td>
+                                            <td class="text-center">{{monthlyActualData?.sstPositive ? monthlyActualData?.sstPositive : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.sstPositiveDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.sstPositiveAGG ? monthlyActualData?.sstPositiveAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.sstPositiveDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">5</td>
+                                            <td class="text-center">Total samples sent to HPLC lab</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesSentHPLClab ? monthlyActualData?.samplesSentHPLClab : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesSentHPLClabDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.samplesSentHPLClabAGG ? monthlyActualData?.samplesSentHPLClabAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.samplesSentHPLClabDBAGG}}</td>
+                                          </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-template>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <strong>Confirmatory testing(HPLC)</strong>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            <!--<app-panel-two-content></app-panel-two-content>-->
+                            <h6>Confirmatory testing(HPLC) <button  class="btn search-update" (click)="openSampleCollectionReg('3')">Update</button></h6>
+                            <div class="table-responsive my-2">
+                                <table id="preschedule-config" class="table table-bordered table-hover mb-4">
+                                    <thead>
+                                        <!--<tr>
+                                            <th colspan="6">State : ODISHA District : ALL Block : ALL ( selected Block)</th>
+                                          </tr>-->
+                                        <tr>
+                                            <th rowspan="2">III</th>
+                                            <th rowspan="2">Confirmatory testing</th>
+                                            <th colspan="2">As of ({{currentDate}})</th>
+                                            <th colspan="2">Cumulative</th>
+                                          </tr>
+                                          <tr>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--<tr *ngFor="let pnddata of pndPendingArray; index as i">
+                                            <td>{{i+1}}</td>
+                                             
+                                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                                            <td class="text-center">{{pnddata.subjectId}}</td>
+                                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                                            <td style="text-align: left">{{pnddata.ga}}</td>
+                                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                                            <td class="text-left">{{pnddata.sstResult}}</td>
+                                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                                (change)="checkIfSelected(i)"></td>
+                                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                                           <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">Total No of ANW samples tested at HPLC lab</td>
+                                            <td class="text-center">{{monthlyActualData?.anwSamplesTestedHPLClab ? monthlyActualData?.anwSamplesTestedHPLClab : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.anwSamplesTestedHPLClabDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.anwSamplesTestedHPLClabAGG ? monthlyActualData?.anwSamplesTestedHPLClabAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.anwSamplesTestedHPLClabDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">Total No of ANW positive by HPLC</td>
+                                            <td class="text-center">{{monthlyActualData?.anwPositivebyHPLC ? monthlyActualData?.anwPositivebyHPLC : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.anwPositivebyHPLC}}</td>
+                                            <td class="text-center">{{monthlyActualData?.anwPositivebyHPLCAGG ? monthlyActualData?.anwPositivebyHPLCAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.anwPositivebyHPLCAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">No of HPLC positive ANW (20 weeks of gestation)</td>
+                                            <td class="text-center">{{monthlyActualData?.hplCpositiveANWgestation ? monthlyActualData?.hplCpositiveANWgestation : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.hplCpositiveANWgestation}}</td>
+                                            <td class="text-center">{{monthlyActualData?.hplCpositiveANWgestationAGG ? monthlyActualData?.hplCpositiveANWgestationAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.hplCpositiveANWgestationAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">Total No of spouse samples tested at HPLC lab</td>
+                                            <td class="text-center">{{monthlyActualData?.spouseSamplesTestedHPLClab ? monthlyActualData?.spouseSamplesTestedHPLClab : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spouseSamplesTestedHPLClab}}</td>
+                                            <td class="text-center">{{monthlyActualData?.spouseSamplesTestedHPLClabAGG ? monthlyActualData?.spouseSamplesTestedHPLClabAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spouseSamplesTestedHPLClabAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">5</td>
+                                            <td class="text-center">Total No of spouse positive by HPLC</td>
+                                            <td class="text-center">{{monthlyActualData?.spousePositiveByHPLC ? monthlyActualData?.spousePositiveByHPLC : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spousePositiveByHPLCDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.spousePositiveByHPLCAGG ? monthlyActualData?.spousePositiveByHPLCAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.spousePositiveByHPLCDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">6</td>
+                                            <td class="text-center">No of pairs of samples forwarded to Molecular lab</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">7</td>
+                                            <td class="text-center">No of HPLC reports generated and posted to ANMs</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-template>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <strong>Molecular Lab (HPLC and CVS)</strong>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            <!--<app-panel-four-content></app-panel-four-content>-->
+                                <h6>Molecular Lab (HPLC and CVS) <button  class="btn search-update" (click)="openSampleCollectionReg('4')">Update</button></h6>
+                                <div class="table-responsive my-2">
+                                    <table id="preschedule-config" class="table table-bordered table-hover mb-4">
+                                        <thead>
+                                            <!--<tr>
+                                                <th colspan="6">State : ODISHA District : ALL  Block : ALL ( selected Block)</th>
+                                              </tr>-->
+                                            <tr>
+                                                <th rowspan="2">III</th>
+                                                <th rowspan="2">Confirmatory testing</th>
+                                                <th colspan="2">As of ({{currentDate}})</th>
+                                                <th colspan="2">Cumulative</th>
+                                              </tr>
+                                              <tr>
+                                                  <th>Actual</th>
+                                                  <th>Database</th>
+                                                  <th>Actual</th>
+                                                  <th>Database</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!--<tr *ngFor="let pnddata of pndPendingArray; index as i">
+                                                <td>{{i+1}}</td>
+                                                 
+                                                <td style="text-align: left">{{pnddata.subjectName}}</td>
+                                                <td class="text-center">{{pnddata.subjectId}}</td>
+                                                <td class="sid text-center">{{pnddata.rchId}}</td>
+                                                <td style="text-align: left">{{pnddata.ga}}</td>
+                                                <td class="text-center">{{pnddata.barcodeNo}}</td>
+                                                <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                                                <td class="text-left">{{pnddata.sstResult}}</td>
+                                                <td class="text-left">{{pnddata.hplcResult}}</td>
+                                                <td class="text-left">{{pnddata.sampleStatus}}</td>
+                                                <td class="text-left">{{pnddata.diagnosis}}</td>
+                                                <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                                    (change)="checkIfSelected(i)"></td>
+                                               <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                                               <tr>
+                                                <td class="text-center">1</td>
+                                                <td class="text-center">Total No of ANW samples tested at HPLC lab</td>
+                                                <td class="text-center">{{monthlyActualData?.anwSamplesTestedHPLClab ? monthlyActualData?.anwSamplesTestedHPLClab : 0}}</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center">{{monthlyActualData?.anwSamplesTestedHPLClabAGG ? monthlyActualData?.anwSamplesTestedHPLClabAGG : 0}}</td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                              <tr>
+                                                <td class="text-center">2</td>
+                                                <td class="text-center">Total No of ANW positive by HPLC</td>
+                                                <td class="text-center">{{monthlyActualData?.anwPositivebyHPLC ? monthlyActualData?.anwPositivebyHPLC : 0}}</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center">{{monthlyActualData?.anwPositivebyHPLCAGG ? monthlyActualData?.anwPositivebyHPLCAGG : 0}}</td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                              <tr>
+                                                <td class="text-center">3</td>
+                                                <td class="text-center">No of HPLC positive ANW (20 weeks of gestation)</td>
+                                                <td class="text-center">{{monthlyActualData?.hplCpositiveANWgestation ? monthlyActualData?.hplCpositiveANWgestation : 0}}</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center">{{monthlyActualData?.hplCpositiveANWgestationAGG ? monthlyActualData?.hplCpositiveANWgestationAGG : 0}}</td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                              <tr>
+                                                <td class="text-center">4</td>
+                                                <td class="text-center">Total No of spouse samples tested at HPLC lab</td>
+                                                <td class="text-center">{{monthlyActualData?.spouseSamplesTestedHPLClab ? monthlyActualData?.spouseSamplesTestedHPLClab : 0}}</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center">{{monthlyActualData?.spouseSamplesTestedHPLClabAGG ? monthlyActualData?.spouseSamplesTestedHPLClabAGG : 0}}</td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                              <tr>
+                                                <td class="text-center">5</td>
+                                                <td class="text-center">Total No of spouse positive by HPLC</td>
+                                                <td class="text-center">{{monthlyActualData?.spousePositiveByHPLC ? monthlyActualData?.spousePositiveByHPLC : 0}}</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center">{{monthlyActualData?.spousePositiveByHPLCAGG ? monthlyActualData?.spousePositiveByHPLCAGG : 0}}</td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                              <tr>
+                                                <td class="text-center">6</td>
+                                                <td class="text-center">No of pairs of samples forwarded to Molecular lab</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                              <tr>
+                                                <td class="text-center">7</td>
+                                                <td class="text-center">No of HPLC reports generated and posted to ANMs</td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                              </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </ng-template>
+                    </mat-expansion-panel>
+                
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            <strong>Prenatal diagnosis and testing</strong>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            <!--<app-panel-four-content></app-panel-four-content>-->
+                            <h6>Prenatal diagnosis and testing <button  class="btn search-update" (click)="openSampleCollectionReg('5')">Update</button></h6>
+                            <div class="table-responsive my-2">
+                                <table id="preschedule-config" class="table table-bordered table-hover mb-4">
+                                    <thead>
+                                        <!--<tr>
+                                            <th colspan="6">State : ODISHA District : ALL  Block : ALL ( selected Block)</th>
+                                          </tr>-->
+                                        <tr>
+                                            <th rowspan="2">III</th>
+                                            <th rowspan="2">Prenatal diagnosis and testing / SCB</th>
+                                            <th colspan="2">As of ({{currentDate}})</th>
+                                            <th colspan="2">Cumulative</th>
+                                          </tr>
+                                          <tr>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                              <th>Actual</th>
+                                              <th>Database</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--<tr *ngFor="let pnddata of pndPendingArray; index as i">
+                                            <td>{{i+1}}</td>
+                                             
+                                            <td style="text-align: left">{{pnddata.subjectName}}</td>
+                                            <td class="text-center">{{pnddata.subjectId}}</td>
+                                            <td class="sid text-center">{{pnddata.rchId}}</td>
+                                            <td style="text-align: left">{{pnddata.ga}}</td>
+                                            <td class="text-center">{{pnddata.barcodeNo}}</td>
+                                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                                            <td class="text-left">{{pnddata.sstResult}}</td>
+                                            <td class="text-left">{{pnddata.hplcResult}}</td>
+                                            <td class="text-left">{{pnddata.sampleStatus}}</td>
+                                            <td class="text-left">{{pnddata.diagnosis}}</td>
+                                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                                                (change)="checkIfSelected(i)"></td>
+                                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                                           <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">No of couples undergoing pre PND counselling</td>
+                                            <td class="text-center">{{monthlyActualData?.couplesprePNDcounsellingSCB ? monthlyActualData?.couplesprePNDcounsellingSCB : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.couplesprePNDcounsellingSCBDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.couplesprePNDcounsellingSCBAGG ? monthlyActualData?.couplesprePNDcounsellingSCBAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.couplesprePNDcounsellingSCBDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">No of PND testing done</td>
+                                            <td class="text-center">{{monthlyActualData?.pndTestingdoneSCB ? monthlyActualData?.pndTestingdoneSCB : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.pndTestingdoneSCBDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.pndTestingdoneSCBAGG ? monthlyActualData?.pndTestingdoneSCBAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.pndTestingdoneSCBDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">No of PND test positives</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{monthlyDBData?.pndtTestPositiveDB}}</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{monthlyDBData?.pndtTestPositiveDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center">No of couples undergoing post PND counselling</td>
+                                            <td class="text-center">{{monthlyActualData?.couplespostPNDCounsellingSCB ? monthlyActualData?.couplespostPNDCounsellingSCB : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.couplespostPNDCounsellingSCBDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.couplespostPNDCounsellingSCBAGG ? monthlyActualData?.couplespostPNDCounsellingSCBAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.couplespostPNDCounsellingSCBDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">5</td>
+                                            <td class="text-center">No of MTPs performed</td>
+                                            <td class="text-center">{{monthlyActualData?.mtPsPerformedSCB ? monthlyActualData?.mtPsPerformedSCB : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.mtPsPerformedSCBDB}}</td>
+                                            <td class="text-center">{{monthlyActualData?.mtPsPerformedSCBAGG ? monthlyActualData?.mtPsPerformedSCBAGG : 0}}</td>
+                                            <td class="text-center">{{monthlyDBData?.mtPsPerformedSCBDBAGG}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-center">6</td>
+                                            <td class="text-center">No of women contacted by ANM after MTP</td>
+                                            <td class="text-center">{{monthlyActualData?.womenContactedANMSCB ? monthlyActualData?.womenContactedANMSCB : 0}}</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{monthlyActualData?.womenContactedANMSCBAGG ? monthlyActualData?.womenContactedANMSCBAGG : 0}}</td>
+                                            <td class="text-center"></td>
+                                          </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-template>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="col-md-2 left-logo-cont">
+    <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 0px;">
+    <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 0px;">
+    <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1" style="height: 0px;">
+    <img class="logo-left" src="../../../../assets/assets/img/logo-bg1.jpg" class="mt-1" style="height: 0px;">
+</div>
+
+
+
+<span *ngIf="printArray.length > 5">
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngFor="let data of printArray" >
+  <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
+      <div class="widget-content widget-content-area br-6">
+        <div class="row py-2 my-2 print-header">
+            <div class="col-md-2 left-logo-cont">
+                <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 70px;">
+                <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 70px;margin-left:10px;">
+            </div>
+            <div class="col-md-8 col-mid">
+                <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
+                <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
+            </div>
+            <div class="col-md-2 right-logo-cont" style="float:right;">
+                
+                <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 70px;margin-left:10px;float:right;">
+                <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 70px;float:right;margin-left:10px;">
+            </div>
+        </div>
+          
+      </div>
+  </div>
+
+  <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
+      <div class="watermark">
+          <img class="logo-left" src="../../../../assets/assets/img/logo-bg1.jpg" class="mt-1">
+      </div>
+      <div class="widget-content widget-content-area br-6">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <thead class="tablecss">
+                          </thead> 
+                          <tbody>
+                              <tr> 
+                                  <td class="sp-xs-td-9" style="width: 70%;"></td>
+                                  <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <thead class="tablecss" style="background-color: #aaaaaa !important;">
+                              <tr class="" style="background-color: #aaaaaa !important;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION A : PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                                 
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'District' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.blockName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.chcName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.phcName}}</b></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'SC' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.scName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'RIPoint' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.riPoint}}</b></td>
+                                  <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                  <td class="sp-xs-td-15">: <b>{{data.anmName}}</b></td>
+                              </tr>
+                             
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <thead class="tablecss" style="background-color: #aaaaaa;">
+                              <tr class="" style="background-color: #aaaaaa;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
+                                 
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Name' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.subjectName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.age}} Years / {{data.gender}}</b></td>
+                                 
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.rchId}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.contactNo}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.subjectId}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.dateOfRegister}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.barcodeNo}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.sampleCollectionDate}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Spouse Name' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Address' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.lmpDate}}</b></td>
+                                  <td class="sp-xs-td-9">{{'GA (as of HPLC Tested Date)' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.ga}}</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.referringDepartment}}</b></td>
+                                  <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                  <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
+                                  
+                              </tr>
+                             
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                          <thead class="tablecss">
+                              <tr class="" style="background-color: #e3e8ef;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                         
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
+                                  <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{data.mcv}} fL</b></td>
+                                  <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{data.rdw}} %</b></td>
+                                  
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{data.sstResult}}</b></td>
+                                  <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{data.cbcTestResult}}</b></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                          <thead class="tablecss">
+                              <tr class="" style="background-color: #e3e8ef;">
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
+                                  </th>
+                              </tr> 
+                          </thead> 
+                          
+                          
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-custom-border">
+                         
+                          
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{data.hbA0}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{data.hbA2}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{data.hbD}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{data.hbF}}</b></td>
+                                  <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{data.hbS}}</b></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'LaboratoryDiagnosis' | translate}} </td>
+                                  <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosis}}</b></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9">{{'HPLCResult' | translate}} </td>
+                                  <td class="sp-xs-td-9" colspan="5"><b>{{data.hplcResult}}</b></td>
+                              </tr>
+                             <!-- <tr>
+                                  <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
+                                  <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosisSummary}}</b></td>
+                              </tr>-->
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped">
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'Sample processed by' | translate}} {{data.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
+                                  <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{data.pathologistName}}</b></td>
+                              </tr>
+                              <tr>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table">
+                          <tbody>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>
+                              </tr>
+                              <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="sp-xs-td-9"></td>
+                                <td class="sp-xs-td-9"><p></p></td>
+                            </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>  
+      </div>
+</div>
+
+<div class="pagebreak"> </div>
+</div>
+</span>
+
+<span *ngIf="printArray.length <=5">
+<div class="col-xl-12 col-lg-12 col-sm-12 print-show" *ngFor="let data of printArray">
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing indprofile" style="margin: 0 !important;padding: 0!important;">
+        <div class="widget-content widget-content-area br-6">
+          <div class="row py-2 my-2 print-header">
+              <div class="col-md-2 left-logo-cont">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-1.png" class="mt-1" style="height: 70px;">
+                  <img class="logo-left" src="../../../../assets/assets/img/report-logo-2.png" class="mt-1" style="height: 70px;margin-left:10px;">
+              </div>
+              <div class="col-md-8 col-mid">
+                  <h4 class="text-center pt-2 header-text" style="font-size: 16px !important;"><b>THALASSEMIA AND SICKLE CELL DISEASE CONTROL<br> PROGRAM IN ODISHA</b></h4>
+                  <h5 class="text-center header-text"><b>HPLC LABORATORY – SCB MEDICAL COLLEGE, CUTTACK</b></h5>
+              </div>
+              <div class="col-md-2 right-logo-cont" style="float:right;">
+                  
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-4.png" class="mt-1"  style="height: 70px;margin-left:10px;float:right;">
+                  <img class="logo-right" src="../../../../assets/assets/img/report-logo-3.png" class="mt-1" style="height: 70px;float:right;margin-left:10px;">
+              </div>
+          </div>
+            
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing indprofile margin-top-30">
+        <div class="watermark1">
+            <img class="logo-left" src="../../../../assets/assets/img/logo-bg.jpg" class="mt-1">
+        </div>
+        <div class="widget-content widget-content-area br-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss">
+                                
+                            </thead> 
+                            <tbody>
+                                <tr> 
+                                    <td class="sp-xs-td-9" style="width: 70%;"></td>
+                                    <td class="sp-xs-td-3" style="text-align: right;"><b>{{'Report Issued' | translate}} : </b>{{currentDate}} 123</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss" style="background-color: #aaaaaa !important;">
+                                <tr class="" style="background-color: #aaaaaa !important;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION A : PUBLIC HEALTHCARE SYSTEM DETAILS' | translate}}</b>
+                                   
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'District' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.district}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Block' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.blockName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'CHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.chcName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'PHC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.phcName}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'SC' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.scName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'RIPoint' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.riPoint}}</b></td>
+                                    <td class="sp-xs-td-9">{{'ANM' | translate}}</td>
+                                    <td class="sp-xs-td-15">: <b>{{data.anmName}}</b></td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="tablecss" style="background-color: #aaaaaa;">
+                                <tr class="" style="background-color: #aaaaaa;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION B : SUBJECT DETAILS' | translate}}</b>
+                                   
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Name' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.subjectName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Age/Sex' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.age}} Years / {{data.gender}}</b></td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'MCTS/RCH ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.rchId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Contact Number' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.contactNo}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Regn ID' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.subjectId}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Registration Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.dateOfRegister}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Lab Accession ID/Barcode' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.barcodeNo}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Sample Collection Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.sampleCollectionDate}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Spouse Name' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.spouseName}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Address' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.address}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'LMP Date' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.lmpDate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'GA (as of HPLC Tested Date)' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.ga}}</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'Referring Department' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.referringDepartment}}</b></td>
+                                    <td class="sp-xs-td-9">{{'Ordering Physician' | translate}}</td>
+                                    <td class="sp-xs-td-15"><b>{{data.orderingPhysician}}</b></td>
+                                    
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                            <thead class="tablecss">
+                                <tr class="" style="background-color: #e3e8ef;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION C : TEST RESULTS – CBC/ SST' | translate}}</b>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{data.mcv}} fL</b></td>
+                                    <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{data.rdw}} %</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'SST Results' | translate}} : <b>{{data.sstResult}}</b></td>
+                                    <td class="sp-xs-td-9" colspan="2">{{'CBC Test Results' | translate}} : <b>{{data.cbcTestResult}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                            <thead class="tablecss">
+                                <tr class="" style="background-color: #e3e8ef;">
+                                    <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SECTION D : TEST RESULTS – HPLC' | translate}}</b>
+                                    </th>
+                                </tr> 
+                            </thead> 
+                            
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-custom-border">
+                           
+                            
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'HPLC Parameters/ Values (%)' | translate}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbAo' | translate}} : <b> {{data.hbA0}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbA2' | translate}} : <b>{{data.hbA2}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbD' | translate}} : <b>{{data.hbD}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbF' | translate}} : <b>{{data.hbF}}</b></td>
+                                    <td class="sp-xs-td-9">{{'HbS' | translate}} : <b>{{data.hbS}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'LaboratoryDiagnosis' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosis}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9">{{'HPLCResult' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.hplcResult}}</b></td>
+                                </tr>
+                               <!-- <tr>
+                                    <td class="sp-xs-td-9">{{'Interpretation' | translate}} </td>
+                                    <td class="sp-xs-td-9" colspan="5"><b>{{data.diagnosisSummary}}</b></td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Sample processed by' | translate}} {{data.labTechnicianName}} ({{'Lab Technician' | translate}})</b></td>
+                                    <td class="sp-xs-td-9" style="text-align: right;" align="right"><b>{{'Pathologist Name' | translate}} : {{data.pathologistName}}</b></td>
+                                </tr>
+                                <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"></td>
+                                </tr>
+                                <tr>
+                                    <td class="sp-xs-td-9"><b>{{'Disclaimer : This is a computer-generated report. It does not require a physical signature.' | translate}}</b></td>
+                                </tr>
+                                <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"></td>
+                              </tr>
+  
+                              <tr>
+                                  <td class="sp-xs-td-9"></td>
+                                  <td class="sp-xs-td-9"><p></p></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>  
+        </div>
+  </div>
+  
+  <div class="pagebreak"> </div>
+  </div>
+</span>
+
+

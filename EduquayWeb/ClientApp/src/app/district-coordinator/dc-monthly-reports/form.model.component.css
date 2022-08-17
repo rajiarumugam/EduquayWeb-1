@@ -1,0 +1,16 @@
+.collectionRegi-form {
+    min-width: 300px;
+}
+.close-button {
+    float: right;
+    border-radius: 50%;
+    border: 0;
+    background: none;
+}
+.mat-form-field {
+    margin-right:15px;
+    padding: 0 !important;
+}
+.submit-btn {
+    float: right;
+}

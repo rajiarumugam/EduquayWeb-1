@@ -1,0 +1,382 @@
+
+<div class="collectionRegi-form">
+    <h6>{{returnPopupName()}} <button
+      type="button"
+      color="primary"
+      (click)="CloseDialog(false)"
+      class="close-button"
+      >
+      X
+      </button></h6>
+<mat-horizontal-stepper [linear]="isLinear">
+    <mat-step [stepControl]="firstFormGroup" *ngIf="id==='1'">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>As of (dd/mm/yyyy)</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of ANMs who collected samples" formControlName="noofANM" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total Enrolled" formControlName="totalEnrolled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total samples collected" formControlName="totalSamplesCollected" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pregnant women enrolled" formControlName="noOfPregnantWomenEnrolled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pregnant women sampled" formControlName="noOfPregnantWomenSampled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of Spouses Enrolled" formControlName="noofSpousesEnrolled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of Spouses Sampled" formControlName="noofSpousesSampled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total Sampled" formControlName="totalSampled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of spouses contacted by ANMs" formControlName="noofspousescontactedbyANM" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of samples Re-collected" formControlName="noOfSamplesRecollected" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of samples received" formControlName="totalNoofSamplesReceived" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of samples received timed missing / Rejected" formControlName="noofSamplesReceivedTimedMissing" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of samples received insufficient & / damaged" formControlName="noOfSamplesReceivedInsufficient" required>
+        </mat-form-field>
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperNext class="submit-btn">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" *ngIf="id==='1'">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Cumulative</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of ANMs who collected samples" formControlName="noofANM" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total Enrolled" formControlName="totalEnrolled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total samples collected" formControlName="totalSamplesCollected" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pregnant women enrolled" formControlName="noOfPregnantWomenEnrolled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pregnant women sampled" formControlName="noOfPregnantWomenSampled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of Spouses Enrolled" formControlName="noofSpousesEnrolled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of Spouses Sampled" formControlName="noofSpousesSampled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total Sampled" formControlName="totalSampled" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of spouses contacted by ANMs" formControlName="noofspousescontactedbyANM" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of samples Re-collected" formControlName="noOfSamplesRecollected" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of samples received" formControlName="totalNoofSamplesReceived" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of samples received timed missing / Rejected" formControlName="noofSamplesReceivedTimedMissing" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of samples received insufficient & / damaged" formControlName="noOfSamplesReceivedInsufficient" required>
+        </mat-form-field>
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button color="primary" matStepperNext class="submit-btn">Next</button>
+          
+        </div>
+      </form>
+    </mat-step>
+   <mat-step [stepControl]="thirdFormGroup" *ngIf="id==='1'">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Reasons</ng-template>
+        <mat-form-field class="col-md-8">
+          <input type="text" matInput placeholder="Reason 1" formControlName="reasons1" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No" formControlName="reasons1No" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-8">
+          <input type="text" matInput placeholder="Reason 2" formControlName="reasons2" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No" formControlName="reasons2No" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-8">
+          <input type="text" matInput placeholder="Reason 3" formControlName="reasons3" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No" formControlName="reasons3No" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-8">
+          <input type="text" matInput placeholder="Reason 4" formControlName="reasons4" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No" formControlName="reasons4No" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-8">
+          <input type="text" matInput placeholder="Reason 5" formControlName="reasons5" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No" formControlName="reasons5No" required>
+        </mat-form-field>
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button color="primary" (click)="submitForm(id);" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="firstFormGroup" *ngIf="id==='2'">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>As of (dd/mm/yyyy)</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of CBC tests done at CHCs" formControlName="noofCBCtestsdoneatCHC" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No CBC positive" formControlName="noCBCpositive" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of SST tests done at CHCs" formControlName="noofSSTtestsdoneatCHC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No SST positive" formControlName="noSSTpositive" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total samples sent to HPLC lab" formControlName="totalsamplessenttoHPLClab" required>
+        </mat-form-field>
+        
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperNext class="submit-btn">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" *ngIf="id==='2'">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Cumulative</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of CBC tests done at CHCs" formControlName="noofCBCtestsdoneatCHC" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No CBC positive" formControlName="noCBCpositive" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of SST tests done at CHCs" formControlName="noofSSTtestsdoneatCHC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No SST positive" formControlName="noSSTpositive" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total samples sent to HPLC lab" formControlName="totalsamplessenttoHPLClab" required>
+        </mat-form-field>
+       
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button color="primary" (click)="submitForm(id);" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+  
+
+    <mat-step [stepControl]="firstFormGroup" *ngIf="id==='3'">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>As of (dd/mm/yyyy)</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW samples tested at HPLC lab" formControlName="totalNoofANWsamplestestedatHPLClab" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW positive by HPLC" formControlName="totalNoofANWpositivebyHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC positive ANW (20 weeks of gestation)" formControlName="noofHPLCpositiveANW" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse samples tested at HPLC lab" formControlName="totalNoofSpouseSamplesTestedAtHPLClab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse positive by HPLC" formControlName="totalNoofSpousePositiveByHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pairs of samples forwarded to Molecular lab" formControlName="noofPairsOfSamplesForwardedToMolecularLab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC reports generated and posted to ANMs" formControlName="noOfHPLCReportsGeneratedAndPostedToANM" required>
+        </mat-form-field>
+       
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperNext class="submit-btn">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" *ngIf="id==='3'">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Cumulative</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW samples tested at HPLC lab" formControlName="totalNoofANWsamplestestedatHPLClab" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW positive by HPLC" formControlName="totalNoofANWpositivebyHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC positive ANW (20 weeks of gestation)" formControlName="noofHPLCpositiveANW" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse samples tested at HPLC lab" formControlName="totalNoofSpouseSamplesTestedAtHPLClab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse positive by HPLC" formControlName="totalNoofSpousePositiveByHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pairs of samples forwarded to Molecular lab" formControlName="noofPairsOfSamplesForwardedToMolecularLab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC reports generated and posted to ANMs" formControlName="noOfHPLCReportsGeneratedAndPostedToANM" required>
+        </mat-form-field>
+        
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button color="primary" (click)="submitForm(id);" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="firstFormGroup" *ngIf="id==='4'">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>As of (dd/mm/yyyy)</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW samples tested at HPLC lab" formControlName="totalNoofANWsamplestestedatHPLClab" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW positive by HPLC" formControlName="totalNoofANWpositivebyHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC positive ANW (20 weeks of gestation)" formControlName="noofHPLCpositiveANW" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse samples tested at HPLC lab" formControlName="totalNoofSpouseSamplesTestedAtHPLClab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse positive by HPLC" formControlName="totalNoofSpousePositiveByHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pairs of samples forwarded to Molecular lab" formControlName="noofPairsOfSamplesForwardedToMolecularLab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC reports generated and posted to ANMs" formControlName="noOfHPLCReportsGeneratedAndPostedToANM" required>
+        </mat-form-field>
+       
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperNext class="submit-btn">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" *ngIf="id==='4'">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Cumulative</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW samples tested at HPLC lab" formControlName="totalNoofANWsamplestestedatHPLClab" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of ANW positive by HPLC" formControlName="totalNoofANWpositivebyHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC positive ANW (20 weeks of gestation)" formControlName="noofHPLCpositiveANW" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse samples tested at HPLC lab" formControlName="totalNoofSpouseSamplesTestedAtHPLClab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="Total No of spouse positive by HPLC" formControlName="totalNoofSpousePositiveByHPLC" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of pairs of samples forwarded to Molecular lab" formControlName="noofPairsOfSamplesForwardedToMolecularLab" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of HPLC reports generated and posted to ANMs" formControlName="noOfHPLCReportsGeneratedAndPostedToANM" required>
+        </mat-form-field>
+        
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button color="primary" (click)="submitForm(id);" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="firstFormGroup" *ngIf="id==='5'">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>As of (dd/mm/yyyy)</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of couples undergoing pre PND counselling" formControlName="noofCouplesUnderGoingPrePNDCounselling" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of PND testing done" formControlName="noOfPNDTestingDone" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of PND test positives" formControlName="noOfPNDTestPositives" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of couples undergoing post PND counselling" formControlName="noOfCouplesUnderGoingPostPNDCounselling" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of MTPs performed" formControlName="noOfMTPPerformed" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of women contacted by ANM after MTP" formControlName="noofWomenContactedByANMAfterMTP" required>
+        </mat-form-field>
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperNext class="submit-btn">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" *ngIf="id==='5'">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Cumulative</ng-template>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of couples undergoing pre PND counselling" formControlName="noofCouplesUnderGoingPrePNDCounselling" required>
+        </mat-form-field>
+         <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of PND testing done" formControlName="noOfPNDTestingDone" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of PND test positives" formControlName="noOfPNDTestPositives" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of couples undergoing post PND counselling" formControlName="noOfCouplesUnderGoingPostPNDCounselling" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of MTPs performed" formControlName="noOfMTPPerformed" required>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="number" matInput placeholder="No of women contacted by ANM after MTP" formControlName="noofWomenContactedByANMAfterMTP" required>
+        </mat-form-field>
+        <div>
+          <button mat-button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button color="primary" (click)="submitForm(id);" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+  </mat-horizontal-stepper>
+  
+</div>

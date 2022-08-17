@@ -374,6 +374,9 @@ import { UsersAdminSPCComponent } from "./admin/users-module/users-spc/users-spc
 import { UsersAdminSupportComponent } from "./admin/users-module/users-support/users-support.component";
 
 
+import { DCMonthlyReportsMain } from "./district-coordinator/dc-monthly-reports/dc-monthly-reports-component-main/dc-monthly-reports-component-main.component";
+import { DCMonthlyReports } from "./district-coordinator/dc-monthly-reports/dc-monthly-reports-component/dc-monthly-reports-component.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -934,6 +937,13 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'DC-monthlyReport', component: DCMonthlyReportsMain,
+        children:[
+          {path: '', component: DCMonthlyReports, pathMatch: 'full'},
+        
+        ]
+      },
+      {
         path: 'nhm-report', component: NHMreportListComponent,
        
       },{
@@ -1260,7 +1270,9 @@ export const RoutingComponents = [
   UsersAdminPNDTComponent,
   UsersAdminSupportComponent,
   UsersAdminHaematologistComponent,
-  UsersAdminNHMComponent
+  UsersAdminNHMComponent,
+  DCMonthlyReportsMain,
+  DCMonthlyReports
  
 
 
