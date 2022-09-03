@@ -377,6 +377,9 @@ import { UsersAdminSupportComponent } from "./admin/users-module/users-support/u
 import { DCMonthlyReportsMain } from "./district-coordinator/dc-monthly-reports/dc-monthly-reports-component-main/dc-monthly-reports-component-main.component";
 import { DCMonthlyReports } from "./district-coordinator/dc-monthly-reports/dc-monthly-reports-component/dc-monthly-reports-component.component";
 
+import { ChartSectionComponent } from "./charts/dashboard-chart/chart-section/chart-section.component";
+import { ChartMainComponent } from "./charts/dashboard-chart/chart-main/chart-main.component";
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
   { path: 'counter', component: CounterComponent },
@@ -988,6 +991,13 @@ const routes: Routes = [
         {path: 'postmtp-follow-up', component: PostMtpFollowupComponent, pathMatch: 'full'}
       ]
       },
+      {
+        path: 'charts', component: ChartMainComponent,
+        children:[
+          {path: '', component: ChartSectionComponent, pathMatch: 'full'},
+        
+        ]
+      },
     ]
   },
   
@@ -1272,7 +1282,9 @@ export const RoutingComponents = [
   UsersAdminHaematologistComponent,
   UsersAdminNHMComponent,
   DCMonthlyReportsMain,
-  DCMonthlyReports
+  DCMonthlyReports,
+  ChartMainComponent,
+  ChartSectionComponent
  
 
 

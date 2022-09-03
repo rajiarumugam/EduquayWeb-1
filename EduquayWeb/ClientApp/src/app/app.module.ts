@@ -133,7 +133,7 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
 
 import { weeklyReportFormComponent } from "./district-coordinator/dc-monthly-reports/form.model.component";
 import {MatDialogModule} from '@angular/material';
-
+import { ChartsModule } from 'ng2-charts';
 // const ngWizardConfig: NgWizardConfig = {
 //   theme: THEME.default
 // };
@@ -262,7 +262,8 @@ import {MatDialogModule} from '@angular/material';
     NgMultiSelectDropDownModule.forRoot(),
     FileUploadModule,
     NgxPrintModule,
-    MatDialogModule
+    MatDialogModule,
+    ChartsModule
    
   ],
   entryComponents: [weeklyReportFormComponent],
