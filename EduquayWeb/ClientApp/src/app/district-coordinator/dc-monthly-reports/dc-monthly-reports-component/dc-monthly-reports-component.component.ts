@@ -95,6 +95,7 @@ export class DCMonthlyReports implements AfterViewInit, OnDestroy, OnInit {
   monthlyDBData;
   monthlyActualData;
   selectedBlockName;
+  enableGenerateReport = true;
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService
     ,private dataservice: DataService,private router: Router,private _formBuilder: FormBuilder, private pathoHPLCService:pathoHPLCService,private loaderService: LoaderService,private matDialog: MatDialog
   ) { }
@@ -102,9 +103,26 @@ export class DCMonthlyReports implements AfterViewInit, OnDestroy, OnInit {
   blockChange(id) {
     console.log(this.blocklists);
     console.log(id);
-    let _tempSelectedBlockArr = this.blocklists.filter(block => block.id == id);
-    this.selectedBlockName = _tempSelectedBlockArr[0].name;
-    console.log(this.selectedBlockName);
+    if(id) {
+      let _tempSelectedBlockArr = this.blocklists.filter(block => block.id == id);
+      this.selectedBlockName = _tempSelectedBlockArr[0].name;
+      console.log(this.selectedBlockName);
+      console.log(this.selectedWeek);
+      if(this.selectedWeek) {
+        this.enableGenerateReport = false;
+      }
+    } else {
+      this.enableGenerateReport = true;
+    }
+    
+  }
+  weekChange(week){
+    console.log(week);
+    if(week && this.selectedBlock) {
+      this.enableGenerateReport = false;
+    } else {
+      this.enableGenerateReport = true;
+    }
   }
   ngOnInit() {
     this.currentDate = moment(new Date()).format("DD-MM-YYYY");
@@ -240,7 +258,12 @@ export class DCMonthlyReports implements AfterViewInit, OnDestroy, OnInit {
   }
   yearChange(val) {
     console.log(val);
-    this.getWeekData(val);
+    if(val) {
+      this.getWeekData(val);
+    } else {
+      this.weekEnabled = true;
+    }
+    
   }
   getWeekData(cyear){
     let _obj = {"yearId":Number(cyear)};
@@ -453,13 +476,13 @@ export class DCMonthlyReports implements AfterViewInit, OnDestroy, OnInit {
   printPdf()
   {
     var _tempArray = [];
-    this.pndPendingArray.forEach(function(val,index){
+    /*this.pndPendingArray.forEach(function(val,index){
       if(val.checked)
             _tempArray.push(val);
     });
-    this.printArray = _tempArray;
+    this.printArray = _tempArray;*/
     //document.title=this.diagnosisReportData.subjectName+"_"+this.diagnosisReportData.barcodeNo+"_Patho Report";
-    if(this.printArray.length > 0)
+   /* if(this.printArray.length > 0)
     {
       setTimeout(() => {
         window.print();
@@ -468,7 +491,10 @@ export class DCMonthlyReports implements AfterViewInit, OnDestroy, OnInit {
     else
     {
       Swal.fire({icon:'error', title: "Please select atleast one data!", confirmButtonText: 'Close', allowOutsideClick: false})
-    }
+    }*/
+    setTimeout(() => {
+      window.print();
+    }, 1);
       //alert('Please select atleast one data!');
     //document.title='CMC - Thalassemia & Sickle cell';
     
