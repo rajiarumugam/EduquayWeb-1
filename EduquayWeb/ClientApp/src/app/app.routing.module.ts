@@ -372,6 +372,13 @@ import { UsersAdminPNDTCComponent } from "./admin/users-module/users-pndtc/users
 import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/users-sadmin.component";
 import { UsersAdminSPCComponent } from "./admin/users-module/users-spc/users-spc.component";
 import { UsersAdminSupportComponent } from "./admin/users-module/users-support/users-support.component";
+import { ChcSamplePickpackMaldiComponent } from "./chc-sample-module/chc-sample-pickpack-maldi/chc-sample-pickpack-maldi.component";
+import { ChcStartPickpackMaldiComponent } from "./chc-sample-module/chc-sample-pickpack-maldi/chc-start-pickpack-maldi/chc-start-pickpack-maldi.component";
+import { ChcPendingPickpackMaldiComponent } from "./chc-sample-module/chc-sample-pickpack-maldi/chc-pending-pickpack-maldi/chc-pending-pickpack-maldi.component";
+import { ChcSampleShipmentlogMaldiComponent } from "./chc-sample-module/chc-sample-shipmentlog-Maldi/chc-sample-shipmentlog-Maldi.component";
+import { CentralSampleRcptMaldiMainComponent } from "./central-lab/sample-rcpt-maldi/central-sample-rcpt-maldi-main/central-sample-rcpt-maldi-main.component";
+import { CentralSampleRcptMaldiComponent } from "./central-lab/sample-rcpt-maldi/central-sample-rec-maldi/central-sample-rec-maldi.component";
+import { CentrallabSampleMaldiResolverService } from "./shared/centrallab/central-sample-resolver-maldi.service";
 
 
 const routes: Routes = [
@@ -558,7 +565,9 @@ const routes: Routes = [
         ]
       },
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
+      { path: 'chc-sample-pickpack-maldi', component: ChcSamplePickpackMaldiComponent},
       { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent}, // resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}
+      { path: 'chc-sample-shipmentlog-maldi', component: ChcSampleShipmentlogMaldiComponent}, 
       { path: 'chc-sample-viewshipment', component: ChcSampleViewShipmentComponent, pathMatch: 'full'},
       // {
       //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
@@ -727,9 +736,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'centrallabMaldi', component: CentralSampleRcptMaldiMainComponent,
+        children:[
+          {path: '', component: CentralSampleRcptMaldiComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleResolverService}}
+        ]
+      },
+      {
         path: 'centrallab-report', component: CentralLabreportSampleStatusMainComponent,
         children:[
-          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CentralLabReportResolverService}}
+          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CentrallabSampleMaldiResolverService}}
         ]
       },
       {
@@ -1205,6 +1220,9 @@ export const RoutingComponents = [
   LMPCorrectionMainComponent,
   LMPCorrectionComponent,
   HPLCPosPrintComponent,
+  ChcSamplePickpackMaldiComponent,
+  ChcStartPickpackMaldiComponent,
+  ChcPendingPickpackMaldiComponent,
   HPLCReportsMainComponent,
   CVSReportsMainComponent,
   CVSPosPrintComponent,
@@ -1260,8 +1278,10 @@ export const RoutingComponents = [
   UsersAdminPNDTComponent,
   UsersAdminSupportComponent,
   UsersAdminHaematologistComponent,
-  UsersAdminNHMComponent
- 
+  UsersAdminNHMComponent,
+  ChcSampleShipmentlogMaldiComponent,
+  CentralSampleRcptMaldiComponent,
+  CentralSampleRcptMaldiMainComponent
 
 
 

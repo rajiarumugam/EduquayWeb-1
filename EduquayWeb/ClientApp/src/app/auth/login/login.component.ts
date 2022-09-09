@@ -111,6 +111,9 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/app/errorcorrection'], { relativeTo: this.route });
           else  if(this.authResult.userDetail.userRole === "SUPERADMIN" || this.authResult.userDetail.userRole === "ADMIN" )
               this.router.navigate(['/app/add-state'], { relativeTo: this.route });
+          else  if(this.authResult.userDetail.userRole === "MALDILT" || this.authResult.userDetail.userRole === "ADMIN" )
+              this.router.navigate(['/app/add-state'], { relativeTo: this.route });
+
 
         } else if ((this.authResult && (!this.authResult.status))) {
           this.isLoginError = true;

@@ -51,6 +51,7 @@ export const ENDPOINT = {
     },
     "CENTRALLAB":
     {
+        "RETRIVEMALDIRECEIPT":"api/v1/CentralLab/RetrieveMaldiReceipt/",
         "RETRIVECENTRALLABRECEIPT":"api/v1/CentralLab/RetrieveCentralLabReceipt/",
         "ADDRECEIVEDSHIPMENTS":"api/v1/CentralLab/AddReceivedShipments",
         "RETRIVEHPLC":"api/v1/CentralLab/RetrieveHPLC/",

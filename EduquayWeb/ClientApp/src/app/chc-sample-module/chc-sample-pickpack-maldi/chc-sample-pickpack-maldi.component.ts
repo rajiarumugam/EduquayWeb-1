@@ -20,11 +20,11 @@ import { LoaderService } from 'src/app/shared/loader/loader.service';
 
 
 @Component({
-  selector: 'app-chc-sample-pickpack',
-  templateUrl: './chc-sample-pickpack.component.html',
-  styleUrls: ['./chc-sample-pickpack.component.css']
+  selector: 'app-chc-sample-pickpack-maldi',
+  templateUrl: './chc-sample-pickpack-maldi.component.html',
+  styleUrls: ['./chc-sample-pickpack-maldi.component.css']
 })
-export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnInit  {
+export class ChcSamplePickpackMaldiComponent implements AfterViewInit, OnDestroy, OnInit  {
   
   //@ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
@@ -193,7 +193,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     this.loaderService.display(true);
     this.chcsamplepickpack = [];
-    let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
+    let picknpack = this.chcsamplePickpackService.getsamplePickpackChcMaldi(this.user.chcId)
       .subscribe(response => {
         this.chcsamplepicknpickResponse = response;
         this.loaderService.display(false);
@@ -376,7 +376,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     }
     // this.showResponseMessage('testing', 's');
     //return false;
-    let addshipment = this.chcsamplePickpackService.chcSampleAddShipment(this.chcsampleAddShipmentRequest)
+    let addshipment = this.chcsamplePickpackService.chcSampleAddShipmentMaldi(this.chcsampleAddShipmentRequest)
       .subscribe(response => {
         this.chcsampleAddShipmentResponse = response;
         if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {

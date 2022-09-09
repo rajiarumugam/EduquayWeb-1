@@ -1,0 +1,537 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="chcsam" subMenum="chcsam"></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <!-- <div class="col-md-12 text-center">
+                <h5 class="">ANM Name - PHC Name</h5>
+                </div> -->
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
+                                    ngbTooltip="Update SST Results" placement="right"
+                                    [routerLink]="['/app/chc-update-sst']" role="button"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center"> {{'Pick&Pack' | translate }} for MALDI-TOF lab </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right mb-4">
+                                <a class="btn btn-outline-primary bs-tooltip"
+                                    [routerLink]="['/app/chc-sample-shipmentlog']" role="button"
+                                    ngbTooltip="Shipment Log for HPLC lab" placement="left"><i
+                                        class="fas fa-chevron-right pNav-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                <div class="widget-content widget-content-area br-6">
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+
+                            <ul class="nav nav-tabs ml-4" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending"
+                                        role="tab" aria-controls="home" aria-selected="true">{{'PendingforPickup' | translate }}<span
+                                            id="fbadge"
+                                            class="badge badge-pill badge-warning shadow mx-1">{{pendingBadgeSampleCount}}</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pick-tab" data-toggle="tab" href="#pick" role="tab"
+                                        aria-controls="profile" aria-selected="false">{{'StartPickandPack' | translate }}<span
+                                            id="sbadge"
+                                            class="badge badge-pill badge-warning shadow mx-1">{{startBadgePickpackCount}}</span></a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="tab-content mt-4" id="myTabContent">
+                        <!-- <router-outlet (activate)="receiveBadgeCount($event)"></router-outlet> -->
+                        <div class="tab-pane fade show active" id="pending" role="tabpanel"
+                            aria-labelledby="completed-tab">
+
+                            <div class="main-box no-header clearfix">
+                                <div class="main-box-body clearfix">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div *ngIf="samplepicknpackErrorMessage" class="alert mt-3 mb-2"
+                                                [ngClass]="{'alert-warning': samplepicknpackErrorMessage ==='No sample found', 'alert-danger': samplepicknpackErrorMessage !== 'No sample found'}">
+                                                <span class="fa fa-info-circle mr-2"
+                                                    style="font-size: 16px;"></span><strong>Oops!</strong>
+                                                {{samplepicknpackErrorMessage}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive mt-2">
+                                        <table id="pending-pickpack-tbl" class="table table-bordered table-hover"
+                                            datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"><span>{{'SNo' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'SubjectName' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'SubjectID' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                                    <!-- <th class="text-center"><span>Lab Technician Name</span></th> -->
+                                                    <th class="text-center"><span>{{'Barcode' | translate }}</span></th>
+
+                                                    <th class="text-center scheduledate"><span class="wordwrap">{{'SampleCollectionDate_Time' | translate }}</span></th>
+                                                   
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let samplepicknpack of chcsamplepickpack; index as i">
+                                                    <td class="sno text-center">{{i +1}}</td>
+                                                    <td class="sname text-left">{{samplepicknpack.subjectName}}</td>
+                                                    <td class="sid text-center">{{samplepicknpack.uniqueSubjectId}}</td>
+                                                    <td class="sid text-center">{{samplepicknpack.rchId}}</td>
+                                                    <!-- <td class="text-left"></td> -->
+                                                    <td class="sid text-center">{{samplepicknpack.barcodeNo}}</td>
+                                                    <td class="textsample text-center">
+                                                        <span style="display: none;">{{returnTimeStamp(samplepicknpack.sampleDateTime)}}</span>{{samplepicknpack.sampleDateTime}}</td>
+                                                    <!-- <td class="text-center">8 days</td>
+                            <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade show" id="pick" role="tabpanel" aria-labelledby="pending-tab">
+                            <div class="main-box no-header clearfix">
+                                <div class="main-box-body clearfix">
+                                    <div class="form-row my-4 ml-3">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                            <form class="form-inline my-2 my-lg-0">
+                                                <div class="w-100 my-2">
+                                                    <input type="text" class="w-100 form-control sample-search br-30"
+                                                        name="searchbarcode" type="text"
+                                                        placeholder="Scan / Enter Barcode" [(ngModel)]="searchbarcode"
+                                                        debounce="500"
+                                                        (ngModelChange)="onChange(samplepicknPackdetail, $event)"
+                                                        autocomplete="off">
+                                                    <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button
+                                                            class="btn btn-primary" type="submit"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="feather feather-search">
+                                                                <circle cx="11" cy="11" r="8"></circle>
+                                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                            </svg></button></a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive mt-2">
+                                        <table id="satrt-pickpack-tbl" class="table table-bordered table-hover"
+                                            datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center"><span>{{'SNo' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'SubjectName' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'SubjectID' | translate }}</span></th>
+                                                    <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                                    <!-- <th class="text-center"><span>Lab Technician Name</span></th> -->
+                                                    <th class="text-center"><span>{{'Barcode' | translate }}</span></th>
+
+                                                    <th class="text-center"><span class="wordwrap">{{'SampleCollectionDate_Time' | translate }}</span></th>
+                                                    <th class="text-center">
+                                                        <span>{{'AddtoShipment' | translate }}</span>
+                                                        <!-- <label class="new-control new-checkbox checkbox-outline-primary">
+                                                            <input type="checkbox" class="new-control-input" id="select_all" [(ngModel)]="selectedAll"
+                                                            ng-checked="selectedall === true" (change)="selectAll(i)">
+                                                            <span class="new-control-indicator leftspace"></span>&nbsp;
+                                                        </label> -->
+                                                    </th>
+
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let startpicknpack of startPickpackData; index as i">
+                                                    <td class="sno text-center">{{i +1}}</td>
+                                                    <td class="sname text-left">{{startpicknpack.subjectName}}</td>
+                                                    <td class="sid text-center">{{startpicknpack.uniqueSubjectId}}</td>
+                                                    <td class="sid text-center">{{startpicknpack.rchId}}</td>
+                                                    <!-- <td class="text-left"></td> -->
+                                                    <td class="sid text-center">{{startpicknpack.barcodeNo}}</td>
+                                                    <td class="textsample text-center">{{startpicknpack.sampleDateTime}}
+                                                    </td>
+                                                    <td style="text-align: center;" (click)="checkIfSelected(i);">
+                                                        <div class="n-chk">
+                                                            <label
+                                                                class="new-control new-checkbox checkbox-outline-primary">
+                                                                <input type="checkbox"
+                                                                    class="new-control-input checkbox" value="020153"
+                                                                    checked="">
+                                                                <span class="new-control-indicator"></span>&nbsp;
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <!-- <td><div class="n-chk text-center">
+                                                        <label class="new-control new-checkbox checkbox-outline-primary">
+                                                          <input type="checkbox" class="new-control-input checkbox" 
+                                                          value="{{startpickpackSelected}}"  ng-checked = "startpickpackSelected === true"
+                                                          [(ngModel)]="startpickpackSelected"  (change)="checkIfSelected(i)">
+                                                          <span class="new-control-indicator"></span>&nbsp;
+                                                        </label>
+                                                    </div></td> -->
+                                                    <!-- <td class="text-center">8 days</td>
+                                                    <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row" *ngIf="isAddShipmentTrue">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-primary float-right"
+                                                (click)="openshipmentform(sampleShipmentDetails)" role="button">{{'CreateShipment' | translate }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="container p-4">
+                                        <div class="row">
+                                            <div class="col-md-12 border-bottom">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #samplepicknPackdetail let-modal>
+                            <div class="modal-header">
+                                <h5 class="modaltitle" id="myLargeModalLabel">Pick & Pack for MALDI-TOF lab - Primary and
+                                    Aliquoted tube
+                                </h5>
+                                <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="form-row my-4 ml-3">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                        <form class="form-inline my-2 my-lg-0">
+                                            <div class="w-100 my-2">
+                                                <input type="text" class="w-100 form-control sample-search br-30"
+                                                    type="text" placeholder="Scan / Enter Barcode"
+                                                    name="alliquotetubebarcode"
+                                                    (ngModelChange)="validateAlliqutetubeMatch($event)" debounce="100"
+                                                    [(ngModel)]="alliquotetubebarcode" autocomplete="off">
+                                                <a>
+                                                    <button class="btn btn-primary" type="submit"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" class="feather feather-search"
+                                                            (click)="clickvalidateAlliqutetubeMatch()">
+                                                            <circle cx="11" cy="11" r="8"></circle>
+                                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                        </svg></button></a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'SNo' | translate }}</th>
+                                                <th>{{'SubjectName' | translate }}</th>
+                                                <th>{{'SubjectID' | translate }}</th>
+                                                <th>{{'RCHID' | translate }}</th>
+                                                <th>{{'Barcode' | translate }}</th>
+                                                <th>{{'PrimaryTube' | translate }}</th>
+                                                <th>{{'AliquotedHPLCTube' | translate }} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let tempScandata of tempCHCDatas; index as i">
+                                                <td>{{i +1}}</td>
+                                                <td class="text-left">{{tempScandata.subjectName}}</td>
+                                                <td class="text-center">{{tempScandata.uniqueSubjectId}}</td>
+                                                <td class="text-center">{{tempScandata.rchId}}</td>
+                                                <td class="text-center">{{tempScandata.barcodeNo}}</td>
+                                                <td>
+                                                    <div class="n-chk text-center">
+                                                        <label
+                                                            class="new-control new-checkbox checkbox-outline-primary">
+                                                            <input type="checkbox" class="new-control-input checkbox"
+                                                                value="{{primarytubeSelected}}"
+                                                                ng-checked="primarytubeSelected === true"
+                                                                [(ngModel)]="primarytubeSelected">
+                                                            <span class="new-control-indicator"></span>&nbsp;
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="n-chk text-center" id="checkbox"
+                                                        *ngIf="isAliquoteBarcodeMatch">
+                                                        <label
+                                                            class="new-control new-checkbox checkbox-outline-primary">
+                                                            <input type="checkbox" class="new-control-input checkbox"
+                                                                value="{{alliquotedtubeSelected}}"
+                                                                ng-checked="alliquotedtubeSelected === true"
+                                                                [(ngModel)]="alliquotedtubeSelected">
+                                                            <span class="new-control-indicator"></span>&nbsp;
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <div class="row"  *ngIf="isAliquoteBarcodeMatch">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary float-right closepop" type="submit" (click)="submittoshipment()"
+                                            role="button">Submit</a>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary float-right closepop" *ngIf="isAliquoteBarcodeMatch"
+                                    type="submit" (click)="submittoshipment()" role="button">{{'Submit' | translate }}</a>
+                                <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                                    {{'Close' | translate }}</button>
+                                
+                            </div>
+                        </ng-template>
+
+                        <ng-template #sampleShipmentDetails let-modal>
+                            <div class="modal-header">
+                                <h5 class="modaltitle" id="myLargeModalLabel">{{'CreateShipment' | translate }}
+                                </h5>
+                                <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="text-left"
+                                    (ngSubmit)="chcShipmentForm.form.valid && onSubmit(chcShipmentForm)"
+                                    #chcShipmentForm="ngForm" novalidate>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12" id="text">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3">
+                                                        <label
+                                                            [ngClass]="{'label-border-class':!chctechnicianname.valid && chctechnicianname.touched || chctechnicianname.submitted && chctechnicianname.invalid}">
+                                                            {{'LabTechnician' | translate }} <span class="manto">*</span></label>
+                                                        <input class="form-control field" name="chctechnicianname"
+                                                            #chctechnicianname="ngModel" ngModel
+                                                            [class.is-invalid]="!chctechnicianname.valid && chctechnicianname.touched || chcShipmentForm.submitted && chctechnicianname.invalid"
+                                                            readonly type="text" placeholder="Lab Technician"
+                                                            [(ngModel)]="chclabtechnician">
+                                                        <small class="text-danger ml-2"
+                                                            *ngIf="!chctechnicianname.valid && chctechnicianname.touched">Enter
+                                                            the Lab Technician Name</small>
+                                                        <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
+                                                        <div
+                                                            *ngIf="chcShipmentForm.submitted && chctechnicianname.invalid">
+                                                            <small *ngIf="chctechnicianname.untouched"
+                                                                class=" ml-2 text-danger">Lab Technician Name is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label
+                                                            [ngClass]="{'label-border-class':!testingChc.valid && testingChc.touched || chcShipmentForm.submitted && testingChc.invalid}">
+                                                            {{'TestingCHC' | translate }} <span class="manto"> *</span></label>
+                                                        <input class="form-control field" name="testingChc"
+                                                            #testingChc="ngModel" ngModel
+                                                            [class.is-invalid]="!testingChc.valid && testingChc.touched || chcShipmentForm.submitted && testingChc.invalid"
+                                                            readonly type="text" placeholder="Testing CHC"
+                                                            [(ngModel)]="testingChcname">
+                                                        <small class="text-danger ml-2"
+                                                            *ngIf="!testingChc.valid && testingChc.touched">Enter the
+                                                            Testing CHC</small>
+                                                        <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
+                                                        <div *ngIf="chcShipmentForm.submitted && testingChc.invalid">
+                                                            <small *ngIf="testingChc.untouched"
+                                                                class=" ml-2 text-danger">Testing CHC is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label
+                                                            [ngClass]="{'label-border-class':DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid}"
+                                                            for="inputTestingCHC">
+                                                            {{'ReceivingCentralLab' | translate }} <span class="manto">*</span></label>
+                                                        <select name="DDLcentrallab" #DDLcentrallab="ngModel"
+                                                            [class.is-invalid]="DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid"
+                                                            class="form-control field" id="inputTestingCHC" required
+                                                            [(ngModel)]="selectedcentralLab">
+                                                            <option value="" selected>--Select--</option>
+                                                            <option *ngFor="let labName of centralLab"
+                                                                [(value)]="labName.id">
+                                                                {{labName.centralLabName}}
+                                                            </option>
+                                                        </select>
+                                                        <small class=" ml-2 text-danger"
+                                                            *ngIf="!DDLcentrallab.valid && DDLcentrallab.untouched ">Please
+                                                            choose a Receiving Molecular Lab </small>
+                                                        <div *ngIf="chcShipmentForm.submitted && DDLcentrallab.invalid">
+                                                            <small *ngIf="DDLcentrallab.untouched"
+                                                                class=" ml-2 text-danger">Receiving Molecular Lab is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label
+                                                            [ngClass]="{'label-border-class':DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid}"
+                                                            for="inputAvdName">{{'LogisticsServiceProvider' | translate }}<span
+                                                                class="manto"> *</span></label>
+                                                        <select name="inputAvdName" name="DDLserviceproviderName"
+                                                            #DDLserviceproviderName="ngModel"
+                                                            [class.is-invalid]="DDLserviceproviderName.invalid && DDLserviceproviderName.touched || chcShipmentForm.submitted && DDLserviceproviderName.invalid"
+                                                            class="form-control field" id="inputAvdName" required
+                                                            [(ngModel)]="selectedproviderName">
+                                                            <option value="">--Select--</option>
+                                                            <option *ngFor="let providername of providerNames"
+                                                                [(value)]="providername.id">
+                                                                {{ providername.providerName }}
+                                                            </option>
+                                                        </select>
+                                                        <small class=" ml-2 text-danger"
+                                                            *ngIf="!DDLserviceproviderName.valid && DDLserviceproviderName.untouched ">Enter
+                                                            the Logistics Service Provider</small>
+                                                        <div
+                                                            *ngIf="chcShipmentForm.submitted && DDLserviceproviderName.invalid">
+                                                            <small *ngIf="DDLserviceproviderName.untouched"
+                                                                class=" ml-2 text-danger">Logistics Service Provider is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-row my-2">
+                                                    <div class="form-group col-md-3">
+                                                        <label
+                                                            [ngClass]="{'label-border-class':!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid}">
+                                                            {{'DeliveryExecutiveName' | translate }} <span class="manto">
+                                                                *</span></label>
+                                                        <input class="form-control field" name="deliveryexecutivename"
+                                                            #deliveryexecutivename="ngModel" ngModel autocomplete="off"
+                                                            [class.is-invalid]="!deliveryexecutivename.valid && deliveryexecutivename.touched || chcShipmentForm.submitted && deliveryexecutivename.invalid"
+                                                            required type="text" placeholder="Delivery Executive Name"
+                                                            [(ngModel)]="deliveryexecutive">
+                                                        <small class="text-danger ml-2"
+                                                            *ngIf="!deliveryexecutivename.valid && deliveryexecutivename.touched">Enter
+                                                            the Delivery Executive Name</small>
+                                                        <!-- <small class="text-danger" *ngIf="!sampleBarcode.valid && sampleBarcode.errors.pattern">The barcode must be alphabets or digits</small> -->
+                                                        <div
+                                                            *ngIf="chcShipmentForm.submitted && deliveryexecutivename.invalid">
+                                                            <small *ngIf="deliveryexecutivename.untouched"
+                                                                class=" ml-2 text-danger">Delivery Executive Name is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-md-3">
+                                                        <label
+                                                            [ngClass]="{'label-border-class':contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid}">{{'ContactNumber' | translate }} <span class="manto">*</span></label>
+                                                        <input class="form-control field" name="contactNo"
+                                                            #contactNo="ngModel" ngModel maxlength="10" numbersOnly
+                                                            oninput="javascript: if(this.value.split('')[0] != '9' && this.value.split('')[0] != '8' && this.value.split('')[0] != '7' && this.value.split('')[0] != '6') this.value=''; if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                            autocomplete="off"
+                                                            [class.is-invalid]="contactNo.invalid && contactNo.touched || chcShipmentForm.submitted && contactNo.invalid"
+                                                            required type="tel" placeholder="Contact Number"
+                                                            [(ngModel)]="executiveContactNo">
+                                                        <div
+                                                            *ngIf="contactNo.errors && (contactNo.invalid || contactNo.touched)">
+                                                            <small class="ml-2 text-danger"
+                                                                *ngIf="contactNo.errors.required && contactNo.touched ">The
+                                                                Contact number is required</small>
+                                                            <!-- <small class="ml-2 text-danger" *ngIf="contactNo.errors.pattern">The Contact number is invalid</small> -->
+                                                        </div>
+                                                        <div *ngIf="chcShipmentForm.submitted && contactNo.invalid">
+                                                            <small *ngIf="contactNo.untouched"
+                                                                class=" ml-2 text-danger">The Contact number is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-3" [formGroup]="popupform">
+                                                        <label class="note">{{'ShipmentDate&Time' | translate }} <span
+                                                                class="manto">*</span></label>
+                                                        <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                                          placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                                        <ng2-flatpickr id="popupDate" name="dateOfShipment"
+                                                            class="form-control flatpickr flatpickr-input active"
+                                                            #shipmentDatePicker [config]="shipmentDateOptions"
+                                                            placeholder="Select Date.." formControlName="shipmentDate"
+                                                            >
+                                                        </ng2-flatpickr>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <span class="mr-auto"><b>Selected samples barcode:
+                                                        </b>({{_intSelectedBarcode}}) {{selectedBarcodes}} </span>
+                                                    <button type="submit" class="btn btn-primary"
+                                                        id="linktobuttonpickpak">{{'Submit' | translate }}</button>
+                                                    <button class="btn" (click)="modal.dismiss()"><i
+                                                            class="flaticon-cancel-12"></i> {{'Close' | translate }}</button>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button class="btn" (click)="modal.dismiss()"><i
+                                        class="flaticon-cancel-12"></i> Close</button>
+                            
+                            </div> -->
+                        </ng-template>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

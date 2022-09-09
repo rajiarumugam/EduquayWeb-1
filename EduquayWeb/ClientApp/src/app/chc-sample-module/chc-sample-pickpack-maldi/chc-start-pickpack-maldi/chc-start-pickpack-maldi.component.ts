@@ -1,40 +1,38 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, QueryList, OnDestroy, AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, NgZone } from '@angular/core';
+import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateService } from 'src/app/shared/utility/date.service';
-import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { sample } from 'rxjs/operators';
 import { FlatpickrOptions } from 'ng2-flatpickr';
-import { startPickpack, tempCHCData, centalLabModel, logisticsProviderModel, ChcSampleAddShipmentResponse, chcsampleProviderNameResponse, chcsampleCentrallabResponse, ChcSamplePickpackResponse, SamplePickpack } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-response';
 import { user } from 'src/app/shared/auth-response';
-import { ChcSampleAddShipmentRequest } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-request';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { SamplePickpack, ChcSamplePickpackResponse, chcsampleCentrallabResponse, chcsampleProviderNameResponse, ChcSampleAddShipmentResponse, centalLabModel, tempCHCData, startPickpack } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-response';
+import { ChcSampleAddShipmentRequest } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-request';
+import { logisticsProviderModel } from 'src/app/shared/chc-module/chc-pickandpack/chc-picknpack-response';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { DataService } from 'src/app/shared/data.service';
-import { LoaderService } from 'src/app/shared/loader/loader.service';
-
 
 @Component({
-  selector: 'app-chc-sample-pickpack',
-  templateUrl: './chc-sample-pickpack.component.html',
-  styleUrls: ['./chc-sample-pickpack.component.css']
+  selector: 'app-chc-start-pickpack-maldi',
+  templateUrl: './chc-start-pickpack-maldi.component.html',
+  styleUrls: ['./chc-start-pickpack-maldi.component.css']
 })
-export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnInit  {
-  
-  //@ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
-  @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
+export class ChcStartPickpackMaldiComponent implements OnInit {
+
+  @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  //@ViewChild(DataTableDirective, { static: false }) dtElement1: DataTableDirective;
 
   @Output() public onLoadSamples = new EventEmitter();
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  dtOptions1: DataTables.Settings = {};
-  dtTrigger1: Subject<any> = new Subject();
+  // dtOptions1: DataTables.Settings = {};
+  // dtTrigger1: Subject<any> = new Subject();
 
   samplepicknpackErrorMessage: string;
   chcsamplepickpack: SamplePickpack[];
@@ -47,6 +45,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   providerNames: logisticsProviderModel[] = [];
   centralLab: centalLabModel[]=[]; 
   user: user;
+  showUploadResult = false;
 
   shipmentId: string;
   errorMessage: string;
@@ -59,6 +58,9 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   isAliquoteBarcodeMatch: boolean = false;
   tempCHCDatas: tempCHCData[] = [];
   startPickpackData: startPickpack[] = [];
+  tempCHCData = [];
+  centralReceiptsData: any[] = [];
+  pickpackStartList = [];
   primarytubeSelected: boolean = true;
   alliquotedtubeSelected: boolean = true;
   startpickpackSelected: boolean = true;
@@ -76,7 +78,6 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   popupform: FormGroup;
   DAY = 86400000;
   selectedAll: any;
-  selectedall: boolean = true;
   chclabtechnician:string;
   testingChcname:string;
   labTechnicianName: string;
@@ -99,12 +100,6 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     enableTime: true,
   };
 
-  pendingBadgeSampleCount: number = 0;
-  startBadgePickpackCount: number = 0;
-  _intSelectedBarcode :number;
-  _strSelectedBarcode: string;
-  _intSelectedBarcoderemove: number;
-
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
     private modalService: NgbModal,
@@ -113,17 +108,12 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     private router: Router,
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private dataservice: DataService,
-    private loaderService: LoaderService
+    zone: NgZone,
+    private DataService:DataService,
 
   ) { }
 
   ngOnInit() {
-
-    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Pick & Pack for HPLC lab"}));
-
-   // this.dtOptions[0] = this.chcsamplepickpack;
-    //this.dtOptions1[1] = this.startPickpackData;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
     this.dtOptions = {
@@ -132,7 +122,6 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       processing: true,
       stripeClasses: [],
       lengthMenu: [5, 10, 20, 50],
-      
       language: {
         search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
         searchPlaceholder: "Search...",
@@ -143,67 +132,45 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         },
-        
       }
     };
-    this.dtOptions1 = {
-      pagingType: 'simple_numbers',
-      pageLength: 20,
-      processing: true,
-      stripeClasses: [],
-      lengthMenu: [5, 10, 20, 50],
+    this.centralReceiptsData = [];
+    var centralReceiptsArr = this.route.snapshot.data.chcpickpackSamplesData;
+    if(centralReceiptsArr !== undefined && centralReceiptsArr.status.toString() === "true"){
+      var _tempData = centralReceiptsArr.pickandPack;
+      var _tempReceivedData = JSON.parse(JSON.stringify(centralReceiptsArr.pickandPack));
+      if(this.DataService.getdata().centralpickpackstart != undefined)
+      {
+        this.pickpackStartList = this.DataService.getdata().centralpickpackstart;
+        this.pickpackStartList.forEach((obj)=>{
+          var existNotification = _tempData.findIndex(({barcodeNo}) => obj.barcodeNo == barcodeNo);
+          _tempData.splice(existNotification,1);
+        });
+        this.showUploadResult = true;
+      }
       
-      language: {
-        search: '<div><span class="note">Search by any Subject information from below</span></div><div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>',
-        searchPlaceholder: "Search...",
-        lengthMenu: "Records / Page :  _MENU_",
-       
-        paginate: {
-          first: '',
-          last: '', // or '←' 
-          previous: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-          next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        },
-      }
-    };
-    console.log(this.chcsamplePickpackService.chcSamplePickPackApi);
-    this.chcsamplepicknpackList(this.user.chcId);
-    // Resolver //
-    // this.chcsamplepickpackinitResponse = this.route.snapshot.data.chcpickpackSamplesData;
-    // if (this.chcsamplepickpackinitResponse.status === 'false') {
-    //   this.chcsamplepickpack = [];
-    //   if (this.chcsamplepickpackinitResponse.message !== null && this.chcsamplepickpackinitResponse.message.code === "ENOTFOUND") {
-    //     this.samplepicknpackErrorMessage = "Unable to connect to api source";
-    //   }
-    //   else if (this.chcsamplepickpackinitResponse.message !== null || this.chcsamplepickpackinitResponse.message == undefined) {
-    //     this.samplepicknpackErrorMessage = this.chcsamplepickpackinitResponse.message;
-    //   }
-    // }
-    // else {
-
-    //   if (this.chcsamplepickpackinitResponse.pickandPack != null && this.chcsamplepickpackinitResponse.pickandPack.length > 0) {
-    //     this.chcsamplepickpack = this.chcsamplepickpackinitResponse.pickandPack;
-    //     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
-       
-    //   }
-    // }
+        this.centralReceiptsData = _tempData;
+        this.tempCHCData = JSON.parse(JSON.stringify(_tempData));
+        this.DataService.sendData(JSON.stringify({'screen':'centralpickpack','page':"","pendingcount":this.centralReceiptsData.length,"startpickCount":this.pickpackStartList.length}));
+      
+    }
+    else{
+      this.errorMessage = centralReceiptsArr.message;
+    }
   }
- 
-  chcsamplepicknpackList(chcId) {
 
-    this.loaderService.display(true);
+  
+  chcsamplepicknpackList(chcId) {
     this.chcsamplepickpack = [];
-    let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
+    let picknpack = this.chcsamplePickpackService.getsamplePickpackChcMaldi(this.user.chcId)
       .subscribe(response => {
         this.chcsamplepicknpickResponse = response;
-        this.loaderService.display(false);
         if (this.chcsamplepicknpickResponse !== null && this.chcsamplepicknpickResponse.status === "true") {
           if (this.chcsamplepicknpickResponse.pickandPack.length <= 0) {
             this.samplepicknpackErrorMessage = response.message;
           }
           else {
             this.chcsamplepickpack = this.chcsamplepicknpickResponse.pickandPack;
-            this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
             // this.sampleList.forEach(element => {
             //   element.sampleSelected = true;
             // });
@@ -219,20 +186,18 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
-  onChange(samplepicknPackdetail, primarytube) {
+
+  clicksearchBarcode(samplepicknPackdetail) {
 
     this.tempCHCDatas = [];
-    console.log('changed', this.searchbarcode, primarytube);
-    primarytube = this.searchbarcode;
-    //this.searchbarcode = primarytube;
-    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
+    let term = this.searchbarcode;
+    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === term)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
-      primarytube = '';
+      this.searchbarcode='';
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
-      
 
       this.modalService.open(
         samplepicknPackdetail, {
@@ -248,16 +213,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //   console.log('User already exists');
     //  }
 
-    // else {
-    //   Swal.fire({ allowOutsideClick: false,
-    //     icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
-    //   });
-    //   this.searchbarcode=''; 
-    // }
+    else {
+      Swal.fire({ allowOutsideClick: false,
+        icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
+      });
+      this.searchbarcode=''; 
+    }
 
-  }
-  clicksearchBarcode(samplepicknPackdetail){
-    console.log(this.searchbarcode);
   }
 
   ddlcentrallab(chcId) {
@@ -320,8 +282,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     this.ddlcentrallab(this.user.chcId);
     this.ddlProviderName();
-    this.fetchMaxDate();
-    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
+    this.fetchBarcodes();
 
     this.chclabtechnician = this.user.name;
     this.testingChcname = this.user.chcName;
@@ -344,9 +305,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
   onSubmit(chcShipmentForm: NgForm){
     this.samplepicknpackErrorMessage = '';
-    var _arrsubmitSelectedBarcode = [];
-    this.fetchMaxDate();
-    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
+    this.fetchBarcodes();
     //var shipmentId = "123";
     console.log(chcShipmentForm.value);
 
@@ -374,16 +333,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       createdBy: this.user.id,
       source: 'N'
     }
-    // this.showResponseMessage('testing', 's');
     //return false;
-    let addshipment = this.chcsamplePickpackService.chcSampleAddShipment(this.chcsampleAddShipmentRequest)
+    let addshipment = this.chcsamplePickpackService.chcSampleAddShipmentMaldi(this.chcsampleAddShipmentRequest)
       .subscribe(response => {
         this.chcsampleAddShipmentResponse = response;
         if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
-          this.chcsamplepicknpackList(this.user.chcId);
-          this.removeSelectedBarcode(); 
-          
+          this.submittoshipment();
         } else {
           this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
           this.samplepicknpackErrorMessage = response.message;
@@ -420,123 +376,79 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
     }
   }
-  clickvalidateAlliqutetubeMatch(){
-    console.log(this.alliquotetubebarcode);
-  }
   
-  validateAlliqutetubeMatch(alliquotetube) {
+  validateAlliqutetubeMatch() {
     
     //this.tempCHCDatas = [];
-    //let alliquotetube = this.alliquotetubebarcode;
-    this.alliquotetubebarcode = alliquotetube;
-
-    var alliquotetubeExist = this.tempCHCDatas.filter(alli => alli.barcodeNo === alliquotetube);
-    if(alliquotetubeExist !== undefined && alliquotetubeExist.length > 0){
-      this.isAliquoteBarcodeMatch = true;
-      this.searchbarcode='';
-    }
-    
-    /*
+    let alliquotetube = this.alliquotetubebarcode;
     this.tempCHCDatas.forEach(element => {
       if (element.barcodeNo === alliquotetube) {
         this.isAliquoteBarcodeMatch = true;
-        this.searchbarcode='';
-        break;
       }
-      // else {
-      //   Swal.fire({ allowOutsideClick: false, icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
-      //   this.alliquotetubebarcode='';
-      // }
-    });*/
-
+      else {
+        Swal.fire({ allowOutsideClick: false, icon: 'error', title: "Barcode didn't match", text: 'Please scan the correct barcode', confirmButtonText: 'Ok' });
+        this.alliquotetubebarcode='';
+      }
+    });
   }
 
-  submittoshipment(){ 
+  submittoshipment(){
 
     if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true){
      
       this.modalService.dismissAll();
-     
+      
       this.tempCHCDatas.forEach(element1 => {
         var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element1.barcodeNo)
         if (getdataindex >= 0) {
           this.startPickpackData.push(this.chcsamplepickpack[getdataindex]);
           this.chcsamplepickpack.splice(getdataindex,1);
-         // this.searchbarcode = '';
           this.isAddShipmentTrue = true;
-          this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
-          this.startBadgePickpackCount = this.startPickpackData.length;
-          this.rerender();
-
+          this.onLoadSamples.emit(this.startPickpackData.length);
+          this.onLoadSamples.emit(this.chcsamplepickpack.length);
+         
+          
         }
-      }); 
-      // this.searchbarcode = '';    
-      // this.searchbarcode = '';    
+      });     
+    }
+
+  }
+
+  checkIfSelected(index){
+
+    this.startpickpackSelected;
+    this.isAddShipmentTrue = false;
+    console.log(this.startPickpackData);
+    this.selectedAll = this.startPickpackData.every(function (item: any) {
+      return item.startpickpackSelected == true;
+
+    })
+    if(this.startpickpackSelected === false){
+      Swal.fire({ allowOutsideClick: false,
+        title: 'One or more selected samples that are aging more than 24 hours',
+        text: "Do you still want to continue?",
+        icon: 'warning',
+        showCancelButton: true,         
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          this.chcsamplepickpack.push(this.startPickpackData[index]);
+          this.startPickpackData.splice(index,1);
+          this.isAddShipmentTrue = false;
+      //this.rerender();
+          //this.searchbarcode='';
+        }
+        else {
+            return false;             
+        }
+      })  
+      
     }
     else{
-      Swal.fire({ allowOutsideClick: false,
-        icon: 'warning',
-        title: 'Please select the Primary and Alliquoted HPLC tube',
-        showConfirmButton: true,
-        confirmButtonText: 'OK'
-      })
+      this.isAddShipmentTrue = true;
     }
-
   }
-
-  // selectAll(index) {
-  //   for (var i = 0; i < this.startPickpackData.length; i++) {
-  //     this.startPickpackData[i].startpickpackSelected = this.selectedAll;
-  //     console.log(this.startPickpackData);
-  //   }
-  // }
-  checkIfSelected(index)
-  {
-    this.chcsamplepickpack.push(this.startPickpackData[index]);
-    this.startPickpackData.splice(index,1);
-    this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
-    this.startBadgePickpackCount = this.startPickpackData.length;
-    this.rerender();
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Back to ship',
-      showConfirmButton: false,
-      timer: 2000
-    })
-    if(this.startPickpackData.length == 0)
-        this.isAddShipmentTrue = false;
-  }
-
-  // checkIfSelected(index){
-
-  //   this.startpickpackSelected;
-  //   this.isAddShipmentTrue = false;
-  //   console.log(this.startPickpackData);
-  //   this.selectedAll = this.startPickpackData.every(function (item: any) {
-  //     return item.startpickpackSelected == true;
-  //   })
-  //   if(this.startpickpackSelected === false){
-      
-  //     this.chcsamplepickpack.push(this.startPickpackData[index]);
-  //     this.startPickpackData.splice(index,1);
-  //     this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
-  //     this.startBadgePickpackCount = this.startPickpackData.length;
-  //     this.rerender();
-  //     this.isAddShipmentTrue = false;
-     
-  //     Swal.fire({ allowOutsideClick: false,
-  //       position: 'top-end',
-  //       icon: 'success',
-  //       title: 'Back to Ship',
-  //       showConfirmButton: false,
-  //       timer: 2000
-  //     })
-  //   }
-  //   else{
-  //     this.isAddShipmentTrue = true;
-  //   }
-  // }
 
   InitializeDateRange() {
 
@@ -554,36 +466,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     });
 
   }
-  removeSelectedBarcode() {
-  
-    var _arrsubmitSelectedBarcode = [];
-    this.startPickpackData.forEach(element => {
-      console.log('sampleSelected :' + element.startpickpackSelected);
-      if (this.startpickpackSelected === true) {
-        _arrsubmitSelectedBarcode.push(element.barcodeNo);
-      }
-    });
-      this._intSelectedBarcoderemove = _arrsubmitSelectedBarcode.length;
-      this.startPickpackData = [];
-      this.startPickpackData.splice(this._intSelectedBarcode, 1)
-      this.startBadgePickpackCount = this.startPickpackData.length;
-      this.rerender();
-  }
 
-  getSelectedBarcode() {
-  
-        var _arrSelectedBarcode = [];
-        this.startPickpackData.forEach(element => {
-          console.log('sampleSelected :' + element.startpickpackSelected);
-          if (this.startpickpackSelected === true) {
-            _arrSelectedBarcode.push(element.barcodeNo);
-          }
-        });
-        this._intSelectedBarcode = _arrSelectedBarcode.length;
-        return _arrSelectedBarcode.join(',');
-      }
-
-  fetchMaxDate() {
+  fetchBarcodes() {
     this.selectedBarcodes = '';
     var isFirst = true;
     var getdates;
@@ -592,14 +476,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       if (this.startpickpackSelected === true) {
         //if (element.sampleSelected) {
         if (isFirst) {
-          //this.selectedBarcodes += element.barcodeNo;
-          getdates = [{ "selecteddate": this.convertToDateFormat(element.cbcTestCompletedDate) }];
+          this.selectedBarcodes += element.barcodeNo;
+          getdates = [{ "selecteddate": this.convertToDateFormat(element.sampleDateTime) }];
           isFirst = false;
         }
         else {
-           //this.selectedBarcodes += ',' + element.barcodeNo;
-          
-          getdates.push({ "selecteddate": this.convertToDateFormat(element.cbcTestCompletedDate) });
+          this.selectedBarcodes += ',' + element.barcodeNo;
+          getdates.push({ "selecteddate": this.convertToDateFormat(element.sampleDateTime) });
         }
       }
     });
@@ -614,81 +497,35 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   convertToDateFormat(strDate){
   
     var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-    if (strDate=''){
     var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
     console.log(dateFormat);
     return dateFormat;
+  
   }
-  else
-  {
-    return strDate
-  }
-  }
-  rerender(): void {
-    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      
-    //   // Destroy the table first   
-    //   dtInstance.clear();
-    //   dtInstance.destroy();
-    //   // Call the dtTrigger to rerender again       
-    //   this.dtTrigger.next();
-    // });
-    // this.dtElement1.dtInstance.then((dtInstance: DataTables.Api) => {
-      
-    //   // Destroy the table first   
-    //   dtInstance.clear();
-    //   dtInstance.destroy();
-    //   // Call the dtTrigger to rerender again       
-    //   this.dtTrigger1.next();
-    // });
-    // this.dtElements.forEach((dtElement: DataTableDirective) => {
-    //   if(dtElement.dtInstance)
-    //     dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    //       dtInstance.clear();
-    //       dtInstance.destroy(); 
-    //       dtInstance.draw();         
-    //   });
-    // });
 
-    this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
-      dtElement.dtInstance.then((dtInstance: any) => {
-        console.log(`The DataTable ${index} instance ID is: ${dtInstance.table().node().id}`);
-        //dtInstance.clear();
-        dtInstance.destroy();
-        //dtInstance.draw();
-      });    
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      
+      // Destroy the table first   
+      dtInstance.clear();
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again       
+      this.dtTrigger.next();
     });
+   
+  }
+
+  ngAfterViewInit(): void {
     this.dtTrigger.next();
-    this.dtTrigger1.next();   
     
   }
-  returnTimeStamp(da)
-  {
-    var _date = da.split('/')[0];
-    var _month = da.split('/')[1];
-    var _year = da.split('/')[2];
-    return moment(_month+"/"+_date+"/"+_year).unix();
-  }
-  ngAfterViewInit(): void {
-    this.dtTrigger.next(); 
-    this.dtTrigger1.next();
-  }
+
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
-    this.dtTrigger1.unsubscribe();
+   
   }
 
-  // receiveBadgeCount(componentReference){
-  //   //onLoadSamples
-  //   componentReference.onLoadSamples.subscribe((data: number) => {
-  //     if(this.router.url.indexOf('sample-pickpack') >= 0){
-  //       this.pendingBadgeSampleCount = data;
-  //     }
-  //     else if(this.router.url.indexOf('startpickpack') >= 0){
-  //       this.startBadgePickpackCount = data;
-  //     }
-  //   });
-  // }
+
 }

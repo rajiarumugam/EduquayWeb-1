@@ -11,6 +11,7 @@ import { ChcSampleShipmentlogResponse } from './chc-sample-shipmentlog-response'
 export class ChcSampleShipmentlogService {
 
   chcsampleShipmentLogApi: string = 'api/v1/CHCReceiptProcessing/RetrieveShipmentLog';
+  chcsamplemaldiShipmentLogApi: string = 'api/v1/CHCReceiptProcessing/RetrieveMaldiShipmentLog';
 
   constructor(
     private httpClient: HttpClient,
@@ -22,6 +23,11 @@ export class ChcSampleShipmentlogService {
   getshipmentLog(chcId){
     var user = JSON.parse(this.tokenService.getUser('lu'));
     let apiUrl = this.genericServices.buildApiUrl(`${this.chcsampleShipmentLogApi}/${chcId}`);
+    return this.http.get<ChcSampleShipmentlogResponse>({url: apiUrl });
+  }
+  getmaldishipmentLog(chcId){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericServices.buildApiUrl(`${this.chcsamplemaldiShipmentLogApi}/${chcId}`);
     return this.http.get<ChcSampleShipmentlogResponse>({url: apiUrl });
   }
 }

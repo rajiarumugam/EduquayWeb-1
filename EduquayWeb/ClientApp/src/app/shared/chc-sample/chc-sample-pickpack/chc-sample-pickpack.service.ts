@@ -12,6 +12,8 @@ import { ChcSampleAddShipmentRequest } from './chc-sample-pickpack-request';
 export class ChcSamplePickpackService {
 
   chcSamplePickPackApi: string = "api/v1/CHCReceiptProcessing/RetrievePickandPack";
+  AddChcSampleShipmentMaldiApi:string ="api/v1/CHCReceiptProcessing/AddMaldiShipment";
+  chcSamplePickPackMaldiApi: string = "api/v1/CHCReceiptProcessing/RetrieveMaldiPickandPack";
   AddChcSampleShipmentApi:string= "api/v1/CHCReceiptProcessing/AddShipment";
   providernameApi: string = "api/v1/WebMaster/RetrieveLogisticsProvider";
   centralLabApi: string = "api/v1/WebMaster/RetrieveCentralLab";
@@ -28,6 +30,11 @@ export class ChcSamplePickpackService {
     let apiUrl = this.genericService.buildApiUrl(`${this.chcSamplePickPackApi}/${user.chcId}`);
     return this.http.get<ChcSamplePickpackResponse>({url: apiUrl });
   }
+  getsamplePickpackChcMaldi(chcId){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.chcSamplePickPackMaldiApi}/${user.chcId}`);
+    return this.http.get<ChcSamplePickpackResponse>({url: apiUrl });
+  }
 
   getProviderName(){
     let apiUrl = this.genericService.buildApiUrl(this.providernameApi);
@@ -42,6 +49,10 @@ export class ChcSamplePickpackService {
 
   chcSampleAddShipment(addchcshipment: ChcSampleAddShipmentRequest){
     let apiUrl = this.genericService.buildApiUrl(this.AddChcSampleShipmentApi);
+    return this.http.post<ChcSampleAddShipmentResponse>({url: apiUrl, body: addchcshipment});
+  }
+  chcSampleAddShipmentMaldi(addchcshipment: ChcSampleAddShipmentRequest){
+    let apiUrl = this.genericService.buildApiUrl(this.AddChcSampleShipmentMaldiApi);
     return this.http.post<ChcSampleAddShipmentResponse>({url: apiUrl, body: addchcshipment});
   }
 }

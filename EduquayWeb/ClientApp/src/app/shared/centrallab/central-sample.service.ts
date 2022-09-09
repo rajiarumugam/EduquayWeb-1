@@ -25,6 +25,13 @@ export class centralsampleService {
     return this.http.get<any>( {url:apiUrl});
   }
 
+  retriveCentralReceiptMaldi()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEMALDIRECEIPT+user.centralLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
+
   addHSBCtest(obj)
   {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDHPLCTEST);
