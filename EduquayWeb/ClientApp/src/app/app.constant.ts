@@ -54,6 +54,8 @@ export const ENDPOINT = {
         "RETRIVEMALDIRECEIPT":"api/v1/CentralLab/RetrieveMaldiReceipt/",
         "RETRIVECENTRALLABRECEIPT":"api/v1/CentralLab/RetrieveCentralLabReceipt/",
         "ADDRECEIVEDSHIPMENTS":"api/v1/CentralLab/AddReceivedShipments",
+        "ADDRECEIVEDMALDISHIPMENTS":"api/v1/CentralLab/AddReceivedMaldiShipments",
+
         "RETRIVEHPLC":"api/v1/CentralLab/RetrieveHPLC/",
         "ADDHPLCTEST":"api/v1/CentralLab/AddHPLCTest",
         "RETRIVESHIPMENTLOG":"api/v1/CentralLab/RetrieveShipmentLog/",

@@ -122,7 +122,7 @@
                         <th>RCH ID</th>
                         <th>Barcode</th>
                         <th>Primary Tube</th>
-                        <th>Aliquoted HPLC Tube </th>
+                        <th>Dried Blood Sample </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -229,7 +229,7 @@
                                 <label
                                     [ngClass]="{'label-border-class':DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid}"
                                     for="inputTestingCHC">
-                                    Receiving Central Lab <span class="manto">*</span></label>
+                                    Receiving  Lab <span class="manto">*</span></label>
                                 <select name="DDLcentrallab" #DDLcentrallab="ngModel"
                                     [class.is-invalid]="DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid"
                                     class="form-control field" id="inputTestingCHC" required

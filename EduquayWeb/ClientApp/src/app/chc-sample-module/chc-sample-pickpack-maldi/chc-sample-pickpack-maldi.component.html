@@ -222,7 +222,7 @@
                         <ng-template #samplepicknPackdetail let-modal>
                             <div class="modal-header">
                                 <h5 class="modaltitle" id="myLargeModalLabel">Pick & Pack for MALDI-TOF lab - Primary and
-                                    Aliquoted tube
+                                  Dried Blood Sample
                                 </h5>
                                 <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -267,7 +267,7 @@
                                                 <th>{{'RCHID' | translate }}</th>
                                                 <th>{{'Barcode' | translate }}</th>
                                                 <th>{{'PrimaryTube' | translate }}</th>
-                                                <th>{{'AliquotedHPLCTube' | translate }} </th>
+                                                <th>{{'Dried Blood Sample' | translate }} </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -388,7 +388,7 @@
                                                         <label
                                                             [ngClass]="{'label-border-class':DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid}"
                                                             for="inputTestingCHC">
-                                                            {{'ReceivingCentralLab' | translate }} <span class="manto">*</span></label>
+                                                            {{'Receiving Lab' | translate }} <span class="manto">*</span></label>
                                                         <select name="DDLcentrallab" #DDLcentrallab="ngModel"
                                                             [class.is-invalid]="DDLcentrallab.invalid && DDLcentrallab.touched || chcShipmentForm.submitted && DDLcentrallab.invalid"
                                                             class="form-control field" id="inputTestingCHC" required
@@ -396,7 +396,7 @@
                                                             <option value="" selected>--Select--</option>
                                                             <option *ngFor="let labName of centralLab"
                                                                 [(value)]="labName.id">
-                                                                {{labName.centralLabName}}
+                                                                {{"CMC MALDI-TOF Lab"}}
                                                             </option>
                                                         </select>
                                                         <small class=" ml-2 text-danger"

@@ -1,0 +1,213 @@
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+    <!--  BEGIN SIDEBAR  -->
+    <div class="sidebar-wrapper sidebar-theme">
+        <app-site-sidebar module="chcsam" subMenum="Shipment-Log "></app-site-sidebar>
+    </div>
+    <!--  END SIDEBAR  -->
+
+    <!--  BEGIN CONTENT AREA  -->
+
+    <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+            <div class="row layout-top-spacing">
+                <div class="col-md-12">
+                    <div class="justify-between">
+                        <div class="col-md-4">
+                            <div class="float-left"><a class="btn btn-outline-primary bs-tooltip"
+                                    [routerLink]="['/app/chc-sample-pickpack']" role="button"
+                                    ngbTooltip="Pick & Pack for HPLC lab" placement="right"><i
+                                        class="fas fa-chevron-left pNav-left"></i></a></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="headertit">
+                                <h5 class="float-center">{{'ShipmentDetails' | translate }} </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="float-right mb-4">
+                                <a class="btn btn-outline-primary bs-tooltip" [routerLink]="['/app/chc-sample-report']"
+                                    role="button" ngbTooltip="Report - Sample Status" placement="left"><i
+                                        class="fas fa-chevron-right pNav-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                    <div class="widget-content widget-content-area br-6">
+                        <!-- <div class="row my-4">
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>{{'ShipmentID' | translate }} : </b></span><span>{{shipmentItem.shipmentId}}</span></p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="float-left"><span><b>{{'ShipmentDate&Time' | translate }} :
+                                        </b></span><span>{{shipmentItem.shipmentDateTime}}</span>
+                            </div>
+
+                        </div>
+
+                        <div class="container-fluid mt-2">
+                            <div class="row">
+                                <div class="col-md-12 border-bottom">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-md-4">
+                                <span><b>{{'LabTechnician' | translate }} : </b></span><span>{{shipmentItem.labTechnicianName}}</span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <span><b>{{'TestingCHC' | translate }} : </b></span><span>{{shipmentItem.testingCHC}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span><b>{{'ReceivingCentralLab' | translate }} : </b></span><span>{{shipmentItem.receivingCentralLab}}</span>
+                            </div>
+
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-md-4">
+                                <span><b>{{'LogisticsServiceProvider' | translate }} : </b></span><span>{{shipmentItem.logisticsProviderName}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span><b>{{'DeliveryExecutiveName' | translate }} : </b></span><span>{{shipmentItem.deliveryExecutiveName}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span><b>{{'ContactNumber' | translate }} : </b></span><span>{{shipmentItem.contactNo}}</span>
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive mt-4" style="overflow-x: hidden;">
+                            <table id="zero-config" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><span>{{'SNo' | translate }}</span></th>
+                                        <th><span>{{'SubjectName' | translate }}</span></th>
+                                        <th><span>{{'SubjectID' | translate }}</span></th>
+                                        <th><span>{{'Barcode' | translate }}</span></th>
+                                        <th><span>{{'SampleCollectionDate_Time' | translate }}</span></th>
+
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let sampleDetail of sampleDetails; index as i">
+                                        <td class="sno text-center">{{i +1}}</td>
+                                        <td class="sname">{{sampleDetail.subjectName}}</td>
+                                        <td class="sid text-center">{{sampleDetail.uniqueSubjectId}}</td>
+                                        <td class="mobile text-center">{{sampleDetail.barcodeNo}}</td>
+                                        <td class="dartetimenew text-center">{{sampleDetail.sampleCollectionDateTime}}
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div> -->
+                        <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing" style="width: 98%;height: 27rem;border: 0px solid #ccc;">
+
+                            <div class="row" style="margin-top: 1rem;">
+                                <div class="col-md-4 mt-3" style="width: 100%;" nowrap='nowrap'>
+                                    <b>{{'ShipmentID' | translate }}: {{shipmentItem.shipmentId}} </b>
+                                </div>
+                                <div class="col-md-4 mt-3"  style="width: 100%;" nowrap='nowrap'>
+                                    <b>{{'ShipmentDate&Time' | translate }}: {{shipmentItem.shipmentDateTime}}
+                                            </b>
+                                </div>
+                                <div class="col-md-4 d-flex justify-content-end">
+                                    <div class="btn-toolbar mb-2 mb-md-0">
+                                        <div class="btn-group">
+                                            <a (click)="exportexcel()"><button type="button" class="btn btn-sm btn-outline-light">
+                                                <img src="assets/assets/img/excelimage.png" width="23px" class="downloadimg bs-tooltip" ngbTooltip="Download as Excel"></button></a>
+                                            <!-- <button type="button" class="btn btn-sm btn-outline-light">
+                                                <img src="assets/assets/img/pdfimage.png" width="23px" class="downloadimg bs-tooltip" title="Download as PDF"></button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- <div class="container-fluid" style="margin-top: 3rem;">
+                                <div class="row">
+                                    <div class="col-md-12 border-bottom">
+                                    </div>
+                                </div>
+                            </div> -->
+                        <div id="excel-table">
+                      
+                            <div class="table-responsive my-4">
+                                <table class="table">                                
+                                    <tbody>
+                                        <tr>
+                                            <td class="sp-xs-td-9"><b>{{'LabTechnicianName' | translate }} : </b></td>
+                                            <td class="sp-xs-td-15">{{shipmentItem.labTechnicianName}}</td>
+                                            <td class="sp-xs-td-9"><b>{{'TestingCHC' | translate }} : </b></td>
+                                            <td class="sp-xs-td-15">{{shipmentItem.testingCHC}}</td>
+                                            <td class="sp-xs-td-9"><b>{{'ReceivingCentralLab' | translate }} : </b></td>
+                                            <td class="sp-xs-td-15">{{shipmentItem.receivingCentralLab}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>{{'LogisticsServiceProvider' | translate }} : </b> </td>
+                                            <td>{{shipmentItem.logisticsProviderName}}</td>
+                                            <td><b>{{'DeliveryExecutiveName' | translate }} : </b></td>
+                                            <td>{{shipmentItem.deliveryExecutiveName}}
+                                            </td>
+                                            <td><b>{{'ContactNumber' | translate }} : </b></td>
+                                            <!-- <td><b>3423422</b>|3423434|3423442</td> -->
+                                            <td>{{shipmentItem.contactNo}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive" style="overflow-x: hidden;margin-top: 2rem;height: 19rem;">
+                                <table id="zero-config" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                           
+                                            <th><span>{{'SNo' | translate }}</span></th>
+                                            <th><span>{{'SubjectName' | translate }}</span></th>
+                                            <th><span>{{'SubjectID' | translate }}</span></th>
+                                            <th class="text-center"><span>{{'RCHID' | translate }}</span></th>
+                                            <th><span>{{'Barcode' | translate }}</span></th>
+                                            <th><span>{{'SampleCollectionDate_Time' | translate }}</span></th>
+    
+                                        </tr>
+    
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let sampleDetail of sampleDetails; index as i">
+                                            <td class="sno text-center">{{i +1}}</td>
+                                            <td class="sname">{{sampleDetail.subjectName}}</td>
+                                            <td class="sid text-center">{{sampleDetail.uniqueSubjectId}}</td>
+                                            <td class="sid text-center">{{sampleDetail.rchId}}</td>
+                                            <td class="mobile text-center">{{sampleDetail.barcodeNo}}</td>
+                                            <td class="dartetimenew text-center">{{sampleDetail.sampleCollectionDateTime}}
+                                            </td>
+    
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--  END CONTENT AREA  -->
+
+
+<!--  END MAIN CONTAINER  -->
+<i appLoadScript [script]="'assets/assets/js/anm-module/anm-shipmentlog.js'"></i>
+<!-- <i appLoadScript [script]="'assets/plugins/flatpickr/pickandpacklist-flatpickr.js'"></i> -->
+<!--<i appLoadScript [script]="'assets/plugins/noUiSlider/custom-nouiSlider.js'"></i>-->
+<i appLoadScript [script]="'assets/assets/js/elements/custom-search.js'"></i>
+<i appLoadScript [script]="'assets/plugins/sweetalerts/custom-sweetalert.js'"></i>

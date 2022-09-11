@@ -267,7 +267,7 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
                   _sampleResult.push(_obj);
               }
 
-              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDSHIPMENTS);
+              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDMALDISHIPMENTS);
               this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
                 if(response.status === "true")

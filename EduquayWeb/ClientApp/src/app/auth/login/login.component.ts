@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
           else  if(this.authResult.userDetail.userRole === "SUPERADMIN" || this.authResult.userDetail.userRole === "ADMIN" )
               this.router.navigate(['/app/add-state'], { relativeTo: this.route });
           else  if(this.authResult.userDetail.userRole === "MALDILT" || this.authResult.userDetail.userRole === "ADMIN" )
-              this.router.navigate(['/app/add-state'], { relativeTo: this.route });
+              this.router.navigate(['/app/centrallabMaldi'], { relativeTo: this.route });
 
 
         } else if ((this.authResult && (!this.authResult.status))) {

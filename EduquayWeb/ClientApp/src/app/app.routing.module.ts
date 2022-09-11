@@ -379,6 +379,11 @@ import { ChcSampleShipmentlogMaldiComponent } from "./chc-sample-module/chc-samp
 import { CentralSampleRcptMaldiMainComponent } from "./central-lab/sample-rcpt-maldi/central-sample-rcpt-maldi-main/central-sample-rcpt-maldi-main.component";
 import { CentralSampleRcptMaldiComponent } from "./central-lab/sample-rcpt-maldi/central-sample-rec-maldi/central-sample-rec-maldi.component";
 import { CentrallabSampleMaldiResolverService } from "./shared/centrallab/central-sample-resolver-maldi.service";
+import { ChcSampleViewShipmentMaldiComponent } from "./chc-sample-module/chc-sample-view-shipment-maldi/chc-sample-view-shipment.component";
+import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
+import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
+import { TableFilterPipe } from "./shared/admin/sa-upload/sa-upload-file/FilterPipe";
+import { AVDComponent } from "./admin/avd/avd.component";
 
 
 const routes: Routes = [
@@ -569,6 +574,8 @@ const routes: Routes = [
       { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent}, // resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}
       { path: 'chc-sample-shipmentlog-maldi', component: ChcSampleShipmentlogMaldiComponent}, 
       { path: 'chc-sample-viewshipment', component: ChcSampleViewShipmentComponent, pathMatch: 'full'},
+      { path: 'chc-sample-viewshipment-maldi', component: ChcSampleViewShipmentMaldiComponent, pathMatch: 'full'},
+
       // {
       //   path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent,
       //   children:[
@@ -738,13 +745,13 @@ const routes: Routes = [
       {
         path: 'centrallabMaldi', component: CentralSampleRcptMaldiMainComponent,
         children:[
-          {path: '', component: CentralSampleRcptMaldiComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleResolverService}}
+          {path: '', component: CentralSampleRcptMaldiComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleMaldiResolverService}}
         ]
       },
       {
         path: 'centrallab-report', component: CentralLabreportSampleStatusMainComponent,
         children:[
-          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CentrallabSampleMaldiResolverService}}
+          {path: '', component: CentralLabreportSampleStatusComponent, pathMatch: 'full', resolve: {pndtcTesting: CentrallabSampleResolverService}}
         ]
       },
       {
@@ -1281,7 +1288,12 @@ export const RoutingComponents = [
   UsersAdminNHMComponent,
   ChcSampleShipmentlogMaldiComponent,
   CentralSampleRcptMaldiComponent,
-  CentralSampleRcptMaldiMainComponent
+  CentralSampleRcptMaldiMainComponent,
+  ChcSampleViewShipmentMaldiComponent,
+  CommonUsersTableComponent,
+  AdminUsersListComponent,
+  TableFilterPipe,
+  AVDComponent,
 
 
 

@@ -367,7 +367,7 @@ export class ChcStartPickpackMaldiComponent implements OnInit {
           if (result.value) {
             this.modalService.dismissAll();
             //this.router.navigate(['/app/anm-viewshipment',{'q':shipmentId}]);
-            this.router.navigateByUrl(`/app/chc-sample-viewshipment?q=${shipmentId}`);
+            this.router.navigateByUrl(`/app/chc-sample-viewshipment-maldi?q=${shipmentId}`);
 
           }
           else {
