@@ -384,6 +384,9 @@ import { CommonUsersTableComponent } from "./shared/anm-module/common-users-tabl
 import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
 import { TableFilterPipe } from "./shared/admin/sa-upload/sa-upload-file/FilterPipe";
 import { AVDComponent } from "./admin/avd/avd.component";
+import { CentralSampleRcptMaldiHPLCComponent } from "./central-lab/sample-rcpt-hplc-maldi/central-sample-rec-maldi/central-sample-rec-maldi.component";
+import { CentralSampleRcptMaldiHPLCMainComponent } from "./central-lab/sample-rcpt-hplc-maldi/central-sample-rcpt-maldi-main/central-sample-rcpt-maldi-main.component";
+import { CentrallabSampleMaldihplcResolverService } from "./shared/centrallab/central-sample-resolver-maldi-cllab.service";
 
 
 const routes: Routes = [
@@ -746,6 +749,12 @@ const routes: Routes = [
         path: 'centrallabMaldi', component: CentralSampleRcptMaldiMainComponent,
         children:[
           {path: '', component: CentralSampleRcptMaldiComponent, pathMatch: 'full', resolve: {positiveSubjects: CentrallabSampleMaldiResolverService}}
+        ]
+      },
+      {
+        path: 'centrallabMaldcl', component: CentralSampleRcptMaldiHPLCMainComponent,
+        children:[
+          {path: '', component: CentralSampleRcptMaldiHPLCComponent, pathMatch: 'full', resolve: {positiveSubjects:CentrallabSampleMaldihplcResolverService }}
         ]
       },
       {
@@ -1294,6 +1303,8 @@ export const RoutingComponents = [
   AdminUsersListComponent,
   TableFilterPipe,
   AVDComponent,
+  CentralSampleRcptMaldiHPLCComponent,
+  CentralSampleRcptMaldiHPLCMainComponent
 
 
 

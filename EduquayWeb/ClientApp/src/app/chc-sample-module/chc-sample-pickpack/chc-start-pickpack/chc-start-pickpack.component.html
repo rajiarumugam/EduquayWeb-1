@@ -123,6 +123,8 @@
                         <th>Barcode</th>
                         <th>Primary Tube</th>
                         <th>Aliquoted HPLC Tube </th>
+                        <th>Dried Blood Sample</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -138,6 +140,16 @@
                                     <input type="checkbox" class="new-control-input checkbox"
                                         value="{{primarytubeSelected}}" ng-checked="primarytubeSelected === true"
                                         [(ngModel)]="primarytubeSelected">
+                                    <span class="new-control-indicator"></span>&nbsp;
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="n-chk text-center" id="checkbox" *ngIf="isAliquoteBarcodeMatch">
+                                <label class="new-control new-checkbox checkbox-outline-primary">
+                                    <input type="checkbox" class="new-control-input checkbox"
+                                        value="{{alliquotedtubeSelected}}" ng-checked="alliquotedtubeSelected === true"
+                                        [(ngModel)]="alliquotedtubeSelected">
                                     <span class="new-control-indicator"></span>&nbsp;
                                 </label>
                             </div>

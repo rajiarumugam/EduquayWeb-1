@@ -57,10 +57,14 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   alliquotetubebarcode: string = '';
   isAddShipmentTrue: boolean = false;
   isAliquoteBarcodeMatch: boolean = false;
+  isDBSBarcodeMatch:boolean=false;
   tempCHCDatas: tempCHCData[] = [];
   startPickpackData: startPickpack[] = [];
+  startPickpackDataMaldi: startPickpack[] = [];
+
   primarytubeSelected: boolean = true;
   alliquotedtubeSelected: boolean = true;
+  DBSTubeSelected:boolean=true;
   startpickpackSelected: boolean = true;
   //tempCHC=[];
   uniqueSubjectId: string;
@@ -97,6 +101,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //minDate: this.dyCollectionDate,
     maxDate: new Date(Date.now()),
     enableTime: true,
+    
+  };
+  pickerOptions: FlatpickrOptions = {
+    mode: "single",
+    dateFormat: "Y-m-d",
+    enableTime: true
+    // defaultDate: ["2021-03-17", "2021-03-17"]
   };
 
   pendingBadgeSampleCount: number = 0;
@@ -104,6 +115,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   _intSelectedBarcode :number;
   _strSelectedBarcode: string;
   _intSelectedBarcoderemove: number;
+  startBadgePickpackMaldiCount: number;
 
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
@@ -232,10 +244,49 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       primarytube = '';
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
+      this.isDBSBarcodeMatch=false
       
 
       this.modalService.open(
         samplepicknPackdetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+    }
+    // else if (this.tempCHCDatas.filter(({ barcodeNo }) => this.barcodeNo == barcodeNo).length) {
+    //   console.log('User already exists');
+    //  }
+
+    // else {
+    //   Swal.fire({ allowOutsideClick: false,
+    //     icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
+    //   });
+    //   this.searchbarcode=''; 
+    // }
+
+  }
+  onChangeMaldi(samplepicknPackMaldidetail, primarytube) {
+
+    this.tempCHCDatas = [];
+    console.log('changed', this.searchbarcode, primarytube);
+    primarytube = this.searchbarcode;
+    //this.searchbarcode = primarytube;
+    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
+    //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
+    if (getindex >= 0) {
+      this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
+      primarytube = '';
+      this.alliquotetubebarcode = '';
+      this.isAliquoteBarcodeMatch = false;
+      this.isDBSBarcodeMatch=false
+      
+
+      this.modalService.open(
+        samplepicknPackMaldidetail, {
         centered: true,
         size: 'xl',
         scrollable: true,
@@ -341,6 +392,32 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       ariaLabelledBy: 'modal-basic-title'
     });
   }
+  openshipmentformMaldi(sampleShipmentDetails, startpicknpack: startPickpack){
+
+    this.ddlcentrallab(this.user.chcId);
+    this.ddlProviderName();
+    this.fetchMaxDate();
+    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcodeMaldi();
+    
+
+    this.chclabtechnician = this.user.name;
+    this.testingChcname = this.user.chcName;
+
+    this.sampleShipmentDate = moment().format("DD/MM/YYYY");
+    this.sampleShipmentTime = moment().format("HH:mm");
+    this.shipmentDateOptions.maxDate = moment().format("DD/MM/YYYY HH:mm");
+    this.shipmentDateOptions.defaultDate = moment().format("DD/MM/YYYY HH:mm");
+
+    this.modalService.open(
+      sampleShipmentDetails, {
+      centered: true,
+      size: 'xl',
+      scrollable: true,
+      backdrop:'static',
+      keyboard: false,
+      ariaLabelledBy: 'modal-basic-title'
+    });
+  }
 
   onSubmit(chcShipmentForm: NgForm){
     this.samplepicknpackErrorMessage = '';
@@ -395,6 +472,60 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           this.samplepicknpackErrorMessage = err.toString();
         });
   }
+  onSubmitMaldi(chcShipmentForm: NgForm){
+    this.samplepicknpackErrorMessage = '';
+    var _arrsubmitSelectedBarcode = [];
+    this.fetchMaxDate();
+    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcodeMaldi();
+    //var shipmentId = "123";
+    console.log(chcShipmentForm.value);
+
+    // if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+    //   this.showResponseMessage(this.constantService.SelectOneSample, 'e');
+    //   return false;
+    // }
+    this.receivingCentralLabId = chcShipmentForm.value.DDLcentrallab;
+    this.logisticsProviderId =  chcShipmentForm.value.DDLserviceproviderName;
+    this.executiveContactNo = chcShipmentForm.value.contactNo;
+    this.deliveryExecutiveName = chcShipmentForm.value.deliveryexecutivename;
+
+    this.chcsampleAddShipmentRequest = {
+
+      labTechnicianName: this.user.name,
+      barcodeNo: this.selectedBarcodes,
+      chcUserId: this.user.id,
+      receivingCentralLabId: +(this.receivingCentralLabId),
+      logisticsProviderId: +(this.logisticsProviderId),
+      deliveryExecutiveName: this.deliveryExecutiveName,
+      executiveContactNo: this.executiveContactNo,
+      testingCHCId: this.user.chcId,
+      dateOfShipment: this.sampleShipmentDate,
+      timeOfShipment: this.sampleShipmentTime,
+      createdBy: this.user.id,
+      source: 'N'
+    }
+    // this.showResponseMessage('testing', 's');
+    //return false;
+    let addshipment = this.chcsamplePickpackService.chcSampleAddShipment(this.chcsampleAddShipmentRequest)
+      .subscribe(response => {
+        this.chcsampleAddShipmentResponse = response;
+        if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
+          this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
+          this.chcsamplepicknpackList(this.user.chcId);
+          this.removeSelectedBarcode(); 
+          
+        } else {
+          this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
+          this.samplepicknpackErrorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          this.showResponseMessage(err.toString(), 'e');
+          this.samplepicknpackErrorMessage = err.toString();
+        });
+  }
+
 
   showResponseMessage(shipmentId: string, type: string) {
     var messageType = '';
@@ -429,12 +560,22 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //this.tempCHCDatas = [];
     //let alliquotetube = this.alliquotetubebarcode;
     this.alliquotetubebarcode = alliquotetube;
-
+    if(this.isAliquoteBarcodeMatch==false){
     var alliquotetubeExist = this.tempCHCDatas.filter(alli => alli.barcodeNo === alliquotetube);
     if(alliquotetubeExist !== undefined && alliquotetubeExist.length > 0){
       this.isAliquoteBarcodeMatch = true;
       this.searchbarcode='';
     }
+  }
+  else{
+    var alliquotetubeExist = this.tempCHCDatas.filter(alli => alli.barcodeNo === alliquotetube);
+
+    if(alliquotetubeExist !== undefined && alliquotetubeExist.length > 0){
+    this.isDBSBarcodeMatch=true;
+    this.searchbarcode=''
+    }
+
+  }
     
     /*
     this.tempCHCDatas.forEach(element => {
@@ -466,6 +607,38 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           this.isAddShipmentTrue = true;
           this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
           this.startBadgePickpackCount = this.startPickpackData.length;
+          this.rerender();
+
+        }
+      }); 
+      // this.searchbarcode = '';    
+      // this.searchbarcode = '';    
+    }
+    else{
+      Swal.fire({ allowOutsideClick: false,
+        icon: 'warning',
+        title: 'Please select the Primary and Alliquoted HPLC tube',
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
+      })
+    }
+
+  }
+  submittoshipmentMaldi(){ 
+
+    if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true ){
+     
+      this.modalService.dismissAll();
+     
+      this.tempCHCDatas.forEach(element1 => {
+        var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element1.barcodeNo)
+        if (getdataindex >= 0) {
+          this.startPickpackDataMaldi.push(this.chcsamplepickpack[getdataindex]);
+          this.chcsamplepickpack.splice(getdataindex,1);
+         // this.searchbarcode = '';
+          this.isAddShipmentTrue = true;
+          this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+          this.startBadgePickpackMaldiCount = this.startPickpackDataMaldi.length;
           this.rerender();
 
         }
@@ -569,6 +742,22 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.startBadgePickpackCount = this.startPickpackData.length;
       this.rerender();
   }
+  removeSelectedBarcodeMaldi() {
+  
+    var _arrsubmitSelectedBarcode = [];
+    this.startPickpackDataMaldi.forEach(element => {
+      console.log('sampleSelected :' + element.startpickpackSelected);
+      if (this.startpickpackSelected === true) {
+        _arrsubmitSelectedBarcode.push(element.barcodeNo);
+      }
+    });
+      this._intSelectedBarcoderemove = _arrsubmitSelectedBarcode.length;
+      this.startPickpackData = [];
+      this.startPickpackDataMaldi.splice(this._intSelectedBarcode, 1)
+      this.startBadgePickpackCount = this.startPickpackData.length;
+      this.rerender();
+  }
+
 
   getSelectedBarcode() {
   
@@ -582,6 +771,21 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         this._intSelectedBarcode = _arrSelectedBarcode.length;
         return _arrSelectedBarcode.join(',');
       }
+      getSelectedBarcodeMaldi() {
+  
+        var _arrSelectedBarcode = [];
+        this.startPickpackDataMaldi.forEach(element => {
+          console.log('sampleSelected :' + element.startpickpackSelected);
+          if (this.startpickpackSelected === true) {
+            _arrSelectedBarcode.push(element.barcodeNo);
+          }
+        });
+        this._intSelectedBarcode = _arrSelectedBarcode.length;
+        return _arrSelectedBarcode.join(',');
+      }
+      
+
+      
 
   fetchMaxDate() {
     this.selectedBarcodes = '';
@@ -603,12 +807,12 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         }
       }
     });
-    var comparedate;
-    comparedate = getdates.reduce(function (r, a) {
-      return r.selecteddate > a.selecteddate ? r : a;
-    });
+    // var comparedate;
+    // comparedate = getdates.reduce(function (r, a) {
+    //   return r.selecteddate > a.selecteddate ? r : a;
+    // });
    
-    this.shipmentDateOptions.minDate = comparedate.selecteddate;
+    this.shipmentDateOptions.minDate = moment().toDate()
   }
 
   convertToDateFormat(strDate){

@@ -139,5 +139,8 @@
       }
     }
   },
-  "defaultProject": "EduquayWeb"
+  "defaultProject": "EduquayWeb",
+  "cli": {
+    "analytics": "846392b6-ab5b-456e-8864-59ca864881b9"
+  }
 }

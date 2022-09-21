@@ -364,11 +364,65 @@ export class ChcSamplePickpackMaldiComponent implements AfterViewInit, OnDestroy
       labTechnicianName: this.user.name,
       barcodeNo: this.selectedBarcodes,
       chcUserId: this.user.id,
-      receivingCentralLabId: +(this.receivingCentralLabId),
+      receivingCentralLabId: +(1),
       logisticsProviderId: +(this.logisticsProviderId),
       deliveryExecutiveName: this.deliveryExecutiveName,
       executiveContactNo: this.executiveContactNo,
-      testingCHCId: this.user.chcId,
+      testingCHCId:1,
+      dateOfShipment: this.sampleShipmentDate,
+      timeOfShipment: this.sampleShipmentTime,
+      createdBy: this.user.id,
+      source: 'N'
+    }
+    // this.showResponseMessage('testing', 's');
+    //return false;
+    let addshipment = this.chcsamplePickpackService.chcSampleAddShipmentMaldi(this.chcsampleAddShipmentRequest)
+      .subscribe(response => {
+        this.chcsampleAddShipmentResponse = response;
+        if (this.chcsampleAddShipmentResponse !== null && this.chcsampleAddShipmentResponse.status === "true") {
+          this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.shipmentId, 's');
+          this.chcsamplepicknpackList(this.user.chcId);
+          this.removeSelectedBarcode(); 
+          
+        } else {
+          this.showResponseMessage(this.chcsampleAddShipmentResponse.shipment.errorMessage, 'e');
+          this.samplepicknpackErrorMessage = response.message;
+        }
+
+      },
+        (err: HttpErrorResponse) => {
+          this.showResponseMessage(err.toString(), 'e');
+          this.samplepicknpackErrorMessage = err.toString();
+        });
+  }
+  onSubmitMaldi(chcShipmentForm: NgForm){
+    this.samplepicknpackErrorMessage = '';
+    var _arrsubmitSelectedBarcode = [];
+    this.fetchMaxDate();
+    this.selectedBarcodes = this._strSelectedBarcode = this.getSelectedBarcode();
+   
+    //var shipmentId = "123";
+    console.log(chcShipmentForm.value);
+
+    // if (this.selectedBarcodes === '' || this.selectedBarcodes === undefined) {
+    //   this.showResponseMessage(this.constantService.SelectOneSample, 'e');
+    //   return false;
+    // }
+    this.receivingCentralLabId = chcShipmentForm.value.DDLcentrallab;
+    this.logisticsProviderId =  chcShipmentForm.value.DDLserviceproviderName;
+    this.executiveContactNo = chcShipmentForm.value.contactNo;
+    this.deliveryExecutiveName = chcShipmentForm.value.deliveryexecutivename;
+
+    this.chcsampleAddShipmentRequest = {
+
+      labTechnicianName: this.user.name,
+      barcodeNo: this.selectedBarcodes,
+      chcUserId: this.user.id,
+      receivingCentralLabId: +(1),
+      logisticsProviderId: +(this.logisticsProviderId),
+      deliveryExecutiveName: this.deliveryExecutiveName,
+      executiveContactNo: this.executiveContactNo,
+      testingCHCId:1,
       dateOfShipment: this.sampleShipmentDate,
       timeOfShipment: this.sampleShipmentTime,
       createdBy: this.user.id,

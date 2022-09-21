@@ -9,12 +9,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:prod":"NODE_OPTIONS=--max_old_space_size=8192 ng build --prod"
+    "build:prod": "NODE_OPTIONS=--max_old_space_size=8192 ng build --prod"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "8.2.12",
     "@angular/cdk": "~8.2.3",
+    "@angular/cli": "^8.2.2",
     "@angular/common": "8.2.12",
     "@angular/compiler": "8.2.12",
     "@angular/core": "~8.2.14",
@@ -50,6 +51,7 @@
     "ngx-cookie-service": "^10.0.1",
     "ngx-export-as": "^1.5.0",
     "ngx-print": "^1.2.0-beta.5",
+    "npm": "^6.2.0",
     "oidc-client": "^1.10.1",
     "popper.js": "^1.16.1",
     "print-js": "^1.0.63",
@@ -60,7 +62,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.28",
-    "@angular/cli": "8.3.14",
     "@angular/compiler-cli": "8.2.12",
     "@angular/language-service": "8.2.12",
     "@types/datatables.net": "^1.10.19",
@@ -84,5 +85,10 @@
     "protractor": "~5.4.2",
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

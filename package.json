@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/cli": "8.2",
+    "npm": "^6.6.0"
+  }
+}
