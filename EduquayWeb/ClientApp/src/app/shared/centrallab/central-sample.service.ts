@@ -31,6 +31,12 @@ export class centralsampleService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEMALDIRECEIPT+user.centralLabId);
     return this.http.get<any>( {url:apiUrl});
   }
+  retriveCentralReceiptMaldiHPLC()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEMALDIRECEIPTHPLC+user.centralLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
 
   addHSBCtest(obj)
   {
@@ -41,6 +47,11 @@ export class centralsampleService {
   getCentralLabReport(subjectObj){
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVECENTRALLABREPORT);
     return this.http.post<any>( {url:apiUrl, body: subjectObj});
+  }
+  addDbsSpottingTime(obj){
+    var apiUrl=this.genericService.buildApiUrl('api/v1/CHCReceiptProcessing/AddDBSSpotting')
+    return this.http.post<any>({url:apiUrl,body:obj})
+
   }
 
 
@@ -82,6 +93,12 @@ export class centralsampleService {
   {
     var user = JSON.parse(this.tokenService.getUser('lu'));
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEHPLCTEST+user.centralLabId);
+    return this.http.get<any>( {url:apiUrl});
+  }
+  retriveMaldiSpotting()
+  {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.MaldiSpotting+user.chcId);
     return this.http.get<any>( {url:apiUrl});
   }
 }

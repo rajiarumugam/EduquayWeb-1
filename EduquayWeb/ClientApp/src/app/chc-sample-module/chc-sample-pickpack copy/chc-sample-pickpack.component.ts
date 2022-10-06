@@ -11,7 +11,7 @@ import { startPickpack, tempCHCData, centalLabModel, logisticsProviderModel, Chc
 import { user } from 'src/app/shared/auth-response';
 import { ChcSampleAddShipmentRequest } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack-request';
 import { DataTableDirective } from 'angular-datatables';
-import { iif, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
@@ -24,7 +24,7 @@ import { LoaderService } from 'src/app/shared/loader/loader.service';
   templateUrl: './chc-sample-pickpack.component.html',
   styleUrls: ['./chc-sample-pickpack.component.css']
 })
-export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnInit  {
+  export class   ChcMaldiDBSSpottingComponent  implements AfterViewInit, OnDestroy, OnInit  {
   
   //@ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
@@ -205,7 +205,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     this.loaderService.display(true);
     this.chcsamplepickpack = [];
-    let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
+    let picknpack = this.chcsamplePickpackService.getMaldiSpotting(this.user.chcId)
       .subscribe(response => {
         this.chcsamplepicknpickResponse = response;
         this.loaderService.display(false);
@@ -215,7 +215,6 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           }
           else {
             this.chcsamplepickpack = this.chcsamplepicknpickResponse.pickandPack;
-            console.log(this.chcsamplepickpack)
             this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
             // this.sampleList.forEach(element => {
             //   element.sampleSelected = true;
@@ -232,6 +231,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
+  
   onChange(samplepicknPackdetail, primarytube) {
 
     this.tempCHCDatas = [];
@@ -239,13 +239,9 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     primarytube = this.searchbarcode;
     //this.searchbarcode = primarytube;
     var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
-    
-
-    // var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo && com.dbsCompletedDate!=null === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
-     console.log (this.chcsamplepickpack[getindex].dbsCompletedDate)
       primarytube = '';
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
@@ -282,8 +278,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //this.searchbarcode = primarytube;
     var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
-    console.log (this.chcsamplepickpack[getindex].dbsCompletedDate)
-    if (getindex >= 0 && this.chcsamplepickpack[getindex].dbsCompletedDate!=null) {
+    if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
       primarytube = '';
       this.alliquotetubebarcode = '';
@@ -300,17 +295,6 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-    }else{
-     
-      Swal.fire({ allowOutsideClick: false,
-        icon: 'warning',
-        title: 'This samples is not ready for shipment.Samples are ready for shipment 3 hours after Maldi-spotting',
-        showConfirmButton: true,
-        confirmButtonText: 'OK'
-      })
-        
-    
-      
     }
     // else if (this.tempCHCDatas.filter(({ barcodeNo }) => this.barcodeNo == barcodeNo).length) {
     //   console.log('User already exists');

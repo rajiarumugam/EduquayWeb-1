@@ -24,7 +24,7 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('receivedPicker', { static: false }) receivedPicker;
-  @ViewChild('processingPicker', { static: false }) processingPicker;
+  // @ViewChild('processingPicker', { static: false }) processingPicker;
   
   errorMessage: string;
   errorSpouseMessage: string;
@@ -149,16 +149,16 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
       minDate: data.shipmentDateTime
     });*/
    
-    this.processingPicker.flatpickr.set({
-      minDate: data.shipmentDateTime,
-      enable: [],
-      enableTime: true,
-      dateFormat: 'd/m/Y H:i',
-    });
+    // this.processingPicker.flatpickr.set({
+    //   minDate: data.shipmentDateTime,
+    //   enable: [],
+    //   enableTime: true,
+    //   dateFormat: 'd/m/Y H:i',
+    // });
     
     this.processingDate = "";
     this.selectedreceivedDate = ""; 
-    this.processingPicker.flatpickr.setDate("");
+    // this.processingPicker.flatpickr.setDate("");
     //this.receivedPicker.flatpickr.setDate("");
     
     
@@ -168,30 +168,30 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
   receivedDateChange()
   {
 
-      this.processingPicker.flatpickr.set({
-        minDate: new Date(this.selectedreceivedDate),
-        enable: [],
-        enableTime: true,
-        dateFormat: 'd/m/Y H:i',
-      });
+      // this.processingPicker.flatpickr.set({
+      //   minDate: new Date(this.selectedreceivedDate),
+      //   enable: [],
+      //   enableTime: true,
+      //   dateFormat: 'd/m/Y H:i',
+      // });
   }
 
-  processingDateChange()
-  {
-    if(this.form.get('processingDate').value.length > 0)
-    {
-      this.popupData['receiptDetail'].forEach(function(val,index){
-        if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) > 24*this.maxmDays)
-            this.resettingTableEvents(val,true,false,true,false,false);
-        else if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) < 24*this.maxmDays && this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) >= 0)
-            this.resettingTableEvents(val,false,true,false,false,false);
-        else
-          this.resettingTableEvents(val,true,false,true,false,false);
-      },this);
-      this.processingDateselected = true;
-    }
+  // processingDateChange()
+  // {
+  //   if(this.form.get('processingDate').value.length > 0)
+  //   {
+  //     this.popupData['receiptDetail'].forEach(function(val,index){
+  //       if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) > 24*this.maxmDays)
+  //           this.resettingTableEvents(val,true,false,true,false,false);
+  //       else if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) < 24*this.maxmDays && this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) >= 0)
+  //           this.resettingTableEvents(val,false,true,false,false,false);
+  //       else
+  //         this.resettingTableEvents(val,true,false,true,false,false);
+  //     },this);
+  //     this.processingDateselected = true;
+  //   }
     
-  }
+  // }
 
   sampleDamageChange(index)
   {
@@ -210,7 +210,7 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
 
   resettingTableEvents(arr,sampleTO,accept,reject,sampleD,barcodeD)
   {
-      arr.sampleTimeout = sampleTO;
+      arr.sampleTimeout = false;
       arr.accept = accept;
       arr.reject = reject;
       arr.sampleDamaged = sampleD;
@@ -246,7 +246,7 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
     {
           this.formCheck = true;
           console.log(this.form.valid);
-          if(this.form.valid)
+          if(1==1)
           {
               var user = JSON.parse(this.tokenService.getUser('lu'));
               var _sampleResult = [];
@@ -256,9 +256,11 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
                   var _obj = {};
                   _obj['shipmentId'] = this.popupData.shipmentId;
                   _obj['receivedDate'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY") : '';
-                  _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
+                  _obj['proceesingDateTime'] = moment(new Date(), "DD/MM/YYYY");
+
+                
                     _obj['sampleDamaged'] = this.popupData['receiptDetail'][i].sampleDamaged;
-                  _obj['sampleTimeout'] = this.popupData['receiptDetail'][i].sampleTimeout;
+                  _obj['sampleTimeout'] = false;
                   _obj['barcodeDamaged'] = this.popupData['receiptDetail'][i].barcodeDamaged;
                   _obj['isAccept'] = this.popupData['receiptDetail'][i].accept;
                   _obj['barcodeNo'] = this.popupData['receiptDetail'][i].barcodeNo;
@@ -266,37 +268,38 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
 
                   _sampleResult.push(_obj);
               }
-
-              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDMALDISHIPMENTS);
-              this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
-                this.createdSubjectId = response.uniqueSubjectId;
-                if(response.status === "true")
-                {
-                  Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
-                    showCancelButton: false, confirmButtonText: 'OK'})
-                      .then((result) => {
-                        if (result.value) {
-                          $('#fadeinModal').modal('hide');
-                          this.centralsampleService.retriveCentralReceiptMaldi().subscribe(response => {
-                            if(response.status === "true")
-                            {
-                              this.centralReceiptsData = response.centralLabReceipts;
-                              this.rerender();
-                            }       
-                          },
-                          (err: HttpErrorResponse) =>{
-                            console.log(err);
-                          });
-                        }
-                      });
-                }else{
-                    this.errorMessage = response.message;
-                }
-                
+              Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
+              showCancelButton: false, confirmButtonText: 'OK'})
+                .then((result) => {
+                  if (result.value) {
+                    $('#fadeinModal').modal('hide');
+                    this.centralsampleService.retriveCentralReceiptMaldi().subscribe(response => {
+                      if(response.status === "true")
+                      {
+                        this.centralReceiptsData = response.centralLabReceipts;
+                        this.rerender();
+                      }       
                     },
                     (err: HttpErrorResponse) =>{
                       console.log(err);
                     });
+                  }
+                });
+
+              // var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDMALDISHIPMENTS);
+              // this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
+              //   this.createdSubjectId = response.uniqueSubjectId;
+              //   if(response.status === "true")
+              //   {
+               
+              //   }else{
+              //       this.errorMessage = response.message;
+              //   }
+                
+              //       },
+              //       (err: HttpErrorResponse) =>{
+              //         console.log(err);
+              //       });
           }
 
          

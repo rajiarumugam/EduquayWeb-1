@@ -39,7 +39,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 </div>
                                 <div class="col-md-3" [formGroup]="form">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ReceivedDateAndTime' | translate }}</b><span class="manto"> *</span>
-                                         <ng2-flatpickr  id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker  placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr> -->
+                                         <ng2-flatpickr  id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker  placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr> 
                                         <!-- <ng2-flatpickr id="scFromDate" name="processingDate"  formControlName="processingDate"   class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr> -->
     
                                     </h6>
@@ -70,7 +70,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <th><span>{{'RCHID' | translate }}</span></th>
                                 <th><span>{{'Barcode' | translate }}</span></th>
                                 <th class="datetimenewchc wordwrap"><span>{{'PT_Sample_Collection_Date_Time' | translate }}</span></th>
-                               <th><span>{{'SampleTimeout' | translate }}</span></th>
+                               <!-- <th><span>{{'SampleTimeout' | translate }}</span></th> -->
                                 <th><span>{{'SampleDamaged' | translate }}</span></th>
                                  <th><span>{{'BarcodeDamaged' | translate }}</span>
                                 </th>
@@ -87,13 +87,13 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <td class="">{{receipt.rchId}}</td>
                                 <td>{{receipt.barcodeNo}}</td>
                                 <td>{{receipt.sampleCollectionDateTime}}</td>
-                                <td class="n-chk text-center"><label
+                                <!-- <td class="n-chk text-center"><label
                                         class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
                                             class="new-control-input" disabled [checked]="receipt.sampleTimeout">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
-                                    </label></td>
+                                    </label></td> -->
                                 <td class="n-chk text-center"><label
                                         class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"

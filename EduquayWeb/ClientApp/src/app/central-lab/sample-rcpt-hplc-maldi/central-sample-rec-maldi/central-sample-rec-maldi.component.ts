@@ -210,7 +210,7 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
 
   resettingTableEvents(arr,sampleTO,accept,reject,sampleD,barcodeD)
   {
-      arr.sampleTimeout = sampleTO;
+      arr.sampleTimeout = false;
       arr.accept = accept;
       arr.reject = reject;
       arr.sampleDamaged = sampleD;
@@ -258,7 +258,7 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
                   _obj['receivedDate'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY") : '';
                   _obj['proceesingDateTime'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY HH:MM") : '';
                     _obj['sampleDamaged'] = this.popupData['receiptDetail'][i].sampleDamaged;
-                  _obj['sampleTimeout'] = this.popupData['receiptDetail'][i].sampleTimeout;
+                  _obj['sampleTimeout'] = false;
                   _obj['barcodeDamaged'] = this.popupData['receiptDetail'][i].barcodeDamaged;
                   _obj['isAccept'] = this.popupData['receiptDetail'][i].accept;
                   _obj['barcodeNo'] = this.popupData['receiptDetail'][i].barcodeNo;
@@ -277,7 +277,7 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
                       .then((result) => {
                         if (result.value) {
                           $('#fadeinModal').modal('hide');
-                          this.centralsampleService.retriveCentralReceiptMaldi().subscribe(response => {
+                          this.centralsampleService.retriveCentralReceiptMaldiHPLC().subscribe(response => {
                             if(response.status === "true")
                             {
                               this.centralReceiptsData = response.centralLabReceipts;
@@ -289,6 +289,8 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
                           });
                         }
                       });
+                      this.rerender();
+
                 }else{
                     this.errorMessage = response.message;
                 }

@@ -16,6 +16,7 @@ export interface SamplePickpack {
     cbcTestCompletedDate: string;
     startpickpackSelected: boolean;
     tempCHCData: tempCHCData[];
+    dbsCompletedDate:string;
     //shipment: ShipmentID;
    
 }
@@ -39,6 +40,7 @@ export interface startPickpack{
     cbcTestCompletedDate: string;
     startpickpackSelected: boolean;
     tempCHCData: tempCHCData[];
+    dbsCompletedDate:string;
     //shipment: ShipmentID;
 }
 

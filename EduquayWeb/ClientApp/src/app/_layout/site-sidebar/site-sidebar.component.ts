@@ -17,7 +17,7 @@ export class SiteSidebarComponent implements OnInit {
 
   userRole: string;
 
-
+ 
   constructor(
     private tokenService: TokenService,
     authService: AuthService
@@ -25,6 +25,7 @@ export class SiteSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenService.getUser('lu')); 
+    console.log(this.user)
   }
 
 }

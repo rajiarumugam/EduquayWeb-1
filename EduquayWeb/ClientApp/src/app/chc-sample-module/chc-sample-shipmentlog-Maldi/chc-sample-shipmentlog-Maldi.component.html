@@ -62,7 +62,6 @@
                                         <th><span>{{'ShipmentDate&Time' | translate }}</span></th>
                                         <th><span>{{'LabTechnicianName' | translate }}</span></th>
                                         <th><span>{{'DeliveryExecutiveName' | translate }}</span></th>
-                                        <th><span>{{'ReceivingCentralLab' | translate }}</span></th>
                                         <th><span>{{'View' | translate }}</span></th>
                                         <th><span>{{'Print' | translate }}</span></th>
                                     </tr>
@@ -75,7 +74,6 @@
                                         <td style="text-align: center"><span style="display: none;">{{returnTimeStamp(shipment.shipmentDateTime)}}</span>{{shipment.shipmentDateTime}}</td>
                                         <td style="text-align: left">{{shipment.labTechnicianName}}</td>
                                         <td style="text-align: left">{{shipment.deliveryExecutiveName}}</td>
-                                        <td style="text-align: left">{{shipment.testingCHC}}</td>
                                         <td style="text-align: center"><a
                                                 (click)="openchcSampleShipment(shippedChcSampleDetail, shipment)">
                                                 <i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></a>

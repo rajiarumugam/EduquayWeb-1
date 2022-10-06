@@ -24,8 +24,8 @@ export class CentralupdateHPLCNewService implements Resolve<any> {
       state: RouterStateSnapshot
     ): Observable<any> | Promise<any> | any {
     var user = JSON.parse(this.tokenService.getUser('lu'));
-    console.log(user);
-    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.RETRIVEHPLCTEST+user.centralLabId);
+    console.log(user,'Test');
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.MaldiSpotting+user.chcId);
     return this.httpClient.get<any>( {url:apiUrl}).pipe(
       catchError(error => {
         console.log(error);

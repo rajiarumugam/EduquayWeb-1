@@ -1,0 +1,170 @@
+<div class="tab-pane fade show" id="pick" role="tabpanel" aria-labelledby="pending-tab">
+    <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+            <div class="form-row my-4 ml-3">
+                <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                    <form class="form-inline my-2 my-lg-0">
+                        <div class="w-100 my-2">
+                            <input type="text" class="w-100 form-control sample-search br-30"
+                                name="searchbarcode" type="text"
+                                placeholder="Scan / Enter Barcode" [(ngModel)]="searchbarcode"
+                                debounce="500"
+                                (ngModelChange)="onChange(samplepicknPackdetail, $event,addChcDetail)"
+                                autocomplete="off">
+                            <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button
+                                    class="btn btn-primary" type="submit"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-search">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg></button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+<div class="table-responsive mb-4">
+<table id="anmshipment-tblconfig1" class="table table-bordered table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead>
+        <tr>
+            <th><span>{{'SNo' | translate }}</span></th>
+            <th><span>{{'SubjectID' | translate }}</span></th>
+            <th><span>{{'RCHID' | translate }}</span></th>
+            <th><span>{{'Barcode' | translate }}</span></th>
+            <!-- <th><span>{{'validateResult' | translate }}</span></th> -->
+        </tr>
+       
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of chcReceiptsData;index as i">
+            <td style="text-align: center;">{{ i + 1}}</td>
+            <td style="text-align: center;">{{ person.subjectId }}</td>
+            <td style="text-align: center;">{{ person.rchId }}</td>
+            <td style="text-align: center;">{{ person.barcodeNo }}</td>
+          
+            <!-- <td style="text-align: center;">
+                <button class="button-cls" [ngClass]="{'rerun-btn-disabled': (person.testId == 0) ? true : false}" (click)="confirm(person,1);" [disabled]="(person.testId == 0) ? true : false">Confirm</button>
+          <button class="button-cls"  (click)="hplcEdit(person,1);"  style="margin-left:5px;">ADD DBS SPOTTING TIME</button></td> --> 
+        </tr>
+    </tbody>
+</table>
+
+<div class="row1">
+    <div class="col-md-12">
+      
+    </div>
+</div>
+</div>
+
+<!-- The Modal -->
+<ng-template #addChcDetail let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title modaltitle">{{'Update' | translate }}</h4>
+      <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-x">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body form-body">
+        <div class="form-group col-md-3" [formGroup]="popupform">
+            <label class="note">{{'SampleCollectionDate_Time' | translate }} <span class="manto">*</span></label>
+            <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+              placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+            <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+             [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
+            </ng2-flatpickr>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="mr-2 btn btn-primary" id="linkto" name="linkto" (click)="submitDate()">{{'Submit' | translate }}</button>
+            <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+          </div>
+    </div>
+
+ </ng-template>
+<!-- <div id="fadeinModal" class="modal animated fadeInDown" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title modaltitle" id="myExtraLargeModalLabel">{{'Update DBS Spotting Time' | translate}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="col-lg-12">
+                <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                       
+                            <div class="form-row my-2" [formGroup]="firstFormGroup">
+
+                               <div class="col-md-12">
+                                 <div class="col-md-3">
+                                      <label>Maldi-Doff Spotting</label>
+                                 </div>
+                                 <div class="col-md-4">
+                                    <ng2-flatpickr id="popupDate" name="dateOfShipment" 
+                                      
+                                    class="form-control"
+                                    #shipmentDatePicker [config]="shipmentDateOptions"
+                                    placeholder="Select Date.." formControlName="shipmentDate"
+                                    >
+                                </ng2-flatpickr>
+                                </div>
+                                <div class="col-md-5">
+
+                                </div>
+
+                               </div>
+                           
+                                    <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                      placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                    
+                                                      
+                                        <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+                                          placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+                                        
+
+                                <!-- <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">{{'Validated Result' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="" [(ngModel)]="selectedHbA2" formControlName = "HbA2" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbA2.invalid }">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">{{'Maldi-Doff Result' | translate }}</label>
+                                    <input type="text" class="form-control" id="inputPincode1" placeholder="" [(ngModel)]="selectedsHbD" formControlName = "HbD" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbD.invalid }">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="birthreg" for="inputPincode1" [ngClass]="{'label-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">{{'Comments' | translate }}</label>
+                                    <input type="textarea" class="form-control" id="inputPincode1" placeholder="" [(ngModel)]="selectedHbF" formControlName = "HbF" [ngClass]="{'red-border-class': secondFormCheck && firstFormGroup.controls.HbF.invalid }">
+                                </div>
+                                -->
+                            <!-- </div>
+                       
+                    </div>
+               
+                    <div class="row float-right">
+                        <button type="submit" class="mr-2 btn btn-primary float-right" id="linkto"
+ (click)="sampleSubmit();" name="linkto">{{'Update' | translate}}</button>
+                        <button class="btn float-right" style="margin-left: 5px;" data-dismiss="modal"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div> --> 

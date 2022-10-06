@@ -12,6 +12,8 @@ import { ChcSampleAddShipmentRequest } from './chc-sample-pickpack-request';
 export class ChcSamplePickpackService {
 
   chcSamplePickPackApi: string = "api/v1/CHCReceiptProcessing/RetrievePickandPack";
+  chcMaldiSpottingApi: string = "api/v1/CHCReceiptProcessing/RetrieveMaldiSpotting";
+
   AddChcSampleShipmentMaldiApi:string ="api/v1/CHCReceiptProcessing/AddMaldiShipment";
   chcSamplePickPackMaldiApi: string = "api/v1/CHCReceiptProcessing/RetrieveMaldiPickandPack";
   AddChcSampleShipmentApi:string= "api/v1/CHCReceiptProcessing/AddShipment";
@@ -28,6 +30,16 @@ export class ChcSamplePickpackService {
   getsamplePickpackChc(chcId){
     var user = JSON.parse(this.tokenService.getUser('lu'));
     let apiUrl = this.genericService.buildApiUrl(`${this.chcSamplePickPackApi}/${user.chcId}`);
+    return this.http.get<ChcSamplePickpackResponse>({url: apiUrl });
+  }
+  getsampleMaldiPickpackChc(chcId){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.chcSamplePickPackApi}/${user.chcId}`);
+    return this.http.get<ChcSamplePickpackResponse>({url: apiUrl });
+  }
+  getMaldiSpotting(chcId){
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    let apiUrl = this.genericService.buildApiUrl(`${this.chcMaldiSpottingApi}/${user.chcId}`);
     return this.http.get<ChcSamplePickpackResponse>({url: apiUrl });
   }
   getsamplePickpackChcMaldi(chcId){

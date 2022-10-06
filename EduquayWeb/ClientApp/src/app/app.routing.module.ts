@@ -387,6 +387,11 @@ import { AVDComponent } from "./admin/avd/avd.component";
 import { CentralSampleRcptMaldiHPLCComponent } from "./central-lab/sample-rcpt-hplc-maldi/central-sample-rec-maldi/central-sample-rec-maldi.component";
 import { CentralSampleRcptMaldiHPLCMainComponent } from "./central-lab/sample-rcpt-hplc-maldi/central-sample-rcpt-maldi-main/central-sample-rcpt-maldi-main.component";
 import { CentrallabSampleMaldihplcResolverService } from "./shared/centrallab/central-sample-resolver-maldi-cllab.service";
+import { HPLCReceivedNewMaldiComponent } from "./central-lab/HPLC-update-new copy/HPLC-update-new-received/HPLC-update-new-received.component";
+import { ChcMaldiSpottingComponent } from "./chc-sample-module/chc-pending-pickpack-maldi/chc-pending-pickpack-maldi.component";
+import { ChcMaldiDBSSpottingUpdateComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-pending-pickpack/chc-pending-pickpack.component";
+import { ChcMaldiDBSSpottingComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-sample-pickpack.component";
+import { ChcStartPickpackComponent1 } from "./chc-sample-module/chc-sample-pickpack copy/chc-start-pickpack/chc-start-pickpack.component";
 
 
 const routes: Routes = [
@@ -572,6 +577,10 @@ const routes: Routes = [
           /*{path: '', component: CHCSampleRcptComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCSampleResolverService}}*/
         ]
       },
+      { path: 'chc-maldi-spotting', component:  ChcMaldiDBSSpottingComponent    }, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
+      // ChcMaldiDBSSpottingComponent
+      { path: 'chc-sample-maldi-dbs', component: ChcMaldiDBSSpottingComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
+
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
       { path: 'chc-sample-pickpack-maldi', component: ChcSamplePickpackMaldiComponent},
       { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent}, // resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}
@@ -630,6 +639,15 @@ const routes: Routes = [
           
         ]
       },
+      {
+        path: 'central-update-hplc-new', component: HPLCUpdateNewComponent,
+        children:[
+          {path: '', component: HPLCReceivedNewMaldiComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCNewService}},
+          
+        ]
+      },
+// export class HPLCReceivedNewMaldiComponent implements OnInit {
+
       /*{
         path: 'central-update-hplc', component: CentralHPLCupdateComponent,
         children:[
@@ -1304,8 +1322,12 @@ export const RoutingComponents = [
   TableFilterPipe,
   AVDComponent,
   CentralSampleRcptMaldiHPLCComponent,
-  CentralSampleRcptMaldiHPLCMainComponent
-
+  CentralSampleRcptMaldiHPLCMainComponent,
+  HPLCReceivedNewMaldiComponent,
+  ChcMaldiSpottingComponent,
+  ChcMaldiDBSSpottingUpdateComponent,
+  ChcMaldiDBSSpottingComponent,
+  ChcStartPickpackComponent1 
 
 
   // {

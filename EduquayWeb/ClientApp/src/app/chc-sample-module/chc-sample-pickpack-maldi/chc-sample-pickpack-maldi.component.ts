@@ -229,7 +229,7 @@ export class ChcSamplePickpackMaldiComponent implements AfterViewInit, OnDestroy
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     if (getindex >= 0) {
       this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
-      primarytube = '';
+      primarytube = true;
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
       
@@ -507,7 +507,7 @@ export class ChcSamplePickpackMaldiComponent implements AfterViewInit, OnDestroy
 
   submittoshipment(){ 
 
-    if(this.primarytubeSelected === true && this.alliquotedtubeSelected === true){
+    if(this.alliquotedtubeSelected === true){
      
       this.modalService.dismissAll();
      
