@@ -84,6 +84,31 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!--<div class="form-row my-4 ml-3">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                            <form class="form-inline my-2 my-lg-0">
+                                                <div class="w-100 my-2">
+                                                    <input type="text" class="w-100 form-control sample-search br-30"
+                                                        name="searchbarcode" type="text"
+                                                        placeholder="Scan / Enter Barcode" [(ngModel)]="searchbarcode"
+                                                        debounce="500"
+                                                        (ngModelChange)="onChange(samplepicknPackdetail, $event,addChcDetail)"
+                                                        autocomplete="off">
+                                                    <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button
+                                                            class="btn btn-primary" type="submit"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="feather feather-search">
+                                                                <circle cx="11" cy="11" r="8"></circle>
+                                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                            </svg></button></a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>-->
                                     <div class="table-responsive mt-2">
                                         <table id="pending-pickpack-tbl" class="table table-bordered table-hover"
                                             datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
@@ -107,14 +132,14 @@
                                             <tbody>
                                                 <tr *ngFor="let samplepicknpack of chcsamplepickpack; index as i">
                                                     <td class="sno text-center">{{i +1}}</td>
-                                                    <td [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > 3 && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < 3 && samplepicknpack.dbsCompletedDate}" class="sname text-left" >{{samplepicknpack.subjectName}}</td>
+                                                    <td [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > 4 && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < 4 && samplepicknpack.dbsCompletedDate}" class="sname text-left" >{{samplepicknpack.subjectName}}</td>
                                                    <!--- <td *ngIf="!samplepicknpack.dbsCompletedDate" class="sname text-left is-red">{{samplepicknpack.subjectName}}</td>-->
 
-                                                    <td  class="sid text-center" [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate}">{{samplepicknpack.uniqueSubjectId}}</td>
-                                                    <!--<td *ngIf="!samplepicknpack.dbsCompletedDate" class="sid text-center is-red">{{samplepicknpack.uniqueSubjectId}}</td>->
+                                                    <td  class="sid text-center" [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > 4 && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < 4 && samplepicknpack.dbsCompletedDate}">{{samplepicknpack.uniqueSubjectId}}</td>
+                                                    <!--<td *ngIf="!samplepicknpack.dbsCompletedDate" class="sid text-center is-red">{{samplepicknpack.uniqueSubjectId}}</td>-->
 
                                                     <td  class="sid text-center ">{{samplepicknpack.rchId}}</td>
-                                                    <!-- <td class="text-left"></td> -->
+                                                    <!--<td class="text-left"></td> -->
                                                     <td class="sid text-center">{{samplepicknpack.barcodeNo}}</td>
                                                     <td class="textsample text-center">
                                                         <span style="display: none;">{{returnTimeStamp(samplepicknpack.sampleDateTime)}}</span>{{samplepicknpack.sampleDateTime}}</td>
@@ -248,7 +273,7 @@
                                                         name="searchbarcode" type="text"
                                                         placeholder="Scan / Enter Barcode" [(ngModel)]="searchbarcode"
                                                         debounce="500"
-                                                        (ngModelChange)="onChangeMaldi(samplepicknPackMaldidetail, $event)"
+                                                        (ngModelChange)="onChangeMaldi(samplepicknPackMaldidetail, $event,addChcDetail,chcsamplepickpack)"
                                                         autocomplete="off">
                                                     <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button
                                                             class="btn btn-primary" type="submit"><svg
@@ -1169,6 +1194,51 @@
         </div>
     </div>
 </div>
+
+<ng-template #addChcDetail let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title modaltitle">{{'Update' | translate }}</h4>
+      <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-x">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body form-body">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+              <label class="note">{{'SubjectID' | translate }}</label>
+              <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
+                [(ngModel)]="subjectName" name="sampleSubjectName" >
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="note">{{'Barcode' | translate }}</label>
+                <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
+                  [(ngModel)]="subjectBarcode" name="sampleSubjectBarcode" >
+              </div>
+       
+        <div class="form-group col-md-3" [formGroup]="popupform">
+            <label class="note">{{'SampleCollectionDate_Time' | translate }} <span class="manto">*</span></label>
+            <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
+              placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
+            <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
+             [config]="collectionDateOptions" placeholder="Select Date.." formControlName = "collectionDate">
+            </ng2-flatpickr>
+          </div>
+        </div>
+
+          <div class="modal-footer">
+            <button type="button" class="mr-2 btn btn-primary" id="linkto" name="linkto" (click)="submitDate()">{{'Submit' | translate }}</button>
+            <!-- [disabled]="!collectionForm.form.valid" [ngClass]="ngDisabled" -->
+            <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>{{'Close' | translate }}</button>
+          </div>
+    </div>
+
+ </ng-template>
 
 
 <i appLoadScript [script]="'assets/assets/js/anm/anm-notification.js'"></i>

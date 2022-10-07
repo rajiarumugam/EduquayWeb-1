@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
 
 
 @Component({
@@ -94,6 +95,18 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   timeOfShipment: string;
   createdBy: number;
 
+  subjectBarcode;
+
+  collectionDateOptions: FlatpickrOptions = {
+    mode: 'single',
+    altFormat: 'd.m.Y H:i',
+    enableTime: true,
+    dateFormat: 'd.m.Y H:i',
+    defaultDate: new Date(Date.now() - (1000*60*60*4)),
+    maxDate:new Date(Date.now() - (1000*60*60*4))
+    
+  };
+
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
@@ -117,6 +130,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   _intSelectedBarcoderemove: number;
   startBadgePickpackMaldiCount: number=0;
 
+  modelName;
+
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
     private modalService: NgbModal,
@@ -126,7 +141,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private dataservice: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private centralsampleService: centralsampleService,
 
   ) { }
 
@@ -232,7 +248,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
-  onChange(samplepicknPackdetail, primarytube) {
+  onChange(samplepicknPackdetail, primarytube,addChcDetail) {
 
     this.tempCHCDatas = [];
     console.log('changed', this.searchbarcode, primarytube);
@@ -243,8 +259,11 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     // var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo && com.dbsCompletedDate!=null === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
-    if (getindex >= 0) {
-      this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
+    if (getindex >= 0 && Number(this.chcsamplepickpack[getindex].remTime) > 4) {
+      console.log(this.chcsamplepickpack[getindex]);
+        this.subjectName = this.chcsamplepickpack[getindex].uniqueSubjectId;
+        this.subjectBarcode = this.chcsamplepickpack[getindex].barcodeNo;
+     /* this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
      console.log (this.chcsamplepickpack[getindex].dbsCompletedDate)
       primarytube = '';
       this.alliquotetubebarcode = '';
@@ -271,20 +290,28 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //     icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
     //   });
     //   this.searchbarcode=''; 
-    // }
+    // }*/
+
+    
+  }
 
   }
-  onChangeMaldi(samplepicknPackMaldidetail, primarytube) {
-
+  onChangeMaldi(samplepicknPackMaldidetail, primarytube, addChcDetail,data=null) {
+    console.log(data);
+    let _tempData = JSON.parse(JSON.stringify(data));
+    
+    console.log(_tempData)
+    this.modelName = samplepicknPackMaldidetail;
     this.tempCHCDatas = [];
     console.log('changed', this.searchbarcode, primarytube);
     primarytube = this.searchbarcode;
     //this.searchbarcode = primarytube;
-    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
+    var getindex = _tempData.findIndex(com => com.barcodeNo === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
-    console.log (this.chcsamplepickpack[getindex].dbsCompletedDate)
-    if (getindex >= 0 && this.chcsamplepickpack[getindex].dbsCompletedDate!=null) {
-      this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
+    console.log (_tempData[getindex])
+    console.log (_tempData[getindex].dbsCompletedDate)
+    if (getindex >= 0 && _tempData[getindex].dbsCompletedDate!=null && Number(_tempData[getindex].remTime) > 4) {
+      this.tempCHCDatas.push(_tempData[getindex]);
       primarytube = '';
       this.alliquotetubebarcode = '';
       this.isAliquoteBarcodeMatch = false;
@@ -304,10 +331,120 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
      
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'This samples is not ready for shipment.Samples are ready for shipment 3 hours after Maldi-spotting',
+        title: 'This samples is not ready for shipment.Samples are ready for shipment 3 hours after Maldi-spotting. Do you want to proceed?',
         showConfirmButton: true,
-        confirmButtonText: 'OK'
-      })
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonText: 'No', 
+      }).then((result) => {
+        if (result.value) {
+        //this.hplcEdit(this.searchbarcode,'')
+        console.log(result.value);
+        this.subjectName = _tempData[getindex].uniqueSubjectId;
+        this.subjectBarcode = _tempData[getindex].barcodeNo;
+        this.modalService.open(
+          addChcDetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          backdrop:'static',
+          keyboard: false,
+          ariaLabelledBy: 'modal-basic-title'
+        });
+        this.popupform = this._formBuilder.group({
+          collectionDate: [new Date(moment(new Date(Date.now() - (1000*60*60*4))).add(-1, 'day').format())],
+
+          
+        });
+        }
+        else {
+          console.log('hitting no');
+          
+       
+        }
+      });
+        
+    
+      
+    }
+    // else if (this.tempCHCDatas.filter(({ barcodeNo }) => this.barcodeNo == barcodeNo).length) {
+    //   console.log('User already exists');
+    //  }
+
+    // else {
+    //   Swal.fire({ allowOutsideClick: false,
+    //     icon: 'error', title: "Barcode is  invalid", confirmButtonText: 'Ok'
+    //   });
+    //   this.searchbarcode=''; 
+    // }
+
+  }
+  onChangeMaldi1(samplepicknPackMaldidetail, primarytube, addChcDetail,data=null) {
+    console.log(data);
+    let _tempData = JSON.parse(JSON.stringify(data));
+    
+    console.log(_tempData)
+    this.tempCHCDatas = [];
+    console.log('changed', this.searchbarcode, primarytube);
+    primarytube = this.searchbarcode;
+    //this.searchbarcode = primarytube;
+    var getindex = _tempData.findIndex(com => com.barcodeNo === primarytube)
+    //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
+    console.log (_tempData[getindex])
+    console.log (_tempData[getindex].dbsCompletedDate)
+    if (getindex >= 0 ) {
+      this.tempCHCDatas.push(_tempData[getindex]);
+      primarytube = '';
+      this.alliquotetubebarcode = '';
+      this.isAliquoteBarcodeMatch = false;
+      this.isDBSBarcodeMatch=false
+      
+
+      this.modalService.open(
+        this.modelName, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+    }else{
+     
+      Swal.fire({ allowOutsideClick: false,
+        icon: 'warning',
+        title: 'This samples is not ready for shipment.Samples are ready for shipment 3 hours after Maldi-spotting. Do you want to proceed?',
+        showConfirmButton: true,
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonText: 'No', 
+      }).then((result) => {
+        if (result.value) {
+        //this.hplcEdit(this.searchbarcode,'')
+        console.log(result.value);
+        this.subjectName = _tempData[getindex].uniqueSubjectId;
+        this.subjectBarcode = _tempData[getindex].barcodeNo;
+        this.modalService.open(
+          addChcDetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          backdrop:'static',
+          keyboard: false,
+          ariaLabelledBy: 'modal-basic-title'
+        });
+        this.popupform = this._formBuilder.group({
+          collectionDate: [new Date(moment(new Date(Date.now() - (1000*60*60*4))).add(-1, 'day').format())],
+
+          
+        });
+        }
+        else {
+          console.log('hitting no');
+          
+       
+        }
+      });
         
     
       
@@ -938,4 +1075,87 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   //     }
   //   });
   // }
+
+  submitDate() {
+    console.log(this.popupform.value.collectionDate);
+    console.log(this.popupform.value.collectionDate.length);
+    this.hplcEdit(this.searchbarcode,this.popupform.value.collectionDate.length == undefined ? this.popupform.value.collectionDate : this.popupform.value.collectionDate[0]);
+  }
+
+  hplcEdit(barcode,tim)
+  {
+    let temptime = moment().format('YYYY-MM-DD HH:mm:ss');
+    if(tim === ''){
+      temptime = moment().format('YYYY-MM-DD HH:mm:ss');
+    } else {
+      temptime = moment(tim).format('YYYY-MM-DD HH:mm:ss');
+    }
+    this.centralsampleService.addDbsSpottingTime({'dbsTime':temptime,'barcode':barcode}).subscribe(response => {
+    console.log(response)
+    
+    },
+    (err: HttpErrorResponse) =>{
+      console.log(err);
+    });
+    this.modalService.dismissAll();
+    Swal.fire({
+      icon: 'success', title: "Updated Successfully",
+      showCancelButton: false, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: true
+    }).then((result) => {
+      if (result.value) {
+        console.log("hitting yes");
+        let _tempsearchbarcode = this.searchbarcode;
+        this.searchbarcode = '';
+        this.searchbarcode = _tempsearchbarcode;
+        this.refreshdata();
+        //this.onChangeMaldi('samplepicknPackMaldidetail', _tempsearchbarcode, 'addChcDetail')
+      //this.hplcEdit(this.searchbarcode,'')
+      }
+      else {
+        console.log('hitting no');
+        
+     
+      }
+    });
+    
+  }
+  refreshdata()
+    {
+      this.chcsamplepicknpackList1(this.user.chcId);
+    }
+
+    chcsamplepicknpackList1(chcId) {
+
+      let _tempCHCSampleData = [];
+      let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
+        .subscribe(response => {
+          //this.chcsamplepicknpickResponse = response;
+          //this.loaderService.display(false);
+          let _response = response;
+          if (_response !== null && _response.status === "true") {
+            if (_response.pickandPack.length <= 0) {
+              this.samplepicknpackErrorMessage = response.message;
+            }
+            else {
+              _tempCHCSampleData = this.chcsamplepicknpickResponse.pickandPack;
+              console.log(_tempCHCSampleData);
+              //console.log(this.chcsamplepickpack);
+              //this.onChange();
+              this.onChangeMaldi1('samplepicknPackMaldidetail', this.searchbarcode, 'addChcDetail',_tempCHCSampleData);
+              //this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+              // this.sampleList.forEach(element => {
+              //   element.sampleSelected = true;
+              // });
+              //this.rerender();
+            }
+          }
+          else {
+            this.samplepicknpackErrorMessage = response.message;
+          }
+        },
+          (err: HttpErrorResponse) => {
+            this.samplepicknpackErrorMessage = err.toString();
+          });
+  
+    }
 }

@@ -17,6 +17,7 @@ export interface SamplePickpack {
     startpickpackSelected: boolean;
     tempCHCData: tempCHCData[];
     dbsCompletedDate:string;
+    remTime:string;
     //shipment: ShipmentID;
    
 }
@@ -41,6 +42,7 @@ export interface startPickpack{
     startpickpackSelected: boolean;
     tempCHCData: tempCHCData[];
     dbsCompletedDate:string;
+    remTime:string;
     //shipment: ShipmentID;
 }
 

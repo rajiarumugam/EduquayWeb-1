@@ -42,6 +42,8 @@ export class HPLCReceivedNewMaldiComponent implements OnInit {
   chcReceiptsData: any[] = [];
 
   selectedData;
+  subjectName;
+  subjectBarcode;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -238,13 +240,18 @@ export class HPLCReceivedNewMaldiComponent implements OnInit {
     }
     onChange(samplepicknPackdetail, primarytube,addChcDetail) {
 
+      console.log(samplepicknPackdetail);
       // this.tempCHCDatas = [];
       console.log('changed', this.searchbarcode, primarytube);
       primarytube = this.searchbarcode;
       //this.searchbarcode = primarytube;
       var getindex = this.chcReceiptsData.findIndex(com => com.barcodeNo === primarytube)
       if (getindex >= 0) {
-      Swal.fire({
+        console.log(this.chcReceiptsData[getindex]);
+        this.subjectName = this.chcReceiptsData[getindex].subjectId;
+        this.subjectBarcode = this.chcReceiptsData[getindex].barcodeNo;
+        
+     /* Swal.fire({
         icon: 'success', title: "Do you want to update the Preparation time of Dried Blood Sample  with barcode  "+this.searchbarcode+"   as  "+moment().format('DD-MM-YY HH:mm')+" ? ",
         showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No', allowOutsideClick: true
       }).then((result) => {
@@ -253,20 +260,22 @@ export class HPLCReceivedNewMaldiComponent implements OnInit {
         }
         else {
           console.log('hitting no');
-          this.modalService.open(
-            addChcDetail, {
-            centered: true,
-            size: 'xl',
-            scrollable: true,
-            backdrop:'static',
-            keyboard: false,
-            ariaLabelledBy: 'modal-basic-title'
-          });
-          this.popupform = this._formBuilder.group({
-            collectionDate: [new Date(moment().add(-1, 'day').format())],
-          });
+          
        
         }
+      });*/
+
+      this.modalService.open(
+        addChcDetail, {
+        centered: true,
+        size: 'xl',
+        scrollable: true,
+        backdrop:'static',
+        keyboard: false,
+        ariaLabelledBy: 'modal-basic-title'
+      });
+      this.popupform = this._formBuilder.group({
+        collectionDate: [new Date(moment().add(-1, 'day').format())],
       });
     }
   

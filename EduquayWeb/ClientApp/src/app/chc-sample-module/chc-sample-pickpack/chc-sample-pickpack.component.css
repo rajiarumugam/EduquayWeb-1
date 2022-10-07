@@ -63,3 +63,7 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 .leftspace {
     left: 0px !important;
 }
+
+::ng-deep .flatpickr-calendar.hasTime .flatpickr-time {
+    height:44px !important;
+}
