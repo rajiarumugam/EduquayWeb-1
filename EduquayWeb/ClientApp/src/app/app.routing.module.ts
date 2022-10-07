@@ -373,6 +373,7 @@ import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/use
 import { UsersAdminSPCComponent } from "./admin/users-module/users-spc/users-spc.component";
 import { UsersAdminSupportComponent } from "./admin/users-module/users-support/users-support.component";
 import { ChcSamplePickpackMaldiComponent } from "./chc-sample-module/chc-sample-pickpack-maldi/chc-sample-pickpack-maldi.component";
+import { ChcSamplePickpackMaldi1Component } from "./chc-sample-module/chc-sample-pickpack-maldi1/chc-sample-pickpack-maldi1.component";
 import { ChcStartPickpackMaldiComponent } from "./chc-sample-module/chc-sample-pickpack-maldi/chc-start-pickpack-maldi/chc-start-pickpack-maldi.component";
 import { ChcPendingPickpackMaldiComponent } from "./chc-sample-module/chc-sample-pickpack-maldi/chc-pending-pickpack-maldi/chc-pending-pickpack-maldi.component";
 import { ChcSampleShipmentlogMaldiComponent } from "./chc-sample-module/chc-sample-shipmentlog-Maldi/chc-sample-shipmentlog-Maldi.component";
@@ -640,11 +641,8 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'central-update-hplc-new', component: HPLCUpdateNewComponent,
-        children:[
-          {path: '', component: HPLCReceivedNewMaldiComponent, pathMatch: 'full', resolve: {positiveSubjects: CentralupdateHPLCNewService}},
-          
-        ]
+        path: 'central-update-hplc-new', component: ChcSamplePickpackMaldi1Component,
+        
       },
 // export class HPLCReceivedNewMaldiComponent implements OnInit {
 
@@ -1255,6 +1253,7 @@ export const RoutingComponents = [
   LMPCorrectionComponent,
   HPLCPosPrintComponent,
   ChcSamplePickpackMaldiComponent,
+  ChcSamplePickpackMaldi1Component,
   ChcStartPickpackMaldiComponent,
   ChcPendingPickpackMaldiComponent,
   HPLCReportsMainComponent,
