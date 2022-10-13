@@ -48,7 +48,7 @@ export class HPLCUpdateNewComponent implements OnInit {
     });
 
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
-    this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Update CBC Results"}));
+    this.DataService.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Madldi-doff Blood Spotting"}));
   }
 
   receivedSamples(event)

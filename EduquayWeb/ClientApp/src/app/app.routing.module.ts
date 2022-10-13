@@ -646,6 +646,7 @@ const routes: Routes = [
           
         ]
       },
+     
 // export class HPLCReceivedNewMaldiComponent implements OnInit {
 
       /*{
