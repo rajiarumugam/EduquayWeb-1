@@ -55,13 +55,11 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
 
   processingOption: FlatpickrOptions = {
     mode: 'single',
-    defaultDate: "",
-   
-    enableTime: true,
-    dateFormat: 'd/m/Y H:i',
-    time_24hr: true,
-    maxDate: new Date(Date.now()),
-    static: true
+      defaultDate: "",
+      enableTime: false,
+      dateFormat: 'd/m/Y',
+      maxDate: new Date(Date.now()),
+      static: true
   };
   createdSubjectId="";
 
@@ -137,7 +135,7 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
     
     this.popupData['receiptDetail'].forEach(function(val,index){
         val.sampleTimeout = false;
-        val.accept = false;
+        val.accept = true;
         val.reject = false;
         val.sampleDamaged = false;
         val.barcodeDamaged = false;
@@ -149,13 +147,13 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
       minDate: data.shipmentDateTime
     });*/
    
-    // this.processingPicker.flatpickr.set({
-    //   minDate: data.shipmentDateTime,
-    //   enable: [],
-    //   enableTime: true,
-    //   dateFormat: 'd/m/Y H:i',
-    // });
-    
+    // 
+    this.processingPicker.flatpickr.set({
+        minDate: data.shipmentDateTime
+      //   enable: [],
+      //   enableTime: true,
+      //   dateFormat: 'd/m/Y H:i',
+       });
     this.processingDate = "";
     this.selectedreceivedDate = ""; 
     // this.processingPicker.flatpickr.setDate("");

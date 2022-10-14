@@ -310,7 +310,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     console.log (_tempData[getindex])
     console.log (_tempData[getindex].dbsCompletedDate)
-    if (getindex >= 0 && _tempData[getindex].dbsCompletedDate!=null && Number(_tempData[getindex].remTime) > 4) {
+    if (getindex >= 0 && _tempData[getindex].dbsCompletedDate!=null && Number(_tempData[getindex].remTime) >= 4) {
       this.tempCHCDatas.push(_tempData[getindex]);
       primarytube = '';
       this.alliquotetubebarcode = '';
@@ -327,11 +327,11 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-    }else{
+    }else if(Number(_tempData[getindex].remTime) <= 4 && Number(_tempData[getindex].remTime) > 0){
      
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'This samples is not ready for shipment.Samples are ready for shipment 3 hours after Maldi-spotting. Do you want to proceed?',
+        title: 'This samples is not ready for shipment.Samples are ready for shipment 4 hours after Maldi-spotting. Do you want to proceed?',
         showConfirmButton: true,
         confirmButtonText: 'Yes',
         showCancelButton: true,
@@ -366,6 +366,27 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         
     
       
+    } else {
+
+      Swal.fire({ allowOutsideClick: false,
+        icon: 'warning',
+        title: 'This blood Sample is not marked for Blood Spotting Please Mark the blood spotting time at the respective screen.',
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        showCancelButton: false,
+        cancelButtonText: 'No', 
+      }).then((result) => {
+        if (result.value) {
+        //this.hplcEdit(this.searchbarcode,'')
+        
+        }
+        else {
+          console.log('hitting no');
+          
+       
+        }
+      });
+        
     }
     // else if (this.tempCHCDatas.filter(({ barcodeNo }) => this.barcodeNo == barcodeNo).length) {
     //   console.log('User already exists');

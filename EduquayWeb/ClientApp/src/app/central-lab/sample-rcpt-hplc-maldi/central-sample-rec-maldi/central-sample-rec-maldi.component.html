@@ -39,7 +39,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 </div>
                                 <div class="col-md-3" [formGroup]="form">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ReceivedDateAndTime' | translate }}</b><span class="manto"> *</span>
-                                         <ng2-flatpickr  id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker  placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr> 
+                                         <ng2-flatpickr  id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker [config]="processingOption" placeholder="Select Date.." [(ngModel)]="processingDate"  [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr> 
                                         <!-- <ng2-flatpickr id="scFromDate" name="processingDate"  formControlName="processingDate"   class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr> -->
     
                                     </h6>

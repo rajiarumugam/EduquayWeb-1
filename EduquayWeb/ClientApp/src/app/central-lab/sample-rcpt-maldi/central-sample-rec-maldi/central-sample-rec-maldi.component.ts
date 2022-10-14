@@ -24,7 +24,7 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   @ViewChild('receivedPicker', { static: false }) receivedPicker;
-  // @ViewChild('processingPicker', { static: false }) processingPicker;
+  @ViewChild('processingPicker', { static: false }) processingPicker;
   
   errorMessage: string;
   errorSpouseMessage: string;
@@ -52,21 +52,19 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
     defaultDate: "",
     maxDate: new Date(Date.now())
   };
-
+  popupData:any;
   processingOption: FlatpickrOptions = {
     mode: 'single',
-    defaultDate: "",
-    enable: ["22/10/2036"],
-    enableTime: true,
-    dateFormat: 'd/m/Y H:i',
-    time_24hr: true,
-    maxDate: new Date(Date.now()),
-    static: true
+      defaultDate: "",
+      enableTime: false,
+      dateFormat: 'd/m/Y',
+      maxDate: new Date(Date.now()),
+      static: true
   };
   createdSubjectId="";
 
   centralReceiptsData: any[] = [];
-  popupData:any;
+  
   processingDate;
 
 
@@ -137,13 +135,20 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
     
     this.popupData['receiptDetail'].forEach(function(val,index){
         val.sampleTimeout = false;
-        val.accept = false;
+        val.accept = true;
         val.reject = false;
         val.sampleDamaged = false;
         val.barcodeDamaged = false;
         
     });
     console.log(data.shipmentDateTime);
+    let _tempMinDate = new Date(data.shipmentDateTime);
+    this.processingPicker.flatpickr.set({
+      minDate: data.shipmentDateTime
+    //   enable: [],
+    //   enableTime: true,
+    //   dateFormat: 'd/m/Y H:i',
+     });
     /*this.receivedPicker.flatpickr.set({
       defaultDate: "",
       minDate: data.shipmentDateTime
@@ -256,7 +261,7 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
                   var _obj = {};
                   _obj['shipmentId'] = this.popupData.shipmentId;
                   _obj['receivedDate'] = this.form.get('processingDate').value != undefined ? moment(new Date(this.form.get('processingDate').value)).format("DD/MM/YYYY") : '';
-                  _obj['proceesingDateTime'] = moment(new Date(), "DD/MM/YYYY");
+                  _obj['proceesingDateTime'] = moment(new Date()).format("DD/MM/YYYY");
 
                 
                     _obj['sampleDamaged'] = this.popupData['receiptDetail'][i].sampleDamaged;
@@ -268,38 +273,38 @@ export class CentralSampleRcptMaldiComponent implements OnInit {
 
                   _sampleResult.push(_obj);
               }
-              Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
-              showCancelButton: false, confirmButtonText: 'OK'})
-                .then((result) => {
-                  if (result.value) {
-                    $('#fadeinModal').modal('hide');
-                    this.centralsampleService.retriveCentralReceiptMaldi().subscribe(response => {
-                      if(response.status === "true")
-                      {
-                        this.centralReceiptsData = response.centralLabReceipts;
-                        this.rerender();
-                      }       
+              
+
+              var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDMALDISHIPMENTS);
+              this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
+              this.createdSubjectId = response.uniqueSubjectId;
+              if(response.status === "true")
+              {
+                Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
+                showCancelButton: false, confirmButtonText: 'OK'})
+                  .then((result) => {
+                    if (result.value) {
+                      $('#fadeinModal').modal('hide');
+                      this.centralsampleService.retriveCentralReceiptMaldi().subscribe(response => {
+                        if(response.status === "true")
+                        {
+                          this.centralReceiptsData = response.centralLabReceipts;
+                          this.rerender();
+                        }       
+                      },
+                      (err: HttpErrorResponse) =>{
+                        console.log(err);
+                      });
+                    }
+                  });
+              }else{
+                    this.errorMessage = response.message;
+                }
+                
                     },
-                    (err: HttpErrorResponse) =>{
+                   (err: HttpErrorResponse) =>{
                       console.log(err);
                     });
-                  }
-                });
-
-              // var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDMALDISHIPMENTS);
-              // this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
-              //   this.createdSubjectId = response.uniqueSubjectId;
-              //   if(response.status === "true")
-              //   {
-               
-              //   }else{
-              //       this.errorMessage = response.message;
-              //   }
-                
-              //       },
-              //       (err: HttpErrorResponse) =>{
-              //         console.log(err);
-              //       });
           }
 
          

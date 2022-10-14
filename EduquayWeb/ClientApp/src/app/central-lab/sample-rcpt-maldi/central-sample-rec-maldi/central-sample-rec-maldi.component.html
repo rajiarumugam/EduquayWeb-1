@@ -37,11 +37,11 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <h6 class="ml-2"><b>{{'CHC_Shipment_Date_Time' | translate }} : </b> <span class="ml-2">
                                         {{popupData?.shipmentDateTime}} </span></h6>
                                 </div>
-                                <!-- <div class="col-md-3" [formGroup]="form">
+                                <div class="col-md-3" [formGroup]="form">
                                     <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ReceivedDateAndTime' | translate }}</b><span class="manto"> *</span>
-                                        <ng2-flatpickr [disabled]="true" id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker [config]="processingOption" placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr>
+                                        <ng2-flatpickr id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker [config]="processingOption" placeholder="Select Date.." [(ngModel)]="processingDate" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr>
                                         </h6>
-                                </div> -->
+                                </div>
                                 <!-- <h6 class="ml-2" [ngClass]="{'label-border-class': formCheck && form.controls.processingDate.invalid }"><b>{{'ReceivedDateAndTime' | translate }}</b><span class="manto"> *</span>
                                     <ng2-flatpickr  id="scFromDate" name="processingDate" formControlName="processingDate"  class="form-control flatpickr flatpickr-input active" #processingPicker  placeholder="Select Date.." [(ngModel)]="processingDate" (change)="processingDateChange();" [ngClass]="{'red-border-class': formCheck && form.controls.processingDate.invalid }" ></ng2-flatpickr> 
                                     <ng2-flatpickr id="scFromDate" name="processingDate"  formControlName="processingDate"   class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr> -->
@@ -118,7 +118,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <label
                                         class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
-                                            name="colorRadio-{{i}}-2" value="Cplus" [checked]="receipt.reject" >
+                                            name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.reject" >
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label>
