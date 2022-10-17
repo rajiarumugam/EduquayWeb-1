@@ -22,7 +22,7 @@ import { DataService } from 'src/app/shared/data.service';
   templateUrl: './chc-start-pickpack.component.html',
   styleUrls: ['./chc-start-pickpack.component.css']
 })
-export class ChcStartPickpackComponent implements OnInit {
+export class MaldiResultFinal implements OnInit {
 
   @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
   //@ViewChild(DataTableDirective, { static: false }) dtElement1: DataTableDirective;

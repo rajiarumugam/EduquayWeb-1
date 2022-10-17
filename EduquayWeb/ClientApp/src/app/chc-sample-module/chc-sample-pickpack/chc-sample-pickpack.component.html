@@ -471,7 +471,7 @@
                         <ng-template #samplepicknPackMaldidetail let-modal>
                             <div class="modal-header">
                                 <h5 class="modaltitle" id="myLargeModalLabel">Pick & Pack for HPLC lab - Primary ,
-                                    Aliquoted tube and Maldi-Doff Sample
+                                    Aliquoted tube and Maldi-Tof Sample
                                 </h5>
                                 <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
                                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -988,7 +988,7 @@
 
                                         </div>
                                         <div class="row">
-                                            <h3 class="modaltitle"><b>Maldi-Doff Shipment Details</b></h3>
+                                            <h3 class="modaltitle"><b>Maldi-Tof Shipment Details</b></h3>
                                             <div class="n-chk " style="margin-left:10px" >
                                                 <label
                                                     class="new-control new-checkbox checkbox-outline-primary">
@@ -1197,7 +1197,7 @@
 
 <ng-template #addChcDetail let-modal>
     <div class="modal-header">
-      <h4 class="modal-title modaltitle">{{'Update Maldi-Doff Spotting Time' | translate }}</h4>
+      <h4 class="modal-title modaltitle">{{'Update Maldi-Tof Spotting Time' | translate }}</h4>
       <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1222,7 +1222,7 @@
               </div>
        
         <div class="form-group col-md-3" [formGroup]="popupform">
-            <label class="note">{{'Maldi-Doff Spotting Time' | translate }} <span class="manto">*</span></label>
+            <label class="note">{{'Maldi-Tof Spotting Time' | translate }} <span class="manto">*</span></label>
             <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
               placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
             <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker

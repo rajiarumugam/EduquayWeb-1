@@ -48,7 +48,7 @@ export class HPLCUpdateNewComponent implements OnInit {
     });
 
     this.currentPage = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
-    this.DataService.sendData(JSON.stringify({"module": "Maldi- SAMPLE REC & PROCESS", "page": "Update Maldi-doff Results"}));
+    this.DataService.sendData(JSON.stringify({"module": "Maldi- SAMPLE REC & PROCESS", "page": "Update Maldi-Tof Results"}));
   }
 
   receivedSamples(event)

@@ -729,7 +729,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   }
   showResponseMessageMaldi(shipmentId: string, type: string) {
     var messageType = '';
-    var title = `Shipment Id is ${shipmentId} and  <br>${shipmentId}-Maldi`;
+    var title = ` HPLC Shipment Id is ${shipmentId} and  <br>Maldi-Tof shipment id is ${shipmentId}-Maldi`;
     if (type === 'e') {
       Swal.fire({ allowOutsideClick: false, icon: 'error', title: shipmentId, confirmButtonText: 'Close' })
     } 
