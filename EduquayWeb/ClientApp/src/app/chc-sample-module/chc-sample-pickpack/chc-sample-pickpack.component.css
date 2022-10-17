@@ -67,3 +67,51 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 ::ng-deep .flatpickr-calendar.hasTime .flatpickr-time {
     height:44px !important;
 }
+.info-content
+{
+    line-height: 20px;
+    vertical-align: middle;
+    height: 20px;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    display: inline-block;
+    margin-left: 10px;
+    
+}
+.info-content-container {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.info-box {
+    width:20px;
+    height: 20px;
+    display: inline-block;
+}
+.info-box-green {
+    background-color: green;
+}
+.info-box-yellow {
+    background-color: yellow;
+}
+.info-box-red {
+    background-color: red;
+}
+.info-content-container p{
+    display: inline-block;
+    /* line-height: 20px; */
+    /* padding: 0; */
+    margin: 0;
+    /* height: 20px; */
+    /* margin-top: -5px; */
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-left:10px;
+    vertical-align: top;
+}
