@@ -115,3 +115,31 @@ label.new-control.new-checkbox.checkbox-outline-primary{
     margin-left:10px;
     vertical-align: top;
 }
+.color-box {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+}
+
+.is-yellow .color-box {
+    background-color: yellow;
+}
+
+.is-green .color-box {
+    background-color: green;
+}
+
+.is-red .color-box {
+    background-color: red;
+}
+.scan-label {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    font-weight: 800;
+}
+.mal-filter-input {
+    max-width: 300px;
+    display: inline-block;
+}

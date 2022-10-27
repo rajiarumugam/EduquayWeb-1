@@ -144,6 +144,7 @@
                                                     <th class="text-center scheduledate"><span class="wordwrap">{{'SampleCollectionDate_Time' | translate }}</span></th>
                                                     <th class="text-center scheduledate"><span class="wordwrap">{{'DBS Time' | translate }}</span></th>
 
+                                                    <th class="text-center scheduledate"><span class="wordwrap">{{'Status' | translate }}</span></th>
                                                    
 
                                                 </tr>
@@ -152,10 +153,10 @@
                                             <tbody>
                                                 <tr *ngFor="let samplepicknpack of chcsamplepickpack; index as i">
                                                     <td class="sno text-center">{{i +1}}</td>
-                                                    <td [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > 4 && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < 4 && samplepicknpack.dbsCompletedDate}" class="sname text-left" >{{samplepicknpack.subjectName}}</td>
+                                                    <td [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > (4*3600) && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < (4*3600) && samplepicknpack.dbsCompletedDate}" class="sname text-left" >{{samplepicknpack.subjectName}}</td>
                                                    <!--- <td *ngIf="!samplepicknpack.dbsCompletedDate" class="sname text-left is-red">{{samplepicknpack.subjectName}}</td>-->
 
-                                                    <td  class="sid text-center" [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > 4 && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < 4 && samplepicknpack.dbsCompletedDate}">{{samplepicknpack.uniqueSubjectId}}</td>
+                                                    <td  class="sid text-center" [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > (4*3600) && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < (4*3600) && samplepicknpack.dbsCompletedDate}">{{samplepicknpack.uniqueSubjectId}}</td>
                                                     <!--<td *ngIf="!samplepicknpack.dbsCompletedDate" class="sid text-center is-red">{{samplepicknpack.uniqueSubjectId}}</td>-->
 
                                                     <td  class="sid text-center ">{{samplepicknpack.rchId}}</td>
@@ -167,6 +168,8 @@
                                                             <span style="display: none;">{{samplepicknpack.dbsCompletedDate}}</span>{{samplepicknpack.dbsCompletedDate}}</td>
                                                             <td class="textsample text-center "   *ngIf="!samplepicknpack.dbsCompletedDate" >
                                                                 <span style="display: none;">-</span>-</td>
+
+                                                    <td  class="sid text-center" [ngClass]="{'is-red':!samplepicknpack.dbsCompletedDate,'is-green':samplepicknpack.remTime > (4*3600) && samplepicknpack.dbsCompletedDate,'is-yellow':samplepicknpack.remTime < (4*3600) && samplepicknpack.dbsCompletedDate}"><div class="color-box"></div></td>
                                                                 
                                                     <!-- <td class="text-center">8 days</td>
                             <td class="text-center"><a role="button"><i class="fas fa-vial fa-2x" ></i></a></td> -->
@@ -202,6 +205,7 @@
                                                                 <circle cx="11" cy="11" r="8"></circle>
                                                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                                             </svg></button></a>
+                                                    
                                                 </div>
                                             </form>
                                         </div>
@@ -286,9 +290,9 @@
                             <div class="main-box no-header clearfix">
                                 <div class="main-box-body clearfix">
                                     <div class="form-row my-4 ml-3">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 filtered-list-search">
                                             <form class="form-inline my-2 my-lg-0">
-                                                <div class="w-100 my-2">
+                                                <div class="w-100 my-2 mal-filter-input">
                                                     <input type="text" class="w-100 form-control sample-search br-30"
                                                         name="searchbarcode" type="text"
                                                         placeholder="Scan / Enter Barcode" [(ngModel)]="searchbarcode"
@@ -305,7 +309,9 @@
                                                                 <circle cx="11" cy="11" r="8"></circle>
                                                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                                             </svg></button></a>
+                                                            
                                                 </div>
+                                                <p class="scan-label">{{'Scan Primary Tube' | translate }}</p>
                                             </form>
                                         </div>
                                     </div>
@@ -504,12 +510,12 @@
                             </div>
                             <div class="modal-body text-center">
                                 <div class="form-row my-4 ml-3">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 filtered-list-search">
                                         <form class="form-inline my-2 my-lg-0">
-                                            <div class="w-100 my-2">
-                                                <input type="text" class="w-100 form-control sample-search br-30"
+                                            <div class="w-100 my-2 mal-filter-input">
+                                                <input type="text" #searchInput class="w-100 form-control sample-search br-30"
                                                     type="text" placeholder="Scan / Enter Barcode"
-                                                    name="alliquotetubebarcode"
+                                                    name="alliquotetubebarcode1"
                                                     (ngModelChange)="validateAlliqutetubeMatch($event)" debounce="100"
                                                     [(ngModel)]="alliquotetubebarcode" autocomplete="off">
                                                 <a>
@@ -523,6 +529,8 @@
                                                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                                         </svg></button></a>
                                             </div>
+
+                                            <p class="scan-label">{{!isAliquoteBarcodeMatch ? 'Now Scan aluquoted HPLC Tube' :  (!isDBSBarcodeMatch ? 'Now Scan DBS Sample' : '') }}</p>
                                         </form>
                                     </div>
                                 </div>

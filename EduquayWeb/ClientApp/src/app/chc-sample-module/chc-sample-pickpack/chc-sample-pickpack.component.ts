@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, QueryList, OnDestroy, AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, QueryList, OnDestroy, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateService } from 'src/app/shared/utility/date.service';
 import { ChcSamplePickpackService } from 'src/app/shared/chc-sample/chc-sample-pickpack/chc-sample-pickpack.service';
@@ -31,6 +31,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   @ViewChildren(DataTableDirective) dtElements: QueryList<DataTableDirective>;
 
   @Output() public onLoadSamples = new EventEmitter();
+  @ViewChild('searchInput', { static: false }) searchInput: ElementRef;
+  @ViewChild('collectionDatePicker', { static: false }) collectionDatePicker;
   loadDataTable: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -104,6 +106,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     dateFormat: 'd.m.Y H:i',
     defaultDate: new Date(Date.now() - (1000*60*60*4)),
     maxDate:new Date(Date.now() - (1000*60*60*4))
+   // defaultDate: new Date(Date.now() - (1000*60*60*4)),
+    //maxDate:new Date(Date.now())
     
   };
 
@@ -259,7 +263,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     // var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo && com.dbsCompletedDate!=null === primarytube)
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
-    if (getindex >= 0 && Number(this.chcsamplepickpack[getindex].remTime) > 4) {
+    if (getindex >= 0 && Number(this.chcsamplepickpack[getindex].remTime) > (4*3600)) {
       console.log(this.chcsamplepickpack[getindex]);
         this.subjectName = this.chcsamplepickpack[getindex].uniqueSubjectId;
         this.subjectBarcode = this.chcsamplepickpack[getindex].barcodeNo;
@@ -310,7 +314,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
     console.log (_tempData[getindex])
     console.log (_tempData[getindex].dbsCompletedDate)
-    if (getindex >= 0 && _tempData[getindex].dbsCompletedDate!=null && Number(_tempData[getindex].remTime) >= 4) {
+   
+    if (getindex >= 0 && _tempData[getindex].dbsCompletedDate!=null && Number(_tempData[getindex].remTime) >= (4*3600)) {
       this.tempCHCDatas.push(_tempData[getindex]);
       primarytube = '';
       this.alliquotetubebarcode = '';
@@ -327,7 +332,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-    }else if(Number(_tempData[getindex].remTime) <= 4 && Number(_tempData[getindex].remTime) > 0 &&_tempData[getindex].dbsCompletedDate!=null){
+    }else if(Number(_tempData[getindex].remTime) <= (4*3600) && Number(_tempData[getindex].remTime) > 0 &&_tempData[getindex].dbsCompletedDate!=null){
      
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
@@ -351,11 +356,21 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           keyboard: false,
           ariaLabelledBy: 'modal-basic-title'
         });
+        
         this.popupform = this._formBuilder.group({
-          collectionDate: [new Date(moment(new Date(Date.now() - (1000*60*60*4))).add(-1, 'day').format())],
+         // collectionDate: [new Date(moment(new Date(Date.now() - (1000*60*60*4))).add(-1, 'day').format())],
+         collectionDate: [new Date(_tempData[getindex].dbsCompletedDate)],
 
           
         });
+
+       /* setTimeout(()=>{  
+          this.collectionDatePicker.flatpickr.set({
+            //defaultDate: new Date(_tempData[getindex].dbsCompletedDate),
+            defaultDate: new Date(Date.now())
+            
+          });
+        }, 100);*/
         }
         else {
           console.log('hitting no');
@@ -370,7 +385,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        text: 'Blood sampling  for Maldi-Tof not done.Please update Maldi-Tof blood sampling time, if you want to proceed with this sample',
+        text: 'Maldi Blood Spotting Not done,Please Complete Spotting.',
         showConfirmButton: true,
         confirmButtonText: 'OK',
         showCancelButton: false,
@@ -777,7 +792,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.isDBSBarcodeMatch=true;
     this.searchbarcode=''
     }
-
+      
   }
     
     /*
@@ -792,7 +807,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       //   this.alliquotetubebarcode='';
       // }
     });*/
-
+    this.alliquotetubebarcode = '';
+    this.searchInput.nativeElement.value = '';
   }
 
   submittoshipment(){ 
