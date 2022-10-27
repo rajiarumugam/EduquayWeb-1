@@ -392,6 +392,7 @@ import { ChcMaldiSpottingComponent } from "./chc-sample-module/chc-pending-pickp
 import { ChcMaldiDBSSpottingUpdateComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-pending-pickpack/chc-pending-pickpack.component";
 import { ChcMaldiDBSSpottingComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-sample-pickpack.component";
 import { ChcStartPickpackComponent1 } from "./chc-sample-module/chc-sample-pickpack copy/chc-start-pickpack/chc-start-pickpack.component";
+import { ChcSamplePickpackMaldi1Component } from "./chc-sample-module/chc-sample-pickpack-maldi1/chc-sample-pickpack-maldi1.component";
 
 
 const routes: Routes = [
@@ -582,6 +583,8 @@ const routes: Routes = [
       { path: 'chc-sample-maldi-dbs', component: ChcMaldiDBSSpottingComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
 
       { path: 'chc-sample-pickpack', component: ChcSamplePickpackComponent}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
+      { path: 'chc-sample-pickpacknew', component: ChcSamplePickpackMaldi1Component}, //resolve: {chcpickpackSamplesData: ChcSamplePickpackResolverService}
+
       { path: 'chc-sample-pickpack-maldi', component: ChcSamplePickpackMaldiComponent},
       { path: 'chc-sample-shipmentlog', component: ChcSampleShipmentlogComponent}, // resolve: {chcsampleshipmentLogData: ChcSampleShipmentlogResolverService}
       { path: 'chc-sample-shipmentlog-maldi', component: ChcSampleShipmentlogMaldiComponent}, 
@@ -739,6 +742,7 @@ const routes: Routes = [
          
         ]
       },
+      
       
       {
         path: 'pathologist-hplc-report/:pagename', component: DiagosisReportmainComponent,
@@ -1328,7 +1332,8 @@ export const RoutingComponents = [
   ChcMaldiSpottingComponent,
   ChcMaldiDBSSpottingUpdateComponent,
   ChcMaldiDBSSpottingComponent,
-  ChcStartPickpackComponent1 
+  ChcStartPickpackComponent1 ,
+  ChcSamplePickpackMaldi1Component
 
 
   // {

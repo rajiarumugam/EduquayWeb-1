@@ -55,7 +55,7 @@ export class HPLCReceivedNewMaldiComponent implements OnInit {
     altFormat: 'd.m.Y H:i',
     enableTime: true,
     dateFormat: 'd.m.Y H:i',
-    defaultDate: new Date(Date.now() - (this.DAY*30)),
+    defaultDate: new Date(Date.now() ),
     
   };
   startOptions: FlatpickrOptions = {

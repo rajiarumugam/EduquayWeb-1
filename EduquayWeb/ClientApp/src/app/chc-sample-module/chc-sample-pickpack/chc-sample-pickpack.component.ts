@@ -327,13 +327,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         keyboard: false,
         ariaLabelledBy: 'modal-basic-title'
       });
-    }else if(Number(_tempData[getindex].remTime) <= 4 && Number(_tempData[getindex].remTime) > 0){
+    }else if(Number(_tempData[getindex].remTime) <= 4 && Number(_tempData[getindex].remTime) > 0 &&_tempData[getindex].dbsCompletedDate!=null){
      
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'This samples is not ready for shipment.Samples are ready for shipment 4 hours after Maldi-spotting. Do you want to proceed?',
+        title: 'Samples are ready for shipment  4 hours after Maldi-spotting.If you entered blood spotting time wrongly .Please update and continue.',
         showConfirmButton: true,
-        confirmButtonText: 'Yes',
+        confirmButtonText: 'Update Spotting Time ',
         showCancelButton: true,
         cancelButtonText: 'No', 
       }).then((result) => {
@@ -370,7 +370,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'This blood Sample is not marked for Blood Spotting Please Mark the blood spotting time at the respective screen.',
+        text: 'Blood sampling  for Maldi-Tof not done.Please update Maldi-Tof blood sampling time, if you want to proceed with this sample',
         showConfirmButton: true,
         confirmButtonText: 'OK',
         showCancelButton: false,
@@ -434,7 +434,9 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
      
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'This samples is not ready for shipment.Samples are ready for shipment 3 hours after Maldi-spotting. Do you want to proceed?',
+        text: 'Samples are ready for shipment only 4 hours after Maldi-spotting. Do you want to proceed?',
+        titleText:'Sample Not Ready for Shipment',
+        
         showConfirmButton: true,
         confirmButtonText: 'Yes',
         showCancelButton: true,

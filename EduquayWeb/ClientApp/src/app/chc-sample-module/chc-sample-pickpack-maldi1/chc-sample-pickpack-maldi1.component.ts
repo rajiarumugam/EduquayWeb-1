@@ -148,7 +148,7 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
 
   ngOnInit() {
 
-    this.dataservice.sendData(JSON.stringify({"module": "CHC- SAMPLE REC & PROCESS", "page": "Pick & Pack for HPLC lab"}));
+    this.dataservice.sendData(JSON.stringify({"module": "Maldi-Tof Lab", "page": "Result"}));
 
    // this.dtOptions[0] = this.chcsamplepickpack;
     //this.dtOptions1[1] = this.startPickpackData;
@@ -193,6 +193,7 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
           next: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         },
       }
+      
     };
     console.log(this.chcsamplePickpackService.chcSamplePickPackApi);
     this.chcsamplepicknpackList(this.user.chcId);
@@ -221,7 +222,7 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
 
     this.loaderService.display(true);
     this.chcsamplepickpack = [];
-    let picknpack = this.chcsamplePickpackService.getsamplePickpackChc(this.user.chcId)
+    let picknpack = this.chcsamplePickpackService.getMaldiTest(this.user.chcId,1)
       .subscribe(response => {
         this.chcsamplepicknpickResponse = response;
         this.loaderService.display(false);

@@ -84,9 +84,8 @@
                 <input class="form-control field" readonly="" type="text" placeholder="Subject Name"
                   [(ngModel)]="subjectBarcode" name="sampleSubjectBarcode" >
               </div>
-       
         <div class="form-group col-md-3" [formGroup]="popupform">
-            <label class="note">{{'DBS Date and Time' | translate }} <span class="manto">*</span></label>
+            <label class="note">{{'Dried Blood Sampling Date and Time' | translate }} <span class="manto">*</span></label>
             <!-- <input id="popupDate" class="form-control flatpickr flatpickr-input" type="date"
               placeholder="Select Date..." name="collectionDate"  [(ngModel)]="collectionDate" required> -->
             <ng2-flatpickr id="popupDate" name="sampleCollectionDate" class="form-control flatpickr flatpickr-input active" #collectionDatePicker
