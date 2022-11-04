@@ -78,6 +78,8 @@ export class LoginComponent implements OnInit {
           console.log(this.authResult.userDetail);
 
           this.dataservice.deleteProp('csvspecimenstartdata');
+          console.log(this.authResult.userDetail.userRole)
+          this.router.navigate(['/app/errorcorrection'], { relativeTo: this.route });
           if(this.authResult.userDetail.userRole === "ANM")
               this.router.navigate(['/app/anm-notification'], { relativeTo: this.route });
           else if(this.authResult.userDetail.userRole === "CHCLTLEVEL1" || this.authResult.userDetail.userRole === "CHCSRLT")

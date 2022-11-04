@@ -42,7 +42,7 @@
     "file-saver": "^2.0.2",
     "flatpickr": "^4.6.3",
     "jquery": "^3.5.1",
-    "jszip": "^3.5.0",
+    "jszip": "^3.10.1",
     "moment": "^2.27.0",
     "ng-multiselect-dropdown": "^0.2.10",
     "ng-wizard": "^1.0.0",

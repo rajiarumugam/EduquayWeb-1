@@ -393,6 +393,7 @@ import { ChcMaldiDBSSpottingUpdateComponent } from "./chc-sample-module/chc-samp
 import { ChcMaldiDBSSpottingComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-sample-pickpack.component";
 import { ChcStartPickpackComponent1 } from "./chc-sample-module/chc-sample-pickpack copy/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcSamplePickpackMaldi1Component } from "./chc-sample-module/chc-sample-pickpack-maldi1/chc-sample-pickpack-maldi1.component";
+import { TechMedUploadComponent } from "./upload/techmed-upload/TechMed-upload.component";
 
 
 const routes: Routes = [
@@ -687,7 +688,8 @@ const routes: Routes = [
         path: 'upload', component: UploadMainComponent,
         children:[
           {path: '', component: CHCUploadComponent, pathMatch: 'full'},
-          {path: 'hplc', component: HPLCUploadComponent, pathMatch: 'full'}
+          {path: 'hplc', component: HPLCUploadComponent, pathMatch: 'full'},
+          {path:'techmed',component:TechMedUploadComponent,pathMatch:'full'}
         ]
       },
       {
@@ -1333,8 +1335,8 @@ export const RoutingComponents = [
   ChcMaldiDBSSpottingUpdateComponent,
   ChcMaldiDBSSpottingComponent,
   ChcStartPickpackComponent1 ,
-  ChcSamplePickpackMaldi1Component
-
+  ChcSamplePickpackMaldi1Component,
+  TechMedUploadComponent
 
   // {
   //   path: 'admin-users-main', component: UsersAdminMainComponent,
