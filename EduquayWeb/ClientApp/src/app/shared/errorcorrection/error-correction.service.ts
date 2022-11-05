@@ -129,6 +129,15 @@ export class errorCorrectionService {
     return this.http.post<any>({url:apiUrl,body:obj});
   }
 
+  uploadCHcpdf(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.UploadCBCHPLCFiles)
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
+  uploadPdf(obj){
+    let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.UploadPdf)
+    return this.http.post<any>({url:apiUrl,body:obj});
+  }
+
   uploadSAFiles(obj){
     let apiUrl =this.genericService.buildApiUrl(ENDPOINT.UPLOAD.UploadSAFiles)
     return this.http.post<any>({url:apiUrl,body:obj});

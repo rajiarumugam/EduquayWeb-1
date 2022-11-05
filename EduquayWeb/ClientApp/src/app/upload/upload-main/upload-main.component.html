@@ -52,6 +52,12 @@
                    {{'HPLC' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': currentPage == 'HPLC' ? true : false}" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/upload/techmed']"
+                   role="tab" aria-controls="profile" aria-selected="false">
+                   {{'TechMed(HPLC)' | translate }}<span class="badge badge-pill badge-warning shadow ml-1"></span>
+                </a>
+              </li>
               
             </ul>
             <div class="tab-content mt-5" id="myTabContent">
