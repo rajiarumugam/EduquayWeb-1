@@ -56,12 +56,10 @@ export class CentralSampleRcptComponent implements OnInit {
   processingOption: FlatpickrOptions = {
     mode: 'single',
     defaultDate: "",
-    enable: ["22/10/2036"],
     enableTime: true,
     dateFormat: 'd/m/Y H:i',
     time_24hr: true,
     maxDate: new Date(Date.now()),
-    static: true
   };
   createdSubjectId="";
 
@@ -151,7 +149,6 @@ export class CentralSampleRcptComponent implements OnInit {
    
     this.processingPicker.flatpickr.set({
       minDate: data.shipmentDateTime,
-      enable: [],
       enableTime: true,
       dateFormat: 'd/m/Y H:i',
     });

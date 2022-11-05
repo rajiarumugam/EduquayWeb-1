@@ -94,9 +94,10 @@ export class TechMedUploadComponent implements OnInit {
      var jszip1=j.loadAsync(fileList[0]).then(function (zip) {
      console.log(zip)
      });
-     console.log(jszip.files)
+     //console.log(jszip.files)
     var jszip=j.loadAsync(fileList[0]).then(function (zip) {
       Object.keys(zip.files).forEach(function (filename) {
+        let _this = this;
         zip.files[filename].async('string').then(function (fileData) {
           console.log(filename) // These are your file contents  
           var _fileList = filename.split('.');
@@ -105,7 +106,7 @@ export class TechMedUploadComponent implements OnInit {
           {
             PdfCount=PdfCount+1
             Filedata=fileData
-            this.sendfile(Filedata)
+            _this.sendfile(Filedata)
             Files.push(fileData)
             // this._imageArray.push(file.item(0));
             // this.myInputVariable.nativeElement.value = '';
@@ -121,15 +122,13 @@ export class TechMedUploadComponent implements OnInit {
             }  
             console.log(ExcelCount,PdfCount,'FileCount')
         }).then(function(zip) {
-          this.sendfile(zip.files[0])
-        })
-      })
+          _this.sendfile(zip.files[0])
+        }.bind(this))
+      }.bind(this))
       console.log(ExcelCount,PdfCount,'FileCount')
-    })
+    }.bind(this))
     
-    Files.forEach(function (value) {
-      this.sendfile(value)
-    });          
+          
   //  this.handleFileInput(fileList)
   }
    sendfile(obj){
@@ -137,12 +136,12 @@ export class TechMedUploadComponent implements OnInit {
     this.errorCorrectionService.uploadPdf(obj)
 .subscribe(response => {
 console.log(response);
-Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
+/*Swal.fire({icon:'success', title: response.message, confirmButtonText: 'Close', allowOutsideClick: false})
 .then((result) => {
 if (result.value) {
   this.resetData();
 }
-});
+});*/
 
 },
 (err: HttpErrorResponse) => {
