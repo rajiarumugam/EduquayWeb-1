@@ -271,6 +271,7 @@ import { PathoreportSampleStatusMainPrintComponent } from "./pathologist/repot-p
 
 
 import { PathoreportSampleStatusPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-print/patho-repot-sample-status-print.component";
+import { PathoreportSampleStatusSearchPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-search-print/patho-repot-sample-status-search-print.component";
 import { HplcreportSampleStatusPrintComponent } from "./hplcreport/hplc-repot-sample-status-print/hplc-repot-sample-status-print.component";
 
 import { PathoreportSampleStatusMainPrintComponentNHM } from "./nhm/repot-patho-sample-status/patho-repot-sample-status-print-main/patho-repot-sample-status-print-main.component";
@@ -799,7 +800,8 @@ const routes: Routes = [
       },{
         path: 'patho-report-print', component: PathoreportSampleStatusMainPrintComponent,
         children:[
-          {path: '', component: PathoreportSampleStatusPrintComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportPrintResolverService}}
+          {path: '', component: PathoreportSampleStatusPrintComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportPrintResolverService}},
+          {path: 'searchbarcode', component: PathoreportSampleStatusSearchPrintComponent, pathMatch: 'full', resolve: {pndtcTesting: PathoReportPrintResolverService}}
         ]
       },
       {
@@ -1229,6 +1231,7 @@ export const RoutingComponents = [
   UserTypeComponent,
   PathoreportSampleStatusMainPrintComponent,
   PathoreportSampleStatusPrintComponent,
+  PathoreportSampleStatusSearchPrintComponent,
   MlrNotificationComponent,
   UpdateResultsComponent,
   EditResultsComponent,

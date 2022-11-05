@@ -74,6 +74,73 @@
 
                             <div class="main-box no-header clearfix">
                                 <div class="main-box-body clearfix">
+                                    <div class="form-row ml-3 my-2">
+                                        <div class="form-group col-md-2" [formGroup]="dateform">
+                                          <label for="inputFromdate">{{'FromDate' | translate }}
+                                          </label>
+                                          <div class="form-group mb-0">
+                                              <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2" [formGroup]="dateform">
+                                          <label for="inputTodate">{{'ToDate' | translate }}</label>
+                                          <div class="form-group mb-0">
+                                            <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
+                                          </div>
+                                        </div>
+                                          <div class="form-group col-md-2">
+                                              <label for="inputSubjectcategory">{{'SampleStatus' | translate }}</label>
+                                              <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
+                                                  <option [ngValue]="null">Select Status</option>
+                                                  <option [value]="district.id" *ngFor="let district of sampleStatusData1">{{district.statusName}}</option>
+                                                </select>
+                                          </div>
+                                          <div class="form-group col-md-2" [formGroup]="dateform">
+                                              <label for="inputTodate">{{'District' | translate }}</label>
+                                              <div class="form-group mb-0">
+                                                  <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="districtselected($event.target.value)" formControlName = "district" >
+                                                      <option [ngValue]="null">Select District</option>
+                                                      <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-md-2" [formGroup]="dateform">
+                                              <label for="inputTodate">{{'Block' | translate }}</label>
+                                              <div class="form-group mb-0">
+                                                  <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputilrPoint" class="form-control" formControlName = "block" (change)="blockselected($event.target.value)"
+                                                  [(ngModel)]="selectedBlock">
+                                                      <option [ngValue]="null">Select</option>
+                                                      <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
+                                                          {{blockdata.name}}
+                                                      </option>
+                                                  </select>
+                                              </div>
+                                          </div>    
+                                          <div class="form-group col-md-2" [formGroup]="dateform">
+                                              <label for="inputTodate">{{'CHC' | translate }}</label>
+                                              <div class="form-group mb-0">
+                                                  <select [attr.disabled]="selectedBlock === null ? '' : null" id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" (change)="getANMData()">
+                                                      <option [ngValue]="null">Select CHC</option>
+                                                      <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-md-2" [formGroup]="dateform">
+                                              <label for="inputTodate">{{'ANM' | translate }}</label>
+                                              <div class="form-group mb-0">
+                                                  <select id="inputDistrict" class="form-control" [(ngModel)]="selectedAnm" [attr.disabled]="selectedchc === null ? '' : null" formControlName = "anm" >
+                                                      <option [ngValue]="null">Select ANM</option>
+                                                      <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                         
+                                          <div class="px-2 bd-highlight search-margin">
+                                              <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
+                                              <a (click)="refreshData()"><button type="submit" class="btn search-bu">
+                                                      <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
+                                          </div>
+                                      </div>
                                     <div class="form-row">
                                         <div class="col-md-12">
                                             <div *ngIf="samplepicknpackErrorMessage" class="alert mt-3 mb-2"

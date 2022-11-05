@@ -18,6 +18,8 @@ import * as moment from 'moment';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
 import { centralsampleService } from 'src/app/shared/centrallab/central-sample.service';
+import { pathoHPLCService } from "src/app/shared/pathologist/patho-hplc.service";
+import { PNDTCmasterService } from "src/app/shared/pndtc/pndtc-masterdata.service";
 
 
 @Component({
@@ -132,6 +134,22 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
 
   modelName;
 
+  selectedSampleStatus = null;
+  sampleStatusData = [];
+  selectedDistrict = null;
+  blocklists = [];
+  selectedBlock = null;
+  CHCdata = [];
+  selectedchc = null;
+  erroMessage;
+  PHCdata = [];
+  selectedphc = null;
+  ANMdata = []
+  selectedAnm = null;
+  districts = [];  
+  dateform:FormGroup;
+
+
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
     private modalService: NgbModal,
@@ -143,6 +161,8 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
     private dataservice: DataService,
     private loaderService: LoaderService,
     private centralsampleService: centralsampleService,
+    private pathoHPLCService:pathoHPLCService,
+    private PNDTCmasterService: PNDTCmasterService
 
   ) { }
 
@@ -196,7 +216,7 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
       
     };
     console.log(this.chcsamplePickpackService.chcSamplePickPackApi);
-    this.chcsamplepicknpackList(this.user.chcId);
+    
     // Resolver //
     // this.chcsamplepickpackinitResponse = this.route.snapshot.data.chcpickpackSamplesData;
     // if (this.chcsamplepickpackinitResponse.status === 'false') {
@@ -216,8 +236,168 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
        
     //   }
     // }
+
+    this.dateform = this._formBuilder.group({
+      fromDate: [''],
+      toDate: [''],
+      block: [''],
+      district: [''],
+      chc: [''],
+      anm: [''],
+    });
+    this.selectedDistrict = null;
+    this.getDistrictData();
+    this.chcsamplepicknpackList(this.user.chcId);
   }
  
+  getSampleStatusData(){
+    this.pathoHPLCService.getSampleStatus()
+    .subscribe(response => {
+      this.sampleStatusData = response['sampleStatus'];
+      this.sampleStatusData.forEach(function(val,i){
+          if(val.id != 1 && val.id != 2 && val.id != 6)
+          {
+            this.sampleStatusData1.push(val);
+          }
+      },this);
+      this.selectedSampleStatus = '3';
+    },
+    (err: HttpErrorResponse) =>{
+      this.sampleStatusData = [];
+    });
+  }
+  getDistrictData(){
+    this.PNDTCmasterService.getPNDTCDistrict()
+    .subscribe(response => {
+      this.districts = response['data'];
+      //this.selectedDistrict = this.user.districtId;
+    },
+    (err: HttpErrorResponse) =>{
+      this.districts = [];
+      //this.erroMessage = err.toString();
+    });
+  }
+  getBlockData(){
+    if(this.selectedDistrict != null)
+    {
+        this.loaderService.display(true);
+        this.ANMdata = [];
+        this.selectedAnm = null;
+        this.PNDTCmasterService.getBlockByDistrict(this.selectedDistrict)
+        .subscribe(response => {
+          this.blocklists = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.blocklists = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else
+    {
+      this.blocklists = [];
+      this.CHCdata = [];
+      this.selectedBlock = null;
+      this.selectedAnm = null
+      this.selectedchc = null;
+      this.ANMdata = [];
+    }
+    
+    
+  }
+  getCHCData(){
+    if(this.selectedBlock != null)
+    {
+        this.loaderService.display(true);
+        this.ANMdata = [];
+        this.selectedAnm = null;
+        this.PNDTCmasterService.getCHCByBlock(this.selectedBlock)
+        .subscribe(response => {
+          this.CHCdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.CHCdata = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else
+    {
+      this.CHCdata = [];
+      this.PHCdata = [];
+      this.ANMdata = [];
+      this.selectedchc = null;
+      this.selectedBlock = null;
+      this.selectedAnm = null
+    }
+     
+
+  }
+  chcChange(){
+    if(this.selectedchc != null)
+    {
+        this.loaderService.display(true);
+        this.PNDTCmasterService.getCHCBasedPHC(this.selectedchc)
+        .subscribe(response => {
+          this.PHCdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.PHCdata = [];
+          this.erroMessage = err.toString();
+          this.loaderService.display(false);
+        });
+      }
+      else
+        this.PHCdata = [];
+
+  }
+  getANMData(){
+    if(this.selectedchc != null)
+    {
+        this.loaderService.display(true);
+        this.PNDTCmasterService.getANMByCHC(this.selectedchc)
+        .subscribe(response => {
+          this.ANMdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.ANMdata = [];
+          this.erroMessage = err.toString();
+        });
+    }
+    else
+        this.ANMdata = [];
+    
+  }
+  phcChange(){
+    if(this.selectedphc != null)
+    {
+        this.loaderService.display(true);
+        this.PNDTCmasterService.getPHCBasedANM(this.selectedphc)
+        .subscribe(response => {
+          this.ANMdata = response['data'];
+          this.loaderService.display(false);
+        },
+        (err: HttpErrorResponse) =>{
+          this.ANMdata = [];
+          this.erroMessage = err.toString();
+          this.loaderService.display(false);
+        });
+    }
+    else
+      this.ANMdata = [];
+    
+  }
+  districtselected(event)
+  {
+    console.log(this.selectedDistrict);
+      this.getBlockData();
+  }
+  blockselected(event)
+  {
+    this.getCHCData();
+  }
   chcsamplepicknpackList(chcId) {
 
     this.loaderService.display(true);

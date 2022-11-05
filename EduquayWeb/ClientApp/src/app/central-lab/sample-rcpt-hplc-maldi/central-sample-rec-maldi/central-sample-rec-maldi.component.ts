@@ -264,7 +264,6 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
 
                   _sampleResult.push(_obj);
               }
-
               var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CENTRALLAB.ADDRECEIVEDMALDIHPLCSHIPMENTS);
               this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
                 this.createdSubjectId = response.uniqueSubjectId;
@@ -301,7 +300,15 @@ export class CentralSampleRcptMaldiHPLCComponent implements OnInit {
 
          
     }
-  
+    radioChange(event,i) {
+      if(event === 'accept') {
+        this.popupData['receiptDetail'][i].accept = true;
+        this.popupData['receiptDetail'][i].reject = false;
+      } else {
+        this.popupData['receiptDetail'][i].accept = false;
+        this.popupData['receiptDetail'][i].reject = true;
+      }
+    }
     ngOnDestroy(): void {
       // Do not forget to unsubscribe the event
       this.dtTrigger.unsubscribe();

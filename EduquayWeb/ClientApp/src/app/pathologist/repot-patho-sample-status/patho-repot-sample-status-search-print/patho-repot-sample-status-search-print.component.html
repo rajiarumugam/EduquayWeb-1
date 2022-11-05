@@ -1,126 +1,66 @@
 <div class="tab-pane fade show print-none" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
     <div class="main-box no-header clearfix">
-        <div class="main-box-body clearfix">
-            <div class="form-row ml-3 my-2">
-              <div class="form-group col-md-2" [formGroup]="dateform">
-                <label for="inputFromdate">{{'FromDate' | translate }}
-                </label>
-                <div class="form-group mb-0">
-                    <ng2-flatpickr id="scFromDate" name="fromDate" formControlName="fromDate" class="form-control flatpickr flatpickr-input active" #startPicker1 [config]="startOptions1" placeholder="Select Date.." [(ngModel)]="fromDate"></ng2-flatpickr>
+        <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
+            <form class="form-inline my-2 my-lg-0">
+                <div class="w-100">
+                    <input type="text" class="w-100 form-control product-search br-30"
+                        name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
+                        [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()">
+                    <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-search">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button></a>
                 </div>
-              </div>
-              <div class="form-group col-md-2" [formGroup]="dateform">
-                <label for="inputTodate">{{'ToDate' | translate }}</label>
-                <div class="form-group mb-0">
-                  <ng2-flatpickr id="scToDate" name="toDate" formControlName="toDate" class="form-control flatpickr flatpickr-input active" #endPicker [config]="startOptions2" placeholder="Select Date.." [(ngModel)]="toDate" [disabled]="true"></ng2-flatpickr>
-                </div>
-              </div>
-                <div class="form-group col-md-2">
-                    <label for="inputSubjectcategory">{{'SampleStatus' | translate }}</label>
-                    <select id="inputDistrict" class="form-control" required [(ngModel)]="selectedSampleStatus">
-                        <option [ngValue]="null">Select Status</option>
-                        <option [value]="district.id" *ngFor="let district of sampleStatusData1">{{district.statusName}}</option>
-                      </select>
-                </div>
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'District' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select id="inputDistrict" class="form-control" required name="inputDistrict" [(ngModel)]="selectedDistrict" (change)="districtselected($event.target.value)" formControlName = "district" >
-                            <option [ngValue]="null">Select District</option>
-                            <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'Block' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select [attr.disabled]="selectedDistrict === null ? '' : null" id="inputilrPoint" class="form-control" formControlName = "block" (change)="blockselected($event.target.value)"
-                        [(ngModel)]="selectedBlock">
-                            <option [ngValue]="null">Select</option>
-                            <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
-                                {{blockdata.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>    
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'CHC' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select [attr.disabled]="selectedBlock === null ? '' : null" id="inputCHC" class="form-control" required [(ngModel)]="selectedchc" formControlName = "chc" (change)="getANMData()">
-                            <option [ngValue]="null">Select CHC</option>
-                            <option [value]="chc.id" *ngFor="let chc of CHCdata">{{chc.name}}</option>
-                        </select>
-                    </div>
-                </div>  
-                <div class="form-group col-md-2" [formGroup]="dateform">
-                    <label for="inputTodate">{{'ANM' | translate }}</label>
-                    <div class="form-group mb-0">
-                        <select id="inputDistrict" class="form-control" [(ngModel)]="selectedAnm" [attr.disabled]="selectedchc === null ? '' : null" formControlName = "anm" >
-                            <option [ngValue]="null">Select ANM</option>
-                            <option [value]="anm.id" *ngFor="let anm of ANMdata">{{anm.name}}</option>
-                        </select>
-                    </div>
-                </div>
-               
-                <div class="px-2 bd-highlight search-margin">
-                    <!-- <button type="submit" class="btn btn-primary search-btn">Search</button> -->
-                    <a (click)="refreshData()"><button type="submit" class="btn search-bu">
-                            <i class="fa fa-search fa-3x mt-1" aria-hidden="true"></i></button></a>
-                </div>
-            </div>
-            <div>
-              <button type="button" class="btn btn-sm btn-outline-light print-btn"
-              (click)="printPdf();" style="float:right;margin-right:20px;">
-              <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
-              <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
-                  aria-hidden="true"></i>
-          </button>
-            </div>
-            <div class="table-responsive my-2">
+            </form>
+        </div>
+        <div class="table-responsive my-2">
              
-                <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                    <thead>
-                        <tr>
-                            <th><span>{{'SNo' | translate}}</span></th>
-                           
-                            <th><span>{{'SubjectName' | translate}}</span></th>
-                            <th><span>{{'SubjectID' | translate}}</span></th>
-                            <th><span>{{'RCHID' | translate}}</span></th>
-                            <th><span>{{'GA (as of HPLC Tested Date)' | translate}}</span></th>
-                            <th><span>{{'Barcode' | translate }}</span></th>
-                            <th><span>{{'CBCResult' | translate }} </span></th>
-                            <th><span>{{'SSTResult' | translate }} </span></th>
-                            <th><span>{{'HPLCResult' | translate }}  </span></th>
-                            <th><span>{{'Status' | translate }} </span></th>
-                            <th><span>{{'ClinicalDiagnosis' | translate }} </span></th>
-                            <th (change)="checkAllSelected()"><input type="checkbox" class="checkbox" [checked]="checkdAllEnabled"></th>
-                            <!--<th><span>{{'Results' | translate }}</span></th>-->
-                        </tr>
+            <table id="preschedule-config" class="table table-bordered table-hover mb-4" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead>
+                    <tr>
+                        <th><span>{{'SNo' | translate}}</span></th>
+                       
+                        <th><span>{{'SubjectName' | translate}}</span></th>
+                        <th><span>{{'SubjectID' | translate}}</span></th>
+                        <th><span>{{'RCHID' | translate}}</span></th>
+                        <th><span>{{'GA (as of HPLC Tested Date)' | translate}}</span></th>
+                        <th><span>{{'Barcode' | translate }}</span></th>
+                        <th><span>{{'CBCResult' | translate }} </span></th>
+                        <th><span>{{'SSTResult' | translate }} </span></th>
+                        <th><span>{{'HPLCResult' | translate }}  </span></th>
+                        <th><span>{{'Status' | translate }} </span></th>
+                        <th><span>{{'ClinicalDiagnosis' | translate }} </span></th>
+                        <th (change)="checkAllSelected()"><input type="checkbox" class="checkbox" [checked]="checkdAllEnabled"></th>
+                        <!--<th><span>{{'Results' | translate }}</span></th>-->
+                    </tr>
 
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let pnddata of pndPendingArray; index as i">
-                            <td>{{i+1}}</td>
-                             
-                            <td style="text-align: left">{{pnddata.subjectName}}</td>
-                            <td class="text-center">{{pnddata.subjectId}}</td>
-                            <td class="sid text-center">{{pnddata.rchId}}</td>
-                            <td style="text-align: left">{{pnddata.ga}}</td>
-                            <td class="text-center">{{pnddata.barcodeNo}}</td>
-                            <td class="text-left">{{pnddata.cbcTestResult}}</td>
-                            <td class="text-left">{{pnddata.sstResult}}</td>
-                            <td class="text-left">{{pnddata.hplcResult}}</td>
-                            <td class="text-left">{{pnddata.sampleStatus}}</td>
-                            <td class="text-left">{{pnddata.diagnosis}}</td>
-                            <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
-                                (change)="checkIfSelected(i)"></td>
-                           <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
-                            
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pnddata of pndPendingArray; index as i">
+                        <td>{{i+1}}</td>
+                         
+                        <td style="text-align: left">{{pnddata.subjectName}}</td>
+                        <td class="text-center">{{pnddata.subjectId}}</td>
+                        <td class="sid text-center">{{pnddata.rchId}}</td>
+                        <td style="text-align: left">{{pnddata.ga}}</td>
+                        <td class="text-center">{{pnddata.barcodeNo}}</td>
+                        <td class="text-left">{{pnddata.cbcTestResult}}</td>
+                        <td class="text-left">{{pnddata.sstResult}}</td>
+                        <td class="text-left">{{pnddata.hplcResult}}</td>
+                        <td class="text-left">{{pnddata.sampleStatus}}</td>
+                        <td class="text-left">{{pnddata.diagnosis}}</td>
+                        <td><input type="checkbox" class="checkbox" [checked]="pnddata.checked"
+                            (change)="checkIfSelected(i)"></td>
+                       <!-- <td class="sid text-center" (click)="openReportPage(pnddata)"><i class="fa fa-file-text-o text-primary" aria-hidden="true"></i></td>-->
+                        
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -220,7 +160,7 @@
                       <table class="table table-bordered table-striped">
                           <thead class="tablecss" style="background-color: #aaaaaa;">
                               <tr class="" style="background-color: #aaaaaa;">
-                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'SUBJECT DETAILS' | translate}}</b>
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{' SUBJECT DETAILS' | translate}}</b>
                                  
                                   </th>
                               </tr> 
@@ -304,7 +244,7 @@
                           <tbody>
                               <tr>
                                   <td class="sp-xs-td-9"><b>{{'Haematology Parameters/ Values' | translate}}</b></td>
-                                  <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{returnmcv(data.mcv)}} </b></td>
+                                  <td class="sp-xs-td-9">{{'MCV' | translate}} : <b> {{returnmcv(data.mcv)}}</b></td>
                                   <td class="sp-xs-td-9">{{'RDW – CV' | translate}} : <b>{{returnrdw(data.rdw)}}</b></td>
                                   
                               </tr>

@@ -36,7 +36,23 @@
           </div>
           <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
-              
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="damagedsample-tab" data-toggle="tab" [ngClass]="{'active': currentPage == 'patho-report-print' ? true : false}"
+                     [routerLink]="['/app/patho-report-print']" role="tab" aria-controls="home"
+                     aria-selected="true">
+                    {{'Tab 1' | translate }}
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="unsentsamples-tab" data-toggle="tab" [routerLink]="['/app/patho-report-print/searchbarcode']"
+                  [ngClass]="{'active': currentPage == 'searchbarcode' ? true : false}" role="tab" aria-controls="profile" aria-selected="false">
+                    {{'Tab 2' | translate }}
+                  </a>
+                </li>
+                
+               
+              </ul>
               <div class="tab-content mt-5" id="myTabContent">
                 <!-- <router-outlet (activate)="showNumberOnBadge($event)"></router-outlet> -->
                 <router-outlet></router-outlet>

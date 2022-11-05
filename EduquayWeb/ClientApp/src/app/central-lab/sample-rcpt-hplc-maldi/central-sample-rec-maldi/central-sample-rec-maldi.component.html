@@ -71,9 +71,9 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <th><span>{{'Barcode' | translate }}</span></th>
                                 <th class="datetimenewchc wordwrap"><span>{{'PT_Sample_Collection_Date_Time' | translate }}</span></th>
                                <!-- <th><span>{{'SampleTimeout' | translate }}</span></th> -->
-                                <th><span>{{'Sample Damaged/insufficient' | translate }}</span></th>
+                               <!-- <th><span>{{'Sample Damaged/insufficient' | translate }}</span></th>
                                  <th><span>{{'BarcodeDamaged' | translate }}</span>
-                                </th>
+                                </th>-->
                                 <th><span>{{'Accept' | translate }}</span></th>
                                 <th><span>{{'Reject' | translate }}</span></th>
                             </tr>
@@ -94,7 +94,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label></td> -->
-                                <td class="n-chk text-center"><label
+                               <!--- <td class="n-chk text-center"><label
                                         class="new-control new-checkbox checkbox-outline-primary margin-0">
                                         <input type="checkbox"
                                             class="new-control-input" [disabled]="!processingDateselected" [checked]="receipt.sampleDamaged" (change)="sampleDamageChange(i)">
@@ -107,12 +107,12 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             class="new-control-input" [disabled]="!processingDateselected" [checked]="receipt.barcodeDamaged" (change)="barcodeDamageChange(i)">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
-                                    </label></td>
+                                    </label></td>-->
                                 <td class="n-chk text-center">
                                     <label
                                         class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
-                                            name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.accept" disabled>
+                                            name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.accept" (change)="radioChange('accept',i)">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label>
@@ -121,7 +121,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <label
                                         class="new-control new-radio radio-primary margin-0">
                                         <input type="radio" class="new-control-input"
-                                            name="colorRadio-{{i}}-2" value="Cplus" [checked]="receipt.reject" disabled>
+                                            name="colorRadio-{{i}}-1" value="Cplus" [checked]="receipt.reject" (change)="radioChange('reject',i)">
                                         <span
                                             class="new-control-indicator"></span>&nbsp;
                                     </label>
