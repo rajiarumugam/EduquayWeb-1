@@ -259,7 +259,12 @@ export class PathoreportSampleStatusSearchPrintComponent implements AfterViewIni
   {
       console.log(this.searchbarcode);
       
-      this.refreshData();
+      
+  }
+  clicksearchBarcode(){
+    console.log(this.searchbarcode)
+    this.refreshData();
+
   }
   refreshData()
   {
@@ -268,7 +273,7 @@ export class PathoreportSampleStatusSearchPrintComponent implements AfterViewIni
     var _subjectObj = {
       "barcode": this.searchbarcode,
     }
-    this.pathoHPLCService.getPathoSampleReport(_subjectObj).subscribe(response => {
+    this.pathoHPLCService.getPathoReportbyBarcode(_subjectObj).subscribe(response => {
       this.pndPendingArray = response.subjects;
       this.pndPendingArray.forEach(function(val,ind){
         val.checked = true;

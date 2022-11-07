@@ -107,13 +107,8 @@ export class TechMedUploadComponent implements OnInit {
             PdfCount=PdfCount+1
             Filedata=fileData
             _this.sendfile(Filedata)
-            Files.push(fileData)
-            // this._imageArray.push(file.item(0));
-            // this.myInputVariable.nativeElement.value = '';
-            //Show image preview
-            // let reader = new FileReader();
-            // reader.onload = (event: any) => {
-            //   this.imageUrl = event.target.result;
+            Files.push(_fileList[0])
+           
             }
             else if (_fileList[_fileList.length-1] === 'xlsx'){
               ExcelCount++;

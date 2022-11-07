@@ -2,9 +2,11 @@
     <div class="main-box no-header clearfix">
         <div class="col-lg-4 col-md-4 col-sm-4 filtered-list-search">
             <form class="form-inline my-2 my-lg-0">
+                <p><b>Search by Barcode/Subject Id</b> </p>
                 <div class="w-100">
+
                     <input type="text" class="w-100 form-control product-search br-30"
-                        name="searchbarcode" type="text" placeholder="Scan / Enter Barcode"
+                        name="searchbarcode" type="text" placeholder="Search"
                         [(ngModel)]="searchbarcode" debounce="500" (ngModelChange)="searchBarCodetype()">
                     <a (click)="clicksearchBarcode()"><button class="btn btn-primary" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -17,6 +19,15 @@
                         </button></a>
                 </div>
             </form>
+            <div>
+                <button type="button" class="btn btn-sm btn-outline-light print-btn"
+                (click)="printPdf();" style="float:right;margin-right:-500px;">
+                <!-- <img src="../../../../assets/assets/img/print-img.png" width="23px" class="downloadimg bs-tooltip" (click)="printPdf();" ngbTooltip="Download as PDF"> -->
+                <i class="fa fa-print ml-1 downloadimg bs-tooltip" ngbTooltip="Print"
+                    aria-hidden="true"></i>
+            </button>
+            </div>
+            
         </div>
         <div class="table-responsive my-2">
              
@@ -227,7 +238,7 @@
                       <table class="table table-bordered table-striped table-custom-border">
                           <thead class="tablecss">
                               <tr class="" style="background-color: #e3e8ef;">
-                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'TEST RESULTS – CBC/ SST' | translate}}</b>
+                                  <th colspan="8" class="text-left mt-3" style="color:#ffffff;font-size: 15px; background-color: #dddddd !important;"><b>{{'TEST RESULTS – CBC/ SST   CBC Date' | translate}}</b>
                                   </th>
                               </tr> 
                           </thead> 
