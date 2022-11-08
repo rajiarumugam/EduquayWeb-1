@@ -230,6 +230,7 @@ import { PostSchedulingResolverService } from "./shared/pndtc/schedule-post-pndt
 import { PostScheduledResolverService } from "./shared/pndtc/schedule-post-pndtc/post-scheduled-resolver.service";
 
 import { HPLCUpdateNewComponent } from "./central-lab/HPLC-update-new/HPLC-update-new/HPLC-update-new.component";
+import { HPLCUpdateNewComponent1 } from "./central-lab/HPLC-update-new copy/HPLC-update-new/HPLC-update-new.component";
 import { HPLCReceivedNewComponent } from './central-lab/HPLC-update-new/HPLC-update-new-received/HPLC-update-new-received.component';
 import { CHCUpdateCBCCHCComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-chc/chc-update-cbc-chc.component";
 import { CBCCHCReceivedSampleComponent } from "./chc-sample-module/cbc-update-chc/chc-update-cbc-received/chc-update-cbc-chc-received.component";
@@ -395,7 +396,7 @@ import { ChcMaldiDBSSpottingComponent } from "./chc-sample-module/chc-sample-pic
 import { ChcStartPickpackComponent1 } from "./chc-sample-module/chc-sample-pickpack copy/chc-start-pickpack/chc-start-pickpack.component";
 import { ChcSamplePickpackMaldi1Component } from "./chc-sample-module/chc-sample-pickpack-maldi1/chc-sample-pickpack-maldi1.component";
 import { TechMedUploadComponent } from "./upload/techmed-upload/TechMed-upload.component";
-
+import { MaldiResultFinal } from './chc-sample-module/chc-sample-pickpack-maldi1/chc-start-pickpack/chc-start-pickpack.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -1204,6 +1205,7 @@ export const RoutingComponents = [
   CHCUpdateCBCCHCComponent,
   CBCCHCReceivedSampleComponent,
   HPLCUpdateNewComponent,
+  HPLCUpdateNewComponent1,
   HPLCReceivedNewComponent,
   DiagosisReportComponent1,
   GetOtpComponent,
@@ -1339,7 +1341,8 @@ export const RoutingComponents = [
   ChcMaldiDBSSpottingComponent,
   ChcStartPickpackComponent1 ,
   ChcSamplePickpackMaldi1Component,
-  TechMedUploadComponent
+  TechMedUploadComponent,
+  MaldiResultFinal
 
   // {
   //   path: 'admin-users-main', component: UsersAdminMainComponent,

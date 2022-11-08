@@ -9,7 +9,7 @@ import { filter, pairwise } from 'rxjs/operators';
   templateUrl: './HPLC-update-new.component.html',
   styleUrls: ['./HPLC-update-new.component.css']
 })
-export class HPLCUpdateNewComponent implements OnInit {
+export class HPLCUpdateNewComponent1 implements OnInit {
   receivedSampleCount;
   uploadCBCCount = 0;
   subscription: Subscription;

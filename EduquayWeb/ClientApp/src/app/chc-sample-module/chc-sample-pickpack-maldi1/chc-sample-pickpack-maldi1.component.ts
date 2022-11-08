@@ -98,6 +98,7 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
   createdBy: number;
 
   subjectBarcode;
+  toDate;
 
   collectionDateOptions: FlatpickrOptions = {
     mode: 'single',

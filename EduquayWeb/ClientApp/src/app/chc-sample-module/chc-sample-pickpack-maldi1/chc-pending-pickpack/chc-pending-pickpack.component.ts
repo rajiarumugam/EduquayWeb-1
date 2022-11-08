@@ -19,7 +19,7 @@ import { DataService } from 'src/app/shared/data.service';
   templateUrl: './chc-pending-pickpack.component.html',
   styleUrls: ['./chc-pending-pickpack.component.css']
 })
-export class ChcPendingPickpackComponent implements OnInit {
+export class ChcPendingPickpackComponent1 implements OnInit {
  
   @ViewChild(DataTableDirective, {static: false})  dtElement: DataTableDirective;
   errorMessage: string;
