@@ -8,7 +8,7 @@
 };*/
 
 export const environment = {
-apiUrl: 'http://tscodtrainingapi.cscr.in',
+apiUrl: 'http://api.eduquay.com',
  production: false
 };
 

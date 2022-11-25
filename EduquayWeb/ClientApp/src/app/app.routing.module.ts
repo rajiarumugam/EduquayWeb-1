@@ -372,6 +372,10 @@ import { UsersAdminPNDTCComponent } from "./admin/users-module/users-pndtc/users
 import { UsersAdminSadminComponent } from "./admin/users-module/users-sadmin/users-sadmin.component";
 import { UsersAdminSPCComponent } from "./admin/users-module/users-spc/users-spc.component";
 import { UsersAdminSupportComponent } from "./admin/users-module/users-support/users-support.component";
+import { CommonUsersTableComponent } from "./shared/anm-module/common-users-table/common-users-table.component";
+import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
+import { TableFilterPipe } from "./shared/admin/sa-upload/sa-upload-file/FilterPipe";
+import { AVDComponent } from "./admin/avd/avd.component";
 
 
 const routes: Routes = [
@@ -1260,7 +1264,11 @@ export const RoutingComponents = [
   UsersAdminPNDTComponent,
   UsersAdminSupportComponent,
   UsersAdminHaematologistComponent,
-  UsersAdminNHMComponent
+  UsersAdminNHMComponent,
+  CommonUsersTableComponent,
+  AdminUsersListComponent,
+  TableFilterPipe,
+  AVDComponent
  
 
 
