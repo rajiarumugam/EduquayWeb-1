@@ -29,6 +29,8 @@ export class HPLCReceivedNewMaldiComponent implements OnInit {
   @ViewChild('startPicker', { static: false }) pickerStart;
   @ViewChild('endPicker', { static: false }) pickerEnd;
   errorMessage: string;
+  clicksearchBarcode
+  samplepicknPackdetail;
   errorSpouseMessage: string;
   sampleTimeOut = false;
   user;

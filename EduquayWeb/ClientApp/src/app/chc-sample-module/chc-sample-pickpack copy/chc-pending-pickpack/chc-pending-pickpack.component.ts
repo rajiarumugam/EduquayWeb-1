@@ -32,7 +32,12 @@ export class   ChcMaldiDBSSpottingUpdateComponent implements OnInit {
   processingDate;
   chcsamplepickpack = [];
   pickpackStartList = [];
-
+  sampleStatusData1;
+  sampleSubmit;
+  selectedHbF;
+  selectedsHbD;
+  selectedHbA2;
+  selectedHBA0;
   samplepicknpackErrorMessage: string;
  
   dtOptions: DataTables.Settings = {};

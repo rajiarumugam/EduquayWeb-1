@@ -252,13 +252,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
-  onChange(samplepicknPackdetail, primarytube,addChcDetail) {
+  onChange(samplepicknPackdetail,addChcDetail) {
 
     this.tempCHCDatas = [];
-    console.log('changed', this.searchbarcode, primarytube);
-    primarytube = this.searchbarcode;
+    console.log('changed', this.searchbarcode);
+    // primarytube = this.searchbarcode;
     //this.searchbarcode = primarytube;
-    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
+    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === this.searchbarcode)
     
 
     // var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo && com.dbsCompletedDate!=null === primarytube)

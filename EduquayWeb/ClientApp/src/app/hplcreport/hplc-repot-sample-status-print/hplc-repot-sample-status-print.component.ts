@@ -72,7 +72,7 @@ export class HplcreportSampleStatusPrintComponent implements AfterViewInit, OnDe
     maxDate: new Date(Date.now())
   };
   currentDate;
-  printArray = [];
+  printArray ;
   RetrieveDiagnosisSampleStatusbybarcode="api/v1/Pathologist/RetrievePathologistReportsByBarcode?barcode=";
 
   constructor(private PNDTCmasterService: PNDTCmasterService,private tokenService: TokenService,private route: ActivatedRoute,private PNDCService:PNDCService, private authService: AuthService,

@@ -52,6 +52,14 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
   user: user;
 
   shipmentId: string;
+  fromDate ;
+  
+  startOptions2;
+  startOptions1;
+  sampleStatusData1;
+  
+
+
   errorMessage: string;
   selectedBarcodes: string;
   searchbarcode: string = '';
@@ -136,7 +144,7 @@ export class ChcSamplePickpackMaldi1Component implements AfterViewInit, OnDestro
   modelName;
 
   selectedSampleStatus = null;
-  sampleStatusData = [];
+  sampleStatusData ;
   selectedDistrict = null;
   blocklists = [];
   selectedBlock = null;
