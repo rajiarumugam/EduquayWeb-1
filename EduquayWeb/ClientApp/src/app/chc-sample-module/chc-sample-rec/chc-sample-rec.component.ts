@@ -159,9 +159,7 @@ export class CHCSampleRcptComponent implements OnInit {
     this.formCheck = false;
     this.currentshipmentDateTime = data.shipmentDateTime;
     this.processingPicker.flatpickr.setDate("");
-    this.processingPicker.flatpickr.set({
-      enable: ["22/10/2036"]
-    });
+   
     if(this.popupData.shipmentFrom === 'CHC - CHC')
     {
       this.processingPicker.flatpickr.set({
@@ -176,7 +174,6 @@ export class CHCSampleRcptComponent implements OnInit {
       this.processingPicker.flatpickr.set({
         maxDate: new Date(Date.now()),
         minDate: data.shipmentDateTime,
-        enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       }); 
@@ -209,7 +206,6 @@ export class CHCSampleRcptComponent implements OnInit {
         this.ilrInDatePicker.flatpickr.set({
           maxDate: new Date(Date.now()),
           minDate: this.currentshipmentDateTime,
-          enable: [],
           enableTime: true,
           dateFormat: 'd/m/Y H:i',
         });
@@ -248,14 +244,12 @@ export class CHCSampleRcptComponent implements OnInit {
 
       this.processingPicker.flatpickr.set({
         minDate: new Date(this.selectedreceivedDate),
-        enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       });
       this.ilrInDatePicker.flatpickr.set({
         maxDate: new Date(this.selectedreceivedDate),
         minDate: this.currentshipmentDateTime,
-        enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       });
@@ -267,12 +261,10 @@ export class CHCSampleRcptComponent implements OnInit {
     this.ilrOutDatePicker.flatpickr.set({
       minDate: new Date(this.ILRInDate),
       maxDate: new Date(Date.now()),
-      enable: [],
       enableTime: true,
       dateFormat: 'd/m/Y H:i',
     });
     this.processingPicker.flatpickr.set({
-    enable: ["22/10/2036"]
     });
   }
   outDateChange()
@@ -281,7 +273,6 @@ export class CHCSampleRcptComponent implements OnInit {
       this.processingPicker.flatpickr.set({
         maxDate: new Date(Date.now()),
         minDate:  new Date(this.ILROutDate),
-        enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       });

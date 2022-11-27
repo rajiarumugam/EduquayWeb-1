@@ -148,7 +148,6 @@ export class CentralSampleRcptComponent implements OnInit {
    
     this.processingPicker.flatpickr.set({
       minDate: data.shipmentDateTime,
-      enable: [],
       enableTime: true,
       dateFormat: 'd/m/Y H:i',
     });
@@ -167,7 +166,6 @@ export class CentralSampleRcptComponent implements OnInit {
 
       this.processingPicker.flatpickr.set({
         minDate: new Date(this.selectedreceivedDate),
-        enable: [],
         enableTime: true,
         dateFormat: 'd/m/Y H:i',
       });
