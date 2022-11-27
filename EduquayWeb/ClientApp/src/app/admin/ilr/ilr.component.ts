@@ -82,7 +82,7 @@ export class IlrComponent implements AfterViewInit, OnDestroy, OnInit {
     // chcName: string;
     ilrCode: string;
     selectedEditBlock: string = '';
-    selectedDistrict = '';
+    selectedDistrict = '0';
     disabledChc = false;
     getdistrict = "";
     editIlrDetails;

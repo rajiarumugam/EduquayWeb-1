@@ -54,7 +54,12 @@ export class pathoHPLCService {
     let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIEVEDIAGNOSISREPORTS);
     return this.http.post<any>({url:apiUrl, body: obj });
   }
+  getPathoReportbyBarcode(obj){
+    let apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.PathoReportByBarcode);
+    apiUrl=apiUrl+'?barcode='+obj.barcode
+    return this.http.get<any>({url:apiUrl })
 
+  }
   getSampleStatus() {
     var apiUrl = this.genericService.buildApiUrl(ENDPOINT.PATHOLOGIST.RETRIVEDIAGNOSISSAMPLESTATUS);
     return this.http

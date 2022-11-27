@@ -30,7 +30,7 @@ export class CentralSampleRcptComponent implements OnInit {
   errorSpouseMessage: string;
   form: FormGroup;
   receivedDateSelected = false;
-  maxmDays = 8;
+  maxmDays = 10000;
   
   startOptions: FlatpickrOptions = {
     mode: 'single',
@@ -55,13 +55,10 @@ export class CentralSampleRcptComponent implements OnInit {
 
   processingOption: FlatpickrOptions = {
     mode: 'single',
-    defaultDate: "",
-    enable: ["22/10/2036"],
     enableTime: true,
     dateFormat: 'd/m/Y H:i',
     time_24hr: true,
     maxDate: new Date(Date.now()),
-    static: true
   };
   createdSubjectId="";
 
@@ -181,9 +178,8 @@ export class CentralSampleRcptComponent implements OnInit {
     if(this.form.get('processingDate').value.length > 0)
     {
       this.popupData['receiptDetail'].forEach(function(val,index){
-        if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) > 24*this.maxmDays)
-            this.resettingTableEvents(val,true,false,true,false,false);
-        else if(this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) < 24*this.maxmDays && this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) >= 0)
+       
+        if( this.compareDate(this.form.get('processingDate').value,this.currentshipmentDateTime) >= 0)
             this.resettingTableEvents(val,false,true,false,false,false);
         else
           this.resettingTableEvents(val,true,false,true,false,false);

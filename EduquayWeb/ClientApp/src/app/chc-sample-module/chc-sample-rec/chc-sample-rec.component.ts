@@ -54,36 +54,35 @@ export class CHCSampleRcptComponent implements OnInit {
     enableTime: true,
     dateFormat: 'd/m/Y H:i',
     defaultDate: "",
-    maxDate: new Date(),
-    static: true,
-    time_24hr: true,
-    enable: ["22/10/2036"]
+    maxDate: new Date(Date.now()),
+
+    time_24hr: true
+
   };
   ilrOutDateOptions: FlatpickrOptions = {
     enableTime: true,
     dateFormat: 'd/m/Y H:i',
     defaultDate: "",
-    maxDate: new Date(),
-    static: true,
+    maxDate: new Date(Date.now()),
+
     time_24hr: true,
-    enable: ["22/10/2036"]
   };
   receiveddateOptions: FlatpickrOptions = {
-    mode: 'single',
+    enableTime: true,
+       mode: 'single',
     dateFormat: 'd/m/Y',
     defaultDate: "",
     maxDate: new Date(Date.now())
+    
   };
 
   processingOption: FlatpickrOptions = {
-    mode: 'single',
-    defaultDate: "",
-    enable: ["22/10/2036"],
+   
     enableTime: true,
     dateFormat: 'd/m/Y H:i',
     time_24hr: true,
     maxDate: new Date(Date.now()),
-    static: true
+   
   };
   createdSubjectId="";
 

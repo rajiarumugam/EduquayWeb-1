@@ -48,7 +48,7 @@
                           </div>  
                       </div>
                     </div> -->
-                    <div class="form-row mt-4" [formGroup]="dateform">
+                    <div class="form-row mt-4" >
                       <div class="form-group col-md-2" >
                         <label for="inputTodate">{{'District' | translate }}</label>
                         <div class="form-group mb-0">
@@ -62,7 +62,8 @@
                     <div class="form-group col-md-2" >
                       <label for="inputTodate">{{'CHC' | translate }}</label>
                       <div class="form-group mb-0">
-                          <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  [disabled]="!selectedDistrict=== ''" required [ngModelOptions]="{standalone: true}">
+                        <!-- disabled Condition Removed -->
+                          <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  required [ngModelOptions]="{standalone: true}">
                               <option [ngValue]=0>Select </option>
                               <option  [(value)]="chcdata.id" *ngFor="let chcdata of chclists">
                                 {{chcdata.name}}

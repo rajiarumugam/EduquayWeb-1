@@ -376,7 +376,22 @@ import { CommonUsersTableComponent } from "./shared/anm-module/common-users-tabl
 import { AdminUsersListComponent } from "./admin/admin-users-list/admin-users-list.component";
 import { TableFilterPipe } from "./shared/admin/sa-upload/sa-upload-file/FilterPipe";
 import { AVDComponent } from "./admin/avd/avd.component";
+// import { PathoreportSampleStatusSearchPrintComponent } from "./pathologist/repot-patho-sample-status/patho-repot-sample-status-search-print/patho-repot-sample-status-search-print.component";
+// <<<<<<< Updated upstream
 
+// =======
+// import { CentralSampleRcptMaldiHPLCComponent } from "./central-lab/sample-rcpt-hplc-maldi/central-sample-rec-maldi/central-sample-rec-maldi.component";
+// import { CentralSampleRcptMaldiHPLCMainComponent } from "./central-lab/sample-rcpt-hplc-maldi/central-sample-rcpt-maldi-main/central-sample-rcpt-maldi-main.component";
+// import { CentrallabSampleMaldihplcResolverService } from "./shared/centrallab/central-sample-resolver-maldi-cllab.service";
+// import { HPLCReceivedNewMaldiComponent } from "./central-lab/HPLC-update-new copy/HPLC-update-new-received/HPLC-update-new-received.component";
+// import { ChcMaldiSpottingComponent } from "./chc-sample-module/chc-pending-pickpack-maldi/chc-pending-pickpack-maldi.component";
+// import { ChcMaldiDBSSpottingUpdateComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-pending-pickpack/chc-pending-pickpack.component";
+// import { ChcMaldiDBSSpottingComponent } from "./chc-sample-module/chc-sample-pickpack copy/chc-sample-pickpack.component";
+// import { ChcStartPickpackComponent1 } from "./chc-sample-module/chc-sample-pickpack copy/chc-start-pickpack/chc-start-pickpack.component";
+// import { ChcSamplePickpackMaldi1Component } from "./chc-sample-module/chc-sample-pickpack-maldi1/chc-sample-pickpack-maldi1.component";
+// import { TechMedUploadComponent } from "./upload/techmed-upload/TechMed-upload.component";
+// import { MaldiResultFinal } from './chc-sample-module/chc-sample-pickpack-maldi1/chc-start-pickpack/chc-start-pickpack.component';
+// >>>>>>> Stashed changes
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, pathMatch: 'full' },
@@ -580,7 +595,7 @@ const routes: Routes = [
       //   ]
       // },
       {
-        path: 'chc-update-sst', component: CHCUpdateSSTComponent,
+        path: 'chc-update-sst-invalid', component: CHCUpdateSSTComponent,
         children:[
           {path: '', component: SSTReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateSSTReceivedService}},
           {path: 'positive', component: SSTUpdatePositiveComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCupdateSSTReceivedService}},
@@ -602,7 +617,7 @@ const routes: Routes = [
         ]
       },*/
       {
-        path: 'chc-update-cbc', component: CHCUpdateCBCCHCComponent,
+        path: 'chc-update-cbc-Invalid', component: CHCUpdateCBCCHCComponent,
         children:[
           {path: '', component: CBCCHCReceivedSampleComponent, pathMatch: 'full', resolve: {positiveSubjects: CHCCBCupdateReceivedService}},
           
@@ -1268,10 +1283,12 @@ export const RoutingComponents = [
   CommonUsersTableComponent,
   AdminUsersListComponent,
   TableFilterPipe,
-  AVDComponent
- 
+  AVDComponent,
+  // PathoreportSampleStatusSearchPrintComponent
 
 
+
+  
 
   // {
   //   path: 'admin-users-main', component: UsersAdminMainComponent,

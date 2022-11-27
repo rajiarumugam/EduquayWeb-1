@@ -55,6 +55,7 @@ import { ChcSampleCollectionComponent } from './chc-module/chc-sample-collection
 import { ChcSampleShipmentlogComponent } from './chc-sample-module/chc-sample-shipmentlog/chc-sample-shipmentlog.component';
 import { ChcSampleViewShipmentComponent } from './chc-sample-module/chc-sample-view-shipment/chc-sample-view-shipment.component';
 import { ChcPendingPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-pending-pickpack/chc-pending-pickpack.component';
+// import { ChcPendingPickpackComponent1 } from './chc-sample-module/chc-sample-pickpack-maldi1/chc-pending-pickpack/chc-pending-pickpack.component';
 import { ChcStartPickpackComponent } from './chc-sample-module/chc-sample-pickpack/chc-start-pickpack/chc-start-pickpack.component';
 import { AppPasswordDirective } from './shared/directive/app-password.directive';
 import { CookieService } from 'ngx-cookie-service';
@@ -166,6 +167,7 @@ import { CvsConfirmedresultComponent } from './molecular-lab-results/cvs-specime
     ChcSampleShipmentlogComponent,
     ChcSampleViewShipmentComponent,
     ChcPendingPickpackComponent,
+  
     ChcStartPickpackComponent,
     AppPasswordDirective,
     AboutUsComponent,

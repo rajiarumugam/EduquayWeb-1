@@ -32,7 +32,7 @@
               <label for="inputTodate">{{'CHC' | translate }}</label>
               <div class="form-group mb-0">
                   <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  (change)="onChangeChc($event.target.value)" 
-                  [disabled]="!selectedBlock=== ''" required [ngModelOptions]="{standalone: true}">
+                  [disabled]="!selectedBlock" required [ngModelOptions]="{standalone: true}">
                       <option [ngValue]=0>Select </option>
                       <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                         {{chcdata.name}}
@@ -44,7 +44,7 @@
             <label for="inputTodate">{{'PHC' | translate }}</label>
             <div class="form-group mb-0">
                 <select  class="form-control"  name="ddlPhc" [(ngModel)]="selectedPhc"  (change)="onChangePhc($event.target.value)"
-                [disabled]="!selectedChc=== ''" required [ngModelOptions]="{standalone: true}">
+                [disabled]="!selectedChc" required [ngModelOptions]="{standalone: true}">
                     <option [ngValue]=0>Select </option>
                     <option *ngFor="let phcdata of phclists" [(value)]="phcdata.id">
                       {{phcdata.name}}
@@ -143,7 +143,7 @@
                               class="manto"> *</span></label>
                               <select id="inputilrPoint" class="form-control"
                               name="ddlBlock" #ddlBlock="ngModel" [class.is-invalid]="ddlBlock.invalid && ddlBlock.touched || addIlrForm.submitted && ddlBlock.invalid"
-                              required [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict === ''">
+                              required [(ngModel)]="selectedBlock" (change)="onChangeBlock($event.target.value)" [disabled]="selectedDistrict">
                                   <option value="">Select</option>
                                   <option *ngFor="let blockdata of blocklists" [(value)]="blockdata.id">
                                       {{blockdata.name}}

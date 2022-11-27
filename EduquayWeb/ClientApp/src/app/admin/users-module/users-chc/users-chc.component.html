@@ -31,7 +31,7 @@
                 <label for="inputTodate">{{'CHC' | translate }}</label>
                 <div class="form-group mb-0">
                     <select  class="form-control"  name="ddlChc" [(ngModel)]="selectedChc"  (change)="onChangeChc($event.target.value)" 
-                    [disabled]="!selectedBlock=== ''" required [ngModelOptions]="{standalone: true}">
+                    [disabled]="!selectedBlock" required [ngModelOptions]="{standalone: true}">
                         <option [ngValue]=0>Select </option>
                         <option *ngFor="let chcdata of chclists" [(value)]="chcdata.id">
                           {{chcdata.name}}
