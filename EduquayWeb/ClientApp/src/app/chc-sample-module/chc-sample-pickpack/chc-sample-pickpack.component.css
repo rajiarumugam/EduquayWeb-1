@@ -55,3 +55,14 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 .leftspace {
     left: 0px !important;
 }
+.checkbox-for-reject {
+    color: #000000 !important;
+    top:16px;
+}
+.checkbox-reject-cont {
+    text-align: left;
+    margin-left:20px;
+}
+.newbarcode-label {
+    margin-right:10px;
+}

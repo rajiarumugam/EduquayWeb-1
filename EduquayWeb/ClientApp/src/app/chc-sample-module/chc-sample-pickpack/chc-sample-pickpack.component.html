@@ -127,7 +127,7 @@
                                                         name="searchbarcode" type="text"
                                                         placeholder="Scan / Enter Barcode" [(ngModel)]="searchbarcode"
                                                         debounce="500"
-                                                        (ngModelChange)="onChange(samplepicknPackdetail, $event)"
+                                                        (ngModelChange)="onChange(samplepicknPackdetail,newBarcodesamplepicknPackdetail, $event)"
                                                         autocomplete="off">
                                                     <a (click)="clicksearchBarcode(samplepicknPackdetail)"><button
                                                             class="btn btn-primary" type="submit"><svg
@@ -253,8 +253,18 @@
                                                             <circle cx="11" cy="11" r="8"></circle>
                                                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                                         </svg></button></a>
+
+                                                       
                                             </div>
                                         </form>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 checkbox-reject-cont">
+                                        <label
+                                        class="new-control new-checkbox checkbox-outline-primary checkbox-for-reject">
+                                        <input type="checkbox" class="new-control-input checkbox"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="alliquotedtubeReject" (ngModelChange)="rejectOnchange($event)">
+                                        <span class="new-control-indicator"></span>&nbsp; Reject
+                                    </label>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -284,7 +294,7 @@
                                                             <input type="checkbox" class="new-control-input checkbox"
                                                                 value="{{primarytubeSelected}}"
                                                                 ng-checked="primarytubeSelected === true"
-                                                                [(ngModel)]="primarytubeSelected">
+                                                                [(ngModel)]="primarytubeSelected" [disabled]="disableCheckbox">
                                                             <span class="new-control-indicator"></span>&nbsp;
                                                         </label>
                                                     </div>
@@ -297,7 +307,7 @@
                                                             <input type="checkbox" class="new-control-input checkbox"
                                                                 value="{{alliquotedtubeSelected}}"
                                                                 ng-checked="alliquotedtubeSelected === true"
-                                                                [(ngModel)]="alliquotedtubeSelected">
+                                                                [(ngModel)]="alliquotedtubeSelected" [disabled]="disableCheckbox">
                                                             <span class="new-control-indicator"></span>&nbsp;
                                                         </label>
                                                     </div>
@@ -318,6 +328,73 @@
                             <div class="modal-footer">
                                 <a class="btn btn-primary float-right closepop" *ngIf="isAliquoteBarcodeMatch"
                                     type="submit" (click)="submittoshipment()" role="button">{{'Submit' | translate }}</a>
+                                <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
+                                    {{'Close' | translate }}</button>
+                                
+                            </div>
+                        </ng-template>
+
+                        <ng-template #newBarcodesamplepicknPackdetail let-modal>
+                            <div class="modal-header">
+                                <h5 class="modaltitle" id="myLargeModalLabel">Pick & Pack for HPLC lab - Primary and
+                                    Aliquoted tube
+                                </h5>
+                                <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="form-row my-12 ml-12">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 filtered-list-search">
+                                        <form class="form-inline my-3 my-lg-0">
+                                            <div class="form-group col-md-3">
+                                                <label class="newbarcode-label">
+                                                    {{'Barcode' | translate }} </label><br>
+                                                <input class="form-control field" name="newBarcode"
+                                                    #newBarcode="ngModel" ngModel
+                                                    readonly type="text" placeholder="Testing CHC"
+                                                    [(ngModel)]="newBarcodeValue">
+             
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label
+                                                    for="inputTestingCHC">
+                                                    {{'AssociatedANM' | translate }} <span class="manto">*</span></label>
+                                                <select name="DDLcentrallab" #DDLcentrallab="ngModel"
+                                                    class="form-control field" id="inputTestingCHC" required
+                                                    [(ngModel)]="selectedAssociatedANM">
+                                                    <option value="" selected>--Select--</option>
+                                                    <option *ngFor="let labName of associatedANMData"
+                                                        [(value)]="labName.associatedANMId">
+                                                        {{labName.anmName}}
+                                                    </option>
+                                                </select>
+                                                
+
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                               
+                                <!-- <div class="row"  *ngIf="isAliquoteBarcodeMatch">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary float-right closepop" type="submit" (click)="submittoshipment()"
+                                            role="button">Submit</a>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary float-right closepop" *ngIf="selectedAssociatedANM"
+                                    type="submit" (click)="submitRejectData(newBarcodeValue,true,selectedAssociatedANM,'Orphan',false,samplepicknPackdetail);" role="button">{{'Submit' | translate }}</a>
                                 <button class="btn" (click)="modal.dismiss()"><i class="flaticon-cancel-12"></i>
                                     {{'Close' | translate }}</button>
                                 

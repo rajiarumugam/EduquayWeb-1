@@ -17,6 +17,10 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { DataService } from 'src/app/shared/data.service';
 import { LoaderService } from 'src/app/shared/loader/loader.service';
+import { GenericService } from './../../shared/generic.service';
+import { ENDPOINT } from './../../app.constant';
+import { HttpClientService } from './../../shared/http-client.service';
+import { masterService } from 'src/app/shared/master/district/masterdata.service';
 
 
 @Component({
@@ -71,6 +75,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   sampleDateTime: string;
   gestationalAge: string;
   samplepicknPackdetail;
+  newBarcodesamplepicknPackdetail;
   sampleShipmentDate: string;
   sampleShipmentTime: string;
   popupform: FormGroup;
@@ -89,7 +94,10 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   dateOfShipment: string;
   timeOfShipment: string;
   createdBy: number;
-
+  newBarcode;
+  newBarcodeValue;
+  associatedANMData;
+  selectedAssociatedANM = '';
   shipmentDateOptions: FlatpickrOptions = {
     mode: 'single',
     dateFormat: 'd/m/Y H:i',
@@ -105,6 +113,9 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   _strSelectedBarcode: string;
   _intSelectedBarcoderemove: number;
 
+  alliquotedtubeReject = false;
+  disableCheckbox = false;
+
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
     private modalService: NgbModal,
@@ -114,7 +125,10 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private dataservice: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private genericService: GenericService,
+    private httpClientService:HttpClientService,
+    private masterService: masterService
 
   ) { }
 
@@ -126,6 +140,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     //this.dtOptions1[1] = this.startPickpackData;
     this.user = JSON.parse(this.tokenService.getUser('lu'));
     this.InitializeDateRange();
+    this.getAssociatedANM();
     this.dtOptions = {
       pagingType: 'simple_numbers',
       pageLength: 20,
@@ -219,42 +234,45 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         });
 
   }
-// <<<<<<< Updated upstream
-  onChange(samplepicknPackdetail, primarytube) {
-// =======
-//   onChange(samplepicknPackdetail,addChcDetail) {
-// >>>>>>> Stashed changes
+  onChange(samplepicknPackdetail,newBarcodesamplepicknPackdetail, primarytube) {
 
     this.tempCHCDatas = [];
     console.log('changed', this.searchbarcode);
-    // primarytube = this.searchbarcode;
-    //this.searchbarcode = primarytube;
-// <<<<<<< Updated upstream
-    var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
-// =======
-//     var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === this.searchbarcode)
-    
-
-//     // var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo && com.dbsCompletedDate!=null === primarytube)
-// >>>>>>> Stashed changes
-    //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
-    if (getindex >= 0) {
-      this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
-      primarytube = '';
-      this.alliquotetubebarcode = '';
-      this.isAliquoteBarcodeMatch = false;
-      
-
-      this.modalService.open(
-        samplepicknPackdetail, {
-        centered: true,
-        size: 'xl',
-        scrollable: true,
-        backdrop:'static',
-        keyboard: false,
-        ariaLabelledBy: 'modal-basic-title'
-      });
+    console.log(this.searchbarcode.length)
+    if(this.searchbarcode.length >= 6) {
+      var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
+      //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
+      if (getindex >= 0) {
+        this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
+        primarytube = '';
+        this.alliquotetubebarcode = '';
+        this.isAliquoteBarcodeMatch = false;
+        
+  
+        this.modalService.open(
+          samplepicknPackdetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          backdrop:'static',
+          keyboard: false,
+          ariaLabelledBy: 'modal-basic-title'
+        });
+      } else {
+        this.newBarcode = this.searchbarcode;
+        this.newBarcodeValue = this.searchbarcode;
+        this.modalService.open(
+          newBarcodesamplepicknPackdetail, {
+          centered: true,
+          size: 'xl',
+          scrollable: true,
+          backdrop:'static',
+          keyboard: false,
+          ariaLabelledBy: 'modal-basic-title'
+        });
+      }
     }
+   
     // else if (this.tempCHCDatas.filter(({ barcodeNo }) => this.barcodeNo == barcodeNo).length) {
     //   console.log('User already exists');
     //  }
@@ -487,10 +505,19 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     else{
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'Please select the Primary and Alliquoted HPLC tube',
+        title: 'You are rejecting the Sample!',
         showConfirmButton: true,
         confirmButtonText: 'OK'
-      })
+      }).then((result) => {
+        if (result.value) {
+          this.modalService.dismissAll();
+         this.submitRejectData(this.tempCHCDatas[0].barcodeNo,false,moment(new Date()).format("DD/MM/YYYY HH:MM"),'Reject',true,'');
+
+        }
+        else {
+          this.modalService.dismissAll();
+        }
+      });
     }
 
   }
@@ -680,6 +707,62 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.dtTrigger1.next();
   }
 
+  submitRejectData(barcode,isAccept,proceesingDateTime,shipmentId,sampleDamaged,samplepicknPackdetail) {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    var _sampleResult = [];
+        var _obj = {};
+        _obj['shipmentId'] = shipmentId;//'Reject';
+        _obj['receivedDate'] = '';
+        _obj['proceesingDateTime'] = proceesingDateTime;//moment(new Date()).format("DD/MM/YYYY HH:MM");
+        _obj['ilrInDateTime'] = "";
+        _obj['ilrOutDateTime'] = "";
+          _obj['sampleDamaged'] = sampleDamaged;//true;
+        _obj['sampleTimeout'] = false;
+        _obj['barcodeDamaged'] = false;
+        _obj['isAccept'] = isAccept; //false;
+        _obj['barcodeNo'] = barcode; //this.tempCHCDatas[0].barcodeNo;
+        _obj['updatedBy'] = user.id;
+
+        _sampleResult.push(_obj);
+
+    var apiUrl = this.genericService.buildApiUrl(ENDPOINT.CHC_SAMPLE_REC.ADDRECEIVEDSHIPMENT);
+    this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
+      if(response.status === "true")
+      {
+        Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
+          showCancelButton: false, confirmButtonText: 'OK'})
+            .then((result) => {
+              if (result.value) {
+               
+               // $('#fadeinModal').modal('hide');
+                //this.dataservice.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
+               
+              }
+            });
+      }else{
+          this.errorMessage = response.message;
+
+          this.modalService.dismissAll();
+          this.tempCHCDatas.push({'barcodeNo':barcode,'subjectName':'NA','uniqueSubjectId':'NA','sampleCollectionId':0,'rchId':"NA"});
+          this.alliquotetubebarcode = '';
+          this.isAliquoteBarcodeMatch = false;
+          this.modalService.open(
+            samplepicknPackdetail, {
+            centered: true,
+            size: 'xl',
+            scrollable: true,
+            backdrop:'static',
+            keyboard: false,
+            ariaLabelledBy: 'modal-basic-title'
+          });
+      }
+      
+          },
+          (err: HttpErrorResponse) =>{
+            console.log(err);
+          });
+  }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -697,4 +780,23 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   //     }
   //   });
   // }
+
+  rejectOnchange(event) {
+      console.log(event);
+      this.disableCheckbox = event;
+      this.primarytubeSelected = !event;
+      this.alliquotedtubeSelected = !event;
+  }
+
+  getAssociatedANM() {
+    var user = JSON.parse(this.tokenService.getUser('lu'));
+    this.masterService.getAssociatedANM(user.chcId)
+    .subscribe(response => {
+    console.log(response);
+    this.associatedANMData = response.associatedANMDetail;
+    
+    },
+    (err: HttpErrorResponse) =>{
+    });
+  }
 }
