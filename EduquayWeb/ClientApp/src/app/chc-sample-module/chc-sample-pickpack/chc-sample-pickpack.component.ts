@@ -21,6 +21,7 @@ import { GenericService } from './../../shared/generic.service';
 import { ENDPOINT } from './../../app.constant';
 import { HttpClientService } from './../../shared/http-client.service';
 import { masterService } from 'src/app/shared/master/district/masterdata.service';
+import { element } from 'protractor';
 
 
 @Component({
@@ -219,6 +220,20 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           else {
             this.chcsamplepickpack = this.chcsamplepicknpickResponse.pickandPack;
             this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+
+            if(sessionStorage.getItem('startPickpackData') != undefined) {
+              this.startPickpackData = JSON.parse(sessionStorage.getItem('startPickpackData'));
+              this.startPickpackData.forEach((element,index) => {
+                var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element.barcodeNo)
+                this.chcsamplepickpack.splice(getdataindex,1);
+              })
+
+              this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+              this.startBadgePickpackCount = this.startPickpackData.length;
+              
+            }
+           
+            
             // this.sampleList.forEach(element => {
             //   element.sampleSelected = true;
             // });
@@ -238,17 +253,19 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
     this.tempCHCDatas = [];
     console.log('changed', this.searchbarcode);
-    console.log(this.searchbarcode.length)
-    if(this.searchbarcode.length >= 6) {
-      var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube)
+    console.log(this.searchbarcode.trim().length)
+    if(this.searchbarcode.trim().length === 6) {
+      var getindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === primarytube.trim())
       //var getexistsindex = this.tempCHCDatas.findIndex(data => data.barcodeNo === term)
       if (getindex >= 0) {
         this.tempCHCDatas.push(this.chcsamplepickpack[getindex]);
         primarytube = '';
         this.alliquotetubebarcode = '';
         this.isAliquoteBarcodeMatch = false;
-        
-  
+        this.alliquotedtubeReject = false;
+        this.disableCheckbox = false;
+        this.primarytubeSelected = true;
+        this.alliquotedtubeSelected = true;
         this.modalService.open(
           samplepicknPackdetail, {
           centered: true,
@@ -491,6 +508,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
         if (getdataindex >= 0) {
           this.startPickpackData.push(this.chcsamplepickpack[getdataindex]);
           this.chcsamplepickpack.splice(getdataindex,1);
+          sessionStorage.setItem("startPickpackData", JSON.stringify(this.startPickpackData));
          // this.searchbarcode = '';
           this.isAddShipmentTrue = true;
           this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
@@ -737,24 +755,27 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
                // $('#fadeinModal').modal('hide');
                 //this.dataservice.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
                
+                if(isAccept) {
+                  this.modalService.dismissAll();
+                  this.tempCHCDatas.push({'barcodeNo':barcode,'subjectName':'NA','uniqueSubjectId':'NA','sampleCollectionId':0,'rchId':"NA"});
+                  this.alliquotetubebarcode = '';
+                  this.isAliquoteBarcodeMatch = false;
+                  this.modalService.open(
+                    samplepicknPackdetail, {
+                    centered: true,
+                    size: 'xl',
+                    scrollable: true,
+                    backdrop:'static',
+                    keyboard: false,
+                    ariaLabelledBy: 'modal-basic-title'
+                  });
+                }
               }
             });
       }else{
           this.errorMessage = response.message;
 
-          this.modalService.dismissAll();
-          this.tempCHCDatas.push({'barcodeNo':barcode,'subjectName':'NA','uniqueSubjectId':'NA','sampleCollectionId':0,'rchId':"NA"});
-          this.alliquotetubebarcode = '';
-          this.isAliquoteBarcodeMatch = false;
-          this.modalService.open(
-            samplepicknPackdetail, {
-            centered: true,
-            size: 'xl',
-            scrollable: true,
-            backdrop:'static',
-            keyboard: false,
-            ariaLabelledBy: 'modal-basic-title'
-          });
+         
       }
       
           },
@@ -786,6 +807,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       this.disableCheckbox = event;
       this.primarytubeSelected = !event;
       this.alliquotedtubeSelected = !event;
+      this.isAliquoteBarcodeMatch = event;
   }
 
   getAssociatedANM() {
