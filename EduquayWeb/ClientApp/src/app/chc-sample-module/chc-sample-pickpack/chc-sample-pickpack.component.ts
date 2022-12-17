@@ -226,6 +226,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
               this.startPickpackData.forEach((element,index) => {
                 var getdataindex = this.chcsamplepickpack.findIndex(com => com.barcodeNo === element.barcodeNo)
                 this.chcsamplepickpack.splice(getdataindex,1);
+                this.isAddShipmentTrue = true;
               })
 
               this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
@@ -515,6 +516,14 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           this.startBadgePickpackCount = this.startPickpackData.length;
           this.rerender();
 
+        } else {
+          this.startPickpackData.push(JSON.parse(JSON.stringify(this.tempCHCDatas[0])));
+          sessionStorage.setItem("startPickpackData", JSON.stringify(this.startPickpackData));
+         // this.searchbarcode = '';
+          this.isAddShipmentTrue = true;
+          this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+          this.startBadgePickpackCount = this.startPickpackData.length;
+          this.rerender();
         }
       }); 
       // this.searchbarcode = '';    
@@ -668,11 +677,13 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   }
 
   convertToDateFormat(strDate){
-  
-    var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
-    var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
-    console.log(dateFormat);
-    return dateFormat;
+    if(strDate) {
+      var pattern = /(\d{2})\/(\d{2})\/(\d{4})\ (\d{2})\:(\d{2})/;
+      var dateFormat = new Date(strDate.toString().replace(pattern, '$3/$2/$1 $4:$5'));
+      console.log(dateFormat);
+      return dateFormat;
+    }
+    return '';
   
   }
   rerender(): void {
