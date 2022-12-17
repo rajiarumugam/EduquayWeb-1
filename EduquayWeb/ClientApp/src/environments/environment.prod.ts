@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://tscodtrainingapi.cscr.in',
+  apiUrl: 'http://tscodapi.cscr.in',
   production: true
 };
