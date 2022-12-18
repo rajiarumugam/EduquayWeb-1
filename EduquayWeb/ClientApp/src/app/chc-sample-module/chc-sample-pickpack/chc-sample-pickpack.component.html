@@ -367,8 +367,8 @@
                                                     for="inputTestingCHC">
                                                     {{'AssociatedANM' | translate }} <span class="manto">*</span></label>
                                                 <select name="DDLcentrallab" #DDLcentrallab="ngModel"
-                                                    class="form-control field" id="inputTestingCHC" required
-                                                    [(ngModel)]="selectedAssociatedANM">
+                                                    class="form-control field associatedANMSelect" id="inputTestingCHC" required
+                                                    [(ngModel)]="selectedAssociatedANM" (ngModelChange)="selectAssociatedAnmValue($event)">
                                                     <option value="" selected>--Select--</option>
                                                     <option *ngFor="let labName of associatedANMData"
                                                         [(value)]="labName.associatedANMId">
@@ -377,6 +377,26 @@
                                                 </select>
                                                 
 
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label class="newbarcode-label">
+                                                    {{'RI Point' | translate }} </label><br>
+                                                <input class="form-control field" name="ripoint"
+                                                    #ripoint="ngModel" ngModel
+                                                    readonly type="text" placeholder="RI Point"
+                                                    [(ngModel)]="RIpointValue">
+             
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label class="newbarcode-label">
+                                                    {{'Sub Center' | translate }} </label><br>
+                                                <input class="form-control field" name="subcenter"
+                                                    #subcenter="ngModel" ngModel
+                                                    readonly type="text" placeholder="Sub Center"
+                                                    [(ngModel)]="subcenterValue">
+             
                                             </div>
 
                                         </form>

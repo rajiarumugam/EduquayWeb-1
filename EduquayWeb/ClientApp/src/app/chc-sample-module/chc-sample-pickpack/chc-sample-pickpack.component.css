@@ -66,3 +66,6 @@ label.new-control.new-checkbox.checkbox-outline-primary{
 .newbarcode-label {
     margin-right:10px;
 }
+.associatedANMSelect {
+    max-width: 100%;
+}

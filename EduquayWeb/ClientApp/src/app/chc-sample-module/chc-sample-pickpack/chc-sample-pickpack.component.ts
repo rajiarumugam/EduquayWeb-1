@@ -116,6 +116,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
 
   alliquotedtubeReject = false;
   disableCheckbox = false;
+  RIpointValue;
+  subcenterValue;
 
   constructor(
     private chcsamplePickpackService: ChcSamplePickpackService,
@@ -530,11 +532,14 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       // this.searchbarcode = '';    
     }
     else{
+     
       Swal.fire({ allowOutsideClick: false,
         icon: 'warning',
-        title: 'You are rejecting the Sample!',
+        title: 'Do you want to reject the sample?',
         showConfirmButton: true,
-        confirmButtonText: 'OK'
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonText: 'No', 
       }).then((result) => {
         if (result.value) {
           this.modalService.dismissAll();
@@ -686,6 +691,20 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     return '';
   
   }
+  selectAssociatedAnmValue(event) {
+      console.log(event);
+      console.log(this.associatedANMData);
+      var getindex = this.associatedANMData.findIndex(com => com.associatedANMId == event);
+      console.log(getindex);
+      if(getindex > -1) {
+        this.RIpointValue = this.associatedANMData[getindex].riPoint;
+        this.subcenterValue = this.associatedANMData[getindex].scName;
+      } else {
+        this.RIpointValue = '';
+        this.subcenterValue = '';
+      }
+  
+  }
   rerender(): void {
     // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       
@@ -758,7 +777,8 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.httpClientService.post<any>({url:apiUrl, body: {"shipmentReceivedRequest":_sampleResult}}).subscribe(response => {
       if(response.status === "true")
       {
-        Swal.fire({ allowOutsideClick: false,icon:'success', title: 'Shipment Received Successfully',
+        let _sucessMsg = isAccept ? "Shipment Received Successfully" : "ANM will be notified on sample recollection via table and SMS notifications";
+        Swal.fire({ allowOutsideClick: false,icon:'success', title: _sucessMsg,
           showCancelButton: false, confirmButtonText: 'OK'})
             .then((result) => {
               if (result.value) {
