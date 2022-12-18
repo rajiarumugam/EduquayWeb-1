@@ -56,13 +56,7 @@ export class UsersAdminCHCComponent implements OnInit {
     dateFormat: 'F Y',
     altFormat: "F Y",
     defaultDate: new Date(Date.now()),
-    "disable": [
-      function(date) {
-          // return true to disable
-          return (date.getDate() > 1);
-
-      }
-  ],
+  
   };
 
   user;

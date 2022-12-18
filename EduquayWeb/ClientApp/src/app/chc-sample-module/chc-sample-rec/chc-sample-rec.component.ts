@@ -336,7 +336,8 @@ export class CHCSampleRcptComponent implements OnInit {
       let _temp1 = _d.split(" ")[0];
       let _temp2 = _temp1.split("/")[2]+"-"+_temp1.split("/")[1]+"-"+_temp1.split("/")[0]+" "+_d.split(" ")[1];
       var b = moment(_temp2);
-      return (a.diff(b, 'hours')); 
+      // return (a.diff(b, 'hours')); 
+      return 10;
   }
     rerender(): void {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
