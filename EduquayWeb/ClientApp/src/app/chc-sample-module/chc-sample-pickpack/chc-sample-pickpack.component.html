@@ -165,6 +165,9 @@
                                                             <span class="new-control-indicator leftspace"></span>&nbsp;
                                                         </label> -->
                                                     </th>
+                                                    <th class="text-center">
+                                                        <span>{{'Reject' | translate }}</span>
+                                                    </th>
 
                                                 </tr>
 
@@ -186,6 +189,16 @@
                                                                 <input type="checkbox"
                                                                     class="new-control-input checkbox" value="020153"
                                                                     checked="">
+                                                                <span class="new-control-indicator"></span>&nbsp;
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td style="text-align: center;" (click)="checkRejectSelected(i);">
+                                                        <div class="n-chk">
+                                                            <label
+                                                                class="new-control new-checkbox checkbox-outline-primary">
+                                                                <input type="checkbox"
+                                                                    class="new-control-input checkbox" value="020153">
                                                                 <span class="new-control-indicator"></span>&nbsp;
                                                             </label>
                                                         </div>

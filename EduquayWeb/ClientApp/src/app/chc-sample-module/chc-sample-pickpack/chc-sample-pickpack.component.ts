@@ -560,6 +560,28 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
   //     console.log(this.startPickpackData);
   //   }
   // }
+  checkRejectSelected(index)
+  {
+    console.log(index);
+    console.log(this.startPickpackData[index]);
+    Swal.fire({ allowOutsideClick: false,
+      icon: 'warning',
+      title: 'Do you want to reject the sample?',
+      showConfirmButton: true,
+      confirmButtonText: 'Yes',
+      showCancelButton: true,
+      cancelButtonText: 'No', 
+    }).then((result) => {
+      if (result.value) {
+        this.modalService.dismissAll();
+       this.submitRejectData(this.startPickpackData[index].barcodeNo,false,moment(new Date()).format("DD/MM/YYYY HH:MM"),'Reject',true,'',index);
+
+      }
+      else {
+        this.modalService.dismissAll();
+      }
+    });
+  }
   checkIfSelected(index)
   {
     this.chcsamplepickpack.push(this.startPickpackData[index]);
@@ -755,7 +777,7 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
     this.dtTrigger1.next();
   }
 
-  submitRejectData(barcode,isAccept,proceesingDateTime,shipmentId,sampleDamaged,samplepicknPackdetail) {
+  submitRejectData(barcode,isAccept,proceesingDateTime,shipmentId,sampleDamaged,samplepicknPackdetail,index=null) {
     var user = JSON.parse(this.tokenService.getUser('lu'));
     var _sampleResult = [];
         var _obj = {};
@@ -782,7 +804,11 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
           showCancelButton: false, confirmButtonText: 'OK'})
             .then((result) => {
               if (result.value) {
-               
+                if(index != null) {
+                  this.startPickpackData.splice(index,1);
+                  this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+                  this.startBadgePickpackCount = this.startPickpackData.length;
+                 }
                // $('#fadeinModal').modal('hide');
                 //this.dataservice.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
                
@@ -806,7 +832,37 @@ export class ChcSamplePickpackComponent implements AfterViewInit, OnDestroy, OnI
       }else{
           this.errorMessage = response.message;
 
-         
+          let _sucessMsg = isAccept ? "Shipment Received Successfully" : "ANM will be notified on sample recollection via table and SMS notifications";
+          Swal.fire({ allowOutsideClick: false,icon:'success', title: _sucessMsg,
+            showCancelButton: false, confirmButtonText: 'OK'})
+              .then((result) => {
+                if (result.value) {
+                  console.log(index);
+                 if(index != null) {
+                  this.startPickpackData.splice(index,1);
+                  this.pendingBadgeSampleCount = this.chcsamplepickpack.length;
+                  this.startBadgePickpackCount = this.startPickpackData.length;
+                 }
+                 // $('#fadeinModal').modal('hide');
+                  //this.dataservice.sendData(JSON.stringify({'screen':'CBC','page':"received","uploadcount":0,"receivedcount":this.chcReceiptsData.length, "module": "CHC- SAMPLE REC & PROCESS", "submodule": "Update CBC Results", "pagealter": "Received Samples"}));
+                 
+                  if(isAccept) {
+                    this.modalService.dismissAll();
+                    this.tempCHCDatas.push({'barcodeNo':barcode,'subjectName':'NA','uniqueSubjectId':'NA','sampleCollectionId':0,'rchId':"NA"});
+                    this.alliquotetubebarcode = '';
+                    this.isAliquoteBarcodeMatch = false;
+                    this.modalService.open(
+                      samplepicknPackdetail, {
+                      centered: true,
+                      size: 'xl',
+                      scrollable: true,
+                      backdrop:'static',
+                      keyboard: false,
+                      ariaLabelledBy: 'modal-basic-title'
+                    });
+                  }
+                }
+              });
       }
       
           },
